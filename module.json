@@ -1,0 +1,37 @@
+{
+  "id": "pf2e-graphics",
+  "title": "PF2e Graphics",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "12"
+  },
+  "relationships": {
+    "requires": [
+      {
+        "id": "sequencer",
+        "type": "module",
+        "compatibility": {}
+      }
+    ],
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "description": "<i>Provides animations for the PF2e system.</i>",
+  "authors": [
+    {
+      "name": "Vauxs",
+      "email": "mrvauxs@gmail.com",
+      "url": "mrvauxs.net",
+      "discord": "vauxs",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/MrVauxs/pf2e-graphics"
+}
