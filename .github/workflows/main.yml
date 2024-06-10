@@ -52,8 +52,12 @@ jobs:
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
-          allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
+          omitDraftDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
           artifacts: "./module.json, ./module.zip"
 
       # https://stackoverflow.com/questions/61919141/read-json-file-in-github-actions
