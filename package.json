@@ -1,0 +1,19 @@
+{
+  "name": "pf2e-graphics",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./scripts --splitting --sourcemap=external --minify",
+    "dev": "bun build ./src/index.ts --outdir ./scripts --watch --splitting --sourcemap=external --minify"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "pf2e-api": "github:reonZ/pf2e-api",
+    "sequencer": "github:fantasycalendar/FoundryVTT-Sequencer"
+  }
+}
