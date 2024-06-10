@@ -27,9 +27,10 @@ jobs:
           files: "module.json"
         env:
           version: ${{steps.get-version.outputs.version-without-v}}
+          manifest: https://raw.githubusercontent.com/${{github.repository}}/latest/download/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
 
-      - name: Substitute URLs for Prerelease
+      - name: Substitute manifest for prerelease
         if: 'github.event.release.prerelease'
         id: sub_prerelease_manifest_version
         uses: microsoft/variable-substitution@v1
@@ -37,7 +38,6 @@ jobs:
           files: "module.json"
         env:
           manifest: https://raw.githubusercontent.com/${{github.repository}}/next/module.json
-          download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
 
       - name: Build
         run: |
