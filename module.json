@@ -1,1 +1,56 @@
-
+{
+    "id": "pf2e-graphics",
+    "title": "PF2e Graphics",
+    "version": "0.0.!1",
+    "description": "<i>Provides animations for the PF2e system.</i>",
+    "esmodules": [
+        "scripts/index.js"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "compatibility": {
+        "minimum": "12.324",
+        "verified": "12.324",
+        "maximum": "12"
+    },
+    "relationships": {
+        "requires": [
+            {
+                "id": "sequencer",
+                "type": "module",
+                "compatibility": {
+                    "minimum": "3.2.!7"
+                }
+            }
+        ],
+        "systems": [
+            {
+                "id": "pf2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "6.0.0-beta3"
+                }
+            }
+        ]
+    },
+    "authors": [
+        {
+            "name": "Vauxs",
+            "email": "mrvauxs@gmail.com",
+            "url": "mrvauxs.net",
+            "discord": "vauxs",
+            "flags": {}
+        }
+    ],
+    "url": "https://github.com/MrVauxs/pf2e-graphics",
+    "bugs": "https://github.com/MrVauxs/pf2e-graphics/issues",
+    "readme": "https://github.com/MrVauxs/pf2e-graphics/blob/main/README.md",
+    "changelog": "https://github.com/MrVauxs/pf2e-graphics/blob/main/CHANGELOG.md",
+    "manifest": "https://raw.githubusercontent.com/MrVauxs/pf2e-graphics/next/module.json",
+    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/0.0.!1/module.zip"
+}
