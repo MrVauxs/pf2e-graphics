@@ -18,6 +18,14 @@
     "verified": "12.324",
     "maximum": "12"
   },
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        ".json",
+        ".hbs"
+      ]
+    }
+  },
   "relationships": {
     "requires": [
       {
@@ -33,7 +41,7 @@
         "id": "pf2e",
         "type": "system",
         "compatibility": {
-          "minimum": "6.0.0-beta3"
+          "minimum": "6.0.1"
         }
       }
     ]
