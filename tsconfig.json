@@ -33,7 +33,7 @@
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
     "types": [
-      "pf2e-api",
+      "foundry-pf2e",
       "./node_modules/sequencer/typings/types.d.ts"
     ],
     "outDir": "scripts"

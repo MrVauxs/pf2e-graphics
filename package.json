@@ -13,7 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "pf2e-api": "github:reonZ/pf2e-api",
+    "foundry-pf2e": "github:reonZ/foundry-pf2e",
     "sequencer": "github:fantasycalendar/FoundryVTT-Sequencer"
   }
 }
