@@ -81,17 +81,16 @@ jobs:
       # Run the following when setting up a repo
       # git switch --orphan next && git commit --allow-empty -m "init" && git push -u origin next
       - name: Update Prerelease Repository
-        if: github.event.release.prerelease
+        if: 'github.event.release.prerelease'
         run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-
+          git config --global user.name '${{github.actor}}'
+          git config --global user.email '${{github.actor}}@users.noreply.github.com'
           git add module.json
-          git commit -m "${{ github.event.release.tag_name }} manifest"
-
-          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-
-          git fetch origin next
-          git switch -c next origin/next
-
-          git push origin next --force
+          git stash
+          git clean -f
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
+          git fetch origin "next"
+          git switch -c "next" "origin/next"
+          git checkout stash module.json
+          git commit -m "${{github.event.release.tag_name}} manifest"
+          git push -f
