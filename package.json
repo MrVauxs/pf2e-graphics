@@ -3,8 +3,8 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./scripts --splitting --sourcemap=external --minify",
-    "dev": "bun build ./src/index.ts --outdir ./scripts --watch --splitting --sourcemap=external --minify"
+    "build": "bun build ./src/index.ts --outdir ./scripts --sourcemap=external --splitting --minify",
+    "dev": "bun build ./src/index.ts --outdir ./scripts --watch --sourcemap=external"
   },
   "devDependencies": {
     "@types/bun": "latest"
