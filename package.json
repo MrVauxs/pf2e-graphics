@@ -21,7 +21,9 @@
 		"vite": "^5.2.13"
 	},
 	"dependencies": {
+		"@rollup/plugin-node-resolve": "^15.2.3",
 		"foundry-pf2e": "github:reonZ/foundry-pf2e",
+		"fs-extra": "^11.2.0",
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer"
 	}
 }

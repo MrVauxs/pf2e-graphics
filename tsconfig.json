@@ -3,7 +3,7 @@
 	"include": [
 		"src/*.ts",
 		"src/*.svelte"
-, "src/index.ts"	],
+	],
 	"compilerOptions": {
 		"target": "ESNext",
 		"useDefineForClassFields": true,
