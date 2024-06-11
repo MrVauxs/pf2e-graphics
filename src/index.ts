@@ -1,7 +1,8 @@
 import './app.css'
-import App from './App.svelte'
+// import App from './App.svelte'
 
 Hooks.on("getItemSheetHeaderButtons", (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
+    console.log(application)
     buttons.unshift({
         class: "my-button",
         icon: "fas fa-film",
@@ -12,9 +13,4 @@ Hooks.on("getItemSheetHeaderButtons", (application: ItemSheetPF2e<any>, buttons:
         label: "Graphics"
     })
 
-    const app = new App({
-        target: document.getElementById('app')!,
-    })
-
-    console.log(app)
 })
