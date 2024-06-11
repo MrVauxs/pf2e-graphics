@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "description": "<i>Provides animations for the PF2e system.</i>",
   "esmodules": [
-    "index.js"
+    "dist/index.js"
+  ],
+  "styles": [
+    "dist/style.css"
   ],
   "languages": [
     {

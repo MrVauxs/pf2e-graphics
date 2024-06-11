@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import moduleJSON from './module.json' with { type: 'json' };
+import checker from "vite-plugin-checker";
+import tsconfigPaths from "vite-tsconfig-paths";
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 
 const packagePath = `modules/${moduleJSON.id}`;
@@ -13,13 +15,18 @@ export default defineConfig(({ command }) => {
     cacheDir: '../.vite-cache',
 
     esbuild: {
-      target: ['es2022']
+      target: ['es2020']
     },
+
+    resolve: { conditions: ['import', 'browser'] },
 
     server: {
       port: 30001,
       open: '/game',
       proxy: {
+        // Serves static files from main Foundry server.
+        [`^(/${packagePath}/(assets|lang|packs|dist/style.css))`]: 'http://localhost:30000',
+
         // All other paths besides package ID path are served from main Foundry server.
         [`^(?!/${packagePath}/)`]: 'http://localhost:30000',
 
@@ -29,7 +36,7 @@ export default defineConfig(({ command }) => {
     },
 
     build: {
-      outDir: __dirname,
+      outDir: "../dist",
       emptyOutDir: false,
       sourcemap: true,
       brotliSize: true,
@@ -56,11 +63,12 @@ export default defineConfig(({ command }) => {
     // Necessary when using the dev server for top-level await usage inside of TRL.
     optimizeDeps: {
       esbuildOptions: {
-        target: 'es2022'
+        target: 'es2020'
       }
     },
 
     plugins: [
+      checker({ typescript: true }), tsconfigPaths(),
       svelte({ preprocess: vitePreprocess(), }),
       resolve({
         browser: true,
