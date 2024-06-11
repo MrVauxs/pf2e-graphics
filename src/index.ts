@@ -10,7 +10,7 @@ Hooks.on("getItemSheetHeaderButtons", (application: ItemSheetPF2e<any>, buttons:
             ui.notifications.info("Hello World");
             // new BasicApplication().render(true, { focus: true })
         },
-        label: "Does this work?"
+        label: "Does this fucking work?"
     })
 
 })
