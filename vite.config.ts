@@ -1,20 +1,20 @@
 import { defineConfig } from 'vite'
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import moduleJSON from './module.json' with { type: 'json' };
-import checker from "vite-plugin-checker";
-import tsconfigPaths from "vite-tsconfig-paths";
-import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
+import checker from 'vite-plugin-checker'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
+import moduleJSON from './module.json' with { type: 'json' }
 
-const packagePath = `modules/${moduleJSON.id}`;
+const packagePath = `modules/${moduleJSON.id}`
 
-export default defineConfig(({ command }) => ({
+export default defineConfig((/** { command } */) => ({
 	root: 'src',
 	base: `/${packagePath}/dist`,
 	publicDir: false,
 	cacheDir: '../.vite-cache',
 
 	esbuild: {
-		target: ['es2020']
+		target: ['es2020'],
 	},
 
 	resolve: { conditions: ['import', 'browser'] },
@@ -30,12 +30,12 @@ export default defineConfig(({ command }) => ({
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
 
 			// Enable socket.io from main Foundry server.
-			'/socket.io': { target: 'ws://localhost:30000', ws: true }
-		}
+			'/socket.io': { target: 'ws://localhost:30000', ws: true },
+		},
 	},
 
 	build: {
-		outDir: __dirname + "/dist",
+		outDir: '../dist',
 		emptyOutDir: false,
 		sourcemap: true,
 		minify: 'terser',
@@ -43,21 +43,22 @@ export default defineConfig(({ command }) => ({
 			mangle: {
 				toplevel: true,
 				keep_classnames: true,
-				keep_fnames: true
+				keep_fnames: true,
 			},
-			module: true
+			module: true,
 		},
 		lib: {
 			entry: 'index.js',
 			formats: ['es'],
-			fileName: moduleJSON.id
+			fileName: moduleJSON.id,
 		},
 		manifest: true,
 		rollupOptions: {
 			output: {
 				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === 'style.css') return `${moduleJSON.id}.css`;
-					return (assetInfo.name as string);
+					if (assetInfo.name === 'style.css')
+						return `${moduleJSON.id}.css`
+					return (assetInfo.name as string)
 				},
 			},
 		},
@@ -65,19 +66,19 @@ export default defineConfig(({ command }) => ({
 
 	optimizeDeps: {
 		esbuildOptions: {
-			target: 'es2020'
-		}
+			target: 'es2020',
+		},
 	},
 
 	plugins: [
 		checker({ typescript: true }),
 		tsconfigPaths(),
-		svelte({ preprocess: vitePreprocess(), }),
+		svelte({ preprocess: vitePreprocess() }),
 		resolve({
 			browser: true,
-			dedupe: ['svelte']
-		})
+			dedupe: ['svelte'],
+		}),
 	],
 }
+),
 )
-);
