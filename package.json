@@ -1,19 +1,27 @@
 {
-  "name": "pf2e-graphics",
-  "module": "src/index.ts",
-  "type": "module",
-  "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./scripts --sourcemap=external --splitting --minify",
-    "dev": "bun build ./src/index.ts --outdir ./scripts --watch --sourcemap=external"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "foundry-pf2e": "github:reonZ/foundry-pf2e",
-    "sequencer": "github:fantasycalendar/FoundryVTT-Sequencer"
-  }
+	"name": "pf2e-graphics",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^3.1.1",
+		"@tsconfig/svelte": "^5.0.4",
+		"svelte": "^4.2.18",
+		"svelte-check": "^3.8.0",
+		"tslib": "^2.6.3",
+		"typescript": "^5.2.2",
+		"vite": "^5.2.13"
+	},
+	"dependencies": {
+		"foundry-pf2e": "github:reonZ/foundry-pf2e",
+		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer"
+	}
 }

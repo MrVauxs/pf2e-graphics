@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "<i>Provides animations for the PF2e system.</i>",
   "esmodules": [
-    "scripts/index.js"
+    "scripts/pf2e-graphics.js"
   ],
   "languages": [
     {
@@ -21,8 +21,7 @@
   "flags": {
     "hotReload": {
       "extensions": [
-        ".json",
-        ".hbs"
+        "json"
       ]
     }
   },
