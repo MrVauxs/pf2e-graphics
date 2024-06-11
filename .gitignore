@@ -1,6 +1,4 @@
-pf2e-graphics*
-index.js*
-style.css*
+dist/
 
 # Logs
 logs

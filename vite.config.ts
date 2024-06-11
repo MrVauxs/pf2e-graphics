@@ -9,7 +9,7 @@ const packagePath = `modules/${moduleJSON.id}`;
 
 export default defineConfig(({ command }) => ({
 	root: 'src',
-	base: `/${packagePath}/`,
+	base: `/${packagePath}/dist`,
 	publicDir: false,
 	cacheDir: '../.vite-cache',
 
@@ -20,10 +20,11 @@ export default defineConfig(({ command }) => ({
 	resolve: { conditions: ['import', 'browser'] },
 
 	server: {
+		open: true,
 		port: 30001,
 		proxy: {
 			// Serves static files from main Foundry server.
-			[`^(/${packagePath}/(assets|lang|packs))`]: 'http://localhost:30000',
+			[`^(/${packagePath}/(assets|lang|packs|dist/style.css))`]: 'http://localhost:30000',
 
 			// All other paths besides package ID path are served from main Foundry server.
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
@@ -34,7 +35,7 @@ export default defineConfig(({ command }) => ({
 	},
 
 	build: {
-		outDir: __dirname,
+		outDir: __dirname + "/dist",
 		emptyOutDir: false,
 		sourcemap: true,
 		minify: 'terser',
@@ -47,13 +48,21 @@ export default defineConfig(({ command }) => ({
 			module: true
 		},
 		lib: {
-			entry: 'index.ts',
+			entry: 'index.js',
 			formats: ['es'],
-			fileName: 'index'
+			fileName: moduleJSON.id
 		},
-		manifest: true
+		manifest: true,
+		rollupOptions: {
+			output: {
+				assetFileNames: (assetInfo) => {
+					if (assetInfo.name === 'style.css') return `${moduleJSON.id}.css`;
+					return (assetInfo.name as string);
+				},
+			},
+		},
 	},
-	// Necessary when using the dev server for top-level await usage inside of TRL.
+
 	optimizeDeps: {
 		esbuildOptions: {
 			target: 'es2020'
