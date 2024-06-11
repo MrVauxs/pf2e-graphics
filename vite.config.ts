@@ -3,12 +3,12 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import moduleJSON from './module.json' with { type: 'json' };
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 
-const packagePath = `/modules/${moduleJSON.id}`;
+const packagePath = `modules/${moduleJSON.id}`;
 
 export default defineConfig(({ command }) => {
   return {
     root: 'src',
-    base: packagePath,
+    base: `/${packagePath}/`,
     publicDir: false,
     cacheDir: '../.vite-cache',
 
@@ -20,9 +20,6 @@ export default defineConfig(({ command }) => {
       port: 30001,
       open: '/game',
       proxy: {
-        // Serves static files from main Foundry server.
-        [`^(/${packagePath}/(assets|lang|packs|style.css))`]: 'http://localhost:30000',
-
         // All other paths besides package ID path are served from main Foundry server.
         [`^(?!/${packagePath}/)`]: 'http://localhost:30000',
 
@@ -32,12 +29,12 @@ export default defineConfig(({ command }) => {
     },
 
     build: {
-      outDir: __dirname + "/dist",
+      outDir: __dirname,
       emptyOutDir: false,
       sourcemap: true,
       brotliSize: true,
       minify: 'terser',
-      target: ['es2022'],
+      target: ['es2020'],
       terserOptions: {
         compress: {
           passes: 3
@@ -53,15 +50,7 @@ export default defineConfig(({ command }) => {
       lib: {
         entry: './index.ts',
         formats: ['es'],
-        fileName: 'pf2e-graphics'
-      },
-      rollupOptions: {
-        output: {
-          assetFileNames: (assetInfo) => {
-            if (assetInfo.name == "style.css") return "pf2e-graphics.css";
-            return (assetInfo.name as string);
-          },
-        },
+        fileName: 'index'
       },
     },
     // Necessary when using the dev server for top-level await usage inside of TRL.
