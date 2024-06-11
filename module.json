@@ -24,7 +24,8 @@
   "flags": {
     "hotReload": {
       "extensions": [
-        "json"
+        "json",
+        "css"
       ]
     }
   },

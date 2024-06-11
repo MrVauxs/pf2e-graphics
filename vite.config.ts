@@ -68,7 +68,8 @@ export default defineConfig(({ command }) => {
     },
 
     plugins: [
-      checker({ typescript: true }), tsconfigPaths(),
+      checker({ typescript: true }),
+      tsconfigPaths(),
       svelte({ preprocess: vitePreprocess(), }),
       resolve({
         browser: true,
