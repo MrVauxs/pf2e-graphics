@@ -10,9 +10,10 @@ const packagePath = `modules/${moduleJSON.id}`
 
 export default defineConfig((/** { command } */) => ({
 	root: 'src',
-	base: `/${packagePath}/dist`,
-	publicDir: false,
+	base: `/${packagePath}/dist/`,
 	cacheDir: '../.vite-cache',
+
+	clearScreen: true,
 
 	esbuild: {
 		target: ['es2020'],
@@ -21,11 +22,11 @@ export default defineConfig((/** { command } */) => ({
 	resolve: { conditions: ['import', 'browser'] },
 
 	server: {
-		open: true,
+		open: '/join',
 		port: 30001,
 		proxy: {
 			// Serves static files from main Foundry server.
-			[`^(/${packagePath}/(assets|lang|packs|dist/style.css))`]: 'http://localhost:30000',
+			[`^(/${packagePath}/(assets|lang|packs))`]: 'http://localhost:30000',
 
 			// All other paths besides package ID path are served from main Foundry server.
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
@@ -37,7 +38,6 @@ export default defineConfig((/** { command } */) => ({
 
 	build: {
 		outDir: '../dist',
-		emptyOutDir: false,
 		sourcemap: true,
 		minify: 'terser',
 		terserOptions: {
@@ -53,12 +53,12 @@ export default defineConfig((/** { command } */) => ({
 			formats: ['es'],
 			fileName: moduleJSON.id,
 		},
-		manifest: true,
 		rollupOptions: {
 			output: {
 				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === 'style.css')
+					if (assetInfo.name === 'style.css') {
 						return `${moduleJSON.id}.css`
+					}
 					return (assetInfo.name as string)
 				},
 			},

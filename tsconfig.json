@@ -6,6 +6,10 @@
 		"baseUrl": ".",
 		"rootDir": ".",
 		"module": "ESNext",
+		"paths": {
+			"#runtime/*": ["@typhonjs-fvtt/runtime/*"],
+			"#standard/*": ["@typhonjs-fvtt/svelte-standard/*"]
+	  	},
 		"resolveJsonModule": true,
 		"allowImportingTsExtensions": true,
 		/**
@@ -29,6 +33,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
 		"skipLibCheck": true
+
 	},
 	"references": [
 		{
