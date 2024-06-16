@@ -7,11 +7,13 @@ import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules f
 import moduleJSON from './module.json' with { type: 'json' }
 
 const packagePath = `modules/${moduleJSON.id}`
+// const { esmodules, styles } = moduleJSON
 
 export default defineConfig((/** { command } */) => ({
-	root: 'src',
-	base: `/${packagePath}/dist/`,
+	root: 'src/',
+	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
+	publicDir: '../static',
 
 	clearScreen: true,
 
@@ -79,6 +81,19 @@ export default defineConfig((/** { command } */) => ({
 			browser: true,
 			dedupe: ['svelte'],
 		}),
+		{
+			name: 'change-names',
+			configureServer(server) {
+				server.middlewares.use((req, res, next) => {
+				  if (req.originalUrl.includes(`/${packagePath}/`)) {
+						if (req.originalUrl === `/${packagePath}/dist/pf2e-graphics.js`) {
+							res.url = `/${packagePath}/dist/index.js`
+						}
+				  }
+				  next()
+				})
+			  },
+		  },
 	],
 }
 ),
