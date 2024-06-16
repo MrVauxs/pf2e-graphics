@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { defineConfig } from 'vite'
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import checker from 'vite-plugin-checker'

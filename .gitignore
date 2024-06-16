@@ -1,4 +1,6 @@
 dist/
+pf2e-graphics.*
+*timestamp*
 
 # Logs
 logs

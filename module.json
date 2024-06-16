@@ -22,6 +22,7 @@
 		"maximum": "12"
 	},
 	"flags": {
+		"pf2e-graphics": "modules/pf2e-graphics/animations.json",
 		"hotReload": {
 			"extensions": [
 				"json",
