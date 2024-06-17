@@ -1,5 +1,5 @@
 /* eslint-env node */
-import { defineConfig } from 'vite'
+import { type Connect, defineConfig } from 'vite'
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -10,7 +10,7 @@ const packagePath = `modules/${moduleJSON.id}`
 // const { esmodules, styles } = moduleJSON
 
 export default defineConfig((/** { command } */) => ({
-	root: 'src/',
+	root: 'src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
 	publicDir: '../static',
@@ -18,7 +18,7 @@ export default defineConfig((/** { command } */) => ({
 	clearScreen: true,
 
 	esbuild: {
-		target: ['es2020'],
+		target: ['es2022'],
 	},
 
 	resolve: { conditions: ['import', 'browser'] },
@@ -28,7 +28,7 @@ export default defineConfig((/** { command } */) => ({
 		port: 30001,
 		proxy: {
 			// Serves static files from main Foundry server.
-			[`^(/${packagePath}/(assets|lang|packs))`]: 'http://localhost:30000',
+			[`^(/${packagePath}/(assets|lang|packs|dist/${moduleJSON.id}.css))`]: 'http://localhost:30000',
 
 			// All other paths besides package ID path are served from main Foundry server.
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
@@ -69,7 +69,7 @@ export default defineConfig((/** { command } */) => ({
 
 	optimizeDeps: {
 		esbuildOptions: {
-			target: 'es2020',
+			target: 'es2022',
 		},
 	},
 
@@ -84,16 +84,14 @@ export default defineConfig((/** { command } */) => ({
 		{
 			name: 'change-names',
 			configureServer(server) {
-				server.middlewares.use((req, res, next) => {
-				  if (req.originalUrl.includes(`/${packagePath}/`)) {
-						if (req.originalUrl === `/${packagePath}/dist/pf2e-graphics.js`) {
-							res.url = `/${packagePath}/dist/index.js`
-						}
-				  }
-				  next()
+				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
+					if (req.originalUrl === `/${packagePath}/dist/${moduleJSON.id}.js`) {
+						req.url = `/${packagePath}/dist/index.js`
+					}
+					next()
 				})
-			  },
-		  },
+			},
+		},
 	],
 }
 ),

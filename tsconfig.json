@@ -6,10 +6,6 @@
 		"baseUrl": ".",
 		"rootDir": ".",
 		"module": "ESNext",
-		"paths": {
-			"#runtime/*": ["@typhonjs-fvtt/runtime/*"],
-			"#standard/*": ["@typhonjs-fvtt/svelte-standard/*"]
-	  	},
 		"resolveJsonModule": true,
 		"allowImportingTsExtensions": true,
 		/**
@@ -32,8 +28,11 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"skipLibCheck": true
-
+		"skipLibCheck": true,
+		"types": [
+			"foundry-pf2e",
+			"sequencer/typings/types.d.ts"
+		]
 	},
 	"references": [
 		{

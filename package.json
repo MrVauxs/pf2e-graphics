@@ -13,8 +13,8 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"imports": {
-	  "#runtime/*": "@typhonjs-fvtt/runtime/*",
-	  "#standard/*": "@typhonjs-fvtt/svelte-standard/*"
+		"#runtime/*": "@typhonjs-fvtt/runtime/*",
+		"#standard/*": "@typhonjs-fvtt/svelte-standard/*"
 	},
 	"dependencies": {
 		"@typhonjs-fvtt/runtime": "^0.1.3",
