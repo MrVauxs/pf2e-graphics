@@ -1,5 +1,12 @@
 {
 	"pf2e-graphics": {
-
+		"modifyItem": "Modify Item Animations",
+		"settings": {
+			"windowPosition": {
+				"name": "Window Position",
+				"sidebar": "Sidebar",
+				"onTop": "On Top"
+			}
+		}
 	}
 }

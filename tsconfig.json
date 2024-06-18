@@ -28,7 +28,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"skipLibCheck": true,
+		"skipLibCheck": false,
 		"types": [
 			"foundry-pf2e",
 			"sequencer/typings/types.d.ts"
