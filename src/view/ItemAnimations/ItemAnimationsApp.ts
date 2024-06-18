@@ -23,6 +23,7 @@ export default class ItemAnimationsApp extends SvelteApplication {
             ...super.defaultOptions,
             title: 'pf2e-graphics.modifyItem',  // Automatically localized from `lang/en.json`.
             width: 300,
+            classes: ['pf2e-g'],
 
             svelte: {
                 class: BasicAppShell,

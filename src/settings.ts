@@ -3,7 +3,7 @@ import { TJSGameSettings } from '#runtime/svelte/store/fvtt/settings';
 export const gameSettings = new TJSGameSettings('pf2e-graphics')
 
 Hooks.on('init', () => {
-    gameSettings.register({
+    gameSettings.registerAll([{
         namespace: 'pf2e-graphics',
         key: 'windowPosition',
         folder: 'PF2e Graphics',
@@ -18,5 +18,6 @@ Hooks.on('init', () => {
                 onTop: 'pf2e-graphics.settings.windowPosition.onTop',
             },
         }
-    })
+    }
+    ], true)
 })

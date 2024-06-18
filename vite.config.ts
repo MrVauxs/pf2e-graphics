@@ -5,6 +5,11 @@ import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
 import moduleJSON from './module.json' with { type: 'json' }
+import autoprefixer from "autoprefixer";
+import tailwindcss from "tailwindcss";
+import nesting from "tailwindcss/nesting";
+// @ts-ignore
+import minify from "postcss-minify"; // not typed, but the entire thing is tiny
 
 const packagePath = `modules/${moduleJSON.id}`
 // const { esmodules, styles } = moduleJSON
@@ -19,6 +24,14 @@ export default defineConfig((/** { command } */) => ({
 
 	esbuild: {
 		target: ['es2022'],
+	},
+
+	css: {
+		postcss: {
+			inject: false,
+			sourceMap: true,
+			plugins: [nesting, tailwindcss, autoprefixer, minify],
+		},
 	},
 
 	resolve: { conditions: ['import', 'browser'] },
@@ -76,7 +89,12 @@ export default defineConfig((/** { command } */) => ({
 	plugins: [
 		checker({ typescript: true }),
 		tsconfigPaths(),
-		svelte({ preprocess: vitePreprocess() }),
+		svelte({
+			compilerOptions: {
+				cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}`,
+			},
+			preprocess: vitePreprocess()
+		}),
 		resolve({
 			browser: true,
 			dedupe: ['svelte'],

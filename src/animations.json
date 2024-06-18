@@ -1,0 +1,37 @@
+{
+    "Compendium": {
+        "pf2e": {
+            "spells-srd": {
+                "Item": {
+                    "6DfLZBl8wKIV03Iq": [
+                        {
+                            "preset": "ranged",
+                            "file": "jb2a.fire_bolt.orange"
+                        }
+                    ]
+                }
+            },
+            "actionspf2e": {
+                "Item": {
+                    "6lbr0Jnv0zMB5uGb": [
+                        {
+                            "preset": "ranged",
+                            "file": "jb2a.spell_projectile.ice_shard.blue",
+                            "predicate": [
+                                "kinetic-gate:ice"
+                            ]
+                        },
+                        {
+                            "preset": "ranged",
+                            "file": "jb2a.fire_bolt.orange",
+                            "predicate": [
+                                "kinetic-gate:fire"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "slugs": {}
+}

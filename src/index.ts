@@ -1,3 +1,3 @@
 import "./settings.ts"
-import "./app.css"
+import "./app.postcss"
 import "./view/ItemAnimations/index.ts"
