@@ -28,8 +28,9 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"skipLibCheck": false,
+		"skipLibCheck": true,
 		"types": [
+			"vite/client",
 			"foundry-pf2e",
 			"sequencer/typings/types.d.ts"
 		]

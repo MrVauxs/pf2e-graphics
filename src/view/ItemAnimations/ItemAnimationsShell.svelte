@@ -3,7 +3,7 @@
 <script lang="ts">
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-	import { AnimationsStorage } from "src/storage/storage";
+	import { AnimationsStorage } from "src/storage";
 
 	export let item: ItemPF2e | null = null;
 	export let elementRoot: HTMLElement | undefined = undefined;
@@ -20,9 +20,16 @@
 				<h1 class="w-full mt-1">{item.name}</h1>
 			</div>
 			<hr />
-			{item.flags.core?.sourceId}
-			<br />
-			{JSON.stringify(AnimationsStorage.get(item.flags.core?.sourceId))}
+			<div class="flex items-center -my-1.5">
+				<label class="flex gap-2 mr-4 items-center whitespace-nowrap leading-6 min-w-16" for="source-id">
+					<span>Source ID</span>
+					<i class="fa-solid fa-info-circle ml-auto mr-2" data-tooltip="PF2E.Item.Rules.Hint.SourceId"
+					></i>
+				</label>
+				<input class="w-full h-min" id="source-id" disabled={true} value={item.flags.core?.sourceId} />
+			</div>
+			<hr />
+			<span> {JSON.stringify(AnimationsStorage.getAnimationObject(`item:slug:${item.slug}`))} </span>
 		{/if}
 	</main>
 </ApplicationShell>

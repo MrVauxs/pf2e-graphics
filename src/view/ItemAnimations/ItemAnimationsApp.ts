@@ -11,7 +11,7 @@ type ItemAnimationsOptions = {
 
 export default class ItemAnimationsApp extends SvelteApplication {
     constructor(options: ConstructorApplicationOptions & ItemAnimationsOptions) {
-        super(options);
+        super();
 
         if (options.data) {
             foundry.utils.mergeObject(this.options, { svelte: { props: options.data } })
@@ -24,6 +24,7 @@ export default class ItemAnimationsApp extends SvelteApplication {
             title: 'pf2e-graphics.modifyItem',  // Automatically localized from `lang/en.json`.
             width: 300,
             classes: ['pf2e-g'],
+            id: 'pf2e-graphics-modify-item',
 
             svelte: {
                 class: BasicAppShell,

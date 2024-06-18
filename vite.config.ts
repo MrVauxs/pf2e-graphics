@@ -1,6 +1,7 @@
 /* eslint-env node */
 import { type Connect, defineConfig } from 'vite'
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { sveltePreprocess } from 'svelte-preprocess';
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
@@ -91,9 +92,10 @@ export default defineConfig((/** { command } */) => ({
 		tsconfigPaths(),
 		svelte({
 			compilerOptions: {
+
 				cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}`,
 			},
-			preprocess: vitePreprocess()
+			preprocess: sveltePreprocess()
 		}),
 		resolve({
 			browser: true,
