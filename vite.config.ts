@@ -9,17 +9,21 @@ import moduleJSON from './module.json' with { type: 'json' }
 import autoprefixer from "autoprefixer";
 import tailwindcss from "tailwindcss";
 import nesting from "tailwindcss/nesting";
+import fs from 'fs'
 // @ts-ignore
 import minify from "postcss-minify"; // not typed, but the entire thing is tiny
 
 const packagePath = `modules/${moduleJSON.id}`
 // const { esmodules, styles } = moduleJSON
 
+const skippedFiles = [
+	`${moduleJSON.id}.css`
+].map(f => `dist/${f}`).join('|')
+
 export default defineConfig((/** { command } */) => ({
 	root: 'src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
-	publicDir: '../static',
 
 	clearScreen: true,
 
@@ -42,7 +46,7 @@ export default defineConfig((/** { command } */) => ({
 		port: 30001,
 		proxy: {
 			// Serves static files from main Foundry server.
-			[`^(/${packagePath}/(assets|lang|packs|dist/${moduleJSON.id}.css))`]: 'http://localhost:30000',
+			[`^(/${packagePath}/(assets|lang|packs|${skippedFiles}))`]: 'http://localhost:30000',
 
 			// All other paths besides package ID path are served from main Foundry server.
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
@@ -92,7 +96,6 @@ export default defineConfig((/** { command } */) => ({
 		tsconfigPaths(),
 		svelte({
 			compilerOptions: {
-
 				cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}`,
 			},
 			preprocess: sveltePreprocess()
@@ -111,6 +114,19 @@ export default defineConfig((/** { command } */) => ({
 					next()
 				})
 			},
+		},
+		{
+			name: 'update-animations-json',
+			handleHotUpdate({ file, server, read }) {
+				if (file.endsWith('animations.json')) {
+					server.ws.send({
+						event: 'updateAnims',
+						type: 'custom',
+						data: fs.readFileSync(file, 'utf-8'),
+					})
+					return []
+				}
+			}
 		},
 	],
 }

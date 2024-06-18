@@ -7,6 +7,7 @@ Hooks.on("createChatMessage", (message: ChatMessagePF2e, _options, _id: ChatMess
     if (!message.token) return;
 
     const animations = AnimationsStorage.getMatchingAnimations(options)
+    const sequence = new Sequence({ inModuleName: "pf2e-graphics" })
 
     for (const animation of animations) {
         if (animation.type !== type) return;
@@ -14,10 +15,13 @@ Hooks.on("createChatMessage", (message: ChatMessagePF2e, _options, _id: ChatMess
         const test = game.pf2e.Predicate.test(animation.predicate, options)
 
         if (test) AnimationsStorage.animate(animation.preset, {
+            sequence,
             file: animation.file,
             target: message.target?.token,
             token: message.token,
             options: animation.options
         })
     }
+
+    sequence.play()
 })

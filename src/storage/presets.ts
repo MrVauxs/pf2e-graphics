@@ -1,18 +1,30 @@
-import type { AnimationSequenceData } from ".";
+import type { AnimationSequenceData, MacroSequenceData } from ".";
 
 export const presets = {
-    ranged: (seq: Sequence, { file, target, token }: AnimationSequenceData) => {
+    ranged: (seq: Sequence, { file, target, token, options: _options }: AnimationSequenceData) => {
         return seq.effect()
             .file(file)
             .stretchTo(target)
             .atLocation(token)
     },
-    melee: (seq: Sequence, { file, target, token }: AnimationSequenceData) => {
+    melee: (seq: Sequence, { file, target, token, options: _options }: AnimationSequenceData) => {
         return seq.effect()
             .file(file)
             .atLocation(token)
             .rotateTowards(target)
-    }
+    },
+    onToken: (seq: Sequence, { file, target, token, options: _options }: AnimationSequenceData) => {
+        return seq.effect()
+            .file(file)
+            .attachTo(token, { offset: _options?.offset, gridUnits: _options?.gridUnits })
+            .scaleToObject(_options?.scale)
+            .rotateTowards(target)
+            .waitUntilFinished(_options?.waitUntilFinished)
+            .filter(_options?.filter.type, _options?.filter.options)
+    },
+    macro: (seq: Sequence, data: MacroSequenceData) => {
+        return seq.macro(data.macro, data)
+    },
 } as const;
 
 export type PresetKeys = keyof typeof presets;
