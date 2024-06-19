@@ -1,3 +1,4 @@
+import type { TokenOrDoc } from "src/extensions";
 import animations from "../animations.json"
 import "./presets.ts"
 import type { PresetKeys } from "./presets.ts";
@@ -44,7 +45,18 @@ export class AnimationsStorage {
             return foundry.utils.mergeObject(reference, { ...animationObject, reference: undefined })
         }
 
-        return animationObject;
+        return animationObject.map((a) => ({ ...a, file: this.parseFile(a.file) }));
+    }
+
+    // Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
+    static parseFile(file: string): string {
+        const match = file.match(/{(.*?)}/)
+        if (!match) return file
+
+        const [_, options] = match
+        const parsedOptions = options.split(",")
+        const randomOption = Sequencer.Helpers.random_array_element(parsedOptions)
+        return file.replace(`{${options}}`, randomOption)
     }
 
     static isReference(reference: AnimationDataObject[] | ReferenceObject): reference is ReferenceObject {
@@ -106,16 +118,17 @@ export type AnimationDataObject = {
 export type AnimationSequenceData = {
     sequence?: Sequence,
     file: string,
-    target?: Token | TokenDocument,
-    token: Token | TokenDocument,
+    target?: TokenOrDoc,
+    source: TokenOrDoc,
     options?: Record<string, any>
 }
 
 export type MacroSequenceData = {
     macro: string | Macro,
     sequence?: Sequence,
-    target?: Token | TokenDocument,
-    token: Token | TokenDocument,
+    target?: TokenOrDoc,
+    token: TokenOrDoc,
+    source: TokenOrDoc,
     trigger?: any,
     options?: Record<string, any>
 }

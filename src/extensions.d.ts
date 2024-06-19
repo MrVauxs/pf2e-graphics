@@ -32,3 +32,5 @@ declare module 'svelte' {
         context: K
     ): void;
 }
+
+export type TokenOrDoc = TokenDocument | Token;

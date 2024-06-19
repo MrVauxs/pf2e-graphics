@@ -13,13 +13,14 @@ Hooks.on("createChatMessage", (message: ChatMessagePF2e, _options, _id: ChatMess
         if (animation.type !== type) return;
 
         const test = game.pf2e.Predicate.test(animation.predicate, options)
+        const missed = message.flags.pf2e.context?.outcome?.includes("ailure")
 
         if (test) AnimationsStorage.animate(animation.preset, {
             sequence,
             file: animation.file,
             target: message.target?.token,
-            token: message.token,
-            options: animation.options
+            source: message.token,
+            options: { ...animation.options, missed }
         })
     }
 
