@@ -1,7 +1,6 @@
 import { AnimationsStorage } from "src/storage"
 
 Hooks.on("createChatMessage", (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e["id"]) => {
-    // if (import.meta.env.DEV) console.log(message, _options)
     const { type, options } = message.flags.pf2e.context || {}
 
     if (!message.token) return;

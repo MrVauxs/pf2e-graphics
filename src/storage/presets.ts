@@ -1,3 +1,4 @@
+import { ErrorMsg } from "src/utils";
 import type { AnimationSequenceData, MacroSequenceData } from "."
 import type { TokenOrDoc } from "src/extensions";
 
@@ -21,7 +22,7 @@ export const helpers = {
 
 export const presets = {
     ranged: (seq: Sequence, { file, target, source, options: _options }: AnimationSequenceData) => {
-        if (!target) throw Error("Ranged animation requires a target");
+        if (!target) throw new ErrorMsg("Ranged animation requires a target!");
         return seq.effect()
             .file(file)
             .randomizeMirrorY()
@@ -32,7 +33,7 @@ export const presets = {
             .rotate(_options?.rotate ?? 0)
     },
     melee: (seq: Sequence, { file, target, source, options: _options }: AnimationSequenceData) => {
-        if (!target) throw Error("Melee animation requires a target");
+        if (!target) throw new ErrorMsg("Melee animation requires a target!");
         const result = seq.effect()
             .file(file)
             .randomizeMirrorY()

@@ -1,24 +1,25 @@
 import type { TokenOrDoc } from "src/extensions";
-import animations from "../animations.json"
+import json from "../animations.json"
 import "./presets.ts"
 import type { PresetKeys } from "./presets.ts";
+import { ErrorMsg } from "src/utils.ts";
 
 declare global {
     interface Window {
         pf2eGraphics: pf2eGraphics
     }
     type pf2eGraphics = {
-        typedAnimations: Record<keyof typeof animations, string | ReferenceObject | AnimationDataObject[]>
+        animations: Record<keyof typeof json, string | ReferenceObject | AnimationDataObject[]>
     }
 }
 
 window.pf2eGraphics ??= {
-    typedAnimations: animations as any
+    animations: json as any
 }
 
 if (import.meta.hot) {
     import.meta.hot.on('updateAnims', (data) => {
-        window.pf2eGraphics.typedAnimations = JSON.parse(data)
+        window.pf2eGraphics.animations = JSON.parse(data)
         ui.notifications.info("Animations updated!");
     })
 }
@@ -26,11 +27,10 @@ if (import.meta.hot) {
 export class AnimationsStorage {
     static getAnimationObject(key: string | undefined): AnimationDataObject[] | undefined {
         if (!key || typeof key !== "string") {
-            console.warn(`PF2e Animations | You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
-            return undefined
+            throw new ErrorMsg(`PF2e Animations | You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
         }
 
-        const animationObject = window.pf2eGraphics.typedAnimations[key as keyof typeof window.pf2eGraphics.typedAnimations]
+        const animationObject = window.pf2eGraphics.animations[key as keyof typeof window.pf2eGraphics.animations]
 
         if (typeof animationObject === "string") {
             return AnimationsStorage.getAnimationObject(animationObject)
@@ -68,7 +68,7 @@ export class AnimationsStorage {
     }
 
     static getArray() {
-        return Object.keys(window.pf2eGraphics.typedAnimations)
+        return Object.keys(window.pf2eGraphics.animations)
     }
 
     static getMatchingAnimations(array: string[] | undefined): AnimationDataObject[] {
@@ -91,8 +91,7 @@ export class AnimationsStorage {
 
     static animate(preset: AnimationDataObject["preset"], options: AnimationSequenceData): void {
         if (!Sequencer.Presets.getAll().has(preset)) {
-            ui.notifications.error(`PF2e Graphics | Animation preset "${preset}" not found!`)
-            return;
+            throw new ErrorMsg(`PF2e Graphics | Animation preset "${preset}" not found!`)
         }
 
         if (options.sequence) {
