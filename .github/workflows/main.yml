@@ -40,12 +40,12 @@ jobs:
 
       - name: Build
         run: |
-          npm install
+          npm ci
           npm run build
 
       # Create a folder containing all the module stuff and zip it for the release
       - name: Create Zip
-        run: zip -r9 ./module.zip module.json assets/ lang/ packs/ scripts/ styles/ LICENSE
+        run: zip -r9 ./module.zip module.json assets/ lang/ packs/ dist/ README.md LICENSE
 
       - name: Update Release with Files
         id: create_version_release
