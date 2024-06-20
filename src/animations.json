@@ -29,15 +29,25 @@
         {
             "type": "attack-roll",
             "preset": "ranged",
-            "file": "jb2a.dagger.throw.{01,02}.white",
             "predicate": [
                 "thrown"
+            ],
+            "contents": [
+                {
+                    "file": "jb2a.dagger.throw.01.white",
+                    "default": true
+                },
+                {
+                    "file": "jb2a.dagger.throw.01.blue",
+                    "predicate": [
+                        "item:rune:property:frost"
+                    ]
+                }
             ]
         },
         {
             "type": "attack-roll",
             "preset": "melee",
-            "file": "jb2a.dagger.melee.02.white",
             "options": {
                 "scaleToObject": {
                     "value": 3
@@ -56,6 +66,18 @@
             },
             "predicate": [
                 "melee"
+            ],
+            "contents": [
+                {
+                    "file": "jb2a.dagger.melee.02.white",
+                    "default": true
+                },
+                {
+                    "file": "jb2a.dagger.melee.fire.blue",
+                    "predicate": [
+                        "item:rune:property:frost"
+                    ]
+                }
             ]
         }
     ],
@@ -152,5 +174,6 @@
                 "item:trait:fire"
             ]
         }
-    ]
+    ],
+    "ranged": "item:base:longbow"
 }

@@ -1,5 +1,5 @@
 import { ErrorMsg } from "src/utils";
-import type { AnimationSequenceData, MacroSequenceData } from "."
+import type { AnimationSequenceData, MacroSequenceData } from "./AnimCore";
 import type { TokenOrDoc } from "src/extensions";
 
 export const helpers = {

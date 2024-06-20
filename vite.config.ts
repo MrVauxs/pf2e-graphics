@@ -58,6 +58,7 @@ export default defineConfig((/** { command } */) => ({
 
 	build: {
 		outDir: '../dist',
+		emptyOutDir: true,
 		sourcemap: true,
 		minify: 'terser',
 		terserOptions: {

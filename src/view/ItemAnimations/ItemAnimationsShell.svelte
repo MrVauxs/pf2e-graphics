@@ -3,7 +3,6 @@
 <script lang="ts">
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-	import { AnimationsStorage } from "src/storage";
 
 	export let item: ItemPF2e | null = null;
 	export let elementRoot: HTMLElement | undefined = undefined;
@@ -29,7 +28,6 @@
 				<input class="w-full h-min" id="source-id" disabled={true} value={item.flags.core?.sourceId} />
 			</div>
 			<hr />
-			<span> {JSON.stringify(AnimationsStorage.getAnimationObject(`item:slug:${item.slug}`))} </span>
 		{/if}
 	</main>
 </ApplicationShell>
