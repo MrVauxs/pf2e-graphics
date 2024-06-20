@@ -9,17 +9,29 @@ declare global {
         pf2eGraphics: pf2eGraphics
     }
     type pf2eGraphics = {
-        animations: Record<keyof typeof json, string | ReferenceObject | AnimationDataObject[]>
+        core: Record<keyof typeof json, string | ReferenceObject | AnimationDataObject[]>
+        modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>
     }
 }
 
 window.pf2eGraphics ??= {
-    animations: json as any
+    core: json as any,
+    modules: {},
 }
+
+Hooks.on("ready", async () => {
+    for (const mod of game.modules) {
+        if (!mod.active) continue;
+        const animations: string | undefined = mod.flags?.["pf2e-graphics"] as unknown as string
+        if (!animations || animations.includes("/pf2e-graphics/")) continue;
+        window.pf2eGraphics.modules[mod.id] = await (await fetch(animations)).json()
+    }
+});
+
 
 if (import.meta.hot) {
     import.meta.hot.on('updateAnims', (data) => {
-        window.pf2eGraphics.animations = JSON.parse(data)
+        window.pf2eGraphics.core = JSON.parse(data)
         ui.notifications.info("Animations updated!");
     })
 }
@@ -30,7 +42,7 @@ export class AnimationsStorage {
             throw new ErrorMsg(`PF2e Animations | You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
         }
 
-        const animationObject = window.pf2eGraphics.animations[key as keyof typeof window.pf2eGraphics.animations]
+        const animationObject = window.pf2eGraphics.core[key as keyof typeof window.pf2eGraphics.core]
 
         if (typeof animationObject === "string") {
             return AnimationsStorage.getAnimationObject(animationObject)
@@ -68,7 +80,7 @@ export class AnimationsStorage {
     }
 
     static getArray() {
-        return Object.keys(window.pf2eGraphics.animations)
+        return Object.keys(window.pf2eGraphics.core)
     }
 
     static getMatchingAnimations(array: string[] | undefined): AnimationDataObject[] {

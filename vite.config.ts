@@ -75,12 +75,7 @@ export default defineConfig((/** { command } */) => ({
 		},
 		rollupOptions: {
 			output: {
-				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === 'style.css') {
-						return `${moduleJSON.id}.css`
-					}
-					return (assetInfo.name as string)
-				},
+				assetFileNames: (assetInfo) => (assetInfo.name === 'style.css') ? `${moduleJSON.id}.css` : (assetInfo.name as string),
 			},
 		},
 	},
