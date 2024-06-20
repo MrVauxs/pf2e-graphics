@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
 
       # get part of the tag after the `v`
       - name: Extract tag version number
@@ -41,8 +40,8 @@ jobs:
 
       - name: Build
         run: |
-          bun install
-          bun run build
+          npm install
+          npm run build
 
       # Create a folder containing all the module stuff and zip it for the release
       - name: Create Zip
