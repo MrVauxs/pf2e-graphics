@@ -1,10 +1,13 @@
 {
     "id": "pf2e-graphics",
     "title": "PF2e Graphics",
-    "version": "0.0.!1",
+    "version": "0.0.!7",
     "description": "<i>Provides animations for the PF2e system.</i>",
     "esmodules": [
-        "scripts/index.js"
+        "dist/pf2e-graphics.js"
+    ],
+    "styles": [
+        "dist/pf2e-graphics.css"
     ],
     "languages": [
         {
@@ -17,6 +20,15 @@
         "minimum": "12.324",
         "verified": "12.324",
         "maximum": "12"
+    },
+    "flags": {
+        "pf2e-graphics": "modules/pf2e-graphics/animations.json",
+        "hotReload": {
+            "extensions": [
+                "json",
+                "css"
+            ]
+        }
     },
     "relationships": {
         "requires": [
@@ -33,7 +45,7 @@
                 "id": "pf2e",
                 "type": "system",
                 "compatibility": {
-                    "minimum": "6.0.0-beta3"
+                    "minimum": "6.0.1"
                 }
             }
         ]
@@ -52,5 +64,5 @@
     "readme": "https://github.com/MrVauxs/pf2e-graphics/blob/main/README.md",
     "changelog": "https://github.com/MrVauxs/pf2e-graphics/blob/main/CHANGELOG.md",
     "manifest": "https://raw.githubusercontent.com/MrVauxs/pf2e-graphics/next/module.json",
-    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/0.0.!1/module.zip"
+    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/0.0.!7/module.zip"
 }
