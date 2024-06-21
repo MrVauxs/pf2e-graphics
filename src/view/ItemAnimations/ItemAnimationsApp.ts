@@ -25,6 +25,7 @@ export default class ItemAnimationsApp extends SvelteApplication {
             width: 300,
             classes: ['pf2e-g'],
             id: 'pf2e-graphics-modify-item',
+            resizable: true,
 
             svelte: {
                 class: BasicAppShell,
