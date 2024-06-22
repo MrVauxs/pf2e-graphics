@@ -1,5 +1,4 @@
 import { ErrorMsg } from "src/utils";
-import type { AnimationSequenceData, MacroSequenceData } from "./AnimCore";
 import type { TokenOrDoc } from "src/extensions";
 
 export const helpers = {
@@ -21,7 +20,8 @@ export const helpers = {
 }
 
 export const presets = {
-    ranged: (seq: Sequence, { file, target, source, options: _options }: AnimationSequenceData) => {
+    ranged: (seq: Sequence, { file, targets, source, options: _options }: PresetIndex["ranged"]) => {
+        const target = targets[0];
         if (!target) throw new ErrorMsg("Ranged animation requires a target!");
         return seq.effect()
             .file(file)
@@ -32,7 +32,8 @@ export const presets = {
             .atLocation(source)
             .rotate(_options?.rotate ?? 0)
     },
-    melee: (seq: Sequence, { file, target, source, options: _options }: AnimationSequenceData) => {
+    melee: (seq: Sequence, { file, targets, source, options: _options }: PresetIndex["melee"]) => {
+        const target = targets[0];
         if (!target) throw new ErrorMsg("Melee animation requires a target!");
         const result = seq.effect()
             .file(file)
@@ -47,8 +48,10 @@ export const presets = {
 
         return result
     },
-    onToken: (seq: Sequence, { file, target, source, options: _options }: AnimationSequenceData) => {
+    onToken: (seq: Sequence, { file, targets, source, options: _options }: PresetIndex["onToken"]) => {
+        const target = targets[0];
         const affectedToken = _options?.preset === "target" ? target : source;
+        if (_options?.preset === "target" && !target) throw new ErrorMsg("This \"onToken\" animation requires a target!");
 
         const result = seq.effect()
             .file(file)
@@ -57,20 +60,41 @@ export const presets = {
             .persist(_options?.persist ?? false)
             .attachTo(affectedToken, _options?.attachTo)
             .waitUntilFinished(_options?.waitUntilFinished)
-            .filter(_options?.filter.type, _options?.filter.options)
             .rotate(_options?.rotate ?? 0)
+            .fadeIn(_options?.fadeIn ?? 0)
+            .fadeOut(_options?.fadeOut ?? 0)
 
         if (_options?.scale) result.scale(_options.scale.value, _options.scale)
         if (_options?.scaleToObject) result.scaleToObject(_options.scaleToObject.value, _options.scaleToObject)
+        if (_options?.filter) result.filter(_options.filter.type, _options.filter.options)
 
         return result
     },
-    macro: (seq: Sequence, data: MacroSequenceData) => {
+    macro: (seq: Sequence, data: PresetIndex["macro"]) => {
         return seq.macro(data.macro, data)
     },
 } as const;
 
 export type PresetKeys = keyof typeof presets;
+
+export type PresetIndex = {
+    ranged: GenericSequenceData,
+    melee: GenericSequenceData,
+    onToken: GenericSequenceData,
+    macro: MacroSequenceData
+}
+
+type GenericSequenceData = {
+    sequence: Sequence,
+    file: string,
+    source: TokenOrDoc,
+    targets: TokenOrDoc[],
+    options?: Record<string, any>
+}
+
+type MacroSequenceData = GenericSequenceData & {
+    macro: string
+}
 
 Hooks.on("sequencerReady", () => {
     Object.keys(presets).forEach(key => {

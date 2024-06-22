@@ -1,14 +1,9 @@
 import "./presets.ts"
-import { AnimCore, type AnimationDataObject, type ReferenceObject } from './AnimCore.ts';
+import { AnimCore } from './AnimCore.ts';
 
-declare global {
-    interface Window {
-        pf2eGraphics: pf2eGraphics
-    }
-    type pf2eGraphics = {
-        modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>
-        AnimCore: typeof AnimCore
-    }
+window.pf2eGraphics ??= {
+    modules: {},
+    AnimCore,
 }
 
 Hooks.on("ready", async () => {
@@ -19,11 +14,6 @@ Hooks.on("ready", async () => {
         window.pf2eGraphics.modules[mod.id] = await (await fetch(animations)).json()
     }
 });
-
-window.pf2eGraphics ??= {
-    modules: {},
-    AnimCore,
-}
 
 if (import.meta.hot) {
     import.meta.hot.on('updateAnims', (data) => {

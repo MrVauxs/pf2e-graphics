@@ -1,6 +1,6 @@
 import { ErrorMsg } from "src/utils.ts";
-import type { PresetKeys } from "./presets";
-import type { TokenOrDoc } from "src/extensions";
+import type { PresetIndex, PresetKeys } from "./presets";
+import { dev } from '../utils';
 
 if (import.meta.hot) {
     import.meta.hot.accept((newModule) => {
@@ -69,7 +69,8 @@ export let AnimCore = class AnimCore {
         return (folder as FolderObject).contents !== undefined;
     }
 
-    static getMatchingAnimationTrees(array: string[] | undefined): Record<string, AnimationDataObject[]> {
+    static getMatchingAnimationTrees(array: string[] | undefined, _item?: ItemPF2e | null, _userId?: User["id"]): Record<string, AnimationDataObject[]> {
+        if (!dev && (_item || _userId)) console.warn("PF2e Animations | Item and User animations are not yet implemented in getMatchingAnimationTrees!")
         if (!array) return {};
         return AnimCore.getKeys()
             .filter(key => array.includes(key))
@@ -101,7 +102,7 @@ export let AnimCore = class AnimCore {
             .map((child) => mergeProps(parentProps, child))
     }
 
-    static animate(preset: AnimationDataObject["preset"], options: AnimationSequenceData): void {
+    static animate(preset: AnimationDataObject["preset"], options: PresetIndex[typeof preset]): void {
         if (!Sequencer.Presets.getAll().has(preset)) {
             throw new ErrorMsg(`PF2e Graphics | Animation preset "${preset}" not found!`)
         }
@@ -114,12 +115,12 @@ export let AnimCore = class AnimCore {
     }
 }
 
-export type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] }
+type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] }
 
-export type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
+type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 
 export type AnimationDataObject = {
-    type: 'attack-roll' | 'damage-roll' | 'spell-cast',
+    type: 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | "saving-throw",
     preset: PresetKeys,
     file: string,
     default: true,
@@ -127,20 +128,12 @@ export type AnimationDataObject = {
     options?: {}
 }
 
-export type AnimationSequenceData = {
-    sequence?: Sequence,
-    file: string,
-    target?: TokenOrDoc,
-    source: TokenOrDoc,
-    options?: Record<string, any>
-}
-
-export type MacroSequenceData = {
-    macro: string | Macro,
-    sequence?: Sequence,
-    target?: TokenOrDoc,
-    token: TokenOrDoc,
-    source: TokenOrDoc,
-    trigger?: any,
-    options?: Record<string, any>
+declare global {
+    interface Window {
+        pf2eGraphics: pf2eGraphics
+    }
+    type pf2eGraphics = {
+        modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>
+        AnimCore: typeof AnimCore
+    }
 }
