@@ -1,26 +1,26 @@
 /* eslint-env node */
+import fs from 'node:fs'
 import { type Connect, defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { sveltePreprocess } from 'svelte-preprocess';
+import { sveltePreprocess } from 'svelte-preprocess'
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
+import autoprefixer from 'autoprefixer'
+import tailwindcss from 'tailwindcss'
+import nesting from 'tailwindcss/nesting'
+// @ts-expect-error - not typed, but the entire thing is tiny
+import minify from 'postcss-minify'
 import moduleJSON from './module.json' with { type: 'json' }
-import autoprefixer from "autoprefixer";
-import tailwindcss from "tailwindcss";
-import nesting from "tailwindcss/nesting";
-import fs from 'fs'
-// @ts-ignore
-import minify from "postcss-minify"; // not typed, but the entire thing is tiny
 
 const packagePath = `modules/${moduleJSON.id}`
 // const { esmodules, styles } = moduleJSON
 
 const skippedFiles = [
-	`${moduleJSON.id}.css`
+	`${moduleJSON.id}.css`,
 ].map(f => `dist/${f}`).join('|')
 
-export default defineConfig((/** { command } */) => ({
+export default defineConfig(({ command: _buildOrServe }) => ({
 	root: 'src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
@@ -76,7 +76,7 @@ export default defineConfig((/** { command } */) => ({
 		},
 		rollupOptions: {
 			output: {
-				assetFileNames: (assetInfo) => (assetInfo.name === 'style.css') ? `${moduleJSON.id}.css` : (assetInfo.name as string),
+				assetFileNames: assetInfo => (assetInfo.name === 'style.css') ? `${moduleJSON.id}.css` : (assetInfo.name as string),
 			},
 		},
 	},
@@ -94,7 +94,7 @@ export default defineConfig((/** { command } */) => ({
 			compilerOptions: {
 				cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}`,
 			},
-			preprocess: sveltePreprocess()
+			preprocess: sveltePreprocess(),
 		}),
 		resolve({
 			browser: true,
@@ -113,7 +113,7 @@ export default defineConfig((/** { command } */) => ({
 		},
 		{
 			name: 'update-animations-json',
-			handleHotUpdate({ file, server, read }) {
+			handleHotUpdate({ file, server, read: _read }) {
 				if (file.endsWith('animations.json')) {
 					server.ws.send({
 						event: 'updateAnims',
@@ -122,7 +122,7 @@ export default defineConfig((/** { command } */) => ({
 					})
 					return []
 				}
-			}
+			},
 		},
 	],
 }

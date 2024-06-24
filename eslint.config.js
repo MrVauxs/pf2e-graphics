@@ -9,5 +9,17 @@ export default antfu({
 		quotes: 'single',
 	},
 
+	rules: {
+		'svelte/html-self-closing': [
+			'error',
+			'all',
+		],
+		'svelte/prefer-style-directive': 'warn',
+		'antfu/consistent-list-newline': 'warn',
+		'antfu/if-newline': 'off',
+		'import/no-mutable-exports': 'off',
+		'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+	},
+
 	ignores: [],
 })

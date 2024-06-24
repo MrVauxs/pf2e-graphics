@@ -69,7 +69,6 @@ jobs:
         id: module_id
         run: echo "module_id=${{fromJson(steps.set_var.outputs.PACKAGE_JSON).id}}" >> "$GITHUB_OUTPUT"
 
-
       # Publish to FoundryVTT
       - name: Publish FoundryVTT Package
         if: '!github.event.release.prerelease && env.package-token'

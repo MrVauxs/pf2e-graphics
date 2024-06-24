@@ -7,6 +7,11 @@
 		"rootDir": ".",
 		"module": "ESNext",
 		"resolveJsonModule": true,
+		"types": [
+			"vite/client",
+			"foundry-pf2e",
+			"sequencer/typings/types.d.ts"
+		],
 		"allowImportingTsExtensions": true,
 		/**
 		 * Typecheck JS in `.svelte` and `.js` files by default.
@@ -28,12 +33,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"skipLibCheck": true,
-		"types": [
-			"vite/client",
-			"foundry-pf2e",
-			"sequencer/typings/types.d.ts"
-		]
+		"skipLibCheck": true
 	},
 	"references": [
 		{
