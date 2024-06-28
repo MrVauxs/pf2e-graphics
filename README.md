@@ -1,4 +1,12 @@
 # pf2e-graphics
+![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
+![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fsystem%3FnameType%3Dfull%26showVersion%3D1%26style%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
+
+![All Downloads](https://img.shields.io/github/downloads/MrVauxs/pf2e-graphics/total?color=purple&label=All%20Downloads)
+![Latest Version Downloads](https://img.shields.io/github/downloads/MrVauxs/pf2e-graphics/latest/total?color=purple&label=Latest%20Version%20Downloads&sort=semver)
+[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fpf2e-graphics&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=pf2e-graphics)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fpf2e-graphics%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/pf2e-graphics/)
+
 
 ## License
 
