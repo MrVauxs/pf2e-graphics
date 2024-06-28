@@ -62,7 +62,7 @@ jobs:
 
       # Publish to FoundryVTT
       - name: Publish FoundryVTT Package
-        if: '!github.event.release.prerelease && env.package-token'
+        if: ${{!github.event.release.prerelease && env.package-token}}
         uses: cs96and/FoundryVTT-release-package@v1.0.2
         with:
           package-token: ${{ secrets.PACKAGE_TOKEN }}
