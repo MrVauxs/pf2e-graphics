@@ -60,15 +60,6 @@ jobs:
           omitPrereleaseDuringUpdate: true
           artifacts: './module.json, ./module.zip'
 
-      # https://stackoverflow.com/questions/61919141/read-json-file-in-github-actions
-      - id: set_var
-        run: |
-          echo "PACKAGE_JSON=$(jq -c . < module.json)" >> $GITHUB_OUTPUT
-
-      - name: Get Module ID
-        id: module_id
-        run: echo "module_id=${{fromJson(steps.set_var.outputs.PACKAGE_JSON).id}}" >> "$GITHUB_OUTPUT"
-
       # Publish to FoundryVTT
       - name: Publish FoundryVTT Package
         if: '!github.event.release.prerelease && env.package-token'
