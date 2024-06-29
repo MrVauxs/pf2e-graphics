@@ -7,6 +7,17 @@
 				"sidebar": "Sidebar",
 				"onTop": "On Top"
 			}
+		},
+		"tooltip": {
+			"imported": "These entries are compiled versions of imported animations from modules.<p/>The JSONs presented may differ from the original data of the module."
+		},
+		"itemAnimation": {
+			"tabs": {
+				"preset-animations": "Preset Animations",
+				"custom-animations": "Custom Animations",
+				"options": "Options"
+			},
+			"openSheet": "Open Sheet"
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
+	import { i18n } from 'src/utils'
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
 
@@ -27,71 +28,113 @@
 		)
 	}
 
-	const tabs = ['Tab 1', 'Tab 2'] as const
+	const tabs = ['preset-animations', 'custom-animations', 'options'] as const
 	let activeTab: (typeof tabs)[number] = tabs[0]
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='overflow-hidden'>
+	<main class='overflow-hidden flex flex-col h-full'>
 		<!-- Header -->
-		<div class='flex gap-2'>
-			<img src={$doc.img} alt={$doc.name} class='size-12 aspect-square' />
-			<h1 class='w-full mt-1 font-serif font-bold text-4xl'>
-				{$doc.name}
-			</h1>
-		</div>
-		<!-- Tabs -->
-		<div class='flex align-baseline text-center py-1 border-y-foundry'>
-			<div class='w-1/4'>Summary</div>
-			<div class='w-3/4 flex align-baseline items-center justify-around cursor-pointer'>
-				{#each tabs as tab}
-					{@const active = tab === activeTab}
-					<button class="tab-button {active ? 'active-tab' : ''}" on:click={() => (activeTab = tab)}>
-						{tab}
-					</button>
-				{/each}
+		<div class='flex-grow-0 flex-shrink'>
+			<div class='flex gap-2'>
+				<img src={$doc.img} alt={$doc.name} class='size-12 aspect-square' />
+				<h1 class='w-full mt-1 font-serif font-bold text-4xl'>
+					{$doc.name}
+				</h1>
+			</div>
+			<!-- Tabs -->
+			<div class='flex align-baseline text-center py-1 border-y-foundry'>
+				<div class='w-1/4'>Summary</div>
+				<div class='w-3/4 flex align-baseline items-center justify-around cursor-pointer'>
+					{#each tabs as tab}
+						{@const active = tab === activeTab}
+						<button class="tab-button {active ? 'active-tab' : ''}" on:click={() => (activeTab = tab)}>
+							{i18n(`itemAnimation.tabs.${tab}`)}
+						</button>
+					{/each}
+				</div>
 			</div>
 		</div>
-		<div class='flex flex-row h-full overflow-hidden'>
-			<!-- Summary -->
-			<div class='w-1/4 border-r pt-2'>
-				<div class='flex'>
-					<label class='flex gap-2 mr-2 items-center whitespace-nowrap font-semibold' for='source-id'>
-						<span>Item Slug</span>
+		<!-- Content -->
+		<div class='flex flex-row overflow-hidden pt-2 gap-1 flex-1'>
+			<!-- Sidebar Summary -->
+			<div class='w-1/4 flex flex-col'>
+				<!-- Buttons and Text -->
+				<div class='grid gap-y-1 grid-cols-4 [&>*]:m-0 [&>*]:leading-4 pr-1 flex-grow-0 flex-shrink'>
+					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='source-id'>
+						<span>Slug</span>
 					</label>
 					<input
-						class='w-full'
+						class='col-span-3'
 						id='source-id'
 						disabled={true}
 						value={$doc.slug}
 						data-tooltip={$doc.slug}
 					/>
+					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='actor'>
+						<span>Actor</span>
+					</label>
+					<button
+						class='col-span-3'
+						id='actor'
+						data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+						on:click={() => {
+							$doc.actor?.sheet.render(true)
+						}}
+					>
+						{$doc.actor?.name}
+					</button>
+					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='item'>
+						<span>Item</span>
+					</label>
+					<button
+						class='col-span-3'
+						id='item'
+						data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+						on:click={() => {
+							$doc.sheet.render(true)
+						}}
+					>
+						{$doc.name}
+					</button>
+				</div>
+				<!-- Slugs -->
+				<div class='flex-1 flex-col flex gap-0.5'>
+					<label class='whitespace-nowrap font-semibold' for='roll-options'>
+						<span>Options</span>
+					</label>
+					<textarea
+						class='text-nowrap h-full w-full resize-y'
+						id='roll-options'
+						disabled={true}
+						value={$doc.getRollOptions().join('\n')}
+					/>
 				</div>
 			</div>
-			<!-- Contents -->
-			<div class='w-3/4 p-1 overflow-y-scroll'>
-				{#if Object.keys(animations).length === 0}
-					<p>No animations found for this item.</p>
-				{:else}
-					<h2>
-						Existing Animations <i
-							class='fa-solid fa-info-circle ml-auto mr-2 cursor-help text-sm align-top'
-							data-tooltip='These entries are compiled versions of imported animations from modules.<p/>The JSONs presented may differ from the original data of the module.'
-							data-tooltip-direction='RIGHT'
-						/>
-					</h2>
-					<div class='ml-4'>
-						{#each Object.keys(animations) as animationKey}
-							{#if animations[animationKey].length > 0}
-								<h3>{animationKey}</h3>
-								<div class='flex flex-col gap-1 ml-4'>
-									{#each animations[animationKey] as animation}
-										<input disabled={true} value={JSON.stringify(animation)} />
-									{/each}
-								</div>
-							{/if}
-						{/each}
-					</div>
+			<!-- Inner Content -->
+			<div class='w-3/4 overflow-y-scroll'>
+				{#if activeTab === 'preset-animations'}
+					{#if Object.keys(animations).length === 0}
+						<p>No animations found for this item.</p>
+					{:else}
+						<h2>
+							<span data-tooltip='pf2e-graphics.tooltip.imported' data-tooltip-direction='RIGHT'>
+								Existing Animations
+							</span>
+						</h2>
+						<div class='ml-4'>
+							{#each Object.keys(animations) as animationKey}
+								{#if animations[animationKey].length > 0}
+									<h3>{animationKey}</h3>
+									<div class='flex flex-col gap-1 ml-4'>
+										{#each animations[animationKey] as animation}
+											<input disabled={true} value={JSON.stringify(animation)} />
+										{/each}
+									</div>
+								{/if}
+							{/each}
+						</div>
+					{/if}
 				{/if}
 			</div>
 		</div>
