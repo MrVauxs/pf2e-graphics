@@ -24,6 +24,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	root: 'src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
+	publicDir: '../assets',
 
 	clearScreen: true,
 
@@ -60,7 +61,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		outDir: '../dist',
 		emptyOutDir: true,
 		sourcemap: true,
-		minify: 'terser',
+		minify: 'terser' as const,
 		terserOptions: {
 			mangle: {
 				toplevel: true,
