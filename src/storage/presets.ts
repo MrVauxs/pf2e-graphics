@@ -1,4 +1,4 @@
-import { ErrorMsg } from 'src/utils'
+import { ErrorMsg, log } from 'src/utils'
 import type { TokenOrDoc } from 'src/extensions'
 
 export const helpers = {
@@ -83,6 +83,10 @@ export const presets = {
 	macro: (seq: Sequence, data: PresetIndex['macro']) => {
 		return seq.macro(data.macro, data)
 	},
+	template: (seq: Sequence, data: PresetIndex['template']) => {
+		log(data)
+		return seq
+	},
 } as const
 
 export type PresetKeys = keyof typeof presets
@@ -92,6 +96,7 @@ export interface PresetIndex {
 	melee: GenericSequenceData
 	onToken: GenericSequenceData
 	macro: MacroSequenceData
+	template: TemplateSequenceData
 }
 
 interface GenericSequenceData {
@@ -101,6 +106,8 @@ interface GenericSequenceData {
 	targets: TokenOrDoc[]
 	options?: Record<string, any>
 }
+
+type TemplateSequenceData = Omit<GenericSequenceData, 'targets' | 'source'> & { targets: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc | null }
 
 type MacroSequenceData = GenericSequenceData & {
 	macro: string

@@ -1,10 +1,10 @@
-import type { AnimationDataObject } from 'src/storage/AnimCore'
+import type { AnimationTypes } from 'src/storage/AnimCore'
 import { devMessage, log } from 'src/utils'
 import { findAndAnimate } from '.'
 
 const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e['id']) => {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
-	let type = message.flags.pf2e.context?.type as AnimationDataObject['type'] | undefined
+	let type = message.flags.pf2e.context?.type as Omit<AnimationTypes, 'template'> | undefined
 	if (!message.token)
 		return
 
@@ -24,8 +24,9 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 
 	const targets = type === 'saving-throw' ? [message.token] : (toolbelt ?? (message.target?.token ? [message.target?.token] : [...game.user.targets]))
 
-	devMessage('Chat Message Hook', { rollOptions, type, message, targets, toolbelt })
-	findAndAnimate({ rollOptions, type, additionalOptions, targets, source: message.token, item: message.item })
+	const deliverable = { rollOptions, type, additionalOptions, targets, source: message.token, item: message.item }
+	devMessage('Chat Message Hook', deliverable)
+	findAndAnimate(deliverable)
 })
 
 const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
@@ -47,7 +48,10 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 			const type = roll.roll.options.type
 			const additionalOptions = { outcome: roll?.success }
 
-			findAndAnimate({ rollOptions, type, additionalOptions, targets: [target], source: message.token, item: message.item })
+			const deliverable = { rollOptions, type, additionalOptions, targets: [target], source: message.token, item: message.item }
+
+			devMessage('Target Helper Hook', deliverable)
+			findAndAnimate<messageTypes>(deliverable)
 		}
 	}
 })

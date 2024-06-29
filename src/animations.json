@@ -172,44 +172,5 @@
 				"item:trait:fire"
 			]
 		}
-	],
-	"item:breathe-fire": [
-		{
-			"comment": "EVERYTHING BELOW IS AN EXAMPLE AND FOR TESTING!",
-			"type": "saving-throw",
-			"preset": "onToken",
-			"file": "jb2a.shield_themed.above.fire.01.orange",
-			"options": {
-				"preset": "target",
-				"scaleToObject": {
-					"value": 1.5
-				},
-				"missed": false,
-				"fadeIn": 500,
-				"fadeOut": 500
-			},
-			"predicate": []
-		},
-		{
-			"type": "damage-taken",
-			"preset": "onToken",
-			"file": "jb2a.explosion.03.yellow",
-			"options": {
-				"scaleToObject": {
-					"value": 1.5
-				},
-				"missed": false
-			},
-			"predicate": []
-		},
-		{
-			"type": "damage-roll",
-			"preset": "ranged",
-			"file": "jb2a.fireball.beam.orange",
-			"options": {
-				"missed": false
-			},
-			"predicate": []
-		}
 	]
 }

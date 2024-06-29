@@ -1,22 +1,21 @@
-import { devMessage, nonNullable } from 'src/utils.ts'
+import { devMessage } from 'src/utils.ts'
 import './chatMessage.ts'
+import './template.ts'
 import type { AnimationDataObject } from 'src/storage/AnimCore.ts'
-import type { TokenOrDoc } from 'src/extensions'
+import type { PresetIndex, PresetKeys } from '../storage/presets'
 
-interface Params {
+type Params<T extends PresetKeys> = {
 	rollOptions: string[]
 	type: AnimationDataObject['type']
 	additionalOptions: any
-	targets: (TokenOrDoc | null | undefined)[]
-	source: TokenOrDoc
 	item?: ItemPF2e | null
-}
+} & Omit<PresetIndex[T], 'file' | 'sequence'>
 
-export let findAndAnimate = function findAndAnimate({ rollOptions, type, additionalOptions, targets, source, item }: Params) {
+export let findAndAnimate = function findAndAnimate<T extends PresetKeys>({ type, item, rollOptions, additionalOptions, ...other }: Params<T>) {
 	const animationTree = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item, game.userId)
 	const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
 
-	devMessage('Animation Tree', animationTree, { rollOptions, type, additionalOptions, targets, source })
+	devMessage('Animation Tree', animationTree, { rollOptions, type, additionalOptions, ...other })
 
 	for (const branch of Object.keys(animationTree)) {
 		const matchingAnimations = animationTree[branch]
@@ -29,9 +28,8 @@ export let findAndAnimate = function findAndAnimate({ rollOptions, type, additio
 			window.pf2eGraphics.AnimCore.animate(animation.preset, {
 				sequence,
 				file: animation.file,
-				targets: targets.filter(nonNullable),
-				source,
 				options: foundry.utils.mergeObject(additionalOptions, animation.options),
+				...other,
 			})
 		})
 

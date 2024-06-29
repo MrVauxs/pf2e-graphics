@@ -5,7 +5,7 @@ import type { PresetIndex, PresetKeys } from './presets'
 export let AnimCore = class AnimCore {
 	static getAnimations(): Record<string, string | ReferenceObject | AnimationDataObject[]> {
 		return Object.keys(window.pf2eGraphics.modules)
-		// Sort "pf2e-graphics" module to be the last one
+			// Sort "pf2e-graphics" module to be the last one
 			.sort((a, b) => a === 'pf2e-graphics' ? 1 : b === 'pf2e-graphics' ? -1 : 0)
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {})
 	}
@@ -100,7 +100,7 @@ export let AnimCore = class AnimCore {
 			.map(child => mergeProps(parentProps, child))
 	}
 
-	static animate(preset: AnimationDataObject['preset'], options: PresetIndex[typeof preset]): void {
+	static animate<T extends PresetKeys>(preset: T, options: PresetIndex[T]): void {
 		if (!Sequencer.Presets.getAll().has(preset)) {
 			throw new ErrorMsg(`PF2e Graphics | Animation preset "${preset}" not found!`)
 		}
@@ -127,8 +127,10 @@ type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataOb
 
 type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 
+export type AnimationTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'template'
+
 export interface AnimationDataObject {
-	type: 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw'
+	type: AnimationTypes
 	preset: PresetKeys
 	file: string
 	default: true
