@@ -19,6 +19,15 @@ jobs:
         id: get-version
         run: echo "version-without-v=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
+      - name: Get Module JSON
+        id: set_var
+        run: |
+          echo "PACKAGE_JSON=$(jq -c . < module.json)" >> $GITHUB_OUTPUT
+          
+      - name: Get Module Title
+        id: title
+        run: echo "title=${{fromJson(steps.set_var.outputs.PACKAGE_JSON).title}}" >> "$GITHUB_OUTPUT"
+        
       # Substitute the Manifest and Download URLs in the `module.json`.
       - name: Substitute Manifest and Download Links For Versioned Ones
         id: sub_manifest_link_version
@@ -30,7 +39,7 @@ jobs:
           manifest: https://raw.githubusercontent.com/${{github.repository}}/latest/download/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
 
-      - name: Substitute manifest for prerelease
+      - name: Substitute Manifest for Prerelease
         if: github.event.release.prerelease
         id: sub_prerelease_manifest_version
         uses: microsoft/variable-substitution@v1
@@ -46,7 +55,14 @@ jobs:
 
       # Create a folder containing all the module stuff and zip it for the release
       - name: Create Zip
-        run: zip -r9 ./module.zip module.json assets/ lang/ packs/ dist/ README.md LICENSE
+        run: zip -r9 ./module.zip module.json assets/ lang/ packs/ dist/ README.md LICENSE CHANGELOG.md
+
+      - name: Get Changelog Body
+        id: changelog
+        uses: release-flow/keep-a-changelog-action@v3
+        with:
+          command: query
+          version: ${{ steps.get-version.outputs.version-without-v }}
 
       - name: Update Release with Files
         id: create_version_release
@@ -54,14 +70,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
           omitDraftDuringUpdate: true
           omitPrereleaseDuringUpdate: true
+          name: ${{ steps.get-version.outputs.version-without-v }}
+          body: ${{ steps.changelog.outputs.release-notes }}
           artifacts: './module.json, ./module.zip'
 
-      # Publish to FoundryVTT
-      - name: Publish FoundryVTT Package
+      - name: Publish to FoundryVTT
         if: ${{!github.event.release.prerelease && env.PACKAGE_TOKEN}}
         uses: cs96and/FoundryVTT-release-package@v1.0.2
         env:
@@ -69,6 +84,15 @@ jobs:
         with:
           package-token: ${{ env.PACKAGE_TOKEN }}
           manifest-url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.json
+
+      - name: Announce on Discord
+        if: "!github.event.release.prerelease"
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: ${{ steps.title.outputs.title }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: ${{ steps.changelog.outputs.release-notes }}
 
       # Run the following when setting up a repo
       # git switch --orphan next && git commit --allow-empty -m "init" && git push -u origin next
