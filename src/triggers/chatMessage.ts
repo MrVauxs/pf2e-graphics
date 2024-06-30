@@ -1,16 +1,14 @@
-import type { AnimationTypes } from 'src/storage/AnimCore'
+import type { TriggerTypes } from 'src/storage/AnimCore'
 import { devMessage, log } from 'src/utils'
-import { findAndAnimate } from '.'
 
 const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e['id']) => {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
-	let type = message.flags.pf2e.context?.type as Omit<AnimationTypes, 'template'> | undefined
-	if (!message.token)
-		return
+	let type = message.flags.pf2e.context?.type as Exclude<TriggerTypes, 'place-template'> | undefined
+	if (!message.token) return
 
 	if (!type) {
 		if ('appliedDamage' in message.flags.pf2e) {
-			type = 'damage-taken'
+			type = 'damage-taken' as const
 		} else {
 			log('PF2e Animations | No message type found. Aborting.')
 			return
@@ -26,7 +24,7 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 
 	const deliverable = { rollOptions, type, additionalOptions, targets, source: message.token, item: message.item }
 	devMessage('Chat Message Hook', deliverable)
-	findAndAnimate(deliverable)
+	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 })
 
 const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
@@ -51,7 +49,7 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 			const deliverable = { rollOptions, type, additionalOptions, targets: [target], source: message.token, item: message.item }
 
 			devMessage('Target Helper Hook', deliverable)
-			findAndAnimate<messageTypes>(deliverable)
+			window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 		}
 	}
 })

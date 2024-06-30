@@ -1,6 +1,26 @@
-import { ErrorMsg } from 'src/utils.ts'
+import { ErrorMsg, devMessage } from 'src/utils.ts'
+import type { TokenOrDoc } from 'src/extensions'
 import { dev } from '../utils'
-import type { PresetIndex, PresetKeys } from './presets'
+
+export const helpers = {
+	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
+		return canvas.grid.measurePath([token, target])
+	},
+	measureDistanceFeet(token: TokenOrDoc, target: TokenOrDoc) {
+		return this.measureDistance(token, target).distance
+	},
+	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
+		return this.measureDistance(token, target).spaces
+	},
+	parseOffset(offset: { x: number, y: number, flip: { x: true, y: true } }, source: TokenOrDoc, target: TokenOrDoc) {
+		const result = { x: offset.x, y: offset.y }
+		if (offset.flip.x && source.x > target.x)
+			result.x *= -1
+		if (offset.flip.y && source.y > target.y)
+			result.y *= -1
+		return result
+	},
+}
 
 export let AnimCore = class AnimCore {
 	static getAnimations(): Record<string, string | ReferenceObject | AnimationDataObject[]> {
@@ -100,15 +120,27 @@ export let AnimCore = class AnimCore {
 			.map(child => mergeProps(parentProps, child))
 	}
 
-	static animate<T extends PresetKeys>(preset: T, options: PresetIndex[T]): void {
-		if (!Sequencer.Presets.getAll().has(preset)) {
-			throw new ErrorMsg(`PF2e Graphics | Animation preset "${preset}" not found!`)
-		}
+	static animate({ sequence, preset, ...options }: AnimationDataObject): void {
+		devMessage(preset, options)
+	}
 
-		if (options.sequence) {
-			options.sequence.preset(preset, options)
-		} else {
-			new Sequence({ inModuleName: 'pf2e-graphics' }).preset(preset, options).play()
+	static findAndAnimate({ type, rollOptions, item }: { item?: ItemPF2e | null, rollOptions: string[], type: TriggerTypes }) {
+		const animationTree = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item, game.userId)
+		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
+
+		devMessage('Animation Tree', animationTree, { type, rollOptions, item })
+
+		for (const branch of Object.values(animationTree)) {
+			let validAnimations = branch.filter(a => a.type === type).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
+
+			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
+
+			for (const animation of validAnimations) {
+				// TODO: DEAL WITH ARGUMENTS AND WHAT IS PASSED WHERE
+				this.animate(animation)
+			}
+
+			sequence.play()
 		}
 	}
 }
@@ -123,20 +155,36 @@ if (import.meta.hot) {
 	})
 }
 
+// #region JSON Data Parsing
 type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] }
-
 type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
+// #endregion
 
-export type AnimationTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'template'
+// #region Animation Data Parsing
+export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template'
+type Presets = 'ranged' | 'melee' | 'onToken' | 'macro' | 'template'
 
-export interface AnimationDataObject {
-	type: AnimationTypes
-	preset: PresetKeys
+interface AnimationDataObject {
+	type: TriggerTypes
+	preset: Presets
+	sequence?: Sequence
 	file: string
 	default: true
 	predicate?: PredicateStatement[]
 	options?: object
 }
+
+type _GenericSequenceData = {
+	preset: Presets
+	sequence?: Sequence
+	file: string
+	options?: Record<string, any>
+} & (_RollSequenceData | _TemplateSequenceData | _MacroSequenceData)
+
+interface _RollSequenceData { source: TokenOrDoc, targets: TokenOrDoc[] }
+interface _TemplateSequenceData { targets: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc | null }
+interface _MacroSequenceData { macro: string }
+// #endregion
 
 declare global {
 	interface Window {
