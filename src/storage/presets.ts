@@ -11,7 +11,7 @@ export const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces
 	},
-	parseOffset(offset: { x: number, y: number, flip: { x: true, y: true } }, source: TokenOrDoc, target: TokenOrDoc) {
+	parseOffset(offset: { x: number, y: number, flip: { x: true, y: true } }, source: TokenOrDoc, target: { x: number, y: number }) {
 		const result = { x: offset.x, y: offset.y }
 		if (offset.flip.x && source.x > target.x)
 			result.x *= -1
@@ -19,11 +19,20 @@ export const helpers = {
 			result.y *= -1
 		return result
 	},
+	getCenterCoords(target: Target): Point | undefined {
+		if (target instanceof TokenDocumentPF2e || target instanceof MeasuredTemplateDocumentPF2e) {
+			return target._object?.center
+		}
+		if (target instanceof TokenPF2e || target instanceof MeasuredTemplatePF2e) {
+			return target.center
+		}
+		return target
+	},
 }
 
 export const presets = {
 	ranged: (seq: Sequence, { file, targets, source, options }: PresetIndex['ranged']) => {
-		const target = targets?.[0] || options?.target
+		const target = targets?.[0]
 		if (!target)
 			throw new ErrorMsg('Ranged animation requires a target token!')
 		if (!source)
@@ -34,7 +43,7 @@ export const presets = {
 			.randomizeMirrorY()
 			.missed(options?.missed ?? false)
 			.persist(options?.persist ?? false)
-			.stretchTo(options?.target?.center ? target._object.center : target, options?.stretchTo)
+			.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
 			.atLocation(source)
 			.waitUntilFinished(options?.waitUntilFinished)
 			.rotate(options?.rotate ?? 0)
@@ -42,7 +51,7 @@ export const presets = {
 			.fadeOut(options?.fadeOut ?? 0)
 	},
 	melee: (seq: Sequence, { file, targets, source, options }: PresetIndex['melee']) => {
-		const target = targets?.[0] || options?.target
+		const target = targets?.[0]
 		if (!target)
 			throw new ErrorMsg('Melee animation requires a target token!')
 		if (!source)
@@ -53,7 +62,12 @@ export const presets = {
 			.randomizeMirrorY()
 			.missed(options?.missed ?? false)
 			.persist(options?.persist ?? false)
-			.attachTo(source, options?.attachTo ? { ...options?.attachTo, offset: helpers.parseOffset(options?.attachTo?.offset, source, target) } : undefined)
+			.attachTo(source, options?.attachTo
+				? {
+					...options?.attachTo,
+					offset: helpers.parseOffset(options?.attachTo?.offset, source, target),
+				}
+				: undefined)
 			.rotateTowards(target)
 			.waitUntilFinished(options?.waitUntilFinished)
 			.rotate(options?.rotate ?? 0)
@@ -68,7 +82,7 @@ export const presets = {
 		return result
 	},
 	onToken: (seq: Sequence, { file, targets, source, options }: PresetIndex['onToken']) => {
-		const target = targets?.[0] || options?.target
+		const target = targets?.[0]
 		const affectedToken = options?.preset === 'target' ? target : source
 		if (options?.preset === 'target' && ![options?.preset])
 			throw new ErrorMsg(`This onToken animation requires a ${options?.preset}!`)
@@ -84,6 +98,8 @@ export const presets = {
 			.fadeIn(options?.fadeIn ?? 0)
 			.fadeOut(options?.fadeOut ?? 0)
 
+		if (target)
+			result.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
 		if (options?.scale)
 			result.scale(options.scale.value, options.scale)
 		if (options?.scaleToObject)
@@ -97,13 +113,14 @@ export const presets = {
 		return seq.macro(data.macro, data)
 	},
 	template: (seq: Sequence, { file, targets, options }: PresetIndex['template']) => {
-		const target = targets?.[0] || options?.target
+		const target = targets?.[0]
 		if (!target)
 			throw new ErrorMsg('Template animation requires a template!')
 
 		const result = seq.effect()
 			.file(file)
-			.attachTo(target)
+			.attachTo(target, options?.attachTo)
+			.stretchTo(target, options?.stretchTo)
 
 		// TODO: Make this a normalized function for all .effects() as opposed to copy pasting it every time
 		if (options?.scale)
@@ -131,9 +148,11 @@ interface GenericSequenceData {
 	sequence: Sequence
 	file: string
 	source?: TokenOrDoc
-	targets?: TokenOrDoc[]
+	targets?: Target[]
 	options?: Record<string, any> & SequenceOptions
 }
+
+type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point)
 
 interface SequenceOptions {
 	name: string
