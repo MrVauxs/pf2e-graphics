@@ -128,7 +128,11 @@
 									<h3>{animationKey}</h3>
 									<div class="flex flex-col gap-1 ml-4">
 										{#each animations[animationKey] as animation}
-											<input disabled={true} value={JSON.stringify(animation)} />
+											<textarea
+												class="h-full w-full resize-none"
+												disabled={true}
+												value={JSON.stringify(animation)}
+											/>
 										{/each}
 									</div>
 								{/if}

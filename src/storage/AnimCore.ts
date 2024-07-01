@@ -1,6 +1,7 @@
 import { ErrorMsg, devMessage } from 'src/utils.ts'
 import type { TokenOrDoc } from 'src/extensions'
 import { dev } from '../utils'
+import type { PresetKeys } from './presets'
 
 export const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
@@ -85,10 +86,8 @@ export let AnimCore = class AnimCore {
 		_item?: ItemPF2e | null,
 		_userId?: User['id'],
 	): Record<string, AnimationDataObject[]> {
-		if (!dev && (_item || _userId))
-			console.warn('PF2e Animations | Item and User animations are not yet implemented in getMatchingAnimationTrees!')
-		if (!array)
-			return {}
+		if (!dev && (_item || _userId)) console.warn('PF2e Animations | Item and User animations are not yet implemented in getMatchingAnimationTrees!')
+		if (!array) return {}
 		return AnimCore.getKeys()
 			.filter(key => array.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
@@ -120,24 +119,32 @@ export let AnimCore = class AnimCore {
 			.map(child => mergeProps(parentProps, child))
 	}
 
-	static animate({ sequence, preset, ...options }: AnimationDataObject): void {
-		devMessage(preset, options)
+	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
+		devMessage('Animate', animation, data)
+
+		data.sequence ??= new Sequence({ inModuleName: 'pf2e-graphics' })
+
+		data.sequence.preset(animation.preset, { file: animation.file, options: animation.options, ...data })
 	}
 
-	static findAndAnimate({ type, rollOptions, item }: { item?: ItemPF2e | null, rollOptions: string[], type: TriggerTypes }) {
-		const animationTree = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item, game.userId)
+	static findAndAnimate({
+		trigger,
+		rollOptions,
+		item,
+		...rest
+	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }) {
+		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
 
-		devMessage('Animation Tree', animationTree, { type, rollOptions, item })
+		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
 
 		for (const branch of Object.values(animationTree)) {
-			let validAnimations = branch.filter(a => a.type === type).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
+			let validAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
 
 			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
 
 			for (const animation of validAnimations) {
-				// TODO: DEAL WITH ARGUMENTS AND WHAT IS PASSED WHERE
-				this.animate(animation)
+				this.animate(animation, { ...rest, sequence })
 			}
 
 			sequence.play()
@@ -161,29 +168,17 @@ type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
-export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template'
-type Presets = 'ranged' | 'melee' | 'onToken' | 'macro' | 'template'
+export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template' | CheckType
 
 interface AnimationDataObject {
-	type: TriggerTypes
-	preset: Presets
-	sequence?: Sequence
+	trigger: TriggerTypes
+	preset: PresetKeys
 	file: string
-	default: true
+	default?: boolean
 	predicate?: PredicateStatement[]
-	options?: object
+	options?: any
 }
 
-type _GenericSequenceData = {
-	preset: Presets
-	sequence?: Sequence
-	file: string
-	options?: Record<string, any>
-} & (_RollSequenceData | _TemplateSequenceData | _MacroSequenceData)
-
-interface _RollSequenceData { source: TokenOrDoc, targets: TokenOrDoc[] }
-interface _TemplateSequenceData { targets: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc | null }
-interface _MacroSequenceData { macro: string }
 // #endregion
 
 declare global {

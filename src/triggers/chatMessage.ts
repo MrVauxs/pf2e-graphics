@@ -3,12 +3,12 @@ import { devMessage, log } from 'src/utils'
 
 const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e['id']) => {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
-	let type = message.flags.pf2e.context?.type as Exclude<TriggerTypes, 'place-template'> | undefined
+	let trigger = message.flags.pf2e.context?.type as TriggerTypes
 	if (!message.token) return
 
-	if (!type) {
+	if (!trigger) {
 		if ('appliedDamage' in message.flags.pf2e) {
-			type = 'damage-taken' as const
+			trigger = 'damage-taken' as const
 		} else {
 			log('PF2e Animations | No message type found. Aborting.')
 			return
@@ -20,9 +20,16 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 	// @ts-expect-error - Too lazy to properly define custom modules flags
 	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined
 
-	const targets = type === 'saving-throw' ? [message.token] : (toolbelt ?? (message.target?.token ? [message.target?.token] : [...game.user.targets]))
+	const targets = trigger === 'saving-throw' ? [message.token] : (toolbelt ?? (message.target?.token ? [message.target?.token] : [...game.user.targets]))
 
-	const deliverable = { rollOptions, type, additionalOptions, targets, source: message.token, item: message.item }
+	const deliverable = {
+		rollOptions,
+		trigger,
+		targets,
+		source: message.token,
+		item: message.item,
+		...additionalOptions,
+	}
 	devMessage('Chat Message Hook', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 })
@@ -43,10 +50,17 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 			if (!message.token) return
 
 			const rollOptions = message.flags.pf2e.context?.options ?? []
-			const type = roll.roll.options.type
+			const trigger = roll.roll.options.type
 			const additionalOptions = { outcome: roll?.success }
 
-			const deliverable = { rollOptions, type, additionalOptions, targets: [target], source: message.token, item: message.item }
+			const deliverable = {
+				rollOptions,
+				trigger,
+				targets: [target],
+				source: message.token,
+				item: message.item,
+				...additionalOptions,
+			}
 
 			devMessage('Target Helper Hook', deliverable)
 			window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)

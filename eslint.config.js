@@ -19,6 +19,7 @@ export default antfu({
 		'antfu/if-newline': 'off',
 		'import/no-mutable-exports': 'off',
 		'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+		'unused-imports/no-unused-vars': 'warn',
 	},
 
 	ignores: [],
