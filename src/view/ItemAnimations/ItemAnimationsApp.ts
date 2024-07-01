@@ -37,4 +37,17 @@ export default class ItemAnimationsApp extends SvelteApplication {
 			},
 		})
 	}
+
+	override _getHeaderButtons() {
+		const buttons = super._getHeaderButtons()
+		buttons.unshift({
+			icon: 'fas fa-mug-hot ko-fi',
+			class: '',
+			label: 'pf2e-graphics.support',
+			onclick: () => {
+				window.open('https://ko-fi.com/mrvauxs', '_blank')
+			},
+		})
+		return buttons
+	}
 }
