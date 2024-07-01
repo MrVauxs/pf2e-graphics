@@ -22,7 +22,7 @@
 		"maximum": "12"
 	},
 	"flags": {
-		"pf2e-graphics": "modules/pf2e-graphics/dist/animations.json",
+		"pf2e-graphics": "modules/pf2e-graphics/assets/animations.json",
 		"hotReload": {
 			"extensions": [
 				"json",
@@ -53,9 +53,11 @@
 	"authors": [
 		{
 			"name": "Vauxs",
-			"email": "mrvauxs@gmail.com",
 			"url": "mrvauxs.net",
 			"discord": "vauxs",
+			"twitter": "@ThatVauxs",
+			"email": "mrvauxs@gmail.com",
+			"ko-fi": "MrVauxs",
 			"flags": {}
 		}
 	],
