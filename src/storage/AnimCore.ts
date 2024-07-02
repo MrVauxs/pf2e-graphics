@@ -1,6 +1,5 @@
-import { ErrorMsg, devMessage } from 'src/utils.ts'
+import { ErrorMsg, devMessage, log } from 'src/utils.ts'
 import type { TokenOrDoc } from 'src/extensions'
-import { dev } from '../utils'
 import type { PresetKeys } from './presets'
 
 export const helpers = {
@@ -37,7 +36,7 @@ export let AnimCore = class AnimCore {
 
 	static getAnimationObject(key: string | undefined): AnimationDataObject[] | undefined {
 		if (!key || typeof key !== 'string') {
-			throw new ErrorMsg(`PF2e Animations | You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
+			throw new ErrorMsg(`You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
 		}
 
 		const animationObject = this.getAnimations()[key]
@@ -86,7 +85,7 @@ export let AnimCore = class AnimCore {
 		_item?: ItemPF2e | null,
 		_userId?: User['id'],
 	): Record<string, AnimationDataObject[]> {
-		if (!dev && (_item || _userId)) console.warn('PF2e Animations | Item and User animations are not yet implemented in getMatchingAnimationTrees!')
+		if ((_item || _userId)) devMessage('Item and User animations are not yet implemented in getMatchingAnimationTrees!')
 		if (!array) return {}
 		return AnimCore.getKeys()
 			.filter(key => array.includes(key))

@@ -15,7 +15,7 @@ export function nonNullable<T>(value: T): value is NonNullable<T> {
 export const dev = import.meta.env.DEV
 
 export function devMessage(...args: any) {
-	if (dev) console.log(`[%cPF2e Graphics Dev%c]`, 'color: yellow', '', ...args)
+	if (dev) console.log(`[%cPF2e Graphics%c %cDEV%c]`, 'color: yellow', '', 'color: #20C20E;', '', ...args)
 }
 
 export function log(...args: any) {

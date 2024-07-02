@@ -10,7 +10,7 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 		if ('appliedDamage' in message.flags.pf2e) {
 			trigger = 'damage-taken' as const
 		} else {
-			log('PF2e Animations | No message type found. Aborting.')
+			log('No message type found. Aborting.')
 			return
 		}
 	}
@@ -21,6 +21,8 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined
 
 	const targets = trigger === 'saving-throw' ? [message.token] : (toolbelt ?? (message.target?.token ? [message.target?.token] : [...game.user.targets]))
+
+	if (targets.length === 0) return log('No targets founds in message, aborting.')
 
 	const deliverable = {
 		rollOptions,
@@ -46,8 +48,8 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 
 			devMessage('Target Helper saving throw update', { roll, target })
 
-			if (!target) return
-			if (!message.token) return
+			if (!target) return log('The target token no longer exists?? Aborting.')
+			if (!message.token) return log('The source token no longer exists?? Aborting.')
 
 			const rollOptions = message.flags.pf2e.context?.options ?? []
 			const trigger = roll.roll.options.type

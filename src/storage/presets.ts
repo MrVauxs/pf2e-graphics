@@ -11,11 +11,11 @@ export const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces
 	},
-	parseOffset(offset: { x: number, y: number, flip: { x: true, y: true } }, source: TokenOrDoc, target: { x: number, y: number }) {
+	parseOffset(offset: Point & { flip: { x: true, y: true } }, source: Point, target: Point) {
 		const result = { x: offset.x, y: offset.y }
-		if (offset.flip.x && source.x > target.x)
+		if (offset.flip?.x && source.x > target.x)
 			result.x *= -1
-		if (offset.flip.y && source.y > target.y)
+		if (offset.flip?.y && source.y > target.y)
 			result.y *= -1
 		return result
 	},
@@ -44,7 +44,12 @@ export const presets = {
 			.missed(options?.missed ?? false)
 			.persist(options?.persist ?? false)
 			.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
-			.atLocation(source)
+			.atLocation(source, options?.atLocation
+				? {
+					...options?.atLocation,
+					offset: helpers.parseOffset(options?.atLocation?.offset, source, target),
+				}
+				: undefined)
 			.waitUntilFinished(options?.waitUntilFinished)
 			.rotate(options?.rotate ?? 0)
 			.fadeIn(options?.fadeIn ?? 0)
@@ -87,6 +92,7 @@ export const presets = {
 		if (options?.preset === 'target' && ![options?.preset])
 			throw new ErrorMsg(`This onToken animation requires a ${options?.preset}!`)
 
+		// TODO: REALLY DO THE NORMALIZED OPTIONS BELOW BECAUSE I NEED TO USE helpers.parseOffset IN HERE AND ITS BECOMING A MESS
 		const result = seq.effect()
 			.file(file)
 			.randomizeMirrorY()
@@ -98,8 +104,6 @@ export const presets = {
 			.fadeIn(options?.fadeIn ?? 0)
 			.fadeOut(options?.fadeOut ?? 0)
 
-		if (target)
-			result.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
 		if (options?.scale)
 			result.scale(options.scale.value, options.scale)
 		if (options?.scaleToObject)
@@ -172,11 +176,13 @@ function applyPresets(override?: boolean) {
 	})
 }
 
-Hooks.on('sequencerReady', () => applyPresets())
+Hooks.once('sequencerReady', () => applyPresets())
 
 if (import.meta.hot) {
 	// Prevents reloads
-	import.meta.hot.accept((module) => {
+	import.meta.hot.accept()
+	// Explicitly after
+	import.meta.hot.on('vite:afterUpdate', (module) => {
 		if (module) {
 			applyPresets(true)
 			ui.notifications.info('Updated presets.ts!')
