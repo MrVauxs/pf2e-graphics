@@ -1,4 +1,4 @@
-import { ErrorMsg, devMessage, log } from 'src/utils.ts'
+import { ErrorMsg, devMessage } from 'src/utils.ts'
 import type { TokenOrDoc } from 'src/extensions'
 import type { PresetKeys } from './presets'
 

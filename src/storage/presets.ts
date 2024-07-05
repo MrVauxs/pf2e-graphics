@@ -46,9 +46,9 @@ export const presets = {
 			.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
 			.atLocation(source, options?.atLocation
 				? {
-					...options?.atLocation,
-					offset: helpers.parseOffset(options?.atLocation?.offset, source, target),
-				}
+						...options?.atLocation,
+						offset: helpers.parseOffset(options?.atLocation?.offset, source, target),
+					}
 				: undefined)
 			.waitUntilFinished(options?.waitUntilFinished)
 			.rotate(options?.rotate ?? 0)
@@ -69,9 +69,9 @@ export const presets = {
 			.persist(options?.persist ?? false)
 			.attachTo(source, options?.attachTo
 				? {
-					...options?.attachTo,
-					offset: helpers.parseOffset(options?.attachTo?.offset, source, target),
-				}
+						...options?.attachTo,
+						offset: helpers.parseOffset(options?.attachTo?.offset, source, target),
+					}
 				: undefined)
 			.rotateTowards(target)
 			.waitUntilFinished(options?.waitUntilFinished)
