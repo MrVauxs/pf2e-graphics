@@ -4,7 +4,7 @@ export class ErrorMsg extends Error {
 		super(message)
 		this.name = 'PF2e Graphics Error'
 
-		ui.notifications.error(`PF2e Graphics | ${message}`)
+		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`)
 	}
 }
 
