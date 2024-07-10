@@ -121,9 +121,22 @@ export let AnimCore = class AnimCore {
 	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
 		devMessage('Animate', animation, data)
 
-		data.sequence ??= new Sequence({ inModuleName: 'pf2e-graphics' })
+		if (!data.sequence) throw new ErrorMsg('No Sequence defined in AnimCore.animate()!')
 
 		data.sequence.preset(animation.preset, { file: animation.file, options: animation.options, ...data })
+	}
+
+	static testAnimation(animationData: AnimationDataObject) {
+		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
+		this.animate(
+			foundry.utils.mergeObject(animationData, { options: { locally: true } }),
+			{
+				targets: Array.from(game.user.targets),
+				source: canvas.tokens.controlled[0],
+				sequence,
+			},
+		)
+		sequence.play()
 	}
 
 	static findAndAnimate({

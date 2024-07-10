@@ -28,93 +28,105 @@ export const helpers = {
 		}
 		return target
 	},
+	genericSequencerFunctions(seq: EffectSection, options: EffectOptions) {
+		if (options?.scale)
+			seq.scale(options.scale.min, options.scale.max)
+		if (options?.scaleToObject)
+			seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
+		if (options?.filter)
+			seq.filter(options.filter.type, options.filter.options)
+		if (options?.waitUntilFinished)
+			seq.waitUntilFinished(options?.waitUntilFinished)
+
+		return seq
+			.locally(options.locally)
+			.rotate(options?.rotate ?? 0)
+			.fadeIn(options?.fadeIn ?? 0)
+			.fadeOut(options?.fadeOut ?? 0)
+			.missed(options?.missed ?? false)
+			.persist(options?.persist?.value || false, options?.persist)
+	},
+}
+
+interface EffectOptions {
+	preset: 'target' | 'source' | 'both'
+	locally: boolean
+	waitUntilFinished: number
+	rotate: number
+	fadeIn: number
+	fadeOut: number
+	scale: {
+		min: number | { x: number, y: number }
+		max?: number
+	}
+	scaleToObject: { value: number } & Parameters<EffectSection['scaleToObject']>[1]
+	filter: {
+		type: Parameters<EffectSection['filter']>[0]
+		options: Parameters<EffectSection['filter']>[1]
+	}
+	missed: boolean
+	persist: { value: boolean } & Parameters<EffectSection['persist']>[1]
+	attachTo: Parameters<EffectSection['attachTo']>[1]
+	atLocation: Parameters<EffectSection['atLocation']>[1]
+	stretchTo: Parameters<EffectSection['stretchTo']>[1]
+	rotateTowards: Parameters<EffectSection['rotateTowards']>[1]
+	anchor: Parameters<EffectSection['anchor']>[0]
 }
 
 export const presets = {
 	ranged: (seq: Sequence, { file, targets, source, options }: PresetIndex['ranged']) => {
-		const target = targets?.[0]
-		if (!target)
+		if (!targets || !targets.length)
 			throw new ErrorMsg('Ranged animation requires a target token!')
 		if (!source)
 			throw new ErrorMsg('Ranged animation requires a source token!')
 
-		return seq.effect()
-			.file(file)
-			.randomizeMirrorY()
-			.missed(options?.missed ?? false)
-			.persist(options?.persist ?? false)
-			.stretchTo(options?.target?.center ? helpers.getCenterCoords(target) : target, options?.stretchTo)
-			.atLocation(source, options?.atLocation
-				? {
-						...options?.atLocation,
-						offset: helpers.parseOffset(options?.atLocation?.offset, source, target),
-					}
-				: undefined)
-			.waitUntilFinished(options?.waitUntilFinished)
-			.rotate(options?.rotate ?? 0)
-			.fadeIn(options?.fadeIn ?? 0)
-			.fadeOut(options?.fadeOut ?? 0)
+		for (const target of targets) {
+			const section = seq.effect()
+				.file(file)
+				.atLocation(source, options?.atLocation)
+				.stretchTo(target, options?.stretchTo)
+
+			helpers.genericSequencerFunctions(section, options as EffectOptions)
+		}
+
+		return seq
 	},
 	melee: (seq: Sequence, { file, targets, source, options }: PresetIndex['melee']) => {
-		const target = targets?.[0]
-		if (!target)
+		if (!targets || !targets.length)
 			throw new ErrorMsg('Melee animation requires a target token!')
 		if (!source)
 			throw new ErrorMsg('Melee animation requires a source token!')
 
-		const result = seq.effect()
-			.file(file)
-			.randomizeMirrorY()
-			.missed(options?.missed ?? false)
-			.persist(options?.persist ?? false)
-			.attachTo(source, options?.attachTo
-				? {
-						...options?.attachTo,
-						offset: helpers.parseOffset(options?.attachTo?.offset, source, target),
-					}
-				: undefined)
-			.rotateTowards(target)
-			.waitUntilFinished(options?.waitUntilFinished)
-			.rotate(options?.rotate ?? 0)
-			.fadeIn(options?.fadeIn ?? 0)
-			.fadeOut(options?.fadeOut ?? 0)
+		for (const target of targets) {
+			const section = seq.effect()
+				.file(file)
+				.attachTo(source, options?.attachTo)
+				.rotateTowards(target, options?.rotateTowards)
 
-		if (options?.scale)
-			result.scale(options.scale.value, options.scale)
-		if (options?.scaleToObject)
-			result.scaleToObject(options.scaleToObject.value, options.scaleToObject)
+			helpers.genericSequencerFunctions(section, options as EffectOptions)
+		}
 
-		return result
+		return seq
 	},
 	onToken: (seq: Sequence, { file, targets, source, options }: PresetIndex['onToken']) => {
 		const target = targets?.[0]
 		const affectedToken = options?.preset === 'target' ? target : source
+
 		if (options?.preset === 'target' && ![options?.preset])
 			throw new ErrorMsg(`This onToken animation requires a ${options?.preset}!`)
 
-		// TODO: REALLY DO THE NORMALIZED OPTIONS BELOW BECAUSE I NEED TO USE helpers.parseOffset IN HERE AND ITS BECOMING A MESS
+		if (!affectedToken)
+			throw new ErrorMsg(`${options?.preset} is missing!`)
+
 		const result = seq.effect()
 			.file(file)
-			.randomizeMirrorY()
-			.missed(options?.missed ?? false)
-			.persist(options?.persist ?? false)
 			.attachTo(affectedToken, options?.attachTo)
-			.waitUntilFinished(options?.waitUntilFinished)
-			.rotate(options?.rotate ?? 0)
-			.fadeIn(options?.fadeIn ?? 0)
-			.fadeOut(options?.fadeOut ?? 0)
+			.anchor(foundry.utils.mergeObject({ x: 0.5, y: 0.5 }, options?.anchor || {}))
 
-		if (options?.scale)
-			result.scale(options.scale.value, options.scale)
-		if (options?.scaleToObject)
-			result.scaleToObject(options.scaleToObject.value, options.scaleToObject)
-		if (options?.filter)
-			result.filter(options.filter.type, options.filter.options)
+		if (options?.rotateTowards)
+			result.rotateTowards(target, options?.rotateTowards)
 
-		return result
-	},
-	macro: (seq: Sequence, data: PresetIndex['macro']) => {
-		return seq.macro(data.macro, data)
+		return helpers.genericSequencerFunctions(result, options as EffectOptions)
 	},
 	template: (seq: Sequence, { file, targets, options }: PresetIndex['template']) => {
 		const target = targets?.[0]
@@ -124,18 +136,13 @@ export const presets = {
 		const result = seq.effect()
 			.file(file)
 			.attachTo(target, options?.attachTo)
-			.stretchTo(target, options?.stretchTo)
 
-		// TODO: Make this a normalized function for all .effects() as opposed to copy pasting it every time
-		if (options?.scale)
-			result.scale(options.scale.value, options.scale)
-		if (options?.scaleToObject)
-			result.scaleToObject(options.scaleToObject.value, options.scaleToObject)
-		if (options?.filter)
-			result.filter(options.filter.type, options.filter.options)
+		if (target.type === 'line' || target.type === 'cone') result.stretchTo(target, options?.stretchTo)
 
-		return result
+		return helpers.genericSequencerFunctions(result, options as EffectOptions)
 	},
+	macro: (seq: Sequence, data: PresetIndex['macro']) => seq.macro(data.macro, data),
+	JSON: (seq: Sequence, jsonData: PresetIndex['JSON']) => seq.fromJSON(jsonData),
 } as const
 
 export type PresetKeys = keyof typeof presets
@@ -146,6 +153,7 @@ interface PresetIndex {
 	onToken: GenericSequenceData
 	macro: MacroSequenceData
 	template: TemplateSequenceData
+	JSON: JSONSequenceData
 }
 
 interface GenericSequenceData {
@@ -153,18 +161,15 @@ interface GenericSequenceData {
 	file: string
 	source?: TokenOrDoc
 	targets?: Target[]
-	options?: Record<string, any> & SequenceOptions
+	options?: EffectOptions
 }
 
 type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point)
 
-interface SequenceOptions {
-	name: string
-}
-
 type TemplateSequenceData = Omit<GenericSequenceData, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc }
 
 type MacroSequenceData = GenericSequenceData & { macro: string }
+type JSONSequenceData = any
 
 function applyPresets(override?: boolean) {
 	Object.keys(presets).forEach((key) => {
