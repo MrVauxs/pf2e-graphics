@@ -23,6 +23,9 @@ export function log(...args: any) {
 }
 
 export function i18n(string: string, format?: any) {
-	if (!string.includes('pf2e-graphics')) string = `pf2e-graphics.${string}`
+	if (!string.includes('pf2e-graphics')) {
+		const test = `pf2e-graphics.${string}`
+		if (game.i18n.format(test, format) !== test) string = `pf2e-graphics.${string}`
+	}
 	return game.i18n.format(string, format)
 }
