@@ -61,8 +61,8 @@ export const helpers = {
 
 type presetOptions<T> =
 	T extends 'onToken' ? ('target' | 'source' | 'both') :
-	T extends 'ranged' ? { bounce: true, file: string } :
-	never
+		T extends 'ranged' ? { bounce: true, file: string } :
+			never
 
 interface EffectOptions<T extends PresetKeys> {
 	preset: presetOptions<T>
