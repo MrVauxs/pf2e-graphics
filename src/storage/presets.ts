@@ -28,7 +28,7 @@ export const helpers = {
 		}
 		return target
 	},
-	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, options?: EffectOptions<T>) {
+	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, _item: ItemPF2e, _target: Target, options?: EffectOptions<T>) {
 		if (options?.scale)
 			seq.scale(options.scale.min, options.scale.max)
 		if (options?.scaleToObject)
@@ -38,19 +38,22 @@ export const helpers = {
 		if (options?.waitUntilFinished)
 			seq.waitUntilFinished(options?.waitUntilFinished)
 		if (options?.locally)
-			seq.locally(options?.locally)
+			seq.locally(options.locally)
 		if (options?.missed)
-			seq.missed(options?.missed)
-		if (options?.persist)
-			seq.persist(options?.persist?.value || false, options?.persist)
+			seq.missed(options.missed)
 		if (options?.rotate)
-			seq.rotate(options?.rotate ?? 0)
+			seq.rotate(options.rotate ?? 0)
 		if (options?.fadeIn)
-			seq.fadeIn(options?.fadeIn ?? 0)
+			seq.fadeIn(options.fadeIn?.value, options.fadeIn)
 		if (options?.fadeOut)
-			seq.fadeOut(options?.fadeOut ?? 0)
+			seq.fadeOut(options.fadeOut?.value, options.fadeOut)
 		if (options?.belowTokens)
 			seq.belowTokens(options?.belowTokens ?? false)
+
+		if (options?.persist)
+			seq.persist(options.persist?.value || false, options.persist)
+		if (options?.tieToDocuments)
+			seq.tieToDocuments([_item])
 
 		return seq
 	},
@@ -64,11 +67,12 @@ type presetOptions<T> =
 interface EffectOptions<T extends PresetKeys> {
 	preset: presetOptions<T>
 	locally: boolean
+	tieToDocuments: true
 	belowTokens: boolean
 	waitUntilFinished: number
 	rotate: number
-	fadeIn: number
-	fadeOut: number
+	fadeIn: { value: number } & EasingOptions
+	fadeOut: { value: number } & EasingOptions
 	scale: {
 		min: number | { x: number, y: number }
 		max?: number
@@ -88,7 +92,7 @@ interface EffectOptions<T extends PresetKeys> {
 }
 
 export const presets = {
-	ranged: (seq: Sequence, { file, targets, source, options }: PresetIndex['ranged']) => {
+	ranged: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['ranged']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Ranged animation requires a target token!')
 		if (!source)
@@ -108,12 +112,12 @@ export const presets = {
 					.file(file)
 			}
 
-			helpers.genericSequencerFunctions(section, options)
+			helpers.genericSequencerFunctions(section, item, target, options)
 		}
 
 		return seq
 	},
-	melee: (seq: Sequence, { file, targets, source, options }: PresetIndex['melee']) => {
+	melee: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['melee']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Melee animation requires a target token!')
 		if (!source)
@@ -125,12 +129,12 @@ export const presets = {
 				.attachTo(source, options?.attachTo)
 				.rotateTowards(target, options?.rotateTowards)
 
-			helpers.genericSequencerFunctions(section, options)
+			helpers.genericSequencerFunctions(section, item, target, options)
 		}
 
 		return seq
 	},
-	onToken: (seq: Sequence, { file, targets, source, options }: PresetIndex['onToken']) => {
+	onToken: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['onToken']) => {
 		const target = targets?.[0]
 		const affectedToken = options?.preset === 'target' ? target : source
 
@@ -145,9 +149,9 @@ export const presets = {
 		if (options?.rotateTowards)
 			result.rotateTowards(target, options?.rotateTowards)
 
-		return helpers.genericSequencerFunctions(result, options)
+		return helpers.genericSequencerFunctions(result, item, affectedToken, options)
 	},
-	template: (seq: Sequence, { file, targets, options }: PresetIndex['template']) => {
+	template: (seq: Sequence, { file, targets, options, item }: PresetIndex['template']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Template animation requires a template!')
 
@@ -159,7 +163,7 @@ export const presets = {
 			if (target.type === 'line' || target.type === 'cone')
 				section.stretchTo(target, options?.stretchTo)
 
-			helpers.genericSequencerFunctions(section, options)
+			helpers.genericSequencerFunctions(section, item, target, options)
 		}
 
 		return seq
@@ -184,6 +188,7 @@ interface GenericSequenceData<T extends PresetKeys> {
 	file: string
 	source?: TokenOrDoc
 	targets?: Target[]
+	item: ItemPF2e
 	options?: EffectOptions<T>
 }
 

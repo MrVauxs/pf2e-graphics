@@ -156,7 +156,7 @@ export let AnimCore = class AnimCore {
 			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
 
 			for (const animation of validAnimations) {
-				this.animate(animation, { ...rest, sequence })
+				this.animate(animation, { ...rest, sequence, item })
 			}
 
 			sequence.play()
@@ -180,7 +180,16 @@ type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
-export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template' | CheckType | 'effect'
+export type TriggerTypes =
+	'attack-roll'
+	| 'damage-roll'
+	| 'spell-cast'
+	| 'damage-taken'
+	| 'saving-throw'
+	| 'place-template'
+	| CheckType
+	| 'effect'
+	| 'toggle'
 
 interface AnimationDataObject {
 	trigger: TriggerTypes

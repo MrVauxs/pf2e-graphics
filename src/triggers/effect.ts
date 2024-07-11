@@ -12,7 +12,7 @@ const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF
 		item,
 	}
 
-	devMessage('Create Item Hook', deliverable)
+	devMessage('Effect Hook Data', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 })
 

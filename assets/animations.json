@@ -1,9 +1,47 @@
 {
+	"effect:slug:spell-effect-shield": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.shield.01.complete.01",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"persist": {
+					"value": true,
+					"persistTokenPrototype": true
+				},
+				"tieToDocuments": true
+			}
+		}
+	],
+	"trap-finder": [
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.rune.illusion.complete",
+			"options": {
+				"scaleToObject": {
+					"value": 1
+				},
+				"attachTo": {
+					"offset": {
+						"y": -0.5
+					},
+					"gridUnits": true
+				},
+				"fadeOut": {
+					"value": 500
+				}
+			}
+		}
+	],
 	"effect:slug:effect-kinetic-aura": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.impact.ground_crack.orange.01",
+			"file": "jb2a.impact.ground_crack.orange",
 			"options": {
 				"belowTokens": true
 			}

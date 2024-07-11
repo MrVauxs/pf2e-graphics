@@ -17,14 +17,14 @@
 
 	const doc = new TJSDocument(item);
 	const rollOptions = $doc.getRollOptions("item");
-	let animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions);
+	let animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item);
 
 	// *In Zenyatta VA* Experience Reactivity
-	doc.subscribe(() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions)));
+	doc.subscribe(() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item)));
 	if (import.meta.hot) {
 		import.meta.hot.on(
 			"updateAnims",
-			() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions)),
+			() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item)),
 		);
 	}
 
