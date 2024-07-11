@@ -1,4 +1,28 @@
 {
+	"effect:slug:effect-kinetic-aura": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.impact.ground_crack.orange.01",
+			"options": {
+				"belowTokens": true
+			}
+		}
+	],
+	"item:slug:electric-arc": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.chain_lightning.primary.blue",
+			"options": {
+				"waitUntilFinished": -1000,
+				"preset": {
+					"bounce": true,
+					"file": "jb2a.chain_lightning.secondary.blue"
+				}
+			}
+		}
+	],
 	"item:base:longsword": [
 		{
 			"trigger": "attack-roll",
@@ -6,7 +30,7 @@
 			"file": "jb2a.melee_attack.03.greatsword.01",
 			"options": {
 				"scaleToObject": {
-					"value": 3
+					"value": 3.5
 				},
 				"attachTo": {
 					"offset": {

@@ -180,7 +180,7 @@ type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
-export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template' | CheckType
+export type TriggerTypes = 'attack-roll' | 'damage-roll' | 'spell-cast' | 'damage-taken' | 'saving-throw' | 'place-template' | CheckType | 'effect'
 
 interface AnimationDataObject {
 	trigger: TriggerTypes

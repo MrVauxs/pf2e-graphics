@@ -28,7 +28,7 @@ export const helpers = {
 		}
 		return target
 	},
-	genericSequencerFunctions(seq: EffectSection, options: EffectOptions) {
+	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, options?: EffectOptions<T>) {
 		if (options?.scale)
 			seq.scale(options.scale.min, options.scale.max)
 		if (options?.scaleToObject)
@@ -37,20 +37,34 @@ export const helpers = {
 			seq.filter(options.filter.type, options.filter.options)
 		if (options?.waitUntilFinished)
 			seq.waitUntilFinished(options?.waitUntilFinished)
+		if (options?.locally)
+			seq.locally(options?.locally)
+		if (options?.missed)
+			seq.missed(options?.missed)
+		if (options?.persist)
+			seq.persist(options?.persist?.value || false, options?.persist)
+		if (options?.rotate)
+			seq.rotate(options?.rotate ?? 0)
+		if (options?.fadeIn)
+			seq.fadeIn(options?.fadeIn ?? 0)
+		if (options?.fadeOut)
+			seq.fadeOut(options?.fadeOut ?? 0)
+		if (options?.belowTokens)
+			seq.belowTokens(options?.belowTokens ?? false)
 
 		return seq
-			.locally(options.locally)
-			.rotate(options?.rotate ?? 0)
-			.fadeIn(options?.fadeIn ?? 0)
-			.fadeOut(options?.fadeOut ?? 0)
-			.missed(options?.missed ?? false)
-			.persist(options?.persist?.value || false, options?.persist)
 	},
 }
 
-interface EffectOptions {
-	preset: 'target' | 'source' | 'both'
+type presetOptions<T> =
+	T extends 'onToken' ? ('target' | 'source' | 'both') :
+	T extends 'ranged' ? { bounce: true, file: string } :
+	never
+
+interface EffectOptions<T extends PresetKeys> {
+	preset: presetOptions<T>
 	locally: boolean
+	belowTokens: boolean
 	waitUntilFinished: number
 	rotate: number
 	fadeIn: number
@@ -80,13 +94,21 @@ export const presets = {
 		if (!source)
 			throw new ErrorMsg('Ranged animation requires a source token!')
 
-		for (const target of targets) {
+		for (const [i, target] of targets.entries()) {
 			const section = seq.effect()
-				.file(file)
-				.atLocation(source, options?.atLocation)
 				.stretchTo(target, options?.stretchTo)
 
-			helpers.genericSequencerFunctions(section, options as EffectOptions)
+			if (options?.preset.bounce && i > 0) {
+				section
+					.atLocation(targets[i - 1], options?.atLocation)
+					.file(options?.preset.file)
+			} else {
+				section
+					.atLocation(source, options?.atLocation)
+					.file(file)
+			}
+
+			helpers.genericSequencerFunctions(section, options)
 		}
 
 		return seq
@@ -103,7 +125,7 @@ export const presets = {
 				.attachTo(source, options?.attachTo)
 				.rotateTowards(target, options?.rotateTowards)
 
-			helpers.genericSequencerFunctions(section, options as EffectOptions)
+			helpers.genericSequencerFunctions(section, options)
 		}
 
 		return seq
@@ -111,9 +133,6 @@ export const presets = {
 	onToken: (seq: Sequence, { file, targets, source, options }: PresetIndex['onToken']) => {
 		const target = targets?.[0]
 		const affectedToken = options?.preset === 'target' ? target : source
-
-		if (options?.preset === 'target' && ![options?.preset])
-			throw new ErrorMsg(`This onToken animation requires a ${options?.preset}!`)
 
 		if (!affectedToken)
 			throw new ErrorMsg(`${options?.preset} is missing!`)
@@ -126,20 +145,24 @@ export const presets = {
 		if (options?.rotateTowards)
 			result.rotateTowards(target, options?.rotateTowards)
 
-		return helpers.genericSequencerFunctions(result, options as EffectOptions)
+		return helpers.genericSequencerFunctions(result, options)
 	},
 	template: (seq: Sequence, { file, targets, options }: PresetIndex['template']) => {
-		const target = targets?.[0]
-		if (!target)
+		if (!targets || !targets.length)
 			throw new ErrorMsg('Template animation requires a template!')
 
-		const result = seq.effect()
-			.file(file)
-			.attachTo(target, options?.attachTo)
+		for (const target of targets) {
+			const section = seq.effect()
+				.file(file)
+				.attachTo(target, options?.attachTo)
 
-		if (target.type === 'line' || target.type === 'cone') result.stretchTo(target, options?.stretchTo)
+			if (target.type === 'line' || target.type === 'cone')
+				section.stretchTo(target, options?.stretchTo)
 
-		return helpers.genericSequencerFunctions(result, options as EffectOptions)
+			helpers.genericSequencerFunctions(section, options)
+		}
+
+		return seq
 	},
 	macro: (seq: Sequence, data: PresetIndex['macro']) => seq.macro(data.macro, data),
 	JSON: (seq: Sequence, jsonData: PresetIndex['JSON']) => seq.fromJSON(jsonData),
@@ -148,27 +171,27 @@ export const presets = {
 export type PresetKeys = keyof typeof presets
 
 interface PresetIndex {
-	ranged: GenericSequenceData
-	melee: GenericSequenceData
-	onToken: GenericSequenceData
+	ranged: GenericSequenceData<'ranged'>
+	melee: GenericSequenceData<'melee'>
+	onToken: GenericSequenceData<'onToken'>
 	macro: MacroSequenceData
 	template: TemplateSequenceData
 	JSON: JSONSequenceData
 }
 
-interface GenericSequenceData {
+interface GenericSequenceData<T extends PresetKeys> {
 	sequence: Sequence
 	file: string
 	source?: TokenOrDoc
 	targets?: Target[]
-	options?: EffectOptions
+	options?: EffectOptions<T>
 }
 
 type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point)
 
-type TemplateSequenceData = Omit<GenericSequenceData, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc }
+type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc }
 
-type MacroSequenceData = GenericSequenceData & { macro: string }
+type MacroSequenceData = GenericSequenceData<'JSON'> & { macro: string }
 type JSONSequenceData = any
 
 function applyPresets(override?: boolean) {
