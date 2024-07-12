@@ -52,12 +52,24 @@ export const helpers = {
 		if (options?.duration)
 			seq.duration(options.duration)
 
+		// Adds new effects
+		if (options?.shape)
+			[options.shape].flat().forEach(shape => seq.shape(shape.value, shape))
+
+		// Important Stuff
 		if (options?.persist)
 			seq.persist(options.persist?.value || false, options.persist)
 		if (options?.tieToDocuments)
 			seq.tieToDocuments([_item])
 		if (options?.mask)
 			seq.mask()
+
+		if (options?.remove) {
+			[options.remove].flat().forEach(origin => Sequencer.EffectManager.endEffects({ origin }))
+		}
+
+		seq.origin(options?.id ?? _item.uuid)
+		seq.name(_item.name)
 
 		return seq
 	},
@@ -71,6 +83,8 @@ type presetOptions<T> =
 interface EffectOptions<T extends PresetKeys> {
 	preset: presetOptions<T>
 	locally: boolean
+	id: string
+	remove: string | string[]
 	tieToDocuments: true
 	belowTokens: boolean
 	waitUntilFinished: number
@@ -95,7 +109,10 @@ interface EffectOptions<T extends PresetKeys> {
 	stretchTo: Parameters<EffectSection['stretchTo']>[1]
 	rotateTowards: Parameters<EffectSection['rotateTowards']>[1]
 	anchor: Parameters<EffectSection['anchor']>[0]
+	shape: shape | shape[]
 }
+
+type shape = { value: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
 
 export const presets = {
 	ranged: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['ranged']) => {

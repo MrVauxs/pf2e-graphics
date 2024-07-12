@@ -61,7 +61,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	// Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
-	static parseFile(file: string): string {
+	static parseFile(file: string = ''): string {
 		const match = file.match(/\{(.*?)\}/)
 		if (!match)
 			return file

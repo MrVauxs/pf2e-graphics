@@ -1,4 +1,68 @@
 {
+	"weapon-infusion:ranged": [
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"default": true,
+			"options": {
+				"remove": "weapon-infusion:ranged"
+			}
+		},
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"options": {
+				"id": "weapon-infusion:ranged",
+				"remove": "weapon-infusion:ranged",
+				"persist": {
+					"value": true,
+					"persistTokenPrototype": true
+				},
+				"tieToDocuments": true,
+				"shape": {
+					"value": "circle",
+					"lineSize": 4,
+					"radius": 1.5,
+					"width": 1,
+					"lineColor": "#FF0000",
+					"gridUnits": true,
+					"name": "test"
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"weapon-infusion:ranged:thrown"
+					],
+					"options": {
+						"shape": {
+							"radius": 4.5
+						}
+					}
+				},
+				{
+					"predicate": [
+						"weapon-infusion:ranged:propulsive"
+					],
+					"options": {
+						"shape": {
+							"radius": 10.5
+						}
+					}
+				},
+				{
+					"predicate": [
+						"weapon-infusion:ranged:volley-30"
+					],
+					"options": {
+						"shape": {
+							"radius": 20.5
+						}
+					}
+				}
+			]
+		}
+	],
 	"effect:slug:spell-effect-shield": [
 		{
 			"trigger": "effect",
@@ -21,8 +85,11 @@
 			"trigger": "toggle",
 			"preset": "onToken",
 			"file": "jb2a.magic_signs.rune.illusion.complete",
+			"predicate": [
+				"trap-finder"
+			],
 			"options": {
-				"trigger": "on",
+				"id": "trap-finder-entry",
 				"scaleToObject": {
 					"value": 1
 				},
@@ -41,8 +108,13 @@
 			"trigger": "toggle",
 			"preset": "onToken",
 			"file": "jb2a.wind_stream.200.white",
+			"predicate": [
+				{
+					"not": "trap-finder"
+				}
+			],
 			"options": {
-				"trigger": "off",
+				"remove": "trap-finder-entry",
 				"scaleToObject": {
 					"value": 1
 				},
