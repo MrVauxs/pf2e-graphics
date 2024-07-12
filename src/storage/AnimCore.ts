@@ -1,5 +1,5 @@
 import { ErrorMsg, devMessage } from 'src/utils.ts'
-import type { TokenOrDoc } from 'src/extensions'
+import type { Entries, TokenOrDoc } from 'src/extensions'
 import type { PresetKeys } from './presets'
 
 export const helpers = {
@@ -110,9 +110,12 @@ export let AnimCore = class AnimCore {
 		const mergeProps = (parent: FolderObject, child: AnimationDataObject) => {
 			const result = foundry.utils.mergeObject(child, parent, { overwrite: false })
 
-			// Merge predicate arrays
-			if (parent.predicate)
-				result.predicate = mergeArrays(parent.predicate, child.predicate || [])
+			// Merge arrays
+			for (const [key, val] of Object.entries(parent) as Entries<FolderObject>) {
+				if (Array.isArray(val) && key !== 'contents') {
+					result[key] = mergeArrays(parent[key], child[key] || [])
+				}
+			}
 
 			return result
 		}

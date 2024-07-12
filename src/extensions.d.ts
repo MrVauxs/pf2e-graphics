@@ -35,3 +35,5 @@ declare module 'svelte' {
 }
 
 export type TokenOrDoc = TokenDocument | Token
+
+type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[]
