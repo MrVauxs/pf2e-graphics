@@ -1,12 +1,12 @@
 import { devMessage } from 'src/utils'
 
-const updateItem = Hooks.on('updateItem', (item: ItemPF2e, _options: { _id: string, system: Partial<ItemPF2e['system']> }, _id: ItemPF2e['id']) => {
+function trifectaFunc(item: ItemPF2e, _options: { _id: string, system: Partial<ItemPF2e['system']> }, _id: ItemPF2e['id']) {
 	if (!item.actor || !item.system.rules.length) return
 
 	const trigger = 'toggle' as const
 
 	const deliverable = {
-		rollOptions: [...item.getRollOptions(), ...item.actor.getRollOptions()],
+		rollOptions: [...item.getRollOptions(), ...item.actor.getRollOptions()].sort(),
 		trigger,
 		source: canvas.tokens.placeables.find(x => x.actor?.id === item.actor?.id),
 		item,
@@ -14,7 +14,11 @@ const updateItem = Hooks.on('updateItem', (item: ItemPF2e, _options: { _id: stri
 
 	devMessage('Toggle Hook Data', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
-})
+}
+
+const updateItem = Hooks.on('updateItem', trifectaFunc)
+const createItem = Hooks.on('createItem', trifectaFunc)
+const deleteItem = Hooks.on('deleteItem', trifectaFunc)
 
 if (import.meta.hot) {
 	// Prevents reloads
@@ -22,5 +26,7 @@ if (import.meta.hot) {
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
 		Hooks.off('updateItem', updateItem)
+		Hooks.off('createItem', createItem)
+		Hooks.off('deleteItem', deleteItem)
 	})
 }

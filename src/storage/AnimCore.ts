@@ -80,6 +80,10 @@ export let AnimCore = class AnimCore {
 		return (folder as FolderObject).contents !== undefined
 	}
 
+	static uglifyRollOptions(array: string[]) {
+		return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
+	}
+
 	static getMatchingAnimationTrees(
 		array: string[] | undefined,
 		_item?: ItemPF2e | null,
@@ -88,7 +92,7 @@ export let AnimCore = class AnimCore {
 		if ((_item || _userId)) devMessage('Item and User animations are not yet implemented in getMatchingAnimationTrees!')
 		if (!array) return {}
 		return AnimCore.getKeys()
-			.filter(key => array.includes(key))
+			.filter(key => this.uglifyRollOptions(array).includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
 	}
 

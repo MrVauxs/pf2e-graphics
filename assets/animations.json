@@ -1,5 +1,5 @@
 {
-	"weapon-infusion:ranged": [
+	"effect:weapon-infusion": [
 		{
 			"trigger": "toggle",
 			"preset": "onToken",
@@ -63,7 +63,7 @@
 			]
 		}
 	],
-	"effect:slug:spell-effect-shield": [
+	"effect:shield": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
@@ -130,7 +130,7 @@
 			}
 		}
 	],
-	"effect:slug:effect-kinetic-aura": [
+	"effect:kinetic-aura": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
