@@ -327,16 +327,14 @@
 			]
 		}
 	],
-	"item:slug:blazing-wave": "origin:item:slug:fireball",
-	"origin:item:slug:blazing-wave": [
+	"item:slug:blazing-wave": [
 		{
 			"trigger": "place-template",
 			"preset": "template",
 			"file": "jb2a.breath_weapons02.burst.cone.fire.orange.02"
 		}
 	],
-	"item:slug:fireball": "origin:item:slug:fireball",
-	"origin:item:slug:fireball": [
+	"item:slug:fireball": [
 		{
 			"trigger": "place-template",
 			"contents": [
