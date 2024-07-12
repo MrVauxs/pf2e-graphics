@@ -4,9 +4,17 @@
 		"modifyItem": "Modify Item Animations",
 		"settings": {
 			"windowPosition": {
-				"name": "Window Position",
+				"name": "Item Config Position",
+				"hint": "Changes where the items animation configuration appears.",
 				"sidebar": "Sidebar",
 				"onTop": "On Top"
+			},
+			"quality": {
+				"name": "Animation Detail",
+				"hint": "What level of detail animations should have. Some animations may be more hardware-demanding, requiring you to lower this setting.",
+				"0": "Low",
+				"1": "Medium",
+				"2": "High"
 			}
 		},
 		"tooltip": {

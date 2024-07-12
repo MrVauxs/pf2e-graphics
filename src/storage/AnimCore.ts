@@ -129,14 +129,14 @@ export let AnimCore = class AnimCore {
 	static testAnimation(animationData: AnimationDataObject) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
 		this.animate(
-			foundry.utils.mergeObject(animationData, { options: { locally: true } }),
+			animationData,
 			{
 				targets: Array.from(game.user.targets),
 				source: canvas.tokens.controlled[0],
 				sequence,
 			},
 		)
-		sequence.play()
+		sequence.play({ local: true })
 	}
 
 	static findAndAnimate({
@@ -144,23 +144,23 @@ export let AnimCore = class AnimCore {
 		rollOptions,
 		item,
 		...rest
-	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }) {
+	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
 
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
 
 		for (const branch of Object.values(animationTree)) {
-			let validAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
+			let validAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
 
 			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
 
 			for (const animation of validAnimations) {
 				this.animate(animation, { ...rest, sequence, item })
 			}
-
-			sequence.play()
 		}
+
+		sequence.play({ local: true })
 	}
 }
 

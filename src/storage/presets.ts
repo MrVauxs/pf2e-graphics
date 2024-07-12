@@ -48,12 +48,16 @@ export const helpers = {
 		if (options?.fadeOut)
 			seq.fadeOut(options.fadeOut?.value, options.fadeOut)
 		if (options?.belowTokens)
-			seq.belowTokens(options?.belowTokens ?? false)
+			seq.belowTokens(options.belowTokens ?? false)
+		if (options?.duration)
+			seq.duration(options.duration)
 
 		if (options?.persist)
 			seq.persist(options.persist?.value || false, options.persist)
 		if (options?.tieToDocuments)
 			seq.tieToDocuments([_item])
+		if (options?.mask)
+			seq.mask()
 
 		return seq
 	},
@@ -61,8 +65,8 @@ export const helpers = {
 
 type presetOptions<T> =
 	T extends 'onToken' ? ('target' | 'source' | 'both') :
-		T extends 'ranged' ? { bounce: true, file: string } :
-			never
+	T extends 'ranged' ? { bounce: true, file: string } :
+	never
 
 interface EffectOptions<T extends PresetKeys> {
 	preset: presetOptions<T>
@@ -70,7 +74,9 @@ interface EffectOptions<T extends PresetKeys> {
 	tieToDocuments: true
 	belowTokens: boolean
 	waitUntilFinished: number
+	duration: number
 	rotate: number
+	mask: true
 	fadeIn: { value: number } & EasingOptions
 	fadeOut: { value: number } & EasingOptions
 	scale: {

@@ -16,12 +16,13 @@
 			}
 		}
 	],
-	"trap-finder": [
+	"feat:slug:trap-finder": [
 		{
 			"trigger": "toggle",
 			"preset": "onToken",
 			"file": "jb2a.magic_signs.rune.illusion.complete",
 			"options": {
+				"trigger": "on",
 				"scaleToObject": {
 					"value": 1
 				},
@@ -33,6 +34,26 @@
 				},
 				"fadeOut": {
 					"value": 500
+				}
+			}
+		},
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"file": "jb2a.wind_stream.200.white",
+			"options": {
+				"trigger": "off",
+				"scaleToObject": {
+					"value": 1
+				},
+				"mask": true,
+				"rotate": -90,
+				"duration": 1000,
+				"fadeOut": {
+					"value": 500
+				},
+				"fadeIn": {
+					"value": 250
 				}
 			}
 		}
