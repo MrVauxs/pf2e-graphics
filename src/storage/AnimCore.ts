@@ -80,6 +80,12 @@ export let AnimCore = class AnimCore {
 		return (folder as FolderObject).contents !== undefined
 	}
 
+	static prepRollOptions(array: string[]) {
+		const quality = game.settings.get('pf2e-graphics', 'quality') as 0 | 1 | 2
+		return this.uglifyRollOptions(array).concat([`graphics-quality:${quality}`])
+	}
+
+	// Not sure if this is a good idea but worst case scenario its just adding annoying prefixes to a bunch of stuff
 	static uglifyRollOptions(array: string[]) {
 		return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
@@ -91,8 +97,10 @@ export let AnimCore = class AnimCore {
 	): Record<string, AnimationDataObject[]> {
 		if ((_item || _userId)) devMessage('Item and User animations are not yet implemented in getMatchingAnimationTrees!')
 		if (!array) return {}
+
+		const preparedOptions = this.prepRollOptions(array)
 		return AnimCore.getKeys()
-			.filter(key => this.uglifyRollOptions(array).includes(key))
+			.filter(key => preparedOptions.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
 	}
 
