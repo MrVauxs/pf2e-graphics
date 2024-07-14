@@ -10,7 +10,7 @@
 		"types": [
 			"vite/client",
 			"foundry-pf2e",
-			"sequencer/typings/types.d.ts"
+			"sequencer"
 		],
 		"allowImportingTsExtensions": true,
 		/**
