@@ -90,7 +90,14 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	},
 
 	plugins: [
-		checker({ typescript: true }),
+		checker({
+			typescript: true,
+			eslint: {
+				useFlatConfig: true,
+				lintCommand: 'eslint "./src/**/*"',
+			},
+			// svelte https://github.com/fi3ework/vite-plugin-checker/issues/370
+		}),
 		tsconfigPaths(),
 		svelte({
 			compilerOptions: {
