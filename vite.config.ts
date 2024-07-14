@@ -1,8 +1,9 @@
 /* eslint-env node */
 import fs from 'node:fs'
-import { type Connect, defineConfig } from 'vite'
+import { type Connect, type PluginOption, defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { sveltePreprocess } from 'svelte-preprocess'
+import * as glob from 'glob'
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
@@ -113,20 +114,53 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 				})
 			},
 		},
+		mergeAnimationsPlugin(),
+	],
+}))
+
+function mergeAnimationsPlugin(): PluginOption {
+	const mergeAnimations = () => {
+		let o = {}
+		for (const file of glob.globSync('./animations/**/*.json')) {
+			const content = fs.readFileSync(file, { encoding: 'utf-8' })
+			const json = JSON.parse(content)
+			o = { ...json, ...o }
+		}
+		return o
+	}
+
+	return [
 		{
-			name: 'update-animations-json',
-			handleHotUpdate({ file, server, read: _read }) {
-				if (file.endsWith('animations.json')) {
+			name: 'build-animations-dev',
+			apply: 'serve',
+			configureServer(server) {
+				server.watcher.add('./animations')
+				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
+					if (req.originalUrl === `/${packagePath}/dist/animations.json`)
+						res.end(JSON.stringify(mergeAnimations()))
+					else next()
+				})
+			},
+			handleHotUpdate({ file, server }) {
+				if (file.startsWith('animations/') && file.endsWith('json')) {
 					server.ws.send({
 						event: 'updateAnims',
 						type: 'custom',
-						data: fs.readFileSync(file, 'utf-8'),
+						data: JSON.stringify(mergeAnimations()),
 					})
-					return []
 				}
 			},
 		},
-	],
+		{
+			name: 'build-animations',
+			apply: 'build',
+			generateBundle() {
+				this.emitFile({
+					type: 'asset',
+					fileName: 'animations.json',
+					source: JSON.stringify(mergeAnimations()),
+				})
+			},
+		},
+	]
 }
-),
-)
