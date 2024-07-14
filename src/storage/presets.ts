@@ -11,12 +11,24 @@ export const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces
 	},
-	parseOffset(offset: Point & { flip: { x: true, y: true } }, source: Point, target: Point) {
-		const result = { x: offset.x, y: offset.y }
+	parseOffsetEmbedded(options: { offset?: Offset } | undefined, source: Point, target: Point) {
+		return { ...options, offset: (options?.offset ? this.parseOffset(options?.offset, source, target) : undefined) }
+	},
+	parseOffset(offset: Offset, source: Point, target: Point) {
+		const result = {
+			x: offset.x ?? 0,
+			y: offset.y ?? 0,
+		}
+		if (Array.isArray(result.x))
+			result.x = Sequencer.Helpers.random_float_between(result.x[0], result.x[1])
+		if (Array.isArray(result.y))
+			result.y = Sequencer.Helpers.random_float_between(result.y[0], result.y[1])
+
 		if (offset.flip?.x && source.x > target.x)
 			result.x *= -1
 		if (offset.flip?.y && source.y > target.y)
 			result.y *= -1
+
 		return result
 	},
 	getCenterCoords(target: Target): Point | undefined {
@@ -51,6 +63,14 @@ export const helpers = {
 			seq.belowTokens(options.belowTokens ?? false)
 		if (options?.duration)
 			seq.duration(options.duration)
+		if (options?.randomizeMirrorX)
+			seq.randomizeMirrorX(options.randomizeMirrorX)
+		if (options?.randomizeMirrorY)
+			seq.randomizeMirrorY(options.randomizeMirrorY)
+		if (options?.repeats)
+			seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
+		if (options?.template)
+			seq.template(options.template)
 
 		// Adds new effects
 		if (options?.shape)
@@ -84,6 +104,8 @@ interface EffectOptions<T extends PresetKeys> {
 	preset: presetOptions<T>
 	locally: boolean
 	id: string
+	randomizeMirrorX: boolean
+	randomizeMirrorY: boolean
 	remove: string | string[]
 	tieToDocuments: true
 	belowTokens: boolean
@@ -109,10 +131,17 @@ interface EffectOptions<T extends PresetKeys> {
 	stretchTo: Parameters<EffectSection['stretchTo']>[1]
 	rotateTowards: Parameters<EffectSection['rotateTowards']>[1]
 	anchor: Parameters<EffectSection['anchor']>[0]
-	shape: shape | shape[]
+	template: Parameters<EffectSection['template']>[0]
+	repeats: {
+		min: Parameters<EffectSection['repeats']>[0]
+		delay: Parameters<EffectSection['repeats']>[1]
+		max: Parameters<EffectSection['repeats']>[2]
+	}
+	shape: Shape | Shape[]
 }
 
-type shape = { value: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
+type Shape = { value: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
+type Offset = Point & { flip?: { x?: true, y?: true } }
 
 export const presets = {
 	ranged: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['ranged']) => {
@@ -123,9 +152,9 @@ export const presets = {
 
 		for (const [i, target] of targets.entries()) {
 			const section = seq.effect()
-				.stretchTo(target, options?.stretchTo)
+				.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, source, target))
 
-			if (options?.preset.bounce && i > 0) {
+			if (options?.preset?.bounce && i > 0) {
 				section
 					.atLocation(targets[i - 1], options?.atLocation)
 					.file(options?.preset.file)
@@ -149,8 +178,8 @@ export const presets = {
 		for (const target of targets) {
 			const section = seq.effect()
 				.file(file)
-				.attachTo(source, options?.attachTo)
-				.rotateTowards(target, options?.rotateTowards)
+				.attachTo(source, helpers.parseOffsetEmbedded(options?.attachTo, source, target))
+				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, source, target))
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 		}
@@ -166,11 +195,11 @@ export const presets = {
 
 		const result = seq.effect()
 			.file(file)
-			.attachTo(affectedToken, options?.attachTo)
+			.attachTo(affectedToken, helpers.parseOffsetEmbedded(options?.attachTo, affectedToken, target || affectedToken))
 			.anchor(foundry.utils.mergeObject({ x: 0.5, y: 0.5 }, options?.anchor || {}))
 
 		if (options?.rotateTowards)
-			result.rotateTowards(target, options?.rotateTowards)
+			result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, affectedToken, target || affectedToken))
 
 		return helpers.genericSequencerFunctions(result, item, affectedToken, options)
 	},
@@ -181,10 +210,10 @@ export const presets = {
 		for (const target of targets) {
 			const section = seq.effect()
 				.file(file)
-				.attachTo(target, options?.attachTo)
+				.attachTo(target, helpers.parseOffsetEmbedded(options?.attachTo, target, target))
 
 			if (target.type === 'line' || target.type === 'cone')
-				section.stretchTo(target, options?.stretchTo)
+				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, target, target))
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 		}

@@ -1,4 +1,4 @@
-import { ErrorMsg, devMessage } from 'src/utils.ts'
+import { ErrorMsg, dev, devMessage, findTokenByActor } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import type { PresetKeys } from './presets'
@@ -141,16 +141,18 @@ export let AnimCore = class AnimCore {
 		data.sequence.preset(animation.preset, { file: animation.file, options: animation.options, ...data })
 	}
 
-	static testAnimation(animationData: AnimationDataObject) {
+	static testAnimation(animationData: AnimationDataObject, item: ItemPF2e) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
 		this.animate(
 			animationData,
 			{
 				targets: Array.from(game.user.targets),
-				source: canvas.tokens.controlled[0],
+				source: findTokenByActor(item.actor) ?? canvas.tokens.controlled[0],
+				item,
 				sequence,
 			},
 		)
+
 		sequence.play({ local: true })
 	}
 
@@ -161,7 +163,7 @@ export let AnimCore = class AnimCore {
 		...rest
 	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
-		const sequence = new Sequence({ inModuleName: 'pf2e-graphics' })
+		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
 
