@@ -1,5 +1,6 @@
 import { ErrorMsg, devMessage } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
+import { settings } from 'src/settings'
 import type { PresetKeys } from './presets'
 
 export const helpers = {
@@ -81,8 +82,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		const quality = game.settings.get('pf2e-graphics', 'quality') as 0 | 1 | 2
-		return this.uglifyRollOptions(array).concat([`graphics-quality:${quality}`])
+		return this.uglifyRollOptions(array).concat([`graphics-quality:${settings.quality}`])
 	}
 
 	// Not sure if this is a good idea but worst case scenario its just adding annoying prefixes to a bunch of stuff
@@ -196,7 +196,7 @@ type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 
 // #region Animation Data Parsing
 export type TriggerTypes =
-	'attack-roll'
+	| 'attack-roll'
 	| 'damage-roll'
 	| 'spell-cast'
 	| 'damage-taken'
