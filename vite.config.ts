@@ -156,9 +156,19 @@ function mergeAnimationsPlugin(): PluginOption {
 			configureServer(server) {
 				server.watcher.add('./animations')
 				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
-					if (req.originalUrl === `/${packagePath}/dist/animations.json`)
-						res.end(JSON.stringify(mergeAnimations().animations))
-					else next()
+					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
+						const { animations, duplicateKeys } = mergeAnimations()
+						res.end(JSON.stringify(animations))
+					if (duplicateKeys.length) {
+							server.ws.send({
+								event: 'updateAnimsError',
+								type: 'custom',
+								data: JSON.stringify(duplicateKeys),
+							})
+						}
+					} else {
+						next()
+}
 				})
 			},
 			handleHotUpdate({ file, server }) {
