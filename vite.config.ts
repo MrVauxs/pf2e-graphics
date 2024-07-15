@@ -114,6 +114,16 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 				})
 			},
 		},
+		{
+			name: 'create-dist-files',
+			apply: 'serve',
+			buildStart() {
+				const files = [...moduleJSON.esmodules, moduleJSON.styles].flat()
+				for (const name of files) {
+					fs.writeFileSync(`${name}`, '', { flag: 'a' })
+				}
+			},
+		},
 		mergeAnimationsPlugin(),
 	],
 }))
