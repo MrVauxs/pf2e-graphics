@@ -130,13 +130,23 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 
 function mergeAnimationsPlugin(): PluginOption {
 	const mergeAnimations = () => {
-		let o = {}
+		let animations = {}
+		const keys = new Set<string>()
+		const duplicateKeys: string[] = []
 		for (const file of glob.globSync('./animations/**/*.json')) {
-			const content = fs.readFileSync(file, { encoding: 'utf-8' })
-			const json = JSON.parse(content)
-			o = { ...json, ...o }
+			try {
+				const content = fs.readFileSync(file, { encoding: 'utf-8' })
+				const json = JSON.parse(content)
+				animations = { ...json, ...animations }
+				for (const k of Object.keys(json)) {
+					if (keys.has(k)) duplicateKeys.push(k)
+					keys.add(k)
+				}
+			} catch (e) {
+				throw new Error(`Failed to parse ${file}: ${e}`)
+			}
 		}
-		return o
+		return { animations, duplicateKeys }
 	}
 
 	return [
@@ -147,17 +157,25 @@ function mergeAnimationsPlugin(): PluginOption {
 				server.watcher.add('./animations')
 				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`)
-						res.end(JSON.stringify(mergeAnimations()))
+						res.end(JSON.stringify(mergeAnimations().animations))
 					else next()
 				})
 			},
 			handleHotUpdate({ file, server }) {
 				if (file.startsWith('animations/') && file.endsWith('json')) {
+					const { animations, duplicateKeys } = mergeAnimations()
 					server.ws.send({
 						event: 'updateAnims',
 						type: 'custom',
-						data: JSON.stringify(mergeAnimations()),
+						data: JSON.stringify(animations),
 					})
+					if (duplicateKeys.length) {
+						server.ws.send({
+							event: 'updateAnimsError',
+							type: 'custom',
+							data: JSON.stringify(duplicateKeys),
+						})
+					}
 				}
 			},
 		},
@@ -165,10 +183,12 @@ function mergeAnimationsPlugin(): PluginOption {
 			name: 'build-animations',
 			apply: 'build',
 			generateBundle() {
+				const { animations, duplicateKeys } = mergeAnimations()
+				if (duplicateKeys.length) throw new Error(`Duplicate keys in animation files: ${duplicateKeys}`)
 				this.emitFile({
 					type: 'asset',
 					fileName: 'animations.json',
-					source: JSON.stringify(mergeAnimations()),
+					source: JSON.stringify(animations),
 				})
 			},
 		},

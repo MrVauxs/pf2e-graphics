@@ -22,6 +22,10 @@ if (import.meta.hot) {
 		window.pf2eGraphics.modules['pf2e-graphics'] = JSON.parse(data)
 		ui.notifications.info('Animations updated!')
 	})
+	import.meta.hot.on('updateAnimsError', (data) => {
+		ui.notifications.error('Animation files contain duplicate keys! Check console for details')
+		console.error('Duplicate keys: ', data)
+	})
 
 	import.meta.hot.accept('./AnimationStorage.ts', (newModule) => {
 		if (newModule) {
