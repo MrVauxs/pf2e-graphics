@@ -1,8 +1,9 @@
 /* eslint-env node */
 import fs from 'node:fs'
-import { type Connect, defineConfig } from 'vite'
+import { type Connect, type PluginOption, defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { sveltePreprocess } from 'svelte-preprocess'
+import * as glob from 'glob'
 import checker from 'vite-plugin-checker'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import resolve from '@rollup/plugin-node-resolve' // This resolves NPM modules from node_modules.
@@ -121,19 +122,90 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			},
 		},
 		{
-			name: 'update-animations-json',
-			handleHotUpdate({ file, server, read: _read }) {
-				if (file.endsWith('animations.json')) {
-					server.ws.send({
-						event: 'updateAnims',
-						type: 'custom',
-						data: fs.readFileSync(file, 'utf-8'),
-					})
-					return []
+			name: 'create-dist-files',
+			apply: 'serve',
+			buildStart() {
+				const files = [...moduleJSON.esmodules, ...moduleJSON.styles]
+				for (const name of files) {
+					fs.writeFileSync(`${name}`, '', { flag: 'a' })
 				}
 			},
 		},
+		mergeAnimationsPlugin(),
 	],
+}))
+
+function mergeAnimationsPlugin(): PluginOption {
+	const mergeAnimations = () => {
+		let animations: Record<string, any> = {}
+		const duplicateKeys: string[] = []
+		for (const file of glob.globSync('./animations/**/*.json')) {
+			try {
+				const content = fs.readFileSync(file, { encoding: 'utf-8' })
+				const json = JSON.parse(content)
+				for (const k of Object.keys(json)) {
+					if (k in animations) duplicateKeys.push(k)
+				}
+				animations = { ...json, ...animations }
+			} catch (e) {
+				throw new Error(`Failed to parse ${file}: ${e}`)
+			}
+		}
+		return { animations, duplicateKeys }
+	}
+
+	return [
+		{
+			name: 'build-animations-dev',
+			apply: 'serve',
+			configureServer(server) {
+				server.watcher.add('./animations')
+				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
+					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
+						const { animations, duplicateKeys } = mergeAnimations()
+						res.end(JSON.stringify(animations))
+						if (duplicateKeys.length) {
+							server.ws.send({
+								event: 'updateAnimsError',
+								type: 'custom',
+								data: JSON.stringify(duplicateKeys),
+							})
+						}
+					} else {
+						next()
+					}
+				})
+			},
+			handleHotUpdate({ file, server }) {
+				if (file.startsWith('animations/') && file.endsWith('json')) {
+					const { animations, duplicateKeys } = mergeAnimations()
+					server.ws.send({
+						event: 'updateAnims',
+						type: 'custom',
+						data: JSON.stringify(animations),
+					})
+					if (duplicateKeys.length) {
+						server.ws.send({
+							event: 'updateAnimsError',
+							type: 'custom',
+							data: JSON.stringify(duplicateKeys),
+						})
+					}
+				}
+			},
+		},
+		{
+			name: 'build-animations',
+			apply: 'build',
+			generateBundle() {
+				const { animations, duplicateKeys } = mergeAnimations()
+				if (duplicateKeys.length) throw new Error(`Duplicate keys in animation files: ${duplicateKeys}`)
+				this.emitFile({
+					type: 'asset',
+					fileName: 'animations.json',
+					source: JSON.stringify(animations),
+				})
+			},
+		},
+	]
 }
-),
-)
