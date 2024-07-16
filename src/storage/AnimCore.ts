@@ -163,6 +163,7 @@ export let AnimCore = class AnimCore {
 		...rest
 	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
+		// TODO: Make a look-ahead or check the side-effects of making every new branch its own Sequence.
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
