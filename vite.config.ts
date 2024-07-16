@@ -130,18 +130,16 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 
 function mergeAnimationsPlugin(): PluginOption {
 	const mergeAnimations = () => {
-		let animations = {}
-		const keys = new Set<string>()
+		let animations: Record<string, any> = {}
 		const duplicateKeys: string[] = []
 		for (const file of glob.globSync('./animations/**/*.json')) {
 			try {
 				const content = fs.readFileSync(file, { encoding: 'utf-8' })
 				const json = JSON.parse(content)
-				animations = { ...json, ...animations }
-				for (const k of Object.keys(json)) {
-					if (keys.has(k)) duplicateKeys.push(k)
-					keys.add(k)
-				}
+								for (const k of Object.keys(json)) {
+					if (k in animations) duplicateKeys.push(k)
+									}
+animations = { ...json, ...animations }
 			} catch (e) {
 				throw new Error(`Failed to parse ${file}: ${e}`)
 			}
