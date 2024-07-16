@@ -1,0 +1,92 @@
+{
+	"item:base:longsword": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.03.greatsword.01",
+			"options": {
+				"scaleToObject": {
+					"value": 3.5
+				},
+				"attachTo": {
+					"offset": {
+						"x": -1,
+						"y": -0.5,
+						"flip": {
+							"x": true,
+							"y": true
+						}
+					},
+					"gridUnits": true
+				}
+			},
+			"predicate": [
+				"melee"
+			]
+		}
+	],
+	"item:base:dagger": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"predicate": [
+				"thrown"
+			],
+			"contents": [
+				{
+					"file": "jb2a.dagger.throw.01.white",
+					"default": true
+				},
+				{
+					"file": "jb2a.dagger.throw.01.blue",
+					"predicate": [
+						"item:rune:property:frost"
+					]
+				}
+			]
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"options": {
+				"scaleToObject": {
+					"value": 3
+				},
+				"attachTo": {
+					"offset": {
+						"x": -1,
+						"y": -0.5,
+						"flip": {
+							"x": true,
+							"y": true
+						}
+					},
+					"gridUnits": true
+				}
+			},
+			"predicate": [
+				"melee"
+			],
+			"contents": [
+				{
+					"file": "jb2a.dagger.melee.02.white",
+					"default": true
+				},
+				{
+					"file": "jb2a.dagger.melee.fire.blue",
+					"predicate": [
+						"item:rune:property:frost"
+					]
+				}
+			]
+		}
+	],
+	"item:base:shortbow": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.arrow.physical.white.01"
+		}
+	],
+	"item:base:longbow": "item:base:shortbow"
+}

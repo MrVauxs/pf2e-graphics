@@ -1,0 +1,29 @@
+{
+	"effect:shield": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.shield.01.complete.01",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"persist": {
+					"value": true,
+					"persistTokenPrototype": true
+				},
+				"tieToDocuments": true
+			}
+		}
+	],
+	"effect:kinetic-aura": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.impact.ground_crack.orange",
+			"options": {
+				"belowTokens": true
+			}
+		}
+	]
+}
