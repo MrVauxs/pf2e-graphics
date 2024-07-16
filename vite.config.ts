@@ -136,10 +136,10 @@ function mergeAnimationsPlugin(): PluginOption {
 			try {
 				const content = fs.readFileSync(file, { encoding: 'utf-8' })
 				const json = JSON.parse(content)
-								for (const k of Object.keys(json)) {
+				for (const k of Object.keys(json)) {
 					if (k in animations) duplicateKeys.push(k)
-									}
-animations = { ...json, ...animations }
+				}
+				animations = { ...json, ...animations }
 			} catch (e) {
 				throw new Error(`Failed to parse ${file}: ${e}`)
 			}
@@ -157,7 +157,7 @@ animations = { ...json, ...animations }
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
 						const { animations, duplicateKeys } = mergeAnimations()
 						res.end(JSON.stringify(animations))
-					if (duplicateKeys.length) {
+						if (duplicateKeys.length) {
 							server.ws.send({
 								event: 'updateAnimsError',
 								type: 'custom',
@@ -166,7 +166,7 @@ animations = { ...json, ...animations }
 						}
 					} else {
 						next()
-}
+					}
 				})
 			},
 			handleHotUpdate({ file, server }) {
