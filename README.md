@@ -6,6 +6,7 @@
 ![All Downloads](https://img.shields.io/github/downloads/MrVauxs/pf2e-graphics/total?color=purple&label=All%20Downloads)
 ![Latest Version Downloads](https://img.shields.io/github/downloads/MrVauxs/pf2e-graphics/latest/total?color=purple&label=Latest%20Version%20Downloads&sort=semver)
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fpf2e-graphics&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=pf2e-graphics)
+[![ko-fi](https://shields.io/badge/ko--fi-Buy_me_a_coffee-ff5f5f?logo=ko-fi&style=for-the-badgeKo-fi)](https://ko-fi.com/O4O4DLQC)
 
 ## License
 
