@@ -71,6 +71,8 @@ export const helpers = {
 			seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
 		if (options?.template)
 			seq.template(options.template)
+		if (options?.tint)
+			seq.tint(options.tint)
 
 		// Adds new effects
 		if (options?.shape)
@@ -88,8 +90,12 @@ export const helpers = {
 			[options.remove].flat().forEach(origin => Sequencer.EffectManager.endEffects({ origin }))
 		}
 
-		seq.origin(options?.id ?? _item.uuid)
-		seq.name(_item.name)
+		if (_item) {
+			seq.origin(options?.id ?? _item.uuid)
+			seq.name(_item.name)
+		} else if (options?.id) {
+			seq.origin(options.id)
+		}
 
 		return seq
 	},
@@ -111,6 +117,7 @@ interface EffectOptions<T extends PresetKeys> {
 	belowTokens: boolean
 	waitUntilFinished: number
 	duration: number
+	tint: string
 	rotate: number
 	mask: true
 	fadeIn: { value: number } & EasingOptions

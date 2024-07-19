@@ -31,3 +31,7 @@ export function i18n(string: string, format?: any) {
 }
 
 export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id)
+
+export function dedupeStrings(array: string[]) {
+	return Array.from(new Set(array))
+}

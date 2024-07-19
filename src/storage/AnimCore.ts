@@ -1,4 +1,4 @@
-import { ErrorMsg, dev, devMessage, findTokenByActor } from 'src/utils.ts'
+import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import type { PresetKeys } from './presets'
@@ -35,7 +35,7 @@ export let AnimCore = class AnimCore {
 		return Object.keys(this.getAnimations())
 	}
 
-	static getAnimationObject(key: string | undefined): AnimationDataObject[] | undefined {
+	static getAnimationObject(key: string | undefined): AnimationDataObject[] {
 		if (!key || typeof key !== 'string') {
 			throw new ErrorMsg(`You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
 		}
@@ -49,7 +49,7 @@ export let AnimCore = class AnimCore {
 		if (this.isReference(animationObject)) {
 			const reference = AnimCore.getAnimationObject(animationObject.reference)
 			if (!reference) {
-				return undefined
+				throw new ErrorMsg(`There is a missing reference at ${JSON.stringify(animationObject)}`)
 			}
 
 			// References can have their own properties which override anything upstream
@@ -82,10 +82,14 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return this.uglifyRollOptions(array).concat([`graphics-quality:${settings.quality}`])
+		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${settings.quality}`]))
 	}
 
-	// Not sure if this is a good idea but worst case scenario its just adding annoying prefixes to a bunch of stuff
+	static allAnimations(): { [key: string]: AnimationDataObject[] } {
+		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
+	}
+
+	// Not sure if this is a good idea but worst case scenario we are just gonna have to add annoying prefixes to a bunch of stuff
 	static uglifyRollOptions(array: string[]) {
 		return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
@@ -163,9 +167,6 @@ export let AnimCore = class AnimCore {
 		...rest
 	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
-		// TODO: Make a look-ahead or check the side-effects of making every new branch its own Sequence.
-		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
-
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
 
 		for (const branch of Object.values(animationTree)) {
@@ -173,12 +174,14 @@ export let AnimCore = class AnimCore {
 
 			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
 
+			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
+
 			for (const animation of validAnimations) {
 				this.animate(animation, { ...rest, sequence, item })
 			}
-		}
 
-		sequence.play({ local: true })
+			sequence.play({ local: true })
+		}
 	}
 }
 
@@ -187,6 +190,7 @@ if (import.meta.hot) {
 		if (newModule) {
 			AnimCore = newModule?.AnimCore
 			window.pf2eGraphics.AnimCore = newModule?.AnimCore
+			window.AnimCore = newModule?.AnimCore
 			ui.notifications.info('AnimCore updated!')
 		}
 	})
@@ -208,6 +212,8 @@ export type TriggerTypes =
 	| CheckType
 	| 'effect'
 	| 'toggle'
+	| 'startTurn'
+	| 'endTurn'
 
 interface AnimationDataObject {
 	trigger: TriggerTypes
@@ -223,6 +229,7 @@ interface AnimationDataObject {
 declare global {
 	interface Window {
 		pf2eGraphics: pf2eGraphics
+		AnimCore: typeof AnimCore
 	}
 	interface pf2eGraphics {
 		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>

@@ -1,5 +1,5 @@
 {
-	"effect:shield": [
+	"self:effect:shield": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
@@ -16,13 +16,43 @@
 			}
 		}
 	],
-	"effect:kinetic-aura": [
+	"self:effect:kinetic-aura": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.impact.ground_crack.orange",
 			"options": {
 				"belowTokens": true
+			}
+		}
+	],
+	"self:effect:marshals-aura": [
+		{
+			"trigger": "startTurn",
+			"preset": "onToken",
+			"file": "jb2a.wind_stream.200.white",
+			"options": {
+				"scaleToObject": {
+					"value": 2
+				},
+				"tint": "#9b20e3",
+				"filter": {
+					"type": "Glow",
+					"options": {
+						"color": "#9b20e3",
+						"quality": 0.1,
+						"distance": 1
+					}
+				},
+				"mask": true,
+				"rotate": 90,
+				"duration": 2000,
+				"fadeOut": {
+					"value": 500
+				},
+				"fadeIn": {
+					"value": 250
+				}
 			}
 		}
 	]

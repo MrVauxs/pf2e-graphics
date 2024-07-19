@@ -6,6 +6,8 @@ window.pf2eGraphics ??= {
 	AnimCore,
 }
 
+window.AnimCore = AnimCore
+
 Hooks.on('ready', async () => {
 	for (const mod of game.modules) {
 		if (!mod.active)
@@ -26,7 +28,6 @@ if (import.meta.hot) {
 		ui.notifications.error('Animation files contain duplicate keys! Check console for details')
 		console.error('Duplicate keys: ', data)
 	})
-
 	import.meta.hot.accept('./AnimationStorage.ts', (newModule) => {
 		if (newModule) {
 			window.pf2eGraphics.AnimCore = newModule?.AnimCore
