@@ -8,7 +8,7 @@ function trifectaFunc(item: ItemPF2e, _options: { _id: string, system: Partial<I
 	const deliverable = {
 		rollOptions: [...item.getRollOptions(), ...item.actor.getRollOptions()].sort(),
 		trigger,
-		source: canvas.tokens.placeables.find(x => x.actor?.id === item.actor?.id),
+		actor: item.actor,
 		item,
 	}
 

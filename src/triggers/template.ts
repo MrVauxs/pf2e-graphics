@@ -3,14 +3,14 @@ import { devMessage } from 'src/utils'
 const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template: MeasuredTemplateDocumentPF2e, _options, _id: ChatMessagePF2e['id']) => {
 	const { actor, item, message, flags: { pf2e: { origin } } } = template
 	const trigger = 'place-template' as const
-	const source = message?.token ?? canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id)
 	const additionalOptions = {}
 
 	const deliverable = {
-		rollOptions: [...(origin?.rollOptions ?? []), ...(source?.actor?.getRollOptions() ?? [])],
+		rollOptions: [...(origin?.rollOptions ?? []), ...(message?.actor?.getRollOptions() ?? [])],
 		trigger,
 		targets: [template],
-		source,
+		source: message?.token,
+		actor,
 		item,
 		...additionalOptions,
 	}

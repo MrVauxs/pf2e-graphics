@@ -7,6 +7,7 @@ function handler({ actor, token }: CombatantPF2e, _encounter: EncounterPF2e, typ
 		trigger: `${type}Turn` as const,
 	 	source: token,
 		rollOptions: actor?.getRollOptions() || [],
+		actor,
 	}
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 }

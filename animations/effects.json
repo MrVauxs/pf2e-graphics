@@ -28,7 +28,6 @@
 	],
 	"self:effect:marshals-aura": [
 		{
-			"trigger": "startTurn",
 			"preset": "onToken",
 			"file": "jb2a.wind_stream.200.white",
 			"options": {
@@ -53,7 +52,11 @@
 				"fadeIn": {
 					"value": 250
 				}
-			}
+			},
+			"contents": [
+				{ "trigger": "startTurn" },
+				{ "trigger": "effect" }
+			]
 		}
 	]
 }

@@ -73,6 +73,8 @@ export const helpers = {
 			seq.template(options.template)
 		if (options?.tint)
 			seq.tint(options.tint)
+		if (options?.anchor)
+			seq.anchor(options.anchor)
 
 		// Adds new effects
 		if (options?.shape)
@@ -163,11 +165,11 @@ export const presets = {
 
 			if (options?.preset?.bounce && i > 0) {
 				section
-					.atLocation(targets[i - 1], options?.atLocation)
+					.atLocation(targets[i - 1], helpers.parseOffsetEmbedded(options?.atLocation, targets[i - 1], target))
 					.file(options?.preset.file)
 			} else {
 				section
-					.atLocation(source, options?.atLocation)
+					.atLocation(source, helpers.parseOffsetEmbedded(options?.atLocation, source, target))
 					.file(file)
 			}
 
@@ -202,8 +204,13 @@ export const presets = {
 
 		const result = seq.effect()
 			.file(file)
-			.attachTo(affectedToken, helpers.parseOffsetEmbedded(options?.attachTo, affectedToken, target || affectedToken))
 			.anchor(foundry.utils.mergeObject({ x: 0.5, y: 0.5 }, options?.anchor || {}))
+
+		if (options?.atLocation) {
+			result.atLocation(affectedToken, helpers.parseOffsetEmbedded(options?.atLocation, affectedToken, target || affectedToken))
+		} else {
+			result.attachTo(affectedToken, helpers.parseOffsetEmbedded(options?.attachTo, affectedToken, target || affectedToken))
+		}
 
 		if (options?.rotateTowards)
 			result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, affectedToken, target || affectedToken))

@@ -164,10 +164,16 @@ export let AnimCore = class AnimCore {
 		trigger,
 		rollOptions,
 		item,
+		actor,
+		source,
 		...rest
-	}: { item?: ItemPF2e | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
+	}: { item?: ItemPF2e | null, actor?: ActorPF2e | null, source?: TokenOrDoc | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
+		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
+		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
+		if (!source) throw new ErrorMsg('No token found!')
+
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
-		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item })
+		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item, actor, source })
 
 		for (const branch of Object.values(animationTree)) {
 			let validAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
@@ -177,7 +183,7 @@ export let AnimCore = class AnimCore {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
 			for (const animation of validAnimations) {
-				this.animate(animation, { ...rest, sequence, item })
+				this.animate(animation, { ...rest, sequence, item, actor, source })
 			}
 
 			sequence.play({ local: true })

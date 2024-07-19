@@ -8,7 +8,6 @@ const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF
 	const deliverable = {
 		rollOptions: [...item.getRollOptions(), ...(item.actor?.getRollOptions() ?? [])],
 		trigger,
-		source: canvas.tokens.placeables.find(x => x.actor?.id === item.actor?.id),
 		item,
 	}
 
