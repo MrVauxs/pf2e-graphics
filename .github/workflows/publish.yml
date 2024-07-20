@@ -50,7 +50,7 @@ jobs:
 
       - name: Build
         env:
-          IGNORE_CHECKER: true
+          IGNORE_CHECKER: ${{ github.event.release.prerelease }}
         run: |
           npm ci
           npm run build
