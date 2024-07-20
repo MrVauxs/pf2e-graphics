@@ -20,6 +20,7 @@ export default antfu({
 		'import/no-mutable-exports': 'off',
 		'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 		'unused-imports/no-unused-vars': 'warn',
+		'node/prefer-global/process': 'always',
 	},
 
 	ignores: [],

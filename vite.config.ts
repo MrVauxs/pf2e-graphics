@@ -91,7 +91,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	},
 
 	plugins: [
-		checker({
+		process.env.IGNORE_CHECKER ? undefined : checker({
 			typescript: true,
 			eslint: {
 				useFlatConfig: true,
