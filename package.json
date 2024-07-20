@@ -10,7 +10,8 @@
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"lint:fix": "eslint . --fix",
+		"changelog": "changelog --format markdownlint --release --create"
 	},
 	"imports": {
 		"#runtime/*": "@typhonjs-fvtt/runtime/*",
@@ -22,6 +23,7 @@
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^2.21.2",
+		"keep-a-changelog": "^2.5.3",
 		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@sveltejs/vite-plugin-svelte": "^3.1.1",
 		"@tsconfig/svelte": "^5.0.4",

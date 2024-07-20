@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.9] - Unreleased
 
 ### Added
 
@@ -21,12 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Changelogs using keep a changelog format.
+- Changelogs using [keep a changelog](https://keepachangelog.com/en/1.1.0/) format.
 - Quality Settings
-- Test Runner
 - Basic Sounds (Unprocessed)
 - Ko-Fi Donation Button
 - Effect, Template, Toggle, Start / End of Turn triggers for animations
+- Test Runner
 
 ### Changed
 
@@ -35,12 +35,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.8-alpha...HEAD
-[0.0.8-alpha]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!7...0.0.8-alpha
-[0.0.!7]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!6...0.0.!7
-[0.0.!6]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!5...0.0.!6
-[0.0.!5]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!4...0.0.!5
-[0.0.!4]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!3...0.0.!4
-[0.0.!3]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!2...0.0.!3
-[0.0.!2]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.!1...0.0.!2
-[0.0.!1]: https://github.com/MrVauxs/pf2e-graphics/releases/tag/0.0.!1
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.8-alpha...HEAD
+[0.0.8-alpha]: https://github.com/MrVauxs/pf2e-graphics/releases/tag/0.0.8-alpha
