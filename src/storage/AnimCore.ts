@@ -170,7 +170,10 @@ export let AnimCore = class AnimCore {
 	}: { item?: ItemPF2e | null, actor?: ActorPF2e | null, source?: TokenOrDoc | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
 		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
-		if (!source) throw new ErrorMsg('No token found!')
+		if (!source) {
+			devMessage("No Token Found!")
+			return
+		};
 
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item, actor, source })

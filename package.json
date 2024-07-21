@@ -11,7 +11,7 @@
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"changelog": "changelog --format markdownlint --release --create"
+		"changelog": "changelog --format markdownlint --release --create --no-v-prefix"
 	},
 	"imports": {
 		"#runtime/*": "@typhonjs-fvtt/runtime/*",
