@@ -35,5 +35,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.8-alpha...HEAD
 [0.0.8-alpha]: https://github.com/MrVauxs/pf2e-graphics/releases/tag/0.0.8-alpha
