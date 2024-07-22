@@ -75,6 +75,10 @@ export const helpers = {
 			seq.tint(options.tint)
 		if (options?.anchor)
 			seq.anchor(options.anchor)
+		if (options?.wait)
+			seq.wait(options.wait.min, options.wait?.max)
+		if (options?.delay)
+			seq.delay(options.delay.min, options.delay?.max)
 
 		// Adds new effects
 		if (options?.shape)
@@ -126,6 +130,14 @@ interface EffectOptions<T extends PresetKeys> {
 	fadeOut: { value: number } & EasingOptions
 	scale: {
 		min: number | { x: number, y: number }
+		max?: number
+	}
+	wait: {
+		min: number
+		max?: number
+	}
+	delay: {
+		min: number
 		max?: number
 	}
 	scaleToObject: { value: number } & Parameters<EffectSection['scaleToObject']>[1]

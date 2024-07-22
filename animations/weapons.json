@@ -1,4 +1,41 @@
 {
+	"item:base:arquebus": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.bullet.02.orange",
+			"overrides": [
+				"item:group:firearm"
+			]
+		}
+	],
+	"item:group:firearm": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.bullet.01.orange"
+		}
+	],
+	"item:base:light-pick": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_generic.piercing.one_handed",
+			"options": {
+				"scaleToObject": {
+					"value": 4
+				},
+				"template": {
+					"gridSize": 200,
+					"startPoint": 150,
+					"endPoint": 200
+				}
+			},
+			"predicate": [
+				"melee"
+			]
+		}
+	],
 	"item:base:longsword": [
 		{
 			"trigger": "attack-roll",

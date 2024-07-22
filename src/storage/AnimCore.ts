@@ -178,14 +178,25 @@ export let AnimCore = class AnimCore {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
 		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item, actor, source })
 
-		for (const branch of Object.values(animationTree)) {
-			let validAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
+		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
-			if (validAnimations.filter(a => !a.default).length > 0) validAnimations = validAnimations.filter(a => !a.default)
+		for (const [key, branch] of Object.entries(animationTree)) {
+			let validBranchAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
 
+			if (validBranchAnimations.filter(a => !a.default).length > 0) validBranchAnimations = validBranchAnimations.filter(a => !a.default)
+
+			validAnimations[key] = validBranchAnimations
+		}
+
+		// Overrides handling
+		Object.values(validAnimations).map(anims => anims.flatMap(x => x.overrides).filter(Boolean)).forEach((overrides) => {
+			overrides.forEach(s => delete validAnimations[s])
+		})
+
+		for (const anim of Object.values(validAnimations)) {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
-			for (const animation of validAnimations) {
+			for (const animation of anim) {
 				this.animate(animation, { ...rest, sequence, item, actor, source })
 			}
 
@@ -226,6 +237,7 @@ export type TriggerTypes =
 	| 'self-effect' // Unimplemented, not sure if there are any applicable use for those message types
 
 interface AnimationDataObject {
+	overrides: string[]
 	trigger: TriggerTypes
 	preset: PresetKeys
 	file: string

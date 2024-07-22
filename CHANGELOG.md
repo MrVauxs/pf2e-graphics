@@ -8,14 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.9] - Unreleased
 
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
+- `.overrides` property, allowing for animations to remove others from being played.
+  - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
+- `.wait` and `.delay` Sequencer options.
 
 ### Fixed
+- Users being spammed with errors telling they are attempting to animate something without a token present.
+  - Especially egregious during system migrations, causing animations based on creating, updating, or removing effects and items to trigger.
+  - The error is now quietly put into console, with the error being only "loud" in dev mode.
+- Animation Triggers being added since the moment the user loads, before the system is even ready.
+
+### Animations
+- Light Pick
+- Firearm Group
+- Arquebus
 
 ## [0.0.8-alpha] - 2024-07-20
 
