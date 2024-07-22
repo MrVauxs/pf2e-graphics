@@ -160,23 +160,13 @@ export let AnimCore = class AnimCore {
 		sequence.play({ local: true })
 	}
 
-	static findAndAnimate({
-		trigger,
-		rollOptions,
-		item,
-		actor,
-		source,
-		...rest
-	}: { item?: ItemPF2e | null, actor?: ActorPF2e | null, source?: TokenOrDoc | null, rollOptions: string[], trigger: TriggerTypes }, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
-		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
-		if (!source) {
-			if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
-			return log('No Token Found to animate with! Aborting.')
-		};
-
+	static filterAnimations({ rollOptions, item, trigger, narrow }: {
+		rollOptions: string[]
+		item?: ItemPF2e | null
+		trigger: TriggerTypes
+		narrow: (a: AnimationDataObject) => boolean
+	}) {
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
-		devMessage('Animation Tree', animationTree, { trigger, rollOptions, item, actor, source })
 
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
@@ -192,6 +182,34 @@ export let AnimCore = class AnimCore {
 		Object.values(validAnimations).map(anims => anims.flatMap(x => x.overrides).filter(Boolean)).forEach((overrides) => {
 			overrides.forEach(s => delete validAnimations[s])
 		})
+
+		return validAnimations
+	}
+
+	static findAndAnimate({
+		trigger,
+		rollOptions,
+		item,
+		actor,
+		source,
+		...rest
+	}: {
+		item?: ItemPF2e | null
+		actor?: ActorPF2e | null
+		source?: TokenOrDoc | null
+		rollOptions: string[]
+		trigger: TriggerTypes
+	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
+		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
+		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
+		if (!source) {
+			if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
+			return log('No Token Found to animate with! Aborting.')
+		};
+
+		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow })
+
+		devMessage('Animating the Following', validAnimations, { trigger, rollOptions, item, actor, source })
 
 		for (const anim of Object.values(validAnimations)) {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
