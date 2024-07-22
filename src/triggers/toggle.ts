@@ -3,16 +3,14 @@ import { devMessage } from 'src/utils'
 function trifectaFunc(item: ItemPF2e, _options: { _id: string, system: Partial<ItemPF2e['system']> }, _id: ItemPF2e['id']) {
 	if (!item.actor || !item.system.rules.length) return
 
-	const trigger = 'toggle' as const
-
 	const deliverable = {
 		rollOptions: [...item.getRollOptions(), ...item.actor.getRollOptions()].sort(),
-		trigger,
+		trigger: 'toggle' as const,
 		actor: item.actor,
 		item,
 	}
 
-	devMessage('Toggle Hook Data', deliverable)
+	devMessage('Toggle Hook Data', deliverable, _options)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 }
 

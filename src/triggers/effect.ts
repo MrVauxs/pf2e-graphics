@@ -3,15 +3,13 @@ import { devMessage } from 'src/utils'
 const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF2e['id']) => {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return
 
-	const trigger = 'effect' as const
-
 	const deliverable = {
 		rollOptions: [...item.getRollOptions(), ...(item.actor?.getRollOptions() ?? [])],
-		trigger,
+		trigger: 'effect' as const,
 		item,
 	}
 
-	devMessage('Effect Hook Data', deliverable)
+	devMessage('Effect Hook Data', deliverable, _options)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 })
 

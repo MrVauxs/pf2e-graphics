@@ -1,14 +1,14 @@
 import { devMessage } from 'src/utils'
 
 function handler({ actor, token }: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end') {
-	devMessage(`${type.toUpperCase()} Turn Hook Data`, actor)
-
 	const deliverable = {
 		trigger: `${type}Turn` as const,
 		source: token,
 		rollOptions: actor?.getRollOptions() || [],
 		actor,
 	}
+
+	devMessage(`${type.toUpperCase()} Turn Hook Data`, deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 }
 

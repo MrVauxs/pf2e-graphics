@@ -1,4 +1,4 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor } from 'src/utils.ts'
+import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, log } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import type { PresetKeys } from './presets'
@@ -171,8 +171,8 @@ export let AnimCore = class AnimCore {
 		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
 		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
 		if (!source) {
-			devMessage("No Token Found!")
-			return
+			if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
+			return log('No Token Found to animate with! Aborting.')
 		};
 
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
@@ -223,6 +223,7 @@ export type TriggerTypes =
 	| 'toggle'
 	| 'startTurn'
 	| 'endTurn'
+	| 'self-effect' // Unimplemented, not sure if there are any applicable use for those message types
 
 interface AnimationDataObject {
 	trigger: TriggerTypes

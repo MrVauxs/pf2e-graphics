@@ -3,7 +3,7 @@ import { devMessage, log } from 'src/utils'
 
 const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e['id']) => {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
-	let trigger = message.flags.pf2e.context?.type as TriggerTypes
+	let trigger: TriggerTypes | undefined = message.flags.pf2e.context?.type
 	if (!message.token) return
 
 	if (!trigger) {
