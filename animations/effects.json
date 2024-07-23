@@ -32,7 +32,7 @@
 			"file": "jb2a.wind_stream.200.white",
 			"options": {
 				"scaleToObject": {
-					"value": 2
+					"value": 1.5
 				},
 				"tint": "#9b20e3",
 				"filter": {
@@ -54,8 +54,25 @@
 				}
 			},
 			"contents": [
-				{ "trigger": "startTurn" },
-				{ "trigger": "effect" }
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [{ "gte": ["graphics-quality", 3] }],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
 			]
 		}
 	]

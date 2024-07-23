@@ -23,6 +23,14 @@ export const helpers = {
 	},
 }
 
+function isReference(reference: AnimationDataObject[] | ReferenceObject): reference is ReferenceObject {
+	return typeof (reference as ReferenceObject).reference === 'string'
+}
+
+function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderObject {
+	return (folder as FolderObject).contents !== undefined
+}
+
 export let AnimCore = class AnimCore {
 	static getAnimations(): Record<string, string | ReferenceObject | AnimationDataObject[]> {
 		return Object.keys(window.pf2eGraphics.modules)
@@ -46,7 +54,7 @@ export let AnimCore = class AnimCore {
 			return AnimCore.getAnimationObject(animationObject)
 		}
 
-		if (this.isReference(animationObject)) {
+		if (isReference(animationObject)) {
 			const reference = AnimCore.getAnimationObject(animationObject.reference)
 			if (!reference) {
 				throw new ErrorMsg(`There is a missing reference at ${JSON.stringify(animationObject)}`)
@@ -57,7 +65,7 @@ export let AnimCore = class AnimCore {
 		}
 
 		return animationObject
-			.flatMap((x: AnimationDataObject | FolderObject) => this.isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
+			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
 			.map(a => ({ ...a, file: this.parseFile(a.file) }))
 	}
 
@@ -73,14 +81,6 @@ export let AnimCore = class AnimCore {
 		return file.replace(`{${options}}`, randomOption)
 	}
 
-	static isReference(reference: AnimationDataObject[] | ReferenceObject): reference is ReferenceObject {
-		return typeof (reference as ReferenceObject).reference === 'string'
-	}
-
-	static isFolder(folder: AnimationDataObject | FolderObject): folder is FolderObject {
-		return (folder as FolderObject).contents !== undefined
-	}
-
 	static prepRollOptions(array: string[]) {
 		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${settings.quality}`]))
 	}
@@ -89,7 +89,7 @@ export let AnimCore = class AnimCore {
 		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
 	}
 
-	// Not sure if this is a good idea but worst case scenario we are just gonna have to add annoying prefixes to a bunch of stuff
+	/** Not sure if this is a good idea, worst case scenario we are just gonna have to add annoying prefixes */
 	static uglifyRollOptions(array: string[]) {
 		return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
@@ -108,9 +108,11 @@ export let AnimCore = class AnimCore {
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
 	}
 
-	// Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
-	// All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
-	// The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	/**
+	 Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
+	 All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
+	 The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	 */
 	static unfoldAnimations(folder: FolderObject): AnimationDataObject[] {
 		const { contents, ...parentProps } = folder
 
@@ -133,7 +135,7 @@ export let AnimCore = class AnimCore {
 		}
 
 		return (contents || [])
-			.flatMap((x: AnimationDataObject | FolderObject) => this.isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
+			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
 			.map(child => mergeProps(parentProps, child))
 	}
 
@@ -160,12 +162,13 @@ export let AnimCore = class AnimCore {
 		sequence.play({ local: true })
 	}
 
-	static filterAnimations({ rollOptions, item, trigger, narrow }: {
+	static filterAnimations({ rollOptions: rollOptionsOG, item, trigger, narrow }: {
 		rollOptions: string[]
 		item?: ItemPF2e | null
 		trigger: TriggerTypes
 		narrow: (a: AnimationDataObject) => boolean
 	}) {
+		const rollOptions = this.prepRollOptions(rollOptionsOG)
 		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
 
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}

@@ -39,6 +39,7 @@ const settingsData = [
 				0: 'pf2e-graphics.settings.quality.0',
 				1: 'pf2e-graphics.settings.quality.1',
 				2: 'pf2e-graphics.settings.quality.2',
+				3: 'pf2e-graphics.settings.quality.3',
 			},
 		},
 	},

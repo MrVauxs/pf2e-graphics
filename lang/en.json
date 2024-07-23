@@ -12,9 +12,10 @@
 			"quality": {
 				"name": "Animation Detail",
 				"hint": "What level of detail animations should have. Some animations may be more hardware-demanding, requiring you to lower this setting.",
-				"0": "Low",
-				"1": "Medium",
-				"2": "High"
+				"0": "Minimum",
+				"1": "Low",
+				"2": "Medium",
+				"3": "High"
 			}
 		},
 		"tooltip": {
