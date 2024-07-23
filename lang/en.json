@@ -10,7 +10,7 @@
 				"onTop": "On Top"
 			},
 			"quality": {
-				"name": "Animation Detail",
+				"name": "Performance Settings",
 				"hint": "What level of detail animations should have. Some animations may be more hardware-demanding, requiring you to lower this setting.",
 				"0": "Minimum",
 				"1": "Low",

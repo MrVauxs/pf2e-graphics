@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.overrides` property, allowing for animations to remove others from being played.
   - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
 - `.wait` and `.delay` Sequencer options.
+- Animations predicated upon on Performance Settings
+
+### Changed
+- `options.shape.value` to `options.shape.type`
 
 ### Fixed
 - Users being spammed with errors telling they are attempting to animate something without a token present.
@@ -28,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Changelogs using [keep a changelog](https://keepachangelog.com/en/1.1.0/) format.
-- Quality Settings
+- Performance Settings
 - Basic Sounds (Unprocessed)
 - Ko-Fi Donation Button
 - Effect, Template, Toggle, Start / End of Turn triggers for animations

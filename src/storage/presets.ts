@@ -82,7 +82,7 @@ export const helpers = {
 
 		// Adds new effects
 		if (options?.shape)
-			[options.shape].flat().forEach(shape => seq.shape(shape.value, shape))
+			[options.shape].flat().forEach(shape => seq.shape(shape.type, shape))
 
 		// Important Stuff
 		if (options?.persist)
@@ -161,7 +161,7 @@ interface EffectOptions<T extends PresetKeys> {
 	shape: Shape | Shape[]
 }
 
-type Shape = { value: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
+type Shape = { type: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
 type Offset = Point & { flip?: { x?: true, y?: true } }
 
 export const presets = {
