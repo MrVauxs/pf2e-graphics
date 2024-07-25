@@ -171,7 +171,7 @@ export const presets = {
 		if (!source)
 			throw new ErrorMsg('Ranged animation requires a source token!')
 
-		for (const [i, target] of targets.entries()) {
+		targets.forEach((target, i) => {
 			const section = seq.effect()
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, source, target))
 
@@ -186,7 +186,7 @@ export const presets = {
 			}
 
 			helpers.genericSequencerFunctions(section, item, target, options)
-		}
+		})
 
 		return seq
 	},
