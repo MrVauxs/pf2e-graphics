@@ -1,7 +1,7 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, log } from 'src/utils.ts'
+import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, log, nonNullable } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
-import type { PresetKeys } from './presets'
+import type { PresetKeys } from './Presets'
 
 export const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
@@ -23,7 +23,7 @@ export const helpers = {
 	},
 }
 
-function isReference(reference: AnimationDataObject[] | ReferenceObject): reference is ReferenceObject {
+function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
 	return typeof (reference as ReferenceObject).reference === 'string'
 }
 
@@ -32,7 +32,13 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 }
 
 export let AnimCore = class AnimCore {
-	static getAnimations(): Record<string, string | ReferenceObject | AnimationDataObject[]> {
+	/**
+	 * Returns animation data:
+	 * - "reference:to:another:animation"
+	 * - [ { file: "123" } ]
+	 * - [ { reference: "reference:to:another:animation", "predicate": ["gate:air"] } ]
+	 */
+	static getAnimations(): Record<string, string | (ReferenceObject | AnimationDataObject)[]> {
 		return Object.keys(window.pf2eGraphics.modules)
 			// Sort "pf2e-graphics" module to be the last one
 			.sort((a, b) => a === 'pf2e-graphics' ? 1 : b === 'pf2e-graphics' ? -1 : 0)
@@ -43,29 +49,33 @@ export let AnimCore = class AnimCore {
 		return Object.keys(this.getAnimations())
 	}
 
-	static getAnimationObject(key: string | undefined): AnimationDataObject[] {
+	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
+		if (!hasReference(data)) return [data]
+
+		let animationObject = this.getAnimations()[data.reference]
+
+		if (typeof animationObject === 'string')
+			animationObject = AnimCore.getAnimationsArray(animationObject)
+
+		animationObject = animationObject.map(x => foundry.utils.mergeObject(x, { ...data, reference: undefined }))
+
+		return animationObject.flatMap(x => this.getReferences(x))
+	}
+
+	static getAnimationsArray(key: string | undefined): AnimationDataObject[] {
 		if (!key || typeof key !== 'string') {
-			throw new ErrorMsg(`You are trying to call 'getAnimationObject' with a non-string value (${key})!`)
+			throw new ErrorMsg(`You are trying to call 'getAnimationsArray' with a non-string value (${key})!`)
 		}
 
-		const animationObject = this.getAnimations()[key]
+		let animationObject = this.getAnimations()[key]
 
 		if (typeof animationObject === 'string') {
-			return AnimCore.getAnimationObject(animationObject)
-		}
-
-		if (isReference(animationObject)) {
-			const reference = AnimCore.getAnimationObject(animationObject.reference)
-			if (!reference) {
-				throw new ErrorMsg(`There is a missing reference at ${JSON.stringify(animationObject)}`)
-			}
-
-			// References can have their own properties which override anything upstream
-			return foundry.utils.mergeObject(reference, { ...animationObject, reference: undefined })
+			animationObject = AnimCore.getAnimationsArray(animationObject)
 		}
 
 		return animationObject
-			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
+			.flatMap(x => AnimCore.getReferences(x))
+			.flatMap(x => AnimCore.unfoldAnimations(x))
 			.map(a => ({ ...a, file: this.parseFile(a.file) }))
 	}
 
@@ -86,7 +96,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
-		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
+		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}
 
 	/** Not sure if this is a good idea, worst case scenario we are just gonna have to add annoying prefixes */
@@ -105,7 +115,7 @@ export let AnimCore = class AnimCore {
 		const preparedOptions = this.prepRollOptions(array)
 		return AnimCore.getKeys()
 			.filter(key => preparedOptions.includes(key))
-			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationObject(key) }), {})
+			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}
 
 	/**
@@ -113,7 +123,8 @@ export let AnimCore = class AnimCore {
 	 All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
 	 The properties of children are not to be overriden by the parent folder, only concatenated or merged.
 	 */
-	static unfoldAnimations(folder: FolderObject): AnimationDataObject[] {
+	static unfoldAnimations(folder: FolderObject | AnimationDataObject): AnimationDataObject[] {
+		if (!isFolder(folder)) return [folder]
 		const { contents, ...parentProps } = folder
 
 		// Function to merge two arrays without duplicates
@@ -182,7 +193,7 @@ export let AnimCore = class AnimCore {
 		}
 
 		// Overrides handling
-		Object.values(validAnimations).map(anims => anims.flatMap(x => x.overrides).filter(Boolean)).forEach((overrides) => {
+		Object.values(validAnimations).map(anims => anims.flatMap(x => x.overrides).filter(nonNullable)).forEach((overrides) => {
 			overrides.forEach(s => delete validAnimations[s])
 		})
 
@@ -258,7 +269,7 @@ export type TriggerTypes =
 	| 'self-effect' // Unimplemented, not sure if there are any applicable use for those message types
 
 interface AnimationDataObject {
-	overrides: string[]
+	overrides?: string[]
 	trigger: TriggerTypes
 	preset: PresetKeys
 	file: string

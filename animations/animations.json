@@ -51,6 +51,14 @@
 	],
 	"item:slug:elemental-blast": [
 		{
+			"reference": "item:slug:electric-arc",
+			"trigger": "attack-roll",
+			"predicate": [
+				"kinetic-gate:air",
+				"item:trait:electricity"
+			]
+		},
+		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.spell_projectile.ice_shard.blue",

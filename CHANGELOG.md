@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
 - `.wait` and `.delay` Sequencer options.
 - Animations predicated upon on Performance Settings
+- `.reference` property, allowing for individual animation objects to reference other keys as well as adding their own
+  - (ex. Elemental Blast (Air) using Electric Arc animation predicated on the attack being an electric blast)
 
 ### Changed
 - `options.shape.value` to `options.shape.type`

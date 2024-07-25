@@ -1,5 +1,5 @@
 {
-
+	"item:slug:chain-lightning": "item:slug:electric-arc",
 	"item:slug:electric-arc": [
 		{
 			"trigger": "damage-roll",
