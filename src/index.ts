@@ -1,6 +1,6 @@
 import './settings.ts'
 import './app.postcss'
-import './view/ItemAnimations'
+import './view'
 import './storage'
 
 Hooks.on('pf2e.systemReady', () => {

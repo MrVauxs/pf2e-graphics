@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firearm Group
 - Arquebus
 
+### Unfinished
+- Actor Animations Menu #3
+
 ## [0.0.8-alpha] - 2024-07-20
 
 ### Added

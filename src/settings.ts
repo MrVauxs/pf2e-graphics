@@ -4,6 +4,7 @@ const gameSettings = new TJSGameSettings('pf2e-graphics')
 export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2
+	buttonPosition: 0 | 1
 }
 
 const settingsData = [
@@ -40,6 +41,23 @@ const settingsData = [
 				1: 'pf2e-graphics.settings.quality.1',
 				2: 'pf2e-graphics.settings.quality.2',
 				3: 'pf2e-graphics.settings.quality.3',
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'buttonPosition',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.buttonPosition.name',
+			hint: 'pf2e-graphics.settings.buttonPosition.hint',
+			scope: 'client',
+			config: true,
+			type: Number,
+			default: 0,
+			choices: {
+				0: 'pf2e-graphics.settings.buttonPosition.0',
+				1: 'pf2e-graphics.settings.buttonPosition.1',
 			},
 		},
 	},
