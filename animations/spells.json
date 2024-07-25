@@ -80,13 +80,13 @@
 	"item:slug:fireball": [
 		{
 			"trigger": "place-template",
+			"default": true,
 			"contents": [
 				{
 					"preset": "ranged",
 					"contents": [
 						{
 							"file": "jb2a.fire_bolt.orange",
-							"default": true,
 							"options": {
 								"waitUntilFinished": -1000
 							}
@@ -98,7 +98,6 @@
 					"contents": [
 						{
 							"file": "jb2a.fireball.explosion.orange",
-							"default": true,
 							"options": {
 								"scaleToObject": {
 									"value": 1.5

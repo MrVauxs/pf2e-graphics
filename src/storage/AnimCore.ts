@@ -200,7 +200,7 @@ export let AnimCore = class AnimCore {
 		return validAnimations
 	}
 
-	static findAndAnimate({
+	static async findAndAnimate({
 		trigger,
 		rollOptions,
 		item,
@@ -232,7 +232,7 @@ export let AnimCore = class AnimCore {
 				this.animate(animation, { ...rest, sequence, item, actor, source })
 			}
 
-			sequence.play({ local: true })
+			await sequence.play({ local: true })
 		}
 	}
 }

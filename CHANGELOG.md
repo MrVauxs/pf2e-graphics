@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Especially egregious during system migrations, causing animations based on creating, updating, or removing effects and items to trigger.
   - The error is now quietly put into console, with the error being only "loud" in dev mode.
 - Animation Triggers being added since the moment the user loads, before the system is even ready.
+- Template animations sometimes going off to `0, 0` coordinates by giving it a 100 ms delay.
 
 ### Animations
 - Light Pick

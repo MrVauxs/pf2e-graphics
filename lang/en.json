@@ -5,8 +5,8 @@
 		"modifyActor": "Manage Actor Animations",
 		"settings": {
 			"windowPosition": {
-				"name": "Item Config Position",
-				"hint": "Changes where the items animation configuration appears.",
+				"name": "Window Position",
+				"hint": "Changes where the animation configuration appears.",
 				"sidebar": "Sidebar",
 				"onTop": "On Top"
 			},
