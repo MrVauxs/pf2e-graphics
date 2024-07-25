@@ -49,5 +49,7 @@ Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQu
         </a>
 		`
 
-	$(navbar).append($(button).on('click', () => { spawn(application) }))
+	$(navbar)
+		.append($(button)
+			.on('click', () => { spawn(application) }))
 })
