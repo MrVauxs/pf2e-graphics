@@ -1,7 +1,7 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, log, nonNullable } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
-import type { PresetKeys } from './Presets'
+import type { PresetKeys } from './presets'
 
 export const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {

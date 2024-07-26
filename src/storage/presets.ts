@@ -105,60 +105,70 @@ export const helpers = {
 
 		return seq
 	},
+	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, _target: Target, options: SoundConfig) {
+		seq.file(options?.file)
+		return seq
+	},
 }
 
 type presetOptions<T> =
 	| T extends 'onToken' ? ('target' | 'source' | 'both') :
-	| T extends 'ranged' ? { bounce: true, file: string } :
+	| T extends 'ranged' ? { bounce: { file: string, sound: SoundConfig } } :
 	| never
 
-interface EffectOptions<T extends PresetKeys> {
-	preset: presetOptions<T>
-	locally: boolean
-	id: string
-	randomizeMirrorX: boolean
-	randomizeMirrorY: boolean
-	remove: string | string[]
-	tieToDocuments: true
-	belowTokens: boolean
+interface SoundConfig {
+	file: string
 	waitUntilFinished: number
-	duration: number
-	tint: string
-	rotate: number
-	mask: true
-	fadeIn: { value: number } & EasingOptions
-	fadeOut: { value: number } & EasingOptions
-	scale: {
+}
+
+interface EffectOptions<T extends PresetKeys> {
+	sound?: SoundConfig
+	preset?: presetOptions<T>
+	locally?: boolean
+	id?: string
+	randomizeMirrorX?: boolean
+	randomizeMirrorY?: boolean
+	remove?: string | string[]
+	tieToDocuments?: true
+	belowTokens?: boolean
+	waitUntilFinished?: number
+	duration?: number
+	tint?: string
+	rotate?: number
+	mask?: true
+	fadeIn?: { value: number } & EasingOptions
+	fadeOut?: { value: number } & EasingOptions
+	scale?: {
 		min: number | { x: number, y: number }
 		max?: number
 	}
-	wait: {
+	wait?: {
 		min: number
 		max?: number
 	}
-	delay: {
+	delay?: {
 		min: number
 		max?: number
 	}
-	scaleToObject: { value: number } & Parameters<EffectSection['scaleToObject']>[1]
-	filter: {
+	scaleToObject?: { value: number } & Parameters<EffectSection['scaleToObject']>[1]
+	filter?: {
 		type: Parameters<EffectSection['filter']>[0]
 		options: Parameters<EffectSection['filter']>[1]
 	}
-	missed: boolean
-	persist: { value: boolean } & Parameters<EffectSection['persist']>[1]
-	attachTo: Parameters<EffectSection['attachTo']>[1]
-	atLocation: Parameters<EffectSection['atLocation']>[1]
-	stretchTo: Parameters<EffectSection['stretchTo']>[1]
-	rotateTowards: Parameters<EffectSection['rotateTowards']>[1]
-	anchor: Parameters<EffectSection['anchor']>[0]
-	template: Parameters<EffectSection['template']>[0]
-	repeats: {
+	missed?: boolean
+	persist?: { value: boolean } & Parameters<EffectSection['persist']>[1]
+	attachTo?: Parameters<EffectSection['attachTo']>[1]
+	atLocation?: Parameters<EffectSection['atLocation']>[1]
+	stretchTo?: Parameters<EffectSection['stretchTo']>[1]
+	rotateTowards?: Parameters<EffectSection['rotateTowards']>[1]
+	anchor?: Parameters<EffectSection['anchor']>[0]
+	template?: Parameters<EffectSection['template']>[0]
+	repeats?: {
 		min: Parameters<EffectSection['repeats']>[0]
 		delay: Parameters<EffectSection['repeats']>[1]
 		max: Parameters<EffectSection['repeats']>[2]
 	}
-	shape: Shape | Shape[]
+	shape?: Shape | Shape[]
 }
 
 type Shape = { type: Parameters<EffectSection['shape']>[0] } & Parameters<EffectSection['shape']>[1]
@@ -172,20 +182,30 @@ export const presets = {
 			throw new ErrorMsg('Ranged animation requires a source token!')
 
 		targets.forEach((target, i) => {
-			const section = seq.effect()
+			const effect = seq.effect()
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, source, target))
 
 			if (options?.preset?.bounce && i > 0) {
-				section
+				effect
 					.atLocation(targets[i - 1], helpers.parseOffsetEmbedded(options?.atLocation, targets[i - 1], target))
-					.file(options?.preset.file)
+					.file(options?.preset.bounce.file)
+
+				if (options?.preset?.bounce.sound) {
+					const sound = seq.sound()
+					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound)
+				}
 			} else {
-				section
+				effect
 					.atLocation(source, helpers.parseOffsetEmbedded(options?.atLocation, source, target))
 					.file(file)
+
+				if (options?.sound) {
+					const sound = seq.sound()
+					helpers.genericSoundFunction(sound, item, target, options.sound)
+				}
 			}
 
-			helpers.genericSequencerFunctions(section, item, target, options)
+			helpers.genericSequencerFunctions(effect, item, target, options)
 		})
 
 		return seq
@@ -203,6 +223,11 @@ export const presets = {
 				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, source, target))
 
 			helpers.genericSequencerFunctions(section, item, target, options)
+
+			if (options?.sound) {
+				const sound = seq.sound()
+				helpers.genericSoundFunction(sound, item, target, options.sound)
+			}
 		}
 
 		return seq
@@ -227,7 +252,14 @@ export const presets = {
 		if (options?.rotateTowards)
 			result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, affectedToken, target || affectedToken))
 
-		return helpers.genericSequencerFunctions(result, item, affectedToken, options)
+		helpers.genericSequencerFunctions(result, item, affectedToken, options)
+
+		if (options?.sound) {
+			const sound = seq.sound()
+			helpers.genericSoundFunction(sound, item, affectedToken, options.sound)
+		}
+
+		return seq
 	},
 	template: (seq: Sequence, { file, targets, options, item }: PresetIndex['template']) => {
 		if (!targets || !targets.length)
@@ -242,6 +274,11 @@ export const presets = {
 				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, target, target))
 
 			helpers.genericSequencerFunctions(section, item, target, options)
+
+			if (options?.sound) {
+				const sound = seq.sound()
+				helpers.genericSoundFunction(sound, item, target, options.sound)
+			}
 		}
 
 		return seq

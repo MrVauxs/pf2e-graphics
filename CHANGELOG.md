@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.9] - Unreleased
 
 ### Added
+- Sounds (#5)
 - `.overrides` property, allowing for animations to remove others from being played.
   - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
 - `.wait` and `.delay` Sequencer options.
@@ -30,8 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firearm Group
 - Arquebus
 
+### Sounds
+- Chain Lightning / Electric Arc
+- Bow Shots
+- Crossbow Shots
+
 ### Unfinished
-- Actor Animations Menu #3
+- Actor Animations Menu (#3)
 
 ## [0.0.8-alpha] - 2024-07-20
 

@@ -34,8 +34,16 @@
 			],
 			"options": {
 				"remove": "trap-finder-entry",
+				"filter": {
+					"type": "Glow",
+					"options": {
+						"color": "#f8f4f1",
+						"quality": 0.1,
+						"distance": 1
+					}
+				},
 				"scaleToObject": {
-					"value": 1
+					"value": 1.5
 				},
 				"mask": true,
 				"rotate": -90,

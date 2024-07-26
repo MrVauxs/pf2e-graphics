@@ -1,5 +1,5 @@
-|                         File                         |           Changes            |
-| :--------------------------------------------------: | :--------------------------: |
-| ovani-sounds\Magic\Shock\Lightning Bolt Impact A.wav | Lengthened file to 2 seconds |
-| ovani-sounds\Magic\Shock\Lightning Bolt Impact B.wav | Lengthened file to 2 seconds |
-| ovani-sounds\Magic\Shock\Lightning Bolt Impact C.wav | Lengthened file to 2 seconds |
+|                         File                          |           Changes            |
+| :---------------------------------------------------: | :--------------------------: |
+| ovani-sounds/Magic/Shock/Lightning Bolt Impact \*.wav | Lengthened file to 2 seconds |
+|        gamedev-market/BowWhistleShot(3-7).wav         |   Pitched variants of 1-2    |
+|          gamedev-market/BowWhistleShot\*.wav          |      Cut to same length      |

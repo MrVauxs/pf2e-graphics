@@ -1,4 +1,4 @@
-import './Presets.ts'
+import './presets.ts'
 import { AnimCore } from './AnimCore.ts'
 
 window.pf2eGraphics ??= {

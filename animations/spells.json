@@ -3,15 +3,26 @@
 	"item:slug:electric-arc": [
 		{
 			"trigger": "damage-roll",
-			"preset": "ranged",
-			"file": "jb2a.chain_lightning.primary.blue",
-			"options": {
-				"waitUntilFinished": -1000,
-				"preset": {
-					"bounce": true,
-					"file": "jb2a.chain_lightning.secondary.blue"
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.chain_lightning.primary.blue",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.lightning_bolt.impact"
+						},
+						"waitUntilFinished": -1000,
+						"preset": {
+							"bounce": {
+								"file": "jb2a.chain_lightning.secondary.blue",
+								"sound": {
+									"file": "pf2e-graphics.lightning_bolt.impact"
+								}
+							}
+						}
+					}
 				}
-			}
+			]
 		}
 	],
 	"item:slug:ignition": [

@@ -122,7 +122,10 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.arrow.physical.white.01"
+			"file": "jb2a.arrow.physical.white.01",
+			"options": {
+				"sound": { "file": "pf2e-graphics.bow" }
+			}
 		}
 	],
 	"item:base:longbow": "item:base:shortbow"
