@@ -1,2 +1,2 @@
 - [ ] Equalize all sounds in loudness.
-- [ ] Add them to bow animations.
+- [ ] Convert all to `.wav`

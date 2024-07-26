@@ -2,7 +2,7 @@
 
 ## Addition
 
-The files in this directory should be treated with an audio-editing program such as Audacity to make the sounds of equal volume.
+The files in this directory should be treated with an audio-editing program such as Audacity to make the sounds of equal volume and to convert them to `.wav` format.
 
 ## Licenses
 
