@@ -42,7 +42,7 @@ jobs:
       - name: Substitute Manifest for Prerelease
         if: github.event.release.prerelease
         id: sub_prerelease_manifest_version
-        uses: microsoft/variable-substitution@v1
+        uses: devops-actions/variable-substitution@v1.2
         with:
           files: module.json
         env:
