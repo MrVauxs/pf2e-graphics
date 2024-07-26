@@ -2,8 +2,8 @@
 
 <script lang='ts'>
 	// import { i18n } from "src/utils";
-	// @ts-ignore - TJS-2-TS
 	import { devMessage } from 'src/utils'
+	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
 

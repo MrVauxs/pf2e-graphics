@@ -138,7 +138,10 @@
 													<button
 														class='text-xs h-full'
 														on:click={() =>
-															window.pf2eGraphics.AnimCore.testAnimation(animation, item)}
+															window.pf2eGraphics.AnimCore.testAnimation(
+																animation,
+																item,
+															)}
 													>
 														Test
 													</button>
