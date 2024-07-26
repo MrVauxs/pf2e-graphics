@@ -6,14 +6,16 @@
 			"file": "jb2a.bullet.02.orange",
 			"overrides": [
 				"item:group:firearm"
-			]
+			],
+			"options": { "stretchTo": { "randomOffset": 0.5 } }
 		}
 	],
 	"item:group:firearm": [
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.bullet.01.orange"
+			"file": "jb2a.bullet.01.orange",
+			"options": { "stretchTo": { "randomOffset": 0.5 } }
 		}
 	],
 	"item:base:light-pick": [
@@ -69,6 +71,7 @@
 			"predicate": [
 				"thrown"
 			],
+			"options": { "stretchTo": { "randomOffset": 0.5 } },
 			"contents": [
 				{
 					"file": "jb2a.dagger.throw.01.white",
@@ -124,7 +127,8 @@
 			"preset": "ranged",
 			"file": "jb2a.arrow.physical.white.01",
 			"options": {
-				"sound": { "file": "pf2e-graphics.bow" }
+				"sound": { "file": "pf2e-graphics.bow" },
+				"stretchTo": { "randomOffset": 0.5 }
 			}
 		}
 	],
