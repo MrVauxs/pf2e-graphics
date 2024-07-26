@@ -65,7 +65,7 @@ jobs:
         with:
           command: query
           # Effectively an if else statement: https://docs.github.com/en/actions/learn-github-actions/expressions#example
-          version: ${{ github.event.release.prerelease && 'unreleased' || steps.get-version.outputs.version-without-v }}
+          version: ${{ steps.get-version.outputs.version-without-v }}
 
       - name: Update Release with Files
         id: create_version_release
