@@ -61,6 +61,19 @@ const settingsData = [
 			},
 		},
 	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'dev',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.dev.name',
+			hint: 'pf2e-graphics.settings.dev.hint',
+			scope: 'client',
+			config: true,
+			type: Boolean,
+			default: false,
+		},
+	},
 ] as const
 
 Hooks.on('init', () => {

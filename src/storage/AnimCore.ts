@@ -234,7 +234,7 @@ export let AnimCore = class AnimCore {
 				this.animate(animation, { ...rest, sequence, item, actor, source })
 			}
 
-			await sequence.play({ local: true })
+			await sequence.play({ preload: true, local: true })
 		}
 	}
 }

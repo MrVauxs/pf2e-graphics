@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - Unreleased
 
+### Added
+- "Develeoper mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
+
+#### Animations
+- Melee Ignition
+
+### Changed
+- All animations are now preloaded prior to being played.
+
 ### Fixed
 - Granting effects causing any previous effects to also trigger.
 

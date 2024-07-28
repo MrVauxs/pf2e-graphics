@@ -23,6 +23,10 @@
 				"hint": "Where the button for managing Actor Graphics should be located. Change it if you have too many modules adding header buttons.",
 				"0": "Header",
 				"1": "Sheet"
+			},
+			"dev": {
+				"name": "Developer Mode",
+				"hint": "Posts to various information to the console. Helpful when you are trying to make your own animations."
 			}
 		},
 		"tooltip": {

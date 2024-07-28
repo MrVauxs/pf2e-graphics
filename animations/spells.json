@@ -28,11 +28,7 @@
 	"item:slug:ignition": [
 		{
 			"trigger": "attack-roll",
-			"predicate": [
-				{
-					"not": "conservation-of-energy:cold"
-				}
-			],
+			"default": true,
 			"contents": [
 				{
 					"preset": "onToken",
@@ -54,6 +50,14 @@
 					"options": {}
 				}
 			]
+		},
+		{
+			"trigger": "attack-roll",
+			"predicate": [
+				"item:melee"
+			],
+			"preset": "ranged",
+			"file": "jb2a.unarmed_strike.magical.{01,02}.orange"
 		},
 		{
 			"trigger": "attack-roll",
@@ -86,6 +90,15 @@
 					"file": "jb2a.fire_bolt.blue"
 				}
 			]
+		},
+		{
+			"trigger": "attack-roll",
+			"predicate": [
+				"conservation-of-energy:cold",
+				"item:melee"
+			],
+			"preset": "ranged",
+			"file": "jb2a.unarmed_strike.magical.{01,02}.blue"
 		}
 	],
 	"item:slug:fireball": [

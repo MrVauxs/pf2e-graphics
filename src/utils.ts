@@ -12,7 +12,7 @@ export function nonNullable<T>(value: T): value is NonNullable<T> {
 	return value !== null && value !== undefined
 }
 
-export const dev = import.meta.env.DEV
+export const dev = import.meta.env.DEV || game.settings.get('pf2e-graphics', 'dev')
 
 export function devMessage(...args: any) {
 	if (dev) console.log(`[%cPF2e Graphics%c %cDEV%c]`, 'color: yellow', '', 'color: #20C20E;', '', ...args)
