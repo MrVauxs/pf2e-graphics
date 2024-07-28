@@ -99,9 +99,10 @@ export let AnimCore = class AnimCore {
 		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}
 
-	/** Not sure if this is a good idea, worst case scenario we are just gonna have to add annoying prefixes */
+	/** Not sure if this is a good idea, muddying up the waters. */
 	static uglifyRollOptions(array: string[]) {
-		return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
+		return array
+		// return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
 
 	static getMatchingAnimationTrees(
@@ -170,7 +171,7 @@ export let AnimCore = class AnimCore {
 			},
 		)
 
-		sequence.play({ local: true })
+		sequence.play({ preload: true, local: true })
 	}
 
 	static filterAnimations({ rollOptions: rollOptionsOG, item, trigger, narrow }: {
@@ -215,9 +216,10 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
-		if (!source) source = canvas.tokens.placeables.find(x => x.actor?.id === actor?.id)
+		if (!source) source = actor?.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
 		if (!source) {
-			if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
+			// Overly annoying, don't ping me when editing a character sheet without a token on the scene.
+			// if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
 			return log('No Token Found to animate with! Aborting.')
 		};
 

@@ -4,7 +4,7 @@ const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return
 
 	const deliverable = {
-		rollOptions: [...item.getRollOptions(), ...(item.actor?.getRollOptions() ?? [])],
+		rollOptions: item.getRollOptions(),
 		trigger: 'effect' as const,
 		item,
 	}

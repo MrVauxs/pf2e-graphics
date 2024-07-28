@@ -1,12 +1,13 @@
 {
-	"self:effect:shield": [
+	"effect:slug:spell-effect-shield": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.shield.01.complete.01",
 			"options": {
 				"scaleToObject": {
-					"value": 1.5
+					"value": 1.2,
+					"considerTokenScale": true
 				},
 				"persist": {
 					"value": true,
@@ -16,7 +17,7 @@
 			}
 		}
 	],
-	"self:effect:kinetic-aura": [
+	"effect:slug:effect-kinetic-aura": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
@@ -26,7 +27,7 @@
 			}
 		}
 	],
-	"self:effect:marshals-aura": [
+	"effect:slug:effect-marshals-aura": [
 		{
 			"preset": "onToken",
 			"file": "jb2a.wind_stream.200.white",
@@ -55,15 +56,36 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
 					"trigger": "effect"
 				},
 				{
-					"predicate": [{ "gte": ["graphics-quality", 3] }],
+					"predicate": [
+						{
+							"gte": [
+								"graphics-quality",
+								3
+							]
+						}
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
