@@ -1,10 +1,52 @@
 <script lang='ts'>
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 	import { devMessage } from 'src/utils'
+	import { derived } from 'svelte/store'
+	import featData from './tokenimage-feat.json'
 
 	export let doc: TJSDocument<ActorPF2e>
 
-	devMessage($doc)
+	const tokenImageID = derived(doc, $doc => $doc.flags['pf2e-graphics']?.tokenImageID)
+	const feat = derived(doc, $doc => $doc.items.find(x => x.id === $doc.flags['pf2e-graphics']?.tokenImageID))
+
+	if ($tokenImageID && !$feat) {
+		ui.notifications.error('PF2e Graphics | PF2e Graphics bonus feat got deleted! Removing flags.')
+		$doc.unsetFlag('pf2e-graphics', 'tokenImageID')
+	}
+
+	devMessage($doc, $tokenImageID, $feat)
+	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat
+
+	async function giveth() {
+		const feat = (await $doc.createEmbeddedDocuments('Item', [new FeatPF2e(featData)]))[0]
+		$doc.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
+	}
+
+	async function takethAway() {
+		($doc.items.find(x => x.id === $doc.flags['pf2e-graphics']?.tokenImageID))?.delete()
+		$doc.unsetFlag('pf2e-graphics', 'tokenImageID')
+	}
 </script>
 
-tokenimage-manager
+{#if $tokenImageID}
+	<button class='text-red' on:click={takethAway}>Delet</button>
+{:else}
+	<div class='w-3/4 h-full text-center content-center mx-auto'>
+		<div>
+			<p>
+				The actor does not have a dedicated token image feature!
+			</p>
+			<p>
+				Choose one of the options below:
+			</p>
+		</div>
+		<div class='flex'>
+			<button on:click={giveth}>
+				Create New
+			</button>
+			<button class='disabled' disabled>
+				Select Existing Feature
+			</button>
+		</div>
+	</div>
+{/if}

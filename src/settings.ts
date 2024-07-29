@@ -5,6 +5,7 @@ export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2
 	buttonPosition: 0 | 1
+	dev: boolean
 }
 
 const settingsData = [

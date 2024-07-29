@@ -106,15 +106,18 @@ export let AnimCore = class AnimCore {
 	}
 
 	static getMatchingAnimationTrees(
-		array: string[] | undefined,
+		array: string[] = [],
 		_item?: ItemPF2e | null,
 		_userId?: User['id'],
 	): Record<string, AnimationDataObject[]> {
 		if ((_item || _userId)) devMessage('Item and User animations are not yet implemented in getMatchingAnimationTrees!')
-		if (!array) return {}
+		// const actor = _item?.actor
+
+		if (!array.length) return {}
 
 		const preparedOptions = this.prepRollOptions(array)
-		return AnimCore.getKeys()
+		const keys = AnimCore.getKeys()
+		return keys
 			.filter(key => preparedOptions.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}

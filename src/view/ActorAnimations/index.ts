@@ -53,3 +53,10 @@ Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQu
 		.append($(button)
 			.on('click', () => { spawn(application) }))
 })
+
+Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
+	const flag = application.actor.flags['pf2e-graphics']?.tokenImageID
+	if (!flag || settings.dev) return
+
+	html[0].querySelectorAll(`[data-item-id="${flag}"]`)[0]?.remove()
+})

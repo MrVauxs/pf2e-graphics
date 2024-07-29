@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - "Develeoper mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
+- Tabs to the Actor Animations Menu (#3) and "PF2e Graphics" bonus feat creation for Token Image Mapper.
 
 #### Animations
 - Melee Ignition
