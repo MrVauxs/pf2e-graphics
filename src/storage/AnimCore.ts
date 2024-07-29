@@ -231,7 +231,10 @@ export let AnimCore = class AnimCore {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
 			for (const animation of anim) {
-				this.animate(animation, { ...rest, sequence, item, actor, source })
+				this.animate(
+					foundry.utils.mergeObject({ options: rest }, animation),
+					{ ...rest, sequence, item, actor, source },
+				)
 			}
 
 			await sequence.play({ preload: true, local: true })

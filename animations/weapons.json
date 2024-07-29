@@ -1,4 +1,32 @@
 {
+	"item:slug:jaw": "item:slug:jaws",
+	"item:slug:jaws": [
+		{
+			"trigger": "attack-roll",
+			"preset": "onToken",
+			"file": "jb2a.claws.400px.red",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 2
+				}
+			}
+		}
+	],
+	"item:slug:fists": "item:slug:fist",
+	"item:slug:basic-unarmed": "item:slug:fist",
+	"item:slug:fist": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.unarmed_strike.physical.01.yellow",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	],
 	"item:base:arquebus": [
 		{
 			"trigger": "attack-roll",
@@ -7,7 +35,11 @@
 			"overrides": [
 				"item:group:firearm"
 			],
-			"options": { "stretchTo": { "randomOffset": 0.5 } }
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
 		}
 	],
 	"item:group:firearm": [
@@ -15,7 +47,11 @@
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.bullet.01.orange",
-			"options": { "stretchTo": { "randomOffset": 0.5 } }
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
 		}
 	],
 	"item:base:light-pick": [
@@ -25,12 +61,7 @@
 			"file": "jb2a.melee_generic.piercing.one_handed",
 			"options": {
 				"scaleToObject": {
-					"value": 4
-				},
-				"template": {
-					"gridSize": 200,
-					"startPoint": 150,
-					"endPoint": 200
+					"value": 5
 				}
 			},
 			"predicate": [
@@ -43,22 +74,6 @@
 			"trigger": "attack-roll",
 			"preset": "melee",
 			"file": "jb2a.melee_attack.03.greatsword.01",
-			"options": {
-				"scaleToObject": {
-					"value": 3.5
-				},
-				"attachTo": {
-					"offset": {
-						"x": -1,
-						"y": -0.5,
-						"flip": {
-							"x": true,
-							"y": true
-						}
-					},
-					"gridUnits": true
-				}
-			},
 			"predicate": [
 				"melee"
 			]
@@ -71,7 +86,11 @@
 			"predicate": [
 				"thrown"
 			],
-			"options": { "stretchTo": { "randomOffset": 0.5 } },
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			},
 			"contents": [
 				{
 					"file": "jb2a.dagger.throw.01.white",
@@ -90,18 +109,7 @@
 			"preset": "melee",
 			"options": {
 				"scaleToObject": {
-					"value": 3
-				},
-				"attachTo": {
-					"offset": {
-						"x": -1,
-						"y": -0.5,
-						"flip": {
-							"x": true,
-							"y": true
-						}
-					},
-					"gridUnits": true
+					"value": 5
 				}
 			},
 			"predicate": [
@@ -127,8 +135,12 @@
 			"preset": "ranged",
 			"file": "jb2a.arrow.physical.white.01",
 			"options": {
-				"sound": { "file": "pf2e-graphics.bow" },
-				"stretchTo": { "randomOffset": 0.5 }
+				"sound": {
+					"file": "pf2e-graphics.bow"
+				},
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
 			}
 		}
 	],

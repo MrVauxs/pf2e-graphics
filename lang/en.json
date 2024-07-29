@@ -39,6 +39,13 @@
 				"options": "Options"
 			},
 			"openSheet": "Open Sheet"
+		},
+		"actorAnimation": {
+			"tabs": {
+				"all-animations": "All Animations",
+				"actor-animations": "Actor Animations",
+				"tokenimage-manager": "Token Image Manager"
+			}
 		}
 	}
 }

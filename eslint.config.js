@@ -21,6 +21,7 @@ export default antfu({
 		'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 		'unused-imports/no-unused-vars': 'warn',
 		'node/prefer-global/process': 0,
+		'svelte/valid-compile': 'warn',
 	},
 
 	ignores: [],

@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Animations
 - Melee Ignition
+- Jaws
+- Unarmed Attack / Fist
 
 ### Changed
 - All animations are now preloaded prior to being played.

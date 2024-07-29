@@ -216,6 +216,17 @@ export const presets = {
 		if (!source)
 			throw new ErrorMsg('Melee animation requires a source token!')
 
+		options = foundry.utils.mergeObject({
+			randomizeMirrorY: true,
+			anchor: {
+				x: 0.4,
+				y: 0.5 * Sequencer.Helpers.random_float_between(0.8, 1.2),
+			},
+			scaleToObject: {
+				value: 4,
+			},
+		}, options)
+
 		for (const target of targets) {
 			const section = seq.effect()
 				.file(file)
@@ -239,9 +250,15 @@ export const presets = {
 		if (!affectedToken)
 			throw new ErrorMsg(`${options?.preset} is missing!`)
 
+		options = foundry.utils.mergeObject({
+			anchor: {
+				x: 0.5,
+				y: 0.5,
+			},
+		}, options)
+
 		const result = seq.effect()
 			.file(file)
-			.anchor(foundry.utils.mergeObject({ x: 0.5, y: 0.5 }, options?.anchor || {}))
 
 		if (options?.atLocation) {
 			result.atLocation(affectedToken, helpers.parseOffsetEmbedded(options?.atLocation, affectedToken, target || affectedToken))
