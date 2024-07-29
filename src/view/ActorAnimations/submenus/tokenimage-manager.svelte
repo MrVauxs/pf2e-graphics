@@ -26,27 +26,42 @@
 		($doc.items.find(x => x.id === $doc.flags['pf2e-graphics']?.tokenImageID))?.delete()
 		$doc.unsetFlag('pf2e-graphics', 'tokenImageID')
 	}
+
+	let display = $doc.getFlag('pf2e-graphics', 'displayFeat') as boolean
+	async function invisibility() {
+		$doc.setFlag('pf2e-graphics', 'displayFeat', display)
+	}
 </script>
 
-{#if $tokenImageID}
-	<button class='text-red' on:click={takethAway}>Delet</button>
-{:else}
-	<div class='w-3/4 h-full text-center content-center mx-auto'>
-		<div>
-			<p>
-				The actor does not have a dedicated token image feature!
-			</p>
-			<p>
-				Choose one of the options below:
-			</p>
-		</div>
-		<div class='flex'>
-			<button on:click={giveth}>
-				Create New
-			</button>
-			<button class='disabled' disabled>
-				Select Existing Feature
+<div class='p-2'>
+	{#if $tokenImageID}
+		<div class='grid grid-flow-col columns-2'>
+			<div class='flex items-center'>
+				<label for='displayFeat'>Display Feat on Character Sheet</label>
+				<input type='checkbox' id='displayFeat' bind:checked={display} on:change={invisibility} />
+			</div>
+			<button class='' on:click={takethAway}>
+				Delet
 			</button>
 		</div>
-	</div>
-{/if}
+	{:else}
+		<div class='w-3/4 h-full text-center content-center mx-auto'>
+			<div>
+				<p>
+					The actor does not have a dedicated token image feature!
+				</p>
+				<p>
+					Choose one of the options below:
+				</p>
+			</div>
+			<div class='flex'>
+				<button on:click={giveth}>
+					Create New
+				</button>
+				<button class='disabled' disabled>
+					Select Existing Feature
+				</button>
+			</div>
+		</div>
+	{/if}
+</div>
