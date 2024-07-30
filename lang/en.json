@@ -41,6 +41,8 @@
 			"openSheet": "Open Sheet"
 		},
 		"actorAnimation": {
+			"openFeat": "Open",
+			"displayFeat": "Display Feat on Character Sheet",
 			"tabs": {
 				"all-animations": "All Animations",
 				"actor-animations": "Actor Animations",

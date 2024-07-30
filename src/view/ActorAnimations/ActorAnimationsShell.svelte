@@ -51,13 +51,13 @@
 			</div>
 		</div>
 		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
-			<div class='overflow-y-scroll w-full'>
+			<div class='overflow-y-auto w-full'>
 				{#if activeTab === 'all-animations'}
 					<AllAnimations {doc} />
 				{/if}{#if activeTab === 'actor-animations'}
 					<ActorAnimations {doc} />
 				{/if}{#if activeTab === 'tokenimage-manager'}
-					<TokenimageManager {doc} />
+					<TokenimageManager actor={doc} />
 				{/if}
 			</div>
 		</div>

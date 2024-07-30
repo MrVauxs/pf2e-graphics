@@ -37,3 +37,23 @@ declare module 'svelte' {
 export type TokenOrDoc = TokenDocument | Token
 
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[]
+
+declare global {
+	type TokenImageRuleSource = RuleElementSource & {
+		/** An image or video path */
+		value: string
+		/** An optional scale adjustment */
+		scale: number
+		/** An optional tint adjustment */
+		tint: string
+		/** An optional alpha adjustment */
+		alpha: number
+		/** Animation options for when the image is applied */
+		animation: {
+			duration: number
+			transition: string
+			easing: string
+			name: string
+		}
+	}
+}
