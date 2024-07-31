@@ -261,7 +261,10 @@
 										on:change={updateRules} />
 									<button
 										class='fa fa-refresh bg-button h-6 w-10'
-										on:click={() => { rule.tint = undefined; updateRules() }}
+										on:click={() => {
+											rule.tint = undefined
+											updateRules()
+										}}
 									/>
 								</div>
 							</label>
