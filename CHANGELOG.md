@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - Unreleased
 
 ### Added
-- "Develeoper mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
-- Tabs to the Actor Animations Menu (#3) and with it a rudimentary Token Image Manager.
+- "Developer mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
+- Token Image Manager (#4)
 
 #### Animations
 - Melee Ignition

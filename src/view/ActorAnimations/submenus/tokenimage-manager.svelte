@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-	import { ErrorMsg, dev, devMessage, i18n } from 'src/utils'
+	import { ErrorMsg, devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
 	import featData from './tokenimage-feat.json'
 
@@ -40,6 +40,7 @@
 		key: 'TokenImage',
 		value: $feat?.actor.prototypeToken.texture.src as string,
 		uuidPredicate: '',
+		animation: {},
 	})
 	type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource
 
@@ -74,6 +75,12 @@
 		updateRules()
 	}
 
+	function removeDropPredicate(rule: CustomTokenImage) {
+		rule.predicate = []
+		rule.uuidPredicate = ''
+		updateRules()
+	}
+
 	function isCustomTokenImage(rule: RuleElementSource): rule is CustomTokenImage {
 		return rule.key === 'TokenImage'
 	}
@@ -81,21 +88,34 @@
 	function isEffect(doc?: ClientDocument | null): doc is EffectPF2e {
 		return doc?.type === 'effect'
 	}
+
+	function prepRules(rule: CustomTokenImage) {
+		rule.animation ??= { }
+		return rule
+	}
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
 	{#if $tokenImageID}
 		<div class='flex-grow flex-shrink overflow-y-scroll mb-2 text-center'>
-			{#each $feat?.system.rules.filter(isCustomTokenImage) || [] as rule}
+			{#each $feat?.system.rules.filter(isCustomTokenImage).map(prepRules) || [] as rule}
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>
 						<h3 class='border-b-0'>
 							<i class='fa-regular fa-circle align-middle' />
 							Token Image
 						</h3>
-						<div class='ml-auto'>
-							Priority Goes Here
-							<button on:click={() => removeRule(rule)} class='fas fa-trash-can size-8' />
+						<div class='ml-auto flex items-center'>
+							<label class='flex items-center' data-tooltip='PF2E.RuleEditor.General.PriorityHint'>
+								<i class='fa-solid fa-fw fa-list-ol mr-1' />
+								<input
+									class='h-8 w-10'
+									type='number'
+									bind:value={rule.priority} />
+							</label>
+							<button
+								on:click={() => removeRule(rule)}
+								class='fas fa-trash-can size-8' />
 						</div>
 					</section>
 					<div class='grid grid-cols-5 items-center gap-1.5
@@ -130,6 +150,11 @@
 										<span>
 											{effect.name}
 										</span>
+										<i class='fa fa-close ml-auto p-1 py-0 leading-normal hover:underline'
+											role='button'
+											tabindex='-1'
+											on:click|stopPropagation={() => removeDropPredicate(rule)}
+											on:keyup|stopPropagation={() => removeDropPredicate(rule)} />
 									</div>
 								{:else}
 									Drag and drop an effect to predicate onto!
@@ -173,26 +198,84 @@
 						<!-- #endregion -->
 						<!-- #region Transitions -->
 						<span>
-							Transition
+							Animation:
 						</span>
-						<section class='border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'>
-							Options
+						<section class='
+							grid grid-cols-2 gap-2
+							border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'
+						>
+							<label class='grid grid-cols-2 items-center'>
+								Transition:
+								<select name='transition'
+									bind:value={rule.animation.transition}
+									on:change={updateRules}>
+									{#each Object.values(TextureTransitionFilter.TYPES) as value}
+										<option {value}>{value.titleCase()}</option>
+									{/each}
+								</select>
+							</label>
+							<label class='grid grid-cols-2 items-center'>
+								Duration:
+								<input class="" type='number'
+									bind:value={rule.animation.duration}
+									on:change={updateRules} />
+							</label>
+							<label class='grid grid-cols-2 items-center'>
+								<span>
+									<a class='no-underline' href='https://easings.net/' data-tooltip='pf2e-graphics.easingTooltip'>
+										<i class='fa fa-info-circle size-4' />
+									</a>
+									Easing:
+								</span>
+								<select name='easing'
+									bind:value={rule.animation.easing}
+									on:change={updateRules}>
+									<option value="" />
+									{#each Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease'))) as value}
+										<option {value}>{value}</option>
+									{/each}
+								</select>
+							</label>
 						</section>
 						<!-- #endregion -->
 						<!-- #region Options -->
 						<span>
-							Scale / Tint / Opacity
+							Options:
 						</span>
-						<section class='border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'>
-							Options
+						<section class='
+							grid grid-cols-2 gap-2
+							border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'
+						>
+							<label class='grid grid-cols-2 items-center'>
+								Scale:
+								<input type='number'
+									placeholder='1'
+									bind:value={rule.scale}
+									on:change={updateRules} />
+							</label>
+							<label class='grid grid-cols-2 items-center'>
+								Tint:
+								<div class='flex h-6 items-center gap-1'>
+									<input class='w-24' type='color'
+										bind:value={rule.tint}
+										on:change={updateRules} />
+									<button
+										class='fa fa-refresh bg-button h-6 w-10'
+										on:click={() => { rule.tint = undefined; updateRules() }}
+									/>
+								</div>
+							</label>
+							<label class='grid grid-cols-2 items-center'>
+								Opacity / Alpha:
+								<input class="" type='number'
+									placeholder='1'
+									step='0.1' min='0.1' max='1'
+									bind:value={rule.alpha}
+									on:change={updateRules} />
+							</label>
 						</section>
 						<!-- #endregion -->
 					</div>
-					{#if dev}
-						<section class='col-span-2 border border-solid bg-gray-400 p-1 mt-2 opacity-75 overflow-auto'>
-							{JSON.stringify(rule)}
-						</section>
-					{/if}
 				</div>
 			{/each}
 			<button class='w-1/2 m-1' on:click={createRule}>

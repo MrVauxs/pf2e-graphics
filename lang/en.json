@@ -49,6 +49,7 @@
 				"tokenimage-manager": "Token Image Manager"
 			}
 		},
+		"easingTooltip": "Learn more about various easing functions here.",
 		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid)."
 	}
 }

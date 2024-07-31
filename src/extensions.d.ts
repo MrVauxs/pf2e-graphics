@@ -43,17 +43,39 @@ declare global {
 		/** An image or video path */
 		value: string
 		/** An optional scale adjustment */
-		scale: number
+		scale?: number
 		/** An optional tint adjustment */
-		tint: string
+		tint?: string
 		/** An optional alpha adjustment */
-		alpha: number
+		alpha?: number
 		/** Animation options for when the image is applied */
 		animation: {
-			duration: number
-			transition: string
-			easing: string
-			name: string
+			duration?: number
+			transition?: string
+			easing?: string
+			name?: string
 		}
 	}
+
+	class TextureTransitionFilter extends AbstractBaseFilter {
+		/** Transition types for this shader. */
+		static get TYPES(): {
+			FADE: 'fade'
+			SWIRL: 'swirl'
+			WATER_DROP: 'waterDrop'
+			MORPH: 'morph'
+			CROSSHATCH: 'crosshatch'
+			WIND: 'wind'
+			WAVES: 'waves'
+			WHITE_NOISE: 'whiteNoise'
+			HOLOGRAM: 'hologram'
+			HOLE: 'hole'
+			HOLE_SWIRL: 'holeSwirl'
+			GLITCH: 'glitch'
+			DOTS: 'dots'
+			[k: string]: string
+		}
+	}
+
+	class CanvasAnimation {}
 }

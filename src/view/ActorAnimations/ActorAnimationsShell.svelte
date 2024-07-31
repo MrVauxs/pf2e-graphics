@@ -1,6 +1,8 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
+	import type { Writable } from 'svelte/store'
+	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
 	import AllAnimations from './submenus/all-animations.svelte'
 	import TokenimageManager from './submenus/tokenimage-manager.svelte'
@@ -15,14 +17,13 @@
 		throw new Error('An actor is required to render the ItemAnimations application.')
 	}
 
-	// import { getContext } from "svelte";
-	// const application = getContext("#external").application;
+	const sessionStorage = getContext('#external').sessionStorage
 
 	const doc = new TJSDocument(actor)
 	devMessage(actor, doc)
 
 	const tabs = ['all-animations', 'actor-animations', 'tokenimage-manager'] as const
-	let activeTab: (typeof tabs)[number] = tabs[0]
+	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore(actor.id, tabs[0])
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -40,8 +41,8 @@
 					<div class='flex align-baseline text-center py-1 border-y-foundry'>
 						<div class='w-full flex align-baseline items-center justify-around cursor-pointer'>
 							{#each tabs as tab}
-								{@const active = tab === activeTab}
-								<button class="tab-button {active ? 'active-tab' : ''}" on:click={() => (activeTab = tab)}>
+								{@const active = tab === $activeTab}
+								<button class="tab-button {active ? 'active-tab' : ''}" on:click={() => (activeTab.set(tab))}>
 									{i18n(`actorAnimation.tabs.${tab}`)}
 								</button>
 							{/each}
@@ -52,11 +53,11 @@
 		</div>
 		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
 			<div class='overflow-y-auto w-full'>
-				{#if activeTab === 'all-animations'}
+				{#if $activeTab === 'all-animations'}
 					<AllAnimations {doc} />
-				{/if}{#if activeTab === 'actor-animations'}
+				{/if}{#if $activeTab === 'actor-animations'}
 					<ActorAnimations {doc} />
-				{/if}{#if activeTab === 'tokenimage-manager'}
+				{/if}{#if $activeTab === 'tokenimage-manager'}
 					<TokenimageManager actor={doc} />
 				{/if}
 			</div>
