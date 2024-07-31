@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Developer mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
 - Token Image Manager (#4)
 
-  #### Animations
+#### Animations
+
 - Melee Ignition
 - Jaws
 - Unarmed Attack / Fist
@@ -43,17 +44,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `options.shape.value` to `options.shape.type`
 
-  #### Animations
+#### Animations
+
 - Light Pick
 - Firearm Group
 - Arquebus
 
-  #### Sounds
+#### Sounds
+
 - Chain Lightning / Electric Arc
 - Bow Shots
 - Crossbow Shots
 
-  #### Unfinished
+#### Unfinished
+
 - Actor Animations Menu (#3)
 
 ### Fixed
