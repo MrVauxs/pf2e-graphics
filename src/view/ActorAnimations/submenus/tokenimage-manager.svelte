@@ -76,7 +76,7 @@
 		if (effect?.type !== 'effect') throw new ErrorMsg('The dragged entity is not an effect!')
 
 		// TODO: I swear this feels so wrong using an index for this.
-		updateRules(rule, {
+		return updateRules(rule, {
 			predicate: [`self:${effect.getRollOptions()[1]}`],
 			uuidPredicate: effect.uuid,
 		})
@@ -203,7 +203,7 @@
 							border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'
 						>
 							<!-- Sneakily update the data to include the object lest all shit below breaks -->
-							{'' ?? (rule.animation ??= {})}
+							{Number(rule.animation ??= {}) || ''}
 							<label class='grid grid-cols-2 items-center'>
 								Transition:
 								<select name='transition'
