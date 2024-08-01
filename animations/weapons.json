@@ -1,10 +1,24 @@
 {
+	"item:slug:claw": "item:slug:claws",
+	"item:slug:claws": [
+		{
+			"trigger": "attack-roll",
+			"preset": "onToken",
+			"file": "jb2a.claws.400px.red",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 2
+				}
+			}
+		}
+	],
 	"item:slug:jaw": "item:slug:jaws",
 	"item:slug:jaws": [
 		{
 			"trigger": "attack-roll",
 			"preset": "onToken",
-			"file": "jb2a.claws.400px.red",
+			"file": "jb2a.bite.400px.red",
 			"options": {
 				"preset": "target",
 				"scaleToObject": {
@@ -144,5 +158,25 @@
 			}
 		}
 	],
-	"item:base:longbow": "item:base:shortbow"
+	"item:base:longbow": "item:base:shortbow",
+	"item:base:crossbow": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.arrow.physical.white.01",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.crossbow"
+				},
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
+		}
+	],
+	"item:base:heavy-crossbow": "item:base:crossbow",
+	"item:base:hand-crossbow": "item:base:crossbow",
+	"item:base:repeating-crossbow": "item:base:crossbow",
+	"item:base:repeating-heavy-crossbow": "item:base:crossbow",
+	"item:base:repeating-hand-crossbow": "item:base:crossbow"
 }

@@ -32,7 +32,12 @@
 			<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 			<div class='flex gap-2 h-20'>
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<img src={$doc.img} alt={$doc.name} class='h-full aspect-square hover:cursor-pointer' on:click={() => $doc.sheet.render(true)} />
+				<img
+					src={$doc.img}
+					alt={$doc.name}
+					class='h-full hover:cursor-pointer'
+					on:click={() => $doc.sheet.render(true)}
+				/>
 				<div class='flex flex-col w-full'>
 					<h1 class='w-full mt-1 font-serif font-bold text-4xl'>
 						{$doc.name}

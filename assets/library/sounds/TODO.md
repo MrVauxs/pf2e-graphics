@@ -1,2 +1,0 @@
-- [ ] Equalize all sounds in loudness.
-- [ ] Convert all to `.wav`

@@ -1,9 +1,22 @@
+<script lang='ts' context='module'>
+	const ruleTemplate = (feat: ItemPF2e) => ({
+		id: foundry.utils.randomID(),
+		key: 'TokenImage',
+		value: feat?.actor?.prototypeToken.texture.src as string,
+		uuidPredicate: '',
+		animation: {},
+		predicate: [] as (string | object)[],
+	})
+	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource
+</script>
+
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-	import { ErrorMsg, devMessage, i18n } from 'src/utils'
+	import { devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
 	import featData from './tokenimage-feat.json'
 	import TokenThumbnail from './elements/TokenThumbnail.svelte'
+	import PredicateSection from './elements/PredicateSection.svelte'
 
 	export let actor: TJSDocument<ActorPF2e>
 
@@ -36,17 +49,8 @@
 		$actor.setFlag('pf2e-graphics', 'displayFeat', display)
 	}
 
-	const ruleTemplate = () => ({
-		id: foundry.utils.randomID(),
-		key: 'TokenImage',
-		value: $feat?.actor.prototypeToken.texture.src as string,
-		uuidPredicate: '',
-		animation: {},
-	})
-	type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource
-
 	async function createRule() {
-		await $feat?.update({ 'system.rules': $feat.system.rules.concat(ruleTemplate()) })
+		await $feat?.update({ 'system.rules': $feat.system.rules.concat(ruleTemplate($feat)) })
 	}
 
 	async function removeRule(rule: RuleElementSource) {
@@ -68,33 +72,10 @@
 		return new Promise(resolve => new FilePicker({ current, callback: result => resolve(result) }).browse())
 	}
 
-	async function dropPredicate(event: DragEvent, rule: CustomTokenImage): Promise<void> {
-		const data = event?.dataTransfer?.getData('text/plain')
-		if (!data) return
-		const effect = await fromUuid(JSON.parse(data).uuid) as EffectPF2e
-
-		if (effect?.type !== 'effect') throw new ErrorMsg('The dragged entity is not an effect!')
-
-		// TODO: I swear this feels so wrong using an index for this.
-		return updateRules(rule, {
-			predicate: [`self:${effect.getRollOptions()[1]}`],
-			uuidPredicate: effect.uuid,
-		})
-	}
-
-	function removeDropPredicate(rule: CustomTokenImage) {
-		rule.predicate = []
-		rule.uuidPredicate = ''
-		updateRules()
-	}
-
 	function isCustomTokenImage(rule: RuleElementSource): rule is CustomTokenImage {
 		return rule.key === 'TokenImage'
 	}
 
-	function isEffect(doc?: ClientDocument | null): doc is EffectPF2e {
-		return doc?.type === 'effect'
-	}
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
@@ -128,42 +109,10 @@
 					'>
 						<!-- #region Predicate -->
 						<span>
-							Activate on:
+							Predicate:
 						</span>
-						<section
-							class='border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'
-							on:drop|preventDefault|stopPropagation={event => dropPredicate(event, rule)}
-							aria-dropeffect='none'
-							aria-label='Drag and Drop Effect Target'
-						>
-							{#await fromUuid(rule.uuidPredicate) then effect}
-								{#if isEffect(effect)}
-									<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-									<div
-										class='flex items-center gap-1 mx-auto cursor-pointer'
-										on:click={() => effect.sheet.render(true)}
-										on:keyup={() => effect.sheet.render(true)}
-										role='document'
-									>
-										<img
-											src={effect.img}
-											alt='Effect Icon'
-											class='size-6 cursor-pointer'
-										/>
-										<span>
-											{effect.name}
-										</span>
-										<i class='fa fa-close ml-auto p-1 py-0 leading-normal hover:underline'
-											role='button'
-											tabindex='-1'
-											on:click|stopPropagation={() => removeDropPredicate(rule)}
-											on:keyup|stopPropagation={() => removeDropPredicate(rule)} />
-									</div>
-								{:else}
-									Drag and drop an effect to predicate onto!
-								{/if}
-							{/await}
-						</section>
+						<PredicateSection {rule} {updateRules} />
+
 						<!-- #endregion -->
 						<!-- #region Token Image -->
 						<span>

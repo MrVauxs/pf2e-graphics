@@ -1,21 +1,21 @@
 import './presets.ts'
 import { AnimCore } from './AnimCore.ts'
 
-window.pf2eGraphics ??= {
-	modules: {},
+Object.assign(window, {
+	pf2eGraphics: { modules: {}, AnimCore },
 	AnimCore,
-}
-
-window.AnimCore = AnimCore
+})
 
 Hooks.on('ready', async () => {
 	for (const mod of game.modules) {
-		if (!mod.active)
-			continue
+		if (!mod.active) continue
 		const animations: string | undefined = mod.flags?.['pf2e-graphics'] as unknown as string
-		if (!animations)
-			continue
-		window.pf2eGraphics.modules[mod.id] = await (await fetch(animations)).json()
+		if (!animations) continue
+		const path = animations.startsWith('modules/') ? animations : `modules/${mod.id}/${animations}`
+
+		fetch(path)
+			.then(resp => resp.json()
+				.then((json) => { window.pf2eGraphics.modules[mod.id] = json }))
 	}
 })
 

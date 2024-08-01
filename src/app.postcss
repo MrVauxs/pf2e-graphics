@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* https://github.com/FortAwesome/Font-Awesome/issues/12607#issuecomment-506886318 */
-.ko-fi::after {
-	content: '\f004';
-	font-weight: 900;
-	font-size: 0.4rem;
-	color: #ff5e5e;
-	position: absolute;
-	margin: 0.42rem 0 0 -0.74rem;
-}
+.pf2e-g {
+	/* https://github.com/FortAwesome/Font-Awesome/issues/12607#issuecomment-506886318 */
+	& .ko-fi::after {
+		content: '\f004';
+		font-weight: 900;
+		font-size: 0.4rem;
+		color: #ff5e5e;
+		position: absolute;
+		margin: 0.42rem 0 0 -0.74rem;
+	}
 
-.bg-button {
-	background: rgba(0, 0, 0, 0.1);
-	border: 2px groove var(--color-border-light-highlight);
-	border-radius: 3px;
+	& .bg-button {
+		background: rgba(0, 0, 0, 0.1);
+		border: 2px groove var(--color-border-light-highlight);
+		border-radius: 3px;
+	}
+
+	& button {
+		&.disabled,
+		&:disabled {
+			@apply cursor-not-allowed;
+		}
+	}
 }
