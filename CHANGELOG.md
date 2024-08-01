@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2024-08-01
+
+### Fixed
+
+- Improved the stability of the Token Image Manager, especially in regards to pre-existing rule elements.
+
 ## [0.1.0] - 2024-07-31
 
 ### Added
@@ -86,7 +92,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/MrVauxs/pf2e-graphics/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.9...0.1.0
 [0.0.9]: https://github.com/MrVauxs/pf2e-graphics/compare/0.0.8-alpha...0.0.9
 [0.0.8-alpha]: https://github.com/MrVauxs/pf2e-graphics/releases/tag/0.0.8-alpha
