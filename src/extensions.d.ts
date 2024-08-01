@@ -78,4 +78,7 @@ declare global {
 	}
 
 	class CanvasAnimation {}
+	class ImageHelper {
+		static createThumbnail(src, { width, height }): Promise<{ src, thumb }>
+	}
 }

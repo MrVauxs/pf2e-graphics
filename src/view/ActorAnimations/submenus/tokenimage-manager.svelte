@@ -3,6 +3,7 @@
 	import { ErrorMsg, devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
 	import featData from './tokenimage-feat.json'
+	import TokenThumbnail from './elements/TokenThumbnail.svelte'
 
 	export let actor: TJSDocument<ActorPF2e>
 
@@ -17,7 +18,7 @@
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID')
 	}
 
-	devMessage($actor, $tokenImageID, $feat)
+	devMessage($actor, $feat, $feat?.system.rules)
 	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat
 
 	async function giveth() {
@@ -52,8 +53,14 @@
 		await $feat?.update({ 'system.rules': $feat.system.rules.filter(x => x !== rule) })
 	}
 
-	async function updateRules() {
-		await $feat?.update({ 'system.rules': $feat.system.rules })
+	async function updateRules(toUpdate?: CustomTokenImage, updateWith?: Partial<CustomTokenImage>) {
+		const rules = $feat.system.rules
+		if (toUpdate && updateWith) {
+			// Doing black magic just to get around APPARENT Object.preventExtensions()
+			rules[rules.findIndex(x => x === toUpdate)] = foundry.utils.mergeObject({ ...toUpdate }, updateWith)
+		}
+
+		await $feat?.update({ 'system.rules': rules })
 	}
 
 	async function PickAFile(current: string) {
@@ -69,10 +76,10 @@
 		if (effect?.type !== 'effect') throw new ErrorMsg('The dragged entity is not an effect!')
 
 		// TODO: I swear this feels so wrong using an index for this.
-		rule.predicate = [`self:${effect.getRollOptions()[1]}`]
-		rule.uuidPredicate = effect.uuid
-
-		updateRules()
+		updateRules(rule, {
+			predicate: [`self:${effect.getRollOptions()[1]}`],
+			uuidPredicate: effect.uuid,
+		})
 	}
 
 	function removeDropPredicate(rule: CustomTokenImage) {
@@ -88,17 +95,12 @@
 	function isEffect(doc?: ClientDocument | null): doc is EffectPF2e {
 		return doc?.type === 'effect'
 	}
-
-	function prepRules(rule: CustomTokenImage) {
-		rule.animation ??= { }
-		return rule
-	}
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
-	{#if $tokenImageID}
+	{#if $tokenImageID && $feat}
 		<div class='flex-grow flex-shrink overflow-y-scroll mb-2 text-center'>
-			{#each $feat?.system.rules.filter(isCustomTokenImage).map(prepRules) || [] as rule}
+			{#each $feat.system.rules.filter(isCustomTokenImage) as rule}
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>
 						<h3 class='border-b-0'>
@@ -111,7 +113,8 @@
 								<input
 									class='h-8 w-10'
 									type='number'
-									bind:value={rule.priority} />
+									bind:value={rule.priority}
+									on:change={() => updateRules()} />
 							</label>
 							<button
 								on:click={() => removeRule(rule)}
@@ -167,21 +170,16 @@
 							Token Image:
 						</span>
 						<section class='flex gap-1 items-center flex-grow'>
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-							<img
-								src={rule.value}
-								alt={rule.value}
-								class='size-8 border-0 cursor-pointer'
-								style:transform='scale({rule.scale ?? $feat.actor.prototypeToken.texture.scaleX})'
-								on:click={() => new ImagePopout(rule.value).render(true)}
+							<TokenThumbnail
+								img={rule.value}
+								transform='scale({rule.scale ?? $feat.actor.prototypeToken.texture.scaleX})'
 							/>
 							<input
 								class='h-6 bg-opacity-50 bg-slate-100'
 								type='text'
 								placeholder='path/to/file.ext'
 								bind:value={rule.value}
-								on:change={updateRules}
+								on:change={() => updateRules()}
 							/>
 							<button
 								class='fas fa-file-import w-10 bg-button h-6'
@@ -204,11 +202,13 @@
 							grid grid-cols-2 gap-2
 							border border-solid p-1 rounded-sm bg-opacity-50 bg-slate-100 flex-grow'
 						>
+							<!-- Sneakily update the data to include the object lest all shit below breaks -->
+							{'' ?? (rule.animation ??= {})}
 							<label class='grid grid-cols-2 items-center'>
 								Transition:
 								<select name='transition'
 									bind:value={rule.animation.transition}
-									on:change={updateRules}>
+									on:change={() => updateRules()}>
 									{#each Object.values(TextureTransitionFilter.TYPES) as value}
 										<option {value}>{value.titleCase()}</option>
 									{/each}
@@ -218,7 +218,7 @@
 								Duration:
 								<input class="" type='number'
 									bind:value={rule.animation.duration}
-									on:change={updateRules} />
+									on:change={() => updateRules()} />
 							</label>
 							<label class='grid grid-cols-2 items-center'>
 								<span>
@@ -229,7 +229,7 @@
 								</span>
 								<select name='easing'
 									bind:value={rule.animation.easing}
-									on:change={updateRules}>
+									on:change={() => updateRules()}>
 									<option value="" />
 									{#each Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease'))) as value}
 										<option {value}>{value}</option>
@@ -249,16 +249,18 @@
 							<label class='grid grid-cols-2 items-center'>
 								Scale:
 								<input type='number'
-									placeholder='1'
+									step='0.1'
+									min='0.1'
+									max='4'
 									bind:value={rule.scale}
-									on:change={updateRules} />
+									on:change={() => updateRules()} />
 							</label>
 							<label class='grid grid-cols-2 items-center'>
 								Tint:
 								<div class='flex h-6 items-center gap-1'>
 									<input class='w-24' type='color'
 										bind:value={rule.tint}
-										on:change={updateRules} />
+										on:change={() => updateRules()} />
 									<button
 										class='fa fa-refresh bg-button h-6 w-10'
 										on:click={() => {
@@ -271,10 +273,9 @@
 							<label class='grid grid-cols-2 items-center'>
 								Opacity / Alpha:
 								<input class="" type='number'
-									placeholder='1'
 									step='0.1' min='0.1' max='1'
 									bind:value={rule.alpha}
-									on:change={updateRules} />
+									on:change={() => updateRules()} />
 							</label>
 						</section>
 						<!-- #endregion -->
