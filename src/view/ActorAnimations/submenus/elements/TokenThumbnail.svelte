@@ -4,7 +4,9 @@
 
 	// This file is basically to not have Svelte re-render the image every time the window changes.
 	let thumb = ''
-	ImageHelper.createThumbnail(img, { width: 200, height: 200 }).then((v) => { thumb = v.thumb })
+	ImageHelper
+		.createThumbnail(img, { width: 200, height: 200 })
+		.then((v) => { thumb = v.thumb })
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
