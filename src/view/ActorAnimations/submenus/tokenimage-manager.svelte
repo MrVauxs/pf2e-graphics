@@ -12,7 +12,7 @@
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-	import { CanvasAnimation, TextureTransitionFilter, devMessage, i18n } from 'src/utils'
+	import { devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
 	import featData from './tokenimage-feat.json'
 	import TokenThumbnail from './elements/TokenThumbnail.svelte'

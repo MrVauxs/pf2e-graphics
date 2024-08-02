@@ -18,7 +18,7 @@
 	],
 	"compatibility": {
 		"minimum": "12.324",
-		"verified": "12.324",
+		"verified": "12.330",
 		"maximum": "12"
 	},
 	"flags": {
