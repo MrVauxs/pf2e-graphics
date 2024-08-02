@@ -82,6 +82,9 @@
 	}
 
 	let toggleExisting = false
+
+	const TransitionFilters = Object.values(TextureTransitionFilter.TYPES)
+	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')))
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
@@ -164,7 +167,7 @@
 								<select name='transition'
 									bind:value={rule.animation.transition}
 									on:change={() => updateRules()}>
-									{#each Object.values(TextureTransitionFilter.TYPES) as value}
+									{#each TransitionFilters as value}
 										<option {value}>{value.titleCase()}</option>
 									{/each}
 								</select>
@@ -186,7 +189,7 @@
 									bind:value={rule.animation.easing}
 									on:change={() => updateRules()}>
 									<option value="" />
-									{#each Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease'))) as value}
+									{#each EaseNames as value}
 										<option {value}>{value}</option>
 									{/each}
 								</select>
