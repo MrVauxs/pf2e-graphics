@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added a toggle to see the predicate data in the Token Image Manager.
+- Added an option to use existing feats in the Token Image Manager.
 
   #### Animations
 

@@ -21,7 +21,7 @@
 	export let actor: TJSDocument<ActorPF2e>
 
 	const tokenImageID = derived(actor, $actor => $actor.flags['pf2e-graphics']?.tokenImageID)
-	const derivedFeat = derived(actor, $actor => $actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))
+	const derivedFeat = derived(actor, $actor => $actor.items.get($actor.flags['pf2e-graphics']?.tokenImageID))
 	const feat = new TJSDocument($derivedFeat)
 
 	derivedFeat.subscribe(value => feat.set(value))
@@ -76,6 +76,7 @@
 		return rule.key === 'TokenImage'
 	}
 
+	let toggleExisting = false
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
@@ -258,13 +259,30 @@
 					Choose one of the options below:
 				</p>
 			</div>
-			<div class='flex'>
+			<div class='flex items-center gap-1'>
 				<button on:click={giveth}>
-					Create New
+					Create a New Feat
 				</button>
-				<button class='disabled' disabled>
-					Select Existing Feature
-				</button>
+				or...
+				{#if toggleExisting}
+					<select on:change={(e) => {
+						$actor.setFlag('pf2e-graphics', 'tokenImageID', e.target?.value)
+						$actor.setFlag('pf2e-graphics', 'displayFeat', true)
+					}}>
+						<option value="">
+							<span>None</span>
+						</option>
+						{#each $actor.items.filter(x => x.type === 'feat') as item}
+							<option value={item.id}>
+								<span>{item.name}</span>
+							</option>
+						{/each}
+					</select>
+				{:else}
+					<button on:click={() => { toggleExisting = !toggleExisting }}>
+						Select an Existing Feature
+					</button>
+				{/if}
 			</div>
 		</div>
 	{/if}
