@@ -30,6 +30,11 @@
 	}
 
 	let showPredicate = (rule.predicate || [])?.length > 1 || !rule.uuidPredicate
+
+	function updatePredicates(e: Event) {
+		rule.predicate = JSON.parse((e.target as HTMLInputElement)?.value ?? '[]')
+		updateRules()
+	}
 </script>
 
 <section
@@ -42,10 +47,7 @@
 		{#if showPredicate}
 			<input class='' type='text'
 				value={JSON.stringify(rule.predicate)}
-				on:change={(e) => {
-					rule.predicate = JSON.parse(e.target?.value || [])
-					updateRules()
-				}}
+				on:change={updatePredicates}
 			/>
 		{:else}
 			<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
