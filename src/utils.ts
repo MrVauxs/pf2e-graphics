@@ -38,3 +38,5 @@ export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getD
 export function dedupeStrings(array: string[]) {
 	return Array.from(new Set(array))
 }
+
+export const { CanvasAnimation, TextureTransitionFilter, ImagePopout } = window

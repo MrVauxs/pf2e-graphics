@@ -81,4 +81,10 @@ declare global {
 	class ImageHelper {
 		static createThumbnail(src, { width, height }): Promise<{ src, thumb }>
 	}
+
+	interface Window {
+		CanvasAnimation
+		ImagePopout
+		TextureTransitionFilter: typeof TextureTransitionFilter
+	}
 }

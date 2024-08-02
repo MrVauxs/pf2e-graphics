@@ -12,7 +12,7 @@
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-	import { devMessage, i18n } from 'src/utils'
+	import { CanvasAnimation, TextureTransitionFilter, devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
 	import featData from './tokenimage-feat.json'
 	import TokenThumbnail from './elements/TokenThumbnail.svelte'
@@ -21,7 +21,7 @@
 	export let actor: TJSDocument<ActorPF2e>
 
 	const tokenImageID = derived(actor, $actor => $actor.flags['pf2e-graphics']?.tokenImageID)
-	const derivedFeat = derived(actor, $actor => $actor.items.get($actor.flags['pf2e-graphics']?.tokenImageID))
+	const derivedFeat = derived(actor, $actor => $actor.items.get(String($actor.flags['pf2e-graphics']?.tokenImageID)))
 	const feat = new TJSDocument($derivedFeat)
 
 	derivedFeat.subscribe(value => feat.set(value))
@@ -42,6 +42,11 @@
 	async function takethAway() {
 		($actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))?.delete()
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID')
+	}
+
+	async function modifieth(e: Event) {
+		$actor.setFlag('pf2e-graphics', 'tokenImageID', (e.target as HTMLSelectElement)?.value)
+		$actor.setFlag('pf2e-graphics', 'displayFeat', true)
 	}
 
 	let display = $actor.getFlag('pf2e-graphics', 'displayFeat') as boolean
@@ -265,10 +270,7 @@
 				</button>
 				or...
 				{#if toggleExisting}
-					<select on:change={(e) => {
-						$actor.setFlag('pf2e-graphics', 'tokenImageID', e.target?.value)
-						$actor.setFlag('pf2e-graphics', 'displayFeat', true)
-					}}>
+					<select on:change={modifieth}>
 						<option value="">
 							<span>None</span>
 						</option>
