@@ -1,7 +1,10 @@
 import type { TriggerTypes } from 'src/storage/AnimCore'
 import { devMessage, log } from 'src/utils'
 
-const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e, _options, _id: ChatMessagePF2e['id']) => {
+let chatMessageHook = -1904
+
+function chatMessage(message: ChatMessagePF2e | undefined, _options: object, _id: ChatMessagePF2e['id']) {
+	if (!message) return
 	const rollOptions = message.flags.pf2e.context?.options ?? []
 	let trigger: TriggerTypes | undefined = message.flags.pf2e.context?.type
 	if (!message.token) return
@@ -34,6 +37,17 @@ const chatMessageHook = Hooks.on('createChatMessage', (message: ChatMessagePF2e,
 	}
 	devMessage('Chat Message Hook', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
+}
+
+function checkDiceSoNice() {
+	return game.modules.get('dice-so-nice')?.active
+		&& !game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')
+}
+
+Hooks.on('ready', () => {
+	chatMessageHook = checkDiceSoNice()
+		? Hooks.on('diceSoNiceRollComplete', (id: string) => chatMessage(game.messages.get(id), {}, id))
+		: Hooks.on('createChatMessage', chatMessage)
 })
 
 const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
@@ -75,6 +89,7 @@ if (import.meta.hot) {
 	import.meta.hot.accept()
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
+		Hooks.off('diceSoNiceRollComplete', chatMessageHook)
 		Hooks.off('createChatMessage', chatMessageHook)
 		Hooks.off('updateChatMessage', targetHelper)
 	})
