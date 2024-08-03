@@ -1,13 +1,6 @@
 import type { TriggerTypes } from 'src/storage/AnimCore'
 import { devMessage, log } from 'src/utils'
 
-const diceSoNiceHook = Hooks.on('diceSoNiceRollComplete', (id: string) => {
-	if (!game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')) {
-		const message = game.messages.get(id)
-		if (message) handleChatMessage(message)
-	}
-})
-
 function handleChatMessage(message: ChatMessagePF2e) {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
 	let trigger: TriggerTypes | undefined = message.flags.pf2e.context?.type
@@ -42,6 +35,13 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	devMessage('Chat Message Hook', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
 }
+
+const diceSoNiceHook = Hooks.on('diceSoNiceRollComplete', (id: string) => {
+	if (!game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')) {
+		const message = game.messages.get(id)
+		if (message) handleChatMessage(message)
+	}
+})
 
 const chatMessageHook = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
 	if (

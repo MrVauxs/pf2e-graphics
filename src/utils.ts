@@ -38,3 +38,20 @@ export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getD
 export function dedupeStrings(array: string[]) {
 	return Array.from(new Set(array))
 }
+
+export function getPlayerOwners(actor: ActorPF2e) {
+	const assigned = game.users.contents.find(user => user.character?.id === actor.id)
+	if (assigned) return [assigned]
+
+	// If everyone owns it, nobody does.
+	if (actor.ownership.default === 3) {
+		return game.users.contents
+	}
+
+	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
+	return Object.keys(actor.ownership)
+		.filter(x => actor.hasPlayerOwner
+			? !game.users.get(x)?.hasRole('GAMEMASTER')
+			: game.users.get(x)?.hasRole('GAMEMASTER'))
+		.map(x => game.users.get(x, { strict: true }))
+}

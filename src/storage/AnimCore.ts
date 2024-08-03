@@ -1,4 +1,4 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, log, nonNullable } from 'src/utils.ts'
+import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, nonNullable } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import type { PresetKeys } from './presets'
@@ -62,12 +62,15 @@ export let AnimCore = class AnimCore {
 		return animationObject.flatMap(x => this.getReferences(x))
 	}
 
-	static getAnimationsArray(key: string | undefined): AnimationDataObject[] {
+	static getAnimationsArray(
+		key: string | undefined,
+		additionalAnimations?: ReturnType<typeof this.getAnimations>,
+	): AnimationDataObject[] {
 		if (!key || typeof key !== 'string') {
 			throw new ErrorMsg(`You are trying to call 'getAnimationsArray' with a non-string value (${key})!`)
 		}
 
-		let animationObject = this.getAnimations()[key]
+		let animationObject = { ...this.getAnimations(), ...(additionalAnimations || {}) }[key]
 
 		if (typeof animationObject === 'string') {
 			animationObject = AnimCore.getAnimationsArray(animationObject)
@@ -105,21 +108,42 @@ export let AnimCore = class AnimCore {
 		// return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
 
+	/**
+	 * Array of predicates is always required.
+	 * The owner of the actor/item is required, but can be assumed to be the client if absent.
+	 * The item is not required, as there can be item-less rolls with roll options.
+	 * The actor is not required, for purposes of customizing item animations in the sidebar.
+	 */
 	static getMatchingAnimationTrees(
 		array: string[] = [],
-		_item?: ItemPF2e | null,
-		_userId?: User['id'],
+		actor?: ActorPF2e | null,
+		item?: ItemPF2e | null,
 	): Record<string, AnimationDataObject[]> {
-		if ((_item || _userId)) devMessage('Item and User animations are not yet implemented in getMatchingAnimationTrees!')
-		// const actor = _item?.actor
-
 		if (!array.length) return {}
 
+		// Allow deletions in event players just dont want an animation at all.
+		function merge<T extends object, U extends object = T>(a: T, b: U): T & U {
+			return foundry.utils.mergeObject(a, b, { performDeletions: true })
+		}
+
+		/*
+			If there are multiple owners, you'd want to use your own flags.
+			If its not yours, just use whoever has it assigned as their default, or worst case scenario, whoever is first on the list.
+		*/
+		const owners = actor ? getPlayerOwners(actor) : [game.user]
+		const user = owners.find(x => x.id === game.user.id) || owners[0]
+
+		// Get all the flags.
+		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+
+		const customAnimations = merge(actorKeys, merge(userKeys, itemKeys)) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
-		const keys = AnimCore.getKeys()
+		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
 		return keys
 			.filter(key => preparedOptions.includes(key))
-			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
+			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {})
 	}
 
 	/**
@@ -177,14 +201,15 @@ export let AnimCore = class AnimCore {
 		sequence.play({ preload: true, local: true })
 	}
 
-	static filterAnimations({ rollOptions: rollOptionsOG, item, trigger, narrow }: {
+	static filterAnimations({ rollOptions: rollOptionsOG, item, trigger, narrow, actor }: {
 		rollOptions: string[]
 		item?: ItemPF2e | null
 		trigger: TriggerTypes
 		narrow: (a: AnimationDataObject) => boolean
+		actor?: ActorPF2e | null
 	}) {
 		const rollOptions = this.prepRollOptions(rollOptionsOG)
-		const animationTree = this.getMatchingAnimationTrees(rollOptions, item, game.userId)
+		const animationTree = this.getMatchingAnimationTrees(rollOptions, actor, item)
 
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
@@ -197,9 +222,14 @@ export let AnimCore = class AnimCore {
 		}
 
 		// Overrides handling
-		Object.values(validAnimations).map(anims => anims.flatMap(x => x.overrides).filter(nonNullable)).forEach((overrides) => {
-			overrides.forEach(s => delete validAnimations[s])
-		})
+		Object.values(validAnimations)
+			.map(anims => anims
+				.flatMap(x => x.overrides)
+				.filter(nonNullable),
+			)
+			.forEach((overrides) => {
+				overrides.forEach(s => delete validAnimations[s])
+			})
 
 		return validAnimations
 	}
@@ -208,8 +238,8 @@ export let AnimCore = class AnimCore {
 		trigger,
 		rollOptions,
 		item,
-		actor,
 		source,
+		actor = item?.actor ?? source?.actor as ActorPF2e,
 		...rest
 	}: {
 		item?: ItemPF2e | null
@@ -218,15 +248,11 @@ export let AnimCore = class AnimCore {
 		rollOptions: string[]
 		trigger: TriggerTypes
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) actor = item?.actor ?? source?.actor as ActorPF2e | undefined | null
-		if (!source) source = actor?.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
-		if (!source) {
-			// Overly annoying, don't ping me when editing a character sheet without a token on the scene.
-			// if (dev) throw new ErrorMsg('findAndAnimate was called with no token present!')
-			return log('No Token Found to animate with! Aborting.')
-		};
+		if (!actor) return log('No Actor Found! How did this happen?')
+		if (!source) source = actor.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
+		if (!source) return log('No Token Found to animate with! Aborting.')
 
-		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow })
+		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor })
 
 		devMessage('Animating the Following', validAnimations, { trigger, rollOptions, item, actor, source })
 

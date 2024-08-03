@@ -17,14 +17,15 @@
 
 	const doc = new TJSDocument(item)
 	const rollOptions = $doc.getRollOptions('item')
-	let animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item)
+	const getAnimations = () => window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item.actor, item)
+	let animations = getAnimations()
 
 	// *In Zenyatta VA* Experience Reactivity
-	doc.subscribe(() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item)))
+	doc.subscribe(() => (animations = getAnimations()))
 	if (import.meta.hot) {
 		import.meta.hot.on(
 			'updateAnims',
-			() => (animations = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item)),
+			() => (animations = getAnimations()),
 		)
 	}
 
@@ -75,14 +76,15 @@
 						<span>Actor</span>
 					</label>
 					<button
-						class='col-span-3'
+						disabled={!$doc.actor}
+						class='col-span-3 {!$doc.actor ? 'disabled' : ''}'
 						id='actor'
 						data-tooltip='pf2e-graphics.itemAnimation.openSheet'
 						on:click={() => {
 							$doc.actor?.sheet.render(true)
 						}}
 					>
-						{$doc.actor?.name}
+						{$doc.actor?.name || 'No Actor'}
 					</button>
 					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='item'>
 						<span>Item</span>
