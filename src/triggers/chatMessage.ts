@@ -20,7 +20,13 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	// @ts-expect-error - Too lazy to properly define custom modules flags
 	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined
 
-	const targets = trigger === 'saving-throw' ? [message.token] : (toolbelt ?? (message.target?.token ? [message.target?.token] : [...game.user.targets]))
+	const targets = trigger === 'saving-throw'
+		? [message.token]
+		: (toolbelt ?? (
+				message.target?.token
+					? [message.target?.token]
+					: Array.from(message.user.targets)
+			))
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.')
 
