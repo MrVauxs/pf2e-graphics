@@ -130,7 +130,7 @@
 						<section class='flex gap-1 items-center flex-grow'>
 							<TokenThumbnail
 								img={rule.value}
-								transform='scale({rule.scale ?? $feat.actor.prototypeToken.texture.scaleX})'
+								transform={rule.scale ?? $feat.actor.prototypeToken.texture.scaleX}
 							/>
 							<input
 								class='h-6 bg-opacity-50 bg-slate-100'
