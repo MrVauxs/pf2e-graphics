@@ -31,6 +31,8 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 	return (folder as FolderObject).contents !== undefined
 }
 
+export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>
+
 export let AnimCore = class AnimCore {
 	/**
 	 * Returns animation data:
@@ -38,10 +40,10 @@ export let AnimCore = class AnimCore {
 	 * - [ { file: "123" } ]
 	 * - [ { reference: "reference:to:another:animation", "predicate": ["gate:air"] } ]
 	 */
-	static getAnimations(): Record<string, string | (ReferenceObject | AnimationDataObject)[]> {
+	static getAnimations(): JSONData {
 		return Object.keys(window.pf2eGraphics.modules)
-			// Sort "pf2e-graphics" module to be the last one
-			.sort((a, b) => a === 'pf2e-graphics' ? 1 : b === 'pf2e-graphics' ? -1 : 0)
+			// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
+			.sort((a, b) => a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0)
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {})
 	}
 
@@ -122,13 +124,11 @@ export let AnimCore = class AnimCore {
 		if (!array.length) return {}
 
 		// Allow deletions in event players just dont want an animation at all.
-		function merge<T extends object, U extends object = T>(a: T, b: U): T & U {
-			return foundry.utils.mergeObject(a, b, { performDeletions: true })
-		}
+		const merge = foundry.utils.mergeObject
 
 		/*
-			If there are multiple owners, you'd want to use your own flags.
-			If its not yours, just use whoever has it assigned as their default, or worst case scenario, whoever is first on the list.
+			From a list of owners, find either the "true" owner (assigned user) or yourself if you are one of them.
+			Otherwise, default to whoever is first.
 		*/
 		const owners = actor ? getPlayerOwners(actor) : [game.user]
 		const user = owners.find(x => x.id === game.user.id) || owners[0]
@@ -138,7 +138,8 @@ export let AnimCore = class AnimCore {
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
-		const customAnimations = merge(actorKeys, merge(userKeys, itemKeys)) as ReturnType<typeof this.getAnimations>
+		// Priority (highest to lowest): Item > Actor > User > Global
+		const customAnimations = merge(userKeys, merge(actorKeys, itemKeys)) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
 		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
 		return keys

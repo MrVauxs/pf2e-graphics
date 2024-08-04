@@ -22,7 +22,7 @@
 	const doc = new TJSDocument(actor)
 	devMessage(actor, doc)
 
-	const tabs = ['all-animations', 'actor-animations', 'tokenimage-manager'] as const
+	const tabs = ['actor-animations', 'all-animations', 'tokenimage-manager'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore(actor.id, tabs[0])
 </script>
 
