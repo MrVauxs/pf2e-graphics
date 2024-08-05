@@ -301,7 +301,6 @@ export const presets = {
 		return seq
 	},
 	macro: (seq: Sequence, data: PresetIndex['macro']) => seq.macro(data.macro, data),
-	JSON: (seq: Sequence, jsonData: PresetIndex['JSON']) => seq.fromJSON(jsonData),
 } as const
 
 export type PresetKeys = keyof typeof presets
@@ -312,7 +311,6 @@ interface PresetIndex {
 	onToken: GenericSequenceData<'onToken'>
 	macro: MacroSequenceData
 	template: TemplateSequenceData
-	JSON: JSONSequenceData
 }
 
 interface GenericSequenceData<T extends PresetKeys> {
@@ -328,8 +326,7 @@ type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point)
 
 type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[], source?: TokenOrDoc }
 
-type MacroSequenceData = GenericSequenceData<'JSON'> & { macro: string }
-type JSONSequenceData = any
+interface MacroSequenceData { macro: string }
 
 function applyPresets(override?: boolean) {
 	Object.keys(presets).forEach((key) => {

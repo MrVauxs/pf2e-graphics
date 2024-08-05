@@ -3,6 +3,10 @@
 		"support": "Donate",
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
+		"cancel": "Cancel",
+		"easingTooltip": "Learn more about various easing functions here.",
+		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
+		"areYouSureM8": "Are you sure?",
 		"settings": {
 			"windowPosition": {
 				"name": "Window Position",
@@ -51,7 +55,24 @@
 			"toggle": "Toggle Predicates on and off, allowing you to preview the token change.",
 			"switch": "See the Effect the rule is predicated onto, or the predicate data itself."
 		},
-		"easingTooltip": "Learn more about various easing functions here.",
-		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid)."
+		"triggers": {
+			"attack-roll": "Attack Roll",
+			"damage-roll": "Damage Roll",
+			"spell-cast": "Spell Cast",
+			"damage-taken": "Damage Taken",
+			"saving-throw": "Saving Throw",
+			"place-template": "Template Placed",
+			"check": "Check",
+			"counteract-check": "Counteract Check",
+			"flat-check": "Flat Check",
+			"initiative": "Initiative Roll",
+			"perception-check": "Perception Check",
+			"skill-check": "Skill Check",
+			"effect": "Effect Granted",
+			"toggle": "Toggle",
+			"startTurn": "Start of Turn",
+			"endTurn": "End of Turn",
+			"self-effect": "'Use' Effect"
+		}
 	}
 }

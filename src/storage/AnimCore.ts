@@ -1,7 +1,7 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, nonNullable } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
-import type { PresetKeys } from './presets'
+import { type PresetKeys, presets } from './presets'
 
 export const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
@@ -270,6 +270,35 @@ export let AnimCore = class AnimCore {
 			await sequence.play({ preload: true, local: true })
 		}
 	}
+
+	static CONST = {
+		TEMPLATE_ANIMATION: (): AnimationDataObject => ({
+			id: foundry.utils.randomID(),
+			trigger: this.CONST.TRIGGERS[0],
+			preset: this.CONST.PRESETS[0],
+			file: '',
+		}),
+		PRESETS: Object.keys(presets) as PresetKeys[],
+		TRIGGERS: [
+			'attack-roll',
+			'damage-roll',
+			'place-template',
+			'spell-cast',
+			'toggle',
+			'effect',
+			'self-effect',
+			'startTurn',
+			'endTurn',
+			'damage-taken',
+			'saving-throw',
+			'check',
+			'skill-check',
+			'flat-check',
+			'initiative',
+			'perception-check',
+			'counteract-check',
+		],
+	} as const
 }
 
 if (import.meta.hot) {
@@ -289,19 +318,7 @@ type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
-export type TriggerTypes =
-	| 'attack-roll'
-	| 'damage-roll'
-	| 'spell-cast'
-	| 'damage-taken'
-	| 'saving-throw'
-	| 'place-template'
-	| CheckType
-	| 'effect'
-	| 'toggle'
-	| 'startTurn'
-	| 'endTurn'
-	| 'self-effect' // Unimplemented, not sure if there are any applicable use for those message types
+export type TriggerTypes = typeof AnimCore['CONST']['TRIGGERS'][number]
 
 interface AnimationDataObject {
 	overrides?: string[]
@@ -311,6 +328,7 @@ interface AnimationDataObject {
 	default?: boolean
 	predicate?: PredicateStatement[]
 	options?: any
+	id?: string
 }
 
 // #endregion

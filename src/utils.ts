@@ -55,3 +55,7 @@ export function getPlayerOwners(actor: ActorPF2e) {
 			: game.users.get(x)?.hasRole('GAMEMASTER'))
 		.map(x => game.users.get(x, { strict: true }))
 }
+
+export function camelToSpaces(string: string): string {
+	return string.replace(/([A-Z])/g, ' $1')
+}
