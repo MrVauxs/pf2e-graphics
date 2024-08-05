@@ -1,11 +1,11 @@
 <script lang='ts'>
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
+	import { writableDerived } from '@typhonjs-fvtt/runtime/svelte/store/writable-derived'
 	import type { moduleFlags } from 'src/extensions'
 	import { AnimCore } from 'src/storage/AnimCore'
 	import { devMessage, log } from 'src/utils'
 	import AnimationCreator from 'src/view/AnimationCreator.svelte'
 	import { getContext } from 'svelte'
-	import writableDerived from 'svelte-writable-derived'
 	import type { Writable } from 'svelte/store'
 
 	export let doc: TJSDocument<ActorPF2e>
@@ -37,8 +37,7 @@
 	function deleteAnimation(key: string) {
 		if (!$flag?.customAnimations) throw log('Something went wrong, check with Vauxs!')
 		delete $flag.customAnimations[key]
-		// eslint-disable-next-line no-self-assign
-		$flag.customAnimations = $flag.customAnimations
+		flag.set($flag)
 	}
 
 	$: devMessage('Actor Animations Tab', $flag.customAnimations, $showNewAnimation)
