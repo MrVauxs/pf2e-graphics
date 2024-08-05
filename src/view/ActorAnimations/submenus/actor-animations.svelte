@@ -10,7 +10,7 @@
 
 	export let doc: TJSDocument<ActorPF2e>
 
-	// TODO: UNFUCK EVERYTHING RELATED TO ACTUALLY UPDATING THIS SHIT
+	// TODO: Fix this
 	const flag = writableDerived(
 		doc,
 		$doc => $doc.getFlag('pf2e-graphics', 'customAnimations'),
