@@ -15,7 +15,24 @@
 		doc,
 		$doc => $doc.getFlag('pf2e-graphics', 'customAnimations'),
 		(data, doc) => {
-			doc.setFlag('pf2e-graphics', 'customAnimations', data)
+			const diff = foundry.utils.diffObject(doc.flags['pf2e-graphics'], data)
+
+			function changeValue(obj: Record<string, any>) {
+				if (typeof obj === 'object') {
+					// iterating over the object using for..in
+					for (const key in obj) {
+						if (obj[key] === null) {
+							obj[`-=${key}`] = null
+							delete obj[key]
+						} else if (typeof obj[key] === 'object') {
+							changeValue(obj[key])
+						}
+					}
+				}
+				return obj
+			}
+
+			doc.setFlag('pf2e-graphics', 'customAnimations', changeValue(diff))
 			return doc
 		},
 	) as Writable<moduleFlags>
@@ -36,8 +53,8 @@
 
 	function deleteAnimation(key: string) {
 		if (!$flag?.customAnimations) throw log('Something went wrong, check with Vauxs!')
-		delete $flag.customAnimations[key]
-		flag.set($flag)
+		// @ts-ignore Explicitly a deletion thing
+		$flag.customAnimations[key] = null
 	}
 
 	$: devMessage('Actor Animations Tab', $flag.customAnimations, $showNewAnimation)
@@ -46,7 +63,7 @@
 <div class='p-2 pb-0 flex flex-col h-full items-center'>
 	{#if $flag.customAnimations}
 		<div class='flex flex-col w-full items-center gap-1.5'>
-			{#each Object.keys($flag.customAnimations) as key}
+			{#each Object.keys($flag.customAnimations).filter(x => Boolean($flag.customAnimations?.[x])) as key}
 				<AnimationCreator
 					{key}
 					allAnimations={$flag.customAnimations}
