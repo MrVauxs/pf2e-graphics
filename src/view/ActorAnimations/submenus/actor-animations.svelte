@@ -2,7 +2,7 @@
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 	import { writableDerived } from '@typhonjs-fvtt/runtime/svelte/store/writable-derived'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { camelToSpaces, devMessage, i18n, log } from 'src/utils'
+	import { camelToSpaces, devMessage, i18n } from 'src/utils'
 	import { getContext } from 'svelte'
 	import type { Writable } from 'svelte/store'
 
