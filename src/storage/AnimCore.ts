@@ -277,6 +277,18 @@ export let AnimCore = class AnimCore {
 			trigger: this.CONST.TRIGGERS[0],
 			preset: this.CONST.PRESETS[0],
 			file: '',
+			options: {
+				fadeIn: {},
+				fadeOut: {},
+				scale: {},
+				wait: {},
+				delay: {},
+				scaleToObject: {},
+				filter: {},
+				persist: {},
+				repeats: {},
+				tieToDocuments: true,
+			},
 		}),
 		PRESETS: Object.keys(presets) as PresetKeys[],
 		TRIGGERS: [

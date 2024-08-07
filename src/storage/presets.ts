@@ -1,4 +1,4 @@
-import { ErrorMsg } from 'src/utils'
+import { ErrorMsg, clearEmpties } from 'src/utils'
 import type { TokenOrDoc } from 'src/extensions'
 
 export const helpers = {
@@ -41,6 +41,7 @@ export const helpers = {
 		return target
 	},
 	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, _item: ItemPF2e, _target: Target, options?: EffectOptions<T>) {
+		options = clearEmpties(options || {})
 		if (options?.scale)
 			seq.scale(options.scale.min, options.scale.max)
 		if (options?.scaleToObject)
@@ -121,7 +122,7 @@ interface SoundConfig {
 	waitUntilFinished: number
 }
 
-interface EffectOptions<T extends PresetKeys> {
+export interface EffectOptions<T extends PresetKeys> {
 	sound?: SoundConfig
 	preset?: presetOptions<T>
 	locally?: boolean
@@ -136,8 +137,12 @@ interface EffectOptions<T extends PresetKeys> {
 	tint?: string
 	rotate?: number
 	mask?: true
-	fadeIn?: { value: number } & EasingOptions
-	fadeOut?: { value: number } & EasingOptions
+	fadeIn?: {
+		value: number
+	} & EasingOptions
+	fadeOut?: {
+		value: number
+	} & EasingOptions
 	scale?: {
 		min: number | { x: number, y: number }
 		max?: number
@@ -150,24 +155,28 @@ interface EffectOptions<T extends PresetKeys> {
 		min: number
 		max?: number
 	}
-	scaleToObject?: { value: number } & Parameters<EffectSection['scaleToObject']>[1]
+	scaleToObject?: {
+		value: number
+	} & Parameters<EffectSection['scaleToObject']>[1]
 	filter?: {
 		type: Parameters<EffectSection['filter']>[0]
 		options: Parameters<EffectSection['filter']>[1]
 	}
+	persist?: {
+		value: boolean
+	} & Parameters<EffectSection['persist']>[1]
+	repeats?: {
+		min: Parameters<EffectSection['repeats']>[0]
+		delay: Parameters<EffectSection['repeats']>[1]
+		max: Parameters<EffectSection['repeats']>[2]
+	}
 	missed?: boolean
-	persist?: { value: boolean } & Parameters<EffectSection['persist']>[1]
 	attachTo?: Parameters<EffectSection['attachTo']>[1]
 	atLocation?: Parameters<EffectSection['atLocation']>[1]
 	stretchTo?: Parameters<EffectSection['stretchTo']>[1]
 	rotateTowards?: Parameters<EffectSection['rotateTowards']>[1]
 	anchor?: Parameters<EffectSection['anchor']>[0]
 	template?: Parameters<EffectSection['template']>[0]
-	repeats?: {
-		min: Parameters<EffectSection['repeats']>[0]
-		delay: Parameters<EffectSection['repeats']>[1]
-		max: Parameters<EffectSection['repeats']>[2]
-	}
 	shape?: Shape | Shape[]
 }
 
