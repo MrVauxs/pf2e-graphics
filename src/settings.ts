@@ -3,7 +3,7 @@ import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt
 const gameSettings = new TJSGameSettings('pf2e-graphics')
 export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
-	quality: 0 | 1 | 2
+	quality: 0 | 1 | 2 | 3
 	buttonPosition: 0 | 1
 	dev: boolean
 }

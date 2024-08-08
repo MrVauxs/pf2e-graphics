@@ -241,6 +241,7 @@ export let AnimCore = class AnimCore {
 		item,
 		source,
 		actor = item?.actor ?? source?.actor as ActorPF2e,
+		animationOptions,
 		...rest
 	}: {
 		item?: ItemPF2e | null
@@ -248,6 +249,7 @@ export let AnimCore = class AnimCore {
 		source?: TokenOrDoc | null
 		rollOptions: string[]
 		trigger: TriggerTypes
+		animationOptions?: object
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		if (!actor) return log('No Actor Found! How did this happen?')
 		if (!source) source = actor.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
@@ -262,7 +264,7 @@ export let AnimCore = class AnimCore {
 
 			for (const animation of anim) {
 				this.animate(
-					foundry.utils.mergeObject({ options: rest }, animation),
+					{ ...animation, ...animationOptions },
 					{ ...rest, sequence, item, actor, source },
 				)
 			}
@@ -273,7 +275,6 @@ export let AnimCore = class AnimCore {
 
 	static CONST = {
 		TEMPLATE_ANIMATION: (): AnimationDataObject => ({
-			id: foundry.utils.randomID(),
 			trigger: this.CONST.TRIGGERS[0],
 			preset: this.CONST.PRESETS[0],
 			file: '',
@@ -340,7 +341,6 @@ interface AnimationDataObject {
 	default?: boolean
 	predicate?: PredicateStatement[]
 	options?: any
-	id?: string
 }
 
 // #endregion

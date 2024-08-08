@@ -16,7 +16,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	}
 
 	const missed = message.flags.pf2e.context?.outcome?.includes('ailure') ?? false
-	const additionalOptions = { missed }
+	const animationOptions = { missed }
 	// @ts-expect-error - Too lazy to properly define custom modules flags
 	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined
 
@@ -36,7 +36,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 		targets,
 		source: message.token,
 		item: message.item,
-		...additionalOptions,
+		animationOptions,
 	}
 	devMessage('Chat Message Hook', deliverable)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)
@@ -74,7 +74,7 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 
 			const rollOptions = message.flags.pf2e.context?.options ?? []
 			const trigger = roll.roll.options.type
-			const additionalOptions = { outcome: roll?.success }
+			const animationOptions = { missed: roll?.success }
 
 			const deliverable = {
 				rollOptions,
@@ -82,7 +82,7 @@ const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { 
 				targets: [target],
 				source: message.token,
 				item: message.item,
-				...additionalOptions,
+				animationOptions,
 			}
 
 			devMessage('Target Helper Hook', deliverable)

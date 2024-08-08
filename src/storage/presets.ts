@@ -80,6 +80,16 @@ export const helpers = {
 			seq.wait(options.wait.min, options.wait?.max)
 		if (options?.delay)
 			seq.delay(options.delay.min, options.delay?.max)
+		if (options?.opacity)
+			seq.opacity(options.opacity)
+		if (options?.size)
+			seq.size(options.size.value, options.size)
+
+		// Property Animation
+		if (options?.loopProperty)
+			options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options))
+		if (options?.animateProperty)
+			options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options))
 
 		// Adds new effects
 		if (options?.shape)
@@ -92,7 +102,6 @@ export const helpers = {
 			seq.tieToDocuments([_item])
 		if (options?.mask)
 			seq.mask()
-
 		if (options?.remove) {
 			[options.remove].flat().forEach(origin => Sequencer.EffectManager.endEffects({ origin }))
 		}
@@ -136,6 +145,7 @@ export interface EffectOptions<T extends PresetKeys> {
 	duration?: number
 	tint?: string
 	rotate?: number
+	opacity?: number
 	mask?: true
 	fadeIn?: {
 		value: number
@@ -158,6 +168,9 @@ export interface EffectOptions<T extends PresetKeys> {
 	scaleToObject?: {
 		value: number
 	} & Parameters<EffectSection['scaleToObject']>[1]
+	size?: {
+		value: number
+	} & Parameters<EffectSection['size']>[1]
 	filter?: {
 		type: Parameters<EffectSection['filter']>[0]
 		options: Parameters<EffectSection['filter']>[1]
@@ -177,6 +190,16 @@ export interface EffectOptions<T extends PresetKeys> {
 	rotateTowards?: Parameters<EffectSection['rotateTowards']>[1]
 	anchor?: Parameters<EffectSection['anchor']>[0]
 	template?: Parameters<EffectSection['template']>[0]
+	loopProperty?: {
+		target: Parameters<EffectSection['loopProperty']>[0]
+		property: Parameters<EffectSection['loopProperty']>[1]
+		options: Parameters<EffectSection['loopProperty']>[2]
+	}[]
+	animateProperty?: {
+		target: Parameters<EffectSection['animateProperty']>[0]
+		property: Parameters<EffectSection['animateProperty']>[1]
+		options: Parameters<EffectSection['animateProperty']>[2]
+	}[]
 	shape?: Shape | Shape[]
 }
 

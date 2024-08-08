@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
+	import { clearEmpties } from 'src/utils'
 	import SubAnimationEditor from './SubAnimationEditor.svelte'
 
 	export let key: string
@@ -25,6 +26,18 @@
 			},
 		})
 	}
+
+	async function exportWindow() {
+		Dialog.prompt({
+			content: `<textarea disabled class="min-h-80 h-full">${JSON.stringify({ [key]: clearEmpties(value) }, null, '  ')}</textarea>`,
+			label: 'Ok',
+			title: 'JSON Export',
+			options: {
+				classes: ['pf2e-g', 'json-export'],
+				resizable: true,
+			},
+		} as DialogData & { label: string, options: DialogOptions })
+	}
 </script>
 
 <div class='border border-solid bg-slate-300 bg-opacity-50 w-full rounded-sm p-2.5'>
@@ -42,7 +55,8 @@
 				<i class='fa fa-plus' />
 				New Child Animation
 			</button>
-			<button on:click={deleteAnimation} class='fa fa-trash-can size-8' />
+			<button data-tooltip='pf2e-graphics.export' on:click={exportWindow} class='fa fa-brackets-curly size-8' />
+			<button data-tooltip='Delete' on:click={deleteAnimation} class='fa fa-trash-can size-8' />
 		</div>
 	</label>
 

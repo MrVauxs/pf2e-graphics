@@ -47,7 +47,7 @@
 		</label>
 
 		<div class='flex items-center gap-2 ml-auto text-nowrap'>
-			<button on:click={() => deleteSubAnimation(animation)} class='fa fa-trash-can size-8' />
+			<button data-tooltip='Delete' on:click={() => deleteSubAnimation(animation)} class='fa fa-trash-can size-8' />
 		</div>
 	</div>
 	{#if open}

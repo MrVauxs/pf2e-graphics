@@ -3,7 +3,7 @@
 	import { writableDerived } from '@typhonjs-fvtt/runtime/svelte/store/writable-derived'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
 	import { devMessage } from 'src/utils'
-	import AnimationEditor from 'src/view/AnimationEditor.svelte'
+	import AnimationEditor from 'src/view/_components/AnimationEditor.svelte'
 	import { getContext } from 'svelte'
 	import type { Writable } from 'svelte/store'
 
@@ -18,6 +18,10 @@
 					// iterating over the object using for..in
 					for (const key in obj) {
 						if (obj[key] === null) {
+							if (key.startsWith('-=')) {
+								delete obj[key]
+								continue
+							}
 							obj[`-=${key}`] = null
 							delete obj[key]
 						} else if (typeof obj[key] === 'object') {
