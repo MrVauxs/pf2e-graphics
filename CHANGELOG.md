@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - JSON Export Button on Actor Custom Animations (#3)
+- Item Custom Animations Menu (#3)
 - `opacity`, `size`, `loopProperty`, and `animateProperty` effect options.
 
   #### Animations
