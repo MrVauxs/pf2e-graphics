@@ -46,6 +46,8 @@ export const helpers = {
 			seq.zIndex(options.zIndex)
 		if (options?.scale)
 			seq.scale(options.scale.min, options.scale.max)
+		if (options?.spriteOffset)
+			seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset)
 		if (options?.scaleToObject)
 			seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
 		if (options?.filter)
@@ -86,6 +88,8 @@ export const helpers = {
 			seq.opacity(options.opacity)
 		if (options?.size)
 			seq.size(options.size.value, options.size)
+		if (options?.moveTowards)
+			seq.moveTowards(options.moveTowards.target, options.moveTowards)
 
 		// Property Animation
 		if (options?.loopProperty)
@@ -109,11 +113,13 @@ export const helpers = {
 		}
 
 		if (_item) {
-			seq.origin(options?.id ?? _item.uuid)
+			seq.origin(_item.uuid)
 			seq.name(_item.name)
-		} else if (options?.id) {
-			seq.origin(options.id)
 		}
+		if (options?.id)
+			seq.origin(options.id)
+		if (options?.name)
+			seq.name(options.name)
 
 		return seq
 	},
@@ -125,8 +131,13 @@ export const helpers = {
 
 type presetOptions<T> =
 	| T extends 'onToken' ? ('target' | 'source' | 'both') :
-	| T extends 'ranged' ? { bounce: { file: string, sound: SoundConfig } } :
+	| T extends 'ranged' ? rangedOptions :
 	| never
+
+interface rangedOptions {
+	bounce: { file: string, sound: SoundConfig }
+	templateAsOrigin: true
+}
 
 interface SoundConfig {
 	file: string
@@ -138,6 +149,7 @@ export interface EffectOptions<T extends PresetKeys> {
 	preset?: presetOptions<T>
 	locally?: boolean
 	id?: string
+	name?: string
 	randomizeMirrorX?: boolean
 	randomizeMirrorY?: boolean
 	remove?: string | string[]
@@ -171,6 +183,9 @@ export interface EffectOptions<T extends PresetKeys> {
 	scaleToObject?: {
 		value: number
 	} & Parameters<EffectSection['scaleToObject']>[1]
+	spriteOffset?: {
+		offset: Parameters<EffectSection['spriteOffset']>[0]
+	} & Parameters<EffectSection['spriteOffset']>[1]
 	size?: {
 		value: number
 	} & Parameters<EffectSection['size']>[1]
@@ -181,6 +196,9 @@ export interface EffectOptions<T extends PresetKeys> {
 	persist?: {
 		value: boolean
 	} & Parameters<EffectSection['persist']>[1]
+	moveTowards?: {
+		target: Parameters<EffectSection['moveTowards']>[0]
+	} & Parameters<EffectSection['moveTowards']>[1]
 	repeats?: {
 		min: Parameters<EffectSection['repeats']>[0]
 		delay: Parameters<EffectSection['repeats']>[1]
@@ -231,8 +249,11 @@ export const presets = {
 				}
 			} else {
 				effect
-					.atLocation(source, helpers.parseOffsetEmbedded(options?.atLocation, source, target))
 					.file(file)
+					.atLocation(
+						options?.preset?.templateAsOrigin ? target : source,
+						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
+					)
 
 				if (options?.sound) {
 					const sound = seq.sound()

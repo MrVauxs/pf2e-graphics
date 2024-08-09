@@ -139,11 +139,8 @@
 			"preset": "ranged",
 			"file": "jb2a.ranged.beam.001.01.orange",
 			"options": {
-				"atLocation": {
-					"offset": {
-						"x": 0.5
-					},
-					"gridUnits": true
+				"preset": {
+					"templateAsOrigin": true
 				}
 			}
 		}

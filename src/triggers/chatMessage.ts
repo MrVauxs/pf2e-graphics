@@ -25,7 +25,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 		: (toolbelt ?? (
 				message.target?.token
 					? [message.target?.token]
-					: Array.from(message.user.targets)
+					: Array.from((message.author as UserPF2e).targets)
 			))
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.')

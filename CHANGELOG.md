@@ -8,7 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.3.4] - Unreleased
+
+### Added
+
+- `templateAsOrigin` preset option for `ranged` animations. Allows to have the template to be the source of the animation, as opposed to the owner token. Allows for template animations detached from token location.
+
+### Changed
+
+- Inner Radiance Torrent (P) to use `templateAsOrigin`.
+
+### Fixed
+
+- Version 12 `.user => .author` deprecation warning.
 
 ## [0.3.3] - 2024-08-09
 
