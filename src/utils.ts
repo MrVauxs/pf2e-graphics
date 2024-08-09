@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-console */
 export class ErrorMsg extends Error {
 	constructor(message: string) {
@@ -73,4 +74,42 @@ export function clearEmpties(o: Record<string, any>) {
 		}
 	}
 	return o
+}
+
+type Primitive = string | number | boolean | null | undefined
+type Mergeable = Primitive | MergeableObject | MergeableArray
+type MergeableArray = Mergeable[]
+interface MergeableObject {
+	[key: string]: Mergeable
+}
+
+export function mergeObjectsConcatArrays<T extends MergeableObject, U extends MergeableObject>(obj1: T, obj2: U): T & U {
+	const result: any = {}
+
+	for (const key in obj1) {
+		if (obj1.hasOwnProperty(key)) {
+			if (obj2.hasOwnProperty(key)) {
+				const value1 = obj1[key]
+				const value2 = obj2[key]
+
+				if (Array.isArray(value1) && Array.isArray(value2)) {
+					result[key] = value1.concat(value2)
+				} else if (typeof value1 === 'object' && typeof value2 === 'object' && value1 !== null && value2 !== null) {
+					result[key] = mergeObjectsConcatArrays(value1 as MergeableObject, value2 as MergeableObject)
+				} else {
+					result[key] = value2
+				}
+			} else {
+				result[key] = obj1[key]
+			}
+		}
+	}
+
+	for (const key in obj2) {
+		if (obj2.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
+			result[key] = obj2[key]
+		}
+	}
+
+	return result as T & U
 }

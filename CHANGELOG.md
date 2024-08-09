@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> Dictionary
+> (P) - A premium version of that animation is available.
+
 ## [Unreleased]
+
+## [0.3.3] - 2024-08-09
+
+### Added
+
+- **New Animations**: Inner Radiance Torrent (P)
+
+### Fixed
+
+- Animations not properly inheriting multi-layer deep options and predicates.
 
 ## [0.3.2] - 2024-08-09
 
@@ -31,8 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Item Custom Animations Menu (#3)
 - `opacity`, `size`, `loopProperty`, and `animateProperty` effect options.
 
-  #### Animations
-  - Rage
+  - **New Animations**: Rage
 
 ### Fixed
 
@@ -63,10 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added a toggle to see the predicate data in the Token Image Manager.
 - Added an option to use existing feats in the Token Image Manager.
-
-  #### Animations
-
-  - Jaws
+- **New Animations**: Jaws
 
 ## [0.1.1] - 2024-08-01
 
@@ -80,12 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - "Developer mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
 - Token Image Manager (#4)
-
-  #### Animations
-
-  - Melee Ignition
-  - Jaws
-  - Unarmed Attack / Fist
+- **New Animations**: Melee Ignition, Jaws, Unarmed Attack / Fist
 
 ### Changed
 
@@ -110,22 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `options.shape.value` to `options.shape.type`
-
-  #### Animations
-
-  - Light Pick
-  - Firearm Group
-  - Arquebus
-
-  #### Sounds
-
-  - Chain Lightning / Electric Arc
-  - Bow Shots
-  - Crossbow Shots
-
-  #### Unfinished
-
-  - Actor Animations Menu (#3)
+- **New Animations**: Light Pick, Firearm Group, Arquebus
+- **New Sounds**: Chain Lightning / Electric Arc, Bow Shots, Crossbow Shots
 
 ### Fixed
 
@@ -153,15 +143,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-  [Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.0...HEAD
-  [0.2.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.3...v0.2.0
-  [0.1.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.2...v0.1.3
-  [0.1.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.1...v0.1.2
-  [0.1.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.0...v0.1.1
-  [0.1.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.9...v0.1.0
-  [0.0.9]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.8-alpha...v0.0.9
-
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.1...v0.3.0

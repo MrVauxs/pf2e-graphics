@@ -42,6 +42,8 @@ export const helpers = {
 	},
 	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, _item: ItemPF2e, _target: Target, options?: EffectOptions<T>) {
 		options = clearEmpties(options || {})
+		if (options?.zIndex)
+			seq.zIndex(options.zIndex)
 		if (options?.scale)
 			seq.scale(options.scale.min, options.scale.max)
 		if (options?.scaleToObject)
@@ -142,6 +144,7 @@ export interface EffectOptions<T extends PresetKeys> {
 	tieToDocuments?: true
 	belowTokens?: boolean
 	waitUntilFinished?: number
+	zIndex?: number
 	duration?: number
 	tint?: string
 	rotate?: number

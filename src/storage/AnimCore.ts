@@ -1,4 +1,4 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, nonNullable } from 'src/utils.ts'
+import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts'
 import type { Entries, TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import { type PresetKeys, presets } from './presets'
@@ -157,20 +157,8 @@ export let AnimCore = class AnimCore {
 		if (!isFolder(folder)) return [folder]
 		const { contents, ...parentProps } = folder
 
-		// Function to merge two arrays without duplicates
-		const mergeArrays = (arr1: PredicateStatement[], arr2: PredicateStatement[]) => {
-			return Array.from(new Set([...(arr1 || []), ...(arr2 || [])]))
-		}
-
 		const mergeProps = (parent: FolderObject, child: AnimationDataObject) => {
-			const result = foundry.utils.mergeObject(child, parent, { overwrite: false })
-
-			// Merge arrays
-			for (const [key, val] of Object.entries(parent) as Entries<FolderObject>) {
-				if (Array.isArray(val) && key !== 'contents') {
-					result[key] = mergeArrays(parent[key], child[key] || [])
-				}
-			}
+			const result = mergeObjectsConcatArrays(parent, child)
 
 			return result
 		}
@@ -344,6 +332,7 @@ interface AnimationDataObject {
 	default?: boolean
 	predicate?: PredicateStatement[]
 	options?: any
+	[key: string]: any
 }
 
 // #endregion
