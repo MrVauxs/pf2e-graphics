@@ -6,8 +6,8 @@
 	export let animation: Exclude<JSONData[string], string>[number]
 	export let deleteSubAnimation
 
-	function bindJSON(event: Event, _property: any) {
-		_property = JSON.parse((event.target as HTMLInputElement).value)
+	function bindJSON(event: Event, prop: keyof typeof animation) {
+		animation[prop] = JSON.parse((event.target as HTMLInputElement).value)
 	}
 
 	let open = dev || false
@@ -42,7 +42,7 @@
 			<input
 				type='text'
 				value={JSON.stringify(animation.predicate || [])}
-				on:change={e => bindJSON(e, animation.predicate)}
+				on:change={e => bindJSON(e, 'predicate')}
 			/>
 		</label>
 
