@@ -123,8 +123,20 @@ export const helpers = {
 
 		return seq
 	},
-	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, _target: Target, options: SoundConfig) {
+	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, target: Target, options: SoundConfig) {
 		seq.file(options?.file)
+
+		if (options?.atLocation)
+			seq.atLocation(target, options.atLocation)
+		if (options?.radius)
+			seq.radius(options.radius)
+		if (options?.constrainedByWalls)
+			seq.constrainedByWalls(options.constrainedByWalls)
+		if (options?.volume)
+			seq.volume(options.volume)
+		if (options?.duration)
+			seq.duration(options.duration)
+
 		return seq
 	},
 }
@@ -136,12 +148,17 @@ type presetOptions<T> =
 
 interface rangedOptions {
 	bounce: { file: string, sound: SoundConfig }
-	templateAsOrigin: true
+	templateAsOrigin: boolean
 }
 
 interface SoundConfig {
 	file: string
 	waitUntilFinished: number
+	atLocation: Parameters<SoundSection['atLocation']>[1]
+	radius: number
+	volume: number
+	duration: number
+	constrainedByWalls: boolean
 }
 
 export interface EffectOptions<T extends PresetKeys> {

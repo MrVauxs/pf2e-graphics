@@ -12,10 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `atLocation`, `radius`, `constrainedByWalls`, `volume`, and `duration` support for sound effects.
+- `equipment:[state]` roll options for `toggle` animations. Use them wisely.
 - `templateAsOrigin` preset option for `ranged` animations. Allows to have the template to be the source of the animation, as opposed to the owner token. Allows for template animations detached from token location.
 
 ### Changed
 
+- The Sounds Database to use a two-digit indexes (01, 02, 03, etc.)
 - Inner Radiance Torrent (P) to use `templateAsOrigin`.
 
 ### Fixed

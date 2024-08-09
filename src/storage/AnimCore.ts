@@ -1,5 +1,5 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts'
-import type { Entries, TokenOrDoc } from 'src/extensions'
+import type { TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
 import { type PresetKeys, presets } from './presets'
 
