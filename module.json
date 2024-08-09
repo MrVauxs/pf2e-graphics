@@ -1,7 +1,7 @@
 {
     "id": "pf2e-graphics",
     "title": "PF2e Graphics",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "<i>Provides animations for the PF2e system.</i>",
     "esmodules": [
         "dist/pf2e-graphics.js"
@@ -66,5 +66,5 @@
     "readme": "https://github.com/MrVauxs/pf2e-graphics/blob/main/README.md",
     "changelog": "https://github.com/MrVauxs/pf2e-graphics/blob/main/CHANGELOG.md",
     "manifest": "https://raw.githubusercontent.com/MrVauxs/pf2e-graphics/next/module.json",
-    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/v0.3.1/module.zip"
+    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/v0.3.2/module.zip"
 }
