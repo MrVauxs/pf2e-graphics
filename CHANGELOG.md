@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2024-08-09
+
+### Added
+
+- Add support for animations on other tokens to be customized by their granter / origin.
+
+### Fixed
+
+- Reduce console and Sequence spam.
+
 ## [0.3.0] - 2024-08-08
 
 ### Added
@@ -145,7 +155,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   [0.1.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.9...v0.1.0
   [0.0.9]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.8-alpha...v0.0.9
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.3...v0.2.0

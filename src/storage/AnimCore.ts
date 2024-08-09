@@ -137,9 +137,10 @@ export let AnimCore = class AnimCore {
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
-		// Priority (highest to lowest): Item > Actor > User > Global
-		const customAnimations = merge(userKeys, merge(actorKeys, itemKeys)) as ReturnType<typeof this.getAnimations>
+		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
+		const customAnimations = merge(userKeys, merge(itemOriginKeys, merge(actorKeys, itemKeys))) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
 		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
 		return keys
@@ -260,6 +261,8 @@ export let AnimCore = class AnimCore {
 		devMessage('Animating the Following', validAnimations, { trigger, rollOptions, item, actor, source })
 
 		for (const anim of Object.values(validAnimations)) {
+			if (!anim.length) return
+
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })
 
 			for (const animation of anim) {
