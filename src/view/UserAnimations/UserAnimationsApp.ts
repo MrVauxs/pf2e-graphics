@@ -2,16 +2,16 @@ import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
 
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
 import { kofiButton } from 'src/utils'
-import BasicAppShell from './ActorAnimationsShell.svelte'
+import BasicAppShell from './UserAnimationsShell.svelte'
 
-interface actorAnimationsOptions {
+interface UserAnimationsOptions {
 	data: {
-		actor: ActorPF2e | null
+		user: UserPF2e | null
 	}
 }
 
-export default class actorAnimationsApp extends SvelteApplication {
-	constructor(options: ConstructorApplicationOptions & actorAnimationsOptions) {
+export default class UserAnimationsApp extends SvelteApplication {
+	constructor(options: ConstructorApplicationOptions & UserAnimationsOptions) {
 		super()
 
 		if (options.data) {
@@ -22,10 +22,11 @@ export default class actorAnimationsApp extends SvelteApplication {
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.modifyActor', // Automatically localized from `lang/en.json`.
-			width: 300,
+			title: 'pf2e-graphics.modifyUser', // Automatically localized from `lang/en.json`.
+			width: 800,
+			height: 600,
 			classes: ['pf2e-g'],
-			id: 'pf2e-graphics-modify-actor',
+			id: 'pf2e-graphics-modify-user',
 			resizable: true,
 
 			svelte: {
@@ -33,7 +34,7 @@ export default class actorAnimationsApp extends SvelteApplication {
 				target: document.body,
 				intro: true,
 				props: {
-					actor: null,
+					user: null,
 				},
 			},
 		})

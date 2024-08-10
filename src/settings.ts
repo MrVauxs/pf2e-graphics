@@ -1,3 +1,4 @@
+import UserAnimationsShim from './view/UserAnimations'
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
 
 const gameSettings = new TJSGameSettings('pf2e-graphics')
@@ -81,4 +82,13 @@ Hooks.on('init', () => {
 	gameSettings.registerAll(settingsData, true)
 
 	settings = new TJSLiveGameSettings(gameSettings) as typeof settings
+
+	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
+		name: 'pf2e-graphics.settings.userMenu.name',
+		hint: 'pf2e-graphics.settings.userMenu.hint',
+		label: 'pf2e-graphics.settings.userMenu.label',
+		icon: 'fas fa-user',
+		type: UserAnimationsShim,
+		restricted: false,
+	})
 })

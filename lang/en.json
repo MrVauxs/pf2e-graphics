@@ -1,8 +1,13 @@
 {
 	"pf2e-graphics": {
-		"support": "Donate",
+		"support": {
+			"1": "Donate!",
+			"2": "Support Me!",
+			"3": "Help the Author"
+		},
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
+		"modifyUser": "Manage User Animations",
 		"cancel": "Cancel",
 		"easingTooltip": "Learn more about various easing functions here.",
 		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
@@ -32,6 +37,11 @@
 			"dev": {
 				"name": "Developer Mode",
 				"hint": "Posts to various information to the console. Helpful when you are trying to make your own animations."
+			},
+			"userMenu": {
+				"name": "User Animations",
+				"hint": "Customize your own personal animations or see others.",
+				"label": "Open Menu"
 			}
 		},
 		"tooltip": {
@@ -44,6 +54,15 @@
 				"options": "Options"
 			},
 			"openSheet": "Open Sheet"
+		},
+		"userAnimation": {
+			"tabs": {
+				"all-animations": "All Animations",
+				"user-animations": "User Animations",
+				"tokenimage-manager": "Token Image Manager"
+			},
+			"toggle": "Toggle Predicates on and off, allowing you to preview the token change.",
+			"switch": "See the Effect the rule is predicated onto, or the predicate data itself."
 		},
 		"actorAnimation": {
 			"openFeat": "Open",

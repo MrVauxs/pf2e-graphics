@@ -113,3 +113,15 @@ export function mergeObjectsConcatArrays<T extends MergeableObject, U extends Me
 
 	return result as T & U
 }
+
+export function kofiButton(buttons: any[]) {
+	buttons.unshift({
+		icon: 'fas fa-mug-hot ko-fi',
+		class: 'hover:underline',
+		label: `pf2e-graphics.support.${Sequencer.Helpers.random_int_between(1, 4)}`,
+		onclick: () => {
+			window.open('https://ko-fi.com/mrvauxs', '_blank')
+		},
+	})
+	return buttons
+}

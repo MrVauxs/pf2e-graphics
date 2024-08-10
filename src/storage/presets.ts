@@ -272,7 +272,7 @@ export const presets = {
 						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
 					)
 
-				if (options?.sound) {
+				if (options?.sound?.file) {
 					const sound = seq.sound()
 					helpers.genericSoundFunction(sound, item, target, options.sound)
 				}
@@ -308,7 +308,7 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound) {
+			if (options?.sound?.file) {
 				const sound = seq.sound()
 				helpers.genericSoundFunction(sound, item, target, options.sound)
 			}
@@ -344,7 +344,7 @@ export const presets = {
 
 		helpers.genericSequencerFunctions(result, item, affectedToken, options)
 
-		if (options?.sound) {
+		if (options?.sound?.file) {
 			const sound = seq.sound()
 			helpers.genericSoundFunction(sound, item, affectedToken, options.sound)
 		}
@@ -365,7 +365,7 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound) {
+			if (options?.sound?.file) {
 				const sound = seq.sound()
 				helpers.genericSoundFunction(sound, item, target, options.sound)
 			}

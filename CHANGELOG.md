@@ -8,18 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.3.4] - Unreleased
+## [0.4.1] - Unreleased
+
+## [0.4.0] - 2024-08-10
 
 ### Added
 
 - `atLocation`, `radius`, `constrainedByWalls`, `volume`, and `duration` support for sound effects.
 - `equipment:[state]` roll options for `toggle` animations. Use them wisely.
 - `templateAsOrigin` preset option for `ranged` animations. Allows to have the template to be the source of the animation, as opposed to the owner token. Allows for template animations detached from token location.
+- User Animation Menu (#3)
 
 ### Changed
 
 - The Sounds Database to use a two-digit indexes (01, 02, 03, etc.)
 - Inner Radiance Torrent (P) to use `templateAsOrigin`.
+- Updated dependencies.
 
 ### Fixed
 
@@ -158,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.0...v0.3.1
