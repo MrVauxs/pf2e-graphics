@@ -43,7 +43,7 @@
 
 	function createAnimation() {
 		if (!newKey.length) throw ui.notifications.error('Primary roll option must not be empty!')
-		$flag[newKey] = []
+		$flag[newKey.trim()] = []
 		$showNewAnimation = !$showNewAnimation
 	}
 

@@ -420,7 +420,7 @@ if (import.meta.hot) {
 	import.meta.hot.on('vite:afterUpdate', (module) => {
 		if (module) {
 			applyPresets(true)
-			ui.notifications.info('Updated presets.ts!')
+			ui.notifications.info('Updated.')
 		}
 	})
 }

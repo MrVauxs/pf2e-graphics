@@ -1,15 +1,31 @@
 import UserAnimationsShim from './view/UserAnimations'
+import WorldAnimationsShim from './view/WorldAnimations'
+import type { JSONData } from './storage/AnimCore'
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
 
-const gameSettings = new TJSGameSettings('pf2e-graphics')
+export const liveSettings = new TJSGameSettings('pf2e-graphics')
 export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2 | 3
 	buttonPosition: 0 | 1
 	dev: boolean
+	worldAnimations: JSONData
 }
 
 const settingsData = [
+	{
+		namespace: 'pf2e-graphics',
+		key: 'worldAnimations',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.worldAnimations.name',
+			hint: 'pf2e-graphics.settings.worldAnimations.hint',
+			scope: 'world',
+			config: false,
+			type: Object,
+			default: {},
+		},
+	},
 	{
 		namespace: 'pf2e-graphics',
 		key: 'windowPosition',
@@ -79,9 +95,11 @@ const settingsData = [
 ] as const
 
 Hooks.on('init', () => {
-	gameSettings.registerAll(settingsData, true)
+	liveSettings.registerAll(settingsData, true)
 
-	settings = new TJSLiveGameSettings(gameSettings) as typeof settings
+	settings = new TJSLiveGameSettings(liveSettings) as typeof settings
+
+	window.pf2eGraphics.settings = settings
 
 	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
 		name: 'pf2e-graphics.settings.userMenu.name',
@@ -89,6 +107,15 @@ Hooks.on('init', () => {
 		label: 'pf2e-graphics.settings.userMenu.label',
 		icon: 'fas fa-user',
 		type: UserAnimationsShim,
+		restricted: false,
+	})
+
+	game.settings.registerMenu('pf2e-graphics', 'worldAnimationsMenu', {
+		name: 'pf2e-graphics.settings.worldMenu.name',
+		hint: 'pf2e-graphics.settings.worldMenu.hint',
+		label: 'pf2e-graphics.settings.worldMenu.label',
+		icon: 'fas fa-user',
+		type: WorldAnimationsShim,
 		restricted: false,
 	})
 })

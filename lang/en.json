@@ -42,6 +42,11 @@
 				"name": "User Animations",
 				"hint": "Customize your own personal animations or see others.",
 				"label": "Open Menu"
+			},
+			"worldMenu": {
+				"name": "World Global Animations",
+				"hint": "Customize global animations everyone will have by default.",
+				"label": "Open Menu"
 			}
 		},
 		"tooltip": {
@@ -55,14 +60,17 @@
 			},
 			"openSheet": "Open Sheet"
 		},
+		"worldAnimation": {
+			"tabs": {
+				"world-animations": "World Global Animations"
+			}
+		},
 		"userAnimation": {
 			"tabs": {
 				"all-animations": "All Animations",
 				"user-animations": "User Animations",
 				"tokenimage-manager": "Token Image Manager"
-			},
-			"toggle": "Toggle Predicates on and off, allowing you to preview the token change.",
-			"switch": "See the Effect the rule is predicated onto, or the predicate data itself."
+			}
 		},
 		"actorAnimation": {
 			"openFeat": "Open",
