@@ -3,7 +3,7 @@ import WorldAnimationsShim from './view/WorldAnimations'
 import type { JSONData } from './storage/AnimCore'
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
 
-export const liveSettings = new TJSGameSettings('pf2e-graphics')
+export const storeSettings = new TJSGameSettings('pf2e-graphics')
 export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2 | 3
@@ -95,11 +95,12 @@ const settingsData = [
 ] as const
 
 Hooks.on('init', () => {
-	liveSettings.registerAll(settingsData, true)
+	storeSettings.registerAll(settingsData, true)
 
-	settings = new TJSLiveGameSettings(liveSettings) as typeof settings
+	settings = new TJSLiveGameSettings(storeSettings) as typeof settings
 
 	window.pf2eGraphics.settings = settings
+	window.pf2eGraphics.storeSettings = storeSettings
 
 	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
 		name: 'pf2e-graphics.settings.userMenu.name',
@@ -114,7 +115,7 @@ Hooks.on('init', () => {
 		name: 'pf2e-graphics.settings.worldMenu.name',
 		hint: 'pf2e-graphics.settings.worldMenu.hint',
 		label: 'pf2e-graphics.settings.worldMenu.label',
-		icon: 'fas fa-user',
+		icon: 'fas fa-globe',
 		type: WorldAnimationsShim,
 		restricted: false,
 	})

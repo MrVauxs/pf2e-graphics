@@ -5,7 +5,7 @@
 	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { liveSettings } from 'src/settings'
+	import { storeSettings } from 'src/settings'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
@@ -16,7 +16,7 @@
 	const showNewAnimation = sessionStorage.getStore('showNewAnimation', false)
 	let newKey = ''
 
-	const doc = liveSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
+	const doc = storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
 
 	const tabs = ['world-animations'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
@@ -58,7 +58,7 @@
 				{#if $activeTab === 'world-animations'}
 					<div class='p-2 pb-0 flex flex-col h-full items-center'>
 						<div class='flex flex-col w-full items-center gap-1.5'>
-							{#each Object.keys($doc).filter(k => $doc[k] && typeof $doc[k] !== 'string') as key}
+							{#each Object.keys($doc) as key}
 								<AnimationEditor bind:key bind:value={$doc[key]} />
 							{/each}
 						</div>
