@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - World Animations Menu (#3)
+- Existing menus re-focusing when being opened again.
 
 ## [0.4.0] - 2024-08-10
 
