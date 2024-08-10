@@ -39,7 +39,7 @@
 
 				<div class='flex flex-col w-full'>
 					<h1 class='w-full mt-1 font-serif font-bold text-4xl'>
-						Global World Animations
+						World Animations
 					</h1>
 					<!-- Tabs -->
 					<div class='flex align-baseline text-center py-1 border-y-foundry'>

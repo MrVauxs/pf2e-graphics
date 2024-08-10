@@ -30,23 +30,6 @@ const settingsData = [
 	},
 	{
 		namespace: 'pf2e-graphics',
-		key: 'windowPosition',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.windowPosition.name',
-			hint: 'pf2e-graphics.settings.windowPosition.hint',
-			scope: 'client',
-			config: true,
-			type: String,
-			default: 'sidebar',
-			choices: {
-				sidebar: 'pf2e-graphics.settings.windowPosition.sidebar',
-				onTop: 'pf2e-graphics.settings.windowPosition.onTop',
-			},
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
 		key: 'quality',
 		folder: 'PF2e Graphics',
 		options: {
@@ -61,6 +44,23 @@ const settingsData = [
 				1: 'pf2e-graphics.settings.quality.1',
 				2: 'pf2e-graphics.settings.quality.2',
 				3: 'pf2e-graphics.settings.quality.3',
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'windowPosition',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.windowPosition.name',
+			hint: 'pf2e-graphics.settings.windowPosition.hint',
+			scope: 'client',
+			config: true,
+			type: String,
+			default: 'sidebar',
+			choices: {
+				sidebar: 'pf2e-graphics.settings.windowPosition.sidebar',
+				onTop: 'pf2e-graphics.settings.windowPosition.onTop',
 			},
 		},
 	},
@@ -104,21 +104,21 @@ Hooks.on('init', () => {
 	window.pf2eGraphics.settings = settings
 	window.pf2eGraphics.storeSettings = storeSettings
 
-	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
-		name: 'pf2e-graphics.settings.userMenu.name',
-		hint: 'pf2e-graphics.settings.userMenu.hint',
-		label: 'pf2e-graphics.settings.userMenu.label',
-		icon: 'fas fa-user',
-		type: UserAnimationsShim,
-		restricted: false,
-	})
-
 	game.settings.registerMenu('pf2e-graphics', 'worldAnimationsMenu', {
 		name: 'pf2e-graphics.settings.worldMenu.name',
 		hint: 'pf2e-graphics.settings.worldMenu.hint',
 		label: 'pf2e-graphics.settings.worldMenu.label',
 		icon: 'fas fa-globe',
 		type: WorldAnimationsShim,
+		restricted: false,
+	})
+
+	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
+		name: 'pf2e-graphics.settings.userMenu.name',
+		hint: 'pf2e-graphics.settings.userMenu.hint',
+		label: 'pf2e-graphics.settings.userMenu.label',
+		icon: 'fas fa-user',
+		type: UserAnimationsShim,
 		restricted: false,
 	})
 })

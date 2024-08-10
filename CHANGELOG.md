@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.4.1] - Unreleased
+## [0.5.0] - Unreleased
+
+### Added
+
+- World Animations Menu (#3)
 
 ## [0.4.0] - 2024-08-10
 

@@ -44,7 +44,7 @@
 				"label": "Open Menu"
 			},
 			"worldMenu": {
-				"name": "World Global Animations",
+				"name": "World Animations",
 				"hint": "Customize global animations everyone will have by default.",
 				"label": "Open Menu"
 			}
@@ -62,7 +62,7 @@
 		},
 		"worldAnimation": {
 			"tabs": {
-				"world-animations": "World Global Animations"
+				"world-animations": "World Animations"
 			}
 		},
 		"userAnimation": {
