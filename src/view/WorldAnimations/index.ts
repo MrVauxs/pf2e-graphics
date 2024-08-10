@@ -15,5 +15,8 @@ export default class WorldAnimationsShim extends FormApplication {
 	}
 
 	async _updateObject() {}
-	override render() { this.close(); return this }
+	override render() {
+		 this.close()
+		 return this
+	}
 }

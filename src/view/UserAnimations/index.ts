@@ -16,5 +16,8 @@ export default class UserAnimationsShim extends FormApplication {
 	}
 
 	async _updateObject() {}
-	override render() { this.close(); return this }
+	override render() {
+		this.close()
+		return this
+	}
 }
