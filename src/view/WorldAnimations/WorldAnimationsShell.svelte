@@ -17,7 +17,7 @@
 
 	const doc = window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
 
-	// I shouldn't have to do this but...
+	// FIXME: I shouldn't have to do this but...
 	doc.subscribe(v => game.settings.set('pf2e-graphics', 'worldAnimations', v))
 
 	const tabs = ['world-animations'] as const
@@ -34,11 +34,10 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='overflow-hidden flex flex-col h-full'>
-		<div class='flex-grow-0 flex-shrink pb-1'>
+		<div class='flex-grow-0 flex-shrink'>
 			<div class='flex gap-2 h-20'>
-
 				<div class='flex flex-col w-full'>
-					<h1 class='w-full mt-1 font-serif font-bold text-4xl'>
+					<h1 class='w-full my-1 font-serif font-bold text-4xl text-center border-0'>
 						World Animations
 					</h1>
 					<!-- Tabs -->

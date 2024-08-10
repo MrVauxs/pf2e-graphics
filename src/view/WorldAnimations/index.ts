@@ -1,5 +1,6 @@
 import WorldAnimationsApp from './WorldAnimationsApp.ts'
 
+let app: null | WorldAnimationsApp = null
 export default class WorldAnimationsShim extends FormApplication {
 	/**
 	 * @inheritDoc
@@ -7,11 +8,15 @@ export default class WorldAnimationsShim extends FormApplication {
 	constructor(options = {}) {
 		super({}, options)
 
-		new WorldAnimationsApp({
-			id: `pf2e-graphics-modify-item-world`,
-		}).render(true, {
-			focus: true,
-		})
+		if (app) {
+			app.render(true, { focus: true })
+		} else {
+			app = new WorldAnimationsApp({
+				id: `pf2e-graphics-modify-item-world`,
+			}).render(true, {
+				focus: true,
+			})
+		}
 	}
 
 	async _updateObject() {}

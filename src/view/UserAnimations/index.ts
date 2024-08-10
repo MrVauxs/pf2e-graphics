@@ -1,5 +1,7 @@
 import UserAnimationsApp from './UserAnimationsApp'
 
+let app: null | UserAnimationsApp = null
+
 export default class UserAnimationsShim extends FormApplication {
 	/**
 	 * @inheritDoc
@@ -7,12 +9,16 @@ export default class UserAnimationsShim extends FormApplication {
 	constructor(options = {}) {
 		super({}, options)
 
-		new UserAnimationsApp({
-			data: { user: game.user },
-			id: `pf2e-graphics-modify-item-${game.user.id}`,
-		}).render(true, {
-			focus: true,
-		})
+		if (app) {
+			app.render(true, { focus: true })
+		} else {
+			app = new UserAnimationsApp({
+				data: { user: game.user },
+				id: `pf2e-graphics-modify-item-${game.user.id}`,
+			}).render(true, {
+				focus: true,
+			})
+		}
 	}
 
 	async _updateObject() {}

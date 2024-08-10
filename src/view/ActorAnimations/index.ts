@@ -1,6 +1,8 @@
 import { settings } from 'src/settings'
 import ActorAnimationsApp from './ActorAnimationsApp'
 
+let app: null | ActorAnimationsApp = null
+
 function spawn(application: CharacterSheetPF2e) {
 	const positionSetting = settings.windowPosition
 	let position = {}
@@ -19,13 +21,17 @@ function spawn(application: CharacterSheetPF2e) {
 			break
 	}
 
-	new ActorAnimationsApp({
-		data: { actor: application.actor },
-		id: `pf2e-graphics-modify-item-${application.actor.id}`,
-	}).render(true, {
-		focus: true,
-		...position,
-	})
+	if (app) {
+		app.render(true, { focus: true })
+	} else {
+		app = new ActorAnimationsApp({
+			data: { actor: application.actor },
+			id: `pf2e-graphics-modify-item-${application.actor.id}`,
+		}).render(true, {
+			focus: true,
+			...position,
+		})
+	}
 }
 
 Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons: ApplicationHeaderButton[]) => {

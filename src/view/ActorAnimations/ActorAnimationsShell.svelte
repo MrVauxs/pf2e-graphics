@@ -4,7 +4,7 @@
 	import type { Writable } from 'svelte/store'
 	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
-	import AllAnimations from './submenus/all-animations.svelte'
+	// import AllAnimations from './submenus/all-animations.svelte'
 	import TokenimageManager from './submenus/tokenimage-manager.svelte'
 	import ActorAnimations from './submenus/actor-animations.svelte'
 	// @ts-ignore - TJS-2-TS
@@ -22,7 +22,7 @@
 	const doc = new TJSDocument(actor)
 	devMessage(actor, doc)
 
-	const tabs = ['actor-animations', 'all-animations', 'tokenimage-manager'] as const
+	const tabs = ['actor-animations', /* 'all-animations', */ 'tokenimage-manager'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore(actor.id, tabs[0])
 </script>
 
@@ -58,9 +58,10 @@
 		</div>
 		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
 			<div class='overflow-y-auto w-full'>
-				{#if $activeTab === 'all-animations'}
+				<!-- {#if $activeTab === 'all-animations'}
 					<AllAnimations {doc} />
-				{/if}{#if $activeTab === 'actor-animations'}
+				{/if} -->
+				{#if $activeTab === 'actor-animations'}
 					<ActorAnimations {doc} />
 				{/if}{#if $activeTab === 'tokenimage-manager'}
 					<TokenimageManager actor={doc} />
