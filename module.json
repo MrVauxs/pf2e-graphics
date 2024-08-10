@@ -35,6 +35,7 @@
 			{
 				"id": "sequencer",
 				"type": "module",
+				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
 				"compatibility": {
 					"minimum": "3.2.14"
 				}
@@ -44,6 +45,7 @@
 			{
 				"id": "pf2e",
 				"type": "system",
+				"manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/master/system.json",
 				"compatibility": {
 					"minimum": "6.2.0"
 				}
