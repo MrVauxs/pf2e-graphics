@@ -1,4 +1,4 @@
-import WorldAnimationsApp from './WorldAnimationsApp'
+import WorldAnimationsApp from './WorldAnimationsApp.ts'
 
 export default class WorldAnimationsShim extends FormApplication {
 	/**

@@ -1,7 +1,7 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts'
 import type { TokenOrDoc } from 'src/extensions'
 import { settings } from 'src/settings'
-import type { storeSettings } from '../settings'
+import type { storeSettingsType } from '../settings'
 import { type PresetKeys, presets } from './presets'
 
 export const helpers = {
@@ -348,6 +348,6 @@ declare global {
 		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>
 		AnimCore: typeof AnimCore
 		settings: typeof settings
-		storeSettings: typeof storeSettings
+		storeSettings: storeSettingsType
 	}
 }

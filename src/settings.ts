@@ -3,7 +3,9 @@ import WorldAnimationsShim from './view/WorldAnimations'
 import type { JSONData } from './storage/AnimCore'
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
 
-export const storeSettings = new TJSGameSettings('pf2e-graphics')
+const storeSettings = new TJSGameSettings('pf2e-graphics')
+export type storeSettingsType = typeof storeSettings
+
 export let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2 | 3

@@ -5,7 +5,6 @@
 	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { storeSettings } from 'src/settings'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
@@ -16,7 +15,10 @@
 	const showNewAnimation = sessionStorage.getStore('showNewAnimation', false)
 	let newKey = ''
 
-	const doc = storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
+	const doc = window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
+
+	// I shouldn't have to do this but...
+	doc.subscribe(v => game.settings.set('pf2e-graphics', 'worldAnimations', v))
 
 	const tabs = ['world-animations'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
