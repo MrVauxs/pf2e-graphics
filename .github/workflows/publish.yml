@@ -94,7 +94,6 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: ${{ steps.title.outputs.title }}
-          DISCORD_AVATAR: https://github.com/${{ github.repository }}/blob/main/assets/icon.png?raw=true
         with:
           args: 'https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.json \n ${{ steps.changelog.outputs.release-notes }}'
 
