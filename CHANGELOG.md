@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.5.1] - Unreleased
+
+### Fixed
+
+- Fixed getPlayerOwners getting wrong IDs.
 
 ## [0.5.0] - 2024-08-11
 

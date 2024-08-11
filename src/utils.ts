@@ -51,6 +51,7 @@ export function getPlayerOwners(actor: ActorPF2e) {
 
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
 	return Object.keys(actor.ownership)
+		.filter(x => x !== 'default')
 		.filter(x => actor.hasPlayerOwner
 			? !game.users.get(x)?.hasRole('GAMEMASTER')
 			: game.users.get(x)?.hasRole('GAMEMASTER'))

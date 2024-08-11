@@ -95,7 +95,10 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: ${{ steps.title.outputs.title }}
         with:
-          args: 'https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.json \n ${{ steps.changelog.outputs.release-notes }}'
+          args: |
+            # Version ${{ steps.get-version.outputs.version-without-v }}
+            https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.json
+            ${{ steps.changelog.outputs.release-notes }}
 
       # Run the following when setting up a repo
       # git switch --orphan next && git commit --allow-empty -m "init" && git push -u origin next
