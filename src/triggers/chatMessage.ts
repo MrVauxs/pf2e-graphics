@@ -31,7 +31,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	if (targets.length === 0) return log('No targets founds in message, aborting.')
 
 	const deliverable = {
-		rollOptions,
+		rollOptions: rollOptions.concat([`outcome:${message.flags.pf2e.context?.outcome || 'none'}`]),
 		trigger,
 		targets,
 		source: message.token,
