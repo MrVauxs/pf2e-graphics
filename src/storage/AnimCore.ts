@@ -33,6 +33,13 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 }
 
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>
+interface TokenImageData { name: string, uuid: ItemUUID, rules: TokenImageDataRule[] }
+type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource)
+type TokenImageShorthand = [string, string, number]
+
+function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
+	return !!Array.isArray(rule)
+}
 
 export let AnimCore = class AnimCore {
 	/**
@@ -48,8 +55,26 @@ export let AnimCore = class AnimCore {
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {})
 	}
 
+	static getTokenImages() {
+		return Object.keys(window.pf2eGraphics.modules)
+			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
+			.filter(nonNullable)
+			.map(x => ({
+				...x,
+				rules: x.rules.map((rule: TokenImageDataRule) => {
+					if (!isShorthand(rule)) return rule
+					return {
+						key: 'TokenImage',
+						predicate: [`self:effect:${rule[0]}`],
+						value: rule[1],
+						scale: rule[2],
+					} as TokenImageRuleSource
+				}),
+			}))
+	}
+
 	static getKeys(): string[] {
-		return Object.keys(this.getAnimations())
+		return Object.keys(this.getAnimations()).filter(x => !x.startsWith('_'))
 	}
 
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {

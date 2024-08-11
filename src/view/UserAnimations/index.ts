@@ -14,7 +14,6 @@ export default class UserAnimationsShim extends FormApplication {
 		} else {
 			app = new UserAnimationsApp({
 				data: { user: game.user },
-				id: `pf2e-graphics-modify-item-${game.user.id}`,
 			}).render(true, {
 				focus: true,
 			})

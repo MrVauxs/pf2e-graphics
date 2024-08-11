@@ -14,6 +14,7 @@
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 	import { devMessage, i18n } from 'src/utils'
 	import { derived } from 'svelte/store'
+	import { AnimCore } from 'src/storage/AnimCore'
 	import featData from './tokenimage-feat.json'
 	import TokenThumbnail from './elements/TokenThumbnail.svelte'
 	import PredicateSection from './elements/PredicateSection.svelte'
@@ -54,8 +55,8 @@
 		$actor.setFlag('pf2e-graphics', 'displayFeat', display)
 	}
 
-	async function createRule() {
-		await $feat?.update({ 'system.rules': $feat.system.rules.concat(ruleTemplate($feat)) })
+	async function createRule(_event: Event, rules?: TokenImageRuleSource[]) {
+		await $feat?.update({ 'system.rules': $feat.system.rules.concat(rules ?? ruleTemplate($feat)) })
 	}
 
 	async function removeRule(rule: RuleElementSource) {
@@ -85,6 +86,9 @@
 
 	const TransitionFilters = Object.values(TextureTransitionFilter.TYPES)
 	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')))
+
+	let showImagePacks = false
+	let packToImport: TokenImageRuleSource[] = []
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full'>
@@ -240,10 +244,28 @@
 					</div>
 				</div>
 			{/each}
-			<button class='w-1/2 m-1' on:click={createRule}>
-				<i class='fas fa-plus' />
-				Create Token Image
-			</button>
+			<div class='flex w-2/3 text-nowrap mx-auto flex-grow basis-1/2 h-8'>
+				<button class='m-1 h-full' on:click={createRule}>
+					<i class='fas fa-plus' />
+					Create Token Image
+				</button>
+				{#if !showImagePacks}
+					<button class='m-1 h-full' on:click={() => { showImagePacks = !showImagePacks }}>
+						<i class='fas fa-plus' />
+						Import Token Image Pack
+					</button>
+				{:else}
+					<div class='m-1 h-full w-full flex'>
+						<select class='w-full h-full block flex-grow' bind:value={packToImport}>
+							{#each AnimCore.getTokenImages() as pack}
+								<!-- svelte-ignore missing-declaration -->
+								<option value={pack.rules}>{pack.uuid ? fromUuidSync(pack.uuid)?.name : pack.name}</option>
+							{/each}
+						</select>
+						<button class='fas fa-plus w-min' on:click={() => createRule(undefined, packToImport)} />
+					</div>
+				{/if}
+			</div>
 		</div>
 		<div class='grid grid-flow-col columns-2 gap-1 p-1 pt-0'>
 			<div class='flex items-center'>

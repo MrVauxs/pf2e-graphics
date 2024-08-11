@@ -25,7 +25,6 @@ export default class actorAnimationsApp extends SvelteApplication {
 			title: 'pf2e-graphics.modifyActor', // Automatically localized from `lang/en.json`.
 			width: 300,
 			classes: ['pf2e-g'],
-			id: 'pf2e-graphics-modify-actor',
 			resizable: true,
 
 			svelte: {

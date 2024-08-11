@@ -1,7 +1,5 @@
 import ActorAnimationsApp from './ActorAnimationsApp'
 
-let app: null | ActorAnimationsApp = null
-
 function spawn(application: CharacterSheetPF2e) {
 	const positionSetting = window.pf2eGraphics.liveSettings.windowPosition
 	let position = {}
@@ -20,21 +18,17 @@ function spawn(application: CharacterSheetPF2e) {
 			break
 	}
 
-	if (app) {
-		app.render(true, { focus: true })
-	} else {
-		app = new ActorAnimationsApp({
-			data: { actor: application.actor },
-			id: `pf2e-graphics-modify-item-${application.actor.id}`,
-		}).render(true, {
-			focus: true,
-			...position,
-		})
-	}
+	new ActorAnimationsApp({
+		data: { actor: application.actor },
+		id: `pf2e-graphics-modify-item-${application.actor.id}`,
+	}).render(true, {
+		focus: true,
+		...position,
+	})
 }
 
 Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons: ApplicationHeaderButton[]) => {
-	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0)) return
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0) && application.actor.isOfType('character')) return
 	buttons.unshift({
 		class: 'my-button',
 		icon: 'fas fa-film',
@@ -44,7 +38,7 @@ Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons
 })
 
 Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
-	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 1)) return
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 1) && !application.actor.isOfType('character')) return
 
 	const navbar = html[0].getElementsByClassName('sheet-navigation')[0]
 

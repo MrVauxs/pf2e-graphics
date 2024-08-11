@@ -11,11 +11,7 @@ export default class WorldAnimationsShim extends FormApplication {
 		if (app) {
 			app.render(true, { focus: true })
 		} else {
-			app = new WorldAnimationsApp({
-				id: `pf2e-graphics-modify-item-world`,
-			}).render(true, {
-				focus: true,
-			})
+			app = new WorldAnimationsApp({}).render(true, { focus: true })
 		}
 	}
 

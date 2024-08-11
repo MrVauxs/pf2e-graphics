@@ -1,7 +1,5 @@
 import ItemAnimationsApp from './ItemAnimationsApp'
 
-let app: null | ItemAnimationsApp = null
-
 Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
 	buttons.unshift({
 		class: 'my-button',
@@ -24,17 +22,13 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 					break
 			}
 
-			if (app) {
-				app.render(true, { focus: true })
-			} else {
-				app = new ItemAnimationsApp({
-					data: { item: application.item },
-					id: `pf2e-graphics-modify-item-${application.item.id}`,
-				}).render(true, {
-					focus: true,
-					...position,
-				})
-			}
+			new ItemAnimationsApp({
+				data: { item: application.item },
+				id: `pf2e-graphics-modify-item-${application.item.id}`,
+			}).render(true, {
+				focus: true,
+				...position,
+			})
 		},
 		label: 'Animations',
 	})
