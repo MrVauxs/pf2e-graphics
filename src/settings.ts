@@ -111,7 +111,7 @@ Hooks.once('init', () => {
 		label: 'pf2e-graphics.settings.worldMenu.label',
 		icon: 'fas fa-globe',
 		type: WorldAnimationsShim,
-		restricted: false,
+		restricted: true,
 	})
 
 	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
