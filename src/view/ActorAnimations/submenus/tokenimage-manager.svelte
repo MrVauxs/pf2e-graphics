@@ -262,7 +262,7 @@
 								<option value={pack.rules}>{pack.uuid ? fromUuidSync(pack.uuid)?.name : pack.name}</option>
 							{/each}
 						</select>
-						<button class='fas fa-plus w-min' on:click={() => createRule(undefined, packToImport)} />
+						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)} />
 					</div>
 				{/if}
 			</div>
