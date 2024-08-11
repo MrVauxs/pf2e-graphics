@@ -22,8 +22,12 @@
 			content: `Are you sure you want to delete all animations under "${key}"?`,
 			title: 'Confirm Deletion',
 			yes: () => {
-				// @ts-ignore Explicitly a deletion thing
-				if (deleteFn) { deleteFn(key) } else { value = null }
+				if (deleteFn) {
+					deleteFn(key)
+				} else {
+					// @ts-ignore Explicitly a deletion thing
+					value = null
+				}
 			},
 		})
 	}
