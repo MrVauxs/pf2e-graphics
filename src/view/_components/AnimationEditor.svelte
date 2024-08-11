@@ -5,6 +5,7 @@
 
 	export let key: string
 	export let value: Exclude<JSONData[string], string>
+	export let deleteFn: (key: string) => void
 
 	async function deleteSubAnimation(animation: Exclude<JSONData[string], string>[number]) {
 		Dialog.confirm({
@@ -22,7 +23,7 @@
 			title: 'Confirm Deletion',
 			yes: () => {
 				// @ts-ignore Explicitly a deletion thing
-				value = null
+				if (deleteFn) { deleteFn(key) } else { value = null }
 			},
 		})
 	}

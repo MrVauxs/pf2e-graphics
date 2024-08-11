@@ -25,7 +25,7 @@ if (import.meta.hot) {
 		ui.notifications.info('Animations updated!')
 	})
 	import.meta.hot.on('updateAnimsError', (data) => {
-		ui.notifications.error('Animation files contain duplicate keys! Check console for details')
+		ui.notifications.error('Animation files contain duplicate keys! Check the console for details.')
 		console.error('Duplicate keys: ', data)
 	})
 	import.meta.hot.accept('./AnimationStorage.ts', (newModule) => {

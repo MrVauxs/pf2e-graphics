@@ -18,7 +18,10 @@
 	const doc = window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
 
 	// FIXME: I shouldn't have to do this but...
-	doc.subscribe(v => game.settings.set('pf2e-graphics', 'worldAnimations', v))
+	doc.subscribe((upd) => {
+		Object.entries(upd).forEach(([key, val]) => val ? null : delete upd[key])
+		game.settings.set('pf2e-graphics', 'worldAnimations', upd)
+	})
 
 	const tabs = ['world-animations'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
@@ -60,7 +63,15 @@
 					<div class='p-2 pb-0 flex flex-col h-full items-center'>
 						<div class='flex flex-col w-full items-center gap-1.5'>
 							{#each Object.keys($doc) as key}
-								<AnimationEditor bind:key bind:value={$doc[key]} />
+
+								<AnimationEditor
+									bind:key
+									bind:value={$doc[key]}
+									deleteFn={(key) => {
+										delete $doc[key]
+										// eslint-disable-next-line no-self-assign
+										$doc = $doc // Svelte Updates
+									}} />
 							{/each}
 						</div>
 						<div class='w-1/2 m-1 text-center items-center flex flex-col gap-1'>

@@ -305,6 +305,10 @@ export let AnimCore = class AnimCore {
 			'counteract-check',
 		],
 	} as const
+
+	static addNewAnimation(data: JSONData, overwrite = true) {
+		window.pf2eGraphics.modules = foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite })
+	}
 }
 
 if (import.meta.hot) {
