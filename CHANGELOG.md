@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.5.1] - Unreleased
+## [Unreleased]
+
+## [0.5.1] - 2024-08-11
 
 ### Fixed
 
@@ -176,7 +178,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.2...v0.3.3
