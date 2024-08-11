@@ -41,7 +41,11 @@
 				classes: ['pf2e-g', 'json-export'],
 				resizable: true,
 			},
-		} as DialogData & { label: string, options: DialogOptions })
+			rejectClose: false,
+		} as DialogData & {
+			label: string
+			rejectClose?: boolean
+		})
 	}
 </script>
 
