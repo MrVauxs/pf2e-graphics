@@ -1,6 +1,6 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts'
 import type { TokenOrDoc } from 'src/extensions'
-import { settings } from 'src/settings'
+import type { liveSettings } from 'src/settings'
 import type { storeSettingsType } from '../settings'
 import { type PresetKeys, presets } from './presets'
 
@@ -98,7 +98,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${settings.quality}`]))
+		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`]))
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
@@ -248,7 +248,7 @@ export let AnimCore = class AnimCore {
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor })
 
-		devMessage('Animating the Following', validAnimations, { trigger, rollOptions, item, actor, source })
+		devMessage('Animating the Following', Object.keys(validAnimations), { trigger, rollOptions, item, actor, source })
 
 		for (const anim of Object.values(validAnimations)) {
 			if (!anim.length) return
@@ -351,7 +351,7 @@ declare global {
 	interface pf2eGraphics {
 		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>
 		AnimCore: typeof AnimCore
-		settings: typeof settings
+		liveSettings: liveSettings
 		storeSettings: storeSettingsType
 	}
 }

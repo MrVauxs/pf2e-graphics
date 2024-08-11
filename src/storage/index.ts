@@ -6,7 +6,7 @@ Object.assign(window, {
 	AnimCore,
 })
 
-Hooks.on('ready', async () => {
+Hooks.once('ready', async () => {
 	for (const mod of game.modules) {
 		if (!mod.active) continue
 		const animations: string | undefined = mod.flags?.['pf2e-graphics'] as unknown as string

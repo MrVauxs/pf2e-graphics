@@ -4,10 +4,10 @@ import './view'
 import './storage'
 import sounds from './assets/soundDb'
 
-Hooks.on('pf2e.systemReady', () => {
+Hooks.once('pf2e.systemReady', () => {
 	import('./triggers')
 })
 
-Hooks.on('sequencerReady', () => {
+Hooks.once('sequencerReady', () => {
 	Sequencer.Database.registerEntries('pf2e-graphics', sounds)
 })

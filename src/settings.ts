@@ -6,13 +6,14 @@ import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt
 const storeSettings = new TJSGameSettings('pf2e-graphics')
 export type storeSettingsType = typeof storeSettings
 
-export let settings: TJSLiveGameSettings & {
+let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop'
 	quality: 0 | 1 | 2 | 3
 	buttonPosition: 0 | 1
 	dev: boolean
 	worldAnimations: JSONData
 }
+export type liveSettings = typeof settings
 
 const settingsData = [
 	{
@@ -96,12 +97,12 @@ const settingsData = [
 	},
 ] as const
 
-Hooks.on('init', () => {
+Hooks.once('init', () => {
 	storeSettings.registerAll(settingsData, true)
 
 	settings = new TJSLiveGameSettings(storeSettings) as typeof settings
 
-	window.pf2eGraphics.settings = settings
+	window.pf2eGraphics.liveSettings = settings
 	window.pf2eGraphics.storeSettings = storeSettings
 
 	game.settings.registerMenu('pf2e-graphics', 'worldAnimationsMenu', {

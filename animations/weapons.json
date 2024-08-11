@@ -41,34 +41,45 @@
 			}
 		}
 	],
-	"item:base:arquebus": [
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.bullet.02.orange",
-			"overrides": [
-				"item:group:firearm"
-			],
-			"options": {
-				"stretchTo": {
-					"randomOffset": 0.5
-				}
-			}
-		}
-	],
 	"item:group:firearm": [
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.bullet.01.orange",
 			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"file": "jb2a.bullet.01.orange"
+				},
+				{
+					"predicate": [
+						"item:group:firearm"
+					],
+					"file": "jb2a.bullet.02.orange"
+				}
+			]
+		}
+	],
+	"item:group:bow": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.arrow.physical.white.01",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.bow"
+				},
 				"stretchTo": {
 					"randomOffset": 0.5
 				}
 			}
 		}
 	],
-	"item:base:light-pick": [
+	"item:group:pick": [
 		{
 			"trigger": "attack-roll",
 			"preset": "melee",
@@ -77,23 +88,10 @@
 				"scaleToObject": {
 					"value": 5
 				}
-			},
-			"predicate": [
-				"melee"
-			]
+			}
 		}
 	],
-	"item:base:longsword": [
-		{
-			"trigger": "attack-roll",
-			"preset": "melee",
-			"file": "jb2a.melee_attack.03.greatsword.01",
-			"predicate": [
-				"melee"
-			]
-		}
-	],
-	"item:base:dagger": [
+	"item:group:knife": [
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
@@ -143,27 +141,11 @@
 			]
 		}
 	],
-	"item:base:shortbow": [
+	"item:group:crossbow": [
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.arrow.physical.white.01",
-			"options": {
-				"sound": {
-					"file": "pf2e-graphics.bow"
-				},
-				"stretchTo": {
-					"randomOffset": 0.5
-				}
-			}
-		}
-	],
-	"item:base:longbow": "item:base:shortbow",
-	"item:base:crossbow": [
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.arrow.physical.white.01",
+			"file": "jb2a.bolt.physical.white02",
 			"options": {
 				"sound": {
 					"file": "pf2e-graphics.crossbow"
@@ -174,9 +156,56 @@
 			}
 		}
 	],
-	"item:base:heavy-crossbow": "item:base:crossbow",
-	"item:base:hand-crossbow": "item:base:crossbow",
-	"item:base:repeating-crossbow": "item:base:crossbow",
-	"item:base:repeating-heavy-crossbow": "item:base:crossbow",
-	"item:base:repeating-hand-crossbow": "item:base:crossbow"
+	"item:group:sword": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"predicate": [
+				"melee"
+			],
+			"contents": [
+				{
+					"default": true,
+					"file": "jb2a.melee_attack.03.greatsword"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"item:damage:die:faces",
+								6
+							]
+						}
+					],
+					"file": "jb2a.melee_attack.01.shortsword"
+				}
+			]
+		}
+	],
+	"item:base:butterfly-sword": [
+		{
+			"overrides": [
+				"item:group:sword"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.01.butterflysword",
+			"predicate": [
+				"melee"
+			]
+		}
+	],
+	"item:base:rapier": [
+		{
+			"overrides": [
+				"item:group:sword"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.rapier.melee.01.white",
+			"predicate": [
+				"melee"
+			]
+		}
+	]
 }

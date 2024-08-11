@@ -1,10 +1,9 @@
-import { settings } from 'src/settings'
 import ActorAnimationsApp from './ActorAnimationsApp'
 
 let app: null | ActorAnimationsApp = null
 
 function spawn(application: CharacterSheetPF2e) {
-	const positionSetting = settings.windowPosition
+	const positionSetting = window.pf2eGraphics.liveSettings.windowPosition
 	let position = {}
 	const bounds = application.element[0].getBoundingClientRect()
 
@@ -35,7 +34,7 @@ function spawn(application: CharacterSheetPF2e) {
 }
 
 Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons: ApplicationHeaderButton[]) => {
-	if (!(settings.buttonPosition === 0)) return
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0)) return
 	buttons.unshift({
 		class: 'my-button',
 		icon: 'fas fa-film',
@@ -45,7 +44,7 @@ Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons
 })
 
 Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
-	if (!(settings.buttonPosition === 1)) return
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 1)) return
 
 	const navbar = html[0].getElementsByClassName('sheet-navigation')[0]
 
@@ -63,7 +62,7 @@ Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQu
 Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
 	const flag = application.actor.flags['pf2e-graphics']?.tokenImageID
 	const display = application.actor.flags['pf2e-graphics']?.displayFeat
-	if (!flag || settings.dev || display) return
+	if (!flag || window.pf2eGraphics.liveSettings.dev || display) return
 
 	html[0].querySelectorAll(`[data-item-id="${flag}"]`)[0]?.remove()
 })

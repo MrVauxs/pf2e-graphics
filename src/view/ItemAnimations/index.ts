@@ -1,4 +1,3 @@
-import { settings } from 'src/settings'
 import ItemAnimationsApp from './ItemAnimationsApp'
 
 let app: null | ItemAnimationsApp = null
@@ -8,7 +7,7 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 		class: 'my-button',
 		icon: 'fas fa-film',
 		onclick: () => {
-			const positionSetting = settings.windowPosition
+			const positionSetting = window.pf2eGraphics.liveSettings.windowPosition
 			let position = {}
 			const bounds = application.element[0].getBoundingClientRect()
 
