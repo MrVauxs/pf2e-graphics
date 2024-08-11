@@ -163,6 +163,18 @@
 			"predicate": [
 				"melee"
 			],
+			"options": {
+				"sound": [
+					{
+						"file": "pf2e-graphics.attack.sword.01",
+						"default": true
+					},
+					{
+						"file": "pf2e-graphics.attack.miss.01",
+						"predicate": [{ "or": ["outcome:failure", "outcome:criticalFailure"] }]
+					}
+				]
+			},
 			"contents": [
 				{
 					"default": true,

@@ -2,6 +2,14 @@
 
 const p = 'modules/pf2e-graphics/assets/library'
 const database = {
+	attack: {
+		miss: {
+			'01': `${p}/sounds/soniss/SWSH_Swing 3 Large 03_DDUMAIS_NONE.wav`,
+		},
+		sword: {
+			'01': `${p}/sounds/soniss/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.wav`,
+		},
+	},
 	lightning_bolt: {
 		impact: {
 			'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.wav`,

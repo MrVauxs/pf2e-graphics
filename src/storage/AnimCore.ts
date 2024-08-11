@@ -283,7 +283,7 @@ export let AnimCore = class AnimCore {
 			for (const animation of anim) {
 				this.animate(
 					{ ...animation, ...animationOptions },
-					{ ...rest, sequence, item, actor, source },
+					{ ...rest, sequence, item, actor, source, rollOptions },
 				)
 			}
 

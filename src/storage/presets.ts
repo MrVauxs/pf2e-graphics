@@ -123,19 +123,27 @@ export const helpers = {
 
 		return seq
 	},
-	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, target: Target, options: SoundConfig) {
-		seq.file(options?.file)
+	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, target: Target, _options: SoundConfig, rollOptions: string[]) {
+		_options = [_options].flat()
+			.filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions))
 
-		if (options?.atLocation)
-			seq.atLocation(target, options.atLocation)
-		if (options?.radius)
-			seq.radius(options.radius)
-		if (options?.constrainedByWalls)
-			seq.constrainedByWalls(options.constrainedByWalls)
-		if (options?.volume)
-			seq.volume(options.volume)
-		if (options?.duration)
-			seq.duration(options.duration)
+		if (_options.filter(a => !a.default).length > 0) _options = _options.filter(a => !a.default)
+
+		_options
+			.forEach((options) => {
+				seq.file(options?.file)
+
+				if (options?.atLocation)
+					seq.atLocation(target, options.atLocation)
+				if (options?.radius)
+					seq.radius(options.radius)
+				if (options?.constrainedByWalls)
+					seq.constrainedByWalls(options.constrainedByWalls)
+				if (options?.volume)
+					seq.volume(options.volume)
+				if (options?.duration)
+					seq.duration(options.duration)
+			})
 
 		return seq
 	},
@@ -151,14 +159,17 @@ interface rangedOptions {
 	templateAsOrigin: boolean
 }
 
-interface SoundConfig {
+type SoundConfig = SoundData | SoundData[]
+interface SoundData {
 	file: string
-	waitUntilFinished: number
-	atLocation: Parameters<SoundSection['atLocation']>[1]
-	radius: number
-	volume: number
-	duration: number
-	constrainedByWalls: boolean
+	waitUntilFinished?: number
+	atLocation?: Parameters<SoundSection['atLocation']>[1]
+	radius?: number
+	volume?: number
+	duration?: number
+	constrainedByWalls?: boolean
+	predicate?: string[]
+	default?: boolean
 }
 
 export interface EffectOptions<T extends PresetKeys> {
@@ -245,7 +256,7 @@ type Shape = { type: Parameters<EffectSection['shape']>[0] } & Parameters<Effect
 type Offset = Point & { flip?: { x?: true, y?: true } }
 
 export const presets = {
-	ranged: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['ranged']) => {
+	ranged: (seq: Sequence, { file, targets, source, options, item, rollOptions }: PresetIndex['ranged']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Ranged animation requires a target token!')
 		if (!source)
@@ -262,7 +273,7 @@ export const presets = {
 
 				if (options?.preset?.bounce.sound) {
 					const sound = seq.sound()
-					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound)
+					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound, rollOptions)
 				}
 			} else {
 				effect
@@ -272,9 +283,9 @@ export const presets = {
 						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
 					)
 
-				if (options?.sound?.file) {
+				if (options?.sound) {
 					const sound = seq.sound()
-					helpers.genericSoundFunction(sound, item, target, options.sound)
+					helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 				}
 			}
 
@@ -283,7 +294,7 @@ export const presets = {
 
 		return seq
 	},
-	melee: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['melee']) => {
+	melee: (seq: Sequence, { file, targets, source, options, item, rollOptions }: PresetIndex['melee']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Melee animation requires a target token!')
 		if (!source)
@@ -308,15 +319,15 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound?.file) {
+			if (options?.sound) {
 				const sound = seq.sound()
-				helpers.genericSoundFunction(sound, item, target, options.sound)
+				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 			}
 		}
 
 		return seq
 	},
-	onToken: (seq: Sequence, { file, targets, source, options, item }: PresetIndex['onToken']) => {
+	onToken: (seq: Sequence, { file, targets, source, options, item, rollOptions }: PresetIndex['onToken']) => {
 		const target = targets?.[0]
 		const affectedToken = options?.preset === 'target' ? target : source
 
@@ -344,14 +355,14 @@ export const presets = {
 
 		helpers.genericSequencerFunctions(result, item, affectedToken, options)
 
-		if (options?.sound?.file) {
+		if (options?.sound) {
 			const sound = seq.sound()
-			helpers.genericSoundFunction(sound, item, affectedToken, options.sound)
+			helpers.genericSoundFunction(sound, item, affectedToken, options.sound, rollOptions)
 		}
 
 		return seq
 	},
-	template: (seq: Sequence, { file, targets, options, item }: PresetIndex['template']) => {
+	template: (seq: Sequence, { file, targets, options, item, rollOptions }: PresetIndex['template']) => {
 		if (!targets || !targets.length)
 			throw new ErrorMsg('Template animation requires a template!')
 
@@ -365,9 +376,9 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound?.file) {
+			if (options?.sound) {
 				const sound = seq.sound()
-				helpers.genericSoundFunction(sound, item, target, options.sound)
+				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 			}
 		}
 
@@ -393,6 +404,7 @@ interface GenericSequenceData<T extends PresetKeys> {
 	targets?: Target[]
 	item: ItemPF2e
 	options?: EffectOptions<T>
+	rollOptions: string[]
 }
 
 type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point)
