@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TokenImage Imports (#6)
 - World Animations Menu (#3)
 - Existing menus re-focusing when being opened again.
+- Sound predicates and ability to have multiple sounds for effects.
+- **New Sounds**: Sword Swing and Miss
 
 ## [0.4.0] - 2024-08-10
 
