@@ -167,7 +167,19 @@ export let AnimCore = class AnimCore {
 		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
-		const customAnimations = merge(userKeys, merge(itemOriginKeys, merge(actorKeys, itemKeys))) as ReturnType<typeof this.getAnimations>
+		const customAnimations = merge(
+			window.pf2eGraphics.liveSettings.worldAnimations,
+			merge(
+				userKeys,
+				merge(
+					itemOriginKeys,
+					merge(
+						actorKeys,
+						itemKeys,
+					),
+				),
+			),
+		) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
 		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
 		return keys
