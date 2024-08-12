@@ -324,5 +324,22 @@
 				}
 			]
 		}
+	],
+	"effect:spell-effect-shields-of-the-spirit-security": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.markers.shield_rampart.complete.03.blue",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"persist": {
+					"value": true
+				},
+				"tieToDocuments": true,
+				"mask": false
+			}
+		}
 	]
 }
