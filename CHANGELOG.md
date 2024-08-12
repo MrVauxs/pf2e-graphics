@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.5.3] - Unreleased
 
 ### Changed
 
@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Issues related to having multiple windows open by limiting them to only 1 window per type (item, actor, user, world).
+- Export JSON causing posting an error in console when closed.
 - Token Image Manager not working on non-Player Character Sheets.
 - Actor Animations Manager buttons sometimes appearing twice on the character sheet, and not appearing on other Actor types.
 
