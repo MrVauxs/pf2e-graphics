@@ -1,0 +1,16 @@
+{
+	"item:slug:claw": "item:slug:claws",
+	"item:slug:claws": [
+		{
+			"trigger": "attack-roll",
+			"preset": "onToken",
+			"file": "jb2a.claws.400px.red",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 2
+				}
+			}
+		}
+	]
+}

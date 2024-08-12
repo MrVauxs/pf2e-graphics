@@ -1,0 +1,16 @@
+{
+	"item:slug:jaw": "item:slug:jaws",
+	"item:slug:jaws": [
+		{
+			"trigger": "attack-roll",
+			"preset": "onToken",
+			"file": "jb2a.bite.400px.red",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 2
+				}
+			}
+		}
+	]
+}

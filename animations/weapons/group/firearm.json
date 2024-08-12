@@ -1,0 +1,25 @@
+{
+	"item:group:firearm": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"file": "jb2a.bullet.01.orange"
+				},
+				{
+					"predicate": [
+						"item:group:firearm"
+					],
+					"file": "jb2a.bullet.02.orange"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"item:slug:fists": "item:slug:fist",
+	"item:slug:basic-unarmed": "item:slug:fist",
+	"item:slug:fist": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.unarmed_strike.physical.01.yellow",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	]
+}

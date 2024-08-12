@@ -1,0 +1,17 @@
+{
+	"item:group:crossbow": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.bolt.physical.white02",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.crossbow"
+				},
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
+		}
+	]
+}
