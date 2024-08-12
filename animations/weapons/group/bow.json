@@ -1,0 +1,17 @@
+{
+	"item:group:bow": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.arrow.physical.white.01",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.bow"
+				},
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
+		}
+	]
+}

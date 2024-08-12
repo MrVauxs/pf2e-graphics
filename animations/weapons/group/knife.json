@@ -1,0 +1,52 @@
+{
+	"item:group:knife": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"predicate": [
+				"thrown"
+			],
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			},
+			"contents": [
+				{
+					"file": "jb2a.dagger.throw.01.white",
+					"default": true
+				},
+				{
+					"file": "jb2a.dagger.throw.01.blue",
+					"predicate": [
+						"item:rune:property:frost"
+					]
+				}
+			]
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			},
+			"predicate": [
+				"melee"
+			],
+			"contents": [
+				{
+					"file": "jb2a.dagger.melee.02.white",
+					"default": true
+				},
+				{
+					"file": "jb2a.dagger.melee.fire.blue",
+					"predicate": [
+						"item:rune:property:frost"
+					]
+				}
+			]
+		}
+	]
+}

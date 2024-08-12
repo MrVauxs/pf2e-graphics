@@ -1,0 +1,14 @@
+{
+	"item:group:dart": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.dart.01.throw",
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
+		}
+	]
+}

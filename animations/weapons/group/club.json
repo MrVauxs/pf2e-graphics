@@ -1,0 +1,14 @@
+{
+	"item:group:club": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.02.club",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	]
+}

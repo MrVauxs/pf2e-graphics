@@ -1,0 +1,47 @@
+{
+	"item:group:sword": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"predicate": [
+				"melee"
+			],
+			"options": {
+				"sound": [
+					{
+						"file": "pf2e-graphics.attack.sword.01",
+						"default": true
+					},
+					{
+						"file": "pf2e-graphics.attack.miss.01",
+						"predicate": [
+							{
+								"or": [
+									"outcome:failure",
+									"outcome:criticalFailure"
+								]
+							}
+						]
+					}
+				]
+			},
+			"contents": [
+				{
+					"default": true,
+					"file": "jb2a.melee_attack.03.greatsword"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"item:damage:die:faces",
+								6
+							]
+						}
+					],
+					"file": "jb2a.melee_attack.01.shortsword"
+				}
+			]
+		}
+	]
+}
