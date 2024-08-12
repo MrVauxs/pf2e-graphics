@@ -39,7 +39,7 @@ const settingsData = [
 			scope: 'client',
 			config: true,
 			type: Number,
-			default: 1,
+			default: 2,
 			choices: {
 				0: 'pf2e-graphics.settings.quality.0',
 				1: 'pf2e-graphics.settings.quality.1',
