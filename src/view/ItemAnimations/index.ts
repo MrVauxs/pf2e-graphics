@@ -24,7 +24,6 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 
 			new ItemAnimationsApp({
 				data: { item: application.item },
-				id: `pf2e-graphics-modify-item-${application.item.id}`,
 			}).render(true, {
 				focus: true,
 				...position,

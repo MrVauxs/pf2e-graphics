@@ -293,13 +293,13 @@
 					Choose one of the options below:
 				</p>
 			</div>
-			<div class='flex items-center gap-1'>
-				<button on:click={giveth}>
+			<div class='flex items-center gap-1 h-8 '>
+				<button class='m-1 basis-1/2' on:click={giveth}>
 					Create a New Feature
 				</button>
-				or...
+				<span>or...</span>
 				{#if toggleExisting}
-					<select on:change={modifieth}>
+					<select on:change={modifieth} class='block w-full h-full m-1 basis-1/2'>
 						<option value="">
 							<span>None</span>
 						</option>
@@ -310,7 +310,7 @@
 						{/each}
 					</select>
 				{:else}
-					<button on:click={() => { toggleExisting = !toggleExisting }}>
+					<button class='m-1 basis-1/2' on:click={() => { toggleExisting = !toggleExisting }}>
 						Select an Existing Feature
 					</button>
 				{/if}

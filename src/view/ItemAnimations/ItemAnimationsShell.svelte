@@ -30,7 +30,7 @@
 		)
 	}
 
-	const tabs = ['preset-animations', 'custom-animations', 'options'] as const
+	const tabs = ['preset-animations', 'custom-animations'] as const
 	let activeTab: (typeof tabs)[number] = tabs[0]
 </script>
 

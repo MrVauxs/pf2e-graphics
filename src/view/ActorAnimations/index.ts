@@ -20,7 +20,6 @@ function spawn(application: CharacterSheetPF2e) {
 
 	new ActorAnimationsApp({
 		data: { actor: application.actor },
-		id: `pf2e-graphics-modify-item-${application.actor.id}`,
 	}).render(true, {
 		focus: true,
 		...position,
