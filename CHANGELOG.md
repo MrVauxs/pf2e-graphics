@@ -8,15 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.5.3] - Unreleased
+## [0.6.0] - Unreleased
+
+### Added
+
+- **New Animations**: Club, Dart, Shield, Spear (thank you @7H3LaughingMan!)
 
 ### Changed
 
-- Bumped default Performance Settings to Medium
+- How Animations are stored in module repository.
+- Bumped default Performance Settings to Medium.
 
 ### Fixed
 
 - Issues related to having multiple windows open by limiting them to only 1 window per type (item, actor, user, world).
+- Custom Animations throwing errors due to nested properties.
 - Export JSON causing posting an error in console when closed.
 - Token Image Manager not working on non-Player Character Sheets.
 - Actor Animations Manager buttons sometimes appearing twice on the character sheet, and not appearing on other Actor types.
