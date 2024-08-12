@@ -37,7 +37,7 @@ Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons
 })
 
 Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
-	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 1) && !application.actor.isOfType('character')) return
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 1) && application.actor.isOfType('character')) return
 
 	const navbar = html[0].getElementsByClassName('sheet-navigation')[0]
 
@@ -52,7 +52,7 @@ Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQu
 			.on('click', () => { spawn(application) }))
 })
 
-Hooks.on('renderCharacterSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
+Hooks.on('renderActorSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
 	const flag = application.actor.flags['pf2e-graphics']?.tokenImageID
 	const display = application.actor.flags['pf2e-graphics']?.displayFeat
 	if (!flag || window.pf2eGraphics.liveSettings.dev || display) return

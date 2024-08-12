@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bumped default Performance Settings to Medium
+
+### Fixed
+
+- Token Image Manager not working on non-Player Character Sheets.
+- Actor Animations Manager buttons sometimes appearing twice on the character sheet, and not appearing on other Actor types.
+
 ## [0.5.2] - 2024-08-11
 
 ### Fixed
