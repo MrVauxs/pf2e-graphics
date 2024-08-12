@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **New Animations**: Club, Dart, Shield, Spear (thank you @7H3LaughingMan!)
+- **New Animations**: Club, Dart, Shield, Spear (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
 
 ### Changed
 
@@ -44,8 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- TokenImage Imports (#6)
-- World Animations Menu (#3)
+- TokenImage Imports ([#6](https://github.com/MrVauxs/pf2e-graphics/issues/6))
+- World Animations Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
 - Existing menus re-focusing when being opened again.
 - Sound predicates and ability to have multiple sounds for effects.
 - **New Sounds**: Sword Swing and Miss
@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `atLocation`, `radius`, `constrainedByWalls`, `volume`, and `duration` support for sound effects.
 - `equipment:[state]` roll options for `toggle` animations. Use them wisely.
 - `templateAsOrigin` preset option for `ranged` animations. Allows to have the template to be the source of the animation, as opposed to the owner token. Allows for template animations detached from token location.
-- User Animation Menu (#3)
+- User Animation Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
 
 ### Changed
 
@@ -99,8 +99,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JSON Export Button on Actor Custom Animations (#3)
-- Item Custom Animations Menu (#3)
+- JSON Export Button on Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- Item Custom Animations Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
 - `opacity`, `size`, `loopProperty`, and `animateProperty` effect options.
 
   - **New Animations**: Rage
@@ -113,13 +113,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Further improvements to Actor Custom Animations (#3)
+- Further improvements to Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
 
 ## [0.2.0] - 2024-08-06
 
 ### Added
 
-- First version of the Actor Custom Animations (#3)
+- First version of the Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
 
 ## [0.1.3] - 2024-08-02
 
@@ -147,7 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - "Developer mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
-- Token Image Manager (#4)
+- Token Image Manager ([#4](https://github.com/MrVauxs/pf2e-graphics/issues/4))
 - **New Animations**: Melee Ignition, Jaws, Unarmed Attack / Fist
 
 ### Changed
@@ -162,7 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Sounds (#5)
+- Sounds ([#5](https://github.com/MrVauxs/pf2e-graphics/issues/5))
 - `.overrides` property, allowing for animations to remove others from being played.
   - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
 - `.wait` and `.delay` Sequencer options.
@@ -197,7 +197,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Merge separate animations files via Vite plugin (#1)
+- Merge separate animations files via Vite plugin ([#1](https://github.com/MrVauxs/pf2e-graphics/issues/1))
 - Eslint Rules
 - Moved internal structure
 - Pre-release versions to be semver compliant

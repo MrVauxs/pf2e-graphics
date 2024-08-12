@@ -1,7 +1,9 @@
 <script lang='ts'>
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { clearEmpties } from 'src/utils'
+	import { writable } from 'svelte/store'
+	import { onDestroy } from 'svelte'
 	import SubAnimationEditor from './SubAnimationEditor.svelte'
+	import JSONEditorApp from './JSONEditor/JSONEditor'
 
 	export let key: string
 	export let editable: boolean = true
@@ -33,21 +35,23 @@
 		})
 	}
 
+	const store = writable(value)
+	store.subscribe((v) => { value = v })
+
+	$: store.set(value)
+
+	let app: null | JSONEditorApp = null
 	async function exportWindow() {
-		Dialog.prompt({
-			content: `<textarea disabled class="min-h-80 h-full">${JSON.stringify({ [key]: clearEmpties(value) }, null, '  ')}</textarea>`,
-			label: 'Ok',
-			title: 'JSON Export',
-			options: {
-				classes: ['pf2e-g', 'json-export'],
-				resizable: true,
-			},
-			rejectClose: false,
-		} as DialogData & {
-			label: string
-			rejectClose?: boolean
+		app = new JSONEditorApp(
+			{ data: { store, key } },
+		).render(true, {
+			focus: true,
 		})
 	}
+
+	onDestroy(() => {
+		app?.close({ force: true })
+	})
 </script>
 
 <div class='border border-solid bg-slate-300 bg-opacity-50 w-full rounded-sm p-2.5'>
