@@ -34,9 +34,13 @@
 
 	devMessage($actor, $feat, $feat?.system.rules)
 	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat
+	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action
 
 	async function giveth() {
-		const feat = (await $actor.createEmbeddedDocuments('Item', [new FeatPF2e(featData)]))[0]
+		const feature = $actor.isOfType('character')
+			? new FeatPF2e({ ...featData, type: 'feat' })
+			: new ActionPF2e({ ...featData, type: 'action' })
+		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0]
 		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
 	}
 
@@ -289,24 +293,24 @@
 					Choose one of the options below:
 				</p>
 			</div>
-			<div class='flex items-center gap-1'>
-				<button on:click={giveth}>
-					Create a New Feat
+			<div class='flex items-center gap-1 h-8 '>
+				<button class='m-1 basis-1/2' on:click={giveth}>
+					Create a New Feature
 				</button>
-				or...
+				<span>or...</span>
 				{#if toggleExisting}
-					<select on:change={modifieth}>
+					<select on:change={modifieth} class='block w-full h-full m-1 basis-1/2'>
 						<option value="">
 							<span>None</span>
 						</option>
-						{#each $actor.items.filter(x => x.type === 'feat') as item}
+						{#each $actor.items.filter(x => x.type === 'feat' || x.type === 'action') as item}
 							<option value={item.id}>
 								<span>{item.name}</span>
 							</option>
 						{/each}
 					</select>
 				{:else}
-					<button on:click={() => { toggleExisting = !toggleExisting }}>
+					<button class='m-1 basis-1/2' on:click={() => { toggleExisting = !toggleExisting }}>
 						Select an Existing Feature
 					</button>
 				{/if}
