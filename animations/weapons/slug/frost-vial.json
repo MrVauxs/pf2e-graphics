@@ -1,0 +1,32 @@
+{
+	"item:slug:frost-vial-major": "item:slug:frost-vial-lesser",
+	"item:slug:frost-vial-greater": "item:slug:frost-vial-lesser",
+	"item:slug:frost-vial-moderate": "item:slug:frost-vial-lesser",
+	"item:slug:frost-vial-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.02.blue",
+					"options": {
+						"waitUntilFinished": -10,
+						"stretchTo": {
+							"randomOffset": 0.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.explosion.05.bluewhite",
+					"options": {
+						"preset": "target"
+					}
+				}
+			]
+		}
+	]
+}
