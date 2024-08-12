@@ -63,7 +63,6 @@
 					<div class='p-2 pb-0 flex flex-col h-full items-center'>
 						<div class='flex flex-col w-full items-center gap-1.5'>
 							{#each Object.keys($doc) as key}
-
 								<AnimationEditor
 									bind:key
 									bind:value={$doc[key]}

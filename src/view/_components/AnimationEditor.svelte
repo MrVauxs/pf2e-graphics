@@ -4,6 +4,7 @@
 	import SubAnimationEditor from './SubAnimationEditor.svelte'
 
 	export let key: string
+	export let editable: boolean = true
 	export let value: Exclude<JSONData[string], string>
 	export let deleteFn: false | ((key: string) => void) = false
 
@@ -55,15 +56,17 @@
 		<input type='text' value={key} disabled class='w-min text-center' />
 
 		<div class='ml-auto flex items-center'>
-			<button
-				on:click={() => {
-					value = [...value, AnimCore.CONST.TEMPLATE_ANIMATION()]
-				}}
-				class='w-min text-nowrap items-center'
-			>
-				<i class='fa fa-plus' />
-				New Child Animation
-			</button>
+			{#if editable}
+				<button
+					on:click={() => {
+						value = [...value, AnimCore.CONST.TEMPLATE_ANIMATION()]
+					}}
+					class='w-min text-nowrap items-center'
+				>
+					<i class='fa fa-plus' />
+					New Child Animation
+				</button>
+			{/if}
 			<button data-tooltip='pf2e-graphics.export' on:click={exportWindow} class='fa fa-brackets-curly size-8' />
 			<button data-tooltip='Delete' on:click={deleteAnimation} class='fa fa-trash-can size-8' />
 		</div>
