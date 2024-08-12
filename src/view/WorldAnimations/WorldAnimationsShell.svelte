@@ -105,18 +105,22 @@
 					</div>
 				{/if}
 				{#if $activeTab === 'preset-animations'}
-					<div class='p-2 pb-0 h-full items-center overflow-x-hidden overflow-y-scroll'>
+					<div class='p-2 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
 						{#each Object.keys(animations).sort() as key}
-							<div class='w-full p-0.5 mb-1 flex
-								border border-solid bg-gray-400 bg-opacity-50 rounded-sm'>
+							<div
+								class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
+								data-tooltip={key}
+							>
 								<span class='w-[90%] truncate text-nowrap'>{key}</span>
-								<button class='fas fa-brackets-curly h-full w-min ml-auto' on:click={() => {
-									new JSONEditorApp(
-										{ data: { store: readable(animations[key]), key } },
-									).render(true, {
-										focus: true,
-									})
-								}} />
+								<button
+									class='fas fa-brackets-curly h-full w-min ml-auto'
+									on:click={() => {
+										new JSONEditorApp(
+											{ data: { store: readable(animations[key]), key } },
+										).render(true, {
+											focus: true,
+										})
+									}} />
 							</div>
 						{/each}
 					</div>
