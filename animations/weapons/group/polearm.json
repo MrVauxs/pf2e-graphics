@@ -1,0 +1,9 @@
+{
+	"item:group:polearm": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.glaive.melee.01.white"
+		}
+	]
+}
