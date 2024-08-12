@@ -416,7 +416,7 @@ export const presets = {
 				.file(file)
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.attachTo, target, target))
 
-			if (target.type === 'line' || target.type === 'cone')
+			if (target.type === 'line' || target.type === 'cone' || target.t === 'line' || target.t === 'cone')
 				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, target, target))
 
 			helpers.genericSequencerFunctions(section, item, target, options)

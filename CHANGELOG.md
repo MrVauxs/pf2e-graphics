@@ -8,7 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.6.1] - Unreleased
+
+### Fixed
+
+- Line and Cone Templates not animating properly.
+- Blazing Wave animation.
 
 ## [0.6.0] - 2024-08-12
 
