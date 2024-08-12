@@ -4,6 +4,7 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.shield.01.complete.01",
+			"predicate": [{ "gte": ["graphics:quality", 1] }],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
@@ -56,36 +57,15 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "effect"
 				},
 				{
-					"predicate": [
-						{
-							"gte": [
-								"graphics-quality",
-								3
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 3] }],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
@@ -104,14 +84,7 @@
 			"preset": "onToken",
 			"contents": [
 				{
-					"predicate": [
-						{
-							"gte": [
-								"graphics-quality",
-								1
-							]
-						}
-					],
+					"predicate": [{ "gte": ["graphics-quality", 1] }],
 					"options": {
 						"atLocation": true,
 						"size": {
@@ -140,14 +113,7 @@
 							}
 						},
 						{
-							"predicate": [
-								{
-									"gte": [
-										"graphics-quality",
-										3
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 3] }],
 							"contents": [
 								{
 									"file": "jb2a.impact.ground_crack.still_frame.01",
@@ -266,14 +232,7 @@
 					},
 					"contents": [
 						{
-							"predicate": [
-								{
-									"gte": [
-										"graphics-quality",
-										2
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {
