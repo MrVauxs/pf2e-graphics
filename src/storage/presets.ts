@@ -1,4 +1,4 @@
-import { ErrorMsg, clearEmpties } from 'src/utils'
+import { ErrorMsg, clearEmpties, nonNullable } from 'src/utils'
 import type { TokenOrDoc } from 'src/extensions'
 
 export const helpers = {
@@ -42,100 +42,118 @@ export const helpers = {
 	},
 	genericSequencerFunctions<T extends PresetKeys>(seq: EffectSection, _item: ItemPF2e, _target: Target, options?: EffectOptions<T>) {
 		options = clearEmpties(options || {})
-		if (options?.zIndex)
+		if (nonNullable(options?.zIndex))
 			seq.zIndex(options.zIndex)
-		if (options?.scale) {
-			typeof options.scale === 'object'
-				? seq.scale(options.scale.min, options.scale.max)
-				: seq.scale(options.scale)
+		if (nonNullable(options?.scale)) {
+			if (typeof options.scale === 'object') {
+				seq.scale(options.scale.min, options.scale.max)
+			} else {
+				seq.scale(options.scale)
+			}
 		}
-		if (options?.spriteOffset)
+		if (nonNullable(options?.spriteOffset))
 			seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset)
-		if (options?.scaleToObject) {
-			typeof options.scaleToObject === 'object'
-				? seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
-				: seq.scaleToObject(options.scaleToObject)
+		if (nonNullable(options?.scaleToObject)) {
+			if (typeof options.scaleToObject === 'object') {
+				seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
+			} else {
+				seq.scaleToObject(options.scaleToObject)
+			}
 		}
-		if (options?.filter)
+		if (nonNullable(options?.filter))
 			seq.filter(options.filter.type, options.filter.options)
-		if (options?.waitUntilFinished)
+		if (nonNullable(options?.waitUntilFinished))
 			seq.waitUntilFinished(options?.waitUntilFinished)
-		if (options?.locally)
+		if (nonNullable(options?.locally))
 			seq.locally(options.locally)
-		if (options?.missed)
+		if (nonNullable(options?.missed))
 			seq.missed(options.missed)
-		if (options?.rotate)
+		if (nonNullable(options?.rotate))
 			seq.rotate(options.rotate ?? 0)
-		if (options?.fadeIn) {
-			typeof options.fadeIn === 'object'
-				? seq.fadeIn(options.fadeIn?.value, options.fadeIn)
-				: seq.fadeIn(options.fadeIn)
+		if (nonNullable(options?.fadeIn)) {
+			if (typeof options.fadeIn === 'object') {
+				seq.fadeIn(options.fadeIn?.value, options.fadeIn)
+			} else {
+				seq.fadeIn(options.fadeIn)
+			}
 		}
-		if (options?.fadeOut) {
-			typeof options.fadeOut === 'object'
-				? seq.fadeOut(options.fadeOut?.value, options.fadeOut)
-				: seq.fadeOut(options.fadeOut)
+		if (nonNullable(options?.fadeOut)) {
+			if (typeof options.fadeOut === 'object') {
+				seq.fadeOut(options.fadeOut?.value, options.fadeOut)
+			} else {
+				seq.fadeOut(options.fadeOut)
+			}
 		}
-		if (options?.belowTokens)
+		if (nonNullable(options?.belowTokens))
 			seq.belowTokens(options.belowTokens ?? false)
-		if (options?.duration)
+		if (nonNullable(options?.duration))
 			seq.duration(options.duration)
-		if (options?.randomizeMirrorX)
+		if (nonNullable(options?.randomizeMirrorX))
 			seq.randomizeMirrorX(options.randomizeMirrorX)
-		if (options?.randomizeMirrorY)
+		if (nonNullable(options?.randomizeMirrorY))
 			seq.randomizeMirrorY(options.randomizeMirrorY)
-		if (options?.repeats) {
-			typeof options.repeats === 'object'
-				? seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
-				: seq.repeats(options.repeats)
+		if (nonNullable(options?.repeats)) {
+			if (typeof options.repeats === 'object') {
+				seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
+			} else {
+				seq.repeats(options.repeats)
+			}
 		}
-		if (options?.template)
+		if (nonNullable(options?.template))
 			seq.template(options.template)
-		if (options?.tint)
+		if (nonNullable(options?.tint))
 			seq.tint(options.tint)
-		if (options?.anchor)
+		if (nonNullable(options?.anchor))
 			seq.anchor(options.anchor)
-		if (options?.wait) {
-			typeof options.wait === 'object'
-				? seq.wait(options.wait.min, options.wait?.max)
-				: seq.wait(options.wait)
+		if (nonNullable(options?.wait)) {
+			if (typeof options.wait === 'object') {
+				seq.wait(options.wait.min, options.wait?.max)
+			} else {
+				seq.wait(options.wait)
+			}
 		}
-		if (options?.delay) {
-			typeof options.delay === 'object'
-				? seq.delay(options.delay.min, options.delay?.max)
-				: seq.delay(options.delay)
+		if (nonNullable(options?.delay)) {
+			if (typeof options.delay === 'object') {
+				seq.delay(options.delay.min, options.delay?.max)
+			} else {
+				seq.delay(options.delay)
+			}
 		}
-		if (options?.opacity)
+		if (nonNullable(options?.opacity))
 			seq.opacity(options.opacity)
-		if (options?.size) {
-			typeof options.size === 'object'
-				? seq.size(options.size.value, options.size)
-				: seq.size(options.size)
+		if (nonNullable(options?.size)) {
+			if (typeof options.size === 'object') {
+				seq.size(options.size.value, options.size)
+			} else {
+				seq.size(options.size)
+			}
 		}
-		if (options?.moveTowards)
+		if (nonNullable(options?.moveTowards))
 			seq.moveTowards(options.moveTowards.target, options.moveTowards)
 
 		// Property Animation
-		if (options?.loopProperty)
+		if (nonNullable(options?.loopProperty))
 			options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options))
-		if (options?.animateProperty)
+		if (nonNullable(options?.animateProperty))
 			options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options))
 
 		// Adds new effects
-		if (options?.shape)
+		if (nonNullable(options?.shape))
 			[options.shape].flat().forEach(shape => seq.shape(shape.type, shape))
 
 		// Important Stuff
-		if (options?.persist) {
-			typeof options.persist === 'object'
-				? seq.persist(options.persist?.value || false, options.persist)
-				: seq.persist(options.persist || false)
+		if (nonNullable(options?.persist)) {
+			if (typeof options.persist === 'object') {
+				seq.persist(options.persist?.value || false, options.persist)
+			} else {
+				seq.persist(options.persist || false)
+			}
 		}
-		if (options?.tieToDocuments)
+		if (nonNullable(options?.tieToDocuments))
 			seq.tieToDocuments([_item])
-		if (options?.mask)
+		if (nonNullable(options?.mask))
 			seq.mask()
-		if (options?.remove) {
+		if (nonNullable(options?.remove)) {
 			[options.remove].flat().forEach(origin => Sequencer.EffectManager.endEffects({ origin }))
 		}
 
@@ -143,9 +161,9 @@ export const helpers = {
 			seq.origin(_item.uuid)
 			seq.name(_item.name)
 		}
-		if (options?.id)
+		if (nonNullable(options?.id))
 			seq.origin(options.id)
-		if (options?.name)
+		if (nonNullable(options?.name))
 			seq.name(options.name)
 
 		return seq
