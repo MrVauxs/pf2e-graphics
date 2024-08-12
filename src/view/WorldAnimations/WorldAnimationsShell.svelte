@@ -1,11 +1,12 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import type { Writable } from 'svelte/store'
+	import { type Writable, readable } from 'svelte/store'
 	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import JSONEditorApp from '../_components/JSONEditor/JSONEditor'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
@@ -23,7 +24,7 @@
 		game.settings.set('pf2e-graphics', 'worldAnimations', upd)
 	})
 
-	const tabs = ['world-animations'] as const
+	const tabs = ['world-animations', 'preset-animations'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
 
 	function createAnimation() {
@@ -31,6 +32,8 @@
 		$doc[newKey.trim()] = []
 		$showNewAnimation = !$showNewAnimation
 	}
+
+	const animations = window.pf2eGraphics.AnimCore.getAnimations()
 
 	$: devMessage(`World Animations (${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()})`, $doc, $showNewAnimation)
 </script>
@@ -100,6 +103,23 @@
 								</button>
 							{/if}
 						</div>
+					</div>
+				{/if}
+				{#if $activeTab === 'preset-animations'}
+					<div class='p-2 pb-0 columns-3 h-full items-center'>
+						{#each Object.keys(animations).sort() as key}
+							<div class='w-full p-0.5 mb-1 flex
+								border border-solid bg-gray-400 bg-opacity-50 rounded-sm'>
+								<span class='w-[90%] truncate text-nowrap'>{key}</span>
+								<button class='fas fa-brackets-curly h-full w-min ml-auto' on:click={() => {
+									new JSONEditorApp(
+										{ data: { store: readable(animations[key]), key } },
+									).render(true, {
+										focus: true,
+									})
+								}} />
+							</div>
+						{/each}
 					</div>
 				{/if}
 			</div>

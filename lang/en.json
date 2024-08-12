@@ -64,14 +64,13 @@
 		},
 		"worldAnimation": {
 			"tabs": {
+				"preset-animations": "Preset Animations",
 				"world-animations": "World Animations"
 			}
 		},
 		"userAnimation": {
 			"tabs": {
-				"all-animations": "All Animations",
-				"user-animations": "User Animations",
-				"tokenimage-manager": "Token Image Manager"
+				"user-animations": "User Animations"
 			}
 		},
 		"actorAnimation": {

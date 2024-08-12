@@ -163,7 +163,6 @@ export let AnimCore = class AnimCore {
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
-		// @ts-expect-error Fix in foundry-pf2e
 		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global

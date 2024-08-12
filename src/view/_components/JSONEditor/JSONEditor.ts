@@ -2,11 +2,12 @@ import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
 
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
 import { type Writable, get } from 'svelte/store'
+import type { Readable } from 'svelte/motion'
 import BasicAppShell from './JSONEditor.svelte'
 
 export default class JSONEditorApp extends SvelteApplication {
 	[x: string]: any
-	constructor(options: ConstructorApplicationOptions & { data: { store: Writable<object>, key: string } }) {
+	constructor(options: ConstructorApplicationOptions & { data: { store: Writable<any> | Readable<any>, key: string } }) {
 		super()
 
 		if (options.data) {

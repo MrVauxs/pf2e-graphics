@@ -2,14 +2,13 @@
 
 <script lang='ts'>
 	import type { JSONData } from 'src/storage/AnimCore'
-	import type { Writable } from 'svelte/store'
+	import type { Readable, Writable } from 'svelte/store'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
 	export let elementRoot: HTMLElement | undefined
-	export let store: Writable<Exclude<JSONData[string], string>>
+	export let store: Writable<Exclude<JSONData[string], string>> | Readable<Exclude<JSONData[string], string>>
 	export let key: string
-
 </script>
 
 <ApplicationShell bind:elementRoot>
