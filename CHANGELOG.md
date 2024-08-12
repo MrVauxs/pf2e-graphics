@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `jb2a:patreon` and `jb2a:free` roll options for animations.
 - Preset Animations tab in World Animations menu. Allows you to see all pre-made animations and their code.
 - **New Animations**: Club, Dart, Shield, Spear, Axe, Bomb, Brawling, Flail, Hammer, Polearm, Sling (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
 

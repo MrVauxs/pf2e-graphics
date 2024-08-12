@@ -123,7 +123,14 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`]))
+		return dedupeStrings(this.uglifyRollOptions(array)
+			.concat(
+				[
+					`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`,
+					game.modules.get('jb2a_patreon')?.active ? 'jb2a:patreon' : null,
+					game.modules.get('JB2A_DnD5e')?.active ? 'jb2a:free' : null,
+				].filter(x => typeof x === 'string'),
+			))
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
