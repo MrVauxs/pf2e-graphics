@@ -1,0 +1,32 @@
+{
+	"item:slug:acid-flask-major": "item:slug:acid-flask-lesser",
+	"item:slug:acid-flask-greater": "item:slug:acid-flask-lesser",
+	"item:slug:acid-flask-moderate": "item:slug:acid-flask-lesser",
+	"item:slug:acid-flask-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.03.green",
+					"options": {
+						"waitUntilFinished": -10,
+						"stretchTo": {
+							"randomOffset": 0.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.liquid.splash.green",
+					"options": {
+						"preset": "target"
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,32 @@
+{
+	"item:slug:bottled-lightning-major": "item:slug:bottled-lightning-lesser",
+	"item:slug:bottled-lightning-greater": "item:slug:bottled-lightning-lesser",
+	"item:slug:bottled-lightning-moderate": "item:slug:bottled-lightning-lesser",
+	"item:slug:bottled-lightning-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.02.blue",
+					"options": {
+						"waitUntilFinished": -10,
+						"stretchTo": {
+							"randomOffset": 0.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.static_electricity.03.blue",
+					"options": {
+						"preset": "target"
+					}
+				}
+			]
+		}
+	]
+}
