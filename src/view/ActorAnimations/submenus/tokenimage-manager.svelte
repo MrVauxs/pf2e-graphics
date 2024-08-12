@@ -34,9 +34,13 @@
 
 	devMessage($actor, $feat, $feat?.system.rules)
 	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat
+	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action
 
 	async function giveth() {
-		const feat = (await $actor.createEmbeddedDocuments('Item', [new FeatPF2e(featData)]))[0]
+		const feature = $actor.isOfType('character')
+			? new FeatPF2e({ ...featData, type: 'feat' })
+			: new ActionPF2e({ ...featData, type: 'action' })
+		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0]
 		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
 	}
 
@@ -291,7 +295,7 @@
 			</div>
 			<div class='flex items-center gap-1'>
 				<button on:click={giveth}>
-					Create a New Feat
+					Create a New Feature
 				</button>
 				or...
 				{#if toggleExisting}
@@ -299,7 +303,7 @@
 						<option value="">
 							<span>None</span>
 						</option>
-						{#each $actor.items.filter(x => x.type === 'feat') as item}
+						{#each $actor.items.filter(x => x.type === 'feat' || x.type === 'action') as item}
 							<option value={item.id}>
 								<span>{item.name}</span>
 							</option>
