@@ -1,0 +1,9 @@
+{
+	"item:group:flail": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_generic.bludgeoning.one_handed"
+		}
+	]
+}
