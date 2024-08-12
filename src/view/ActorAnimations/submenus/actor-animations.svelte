@@ -68,11 +68,10 @@
 			{:else}
 				<span class='px-1'> Input the primary roll option. </span>
 				<div class='flex w-full gap-1'>
-					<!-- svelte-ignore missing-declaration -->
 					<input
 						type='text'
 						bind:value={newKey}
-						placeholder={Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
+						placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
 					/>
 					<button
 						data-tooltip='pf2e-graphics.cancel'

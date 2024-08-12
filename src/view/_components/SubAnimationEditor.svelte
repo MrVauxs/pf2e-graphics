@@ -60,11 +60,10 @@
 					type='text'
 					bind:value={animation.file}
 				/>
-				<!-- svelte-ignore missing-declaration -->
 				<button
 					class='fas fa-database w-min h-full'
 					data-tooltip='SEQUENCER.SidebarButtons.Database'
-					on:click={() => Sequencer.DatabaseViewer.show()}
+					on:click={() => window.Sequencer.DatabaseViewer.show()}
 				/>
 			</label>
 			<!-- Booleans -->

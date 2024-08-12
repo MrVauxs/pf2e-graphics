@@ -85,11 +85,10 @@
 							{:else}
 								<span class='px-1'> Input the primary roll option. </span>
 								<div class='flex w-full gap-1'>
-									<!-- svelte-ignore missing-declaration -->
 									<input
 										type='text'
 										bind:value={newKey}
-										placeholder={Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
+										placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
 									/>
 									<button
 										data-tooltip='pf2e-graphics.cancel'
@@ -106,7 +105,7 @@
 					</div>
 				{/if}
 				{#if $activeTab === 'preset-animations'}
-					<div class='p-2 pb-0 columns-3 h-full items-center'>
+					<div class='p-2 pb-0 h-full items-center overflow-x-hidden overflow-y-scroll'>
 						{#each Object.keys(animations).sort() as key}
 							<div class='w-full p-0.5 mb-1 flex
 								border border-solid bg-gray-400 bg-opacity-50 rounded-sm'>
