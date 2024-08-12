@@ -44,12 +44,18 @@ export const helpers = {
 		options = clearEmpties(options || {})
 		if (options?.zIndex)
 			seq.zIndex(options.zIndex)
-		if (options?.scale)
-			seq.scale(options.scale.min, options.scale.max)
+		if (options?.scale) {
+			typeof options.scale === 'object'
+				? seq.scale(options.scale.min, options.scale.max)
+				: seq.scale(options.scale)
+		}
 		if (options?.spriteOffset)
 			seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset)
-		if (options?.scaleToObject)
-			seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
+		if (options?.scaleToObject) {
+			typeof options.scaleToObject === 'object'
+				? seq.scaleToObject(options.scaleToObject.value, options.scaleToObject)
+				: seq.scaleToObject(options.scaleToObject)
+		}
 		if (options?.filter)
 			seq.filter(options.filter.type, options.filter.options)
 		if (options?.waitUntilFinished)
@@ -60,10 +66,16 @@ export const helpers = {
 			seq.missed(options.missed)
 		if (options?.rotate)
 			seq.rotate(options.rotate ?? 0)
-		if (options?.fadeIn)
-			seq.fadeIn(options.fadeIn?.value, options.fadeIn)
-		if (options?.fadeOut)
-			seq.fadeOut(options.fadeOut?.value, options.fadeOut)
+		if (options?.fadeIn) {
+			typeof options.fadeIn === 'object'
+				? seq.fadeIn(options.fadeIn?.value, options.fadeIn)
+				: seq.fadeIn(options.fadeIn)
+		}
+		if (options?.fadeOut) {
+			typeof options.fadeOut === 'object'
+				? seq.fadeOut(options.fadeOut?.value, options.fadeOut)
+				: seq.fadeOut(options.fadeOut)
+		}
 		if (options?.belowTokens)
 			seq.belowTokens(options.belowTokens ?? false)
 		if (options?.duration)
@@ -72,22 +84,34 @@ export const helpers = {
 			seq.randomizeMirrorX(options.randomizeMirrorX)
 		if (options?.randomizeMirrorY)
 			seq.randomizeMirrorY(options.randomizeMirrorY)
-		if (options?.repeats)
-			seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
+		if (options?.repeats) {
+			typeof options.repeats === 'object'
+				? seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
+				: seq.repeats(options.repeats)
+		}
 		if (options?.template)
 			seq.template(options.template)
 		if (options?.tint)
 			seq.tint(options.tint)
 		if (options?.anchor)
 			seq.anchor(options.anchor)
-		if (options?.wait)
-			seq.wait(options.wait.min, options.wait?.max)
-		if (options?.delay)
-			seq.delay(options.delay.min, options.delay?.max)
+		if (options?.wait) {
+			typeof options.wait === 'object'
+				? seq.wait(options.wait.min, options.wait?.max)
+				: seq.wait(options.wait)
+		}
+		if (options?.delay) {
+			typeof options.delay === 'object'
+				? seq.delay(options.delay.min, options.delay?.max)
+				: seq.delay(options.delay)
+		}
 		if (options?.opacity)
 			seq.opacity(options.opacity)
-		if (options?.size)
-			seq.size(options.size.value, options.size)
+		if (options?.size) {
+			typeof options.size === 'object'
+				? seq.size(options.size.value, options.size)
+				: seq.size(options.size)
+		}
 		if (options?.moveTowards)
 			seq.moveTowards(options.moveTowards.target, options.moveTowards)
 
@@ -102,8 +126,11 @@ export const helpers = {
 			[options.shape].flat().forEach(shape => seq.shape(shape.type, shape))
 
 		// Important Stuff
-		if (options?.persist)
-			seq.persist(options.persist?.value || false, options.persist)
+		if (options?.persist) {
+			typeof options.persist === 'object'
+				? seq.persist(options.persist?.value || false, options.persist)
+				: seq.persist(options.persist || false)
+		}
 		if (options?.tieToDocuments)
 			seq.tieToDocuments([_item])
 		if (options?.mask)
@@ -190,47 +217,47 @@ export interface EffectOptions<T extends PresetKeys> {
 	rotate?: number
 	opacity?: number
 	mask?: true
-	fadeIn?: {
+	fadeIn?: number | {
 		value: number
 	} & EasingOptions
-	fadeOut?: {
+	fadeOut?: number | {
 		value: number
 	} & EasingOptions
-	scale?: {
+	scale?: number | {
 		min: number | { x: number, y: number }
 		max?: number
 	}
-	wait?: {
+	wait?: number | {
 		min: number
 		max?: number
 	}
-	delay?: {
+	delay?: number | {
 		min: number
 		max?: number
 	}
-	scaleToObject?: {
+	scaleToObject?: number | {
 		value: number
 	} & Parameters<EffectSection['scaleToObject']>[1]
 	spriteOffset?: {
 		offset: Parameters<EffectSection['spriteOffset']>[0]
 	} & Parameters<EffectSection['spriteOffset']>[1]
-	size?: {
+	size?: number | {
 		value: number
 	} & Parameters<EffectSection['size']>[1]
-	filter?: {
-		type: Parameters<EffectSection['filter']>[0]
-		options: Parameters<EffectSection['filter']>[1]
-	}
-	persist?: {
+	persist?: boolean | {
 		value: boolean
 	} & Parameters<EffectSection['persist']>[1]
-	moveTowards?: {
-		target: Parameters<EffectSection['moveTowards']>[0]
-	} & Parameters<EffectSection['moveTowards']>[1]
-	repeats?: {
+	repeats?: number | {
 		min: Parameters<EffectSection['repeats']>[0]
 		delay: Parameters<EffectSection['repeats']>[1]
 		max: Parameters<EffectSection['repeats']>[2]
+	}
+	moveTowards?: {
+		target: Parameters<EffectSection['moveTowards']>[0]
+	} & Parameters<EffectSection['moveTowards']>[1]
+	filter?: {
+		type: Parameters<EffectSection['filter']>[0]
+		options: Parameters<EffectSection['filter']>[1]
 	}
 	missed?: boolean
 	attachTo?: Parameters<EffectSection['attachTo']>[1]
