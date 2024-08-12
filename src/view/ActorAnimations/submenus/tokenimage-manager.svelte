@@ -41,7 +41,8 @@
 			? new FeatPF2e({ ...featData, type: 'feat' })
 			: new ActionPF2e({ ...featData, type: 'action' })
 
-		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0]
+		// @ts-ignore Idle did it and why shouldn't I
+		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0] as typeof feature
 
 		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
 	}
