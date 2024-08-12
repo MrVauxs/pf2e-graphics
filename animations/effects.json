@@ -334,12 +334,51 @@
 				"scaleToObject": {
 					"value": 1.5
 				},
-				"persist": {
-					"value": true
-				},
 				"tieToDocuments": true,
 				"mask": false
-			}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"graphics-quality",
+								3
+							]
+						}
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
 		}
 	]
 }
