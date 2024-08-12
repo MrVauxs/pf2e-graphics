@@ -27,11 +27,6 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "melee",
-			"options": {
-				"scaleToObject": {
-					"value": 5
-				}
-			},
 			"predicate": [
 				"melee"
 			],

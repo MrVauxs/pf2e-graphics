@@ -15,7 +15,12 @@
 				},
 				{
 					"predicate": [
-						"item:group:firearm"
+						{
+							"lte": [
+								"item:damage:die:faces",
+								6
+							]
+						}
 					],
 					"file": "jb2a.bullet.02.orange"
 				}
