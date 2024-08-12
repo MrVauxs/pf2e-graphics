@@ -1,0 +1,30 @@
+{
+	"item:group:spear": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.spear.throw.01",
+			"predicate": [
+				"thrown"
+			],
+			"options": {
+				"stretchTo": {
+					"randomOffset": 0.5
+				}
+			}
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.spear.melee.01.white",
+			"predicate": [
+				"melee"
+			],
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	]
+}

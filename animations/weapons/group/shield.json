@@ -1,0 +1,14 @@
+{
+	"item:group:shield": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.06.shield",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	]
+}
