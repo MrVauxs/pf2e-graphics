@@ -329,7 +329,7 @@
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.markers.shield_rampart.complete.03.blue",
+			"file": "jb2a.markers.shield_rampart.complete.01.orange",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
@@ -338,6 +338,18 @@
 				"mask": false
 			},
 			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.markers.shield_rampart.complete.01.orange",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 150
+						}
+					}
+				},
 				{
 					"predicate": [
 						{
