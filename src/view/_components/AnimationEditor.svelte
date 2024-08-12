@@ -36,7 +36,9 @@
 	}
 
 	const store = writable(value)
-	store.subscribe((v) => { value = v })
+	store.subscribe((v) => {
+		value = v
+	})
 
 	$: store.set(value)
 
