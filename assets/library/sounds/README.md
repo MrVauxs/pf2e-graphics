@@ -1,8 +1,8 @@
 # PF2e Graphics Sounds Library
 
-## Addition
+## Contribution
 
-The files in this directory should be treated with an audio-editing program such as Audacity to make the sounds of equal volume and to convert them to `.wav` format.
+The files in this directory should be made of (roughly) equal volume and converted to `.wav` format.
 
 ## Licenses
 
@@ -11,3 +11,4 @@ The following directories are named after their creators and are used under thei
 - Ovani Sounds: <https://ovanisound.com/policies/terms-of-service>
 - GameDev Market: <https://www.gamedevmarket.net/terms-conditions#pro-licence>
 - Soniss: <https://sonniss.com/gdc-bundle-license>
+- SoundFlakes: ["CC BY 4.0" Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)

@@ -32,6 +32,42 @@ const database = {
 		'03': `${p}/sounds/gamedev-market/Crossbow Shot C.wav`,
 		'04': `${p}/sounds/gamedev-market/Crossbow Shot D.wav`,
 	},
+	axe: {
+		slash: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/axe-hitting-metal_blood-splash.wav`,
+		},
+		throw: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/axe-throwing-hitting-flesh.wav`,
+		},
+		miss: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/axe-throwing.wav`,
+		},
+	},
+	flail: {
+		miss: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/bludgeon-throwing.wav`,
+		},
+	},
+	spear: {
+		hit: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-01.wav`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-02.wav`,
+			'03': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-03.wav`,
+			'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-04.wav`,
+			'05': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-05.wav`,
+		},
+		miss: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-whoosh.wav`,
+		},
+	},
+	critical: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-01.wav`,
+		'02': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-02.wav`,
+		'03': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-03.wav`,
+		'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-04.wav`,
+	},
+
+	// Work in Progress
 }
 
 export default database
