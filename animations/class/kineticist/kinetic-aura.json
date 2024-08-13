@@ -1,0 +1,12 @@
+{
+	"effect:kinetic-aura": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.impact.ground_crack.orange",
+			"options": {
+				"belowTokens": true
+			}
+		}
+	]
+}
