@@ -1,0 +1,28 @@
+{
+	"item:slug:vitality-lash": [
+		{
+			"trigger": "spell-cast",
+			"preset": "ranged",
+			"presets": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.healing_generic.03.burst.bluegreen",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 135
+						}
+					}
+				},
+				{
+					"predicate": [
+						"jb2a:premium"
+					],
+					"file": "jb2a.healing_generic.03.burst.yellow"
+				}
+			]
+		}
+	]
+}
