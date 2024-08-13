@@ -1,8 +1,8 @@
 {
-	"item:slug:vitality-lash": [
+	"item:slug:stabilize": [
 		{
 			"trigger": "spell-cast",
-			"preset": "ranged",
+			"preset": "onToken",
 			"presets": [
 				{
 					"predicate": [
