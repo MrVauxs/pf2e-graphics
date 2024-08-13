@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.5] - Unreleased
 
+### Added
+
+- Origin data to `damage-taken` animations, allowing for animations to start from the attacker to the target taking damage / being healed.
+- **New Animations**:
+  - Divine Lance, Shield Spikes, Chain Sword, Shield Boss (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Glue Bomb (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
+- **New Sounds** from [SoundFlakes](https://freesound.org/people/SoundFlakes/)!
+
 ### Changed
 
 - Spell Effect: Shield animation to be compatible with free version of JB2A.
@@ -27,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- How effects are organized inside the module.
 - Compressed all assets from `.wav` to `.ogg`, resulting in 10x reduction in file size.
 
 ### Fixed
