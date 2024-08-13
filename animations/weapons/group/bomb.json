@@ -1,0 +1,26 @@
+{
+	"item:group:bomb": [
+		{
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.bomb.01.black",
+					"options": {
+						"waitUntilFinished": -10,
+						"stretchTo": {
+							"randomOffset": 0.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.explosion.01.orange",
+					"options": {
+						"preset": "target"
+					}
+				}
+			]
+		}
+	]
+}

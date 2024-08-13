@@ -1,0 +1,32 @@
+{
+	"item:slug:alchemists-fire-major": "item:slug:alchemists-fire-lesser",
+	"item:slug:alchemists-fire-greater": "item:slug:alchemists-fire-lesser",
+	"item:slug:alchemists-fire-moderate": "item:slug:alchemists-fire-lesser",
+	"item:slug:alchemists-fire-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.01.red",
+					"options": {
+						"waitUntilFinished": -10,
+						"stretchTo": {
+							"randomOffset": 0.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.explosion.03.red",
+					"options": {
+						"preset": "target"
+					}
+				}
+			]
+		}
+	]
+}

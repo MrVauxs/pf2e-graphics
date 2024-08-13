@@ -1,11 +1,12 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import type { Writable } from 'svelte/store'
+	import { type Writable, readable } from 'svelte/store'
 	import { getContext } from 'svelte'
 	import { devMessage, i18n } from 'src/utils'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import JSONEditorApp from '../_components/JSONEditor/JSONEditor'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
@@ -23,7 +24,7 @@
 		game.settings.set('pf2e-graphics', 'worldAnimations', upd)
 	})
 
-	const tabs = ['world-animations'] as const
+	const tabs = ['world-animations', 'preset-animations'] as const
 	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
 
 	function createAnimation() {
@@ -31,6 +32,8 @@
 		$doc[newKey.trim()] = []
 		$showNewAnimation = !$showNewAnimation
 	}
+
+	const animations = window.pf2eGraphics.AnimCore.getAnimations()
 
 	$: devMessage(`World Animations (${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()})`, $doc, $showNewAnimation)
 </script>
@@ -63,7 +66,6 @@
 					<div class='p-2 pb-0 flex flex-col h-full items-center'>
 						<div class='flex flex-col w-full items-center gap-1.5'>
 							{#each Object.keys($doc) as key}
-
 								<AnimationEditor
 									bind:key
 									bind:value={$doc[key]}
@@ -83,11 +85,10 @@
 							{:else}
 								<span class='px-1'> Input the primary roll option. </span>
 								<div class='flex w-full gap-1'>
-									<!-- svelte-ignore missing-declaration -->
 									<input
 										type='text'
 										bind:value={newKey}
-										placeholder={Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
+										placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
 									/>
 									<button
 										data-tooltip='pf2e-graphics.cancel'
@@ -101,6 +102,27 @@
 								</button>
 							{/if}
 						</div>
+					</div>
+				{/if}
+				{#if $activeTab === 'preset-animations'}
+					<div class='p-2 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
+						{#each Object.keys(animations).sort() as key}
+							<div
+								class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
+								data-tooltip={key}
+							>
+								<span class='w-[90%] truncate text-nowrap'>{key}</span>
+								<button
+									class='fas fa-brackets-curly h-full w-min ml-auto'
+									on:click={() => {
+										new JSONEditorApp(
+											{ data: { store: readable(animations[key]), key } },
+										).render(true, {
+											focus: true,
+										})
+									}} />
+							</div>
+						{/each}
 					</div>
 				{/if}
 			</div>

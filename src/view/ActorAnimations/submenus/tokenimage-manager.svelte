@@ -40,7 +40,10 @@
 		const feature = $actor.isOfType('character')
 			? new FeatPF2e({ ...featData, type: 'feat' })
 			: new ActionPF2e({ ...featData, type: 'action' })
-		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0]
+
+		// @ts-ignore Idle did it and why shouldn't I
+		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0] as typeof feature
+
 		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
 	}
 
@@ -262,8 +265,7 @@
 					<div class='m-1 h-full w-full flex'>
 						<select class='w-full h-full block flex-grow' bind:value={packToImport}>
 							{#each AnimCore.getTokenImages() as pack}
-								<!-- svelte-ignore missing-declaration -->
-								<option value={pack.rules}>{pack.uuid ? fromUuidSync(pack.uuid)?.name : pack.name}</option>
+								<option value={pack.rules}>{pack.uuid ? window.fromUuidSync(pack.uuid)?.name : pack.name}</option>
 							{/each}
 						</select>
 						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)} />

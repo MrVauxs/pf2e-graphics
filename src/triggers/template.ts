@@ -4,7 +4,12 @@ const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template:
 	const { actor, item, message, flags: { pf2e: { origin } } } = template
 
 	const deliverable = {
-		rollOptions: [...(origin?.rollOptions ?? []), ...(message?.actor?.getRollOptions() ?? [])],
+		rollOptions: [
+			...(origin?.rollOptions ?? []),
+			...(message?.actor?.getRollOptions() ?? []),
+		].concat([
+			`template:${template.t}`,
+		] as const),
 		trigger: 'place-template' as const,
 		targets: [template],
 		source: message?.token,

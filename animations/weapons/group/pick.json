@@ -1,0 +1,14 @@
+{
+	"item:group:pick": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_generic.piercing.one_handed",
+			"options": {
+				"scaleToObject": {
+					"value": 5
+				}
+			}
+		}
+	]
+}

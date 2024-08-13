@@ -43,7 +43,7 @@
 	aria-dropeffect='none'
 	aria-label='Drag and Drop Effect Target'
 >
-	{#await fromUuid(rule.uuidPredicate) then effect}
+	{#await window.fromUuid(rule.uuidPredicate) then effect}
 		{#if showPredicate}
 			<input class='' type='text'
 				value={JSON.stringify(rule.predicate)}

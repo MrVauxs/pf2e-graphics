@@ -1,0 +1,15 @@
+{
+	"item:base:butterfly-sword": [
+		{
+			"overrides": [
+				"item:group:sword"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.01.butterflysword",
+			"predicate": [
+				"melee"
+			]
+		}
+	]
+}

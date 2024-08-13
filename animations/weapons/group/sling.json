@@ -1,0 +1,9 @@
+{
+	"item:group:sling": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.slingshot"
+		}
+	]
+}

@@ -85,7 +85,7 @@
 			]
 		}
 	],
-	"item:slug:blazing-wave": [
+	"origin:item:slug:blazing-wave": [
 		{
 			"trigger": "place-template",
 			"preset": "template",

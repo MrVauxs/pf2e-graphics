@@ -123,7 +123,14 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return dedupeStrings(this.uglifyRollOptions(array).concat([`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`]))
+		return dedupeStrings(this.uglifyRollOptions(array)
+			.concat(
+				[
+					`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`,
+					game.modules.get('jb2a_patreon')?.active ? 'jb2a:patreon' : null,
+					game.modules.get('JB2A_DnD5e')?.active ? 'jb2a:free' : null,
+				].filter(x => typeof x === 'string'),
+			))
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
@@ -163,7 +170,6 @@ export let AnimCore = class AnimCore {
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
-		// @ts-expect-error Fix in foundry-pf2e
 		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
@@ -308,18 +314,7 @@ export let AnimCore = class AnimCore {
 			trigger: this.CONST.TRIGGERS[0],
 			preset: this.CONST.PRESETS[0],
 			file: '',
-			options: {
-				fadeIn: {},
-				fadeOut: {},
-				scale: {},
-				wait: {},
-				delay: {},
-				scaleToObject: {},
-				filter: {},
-				persist: {},
-				repeats: {},
-				tieToDocuments: true,
-			},
+			options: {},
 		}),
 		PRESETS: Object.keys(presets) as PresetKeys[],
 		TRIGGERS: [

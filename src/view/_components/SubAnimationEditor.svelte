@@ -60,18 +60,17 @@
 					type='text'
 					bind:value={animation.file}
 				/>
-				<!-- svelte-ignore missing-declaration -->
 				<button
 					class='fas fa-database w-min h-full'
 					data-tooltip='SEQUENCER.SidebarButtons.Database'
-					on:click={() => Sequencer.DatabaseViewer.show()}
+					on:click={() => window.Sequencer.DatabaseViewer.show()}
 				/>
 			</label>
 			<!-- Booleans -->
 			<div class='col-span-4 flex'>
 				<label class='flex items-center gap-1 w-full text-nowrap'>
 					<span>Persistent</span>
-					<input type='checkbox' bind:checked={animation.options.persist.value} />
+					<input type='checkbox' bind:checked={animation.options.persist} />
 				</label>
 				<label class='flex items-center gap-1 w-full text-nowrap'>
 					<span>Masked</span>
@@ -90,7 +89,7 @@
 					type='number'
 					step='0.1'
 					min='0.1'
-					bind:value={animation.options.scaleToObject.value}
+					bind:value={animation.options.scaleToObject}
 				/>
 			</label>
 			<label class='flex items-center gap-1 w-full text-nowrap'>
@@ -99,7 +98,7 @@
 					class='w-8'
 					type='number'
 					step='100'
-					bind:value={animation.options.fadeIn.value}
+					bind:value={animation.options.fadeIn}
 				/>
 			</label>
 			<label class='flex items-center gap-1 w-full text-nowrap'>
@@ -108,7 +107,7 @@
 					class='w-8'
 					type='number'
 					step='100'
-					bind:value={animation.options.fadeOut.value}
+					bind:value={animation.options.fadeOut}
 				/>
 			</label>
 		</div>

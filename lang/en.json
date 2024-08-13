@@ -9,6 +9,7 @@
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
+		"jsonEditor": "JSON View / Edit",
 		"cancel": "Cancel",
 		"easingTooltip": "Learn more about various easing functions here.",
 		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
@@ -63,14 +64,13 @@
 		},
 		"worldAnimation": {
 			"tabs": {
+				"preset-animations": "Preset Animations",
 				"world-animations": "World Animations"
 			}
 		},
 		"userAnimation": {
 			"tabs": {
-				"all-animations": "All Animations",
-				"user-animations": "User Animations",
-				"tokenimage-manager": "Token Image Manager"
+				"user-animations": "User Animations"
 			}
 		},
 		"actorAnimation": {

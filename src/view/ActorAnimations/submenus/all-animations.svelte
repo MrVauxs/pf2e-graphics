@@ -7,4 +7,4 @@
 	devMessage($doc)
 </script>
 
-work in progress
+work in progress, this tab will show all animations that are stored on their items

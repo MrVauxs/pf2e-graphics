@@ -1,0 +1,15 @@
+{
+	"item:base:rapier": [
+		{
+			"overrides": [
+				"item:group:sword"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.rapier.melee.01.white",
+			"predicate": [
+				"melee"
+			]
+		}
+	]
+}
