@@ -55,6 +55,24 @@ export let AnimCore = class AnimCore {
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {})
 	}
 
+	static get animations(): JSONData {
+		if (!this._animations) this._animations = this.getAnimations()
+		return this._animations
+	}
+
+	static _animations: JSONData
+
+	static getKeys(): string[] {
+		return Object.keys(this.animations).filter(x => !x.startsWith('_'))
+	}
+
+	static get keys(): string[] {
+		if (!this._keys) this._keys = this.getKeys()
+		return this._keys
+	}
+
+	static _keys: string[]
+
 	static getTokenImages() {
 		return Object.keys(window.pf2eGraphics.modules)
 			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
@@ -71,10 +89,6 @@ export let AnimCore = class AnimCore {
 					} as TokenImageRuleSource
 				}),
 			}))
-	}
-
-	static getKeys(): string[] {
-		return Object.keys(this.getAnimations()).filter(x => !x.startsWith('_'))
 	}
 
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
@@ -134,7 +148,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
-		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
+		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}
 
 	/** Not sure if this is a good idea, muddying up the waters. */
@@ -187,7 +201,7 @@ export let AnimCore = class AnimCore {
 			),
 		) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
-		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
+		const keys = merge(AnimCore.keys, Object.keys(customAnimations))
 		return keys
 			.filter(key => preparedOptions.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {})

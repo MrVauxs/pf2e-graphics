@@ -118,7 +118,7 @@
 										<input
 											type='text'
 											bind:value={newKey}
-											placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.getKeys())}
+											placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.keys)}
 										/>
 										<button
 											data-tooltip='pf2e-graphics.cancel'
