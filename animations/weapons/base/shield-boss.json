@@ -1,0 +1,23 @@
+{
+	"item:base:shield-boss": [
+		{
+			"overrides": [
+				"item:group:shield"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_generic.bludgeoning.one_handed",
+			"predicate": [
+				"melee"
+			],
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.melee_attack.06.shield.01"
+				}
+			]
+		}
+	]
+}
