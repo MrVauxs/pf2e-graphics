@@ -1,0 +1,32 @@
+{
+	"item:slug:blight-bomb-major": "item:slug:blight-bomb-lesser",
+	"item:slug:blight-bomb-greater": "item:slug:blight-bomb-lesser",
+	"item:slug:blight-bomb-moderate": "item:slug:blight-bomb-lesser",
+	"item:slug:blight-bomb-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.pumpkin.toss",
+					"options": {
+						"waitUntilFinished": -1750
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.liquid.splash.green",
+					"options": {
+						"preset": "target",
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}

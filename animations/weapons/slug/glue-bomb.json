@@ -13,7 +13,7 @@
 					"preset": "ranged",
 					"file": "jb2a.throwable.throw.flask.01.white",
 					"options": {
-						"waitUntilFinished": -300
+						"waitUntilFinished": -50
 					}
 				},
 				{
@@ -21,7 +21,6 @@
 					"file": "jb2a.liquid.splash.blue",
 					"options": {
 						"preset": "target",
-						"delay": 250,
 						"filter": {
 							"type": "ColorMatrix",
 							"options": {

@@ -1,0 +1,56 @@
+{
+	"item:slug:dread-ampoule-major": "item:slug:dread-ampoule-lesser",
+	"item:slug:dread-ampoule-greater": "item:slug:dread-ampoule-lesser",
+	"item:slug:dread-ampoule-moderate": "item:slug:dread-ampoule-lesser",
+	"item:slug:dread-ampoule-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.01.purple",
+					"options": {
+						"waitUntilFinished": -50
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.smoke.puff.ring.01.white.1",
+					"predicate": [
+						{
+							"or": [
+								"outcome:success",
+								"outcome:failure",
+								"outcome:criticalFailure"
+							]
+						}
+					],
+					"options": {
+						"preset": "target",
+						"tint": "#846e9c",
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.smoke.puff.ring.01.white.0",
+					"predicate": [
+						"outcome:criticalSuccess"
+					],
+					"options": {
+						"preset": "target",
+						"tint": "#846e9c",
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}
