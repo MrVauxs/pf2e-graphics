@@ -4,18 +4,18 @@
 		{
 			"trigger": "effect",
 			"preset": "ranged",
-			"file": "jb2a.ranged.03.projectile.01.yellow",
+			"file": "jb2a.bullet.03.blue",
 			"predicate": [{ "gte": ["graphics-quality", 1] }, "origin-exists"],
 			"options": {
 				"preset": "both",
 				"mirrorX": true,
-				"waitUntilFinished": -1200
+				"waitUntilFinished": -1000
 			}
 		},
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.shield.01.complete.01.yellow",
+			"file": "jb2a.shield.01.complete.01.blue",
 			"predicate": [{ "gte": ["graphics-quality", 1] }],
 			"options": {
 				"scaleToObject": {

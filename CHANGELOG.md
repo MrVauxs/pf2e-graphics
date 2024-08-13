@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.6.5] - Unreleased
+
+### Changed
+
+- Spell Effect: Shield animation to be compatible with free version of JB2A.
 
 ## [0.6.4] - 2024-08-13
 
