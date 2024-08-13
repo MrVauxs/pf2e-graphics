@@ -13,17 +13,17 @@
 					"preset": "ranged",
 					"file": "jb2a.throwable.throw.flask.01.red",
 					"options": {
-						"waitUntilFinished": -10,
-						"stretchTo": {
-							"randomOffset": 0.5
-						}
+						"waitUntilFinished": -50
 					}
 				},
 				{
 					"preset": "onToken",
 					"file": "jb2a.explosion.03.red",
 					"options": {
-						"preset": "target"
+						"preset": "target",
+						"scaleToObject": {
+							"value": 1.5
+						}
 					}
 				}
 			]
