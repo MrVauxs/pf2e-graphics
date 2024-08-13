@@ -7,6 +7,7 @@ export default antfu({
 	stylistic: {
 		indent: 'tab',
 		quotes: 'single',
+		// semi: true,
 	},
 
 	rules: {
