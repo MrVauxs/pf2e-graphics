@@ -249,7 +249,10 @@ export let AnimCore = class AnimCore {
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
 		for (const [key, branch] of Object.entries(animationTree)) {
-			let validBranchAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
+			let validBranchAnimations = branch
+				.filter(a => a.trigger === trigger)
+				.filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
+				.filter(narrow)
 
 			if (validBranchAnimations.filter(a => !a.default).length > 0) validBranchAnimations = validBranchAnimations.filter(a => !a.default)
 
@@ -285,13 +288,19 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes
 		animationOptions?: object
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) return log('No Actor Found! How did this happen?')
+		if (!actor) return log('No Actor Found! Aborting.')
 		if (!source) source = actor.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
 		if (!source) return log('No Token Found to animate with! Aborting.')
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor })
 
-		devMessage('Animating the Following', Object.keys(validAnimations), { trigger, rollOptions, item, actor, source })
+		devMessage('Animating the Following', Object.keys(validAnimations), {
+			trigger,
+			rollOptions,
+			item,
+			actor,
+			source,
+		})
 
 		for (const anim of Object.values(validAnimations)) {
 			if (!anim.length) return

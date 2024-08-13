@@ -2,7 +2,7 @@
 
 ## Contribution
 
-The files in this directory should be made of (roughly) equal volume and converted to `.wav` format.
+The files in this directory should be made of (roughly) equal volume and converted to `.ogg` format.
 
 ## Licenses
 

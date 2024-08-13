@@ -12,7 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **New Animations**: Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+- Ability to make animations between the grantee of an effect and its recipient with `Effect Granted` trigger.
+  - `origin-exists` roll option to predicate animations based on whether the effect comes from another actor than the recipient.
+- `mirrorY` and `mirrorX` Sequencer options.
+- **New Animations**:
+  - Spell Effect: Shield (Variant: Giving it to another token) (@MrVauxs)
+  - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+
+### Fixed
+
+- `preset: both` on `onToken` animations not actually triggering animations on both the target and the source token.
 
 ## [0.6.3] - 2024-08-12
 

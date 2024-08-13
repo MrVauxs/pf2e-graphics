@@ -3,11 +3,16 @@ import { devMessage } from 'src/utils'
 const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF2e['id']) => {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return
 
+	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false
+
 	const deliverable = {
 		rollOptions: item.getRollOptions(),
 		trigger: 'effect' as const,
 		item,
+		targets: diffOrigin ? item.origin?.getActiveTokens() : undefined,
 	}
+
+	if (diffOrigin) deliverable.rollOptions.push('origin-exists')
 
 	devMessage('Effect Hook Data', deliverable, _options)
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable)

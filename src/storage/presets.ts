@@ -92,6 +92,10 @@ export const helpers = {
 			seq.randomizeMirrorX(options.randomizeMirrorX)
 		if (nonNullable(options?.randomizeMirrorY) && Boolean(options?.randomizeMirrorY))
 			seq.randomizeMirrorY(options.randomizeMirrorY)
+		if (nonNullable(options?.mirrorX) && Boolean(options?.mirrorX))
+			seq.mirrorX(options.mirrorX)
+		if (nonNullable(options?.mirrorY) && Boolean(options?.mirrorY))
+			seq.mirrorY(options.mirrorY)
 		if (nonNullable(options?.repeats) && Boolean(options?.repeats)) {
 			if (typeof options.repeats === 'object') {
 				seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
@@ -225,6 +229,8 @@ export interface EffectOptions<T extends PresetKeys> {
 	name?: string
 	randomizeMirrorX?: boolean
 	randomizeMirrorY?: boolean
+	mirrorX?: boolean
+	mirrorY?: boolean
 	remove?: string | string[]
 	tieToDocuments?: true
 	belowTokens?: boolean
@@ -374,9 +380,17 @@ export const presets = {
 	},
 	onToken: (seq: Sequence, { file, targets, source, options, item, rollOptions }: PresetIndex['onToken']) => {
 		const target = targets?.[0]
-		const affectedToken = options?.preset === 'target' ? target : source
+		const affectedTokens = []
 
-		if (!affectedToken)
+		if (options?.preset === 'both') {
+			affectedTokens.push(target, source)
+		} if (options?.preset === 'target') {
+			affectedTokens.push(target)
+		} else {
+			affectedTokens.push(source)
+		}
+
+		if (!affectedTokens.length)
 			throw new ErrorMsg(`${options?.preset} is missing!`)
 
 		options = foundry.utils.mergeObject({
@@ -386,23 +400,27 @@ export const presets = {
 			},
 		}, options)
 
-		const result = seq.effect()
-			.file(file)
+		for (const token of affectedTokens) {
+			if (!token) return
 
-		if (options?.atLocation) {
-			result.atLocation(affectedToken, helpers.parseOffsetEmbedded(options?.atLocation, affectedToken, target || affectedToken))
-		} else {
-			result.attachTo(affectedToken, helpers.parseOffsetEmbedded(options?.attachTo, affectedToken, target || affectedToken))
-		}
+			const result = seq.effect()
+				.file(file)
 
-		if (options?.rotateTowards)
-			result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, affectedToken, target || affectedToken))
+			if (options?.atLocation) {
+				result.atLocation(token, helpers.parseOffsetEmbedded(options?.atLocation, token, target || token))
+			} else {
+				result.attachTo(token, helpers.parseOffsetEmbedded(options?.attachTo, token, target || token))
+			}
 
-		helpers.genericSequencerFunctions(result, item, affectedToken, options)
+			if (options?.rotateTowards)
+				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, token, target || token))
 
-		if (options?.sound) {
-			const sound = seq.sound()
-			helpers.genericSoundFunction(sound, item, affectedToken, options.sound, rollOptions)
+			helpers.genericSequencerFunctions(result, item, token, options)
+
+			if (options?.sound) {
+				const sound = seq.sound()
+				helpers.genericSoundFunction(sound, item, token, options.sound, rollOptions)
+			}
 		}
 
 		return seq
@@ -445,7 +463,7 @@ interface PresetIndex {
 interface GenericSequenceData<T extends PresetKeys> {
 	sequence: Sequence
 	file: string
-	source?: TokenOrDoc
+	source: TokenOrDoc
 	targets?: Target[]
 	item: ItemPF2e
 	options?: EffectOptions<T>
