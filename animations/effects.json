@@ -287,7 +287,7 @@
 	"effect:spell-effect-shields-of-the-spirit-security": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.shield_rampart.loop.03.blue",
+			"file": "jb2a.markers.shield_rampart.complete.03.blue",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
