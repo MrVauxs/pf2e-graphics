@@ -1,8 +1,8 @@
 {
-	"item:base:chain-sword": [
+	"item:base:shield-spikes": [
 		{
 			"overrides": [
-				"item:base:shield-spikes"
+				"item:group:shield"
 			],
 			"trigger": "attack-roll",
 			"preset": "melee",
