@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **New Animations**: Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+
 ## [0.6.3] - 2024-08-12
 
 ### Fixed
