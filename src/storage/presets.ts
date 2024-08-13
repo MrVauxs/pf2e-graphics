@@ -98,7 +98,7 @@ export const helpers = {
 			seq.mirrorY(options.mirrorY)
 		if (nonNullable(options?.repeats) && Boolean(options?.repeats)) {
 			if (typeof options.repeats === 'object') {
-				seq.repeats(options.repeats.min, options.repeats.delay, options.repeats.max)
+				seq.repeats(options.repeats.count, options.repeats.delayMin, options.repeats.delayMax)
 			} else {
 				seq.repeats(options.repeats)
 			}
@@ -272,9 +272,9 @@ export interface EffectOptions<T extends PresetKeys> {
 		value: boolean
 	} & Parameters<EffectSection['persist']>[1]
 	repeats?: number | {
-		min: Parameters<EffectSection['repeats']>[0]
-		delay: Parameters<EffectSection['repeats']>[1]
-		max: Parameters<EffectSection['repeats']>[2]
+		count: Parameters<EffectSection['repeats']>[0]
+		delayMin: Parameters<EffectSection['repeats']>[1]
+		delayMax: Parameters<EffectSection['repeats']>[2]
 	}
 	moveTowards?: {
 		target: Parameters<EffectSection['moveTowards']>[0]
