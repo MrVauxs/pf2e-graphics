@@ -1,0 +1,60 @@
+{
+	"feat:slug:trap-finder": [
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.rune.illusion.complete",
+			"predicate": [
+				"trap-finder"
+			],
+			"options": {
+				"id": "trap-finder-entry",
+				"scaleToObject": {
+					"value": 1
+				},
+				"attachTo": {
+					"offset": {
+						"y": -0.5
+					},
+					"gridUnits": true
+				},
+				"fadeOut": {
+					"value": 500
+				}
+			}
+		},
+		{
+			"trigger": "toggle",
+			"preset": "onToken",
+			"file": "jb2a.wind_stream.200.white",
+			"predicate": [
+				{
+					"not": "trap-finder"
+				}
+			],
+			"options": {
+				"remove": "trap-finder-entry",
+				"filter": {
+					"type": "Glow",
+					"options": {
+						"color": "#f8f4f1",
+						"quality": 0.1,
+						"distance": 1
+					}
+				},
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"mask": true,
+				"rotate": -90,
+				"duration": 1000,
+				"fadeOut": {
+					"value": 500
+				},
+				"fadeIn": {
+					"value": 250
+				}
+			}
+		}
+	]
+}

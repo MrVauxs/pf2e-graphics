@@ -1,0 +1,14 @@
+{
+	"origin:item:slug:inner-radiance-torrent": [
+		{
+			"trigger": "place-template",
+			"preset": "ranged",
+			"file": "jb2a.ranged.beam.001.01.orange",
+			"options": {
+				"preset": {
+					"templateAsOrigin": true
+				}
+			}
+		}
+	]
+}

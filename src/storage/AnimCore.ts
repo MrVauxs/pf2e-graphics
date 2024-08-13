@@ -55,6 +55,24 @@ export let AnimCore = class AnimCore {
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {})
 	}
 
+	static get animations(): JSONData {
+		if (!this._animations) this._animations = this.getAnimations()
+		return this._animations
+	}
+
+	static _animations: JSONData
+
+	static getKeys(): string[] {
+		return Object.keys(this.animations).filter(x => !x.startsWith('_'))
+	}
+
+	static get keys(): string[] {
+		if (!this._keys) this._keys = this.getKeys()
+		return this._keys
+	}
+
+	static _keys: string[]
+
 	static getTokenImages() {
 		return Object.keys(window.pf2eGraphics.modules)
 			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
@@ -71,10 +89,6 @@ export let AnimCore = class AnimCore {
 					} as TokenImageRuleSource
 				}),
 			}))
-	}
-
-	static getKeys(): string[] {
-		return Object.keys(this.getAnimations()).filter(x => !x.startsWith('_'))
 	}
 
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
@@ -134,7 +148,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
-		return AnimCore.getKeys().reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
+		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {})
 	}
 
 	/** Not sure if this is a good idea, muddying up the waters. */
@@ -187,7 +201,7 @@ export let AnimCore = class AnimCore {
 			),
 		) as ReturnType<typeof this.getAnimations>
 		const preparedOptions = this.prepRollOptions(array)
-		const keys = merge(AnimCore.getKeys(), Object.keys(customAnimations))
+		const keys = merge(AnimCore.keys, Object.keys(customAnimations))
 		return keys
 			.filter(key => preparedOptions.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {})
@@ -249,7 +263,10 @@ export let AnimCore = class AnimCore {
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
 		for (const [key, branch] of Object.entries(animationTree)) {
-			let validBranchAnimations = branch.filter(a => a.trigger === trigger).filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions)).filter(narrow)
+			let validBranchAnimations = branch
+				.filter(a => a.trigger === trigger)
+				.filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
+				.filter(narrow)
 
 			if (validBranchAnimations.filter(a => !a.default).length > 0) validBranchAnimations = validBranchAnimations.filter(a => !a.default)
 
@@ -285,13 +302,19 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes
 		animationOptions?: object
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) return log('No Actor Found! How did this happen?')
+		if (!actor) return log('No Actor Found! Aborting.')
 		if (!source) source = actor.getActiveTokens()[0] // TODO: Maybe rewrite to take multiple linked tokens into account?
 		if (!source) return log('No Token Found to animate with! Aborting.')
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor })
 
-		devMessage('Animating the Following', Object.keys(validAnimations), { trigger, rollOptions, item, actor, source })
+		devMessage('Animating the Following', Object.keys(validAnimations), {
+			trigger,
+			rollOptions,
+			item,
+			actor,
+			source,
+		})
 
 		for (const anim of Object.values(validAnimations)) {
 			if (!anim.length) return

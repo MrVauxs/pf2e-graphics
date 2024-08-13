@@ -1,0 +1,40 @@
+{
+	"item:slug:glue-bomb-major": "item:slug:glue-bomb-lesser",
+	"item:slug:glue-bomb-greater": "item:slug:glue-bomb-lesser",
+	"item:slug:glue-bomb-moderate": "item:slug:glue-bomb-lesser",
+	"item:slug:glue-bomb-lesser": [
+		{
+			"overrides": [
+				"item:group:bomb"
+			],
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.throwable.throw.flask.01.white",
+					"options": {
+						"waitUntilFinished": -50
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.liquid.splash.blue",
+					"options": {
+						"preset": "target",
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 0,
+								"contrast": 1,
+								"saturate": -1
+							}
+						},
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}
