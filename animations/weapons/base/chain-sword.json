@@ -1,0 +1,23 @@
+{
+	"item:base:chain-sword7": [
+		{
+			"overrides": [
+				"item:group:sword"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_generic.slashing.two_handed",
+			"predicate": [
+				"melee"
+			],
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.melee_attack.03.khybersword"
+				}
+			]
+		}
+	]
+}
