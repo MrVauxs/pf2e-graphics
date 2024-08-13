@@ -1,0 +1,29 @@
+{
+	"item:slug:vitality-lash": [
+		{
+			"trigger": "spell-cast",
+			"preset": "ranged",
+			"options": {},
+			"presets": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.energy_strands.range.standard.purple.04",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 165
+						}
+					}
+				},
+				{
+					"predicate": [
+						"jb2a:premium"
+					],
+					"file": "jb2a.energy_strands.range.standard.dark_green.04"
+				}
+			]
+		}
+	]
+}
