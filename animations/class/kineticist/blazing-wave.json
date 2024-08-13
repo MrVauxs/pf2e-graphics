@@ -1,0 +1,9 @@
+{
+	"origin:item:slug:blazing-wave": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.breath_weapons02.burst.cone.fire.orange.02"
+		}
+	]
+}

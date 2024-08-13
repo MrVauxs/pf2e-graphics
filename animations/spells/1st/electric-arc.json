@@ -1,0 +1,27 @@
+{
+	"item:slug:electric-arc": [
+		{
+			"trigger": "damage-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.chain_lightning.primary.blue",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.lightning_bolt.impact"
+						},
+						"waitUntilFinished": -1000,
+						"preset": {
+							"bounce": {
+								"file": "jb2a.chain_lightning.secondary.blue",
+								"sound": {
+									"file": "pf2e-graphics.lightning_bolt.impact"
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	]
+}

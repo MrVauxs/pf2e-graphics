@@ -1,30 +1,4 @@
 {
-	"item:slug:chain-lightning": "item:slug:electric-arc",
-	"item:slug:electric-arc": [
-		{
-			"trigger": "damage-roll",
-			"contents": [
-				{
-					"preset": "ranged",
-					"file": "jb2a.chain_lightning.primary.blue",
-					"options": {
-						"sound": {
-							"file": "pf2e-graphics.lightning_bolt.impact"
-						},
-						"waitUntilFinished": -1000,
-						"preset": {
-							"bounce": {
-								"file": "jb2a.chain_lightning.secondary.blue",
-								"sound": {
-									"file": "pf2e-graphics.lightning_bolt.impact"
-								}
-							}
-						}
-					}
-				}
-			]
-		}
-	],
 	"item:slug:ignition": [
 		{
 			"trigger": "attack-roll",
@@ -99,50 +73,6 @@
 			],
 			"preset": "ranged",
 			"file": "jb2a.unarmed_strike.magical.{01,02}.blue"
-		}
-	],
-	"origin:item:slug:fireball": [
-		{
-			"trigger": "place-template",
-			"default": true,
-			"contents": [
-				{
-					"preset": "ranged",
-					"contents": [
-						{
-							"file": "jb2a.fire_bolt.orange",
-							"options": {
-								"waitUntilFinished": -1000
-							}
-						}
-					]
-				},
-				{
-					"preset": "template",
-					"contents": [
-						{
-							"file": "jb2a.fireball.explosion.orange",
-							"options": {
-								"scaleToObject": {
-									"value": 1.5
-								}
-							}
-						}
-					]
-				}
-			]
-		}
-	],
-	"origin:item:slug:inner-radiance-torrent": [
-		{
-			"trigger": "place-template",
-			"preset": "ranged",
-			"file": "jb2a.ranged.beam.001.01.orange",
-			"options": {
-				"preset": {
-					"templateAsOrigin": true
-				}
-			}
 		}
 	]
 }

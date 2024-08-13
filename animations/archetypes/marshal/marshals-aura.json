@@ -1,0 +1,52 @@
+{
+	"effect:marshals-aura": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.wind_stream.200.white",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"tint": "#9b20e3",
+				"filter": {
+					"type": "Glow",
+					"options": {
+						"color": "#9b20e3",
+						"quality": 0.1,
+						"distance": 1
+					}
+				},
+				"mask": true,
+				"rotate": 90,
+				"duration": 2000,
+				"fadeOut": {
+					"value": 500
+				},
+				"fadeIn": {
+					"value": 250
+				}
+			},
+			"contents": [
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 3] }],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}

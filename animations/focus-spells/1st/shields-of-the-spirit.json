@@ -1,0 +1,68 @@
+{
+	"effect:spell-effect-shields-of-the-spirit-security": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.shield_rampart.complete.03.blue",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"tieToDocuments": true,
+				"mask": false
+			},
+			"contents": [
+				{
+					"predicate": ["jb2a:free"],
+					"file": "jb2a.markers.shield_rampart.complete.01.orange",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 150
+						}
+					},
+					"contents": [
+						{
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
+							"trigger": "startTurn"
+						},
+						{
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
+							"trigger": "effect"
+						},
+						{
+							"predicate": [{ "lte": ["graphics-quality", 3] }],
+							"trigger": "effect",
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+
+						}
+					]
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 3] }],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}
