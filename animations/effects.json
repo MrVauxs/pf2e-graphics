@@ -297,9 +297,7 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						"jb2a:free"
-					],
+					"predicate": ["jb2a:free"],
 					"file": "jb2a.markers.shield_rampart.complete.01.orange",
 					"filter": {
 						"type": "ColorMatrix",
@@ -309,36 +307,15 @@
 					},
 					"contents": [
 						{
-							"predicate": [
-								{
-									"lte": [
-										"graphics-quality",
-										2
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
 							"trigger": "startTurn"
 						},
 						{
-							"predicate": [
-								{
-									"lte": [
-										"graphics-quality",
-										2
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
 							"trigger": "effect"
 						},
 						{
-							"predicate": [
-								{
-									"gte": [
-										"graphics-quality",
-										3
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 3] }],
 							"trigger": "effect",
 							"options": {
 								"tieToDocuments": true,
@@ -347,40 +324,20 @@
 									"persistTokenPrototype": true
 								}
 							}
+
 						}
 					]
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "effect"
 				},
 				{
-					"predicate": [
-						{
-							"gte": [
-								"graphics-quality",
-								3
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 3] }],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
@@ -402,9 +359,7 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						"jb2a:free"
-					],
+					"predicate": ["jb2a:free"],
 					"file": "jb2a.shield.01.complete.01.blue",
 					"filter": {
 						"type": "ColorMatrix",
@@ -414,36 +369,15 @@
 					},
 					"contents": [
 						{
-							"predicate": [
-								{
-									"lte": [
-										"graphics-quality",
-										2
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
 							"trigger": "startTurn"
 						},
 						{
-							"predicate": [
-								{
-									"lte": [
-										"graphics-quality",
-										2
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 2] }],
 							"trigger": "effect"
 						},
 						{
-							"predicate": [
-								{
-									"gte": [
-										"graphics-quality",
-										3
-									]
-								}
-							],
+							"predicate": [{ "lte": ["graphics-quality", 3] }],
 							"trigger": "effect",
 							"options": {
 								"tieToDocuments": true,
@@ -456,36 +390,15 @@
 					]
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
 					"trigger": "effect"
 				},
 				{
-					"predicate": [
-						{
-							"gte": [
-								"graphics-quality",
-								3
-							]
-						}
-					],
+					"predicate": [{ "lte": ["graphics-quality", 3] }],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
