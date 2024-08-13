@@ -4,7 +4,14 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.shield.01.complete.01",
-			"predicate": [{ "gte": ["graphics:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"graphics:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
@@ -57,15 +64,36 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
 					"trigger": "effect"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 3] }],
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								3
+							]
+						}
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
@@ -84,7 +112,14 @@
 			"preset": "onToken",
 			"contents": [
 				{
-					"predicate": [{ "gte": ["graphics-quality", 1] }],
+					"predicate": [
+						{
+							"gte": [
+								"graphics-quality",
+								1
+							]
+						}
+					],
 					"options": {
 						"atLocation": true,
 						"size": {
@@ -113,7 +148,14 @@
 							}
 						},
 						{
-							"predicate": [{ "lte": ["graphics-quality", 3] }],
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										3
+									]
+								}
+							],
 							"contents": [
 								{
 									"file": "jb2a.impact.ground_crack.still_frame.01",
@@ -232,7 +274,14 @@
 					},
 					"contents": [
 						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										2
+									]
+								}
+							],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {
@@ -286,9 +335,8 @@
 	],
 	"effect:spell-effect-shields-of-the-spirit-security": [
 		{
-			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.markers.shield_rampart.complete.01.orange",
+			"file": "jb2a.markers.shield_rampart.loop.03.blue",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
@@ -307,7 +355,154 @@
 						"options": {
 							"hue": 150
 						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										2
+									]
+								}
+							],
+							"trigger": "startTurn"
+						},
+						{
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										2
+									]
+								}
+							],
+							"trigger": "effect"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"graphics-quality",
+										3
+									]
+								}
+							],
+							"trigger": "effect",
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"graphics-quality",
+								3
+							]
+						}
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
 					}
+				}
+			]
+		}
+	],
+	"effect:raise-a-shield": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.shield.01.complete.01.yellow",
+			"options": {
+				"scaleToObject": 1.5
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.shield.01.complete.01.blue",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": -155
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										2
+									]
+								}
+							],
+							"trigger": "startTurn"
+						},
+						{
+							"predicate": [
+								{
+									"lte": [
+										"graphics-quality",
+										2
+									]
+								}
+							],
+							"trigger": "effect"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"graphics-quality",
+										3
+									]
+								}
+							],
+							"trigger": "effect",
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
