@@ -3,7 +3,6 @@
 		{
 			"trigger": "spell-cast",
 			"preset": "ranged",
-			"options": {},
 			"presets": [
 				{
 					"predicate": [
