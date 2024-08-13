@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Spell Effect: Shield (Variant: Giving it to another token) (@MrVauxs)
   - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
+### Changed
+
+- Compressed all assets from `.wav` to `.ogg`, resulting in 10x reduction in file size.
+
 ### Fixed
 
 - `preset: both` on `onToken` animations not actually triggering animations on both the target and the source token.
