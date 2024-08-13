@@ -13,13 +13,10 @@
 				{
 					"predicate": [
 						{
-							"not": "item:trait:holy"
-						},
-						{
-							"not": "item:trait:unholy"
+							"nand": [ "item:trait:holy", "item:trait:unholy"]
 						}
 					],
-					"file": "jb2a.rangedF.01.projectile.01.dark_orange",
+					"file": "jb2a.ranged.01.projectile.01.dark_orange",
 					"filter": {
 						"type": "ColorMatrix",
 						"options": {
