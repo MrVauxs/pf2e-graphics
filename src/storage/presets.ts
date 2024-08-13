@@ -384,7 +384,7 @@ export const presets = {
 
 		if (options?.preset === 'both') {
 			affectedTokens.push(target, source)
-		} if (options?.preset === 'target') {
+		} else if (options?.preset === 'target') {
 			affectedTokens.push(target)
 		} else {
 			affectedTokens.push(source)
