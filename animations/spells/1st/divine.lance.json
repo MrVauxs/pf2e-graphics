@@ -1,0 +1,53 @@
+{
+	"item:slug:divine-lance": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"contents": [
+				{
+					"predicate": [
+						"item:trait:holy"
+					],
+					"file": "jb2a.ranged.01.projectile.01.dark_orange"
+				},
+				{
+					"predicate": [
+						{
+							"not": "item:trait:holy"
+						},
+						{
+							"not": "item:trait:unholy"
+						}
+					],
+					"file": "jb2a.rangedF.01.projectile.01.dark_orange",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 170
+						}
+					}
+				},
+				{
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:premium"
+					],
+					"file": "jb2a.ranged.01.projectile.01.dark_purple"
+				},
+				{
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:free"
+					],
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 100
+						}
+					},
+					"file": "jb2a.ranged.01.projectile.01.dark_orange"
+				}
+			]
+		}
+	]
+}
