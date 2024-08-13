@@ -1,9 +1,9 @@
 {
-    "item:slug:ray-of-frost": [
-      {
-        "trigger": "attack-roll",
-        "preset": "ranged",
-        "file": "jb2a.ray_of_frost.blue"
-      }
-    ]
-  }
+	"item:slug:ray-of-frost": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.ray_of_frost.blue"
+		}
+	]
+}
