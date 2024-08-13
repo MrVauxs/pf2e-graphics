@@ -3,16 +3,12 @@ import { devMessage, log } from 'src/utils'
 
 function handleChatMessage(message: ChatMessagePF2e) {
 	const rollOptions = message.flags.pf2e.context?.options ?? []
-	let trigger: TriggerTypes | undefined = message.flags.pf2e.context?.type
+	const trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined
 	if (!message.token) return
 
 	if (!trigger) {
-		if ('appliedDamage' in message.flags.pf2e) {
-			trigger = 'damage-taken' as const
-		} else {
-			log('No message type found. Aborting.')
-			return
-		}
+		log('No message type found. Aborting.')
+		return
 	}
 
 	const missed = message.flags.pf2e.context?.outcome?.includes('ailure') ?? false
@@ -20,7 +16,9 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	// @ts-expect-error - Too lazy to properly define custom modules flags
 	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined
 
-	const targets = trigger === 'saving-throw'
+	// If its a save or damage taken, use message.token
+	// Otherwise grab whatever targets are available
+	const targets = trigger === 'saving-throw' || trigger === 'damage-taken'
 		? [message.token]
 		: (toolbelt ?? (
 				message.target?.token
@@ -30,11 +28,17 @@ function handleChatMessage(message: ChatMessagePF2e) {
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.')
 
+	// If there is an origin, get the actors token.
+	// Otherwise just ~~kill~~ use the messenger.
+	const source = message.flags.pf2e.origin?.actor
+		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
+		: message.token
+
 	const deliverable = {
 		rollOptions: rollOptions.concat([`outcome:${message.flags.pf2e.context?.outcome || 'none'}`]),
 		trigger,
 		targets,
-		source: message.token,
+		source,
 		item: message.item,
 		animationOptions,
 	}
