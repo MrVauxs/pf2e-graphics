@@ -10,13 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.4] - 2024-08-13
+
 ### Added
 
 - Ability to make animations between the grantee of an effect and its recipient with `Effect Granted` trigger.
   - `origin-exists` roll option to predicate animations based on whether the effect comes from another actor than the recipient.
 - `mirrorY` and `mirrorX` Sequencer options.
 - **New Animations**:
-  - Spell Effect: Shield (Variant: Giving it to another token) (@MrVauxs)
+  - Spell Effect: Shield (giving it to another token) ([@MrVauxs](https://mrvauxs.net/))
   - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
 ### Changed
@@ -247,27 +249,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-  [Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.2...HEAD
-  [0.6.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.1...v0.6.2
-  [0.6.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.0...v0.6.1
-  [0.6.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.2...v0.6.0
-  [0.5.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.1...v0.5.2
-  [0.5.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.5.0...v0.5.1
-  [0.5.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.4.0...v0.5.0
-  [0.4.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.3...v0.4.0
-  [0.3.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.2...v0.3.3
-  [0.3.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.1...v0.3.2
-  [0.3.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.3.0...v0.3.1
-  [0.3.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.1...v0.3.0
-  [0.2.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.2.0...v0.2.1
-  [0.2.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.3...v0.2.0
-  [0.1.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.2...v0.1.3
-  [0.1.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.1...v0.1.2
-  [0.1.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.1.0...v0.1.1
-  [0.1.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.9...v0.1.0
-  [0.0.9]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.0.8-alpha...v0.0.9
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...HEAD
+[0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.0...v0.6.1
