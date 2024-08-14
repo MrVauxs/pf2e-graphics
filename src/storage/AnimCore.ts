@@ -2,6 +2,7 @@ import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOw
 import type { TokenOrDoc } from 'src/extensions'
 import type { liveSettings } from 'src/settings'
 import type { storeSettingsType } from '../settings'
+import { clearEmpties } from '../utils'
 import { type PresetKeys, presets } from './presets'
 
 export const helpers = {
@@ -167,8 +168,12 @@ export let AnimCore = class AnimCore {
 		array: string[] = [],
 		actor?: ActorPF2e | null,
 		item?: ItemPF2e | null,
-	): Record<string, AnimationDataObject[]> {
-		if (!array.length) return {}
+	): { animations: Record<string, AnimationDataObject[]>, sources: Record<string, string[]> } {
+		const obj = {
+			animations: {},
+			sources: {},
+		}
+		if (!array.length) return obj
 
 		// Allow deletions in event players just dont want an animation at all.
 		const merge = foundry.utils.mergeObject
@@ -182,9 +187,9 @@ export let AnimCore = class AnimCore {
 
 		// Get all the flags.
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
-		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
 		const customAnimations = merge(
@@ -200,11 +205,32 @@ export let AnimCore = class AnimCore {
 				),
 			),
 		) as ReturnType<typeof this.getAnimations>
+
+		const customSources = {
+			preset: AnimCore.keys,
+			world: Object.keys(window.pf2eGraphics.liveSettings.worldAnimations),
+			user: Object.keys(userKeys),
+			origin: Object.keys(itemOriginKeys),
+			actor: Object.keys(actorKeys),
+			item: Object.keys(itemKeys),
+		} as const
+
 		const preparedOptions = this.prepRollOptions(array)
 		const keys = merge(AnimCore.keys, Object.keys(customAnimations))
-		return keys
+
+		obj.animations = keys
 			.filter(key => preparedOptions.includes(key))
 			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {})
+
+		obj.sources = clearEmpties(
+			(Object.keys(customSources) as (keyof typeof customSources)[])
+				.reduce((value, sourceKey) => {
+					Object.assign(value, { [sourceKey]: customSources[sourceKey].filter(x => preparedOptions.includes(x)) })
+					return value
+				}, {}),
+		)
+
+		return obj
 	}
 
 	/**
@@ -258,7 +284,7 @@ export let AnimCore = class AnimCore {
 		actor?: ActorPF2e | null
 	}) {
 		const rollOptions = this.prepRollOptions(rollOptionsOG)
-		const animationTree = this.getMatchingAnimationTrees(rollOptions, actor, item)
+		const animationTree = this.getMatchingAnimationTrees(rollOptions, actor, item).animations
 
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {}
 
