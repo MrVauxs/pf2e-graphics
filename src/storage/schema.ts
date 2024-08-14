@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { AnimCore } from './AnimCore'
+import { presets } from './presets'
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
@@ -9,13 +11,17 @@ const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Objects must not be empty',
 ]
-const hexColour: [RegExp, string] = [/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.']
 // end
 
-const ID = z
+const ID = z.string().regex(/^[a-z]+(-[a-z])+$/)
+
+const rollOption = z
 	.string()
-	.min(1)
-	.regex(/^[a-z]+(-[a-z])+$/)
+	.regex(/^[a-z]+(-[a-z])(:[a-z]+(-[a-z]))+$/, 'Property names must be a valid roll option.')
+
+const predicate = rollOption.or(z.object({}).refine(...nonEmpty))
+
+const hexColour = z.string().regex(/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.')
 
 const vector2 = z.object({ x: z.number(), y: z.number() }).strict()
 
@@ -71,19 +77,11 @@ const shape = z
 		points: z.array(z.array(z.number()).length(2).or(vector2)).min(1).optional(),
 		gridUnits: z.literal(true).optional(),
 		name: z.string().optional(),
-		fillColor: z
-			.string()
-			.regex(...hexColour)
-			.or(z.number())
-			.optional(),
+		fillColor: hexColour.or(z.number()).optional(),
 		fillAlpha: z.number().positive().optional(),
 		alpha: z.number().positive().optional(),
 		lineSize: z.number().positive().optional(),
-		lineColor: z
-			.string()
-			.regex(...hexColour)
-			.or(z.number())
-			.optional(),
+		lineColor: hexColour.or(z.number()).optional(),
 		offset: z
 			.object({
 				x: z.number().optional(),
@@ -116,15 +114,17 @@ export const effectOptions = z
 			.refine(...nonZero)
 			.optional(),
 		zIndex: z.number().optional(),
-		duration: z.number().describe('The duration of the animation in milliseconds.').positive().optional(),
-		tint: z
-			.string()
-			.describe('A hexadecimal colour code to give the animation a certain tint.')
-			.regex(...hexColour)
+		duration: z
+			.number()
+			.describe('The duration of the animationDataObject in milliseconds.')
+			.positive()
+			.optional(),
+		tint: hexColour
+			.describe('A hexadecimal colour code to give the animationDataObject a certain tint.')
 			.optional(),
 		rotate: z
 			.number()
-			.describe('An angle in degrees (°) to rotate the animation.')
+			.describe('An angle in degrees (°) to rotate the animationDataObject.')
 			.gt(-180)
 			.lte(180)
 			.refine(...nonZero)
@@ -362,3 +362,31 @@ export const effectOptions = z
 	})
 	.strict()
 	.refine(...nonEmpty)
+
+const animationDataObject = z.object({
+	overrides: z.array(z.string()).min(1).optional(),
+	trigger: z.enum(AnimCore.CONST.TRIGGERS),
+	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
+	file: z.string(),
+	default: z.literal(true).optional(),
+	predicate: z.array(predicate).optional(),
+	options: z.any().optional(), // :(
+})
+
+// Following required to allow Zod to evaluate recursive structures
+type FolderObject = Partial<z.infer<typeof animationDataObject>> & {
+	contents?: (z.infer<typeof animationDataObject> | FolderObject)[]
+}
+const folderObject: z.ZodType<FolderObject> = animationDataObject.partial().extend({
+	contents: z.lazy(() => z.array(animationDataObject.or(folderObject))).optional(),
+})
+// end
+
+const referenceObject = animationDataObject.partial().extend({
+	reference: rollOption,
+})
+
+export const animations = z.record(
+	rollOption,
+	rollOption.or(z.array(folderObject.or(referenceObject).refine(...nonEmpty))),
+)
