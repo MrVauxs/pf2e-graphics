@@ -9,7 +9,7 @@
 
 	export let doc: TJSDocument<ActorPF2e>
 
-	const flag = writableDerived(
+	const actorFlag = writableDerived(
 		doc,
 		$doc => $doc.getFlag('pf2e-graphics', 'customAnimations') || {},
 		(data, doc) => {
@@ -43,19 +43,19 @@
 
 	function createAnimation() {
 		if (!newKey.length) throw ui.notifications.error('Primary roll option must not be empty!')
-		$flag[newKey.trim()] = []
+		$actorFlag[newKey.trim()] = []
 		$showNewAnimation = !$showNewAnimation
 	}
 
-	$: devMessage(`Actor Animations Tab State (${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()})`, $flag, $showNewAnimation)
+	$: devMessage(`Actor Animations Tab State (${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()})`, $actorFlag, $showNewAnimation)
 
 	const editable = $doc.canUserModify(game.user, 'update')
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full items-center'>
 	<div class='flex flex-col w-full items-center gap-1.5'>
-		{#each Object.keys($flag).filter(k => Boolean($flag[k])) as key}
-			<AnimationEditor bind:key bind:value={$flag[key]} {editable} />
+		{#each Object.keys($actorFlag).filter(k => Boolean($actorFlag[k])) as key}
+			<AnimationEditor bind:key bind:value={$actorFlag[key]} {editable} />
 		{/each}
 	</div>
 	<div class='w-1/2 m-1 text-center items-center flex flex-col gap-1'>

@@ -4,7 +4,6 @@
 			"reference": "item:slug:electric-arc",
 			"trigger": "attack-roll",
 			"predicate": [
-				"kinetic-gate:air",
 				"item:trait:electricity"
 			]
 		},
@@ -13,7 +12,6 @@
 			"preset": "ranged",
 			"file": "jb2a.spell_projectile.ice_shard.blue",
 			"predicate": [
-				"kinetic-gate:ice",
 				"item:trait:cold"
 			]
 		},
@@ -22,7 +20,6 @@
 			"preset": "ranged",
 			"file": "jb2a.fire_bolt.orange",
 			"predicate": [
-				"kinetic-gate:fire",
 				"item:trait:fire"
 			]
 		}

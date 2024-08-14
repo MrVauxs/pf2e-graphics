@@ -14,7 +14,7 @@
 	export let elementRoot: HTMLElement | undefined
 	export let actor: ActorPF2e | null = null
 	if (!actor) {
-		throw new Error('An actor is required to render the ItemAnimations application.')
+		throw new Error('An actor is required to render the ActorAnimations application.')
 	}
 
 	const sessionStorage = getContext('#external').sessionStorage

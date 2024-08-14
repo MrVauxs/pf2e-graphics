@@ -6,7 +6,7 @@ import type { Readable } from 'svelte/motion'
 import BasicAppShell from './JSONEditor.svelte'
 
 export default class JSONEditorApp extends SvelteApplication {
-	[x: string]: any
+	svelte: any
 	constructor(options: ConstructorApplicationOptions & { data: { store: Writable<any> | Readable<any>, key: string } }) {
 		super()
 

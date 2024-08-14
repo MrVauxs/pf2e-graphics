@@ -19,14 +19,13 @@
 	const doc = new TJSDocument(item)
 	const rollOptions = $doc.getRollOptions('item')
 	const getAnimations = () => window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item.actor, item)
-	let animations = getAnimations()
+	let animData = getAnimations()
 
-	// *In Zenyatta VA* Experience Reactivity
-	doc.subscribe(() => (animations = getAnimations()))
+	doc.subscribe(() => (animData = getAnimations()))
 	if (import.meta.hot) {
 		import.meta.hot.on(
 			'updateAnims',
-			() => (animations = getAnimations()),
+			() => (animData = getAnimations()),
 		)
 	}
 
@@ -107,7 +106,7 @@
 						<span>Options</span>
 					</label>
 					<textarea
-						class='text-nowrap h-full w-full overflow-hidden'
+						class='text-nowrap h-full w-full resize-none p-0.5 text-xs'
 						id='roll-options'
 						disabled={true}
 						value={$doc.getRollOptions().join('\n')}
@@ -118,7 +117,7 @@
 			<div class='w-3/4 overflow-y-scroll'>
 				{#if activeTab === 'preset-animations'}
 					<div class='p-2 pb-0'>
-						{#if Object.keys(animations).length === 0}
+						{#if Object.keys(animData.animations).length === 0}
 							<p>No animations found for this item.</p>
 						{:else}
 							<h2>
@@ -127,11 +126,12 @@
 								</span>
 							</h2>
 							<div class='ml-4'>
-								{#each Object.keys(animations) as animationKey}
-									{#if animations[animationKey].length > 0}
-										<h3>{animationKey}</h3>
+								{#each Object.keys(animData.animations) as animationKey}
+									{#if animData.animations[animationKey].length > 0}
+										<h3>{animationKey} ({Object.keys(animData.sources)})</h3>
+										{JSON.stringify(animData.sources)}
 										<div class='flex flex-col gap-1 ml-4'>
-											{#each animations[animationKey] as animation}
+											{#each animData.animations[animationKey] as animation}
 												<div class='flex flex-row w-[99%]'>
 													<textarea
 														class='flex-grow resize-y overflow-y-scroll'
