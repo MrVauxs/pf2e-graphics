@@ -1,0 +1,9 @@
+{
+	"item:slug:frostbite": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.ray_of_frost.blue"
+		}
+	]
+}

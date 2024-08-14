@@ -1,0 +1,18 @@
+{
+	"origin:item:slug:gale-blast": [
+		{
+			"trigger": "place-template",
+			"contents": [
+				{
+					"preset": "template",
+					"file": "jb2a.whirlwind.bluegrey",
+					"options": {
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}
