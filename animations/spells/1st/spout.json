@@ -1,0 +1,9 @@
+{
+	"origin:item:slug:spout": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.water_splash.circle.01.blue"
+		}
+	]
+}

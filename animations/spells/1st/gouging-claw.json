@@ -1,0 +1,22 @@
+{
+	"item:slug:gouging-claw": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"contents": [
+				{
+					"predicate": [
+						"item:damage:type:piercing"
+					],
+					"file": "jb2a.melee_generic.piercing.one_handed"
+				},
+				{
+					"predicate": [
+						"item:damage:type:slashing"
+					],
+					"file": "jb2a.melee_generic.slashing.one_handed"
+				}
+			]
+		}
+	]
+}

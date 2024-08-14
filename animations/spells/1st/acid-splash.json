@@ -1,0 +1,26 @@
+{
+	"item:slug:acid-splash": [
+		{
+			"trigger": "attack-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.fire_bolt.green",
+					"options": {
+						"waitUntilFinished": -1000
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.liquid.splash.green",
+					"options": {
+						"preset": "target",
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}
