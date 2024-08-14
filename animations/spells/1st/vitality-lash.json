@@ -1,7 +1,7 @@
 {
 	"item:slug:vitality-lash": [
 		{
-			"trigger": "spell-cast",
+			"trigger": "saving-throw",
 			"preset": "ranged",
 			"presets": [
 				{
