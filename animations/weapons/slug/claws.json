@@ -2,6 +2,9 @@
 	"item:slug:claw": "item:slug:claws",
 	"item:slug:claws": [
 		{
+			"overrides": [
+				"item:group:brawling"
+			],
 			"trigger": "attack-roll",
 			"preset": "onToken",
 			"file": "jb2a.claws.400px.red",
