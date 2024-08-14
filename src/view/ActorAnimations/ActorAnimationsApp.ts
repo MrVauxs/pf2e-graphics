@@ -26,7 +26,7 @@ export default class ActorAnimationsApp extends SvelteApplication {
 			width: 300,
 			classes: ['pf2e-g'],
 			resizable: true,
-			id: `pf2e-graphics-modify-item`,
+			id: `pf2e-graphics-modify-actor`,
 
 			svelte: {
 				class: BasicAppShell,
