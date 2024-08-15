@@ -34,7 +34,7 @@ export default class UserAnimationsApp extends SvelteApplication {
 				target: document.body,
 				intro: true,
 				props: {
-					user: null,
+					user: game.user,
 				},
 			},
 		})
