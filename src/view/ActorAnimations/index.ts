@@ -14,7 +14,10 @@ function spawn(application: CharacterSheetPF2e) {
 			}
 			break
 		case 'onTop':
-			position = application.position
+			position = {
+				...application.position,
+				top: (application.position.top ?? 0) + (application?.element?.[0]?.firstElementChild as HTMLElement)?.offsetHeight,
+			}
 			break
 	}
 
@@ -29,7 +32,7 @@ function spawn(application: CharacterSheetPF2e) {
 Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons: ApplicationHeaderButton[]) => {
 	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0) && application.actor.isOfType('character')) return
 	buttons.unshift({
-		class: 'my-button',
+		class: 'pf2e-g',
 		icon: 'fas fa-film',
 		onclick: () => { spawn(application) },
 		label: 'Graphics',

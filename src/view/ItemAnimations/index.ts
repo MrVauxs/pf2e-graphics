@@ -2,7 +2,7 @@ import ItemAnimationsApp from './ItemAnimationsApp'
 
 Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
 	buttons.unshift({
-		class: 'my-button',
+		class: 'pf2e-g',
 		icon: 'fas fa-film',
 		onclick: () => {
 			const positionSetting = window.pf2eGraphics.liveSettings.windowPosition
@@ -18,7 +18,10 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 					}
 					break
 				case 'onTop':
-					position = application.position
+					position = {
+						...application.position,
+						top: (application.position.top ?? 0) + (application?.element?.[0]?.firstElementChild as HTMLElement)?.offsetHeight,
+					}
 					break
 			}
 
