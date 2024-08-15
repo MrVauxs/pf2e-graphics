@@ -1,0 +1,9 @@
+{
+	"origin:item:slug:dizzying-colors": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.breath_weapons.fire.cone.multicolored.{01,02}"
+		}
+	]
+}

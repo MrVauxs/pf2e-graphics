@@ -1,0 +1,9 @@
+{
+	"origin:item:slug:breathe-fire": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.burning_hands.01.orange"
+		}
+	]
+}

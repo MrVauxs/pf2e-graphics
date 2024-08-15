@@ -1,0 +1,21 @@
+{
+	"item:slug:charm": [
+		{
+			"trigger": "spell-cast",
+			"preset": "onToken",
+			"file": "jb2a.whirlwind.purple",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 1
+				},
+				"fadeIn": {
+					"value": 250
+				},
+				"fadeOut": {
+					"value": 500
+				}
+			}
+		}
+	]
+}
