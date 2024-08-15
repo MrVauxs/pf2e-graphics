@@ -1,18 +1,15 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
 
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
+import { ErrorMsg } from 'src/utils'
 import { type Writable, get } from 'svelte/store'
-import type { Readable } from 'svelte/motion'
 import BasicAppShell from './JSONEditor.svelte'
 
+interface extra { store: Writable<object>, permission: boolean }
 export default class JSONEditorApp extends SvelteApplication {
-	svelte: any
-	constructor(options: ConstructorApplicationOptions & { data: { store: Writable<any> | Readable<any>, key: string } }) {
-		super()
-
-		if (options.data) {
-			foundry.utils.mergeObject(this.options, { svelte: { props: options.data } })
-		}
+	constructor(_options: ConstructorApplicationOptions & extra) {
+		// @ts-expect-error TJS-2-TS
+		super(_options)
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
@@ -23,16 +20,22 @@ export default class JSONEditorApp extends SvelteApplication {
 			height: 600,
 			classes: ['pf2e-g'],
 			resizable: true,
-			id: `pf2e-graphics-json-editor`,
 
 			svelte: {
 				class: BasicAppShell,
 				target: document.body,
 				intro: true,
-				props: {
-					store: null,
-					key: '',
-				},
+				props: function () {
+					// @ts-expect-error TJS-2-TS
+					const store = this.options.store
+					if (!store) throw new ErrorMsg('No Store Provided in ItemAnimationsApp!')
+					// @ts-expect-error TJS-2-TS
+					const permission = this.options.permission ?? false
+					return {
+						store,
+						permission,
+					}
+				} as () => { store: Writable<object>, permission: boolean },
 			},
 		})
 	}
@@ -44,12 +47,10 @@ export default class JSONEditorApp extends SvelteApplication {
 			class: '',
 			label: `Copy`,
 			onclick: async () => {
-				const { store, key } = this.svelte.data(0).config.props
-				const json = get(store)
-
 				try {
-					await navigator.clipboard.writeText(JSON.stringify({ [key]: json }, null, '\t'))
-					ui.notifications.info(`Copied data for ${key}!`)
+					// @ts-expect-error Types
+					await navigator.clipboard.writeText(JSON.stringify(get(this.options.store), null, '\t'))
+					ui.notifications.info(`Copied to clipboard!`)
 				} catch (err) {
 					ui.notifications.error(`Failed to copy, check console.`)
 					console.error(err)
