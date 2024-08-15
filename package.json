@@ -8,8 +8,8 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --fix --cache",
 		"changelog": "changelog --format markdownlint --release --create --no-v-prefix"
 	},
 	"imports": {

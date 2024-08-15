@@ -1,0 +1,25 @@
+{
+	"origin:item:slug:caustic-blast": [
+		{
+			"trigger": "place-template",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.fire_bolt.green",
+					"options": {
+						"waitUntilFinished": -1000
+					}
+				},
+				{
+					"preset": "template",
+					"file": "jb2a.liquid.splash.green",
+					"options": {
+						"scaleToObject": {
+							"value": 1.5
+						}
+					}
+				}
+			]
+		}
+	]
+}

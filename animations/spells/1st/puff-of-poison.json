@@ -1,0 +1,9 @@
+{
+	"item:slug:puff-of-poison": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.smoke.puff.side.green"
+		}
+	]
+}

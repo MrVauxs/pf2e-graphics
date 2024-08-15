@@ -1,5 +1,4 @@
 import type { Subscriber, Unsubscriber } from 'svelte/store'
-import type { TJSPositionData } from '@typhonjs-fvtt/runtime/svelte/store/position'
 import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 
 import { safeAccess } from '#runtime/util/object'
@@ -63,19 +62,25 @@ export class TJSDocumentProperty<T> {
 	#unsubscribeDoc: Unsubscriber | undefined
 
 	constructor({ doc, accessor, debounce, debug = false }: { doc: any, accessor: string, debounce?: number, debug?: boolean }) {
-		if (!(doc instanceof TJSDocument)) { throw new TypeError(`'doc' is not an instance of TJSDocument.`) }
+		if (!(doc instanceof TJSDocument)) {
+			throw new TypeError(`'doc' is not an instance of TJSDocument.`)
+		}
 
 		if (accessor !== void 0 && typeof accessor !== 'string') {
 			throw new TypeError(`'accessor' is not a string or undefined.`)
 		}
 
-		if (typeof debug !== 'boolean') { throw new TypeError(`'debug' is not a boolean.`) }
+		if (typeof debug !== 'boolean') {
+			throw new TypeError(`'debug' is not a boolean.`)
+		}
 
 		this.#doc = doc
 		this.#accessor = accessor
 		this.#debug = debug
 
-		if (debounce !== void 0) { this.debounce = debounce }
+		if (debounce !== void 0) {
+			this.debounce = debounce
+		}
 	}
 
 	/**
@@ -160,7 +165,9 @@ export class TJSDocumentProperty<T> {
 		// Return unsubscribe function.
 		return () => {
 			const index = this.#subscribers.findIndex(sub => sub === handler)
-			if (index >= 0) { this.#subscribers.splice(index, 1) }
+			if (index >= 0) {
+				this.#subscribers.splice(index, 1)
+			}
 
 			// Unsubscribe from document callback if there are no subscribers.
 			if (this.#subscribers.length === 0 && typeof this.#unsubscribeDoc === 'function') {
@@ -196,8 +203,10 @@ export class TJSDocumentProperty<T> {
 	 * @param  {...any} extra
 	 */
 	#log(message: any, ...extra: any[]) {
+		if (this.#debug) {
 		// eslint-disable-next-line no-console
-		if (this.#debug) { console.log(message, ...extra) }
+			console.log(message, ...extra)
+		}
 	}
 
 	#handleDocUpdate(_doc: object, context?: { renderData?: object, renderContext?: string, action?: string }) {
@@ -260,6 +269,8 @@ export class TJSDocumentProperty<T> {
 	 * Updates all subscribers.
 	 */
 	#updateSubscribers() {
-		for (let cntr = 0; cntr < this.#subscribers.length; cntr++) { this.#subscribers[cntr](this.#value) }
+		for (let cntr = 0; cntr < this.#subscribers.length; cntr++) {
+			this.#subscribers[cntr](this.#value)
+		}
 	}
 }

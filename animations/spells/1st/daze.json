@@ -1,0 +1,13 @@
+{
+	"item:slug:daze": [
+		{
+			"trigger": "damage-roll",
+			"contents": [
+				{
+					"preset": "ranged",
+					"file": "jb2a.fire_bolt.purple"
+				}
+			]
+		}
+	]
+}
