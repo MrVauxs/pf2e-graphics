@@ -13,15 +13,72 @@ const nonEmpty: [(obj: object) => boolean, string] = [
 ]
 // end
 
-const ID = z.string().regex(/^[a-z]+(-[a-z])+$/)
+const ID = z.string().regex(/^[a-z]+(-[a-z])+$/, 'Must be a valid slug.')
 
-const rollOption = z
-	.string()
-	.regex(/^[a-z]+(-[a-z])(:[a-z]+(-[a-z]))+$/, 'Property names must be a valid roll option.')
+const rollOption = z.string().regex(/^[a-z]+(-[a-z])(:[a-z]+(-[a-z]))+$/, 'Must be a valid roll option.')
 
-const predicate = rollOption.or(z.object({}).refine(...nonEmpty))
+// Following required to allow Zod to evaluate recursive structures
+const predicateComparisonObject = z.object({
+	lt: z
+		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
+		.refine(
+			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
+		)
+		.optional(),
+	gt: z
+		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
+		.refine(
+			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
+		)
+		.optional(),
+	lte: z
+		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
+		.refine(
+			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
+		)
+		.optional(),
+	gte: z
+		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
+		.refine(
+			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
+		)
+		.optional(),
+})
+type Predicate =
+	| z.infer<typeof rollOption>
+	| (z.infer<typeof predicateComparisonObject> & {
+		not?: Predicate
+		and?: Predicate[]
+		or?: Predicate[]
+		nand?: Predicate[]
+		nor?: Predicate[]
+	})
+const predicate: z.ZodType<Predicate> = rollOption.or(
+	predicateComparisonObject
+		.extend({
+			not: z.lazy(() => rollOption.or(predicate).optional()),
+			and: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
+			or: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
+			nand: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
+			nor: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
+		})
+		.strict()
+		.refine(...nonEmpty),
+)
+// end
 
 const hexColour = z.string().regex(/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.')
+
+const fileName = z
+	.string()
+	.refine(
+		str => !str.match(/[<>:"/\\|?*]/g),
+		'The following characters are unsafe for cross-platform filesystems: <>:"/\\|?*',
+	)
 
 const vector2 = z.object({ x: z.number(), y: z.number() }).strict()
 
@@ -43,17 +100,17 @@ const soundData = z
 		volume: z.number().optional(),
 		duration: z.number().optional(),
 		constrainedByWalls: z.boolean().optional(),
-		predicate: z.array(z.string()).optional(),
+		predicate: z.array(predicate).min(1).optional(),
 		default: z.boolean().optional(),
 	})
 	.strict()
-const soundConfig = soundData.or(z.array(soundData))
+const soundConfig = soundData.or(z.array(soundData).min(1))
 
 const presetOptions = z.enum(['target', 'source', 'both']).or(
 	z.object({
 		bounce: z
 			.object({
-				file: z.string(),
+				file: fileName,
 				sound: soundConfig,
 			})
 			.strict(),
@@ -106,7 +163,7 @@ export const effectOptions = z
 		randomizeMirrorY: z.literal(true).optional(),
 		mirrorX: z.literal(true).optional(),
 		mirrorY: z.literal(true).optional(),
-		remove: z.string().or(z.array(z.string())).optional(),
+		remove: z.string().or(z.array(z.string()).min(1)).optional(),
 		tieToDocuments: z.literal(true).optional(),
 		belowTokens: z.literal(true).optional(),
 		waitUntilFinished: z
@@ -358,18 +415,18 @@ export const effectOptions = z
 			)
 			.min(1)
 			.optional(),
-		shape: shape.or(z.array(shape)).optional(),
+		shape: shape.or(z.array(shape).min(1)).optional(),
 	})
 	.strict()
 	.refine(...nonEmpty)
 
 const animationDataObject = z.object({
-	overrides: z.array(z.string()).min(1).optional(),
+	overrides: z.array(rollOption).min(1).optional(),
 	trigger: z.enum(AnimCore.CONST.TRIGGERS),
 	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
-	file: z.string(),
+	file: fileName,
 	default: z.literal(true).optional(),
-	predicate: z.array(predicate).optional(),
+	predicate: z.array(predicate).min(1).optional(),
 	options: z.any().optional(), // :(
 })
 
@@ -378,7 +435,7 @@ type FolderObject = Partial<z.infer<typeof animationDataObject>> & {
 	contents?: (z.infer<typeof animationDataObject> | FolderObject)[]
 }
 const folderObject: z.ZodType<FolderObject> = animationDataObject.partial().extend({
-	contents: z.lazy(() => z.array(animationDataObject.or(folderObject))).optional(),
+	contents: z.lazy(() => z.array(animationDataObject.or(folderObject)).min(1)).optional(),
 })
 // end
 
@@ -388,5 +445,5 @@ const referenceObject = animationDataObject.partial().extend({
 
 export const animations = z.record(
 	rollOption,
-	rollOption.or(z.array(folderObject.or(referenceObject).refine(...nonEmpty))),
+	rollOption.or(z.array(folderObject.or(referenceObject).refine(...nonEmpty)).min(1)),
 )
