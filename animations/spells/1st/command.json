@@ -1,0 +1,21 @@
+{
+	"item:slug:command": [
+		{
+			"trigger": "spell-cast",
+			"preset": "onToken",
+			"file": "jb2a.template_circle.out_pulse.02.burst",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 1
+				},
+				"fadeIn": {
+					"value": 250
+				},
+				"fadeOut": {
+					"value": 500
+				}
+			}
+		}
+	]
+}

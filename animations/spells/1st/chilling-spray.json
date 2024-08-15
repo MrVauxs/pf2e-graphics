@@ -1,0 +1,9 @@
+{
+	"origin:item:slug:chilling-spray": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.cone_of_cold.blue"
+		}
+	]
+}
