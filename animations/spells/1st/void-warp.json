@@ -1,0 +1,9 @@
+{
+	"item:slug:void-warp": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.energy_strands.range.standard.purple"
+		}
+	]
+}

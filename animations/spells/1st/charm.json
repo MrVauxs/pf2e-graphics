@@ -1,7 +1,7 @@
 {
 	"item:slug:charm": [
 		{
-			"trigger": "spell-cast",
+			"trigger": "saving-throw",
 			"preset": "onToken",
 			"file": "jb2a.whirlwind.purple",
 			"options": {

@@ -1,7 +1,7 @@
 {
 	"item:slug:command": [
 		{
-			"trigger": "spell-cast",
+			"trigger": "saving-throw",
 			"preset": "onToken",
 			"file": "jb2a.template_circle.out_pulse.02.burst",
 			"options": {

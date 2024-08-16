@@ -1,0 +1,37 @@
+{
+	"effect:mystic-armor": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.energy_field.01.blue",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5
+				},
+				"mask": true,
+				"fadeIn": 250,
+				"fadeOut": 500
+			},
+			"contents": [
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": "effect"
+				},
+				{
+					"predicate": ["graphics-quality:3"],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}
