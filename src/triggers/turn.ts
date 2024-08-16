@@ -4,7 +4,8 @@ function handler({ actor, token }: CombatantPF2e, _encounter: EncounterPF2e, typ
 	const deliverable = {
 		trigger: `${type}Turn` as const,
 		source: token,
-		rollOptions: actor?.getRollOptions() || [],
+		rollOptions: (actor?.getRollOptions() || [])
+			.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x),
 		actor,
 	}
 
