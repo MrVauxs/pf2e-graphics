@@ -14,6 +14,8 @@
 
 	const tabs = ['world-animations', 'preset-animations'] as const
 	const activeTab = getContext('#external').sessionStorage.getStore('settings', tabs[0] as typeof tabs[number])
+
+	let search = ''
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -38,15 +40,18 @@
 				</div>
 			</div>
 		</div>
-		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
+		<div class='overflow-hidden flex-1 pb-2 w-full flex flex-col'>
 			{#if $activeTab === 'world-animations'}
 				<div class='w-full overflow-y-scroll p-1'>
 					<AnimationEditor doc={storeDocument} />
 				</div>
 			{/if}
 			{#if $activeTab === 'preset-animations'}
-				<div class='p-2 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
-					{#each Object.keys(window.pf2eGraphics.AnimCore.animations).sort() as key}
+				<div class='text-nowrap mx-auto'>
+					<span class=''><i class='fa fa-search' /> Search</span><input bind:value={search} class='mx-1' />
+				</div>
+				<div class='p-1 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
+					{#each Object.keys(window.pf2eGraphics.AnimCore.animations).filter(k => k.includes(search)).sort() as key}
 						{@const animation = window.pf2eGraphics.AnimCore.animations[key]}
 						<div
 							class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
