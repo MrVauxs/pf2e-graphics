@@ -16,7 +16,7 @@ export default class JSONEditorApp extends SvelteApplication {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			title: 'pf2e-graphics.jsonEditor', // Automatically localized from `lang/en.json`.
-			width: 500,
+			width: 'auto',
 			height: 600,
 			classes: ['pf2e-g'],
 			resizable: true,

@@ -16,6 +16,7 @@
 	const activeTab = getContext('#external').sessionStorage.getStore('settings', tabs[0] as typeof tabs[number])
 
 	let search = ''
+	let columns = 4
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -47,10 +48,39 @@
 				</div>
 			{/if}
 			{#if $activeTab === 'preset-animations'}
-				<div class='text-nowrap mx-auto'>
-					<span class=''><i class='fa fa-search' /> Search</span><input bind:value={search} class='mx-1' />
+				<div class='text-nowrap flex justify-stretch mx-auto'>
+					<div>
+						<i class='fa fa-grid' /> Columns
+						<input
+							step='1'
+							min='1'
+							class='w-1/2 mx-1'
+							bind:value={columns}
+							type='number'
+						/>
+					</div>
+					<div>
+						<i class='fa fa-search' /> Search
+						<input
+							class='w-1/2 mx-1'
+							bind:value={search}
+							type='text'
+						/>
+					</div>
+					<div>
+						<i class='fa fa-tally' /> Total
+						<input
+							disabled
+							class='w-1/2 mx-1'
+							value={Object.keys(window.pf2eGraphics.AnimCore.animations).length}
+							type='number'
+						/>
+					</div>
 				</div>
-				<div class='p-1 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
+				<div
+					class='p-1 pb-0 items-center overflow-x-hidden overflow-y-scroll grid gap-x-1'
+					style:grid-template-columns='repeat({columns}, minmax(0, 1fr))'
+				>
 					{#each Object.keys(window.pf2eGraphics.AnimCore.animations).filter(k => k.includes(search)).sort() as key}
 						{@const animation = window.pf2eGraphics.AnimCore.animations[key]}
 						<div
@@ -73,7 +103,8 @@
 									}).render(true, {
 										focus: true,
 									})
-								}} />
+								}}
+							/>
 						</div>
 					{/each}
 				</div>
