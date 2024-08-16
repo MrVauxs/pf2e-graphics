@@ -24,7 +24,7 @@
 						{#each animData.animations[animationKey] as animation}
 							<div class='flex flex-row w-[99%]'>
 								<textarea
-									class='flex-grow resize-y h-32 overflow-y-scroll'
+									class='resize-y'
 									disabled
 									value={JSON.stringify(clearEmpties(animation), null, ' ')}
 								/>

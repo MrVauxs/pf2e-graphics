@@ -36,4 +36,24 @@
 			@apply flex-grow-0 pt-1;
 		}
 	}
+
+	& .border-y-foundry {
+		border-bottom: 1px solid var(--secondary-background);
+		border-top: 1px solid var(--secondary-background);
+	}
+
+	& .tab-button {
+		all: unset;
+
+		@apply w-full;
+
+		&:hover {
+			text-shadow: 0 0 10px var(--color-shadow-primary);
+		}
+	}
+
+	& .active-tab {
+		text-shadow: 0 0 10px var(--color-shadow-primary);
+		@apply underline font-bold;
+	}
 }

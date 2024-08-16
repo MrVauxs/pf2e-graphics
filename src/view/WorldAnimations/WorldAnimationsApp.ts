@@ -1,27 +1,27 @@
-import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
+import type { CombinedSvelteApplicationOptions } from 'src/extensions'
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
 import { kofiButton } from 'src/utils'
+import { writable } from 'svelte/store'
 import BasicAppShell from './WorldAnimationsShell.svelte'
 
-export default class WorldAnimationsApp extends SvelteApplication {
-	constructor(_options: ConstructorApplicationOptions) {
-		super()
-	}
-
+export default class UserAnimationsApp extends SvelteApplication {
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.modifyWorld', // Automatically localized from `lang/en.json`.
-			width: 800,
-			height: 600,
+			title: 'pf2e-graphics.modifyUser', // Automatically localized from `lang/en.json`.
 			classes: ['pf2e-g'],
-			id: 'pf2e-graphics-modify-world',
 			resizable: true,
+			width: 600,
+			height: 400,
+			id: 'pf2e-graphics-world-settings',
 
 			svelte: {
 				class: BasicAppShell,
 				target: document.body,
 				intro: true,
+				props: {
+					storeDocument: writable({ id: 'settings' }),
+				},
 			},
 		})
 	}

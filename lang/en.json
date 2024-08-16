@@ -11,11 +11,13 @@
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
 		"jsonEditor": "JSON View / Edit",
+		"confirmConvert": "Are you sure you want to convert this into a reference? This gets rid of all your data.",
+		"reference": "Set to Reference another Animation",
+		"addAnim": "Add a New Animation",
 		"cancel": "Cancel",
 		"easingTooltip": "Learn more about various easing functions here.",
 		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
 		"areYouSureM8": "Are you sure?",
-		"export": "JSON Export",
 		"settings": {
 			"windowPosition": {
 				"name": "Window Position",
@@ -103,6 +105,12 @@
 			"startTurn": "Start of Turn",
 			"endTurn": "End of Turn",
 			"self-effect": "'Use' Effect"
+		},
+		"editor": {
+			"preset": "Preset",
+			"trigger": "Trigger",
+			"predicate": "Predicate",
+			"imageFile": "Image File"
 		}
 	}
 }

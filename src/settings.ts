@@ -1,5 +1,3 @@
-import UserAnimationsShim from './view/UserAnimations'
-import WorldAnimationsShim from './view/WorldAnimations'
 import type { JSONData } from './storage/AnimCore'
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
 
@@ -104,22 +102,4 @@ Hooks.once('init', () => {
 
 	window.pf2eGraphics.liveSettings = settings
 	window.pf2eGraphics.storeSettings = storeSettings
-
-	game.settings.registerMenu('pf2e-graphics', 'worldAnimationsMenu', {
-		name: 'pf2e-graphics.settings.worldMenu.name',
-		hint: 'pf2e-graphics.settings.worldMenu.hint',
-		label: 'pf2e-graphics.settings.worldMenu.label',
-		icon: 'fas fa-globe',
-		type: WorldAnimationsShim,
-		restricted: true,
-	})
-
-	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
-		name: 'pf2e-graphics.settings.userMenu.name',
-		hint: 'pf2e-graphics.settings.userMenu.hint',
-		label: 'pf2e-graphics.settings.userMenu.label',
-		icon: 'fas fa-user',
-		type: UserAnimationsShim,
-		restricted: false,
-	})
 })

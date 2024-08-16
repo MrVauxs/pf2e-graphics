@@ -12,16 +12,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **New Features to Animation Menus**, see *Changed* section.
 - Origin data to `damage-taken` animations, allowing for animations to start from the attacker to the target taking damage / being healed.
 - **New Animations**:
   - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
   - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Pick Weapon Group (free JB2A version) ([@MrVauxs](https://mrvauxs.net/))
 - **New Sounds** from [SoundFlakes](https://freesound.org/people/SoundFlakes/)!
 
 ### Changed
 
 - Spell Effect: Shield animation to be compatible with free version of JB2A.
 - Existing alchemical bombs so that they follow the same layout.
+- **Refactored Animations Menus**
+  - Fixed bugs ([#38](https://github.com/MrVauxs/pf2e-graphics/issues/38))
+  - Improved underlying CSS.
+  - Shift Clicking on the Animations button will open the animations menu and close the menu it was opened from.
+  - Added a Search function.
+  - You can now reference existing animations.
 
 ## [0.6.4] - 2024-08-13
 

@@ -1,37 +1,22 @@
 <svelte:options accessors={true} />
-
 <script lang='ts'>
 	import { i18n } from 'src/utils'
-	import PresetAnimations from './tabs/preset-animations.svelte'
-	import AnimationConfig from './tabs/animation-config.svelte'
+	// import PresetAnimations from './tabs/preset-animations.svelte'
+	import { getContext } from 'svelte'
+	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import UserAnimationsApp from '../UserAnimations/UserAnimationsApp'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
 
+	export let storeDocument: TJSDocument<ItemPF2e>
+	export let document: ItemPF2e
 	export let elementRoot: HTMLElement | undefined
-	export let item: ItemPF2e | null = null
-	if (!item) {
-		throw new Error('An item is required to render the ItemAnimations application.')
-	}
 
-	// import { getContext } from "svelte";
-	// const application = getContext("#external").application;
-
-	const doc = new TJSDocument(item)
-	const rollOptions = $doc.getRollOptions('item')
-	const getAnimations = () => window.pf2eGraphics.AnimCore.getMatchingAnimationTrees(rollOptions, item.actor, item)
-	let animData = getAnimations()
-
-	doc.subscribe(() => (animData = getAnimations()))
-	if (import.meta.hot) {
-		import.meta.hot.on(
-			'updateAnims',
-			() => (animData = getAnimations()),
-		)
-	}
+	const doc = storeDocument
 
 	const tabs = ['preset-animations', 'custom-animations'] as const
-	let activeTab: (typeof tabs)[number] = tabs[0]
+	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number])
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -46,11 +31,18 @@
 			</div>
 			<!-- Tabs -->
 			<div class='flex align-baseline text-center py-1 border-y-foundry'>
-				<div class='w-1/4'>Summary</div>
+				<div class='w-1/4'>
+					{#if $activeTab !== 'custom-animations'}
+						Summary
+					{/if}
+				</div>
 				<div class='w-3/4 flex align-baseline items-center justify-around cursor-pointer'>
 					{#each tabs as tab}
-						{@const active = tab === activeTab}
-						<button class="tab-button {active ? 'active-tab' : ''}" on:click={() => (activeTab = tab)}>
+						{@const active = tab === $activeTab}
+						<button
+							class="tab-button {active ? 'active-tab' : ''}"
+							on:click={() => ($activeTab = tab)}
+						>
 							{i18n(`itemAnimation.tabs.${tab}`)}
 						</button>
 					{/each}
@@ -59,90 +51,90 @@
 		</div>
 		<!-- Content -->
 		<div class='flex flex-row overflow-hidden pt-2 gap-1 flex-1'>
-			<!-- Sidebar Summary -->
-			<div class='w-1/4 flex flex-col'>
-				<!-- Buttons and Text -->
-				<div class='grid gap-y-1 grid-cols-4 [&>*]:m-0 [&>*]:leading-4 pr-1 flex-grow-0 flex-shrink'>
-					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='source-id'>
-						<span>Slug</span>
-					</label>
-					<input
-						class='col-span-3'
-						id='source-id'
-						disabled={true}
-						value={$doc.slug}
-						data-tooltip={$doc.slug}
-					/>
-					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='actor'>
-						<span>Actor</span>
-					</label>
-					<button
-						disabled={!$doc.actor}
-						class='col-span-3 {!$doc.actor ? 'disabled' : ''}'
-						id='actor'
-						data-tooltip='pf2e-graphics.itemAnimation.openSheet'
-						on:click={() => {
-							$doc.actor?.sheet.render(true)
-						}}
-					>
-						{$doc.actor?.name || 'No Actor'}
-					</button>
-					<label class='self-center whitespace-nowrap font-semibold col-span-1' for='item'>
-						<span>Item</span>
-					</label>
-					<button
-						class='col-span-3'
-						id='item'
-						data-tooltip='pf2e-graphics.itemAnimation.openSheet'
-						on:click={() => {
-							$doc.sheet.render(true)
-						}}
-					>
-						{$doc.name}
-					</button>
+			{#if $activeTab === 'custom-animations'}
+				<div class='w-full overflow-y-scroll p-1'>
+					<AnimationEditor {doc} />
 				</div>
-				<!-- Slugs -->
-				<div class='flex-1 flex-col flex gap-0.5'>
-					<label class='whitespace-nowrap font-semibold' for='roll-options'>
-						<span>Options</span>
-					</label>
-					<textarea
-						class='text-nowrap h-full w-full resize-none p-0.5 text-xs'
-						id='roll-options'
-						disabled={true}
-						value={$doc.getRollOptions().join('\n')}
-					/>
+			{:else} <!-- Sidebar Summary -->
+				<div class='w-1/4 flex flex-col overflow-y-scroll'>
+					<!-- Buttons and Text -->
+					<div class='grid gap-y-1 grid-cols-4
+						pr-1 flex-grow-0 flex-shrink
+						leading-[var(--form-field-height)]
+						[&>*]:m-0'
+					>
+						<label
+							class='self-center whitespace-nowrap font-semibold col-span-1'
+							for='source-id'
+						>
+							<span>Slug</span>
+						</label>
+						<input
+							class='col-span-3'
+							id='source-id'
+							disabled={true}
+							value={$doc.slug}
+							data-tooltip={$doc.slug}
+						/>
+						<label
+							class='self-center whitespace-nowrap font-semibold col-span-1'
+							for='actor'
+						>
+							<span>Actor</span>
+						</label>
+						<button
+							disabled={!$doc.actor}
+							class='col-span-3 {!$doc.actor ? 'disabled' : ''} p-0 leading-4'
+							id='actor'
+							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+							on:click={() => {
+								$doc.actor?.sheet.render(true)
+							}}
+						>
+							{$doc.actor?.name || 'No Actor'}
+						</button>
+						<label
+							class='self-center whitespace-nowrap font-semibold col-span-1'
+							for='item'
+						>
+							<span>Item</span>
+						</label>
+						<button
+							class='col-span-3 p-0 leading-4'
+							id='item'
+							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+							on:click={() => {
+								$doc.sheet.render(true)
+							}}
+						>
+							{$doc.name}
+						</button>
+
+						<label
+							class='self-center whitespace-nowrap font-semibold col-span-1'
+							for='item'
+						>
+							<span>User</span>
+						</label>
+						<button
+							class='col-span-3 p-0 leading-4'
+							id='item'
+							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+							on:click={() => {
+								new UserAnimationsApp({ document: window.game.user }).render(true)
+							}}
+						>
+							{window.game.user.name}
+						</button>
+					</div>
 				</div>
-			</div>
-			<!-- Inner Content -->
-			<div class='w-3/4 overflow-y-scroll'>
-				{#if activeTab === 'preset-animations'}
-					<PresetAnimations {animData} {item} />
-				{:else if activeTab === 'custom-animations'}
-					<AnimationConfig {doc} />
-				{/if}
-			</div>
+				<!-- Inner Content -->
+				<div class='w-3/4 overflow-y-scroll'>
+					{#if $activeTab === 'preset-animations'}
+						<!-- <PresetAnimations {animData} item={document} /> -->
+					{/if}
+				</div>
+			{/if}
 		</div>
 	</main>
 </ApplicationShell>
-
-<style lang='postcss'>
-	.border-y-foundry {
-		border-bottom: 1px solid var(--secondary-background);
-		border-top: 1px solid var(--secondary-background);
-	}
-	.tab-button {
-		all: unset;
-
-		@apply w-full;
-
-		&:hover {
-			text-shadow: 0 0 10px var(--color-shadow-primary);
-		}
-	}
-
-	.active-tab {
-		text-shadow: 0 0 10px var(--color-shadow-primary);
-		@apply underline font-bold;
-	}
-</style>

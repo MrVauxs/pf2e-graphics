@@ -1,41 +1,41 @@
-import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
-
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
-import { kofiButton } from 'src/utils'
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
+import { ErrorMsg, kofiButton } from 'src/utils'
+import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 import BasicAppShell from './UserAnimationsShell.svelte'
 
 interface UserAnimationsOptions {
-	data: {
-		user: UserPF2e | null
-	}
+	document: UserPF2e
 }
 
 export default class UserAnimationsApp extends SvelteApplication {
-	constructor(options: ConstructorApplicationOptions & UserAnimationsOptions) {
-		super()
-
-		if (options.data) {
-			foundry.utils.mergeObject(this.options, { svelte: { props: options.data } })
-		}
+	constructor(_options: ConstructorApplicationOptions & UserAnimationsOptions) {
+		// @ts-expect-error TJS-2-TS
+		super(_options)
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			title: 'pf2e-graphics.modifyUser', // Automatically localized from `lang/en.json`.
-			width: 800,
-			height: 600,
 			classes: ['pf2e-g'],
-			id: 'pf2e-graphics-modify-user',
 			resizable: true,
+			width: 600,
+			height: 400,
 
 			svelte: {
 				class: BasicAppShell,
 				target: document.body,
 				intro: true,
-				props: {
-					user: game.user,
-				},
+				props: function () {
+					// @ts-expect-error TJS-2-TS
+					const doc = this.options.document
+					if (!doc) throw new ErrorMsg('No Document Provided in UserAnimationsApp!')
+					return {
+						storeDocument: new TJSDocument(doc),
+						document: doc,
+					}
+				} as () => UserAnimationsOptions,
 			},
 		})
 	}

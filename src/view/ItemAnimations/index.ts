@@ -1,10 +1,10 @@
-import ItemAnimationsApp from './ItemAnimationsApp'
+import ItemAnimationsApp from './ItemAnimationsApp.ts'
 
-Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
+const getItemSheetHeaderButtons = Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
 	buttons.unshift({
 		class: 'pf2e-g',
 		icon: 'fas fa-film',
-		onclick: () => {
+		onclick: (event) => {
 			const positionSetting = window.pf2eGraphics.liveSettings.windowPosition
 			let position = {}
 			const bounds = application.element[0].getBoundingClientRect()
@@ -25,8 +25,10 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 					break
 			}
 
+			if ((event as MouseEvent).shiftKey) application.close()
+
 			new ItemAnimationsApp({
-				data: { item: application.item },
+				document: application.item,
 			}).render(true, {
 				focus: true,
 				...position,
@@ -35,3 +37,12 @@ Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons:
 		label: 'Animations',
 	})
 })
+
+if (import.meta.hot) {
+	// Prevents reloads
+	import.meta.hot.accept()
+	// Disposes the previous hook
+	import.meta.hot.dispose(() => {
+		Hooks.off('getItemSheetHeaderButtons', getItemSheetHeaderButtons)
+	})
+}
