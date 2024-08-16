@@ -4,6 +4,7 @@
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import UserAnimationsApp from '../UserAnimations/UserAnimationsApp'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
@@ -108,6 +109,23 @@
 						>
 							{$doc.name}
 						</button>
+
+						<label
+							class='self-center whitespace-nowrap font-semibold col-span-1'
+							for='item'
+						>
+							<span>User</span>
+						</label>
+						<button
+							class='col-span-3 p-0 leading-4'
+							id='item'
+							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
+							on:click={() => {
+								new UserAnimationsApp({ document: window.game.user }).render(true)
+							}}
+						>
+							{window.game.user.name}
+						</button>
 					</div>
 				</div>
 				<!-- Inner Content -->
@@ -120,24 +138,3 @@
 		</div>
 	</main>
 </ApplicationShell>
-
-<style lang='postcss'>
-	.border-y-foundry {
-		border-bottom: 1px solid var(--secondary-background);
-		border-top: 1px solid var(--secondary-background);
-	}
-	.tab-button {
-		all: unset;
-
-		@apply w-full;
-
-		&:hover {
-			text-shadow: 0 0 10px var(--color-shadow-primary);
-		}
-	}
-
-	.active-tab {
-		text-shadow: 0 0 10px var(--color-shadow-primary);
-		@apply underline font-bold;
-	}
-</style>

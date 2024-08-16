@@ -1,7 +1,8 @@
 <script lang='ts'>
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 	import derivedFlag from 'src/lib/docFlagDerived'
-	import type { JSONData } from 'src/storage/AnimCore'
+	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
+	import { writable } from 'svelte/store'
 	import JSONEditorApp from './JSONEditor/JSONEditor'
 	import SingleEditor from './SingleEditor.svelte'
 
@@ -11,13 +12,26 @@
 	const flag = derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 1000)
 
 	let search = ''
+	let newAnimeKey = ''
+	const inStasis = writable(false)
 
 	function openJSON() {
 		new JSONEditorApp({
 			id: `pf2e-graphics-${$doc.id}`,
 			store: flag,
+			stasis: inStasis,
 			permission: $doc.canUserModify(game.user, 'update'),
 		}).render(true)
+	}
+
+	function addNew() {
+		if (newAnimeKey.trim().length) {
+			$flag[newAnimeKey.trim()] ??= [AnimCore.CONST.TEMPLATE_ANIMATION()]
+			newAnimeKey = ''
+		} else if ('getRollOptions' in $doc) {
+			const prefix = $doc.isOfType('weapon') ? 'item' : undefined
+			newAnimeKey = (($doc as ItemPF2e).getRollOptions(prefix))[2]
+		}
 	}
 </script>
 
@@ -30,10 +44,28 @@
 		<span><i class='fa fa-search' /> Search</span><input bind:value={search} />
 	</div>
 
-	<button class='fa fa-brackets-curly size-8 ml-auto' on:click={() => openJSON()} />
+	<button
+		class='fa fa-brackets-curly size-8 ml-auto'
+		data-tooltip='pf2e-graphics.jsonEditor'
+		on:click={openJSON}
+	/>
+	{#if newAnimeKey.length}
+		<input bind:value={newAnimeKey} />
+	{/if}
+	<button
+		class='fa fa-add size-8 text-lg leading-4'
+		data-tooltip='pf2e-graphics.addAnim'
+		on:click={addNew}
+		disabled={$inStasis}
+	/>
 </div>
-<div>
+<div class='flex flex-col gap-1'>
 	{#each Object.keys($flag).filter(k => k.includes(search)) as key}
-		<SingleEditor bind:key bind:value={$flag[key]} />
+		<SingleEditor
+			bind:key
+			bind:value={$flag[key]}
+			bind:disabled={$inStasis}
+			flag={flag}
+		/>
 	{/each}
 </div>

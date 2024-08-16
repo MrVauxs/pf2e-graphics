@@ -3,12 +3,14 @@
 <script lang='ts'>
 	import { JSONEditor, Mode } from 'svelte-jsoneditor'
 	import type { Writable } from 'svelte/store'
+	import { onDestroy, onMount } from 'svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
 	export let elementRoot: HTMLElement | undefined
 	export let store: Writable<object>
 	export let permission: boolean
+	export let stasis: Writable<boolean>
 
 	let content = {
 		json: $store,
@@ -26,6 +28,14 @@
 	}
 
 	const mode = 'text' as Mode // TS...
+
+	onMount(() => {
+		stasis.set(true)
+	})
+
+	onDestroy(() => {
+		stasis.set(false)
+	})
 </script>
 
 <ApplicationShell bind:elementRoot>

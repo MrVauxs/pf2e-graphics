@@ -5,7 +5,7 @@ import { ErrorMsg } from 'src/utils'
 import { type Writable, get } from 'svelte/store'
 import BasicAppShell from './JSONEditor.svelte'
 
-interface extra { store: Writable<object>, permission: boolean }
+interface extra { store: Writable<object>, permission: boolean, stasis: Writable<boolean> }
 export default class JSONEditorApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & extra) {
 		// @ts-expect-error TJS-2-TS
@@ -31,9 +31,12 @@ export default class JSONEditorApp extends SvelteApplication {
 					if (!store) throw new ErrorMsg('No Store Provided in ItemAnimationsApp!')
 					// @ts-expect-error TJS-2-TS
 					const permission = this.options.permission ?? false
+					// @ts-expect-error TJS-2-TS
+					const stasis = this.options.stasis
 					return {
 						store,
 						permission,
+						stasis,
 					}
 				} as () => { store: Writable<object>, permission: boolean },
 			},

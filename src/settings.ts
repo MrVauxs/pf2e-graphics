@@ -113,13 +113,5 @@ Hooks.once('init', () => {
 		restricted: true,
 	})
 
-	game.settings.registerMenu('pf2e-graphics', 'userAnimations', {
-		name: 'pf2e-graphics.settings.userMenu.name',
-		hint: 'pf2e-graphics.settings.userMenu.hint',
-		label: 'pf2e-graphics.settings.userMenu.label',
-		icon: 'fas fa-user',
-		type: UserAnimationsShim,
-		restricted: false,
-	})
 	*/
 })
