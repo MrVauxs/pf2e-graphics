@@ -136,8 +136,8 @@
 					</div>
 				{:else}
 					{#each value as ani, index}
-						<section class='[&>*:not(:last-child)]:mb-1'>
-							<header class='flex justify-between'>
+						<section class='[&>*:not(:last-child)]:mb-1 overflow-clip'>
+							<header class='flex justify-between gap-1.5'>
 								<!-- Preset -->
 								<label class='flex items-center gap-2'>
 									<span class='mr-1 text-nowrap'> {i18n('editor.preset')} </span>

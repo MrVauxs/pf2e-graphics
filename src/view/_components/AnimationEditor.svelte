@@ -47,8 +47,9 @@
 	flex
 	border border-solid rounded-sm
 	mb-1 p-1
+	overflow-clip
 '>
-	<div class='[&>*:not(:first-child)]:mx-1 my-auto'>
+	<div class='[&>*:not(:first-child)]:mx-1 my-auto flex items-center text-nowrap'>
 		<span><i class='fa fa-search' /> Search</span><input bind:value={search} />
 	</div>
 
