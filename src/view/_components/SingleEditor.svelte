@@ -135,7 +135,7 @@
 						<i>There's nothing here. This may be done on purpose to disable a preset animation.</i>
 					</div>
 				{:else}
-					{#each value as ani}
+					{#each value as ani, index}
 						<section class='[&>*:not(:last-child)]:mb-1'>
 							<header class='flex justify-between'>
 								<!-- Preset -->
@@ -201,6 +201,9 @@
 								</label>
 							</div>
 						</section>
+						{#if index !== value.length - 1}
+							<hr />
+						{/if}
 					{/each}
 				{/if}
 			</div>
