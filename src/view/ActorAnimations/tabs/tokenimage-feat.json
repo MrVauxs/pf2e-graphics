@@ -1,0 +1,10 @@
+{
+	"name": "PF2e Graphics",
+	"system": {
+		"description": {
+			"gm": "",
+			"value": "<p>@Localize[pf2e-graphics.featText]</p>"
+		}
+	},
+	"img": "icons/equipment/head/headwrap-cloth-white.webp"
+}

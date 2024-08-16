@@ -119,6 +119,8 @@ export let AnimCore = class AnimCore {
 			animationObject = AnimCore.getAnimationsArray(animationObject)
 		}
 
+		if (!nonNullable(animationObject)) return []
+
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
 			.flatMap(x => AnimCore.unfoldAnimations(x))

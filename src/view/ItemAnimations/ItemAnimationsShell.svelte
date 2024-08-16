@@ -5,6 +5,7 @@
 	import { getContext } from 'svelte'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
 	import UserAnimationsApp from '../UserAnimations/UserAnimationsApp'
+	import PresetAnimations from './tabs/preset-animations.svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
@@ -131,7 +132,7 @@
 				<!-- Inner Content -->
 				<div class='w-3/4 overflow-y-scroll'>
 					{#if $activeTab === 'preset-animations'}
-						<!-- <PresetAnimations {animData} item={document} /> -->
+						<PresetAnimations {doc} />
 					{/if}
 				</div>
 			{/if}

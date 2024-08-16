@@ -4,6 +4,7 @@
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import TokenimageManager from './tabs/tokenimage-manager.svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
@@ -14,7 +15,7 @@
 
 	const doc = storeDocument
 
-	const tabs = ['actor-animations'] as const
+	const tabs = ['actor-animations', 'tokenimage-manager'] as const
 	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number])
 </script>
 
@@ -53,6 +54,9 @@
 				<div class='w-full overflow-y-scroll p-1'>
 					<AnimationEditor {doc} />
 				</div>
+			{/if}
+			{#if $activeTab === 'tokenimage-manager'}
+				<TokenimageManager actor={doc} />
 			{/if}
 		</div>
 	</main>
