@@ -10,7 +10,7 @@ import { Timing } from '#runtime/util'
  *
  * @template T
  */
-export class TJSDocumentProperty<T> {
+export default class TJSDocumentProperty<T> {
 	/**
 	 * When a positive integer debounce input in milliseconds.
 	 *

@@ -8,20 +8,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.6.5] - Unreleased
+## [Unreleased]
+
+## [0.7.0] - 2024-08-16
 
 ### Added
 
+- **New Features to Animation Menus**, see *Changed* section.
 - Origin data to `damage-taken` animations, allowing for animations to start from the attacker to the target taking damage / being healed.
+- Ability to force `attachTo` on line and cone animations instead of standard `stretchTo`.
+- SFX indicators, a Search bar, total tally, and columns config to Preset Animations Menu.
 - **New Animations**:
-  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Puff of Poison, Scatter Scree, Spout (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
+  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
   - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Pick Weapon Group (free JB2A version) ([@MrVauxs](https://mrvauxs.net/))
 - **New Sounds** from [SoundFlakes](https://freesound.org/people/SoundFlakes/)!
 
 ### Changed
 
 - Spell Effect: Shield animation to be compatible with free version of JB2A.
 - Existing alchemical bombs so that they follow the same layout.
+- **Refactored Animations Menus**
+  - Fixed bugs ([#38](https://github.com/MrVauxs/pf2e-graphics/issues/38))
+  - Improved underlying CSS.
+  - Shift Clicking on the Animations button will open the animations menu and close the menu it was opened from.
+  - Added a Search function.
+  - You can now reference existing animations.
 
 ## [0.6.4] - 2024-08-13
 
@@ -264,7 +276,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pre-release versions to be semver compliant
 
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...HEAD
+
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...v0.7.0
 [0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.1...v0.6.2

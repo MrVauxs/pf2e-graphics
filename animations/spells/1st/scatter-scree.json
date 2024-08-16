@@ -3,7 +3,18 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.falling_rocks.side.2x1.grey"
+			"file": "jb2a.falling_rocks.side.2x1.grey",
+			"options": {
+				"attachTo": {
+					"offset": { "x": 1 },
+					"local": true,
+					"gridUnits": true
+				},
+				"scaleToObject": {
+					"value": 1.5,
+					"uniform": true
+				}
+			}
 		}
 	]
 }

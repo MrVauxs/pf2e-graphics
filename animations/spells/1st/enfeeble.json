@@ -1,7 +1,7 @@
 {
 	"item:slug:enfeeble": [
 		{
-			"trigger": "spell-cast",
+			"trigger": "saving-throw",
 			"preset": "ranged",
 			"file": "jb2a.eldritch_blast.dark_red"
 		}

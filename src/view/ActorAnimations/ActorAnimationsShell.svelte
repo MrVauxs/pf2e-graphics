@@ -1,29 +1,22 @@
 <svelte:options accessors={true} />
-
 <script lang='ts'>
-	import type { Writable } from 'svelte/store'
+	import { i18n } from 'src/utils'
+	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte'
-	import { devMessage, i18n } from 'src/utils'
-	// import AllAnimations from './submenus/all-animations.svelte'
-	import TokenimageManager from './submenus/tokenimage-manager.svelte'
-	import ActorAnimations from './submenus/actor-animations.svelte'
+	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import TokenimageManager from './tabs/tokenimage-manager.svelte'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
 
+	export let storeDocument: TJSDocument<ActorPF2e>
+	export let document: ActorPF2e
 	export let elementRoot: HTMLElement | undefined
-	export let actor: ActorPF2e | null = null
-	if (!actor) {
-		throw new Error('An actor is required to render the ActorAnimations application.')
-	}
 
-	const sessionStorage = getContext('#external').sessionStorage
+	const doc = storeDocument
 
-	const doc = new TJSDocument(actor)
-	devMessage(actor, doc)
-
-	const tabs = ['actor-animations', /* 'all-animations', */ 'tokenimage-manager'] as const
-	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore(actor.id, tabs[0])
+	const tabs = ['actor-animations', 'tokenimage-manager'] as const
+	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number])
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -57,37 +50,14 @@
 			</div>
 		</div>
 		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
-			<div class='overflow-y-auto w-full'>
-				<!-- {#if $activeTab === 'all-animations'}
-					<AllAnimations {doc} />
-				{/if} -->
-				{#if $activeTab === 'actor-animations'}
-					<ActorAnimations {doc} />
-				{/if}{#if $activeTab === 'tokenimage-manager'}
-					<TokenimageManager actor={doc} />
-				{/if}
-			</div>
+			{#if $activeTab === 'actor-animations'}
+				<div class='w-full overflow-y-scroll p-1'>
+					<AnimationEditor {doc} />
+				</div>
+			{/if}
+			{#if $activeTab === 'tokenimage-manager'}
+				<TokenimageManager actor={doc} />
+			{/if}
 		</div>
 	</main>
 </ApplicationShell>
-
-<style lang='postcss'>
-	.border-y-foundry {
-		border-bottom: 1px solid var(--secondary-background);
-		border-top: 1px solid var(--secondary-background);
-	}
-	.tab-button {
-		all: unset;
-
-		@apply w-full;
-
-		&:hover {
-			text-shadow: 0 0 10px var(--color-shadow-primary);
-		}
-	}
-
-	.active-tab {
-		text-shadow: 0 0 10px var(--color-shadow-primary);
-		@apply underline font-bold;
-	}
-</style>

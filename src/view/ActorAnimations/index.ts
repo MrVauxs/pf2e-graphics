@@ -22,7 +22,7 @@ function spawn(application: CharacterSheetPF2e) {
 	}
 
 	new ActorAnimationsApp({
-		data: { actor: application.actor },
+		document: application.actor,
 	}).render(true, {
 		focus: true,
 		...position,

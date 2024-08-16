@@ -119,6 +119,8 @@ export let AnimCore = class AnimCore {
 			animationObject = AnimCore.getAnimationsArray(animationObject)
 		}
 
+		if (!nonNullable(animationObject)) return []
+
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
 			.flatMap(x => AnimCore.unfoldAnimations(x))
@@ -363,7 +365,9 @@ export let AnimCore = class AnimCore {
 			trigger: this.CONST.TRIGGERS[0],
 			preset: this.CONST.PRESETS[0],
 			file: '',
-			options: {},
+			options: {
+				tieToDocuments: true,
+			},
 		}),
 		PRESETS: Object.keys(presets) as PresetKeys[],
 		TRIGGERS: [

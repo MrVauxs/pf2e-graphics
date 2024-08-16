@@ -1,6 +1,7 @@
 dist/
 pf2e-graphics.*
 *timestamp*
+_old
 
 # Logs
 logs

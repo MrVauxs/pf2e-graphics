@@ -1,49 +1,30 @@
 <svelte:options accessors={true} />
-
 <script lang='ts'>
-	import { type Writable, readable } from 'svelte/store'
+	import { i18n } from 'src/utils'
+	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte'
-	import { devMessage, i18n } from 'src/utils'
-	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
+	import { type Writable, writable } from 'svelte/store'
 	import AnimationEditor from '../_components/AnimationEditor.svelte'
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
+	export let storeDocument: Writable<{ id: 'settings' }>
 	export let elementRoot: HTMLElement | undefined
 
-	const sessionStorage = getContext('#external').sessionStorage
-	const showNewAnimation = sessionStorage.getStore('showNewAnimation', false)
-	let newKey = ''
-
-	const doc = window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<Record<string, Exclude<JSONData[string], string>>>
-
-	// FIXME: I shouldn't have to do this but...
-	doc.subscribe((upd) => {
-		Object.entries(upd).forEach(([key, val]) => val ? null : delete upd[key])
-		game.settings.set('pf2e-graphics', 'worldAnimations', upd)
-	})
-
 	const tabs = ['world-animations', 'preset-animations'] as const
-	const activeTab: Writable<(typeof tabs)[number]> = sessionStorage.getStore('world', tabs[0])
+	const activeTab = getContext('#external').sessionStorage.getStore('settings', tabs[0] as typeof tabs[number])
 
-	function createAnimation() {
-		if (!newKey.length) throw ui.notifications.error('Primary roll option must not be empty!')
-		$doc[newKey.trim()] = []
-		$showNewAnimation = !$showNewAnimation
-	}
-
-	const animations = window.pf2eGraphics.AnimCore.getAnimations()
-
-	$: devMessage(`World Animations (${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()})`, $doc, $showNewAnimation)
+	let search = ''
+	let columns = 4
 </script>
 
 <ApplicationShell bind:elementRoot>
 	<main class='overflow-hidden flex flex-col h-full'>
-		<div class='flex-grow-0 flex-shrink'>
+		<div class='flex-grow-0 flex-shrink pb-1'>
 			<div class='flex gap-2 h-20'>
 				<div class='flex flex-col w-full'>
-					<h1 class='w-full my-1 font-serif font-bold text-4xl text-center border-0'>
+					<h1 class='w-full mt-1 font-serif font-bold text-4xl text-center'>
 						World Animations
 					</h1>
 					<!-- Tabs -->
@@ -60,93 +41,74 @@
 				</div>
 			</div>
 		</div>
-		<div class='flex flex-row overflow-hidden flex-1 pb-2'>
-			<div class='overflow-y-auto w-full'>
-				{#if $activeTab === 'world-animations'}
-					<div class='p-2 pb-0 flex flex-col h-full items-center'>
-						<div class='flex flex-col w-full items-center gap-1.5'>
-							{#each Object.keys($doc) as key}
-								<AnimationEditor
-									bind:key
-									bind:value={$doc[key]}
-									deleteFn={(key) => {
-										delete $doc[key]
-										// eslint-disable-next-line no-self-assign
-										$doc = $doc // Svelte Updates
-									}} />
-							{/each}
-						</div>
-						<div class='w-1/2 m-1 text-center items-center flex flex-col gap-1'>
-							{#if !$showNewAnimation}
-								<button on:click={() => ($showNewAnimation = !$showNewAnimation)}>
-									<i class='fas fa-plus' />
-									Create New Animation
-								</button>
-							{:else}
-								<span class='px-1'> Input the primary roll option. </span>
-								<div class='flex w-full gap-1'>
-									<input
-										type='text'
-										bind:value={newKey}
-										placeholder={window.Sequencer.Helpers.random_array_element(AnimCore.keys)}
-									/>
-									<button
-										data-tooltip='pf2e-graphics.cancel'
-										class='fa fa-times w-min m-0'
-										on:click={() => ($showNewAnimation = !$showNewAnimation)}
-									/>
-								</div>
-								<button class="" on:click={createAnimation}>
-									<i class='fas fa-check' />
-									Submit
-								</button>
-							{/if}
-						</div>
+		<div class='overflow-hidden flex-1 pb-2 w-full flex flex-col'>
+			{#if $activeTab === 'world-animations'}
+				<div class='w-full overflow-y-scroll p-1'>
+					<AnimationEditor doc={storeDocument} />
+				</div>
+			{/if}
+			{#if $activeTab === 'preset-animations'}
+				<div class='text-nowrap flex justify-stretch mx-auto'>
+					<div>
+						<i class='fa fa-grid' /> Columns
+						<input
+							step='1'
+							min='1'
+							class='w-1/2 mx-1'
+							bind:value={columns}
+							type='number'
+						/>
 					</div>
-				{/if}
-				{#if $activeTab === 'preset-animations'}
-					<div class='p-2 pb-0 items-center overflow-x-hidden overflow-y-scroll grid grid-cols-3 gap-x-1'>
-						{#each Object.keys(animations).sort() as key}
-							<div
-								class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
-								data-tooltip={key}
-							>
-								<span class='w-[90%] truncate text-nowrap'>{key}</span>
-								<button
-									class='fas fa-brackets-curly h-full w-min ml-auto'
-									on:click={() => {
-										new JSONEditorApp(
-											{ data: { store: readable(animations[key]), key } },
-										).render(true, {
-											focus: true,
-										})
-									}} />
-							</div>
-						{/each}
+					<div>
+						<i class='fa fa-search' /> Search
+						<input
+							class='w-1/2 mx-1'
+							bind:value={search}
+							type='text'
+						/>
 					</div>
-				{/if}
-			</div>
+					<div>
+						<i class='fa fa-tally' /> Total
+						<input
+							disabled
+							class='w-1/2 mx-1'
+							value={Object.keys(window.pf2eGraphics.AnimCore.animations).length}
+							type='number'
+						/>
+					</div>
+				</div>
+				<div
+					class='p-1 pb-0 items-center overflow-x-hidden overflow-y-scroll grid gap-x-1'
+					style:grid-template-columns='repeat({columns}, minmax(0, 1fr))'
+				>
+					{#each Object.keys(window.pf2eGraphics.AnimCore.animations).filter(k => k.includes(search)).sort() as key}
+						{@const animation = window.pf2eGraphics.AnimCore.animations[key]}
+						<div
+							class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
+							data-tooltip={key}
+						>
+							<span class='w-[90%] truncate text-nowrap'>
+								{key}
+								{#if typeof animation !== 'string' && animation.some(ani => ani.options?.sound)}
+									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound' />)
+								{/if}
+							</span>
+							<button
+								class='fas fa-brackets-curly h-full w-min ml-auto'
+								on:click={() => {
+									new JSONEditorApp({
+										store: writable({ [key]: animation }),
+										stasis: writable(true),
+										permission: false,
+									}).render(true, {
+										focus: true,
+									})
+								}}
+							/>
+						</div>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</main>
 </ApplicationShell>
-
-<style lang='postcss'>
-	.border-y-foundry {
-		border-bottom: 1px solid var(--secondary-background);
-		border-top: 1px solid var(--secondary-background);
-	}
-	.tab-button {
-		all: unset;
-
-		@apply w-full;
-
-		&:hover {
-			text-shadow: 0 0 10px var(--color-shadow-primary);
-		}
-	}
-
-	.active-tab {
-		text-shadow: 0 0 10px var(--color-shadow-primary);
-		@apply underline font-bold;
-	}
-</style>

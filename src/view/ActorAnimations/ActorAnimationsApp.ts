@@ -1,40 +1,41 @@
-import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
-
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
-import { kofiButton } from 'src/utils'
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
+import { ErrorMsg, kofiButton } from 'src/utils'
+import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 import BasicAppShell from './ActorAnimationsShell.svelte'
 
-interface actorAnimationsOptions {
-	data: {
-		actor: ActorPF2e | null
-	}
+interface ActorAnimationsOptions {
+	document: ActorPF2e
 }
 
 export default class ActorAnimationsApp extends SvelteApplication {
-	constructor(options: ConstructorApplicationOptions & actorAnimationsOptions) {
-		super()
-
-		if (options.data) {
-			foundry.utils.mergeObject(this.options, { svelte: { props: options.data } })
-		}
+	constructor(_options: ConstructorApplicationOptions & ActorAnimationsOptions) {
+		// @ts-expect-error TJS-2-TS
+		super(_options)
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			title: 'pf2e-graphics.modifyActor', // Automatically localized from `lang/en.json`.
-			width: 300,
 			classes: ['pf2e-g'],
 			resizable: true,
-			id: `pf2e-graphics-modify-actor`,
+			width: 600,
+			height: 400,
 
 			svelte: {
 				class: BasicAppShell,
 				target: document.body,
 				intro: true,
-				props: {
-					actor: null,
-				},
+				props: function () {
+					// @ts-expect-error TJS-2-TS
+					const doc = this.options.document
+					if (!doc) throw new ErrorMsg('No Document Provided in ActorAnimationsApp!')
+					return {
+						storeDocument: new TJSDocument(doc),
+						document: doc,
+					}
+				} as () => ActorAnimationsOptions,
 			},
 		})
 	}

@@ -1,39 +1,39 @@
 import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
-import { kofiButton } from 'src/utils'
+import { ErrorMsg, kofiButton } from 'src/utils'
+import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
 import BasicAppShell from './ItemAnimationsShell.svelte'
 
 interface ItemAnimationsOptions {
-	data: {
-		item: ItemPF2e | null
-	}
+	document: ItemPF2e
 }
 
 export default class ItemAnimationsApp extends SvelteApplication {
-	constructor(options: ConstructorApplicationOptions & ItemAnimationsOptions) {
-		super()
-
-		if (options.data) {
-			foundry.utils.mergeObject(this.options, { svelte: { props: options.data } })
-		}
+	constructor(_options: ConstructorApplicationOptions & ItemAnimationsOptions) {
+		// @ts-expect-error TJS-2-TS
+		super(_options)
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			title: 'pf2e-graphics.modifyItem', // Automatically localized from `lang/en.json`.
-			width: 300,
 			classes: ['pf2e-g'],
 			resizable: true,
-			id: `pf2e-graphics-modify-item`,
 
 			svelte: {
 				class: BasicAppShell,
 				target: document.body,
 				intro: true,
-				props: {
-					item: null,
-				},
+				props: function () {
+					// @ts-expect-error TJS-2-TS
+					const doc = this.options.document
+					if (!doc) throw new ErrorMsg('No Document Provided in ItemAnimationsApp!')
+					return {
+						storeDocument: new TJSDocument(doc),
+						document: doc,
+					}
+				} as () => ItemAnimationsOptions,
 			},
 		})
 	}
