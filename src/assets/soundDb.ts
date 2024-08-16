@@ -1,13 +1,31 @@
 // Start from 01
-
 const p = 'modules/pf2e-graphics/assets/library'
-const database = {
+export const database = {
 	attack: {
 		miss: {
 			'01': `${p}/sounds/soniss/SWSH_Swing 3 Large 03_DDUMAIS_NONE.ogg`,
 		},
-		sword: {
+		swing: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/giant-demon-sword-swoosh.ogg`,
+		},
+	},
+	sword: {
+		melee: {
 			'01': `${p}/sounds/soniss/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.ogg`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-weapon/sword-out-of-flesh.ogg`,
+			'03': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-01.ogg`,
+			'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-02.ogg`,
+			'05': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-03.ogg`,
+			'06': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-swoosh-01.ogg`,
+			'07': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-swoosh-03.ogg`,
+			'08': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-swoosh-04.ogg`,
+			'09': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-swoosh-05.ogg`,
+			'impale': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-impale-flesh-05.ogg`,
+			'take-out': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-out-of-flesh-06.ogg`,
+			'slice': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-slice-flesh-02.ogg`,
+		},
+		throw: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-throw-swoosh-02.ogg`,
 		},
 	},
 	lightning_bolt: {
@@ -55,9 +73,15 @@ const database = {
 			'03': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-03.ogg`,
 			'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-04.ogg`,
 			'05': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-05.ogg`,
+			'06': `${p}/sounds/soundflakes/diablo-wrath-weapon/spear-impale-flesh-hit.ogg`,
 		},
 		miss: {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-whoosh.ogg`,
+		},
+	},
+	shield: {
+		break: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/shield-breaking-with-bludgeon.ogg`,
 		},
 	},
 	critical: {
@@ -66,8 +90,35 @@ const database = {
 		'03': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-03.ogg`,
 		'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/etherael-attack-04.ogg`,
 	},
+	finisher: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
+	},
+	unarmed: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-face-punch.ogg`,
+	},
+	spell: {
+		counterspell: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
+		},
+	},
 
 	// Work in Progress
 }
 
-export default database
+Hooks.once('sequencerReady', () => {
+	Sequencer.Database.registerEntries('pf2e-graphics', database)
+})
+
+/*
+import { get } from 'svelte/store'
+if (import.meta.hot) {
+	import.meta.hot.accept((newModule) => {
+		if (newModule) {
+			// Breaks Sequencer Database Viewer
+			// Sequencer.Database.entriesStore.set({ ...get(Sequencer.Database.entriesStore), 'pf2e-graphics': undefined })
+			Sequencer.Database.registerEntries('pf2e-graphics', newModule.database)
+			ui.notifications.info('Updated Sounds!')
+		}
+	})
+}
+*/

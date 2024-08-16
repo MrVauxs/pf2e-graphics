@@ -1,4 +1,4 @@
-import { ErrorMsg, clearEmpties, nonNullable } from 'src/utils'
+import { ErrorMsg, clearEmpties, devMessage, nonNullable } from 'src/utils'
 import type { TokenOrDoc } from 'src/extensions'
 
 export const helpers = {
@@ -477,6 +477,7 @@ type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 's
 interface MacroSequenceData { macro: string }
 
 function applyPresets(override?: boolean) {
+	devMessage('Applying new presets...')
 	Object.keys(presets).forEach((key) => {
 		const preset = presets[key as PresetKeys]
 		if (typeof preset !== 'function') {
@@ -489,13 +490,10 @@ function applyPresets(override?: boolean) {
 Hooks.once('sequencerReady', () => applyPresets())
 
 if (import.meta.hot) {
-	// Prevents reloads
-	import.meta.hot.accept()
-	// Explicitly after
-	import.meta.hot.on('vite:afterUpdate', (module) => {
+	import.meta.hot.accept((module) => {
 		if (module) {
 			applyPresets(true)
-			ui.notifications.info('Updated.')
+			ui.notifications.info('Updated presets.ts!')
 		}
 	})
 }
