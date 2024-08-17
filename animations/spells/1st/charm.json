@@ -6,15 +6,9 @@
 			"file": "jb2a.whirlwind.purple",
 			"options": {
 				"preset": "target",
-				"scaleToObject": {
-					"value": 1
-				},
-				"fadeIn": {
-					"value": 250
-				},
-				"fadeOut": {
-					"value": 500
-				}
+				"scaleToObject": 1,
+				"fadeIn": 250,
+				"fadeOut": 500
 			}
 		}
 	]
