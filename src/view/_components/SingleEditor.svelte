@@ -136,6 +136,7 @@
 					</div>
 				{:else}
 					{#each value as ani, index}
+						{(ani.options ??= {}) && ''}
 						<section class='[&>*:not(:last-child)]:mb-1 overflow-clip'>
 							<header class='flex justify-between gap-1.5'>
 								<!-- Preset -->
