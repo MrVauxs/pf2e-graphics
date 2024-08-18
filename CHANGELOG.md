@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2024-08-18
+
+### Fixed
+
+- Old animations breaking the custom animations menu.
+- **Fixed Animations**: Marshal's Aura being persistent at every performance setting.
+
 ## [0.7.0] - 2024-08-16
 
 ### Added
@@ -275,9 +282,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-
-
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...HEAD
+[0.7.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...v0.7.0
 [0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.2...v0.6.3
