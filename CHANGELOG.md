@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.7.2] - Unreleased
 
+### Added
+
+- Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option.
+
 ### Fixed
 
 - World Animations menu not being able to properly delete animations.
