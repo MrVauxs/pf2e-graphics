@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [0.7.2] - Unreleased
+## [Unreleased]
 
 ### Added
 
