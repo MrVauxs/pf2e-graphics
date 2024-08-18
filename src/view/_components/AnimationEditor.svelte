@@ -3,7 +3,7 @@
 	import derivedFlag from 'src/lib/docFlagDerived'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
 	import { type Writable, writable } from 'svelte/store'
-	import { ErrorMsg } from 'src/utils'
+	import { ErrorMsg, nonNullable } from 'src/utils'
 	import JSONEditorApp from './JSONEditor/JSONEditor'
 	import SingleEditor from './SingleEditor.svelte'
 
@@ -14,6 +14,15 @@
 		? window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<JSONData>
 		// @ts-ignore Above is a type guard
 		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 1000)
+
+	if ($doc.id === 'settings') {
+		flag.subscribe((v) => {
+			const newFlag = Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v)))
+
+			if (Object.keys(newFlag).length !== Object.keys(v).length)
+				flag.set(Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v))))
+		})
+	}
 
 	if (!flag) throw new ErrorMsg('No document was provided to AnimationEditor?!')
 

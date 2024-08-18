@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Dictionary
 > (P) - A premium version of that animation is available.
 
-## [Unreleased]
+## [0.7.2] - Unreleased
+
+### Fixed
+
+- World Animations menu not being able to properly delete animations.
 
 ## [0.7.1] - 2024-08-18
 
