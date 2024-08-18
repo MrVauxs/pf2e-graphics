@@ -388,7 +388,7 @@ export let AnimCore = class AnimCore {
 			'initiative',
 			'perception-check',
 			'counteract-check',
-			'modifiersMatter',
+			'modifiers-matter',
 		],
 	} as const
 
@@ -396,6 +396,12 @@ export let AnimCore = class AnimCore {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite })
 	}
 }
+
+Hooks.once('ready', () => {
+	if (!game.modules.get('pf2e-modifiers-matter')?.active)
+		// @ts-expect-error Modifiers Matter Safeguards
+		AnimCore.CONST.TRIGGERS = AnimCore.CONST.TRIGGERS.filter(x => x !== 'modifiers-matter')
+})
 
 if (import.meta.hot) {
 	import.meta.hot.accept((newModule) => {

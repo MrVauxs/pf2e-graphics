@@ -15,7 +15,7 @@ const modifiersMatter = Hooks.on('modifiersMatter', (
 		const rollOptions = chatMessage.flags.pf2e.context?.options ?? []
 		const deliverable = {
 			rollOptions: rollOptions.concat(`significance:${modifier.significance.toLowerCase()}`),
-			trigger: 'modifiersMatter' as const,
+			trigger: 'modifiers-matter' as const,
 			item: chatMessage.item,
 			targets: [targetedToken],
 		}
