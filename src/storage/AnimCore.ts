@@ -388,6 +388,7 @@ export let AnimCore = class AnimCore {
 			'initiative',
 			'perception-check',
 			'counteract-check',
+			'modifiersMatter',
 		],
 	} as const
 
