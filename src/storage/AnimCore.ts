@@ -169,7 +169,7 @@ export let AnimCore = class AnimCore {
 	 * The actor is not required, for purposes of customizing item animations in the sidebar.
 	 */
 	static getMatchingAnimationTrees(
-		array: string[] = [],
+		rollOptions: string[] = [],
 		actor?: ActorPF2e | null,
 		item?: ItemPF2e | null,
 	): { animations: Record<string, AnimationDataObject[]>, sources: Record<string, string[]> } {
@@ -177,7 +177,7 @@ export let AnimCore = class AnimCore {
 			animations: {},
 			sources: {},
 		}
-		if (!array.length) return obj
+		if (!rollOptions.length) return obj
 
 		// Allow deletions in event players just dont want an animation at all.
 		const merge = foundry.utils.mergeObject
@@ -189,22 +189,32 @@ export let AnimCore = class AnimCore {
 		const owners = actor ? getPlayerOwners(actor) : [game.user]
 		const user = owners.find(x => x.id === game.user.id) || owners[0]
 
+		// TODO: Make a PR to the system to make this roll option dance unnecessary and get it from getOriginData()
+		const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1)
+		const itemOrigin = item?.origin?.uuid
+			? fromUuidSync(`${item?.origin?.uuid}.Item.${itemOriginId}`) as ItemPF2e
+			: undefined
+
 		// Get all the flags.
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
-		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
-		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
+		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
 		const customAnimations = merge(
 			window.pf2eGraphics.liveSettings.worldAnimations,
 			merge(
 				userKeys,
 				merge(
-					itemOriginKeys,
+					actorOriginKeys,
 					merge(
-						actorKeys,
-						itemKeys,
+						itemOriginKeys,
+						merge(
+							actorKeys,
+							itemKeys,
+						),
 					),
 				),
 			),
@@ -219,7 +229,7 @@ export let AnimCore = class AnimCore {
 			item: Object.keys(itemKeys),
 		} as const
 
-		const preparedOptions = this.prepRollOptions(array)
+		const preparedOptions = this.prepRollOptions(rollOptions)
 		const keys = merge(AnimCore.keys, Object.keys(customAnimations))
 
 		obj.animations = keys
