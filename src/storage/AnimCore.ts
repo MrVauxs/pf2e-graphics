@@ -191,9 +191,7 @@ export let AnimCore = class AnimCore {
 
 		// TODO: Make a PR to the system to make this roll option dance unnecessary and get it from getOriginData()
 		const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1)
-		const itemOrigin = item?.origin?.uuid
-			? fromUuidSync(`${item?.origin?.uuid}.Item.${itemOriginId}`) as ItemPF2e
-			: undefined
+		const itemOrigin = item?.origin?.items.get(itemOriginId || '')
 
 		// Get all the flags.
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
