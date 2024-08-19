@@ -1,10 +1,9 @@
 <script lang='ts'>
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { ErrorMsg, arrayMove, i18n, nonNullable } from 'src/utils'
+	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils'
 	import { flip } from 'svelte/animate'
 	import type { Writable } from 'svelte/store'
 	import { slide } from 'svelte/transition'
-	import SubEditor from './SubEditor.svelte'
 
 	export let key: string
 	export let value: JSONData[string]
@@ -27,6 +26,15 @@
 			})
 		} else {
 			value = [AnimCore.CONST.TEMPLATE_ANIMATION()]
+		}
+	}
+
+	function bindJSON(event: Event, obj: Record<string, any>, prop: string) {
+		try {
+			obj[prop] = JSON.parse((event.target as HTMLInputElement).value)
+			$flag = $flag
+		} catch {
+			throw new ErrorMsg('Invalid JSON!')
 		}
 	}
 
@@ -148,11 +156,119 @@
 							animate:flip={{ duration: 250 }}
 							class='[&>*:not(:last-child)]:mb-1 overflow-clip p-1'
 							role='group'
-							draggable={Boolean(value.length - 1)}
+							draggable={Boolean(value.length)}
 							on:dragstart={event => dragStart(event, index)}
 							on:drop={event => drop(event, index)}
 						>
-							<SubEditor bind:ani bind:disabled bind:flag />
+							{(ani.options ??= {}) && ''}
+							<header class='flex justify-between gap-1.5'>
+								<!-- Preset -->
+								<label class='flex items-center gap-2'>
+									<span class='mr-1 text-nowrap'> {i18n('editor.preset')} </span>
+									<select bind:value={ani.preset} {disabled}>
+										{#each AnimCore.CONST.PRESETS as preset}
+											<option value={preset}>{camelToSpaces(preset).titleCase()}</option>
+										{/each}
+									</select>
+								</label>
+
+								<!-- Trigger -->
+								<label class='flex items-center gap-2'>
+									<span class='mr-1 text-nowrap'> {i18n('editor.trigger')} </span>
+									<select bind:value={ani.trigger} {disabled}>
+										{#each AnimCore.CONST.TRIGGERS as trigger}
+											<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
+										{/each}
+									</select>
+								</label>
+
+								<!-- Predicate -->
+								<label class='flex items-center gap-2'>
+									<span class='mr-1 text-nowrap'> {i18n('editor.predicate')} </span>
+									<input
+										{disabled}
+										type='text'
+										value={JSON.stringify(ani.predicate || [])}
+										on:change={e => bindJSON(e, ani, 'predicate')}
+									/>
+								</label>
+							</header>
+
+							<!-- Image File -->
+							<label class='flex items-center gap-1 col-span-4'>
+								<span class='mr-1 text-nowrap'>{i18n('editor.imageFile')}</span>
+								<input
+									{disabled}
+									type='text'
+									bind:value={ani.file}
+								/>
+								<button
+									class='fas fa-database w-min leading-6'
+									data-tooltip='SEQUENCER.SidebarButtons.Database'
+									on:click={() => window.Sequencer.DatabaseViewer.show()}
+								/>
+							</label>
+
+							{(ani.options.sound ??= {}) && ''}
+							{#if Array.isArray(ani.options.sound)}
+								<div class='p-1 text-center text-opacity-50 text-slate-600 border border-solid rounded-sm'><i>This animation contains multiple sounds which are modifiable only through JSON editor.</i></div>
+							{:else}
+								<!-- Sound File -->
+								<label class='flex items-center gap-1 col-span-4'>
+									<span class='mr-1 text-nowrap'>{i18n('editor.soundFile')}</span>
+									<input
+										{disabled}
+										type='text'
+										bind:value={ani.options.sound.file}
+									/>
+									<button
+										class='fas fa-database w-min leading-6'
+										data-tooltip='SEQUENCER.SidebarButtons.Database'
+										on:click={() => window.Sequencer.DatabaseViewer.show()}
+									/>
+								</label>
+							{/if}
+
+							<!-- Booleans -->
+							<div class='flex justify-between'>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Persistent</span>
+									<input {disabled} type='checkbox' bind:checked={ani.options.persist} />
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Masked</span>
+									<input {disabled} type='checkbox' bind:checked={ani.options.mask} />
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Tie To Documents</span>
+									<input {disabled} type='checkbox' bind:checked={ani.options.tieToDocuments} />
+								</label>
+							</div>
+
+							<!-- Delays -->
+							<div class='flex justify-between gap-2'>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait Until Finished</span>
+									<input {disabled} type='number'
+										placeholder='-1000 (ms)'
+										bind:value={ani.options.waitUntilFinished}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.wait}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Delay</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.delay}
+									/>
+								</label>
+							</div>
 
 							{#if index !== value.length - 1}
 								<hr />
