@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - World Animations menu not being able to properly delete animations.
+- **Fixed Animations**:
+  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](https://github.com/7H3LaughingMan))
 
 ## [0.7.1] - 2024-08-18
 
