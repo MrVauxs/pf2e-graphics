@@ -127,12 +127,18 @@ export function kofiButton(buttons: any[]) {
 	return buttons
 }
 
-export function arrayMove(arr: any[], old_index: number, new_index: number) {
+/**
+ * Moves an array index from one position to another.
+ * Mutates the original array and returns the modified version.
+ *
+ * @param arr
+ * @param {number} old_index
+ * @param new_index
+ * @returns array
+ */
+export function arrayMove<T>(arr: T[], old_index: number, new_index: number): T[] {
 	if (new_index >= arr.length) {
-		let k = new_index - arr.length + 1
-		while (k--) {
-			arr.push(undefined)
-		}
+		throw new Error('You are trying to push to an index beyond the array\'s size!')
 	}
 	arr.splice(new_index, 0, arr.splice(old_index, 1)[0])
 	return arr // for testing

@@ -69,8 +69,7 @@
 
 		if (disabled || typeof value === 'string' || !nonNullable(indexFrom) || indexFrom === indexTo) return
 
-		arrayMove(value, indexFrom, indexTo)
-		value = value
+		value = arrayMove(value, indexFrom, indexTo)
 	}
 </script>
 
@@ -154,7 +153,6 @@
 				{:else}
 					{#each value as ani, index (ani)}
 						<section
-							style:z-index={index}
 							animate:flip
 							class='[&>*:not(:last-child)]:mb-1 overflow-clip p-1'
 							role='group'
@@ -235,7 +233,6 @@
 				{/if}
 			</div>
 		{/if}
-
 	</section>
 {/if}
 
