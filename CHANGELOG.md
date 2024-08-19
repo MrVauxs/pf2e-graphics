@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - World Animations menu not being able to properly delete animations.
+- Shield no longer shoots a bullet (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
 ## [0.7.1] - 2024-08-18
 
