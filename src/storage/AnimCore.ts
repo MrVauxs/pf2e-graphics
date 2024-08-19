@@ -418,13 +418,13 @@ if (import.meta.hot) {
 
 // #region JSON Data Parsing
 type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] }
-type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
+export type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
 export type TriggerTypes = typeof AnimCore['CONST']['TRIGGERS'][number]
 
-interface AnimationDataObject {
+export interface AnimationDataObject {
 	overrides?: string[]
 	trigger: TriggerTypes
 	preset: PresetKeys

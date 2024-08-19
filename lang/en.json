@@ -112,7 +112,8 @@
 			"preset": "Preset",
 			"trigger": "Trigger",
 			"predicate": "Predicate",
-			"imageFile": "Image File"
+			"imageFile": "Image File",
+			"soundFile": "Sound File"
 		}
 	}
 }
