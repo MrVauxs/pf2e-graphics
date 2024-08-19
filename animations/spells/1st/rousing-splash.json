@@ -1,0 +1,12 @@
+{
+	"effect:slug:spell-effect-rousing-splash": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.liquid.splash.blue",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}
