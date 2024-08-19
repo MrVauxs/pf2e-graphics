@@ -16,6 +16,7 @@ export function nonNullable<T>(value: T): value is NonNullable<T> {
 export let dev = import.meta.env.DEV
 Hooks.once('ready', () => {
 	if (!dev) dev = game.settings.get('pf2e-graphics', 'dev') as boolean
+	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => dev = x)
 })
 
 export function devMessage(...args: any) {
