@@ -1,28 +1,25 @@
 {
-  "action:administer-first-aid:stop-bleeding": [
-    {
-      "trigger": "skill-check",
-      "preset": "onToken",
-      "file": "jb2a.healing_generic.200px.red",
-      "options": {
-        "preset": "target",
-        "scaleToObject": 1.5,
-        "fadeIn": 250,
-        "fadeOut": 250
-      }
-    }
-  ],
-  "action:administer-first-aid:stabilize": [
-    {
-      "trigger": "skill-check",
-      "preset": "onToken",
-      "file": "jb2a.healing_generic.200px.green",
-      "options": {
-        "preset": "target",
-        "scaleToObject": 1.5,
-        "fadeIn": 250,
-        "fadeOut": 250
-      }
-    }
-  ]
+	"action:administer-first-aid": [
+		{
+			"trigger": "skill-check",
+			"preset": "onToken",
+			"file": "jb2a.healing_generic.200px.red",
+			"options": {
+				"preset": "target",
+				"scaleToObject": 1.5,
+				"fadeIn": 250,
+				"fadeOut": 250
+			},
+			"contents": [
+				{
+					"file": "jb2a.healing_generic.200px.green",
+					"predicate": ["action:administer-first-aid:stabilize"]
+				},
+				{
+					"file": "jb2a.healing_generic.200px.red",
+					"predicate": ["action:administer-first-aid:stop-bleeding"]
+				}
+			]
+		}
+	]
 }
