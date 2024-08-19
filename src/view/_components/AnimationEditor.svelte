@@ -11,11 +11,15 @@
 	export function createAnimation() {}
 
 	const flag = $doc.id === 'settings'
-		? window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<JSONData>
+		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<JSONData>
 		// @ts-ignore Above is a type guard
-		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 1000)
+		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 500)
 
 	if ($doc.id === 'settings') {
+		flag.subscribe((v) => {
+			foundry.utils.debounce(() => game.settings.set('pf2e-graphics', 'worldAnimations', v), 500)()
+		})
+
 		flag.subscribe((v) => {
 			const newFlag = Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v)))
 
