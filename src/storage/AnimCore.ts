@@ -57,6 +57,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static get animations(): JSONData {
+		if (dev) return this.getAnimations()
 		if (!this._animations) this._animations = this.getAnimations()
 		return this._animations
 	}
@@ -68,6 +69,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static get keys(): string[] {
+		if (dev) return this.getKeys()
 		if (!this._keys) this._keys = this.getKeys()
 		return this._keys
 	}
