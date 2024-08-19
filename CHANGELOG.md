@@ -13,12 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option ([#40](https://github.com/MrVauxs/pf2e-graphics/issues/40))
+- More options to the Custom Animation menu.
 - Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
 - **New Animations**:
   - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
 ### Fixed
 
+- Dev Mode not working without a refresh.
 - World Animations menu not being able to properly delete animations.
 - **Fixed Animations**:
   - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](https://github.com/7H3LaughingMan))
