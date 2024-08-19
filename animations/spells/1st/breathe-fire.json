@@ -3,7 +3,21 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.burning_hands.01.orange"
+			"file": "jb2a.burning_hands.01.orange",
+			"contents": [
+				{
+				},
+				{
+					"options": {
+						"rotate": -20
+					}
+				},
+				{
+					"options": {
+						"rotate": 20
+					}
+				}
+			]
 		}
 	]
 }
