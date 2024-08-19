@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option.
+- **New Animations**:
+  - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
 ### Fixed
 
