@@ -11,5 +11,5 @@ The following directories are named after their creators and are used under thei
 - Ovani Sounds: <https://ovanisound.com/policies/terms-of-service>
 - GameDev Market: <https://www.gamedevmarket.net/terms-conditions#pro-licence>
 - Soniss: <https://sonniss.com/gdc-bundle-license>
-- SoundFlakes: ["CC BY 4.0" Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
-- Last Day Dreaming [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/deed.en)
+- SoundFlakes: ["CC BY 4.0" Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) ([1](https://freesound.org/people/SoundFlakes/packs/27753/), [2](https://freesound.org/people/SoundFlakes/packs/27745/))
+- Last Day Dreaming: [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) (https://lastdaydreaming.itch.io/)

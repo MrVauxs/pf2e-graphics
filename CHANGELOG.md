@@ -20,6 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.7.2] - 2024-08-20
 
+## [0.7.3] - 2024-08-20
+
+### Changed
+
+- Removed update delay from World Animation settings.
+
+## [0.7.2] - 2024-08-20
+
 ### Added
 
 - Items that grant effects (ex. spells) storing animations pertaining to those effects.
@@ -28,7 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More options to the Custom Animation menu.
 - Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
 - **New Animations**:
-  - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Administer First Aid, Aid, Admonishing Ray (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](https://github.com/Mystler)!)
 
 ### Fixed
 
@@ -309,7 +318,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...HEAD
+[0.7.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.2...v0.7.3
+[0.7.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...v0.7.0
 [0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4

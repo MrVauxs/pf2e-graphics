@@ -1,0 +1,28 @@
+{
+	"item:slug:admonishing-ray": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"contents": [
+				{
+					"file": "jb2a.ranged.02.instant.01.yellow",
+					"predicate": [
+						"jb2a:free"
+					],
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": -130
+						}
+					}
+				},
+				{
+					"file": "jb2a.ranged.02.instant.01.purple",
+					"predicate": [
+						"jb2a:patreon"
+					]
+				}
+			]
+		}
+	]
+}

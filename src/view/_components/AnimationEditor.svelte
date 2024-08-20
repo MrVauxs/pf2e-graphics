@@ -17,7 +17,7 @@
 
 	if ($doc.id === 'settings') {
 		flag.subscribe((v) => {
-			foundry.utils.debounce(() => game.settings.set('pf2e-graphics', 'worldAnimations', v), 500)()
+			game.settings.set('pf2e-graphics', 'worldAnimations', v)
 		})
 
 		flag.subscribe((v) => {
