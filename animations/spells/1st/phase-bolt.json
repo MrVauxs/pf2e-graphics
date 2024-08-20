@@ -1,0 +1,9 @@
+{
+	"item:slug:phase-bolt": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.bolt.physical.purple"
+		}
+	]
+}

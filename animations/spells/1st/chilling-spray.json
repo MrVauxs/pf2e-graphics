@@ -3,7 +3,21 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.cone_of_cold.blue"
+			"file": "jb2a.cone_of_cold.blue",
+			"contents": [
+				{
+				},
+				{
+					"options": {
+						"rotate": -20
+					}
+				},
+				{
+					"options": {
+						"rotate": 20
+					}
+				}
+			]
 		}
 	]
 }

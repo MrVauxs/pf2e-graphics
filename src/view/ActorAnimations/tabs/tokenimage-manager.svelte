@@ -98,7 +98,7 @@
 	let packToImport: TokenImageRuleSource[] = []
 </script>
 
-<div class='p-2 pb-0 flex flex-col h-full'>
+<div class='p-2 pb-0 flex flex-col h-full w-full'>
 	{#if $tokenImageID && $feat}
 		<div class='flex-grow flex-shrink overflow-y-scroll mb-2 text-center'>
 			{#each $feat.system.rules.filter(isCustomTokenImage) as rule}
@@ -286,7 +286,7 @@
 			</button>
 		</div>
 	{:else}
-		<div class='w-3/4 h-full text-center content-center mx-auto'>
+		<div class='w-full h-full text-center content-center mx-auto'>
 			<div>
 				<p>
 					The actor does not have a dedicated token image feature!
