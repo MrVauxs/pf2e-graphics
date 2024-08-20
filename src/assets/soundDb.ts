@@ -35,6 +35,56 @@ export const database = {
 			'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
 		},
 	},
+	magic: {
+		water: {
+			cast: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
+			},
+			hold: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
+			},
+			impact: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
+			},
+			launch: {
+
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
+			},
+		},
+		fire: {
+			cast: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
+			},
+			hold: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_HOLD_4s.ogg`,
+			},
+			impact: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_IMPACT_01.ogg`,
+			},
+			launch: {
+
+				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_LAUNCH_01.ogg`,
+			},
+		},
+		lightning: {
+			cast: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
+			},
+			hold: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_HOLD_5s.ogg`,
+			},
+			impact: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
+			},
+			launch: {
+
+				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
+			},
+		},
+	},
 	bow: {
 		'01': `${p}/sounds/gamedev-market/BowWhistleShot1.ogg`,
 		'02': `${p}/sounds/gamedev-market/BowWhistleShot2.ogg`,

@@ -12,3 +12,4 @@ The following directories are named after their creators and are used under thei
 - GameDev Market: <https://www.gamedevmarket.net/terms-conditions#pro-licence>
 - Soniss: <https://sonniss.com/gdc-bundle-license>
 - SoundFlakes: ["CC BY 4.0" Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Last Day Dreaming [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/deed.en)
