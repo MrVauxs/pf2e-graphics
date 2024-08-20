@@ -145,7 +145,7 @@
 					},
 					"contents": [
 						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
+							"predicate": [{ "gte": ["graphics-quality", 2] }],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {

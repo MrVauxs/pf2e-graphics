@@ -3,9 +3,6 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"options": {
-				"tieToDocuments": true
-			},
 			"contents": [
 				{
 					"file": "jb2a.ranged.02.instant.01.yellow",

@@ -26,7 +26,7 @@
 							"trigger": "effect"
 						},
 						{
-							"predicate": [{ "lte": ["graphics-quality", 3] }],
+							"predicate": ["graphics-quality:3"],
 							"trigger": "effect",
 							"options": {
 								"tieToDocuments": true,
@@ -47,7 +47,7 @@
 					"trigger": "effect"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 3] }],
+					"predicate": ["graphics-quality:3"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

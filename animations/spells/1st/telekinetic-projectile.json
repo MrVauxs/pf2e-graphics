@@ -1,0 +1,9 @@
+{
+	"item:slug:telekinetic-projectile": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.boulder.toss.01"
+		}
+	]
+}

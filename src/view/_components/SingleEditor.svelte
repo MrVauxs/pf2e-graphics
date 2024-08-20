@@ -4,6 +4,7 @@
 	import { flip } from 'svelte/animate'
 	import type { Writable } from 'svelte/store'
 	import { slide } from 'svelte/transition'
+	import Separator from './Separator.svelte'
 
 	export let key: string
 	export let value: JSONData[string]
@@ -71,6 +72,9 @@
 
 		value = arrayMove(value, indexFrom, indexTo)
 	}
+
+	// @ts-expect-error TODO: Yes it does.
+	const dbEntries = window.Sequencer.Database.entries
 </script>
 
 {#if nonNullable(value)}
@@ -153,10 +157,10 @@
 				{:else}
 					{#each value as ani, index (ani)}
 						<section
-							animate:flip
-							class='[&>*:not(:last-child)]:mb-1 overflow-clip p-1'
+							animate:flip={{ duration: 250 }}
+							class='flex flex-col gap-1.5 overflow-clip p-1'
 							role='group'
-							draggable='true'
+							draggable={Boolean(value.length - 1)}
 							on:dragstart={event => dragStart(event, index)}
 							on:drop={event => drop(event, index)}
 						>
@@ -200,6 +204,7 @@
 								<input
 									{disabled}
 									type='text'
+									placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a).dbPath}
 									bind:value={ani.file}
 								/>
 								<button
@@ -209,6 +214,30 @@
 								/>
 							</label>
 
+							{(ani.options.sound ??= {}) && ''}
+							{#if Array.isArray(ani.options.sound)}
+								<div class='p-1 text-center text-opacity-50 text-slate-600 border border-solid rounded-sm'><i>This animation contains multiple sounds which are modifiable only through JSON editor.</i></div>
+							{:else}
+								<!-- Sound File -->
+								<label class='flex items-center gap-1 col-span-4'>
+									<span class='mr-1 text-nowrap'>{i18n('editor.soundFile')}</span>
+									<input
+										{disabled}
+										type='text'
+										placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
+										bind:value={ani.options.sound.file}
+									/>
+									<button
+										class='fas fa-database w-min leading-6'
+										data-tooltip='SEQUENCER.SidebarButtons.Database'
+										on:click={() => window.Sequencer.DatabaseViewer.show()}
+									/>
+								</label>
+							{/if}
+
+							<Separator>
+								Advanced Options
+							</Separator>
 							<!-- Booleans -->
 							<div class='flex justify-between'>
 								<label class='flex items-center gap-1 text-nowrap'>
@@ -222,6 +251,31 @@
 								<label class='flex items-center gap-1 text-nowrap'>
 									<span>Tie To Documents</span>
 									<input {disabled} type='checkbox' bind:checked={ani.options.tieToDocuments} />
+								</label>
+							</div>
+
+							<!-- Delays -->
+							<div class='flex justify-between gap-2'>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait Until Finished</span>
+									<input {disabled} type='number'
+										placeholder='-1000 (ms)'
+										bind:value={ani.options.waitUntilFinished}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.wait}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Delay</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.delay}
+									/>
 								</label>
 							</div>
 
