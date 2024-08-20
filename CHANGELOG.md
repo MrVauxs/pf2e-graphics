@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More options to the Custom Animation menu.
 - Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
 - **New Animations**:
-  - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Administer First Aid, Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
   - Admonishing Ray, Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](https://github.com/Mystler)!)
 
 ### Fixed
