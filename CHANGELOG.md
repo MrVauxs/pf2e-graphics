@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
   - **New Assets**
    - Added Last Day Dreaming Water, Fire, and Lightning Assets ([@ChasarooniZ](https://github.com/ChasarooniZ))
+## [0.7.3] - 2024-08-20
+
+### Changed
+
+- Removed update delay from World Animation settings.
+
+## [0.7.2] - 2024-08-20
 ### Added
 
 - Items that grant effects (ex. spells) storing animations pertaining to those effects.
