@@ -11,14 +11,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
+## [0.7.3] - 2024-08-20
+
+### Changed
+
+- Removed update delay from World Animation settings.
+
+## [0.7.2] - 2024-08-20
+
+## [0.7.3] - 2024-08-20
+
+### Changed
+
+- Removed update delay from World Animation settings.
+
+## [0.7.2] - 2024-08-20
+
+### Added
 
 - Items that grant effects (ex. spells) storing animations pertaining to those effects.
   - Ex. Making a custom animation for the Lay On Hands **effect**, on the Lay On Hands **spell**.
-- Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option ([#40](https://github.com/MrVauxs/pf2e-graphics/issues/40))
+- Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option ([#40](<https://github.com/MrVauxs/pf2e-graphics/issues/40>))
 - More options to the Custom Animation menu.
-- Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
+- Drag and Drop ordering of Custom Animations ([#46](<https://github.com/MrVauxs/pf2e-graphics/issues/46>))
 - **New Animations**:
-  - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Administer First Aid, Aid, Admonishing Ray (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](https://github.com/Mystler)!)
 
 ### Fixed
 
@@ -53,7 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Spell Effect: Shield animation to be compatible with free version of JB2A.
 - Existing alchemical bombs so that they follow the same layout.
 - **Refactored Animations Menus**
-  - Fixed bugs ([#38](https://github.com/MrVauxs/pf2e-graphics/issues/38))
+  - Fixed bugs ([#38](<https://github.com/MrVauxs/pf2e-graphics/issues/38>))
   - Improved underlying CSS.
   - Shift Clicking on the Animations button will open the animations menu and close the menu it was opened from.
   - Added a Search function.
@@ -141,8 +161,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- TokenImage Imports ([#6](https://github.com/MrVauxs/pf2e-graphics/issues/6))
-- World Animations Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- TokenImage Imports ([#6](<https://github.com/MrVauxs/pf2e-graphics/issues/6>))
+- World Animations Menu ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
 - Existing menus re-focusing when being opened again.
 - Sound predicates and ability to have multiple sounds for effects.
 - **New Sounds**: Sword Swing and Miss
@@ -154,7 +174,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `atLocation`, `radius`, `constrainedByWalls`, `volume`, and `duration` support for sound effects.
 - `equipment:[state]` roll options for `toggle` animations. Use them wisely.
 - `templateAsOrigin` preset option for `ranged` animations. Allows to have the template to be the source of the animation, as opposed to the owner token. Allows for template animations detached from token location.
-- User Animation Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- User Animation Menu ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
 
 ### Changed
 
@@ -196,8 +216,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JSON Export Button on Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
-- Item Custom Animations Menu ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- JSON Export Button on Actor Custom Animations ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
+- Item Custom Animations Menu ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
 - `opacity`, `size`, `loopProperty`, and `animateProperty` effect options.
 
   - **New Animations**: Rage
@@ -210,13 +230,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Further improvements to Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- Further improvements to Actor Custom Animations ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
 
 ## [0.2.0] - 2024-08-06
 
 ### Added
 
-- First version of the Actor Custom Animations ([#3](https://github.com/MrVauxs/pf2e-graphics/issues/3))
+- First version of the Actor Custom Animations ([#3](<https://github.com/MrVauxs/pf2e-graphics/issues/3>))
 
 ## [0.1.3] - 2024-08-02
 
@@ -299,7 +319,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...HEAD
+[0.7.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.2...v0.7.3
+[0.7.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...v0.7.0
 [0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4
