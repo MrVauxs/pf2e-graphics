@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
 - **New Animations**:
   - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Aid ([@ChasarooniZ](https://github.com/ChasarooniZ))
 
 ### Fixed
 
