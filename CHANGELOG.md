@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > (P) - A premium version of that animation is available.
 
 ## [Unreleased]
-  - **New Assets**
-   - Added Last Day Dreaming Water, Fire, and Lightning Assets ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
+### Added
+- **New Sounds** from [LastDayDreaming](https://lastdaydreaming.itch.io/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
 
 ## [0.7.3] - 2024-08-20
 
