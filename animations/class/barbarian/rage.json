@@ -44,9 +44,7 @@
 											"value": 3.5
 										},
 										"duration": 20000,
-										"fadeOut": {
-											"value": 10000
-										},
+										"fadeOut": 10000,
 										"filter": {
 											"type": "ColorMatrix",
 											"options": {
@@ -72,9 +70,7 @@
 										"rotate": 90,
 										"tint": "#FF0000",
 										"duration": 8000,
-										"fadeOut": {
-											"value": 3000
-										},
+										"fadeOut": 3000,
 										"loopProperty": [
 											{
 												"target": "sprite",
@@ -124,12 +120,8 @@
 												}
 											}
 										],
-										"fadeIn": {
-											"value": 200
-										},
-										"fadeOut": {
-											"value": 3000
-										},
+										"fadeIn": 200,
+										"fadeOut": 3000,
 										"filter": {
 											"type": "ColorMatrix",
 											"options": {
@@ -153,7 +145,7 @@
 					},
 					"contents": [
 						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
+							"predicate": [{ "gte": ["graphics-quality", 2] }],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {
@@ -170,26 +162,16 @@
 								},
 								"mask": true,
 								"rotate": 90,
-								"fadeIn": {
-									"value": 500
-								},
-								"fadeOut": {
-									"value": 2000
-								}
+								"fadeIn": 500,
+								"fadeOut": 2000
 							}
 						},
 						{
 							"file": "jb2a.token_border.circle.static.orange.012",
 							"options": {
-								"fadeIn": {
-									"value": 500
-								},
-								"fadeOut": {
-									"value": 2000
-								},
-								"scaleToObject": {
-									"value": 2
-								},
+								"fadeIn": 500,
+								"fadeOut": 2000,
+								"scaleToObject": 2,
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {

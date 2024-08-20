@@ -10,6 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Items that grant effects (ex. spells) storing animations pertaining to those effects.
+  - Ex. Making a custom animation for the Lay On Hands **effect**, on the Lay On Hands **spell**.
+- Modifiers Matter Trigger. Uses the triggering item's roll options and an additional `significance:` roll option ([#40](https://github.com/MrVauxs/pf2e-graphics/issues/40))
+- More options to the Custom Animation menu.
+- Drag and Drop ordering of Custom Animations ([#46](https://github.com/MrVauxs/pf2e-graphics/issues/46))
+- **New Animations**:
+  - Administer First Aid (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+
+### Fixed
+
+- Dev Mode not working without a refresh.
+- World Animations menu not being able to properly delete animations.
+- **Fixed Animations**:
+  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](https://github.com/7H3LaughingMan))
+
+## [0.7.1] - 2024-08-18
+
+### Fixed
+
+- Old animations breaking the custom animations menu.
+- **Fixed Animations**: Marshal's Aura being persistent at every performance setting.
+
 ## [0.7.0] - 2024-08-16
 
 ### Added
@@ -275,9 +299,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-
-
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...HEAD
+[0.7.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.4...v0.7.0
 [0.6.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.6.2...v0.6.3

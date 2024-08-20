@@ -4,15 +4,15 @@ import { kofiButton } from 'src/utils'
 import { writable } from 'svelte/store'
 import BasicAppShell from './WorldAnimationsShell.svelte'
 
-export default class UserAnimationsApp extends SvelteApplication {
+export default class WorldAnimationsApp extends SvelteApplication {
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.modifyUser', // Automatically localized from `lang/en.json`.
+			title: 'pf2e-graphics.modifyWorld', // Automatically localized from `lang/en.json`.
 			classes: ['pf2e-g'],
 			resizable: true,
 			width: 600,
-			height: 400,
+			height: 900,
 			id: 'pf2e-graphics-world-settings',
 
 			svelte: {

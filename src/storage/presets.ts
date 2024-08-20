@@ -322,7 +322,7 @@ export const presets = {
 					.atLocation(targets[i - 1], helpers.parseOffsetEmbedded(options?.atLocation, targets[i - 1], target))
 					.file(options?.preset.bounce.file)
 
-				if (options?.preset?.bounce.sound) {
+				if (nonNullable(options?.preset?.bounce.sound)) {
 					const sound = seq.sound()
 					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound, rollOptions)
 				}
@@ -334,7 +334,7 @@ export const presets = {
 						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
 					)
 
-				if (options?.sound) {
+				if (nonNullable(options?.sound)) {
 					const sound = seq.sound()
 					helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 				}
@@ -370,7 +370,7 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound) {
+			if (nonNullable(options?.sound)) {
 				const sound = seq.sound()
 				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 			}
@@ -417,7 +417,7 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(result, item, token, options)
 
-			if (options?.sound) {
+			if (nonNullable(options?.sound)) {
 				const sound = seq.sound()
 				helpers.genericSoundFunction(sound, item, token, options.sound, rollOptions)
 			}
@@ -439,7 +439,7 @@ export const presets = {
 
 			helpers.genericSequencerFunctions(section, item, target, options)
 
-			if (options?.sound) {
+			if (nonNullable(options?.sound)) {
 				const sound = seq.sound()
 				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions)
 			}

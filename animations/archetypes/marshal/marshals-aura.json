@@ -19,12 +19,8 @@
 				"mask": true,
 				"rotate": 90,
 				"duration": 2000,
-				"fadeOut": {
-					"value": 500
-				},
-				"fadeIn": {
-					"value": 250
-				}
+				"fadeOut": 500,
+				"fadeIn": 250
 			},
 			"contents": [
 				{
@@ -36,7 +32,7 @@
 					"trigger": "effect"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 3] }],
+					"predicate": ["graphics-quality:3"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

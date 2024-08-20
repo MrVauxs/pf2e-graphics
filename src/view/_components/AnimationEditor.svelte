@@ -3,7 +3,7 @@
 	import derivedFlag from 'src/lib/docFlagDerived'
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
 	import { type Writable, writable } from 'svelte/store'
-	import { ErrorMsg } from 'src/utils'
+	import { ErrorMsg, nonNullable } from 'src/utils'
 	import JSONEditorApp from './JSONEditor/JSONEditor'
 	import SingleEditor from './SingleEditor.svelte'
 
@@ -11,9 +11,22 @@
 	export function createAnimation() {}
 
 	const flag = $doc.id === 'settings'
-		? window.pf2eGraphics.storeSettings.getWritableStore('worldAnimations') as Writable<JSONData>
+		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<JSONData>
 		// @ts-ignore Above is a type guard
-		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 1000)
+		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 500)
+
+	if ($doc.id === 'settings') {
+		flag.subscribe((v) => {
+			foundry.utils.debounce(() => game.settings.set('pf2e-graphics', 'worldAnimations', v), 500)()
+		})
+
+		flag.subscribe((v) => {
+			const newFlag = Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v)))
+
+			if (Object.keys(newFlag).length !== Object.keys(v).length)
+				flag.set(Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v))))
+		})
+	}
 
 	if (!flag) throw new ErrorMsg('No document was provided to AnimationEditor?!')
 
@@ -35,7 +48,8 @@
 			$flag[newAnimeKey.trim()] ??= [AnimCore.CONST.TEMPLATE_ANIMATION()]
 			newAnimeKey = ''
 		} else if ('getRollOptions' in $doc) {
-			const prefix = $doc.isOfType('weapon') ? 'item' : undefined
+			const types = ['weapon', 'action']
+			const prefix = $doc.isOfType(...types) ? 'item' : undefined
 			newAnimeKey = (($doc as ItemPF2e).getRollOptions(prefix))[2]
 		} else {
 			newAnimeKey = ' '

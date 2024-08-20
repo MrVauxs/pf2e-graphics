@@ -57,6 +57,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static get animations(): JSONData {
+		if (dev) return this.getAnimations()
 		if (!this._animations) this._animations = this.getAnimations()
 		return this._animations
 	}
@@ -68,6 +69,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static get keys(): string[] {
+		if (dev) return this.getKeys()
 		if (!this._keys) this._keys = this.getKeys()
 		return this._keys
 	}
@@ -167,7 +169,7 @@ export let AnimCore = class AnimCore {
 	 * The actor is not required, for purposes of customizing item animations in the sidebar.
 	 */
 	static getMatchingAnimationTrees(
-		array: string[] = [],
+		rollOptions: string[] = [],
 		actor?: ActorPF2e | null,
 		item?: ItemPF2e | null,
 	): { animations: Record<string, AnimationDataObject[]>, sources: Record<string, string[]> } {
@@ -175,7 +177,7 @@ export let AnimCore = class AnimCore {
 			animations: {},
 			sources: {},
 		}
-		if (!array.length) return obj
+		if (!rollOptions.length) return obj
 
 		// Allow deletions in event players just dont want an animation at all.
 		const merge = foundry.utils.mergeObject
@@ -187,22 +189,30 @@ export let AnimCore = class AnimCore {
 		const owners = actor ? getPlayerOwners(actor) : [game.user]
 		const user = owners.find(x => x.id === game.user.id) || owners[0]
 
+		// TODO: Make a PR to the system to make this roll option dance unnecessary and get it from getOriginData()
+		const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1)
+		const itemOrigin = item?.origin?.items.get(itemOriginId || '')
+
 		// Get all the flags.
 		const userKeys = user.getFlag('pf2e-graphics', 'customAnimations') ?? {}
-		const itemOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
+		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {}
 
-		// Priority (highest to lowest): Item > Actor (Affected) > Actor (Origin) > User > Global
+		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
 		const customAnimations = merge(
 			window.pf2eGraphics.liveSettings.worldAnimations,
 			merge(
 				userKeys,
 				merge(
-					itemOriginKeys,
+					actorOriginKeys,
 					merge(
-						actorKeys,
-						itemKeys,
+						itemOriginKeys,
+						merge(
+							actorKeys,
+							itemKeys,
+						),
 					),
 				),
 			),
@@ -217,7 +227,7 @@ export let AnimCore = class AnimCore {
 			item: Object.keys(itemKeys),
 		} as const
 
-		const preparedOptions = this.prepRollOptions(array)
+		const preparedOptions = this.prepRollOptions(rollOptions)
 		const keys = merge(AnimCore.keys, Object.keys(customAnimations))
 
 		obj.animations = keys
@@ -388,6 +398,7 @@ export let AnimCore = class AnimCore {
 			'initiative',
 			'perception-check',
 			'counteract-check',
+			'modifiers-matter',
 		],
 	} as const
 
@@ -395,6 +406,12 @@ export let AnimCore = class AnimCore {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite })
 	}
 }
+
+Hooks.once('ready', () => {
+	if (!game.modules.get('pf2e-modifiers-matter')?.active)
+		// @ts-expect-error Modifiers Matter Safeguards
+		AnimCore.CONST.TRIGGERS = AnimCore.CONST.TRIGGERS.filter(x => x !== 'modifiers-matter')
+})
 
 if (import.meta.hot) {
 	import.meta.hot.accept((newModule) => {
@@ -409,13 +426,13 @@ if (import.meta.hot) {
 
 // #region JSON Data Parsing
 type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] }
-type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
+export type ReferenceObject = Partial<AnimationDataObject> & { reference: string }
 // #endregion
 
 // #region Animation Data Parsing
 export type TriggerTypes = typeof AnimCore['CONST']['TRIGGERS'][number]
 
-interface AnimationDataObject {
+export interface AnimationDataObject {
 	overrides?: string[]
 	trigger: TriggerTypes
 	preset: PresetKeys

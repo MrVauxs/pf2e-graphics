@@ -1,8 +1,10 @@
 <script lang='ts'>
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { ErrorMsg, camelToSpaces, i18n, nonNullable } from 'src/utils'
+	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils'
+	import { flip } from 'svelte/animate'
 	import type { Writable } from 'svelte/store'
 	import { slide } from 'svelte/transition'
+	import Separator from './Separator.svelte'
 
 	export let key: string
 	export let value: JSONData[string]
@@ -55,6 +57,24 @@
 			$flag[key] = null
 		})
 	}
+
+	function dragStart(event: DragEvent, index: Number) {
+		const data = { indexFrom: index }
+		event.dataTransfer?.setData('text/plain', JSON.stringify(data))
+	}
+
+	function drop(event: DragEvent, indexTo: number) {
+		event?.preventDefault()
+		const json = event.dataTransfer?.getData('text/plain')
+		const { indexFrom } = JSON.parse(String(json))
+
+		if (disabled || typeof value === 'string' || !nonNullable(indexFrom) || indexFrom === indexTo) return
+
+		value = arrayMove(value, indexFrom, indexTo)
+	}
+
+	// @ts-expect-error TODO: Yes it does.
+	const dbEntries = window.Sequencer.Database.entries
 </script>
 
 {#if nonNullable(value)}
@@ -128,15 +148,23 @@
 			</div>
 		</header>
 		{#if !isReference && typeof value !== 'string' && hidden}
-			<div transition:slide>
+			<div transition:slide class='[&>*]:bg-slate-300 [&>*]:bg-opacity-80 [&>*]:rounded-sm'>
 				<hr />
 				{#if !value.length}
 					<div class='text-center w-full opacity-50'>
 						<i>There's nothing here. This may be done on purpose to disable a preset animation.</i>
 					</div>
 				{:else}
-					{#each value as ani, index}
-						<section class='[&>*:not(:last-child)]:mb-1 overflow-clip'>
+					{#each value as ani, index (ani)}
+						<section
+							animate:flip={{ duration: 250 }}
+							class='flex flex-col gap-1.5 overflow-clip p-1'
+							role='group'
+							draggable={Boolean(value.length - 1)}
+							on:dragstart={event => dragStart(event, index)}
+							on:drop={event => drop(event, index)}
+						>
+							{(ani.options ??= {}) && ''}
 							<header class='flex justify-between gap-1.5'>
 								<!-- Preset -->
 								<label class='flex items-center gap-2'>
@@ -176,6 +204,7 @@
 								<input
 									{disabled}
 									type='text'
+									placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a).dbPath}
 									bind:value={ani.file}
 								/>
 								<button
@@ -185,6 +214,30 @@
 								/>
 							</label>
 
+							{(ani.options.sound ??= {}) && ''}
+							{#if Array.isArray(ani.options.sound)}
+								<div class='p-1 text-center text-opacity-50 text-slate-600 border border-solid rounded-sm'><i>This animation contains multiple sounds which are modifiable only through JSON editor.</i></div>
+							{:else}
+								<!-- Sound File -->
+								<label class='flex items-center gap-1 col-span-4'>
+									<span class='mr-1 text-nowrap'>{i18n('editor.soundFile')}</span>
+									<input
+										{disabled}
+										type='text'
+										placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
+										bind:value={ani.options.sound.file}
+									/>
+									<button
+										class='fas fa-database w-min leading-6'
+										data-tooltip='SEQUENCER.SidebarButtons.Database'
+										on:click={() => window.Sequencer.DatabaseViewer.show()}
+									/>
+								</label>
+							{/if}
+
+							<Separator>
+								Advanced Options
+							</Separator>
 							<!-- Booleans -->
 							<div class='flex justify-between'>
 								<label class='flex items-center gap-1 text-nowrap'>
@@ -200,15 +253,40 @@
 									<input {disabled} type='checkbox' bind:checked={ani.options.tieToDocuments} />
 								</label>
 							</div>
+
+							<!-- Delays -->
+							<div class='flex justify-between gap-2'>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait Until Finished</span>
+									<input {disabled} type='number'
+										placeholder='-1000 (ms)'
+										bind:value={ani.options.waitUntilFinished}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Wait</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.wait}
+									/>
+								</label>
+								<label class='flex items-center gap-1 text-nowrap'>
+									<span>Delay</span>
+									<input {disabled} type='number'
+										placeholder='1000 (ms)'
+										bind:value={ani.options.delay}
+									/>
+								</label>
+							</div>
+
+							{#if index !== value.length - 1}
+								<hr />
+							{/if}
 						</section>
-						{#if index !== value.length - 1}
-							<hr />
-						{/if}
 					{/each}
 				{/if}
 			</div>
 		{/if}
-
 	</section>
 {/if}
 

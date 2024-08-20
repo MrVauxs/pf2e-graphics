@@ -105,13 +105,15 @@
 			"toggle": "Toggle",
 			"startTurn": "Start of Turn",
 			"endTurn": "End of Turn",
-			"self-effect": "'Use' Effect"
+			"self-effect": "'Use' Effect",
+			"modifiers-matter": "Modifiers Matter"
 		},
 		"editor": {
 			"preset": "Preset",
 			"trigger": "Trigger",
 			"predicate": "Predicate",
-			"imageFile": "Image File"
+			"imageFile": "Image File",
+			"soundFile": "Sound File"
 		}
 	}
 }

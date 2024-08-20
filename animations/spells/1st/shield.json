@@ -1,13 +1,11 @@
 {
 	"effect:shield": [
-
 		{
 			"trigger": "effect",
 			"preset": "ranged",
 			"file": "jb2a.bullet.03.blue",
 			"predicate": [{ "gte": ["graphics-quality", 1] }, "origin-exists"],
 			"options": {
-				"preset": "both",
 				"mirrorX": true,
 				"waitUntilFinished": -1000
 			}
