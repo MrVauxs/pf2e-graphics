@@ -16,3 +16,4 @@ The following directories are named after their creators and are used under thei
 - EminYILDIRIM
   - Holy Protection Skill Buff by EminYILDIRIM -- https://freesound.org/s/621206/ -- License: Attribution 4.0
   - Healing Spell by EminYILDIRIM -- https://freesound.org/s/563662/ -- License: Attribution 4.0
+- Tom Music [Royalty-free](https://en.wikipedia.org/wiki/Royalty-free) (https://tommusic.itch.io/)
