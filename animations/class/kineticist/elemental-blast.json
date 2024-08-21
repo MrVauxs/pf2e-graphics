@@ -6,11 +6,16 @@
 		],
 		"contents": [
 		  {
-			"reference": "item:slug:electric-arc",
-			"trigger": "attack-roll",
 			"predicate": [
 			  "item:trait:electricity"
 			],
+			"trigger": "attack-roll",
+			"file": "jb2a.chain_lightning.primary.blue",
+			"options": {
+			  "sound": {
+				"file": "pf2e-graphics.lightning_bolt.impact"
+			  }
+			},
 			"preset": "ranged"
 		  },
 		  {
@@ -19,9 +24,6 @@
 				"not": "item:trait:electricity"
 			  }
 			],
-			"options": {
-			  "sound": {}
-			},
 			"preset": "ranged",
 			"trigger": "attack-roll",
 			"contents": [
@@ -60,7 +62,7 @@
 		],
 		"contents": [
 		  {
-			"file": "jb2a.spell_projectile.earth.01.browngreen",
+			"file": "jb2a.boulder.toss.02.01.stone.brown",
 			"options": {
 			  "sound": {}
 			},
@@ -84,7 +86,9 @@
 			"preset": "ranged",
 			"file": "jb2a.fire_bolt.orange",
 			"options": {
-			  "sound": {}
+			  "sound": {
+				"file": "pf2e-graphics.magic.fire.cast"
+			  }
 			}
 		  }
 		],
@@ -102,15 +106,25 @@
 		  {
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.dart.01.throw.physical.white",
-			"predicate": [
-			  "jb2a:patreon"
-			],
 			"options": {
 			  "sound": {
 				"file": "pf2e-graphics.spear.miss.01"
 			  }
-			}
+			},
+			"contents": [
+				{
+				  "file": "jb2a.dagger.throw.01.white",
+				  "predicate": [
+					"jb2a:free"
+				  ]
+				},
+			  {
+				"file": "jb2a.dart.01.throw.physical.white",
+				"predicate": [
+				  "jb2a:patreon"
+				]
+			  }
+			]
 		  }
 		],
 		"options": {
@@ -127,13 +141,51 @@
 		  {
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.spell_projectile.ice_shard.blue",
-			"predicate": [
-			  "item:trait:cold"
-			],
-			"options": {
-			  "sound": {}
-			}
+			"contents": [
+			  {
+				"file": "jb2a.spell_projectile.ice_shard.blue",
+				"predicate": [
+				  "item:trait:cold"
+				],
+				"options": {
+				  "sound": {}
+				}
+			  },
+			  {
+				"predicate": [
+				  {
+					"not": "item:trait:cold"
+				  }
+				],
+				"options": {
+				  "sound": {
+					"file": "pf2e-graphics.magic.water.cast"
+				  }
+				},
+				"contents": [
+				  {
+					"predicate": [
+					  "jb2a:patreon"
+					],
+					"file": "jb2a.ranged.04.projectile.01.blue"
+				  },
+				  {
+					"predicate": [
+					  "jb2a:free"
+					],
+					"file": "jb2a.ranged.04.projectile.01.green",
+					"options": {
+					  "filter": {
+						"type": "ColorMatrix",
+						"options": {
+						  "hue": 110
+						}
+					  }
+					}
+				  }
+				]
+			  }
+			]
 		  }
 		],
 		"options": {
@@ -147,7 +199,38 @@
 		  "item:trait:wood"
 		],
 		"contents": [
-		  {}
+		  {
+			"predicate": [
+			  {
+				"not:": "item:trait:vitality"
+			  }
+			],
+			"file": "jb2a.barrel.toss.wooden.01.01.brown",
+			"options": {
+			  "sound": {
+				"file": "pf2e-graphics.magic.earth.ranged.single"
+			  }
+			},
+			"preset": "ranged",
+			"trigger": "attack-roll"
+		  },
+		  {
+			"predicate": [
+			  "item:trait:vitality"
+			],
+			"file": "jb2a.ranged.03.instant.01.bluegreen",
+			"filter": {
+			  "type": "ColorMatrix",
+			  "options": {
+				"hue": -75
+			  }
+			},
+			"options": {
+			  "sound": {}
+			},
+			"preset": "ranged",
+			"trigger": "attack-roll"
+		  }
 		],
 		"options": {
 		  "sound": {}
