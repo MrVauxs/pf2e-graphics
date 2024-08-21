@@ -1,9 +1,11 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import { JSONEditor, Mode } from 'svelte-jsoneditor'
+	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor'
 	import type { Writable } from 'svelte/store'
 	import { onDestroy, onMount } from 'svelte'
+	import { animations, tokenImages } from 'src/storage/animationsSchema'
+	import { fromZodIssue } from 'zod-validation-error'
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core'
 
@@ -27,6 +29,20 @@
 		}
 	}
 
+	const validator = (json: unknown): ValidationError[] => {
+		const schema = (json as any)._tokenImages ? tokenImages : animations
+		const result = schema.safeParse(json)
+		if (result.success) return []
+		return result.error.issues.map(issue => ({
+			path: issue.path as string[], // Can't be number[] since we're dealing with JSON, which only accepts string keys
+			message: fromZodIssue(issue, {
+				includePath: false,
+				prefix: null,
+			}).toString(),
+			severity: ValidationSeverity[ValidationSeverity.error],
+		}))
+	}
+
 	const mode = 'text' as Mode // TS...
 
 	onMount(() => {
@@ -40,7 +56,7 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='h-full w-full overflow-clip'>
-		<JSONEditor bind:content readOnly={!permission} {mode} mainMenuBar={permission} />
+		<JSONEditor bind:content readOnly={!permission} {mode} mainMenuBar={permission} {validator} />
 	</main>
 </ApplicationShell>
 
@@ -59,6 +75,6 @@
 	}
 
 	:global(.jse-button.jse-group-button:not(.jse-last)) {
-		border-right: 1px solid var(--jse-menu-color, var(--jse-text-color-inverse, #fff)) !important
+		border-right: 1px solid var(--jse-menu-color, var(--jse-text-color-inverse, #fff)) !important;
 	}
 </style>
