@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **New Animations
+ - Divine Wrath ([@ChasarooniZ](https://github.com/ChasarooniZ))
 ## [0.7.4] - 2024-08-21
 
 ### Added

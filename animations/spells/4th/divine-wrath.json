@@ -1,0 +1,183 @@
+{
+	"origin:item:slug:divine-wrath": [
+		{
+			"trigger": "place-template",
+			"preset": "onToken",
+			"options": {
+				"tieToDocuments": true,
+				"scaleToObject": 1.5,
+				"waitUntilFinished": -1200,
+				"sound": {}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.divine_smite.caster.blueyellow",
+					"contents": [
+						{
+							"predicate": [
+								{
+									"nor": [
+										"origin:item:trait:holy",
+										"origin:item:trait:unholy"
+									]
+								}
+							],
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 135
+									}
+								}
+							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:unholy"
+							],
+							"file": "jb2a.divine_smite.caster.dark_purple",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -150
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"contents": [
+						{
+							"predicate": [
+								{
+									"nor": [
+										"origin:item:trait:holy",
+										"origin:item:trait:unholy"
+									]
+								}
+							],
+							"file": "jb2a.divine_smite.caster.yellowwhite",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 135
+									}
+								}
+							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:holy"
+							],
+							"file": "jb2a.divine_smite.caster.yellowwhite"
+						},
+						{
+							"predicate": [
+								"origin:item:trait:unholy"
+							],
+							"file": "jb2a.divine_smite.caster.dark_purple"
+						}
+					]
+				}
+			]
+		},
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"options": {
+				"tieToDocuments": true,
+				"scaleToObject": 1.3,
+				"sound": {}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.divine_smite.target.blueyellow",
+					"contents": [
+						{
+							"predicate": [
+								{
+									"nor": [
+										"origin:item:trait:holy",
+										"origin:item:trait:unholy"
+									]
+								}
+							],
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 135
+									}
+								}
+							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:unholy"
+							],
+							"file": "jb2a.divine_smite.caster.dark_purple",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -150
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"contents": [
+						{
+							"predicate": [
+								{
+									"nor": [
+										"origin:item:trait:holy",
+										"origin:item:trait:unholy"
+									]
+								}
+							],
+							"file": "jb2a.divine_smite.target.yellowwhite",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 135
+									}
+								}
+							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:holy"
+							],
+							"file": "jb2a.divine_smite.target.yellowwhite"
+						},
+						{
+							"predicate": [
+								"origin:item:trait:unholy"
+							],
+							"file": "jb2a.divine_smite.target.dark_purple"
+						}
+					]
+				}
+			]
+		}
+	]
+}
