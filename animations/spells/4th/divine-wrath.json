@@ -14,7 +14,6 @@
 					"predicate": [
 						"jb2a:free"
 					],
-					"file": "jb2a.divine_smite.caster.blueyellow",
 					"contents": [
 						{
 							"predicate": [
@@ -25,6 +24,7 @@
 									]
 								}
 							],
+							"file": "jb2a.divine_smite.caster.blueyellow",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
@@ -38,7 +38,7 @@
 							"predicate": [
 								"origin:item:trait:unholy"
 							],
-							"file": "jb2a.divine_smite.caster.dark_purple",
+							"file": "jb2a.divine_smite.caster.blueyellow",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
@@ -47,6 +47,12 @@
 									}
 								}
 							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:holy"
+							],
+							"file": "jb2a.divine_smite.caster.blueyellow"
 						}
 					]
 				},
@@ -103,7 +109,6 @@
 					"predicate": [
 						"jb2a:free"
 					],
-					"file": "jb2a.divine_smite.target.blueyellow",
 					"contents": [
 						{
 							"predicate": [
@@ -114,6 +119,7 @@
 									]
 								}
 							],
+							"file": "jb2a.divine_smite.target.blueyellow",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
@@ -127,7 +133,7 @@
 							"predicate": [
 								"origin:item:trait:unholy"
 							],
-							"file": "jb2a.divine_smite.caster.dark_purple",
+							"file": "jb2a.divine_smite.target.blueyellow",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
@@ -136,6 +142,12 @@
 									}
 								}
 							}
+						},
+						{
+							"predicate": [
+								"origin:item:trait:holy"
+							],
+							"file": "jb2a.divine_smite.target.blueyellow"
 						}
 					]
 				},
