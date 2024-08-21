@@ -1,34 +1,34 @@
 {
-    "item:slug:briny-bolt": [
-      {
-        "trigger": "attack-roll",
-        "preset": "ranged",
-        "options": {
-          "sound": {
-            "file": "pf2e-graphics.magic.water.launch.01"
-          }
-        },
-        "contents": [
-            {
-                "predicate": [
-                    "jb2a:free"
-                ],
-                "file": "jb2a.ranged.04.projectile.01.blue",
-                "filter": {
-                    "type": "ColorMatrix",
-                    "options": {
-                        "hue": 135
-                    }
-                }
-            }, 
-            {
-                
-        "file": "jb2a.ranged.04.projectile.01.green",
+	"item:slug:briny-bolt": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.magic.water.launch.01"
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.ranged.04.projectile.01.blue",
+					"filter": {
+						"type": "ColorMatrix",
+						"options": {
+							"hue": 135
+						}
+					}
+				},
+				{
+
+					"file": "jb2a.ranged.04.projectile.01.green",
 					"predicate": [
 						"jb2a:patreon"
 					]
-            }
-        ]
-      }
-    ]
-  }
+				}
+			]
+		}
+	]
+}
