@@ -11,39 +11,47 @@ const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Objects must not be empty',
 ]
+export const uniqueItems: [(a: any[]) => boolean, string] = [
+	(a: object[]): boolean => new Set(a.map(e => JSON.stringify(e))).size === a.length,
+	'Unique items required',
+]
 // end
+
+const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()])
 
 const ID = z.string().regex(/^[a-z]+(-[a-z])+$/, 'Must be a valid slug.')
 
-const rollOption = z.string().regex(/^[a-z]+(-[a-z])(:[a-z]+(-[a-z]))+$/, 'Must be a valid roll option.')
+const rollOption = z
+	.string()
+	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/i, 'Must be a valid roll option.')
 
 // Following required to allow Zod to evaluate recursive structures
 const predicateComparisonObject = z.object({
 	lt: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
 		.refine(
-			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
 			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
 		)
 		.optional(),
 	gt: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
 		.refine(
-			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
 			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
 		)
 		.optional(),
 	lte: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
 		.refine(
-			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
 			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
 		)
 		.optional(),
 	gte: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
 		.refine(
-			tuple => typeof tuple[0] !== 'number' && typeof tuple[1] !== 'number',
+			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
 			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
 		)
 		.optional(),
@@ -61,10 +69,38 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 	predicateComparisonObject
 		.extend({
 			not: z.lazy(() => rollOption.or(predicate).optional()),
-			and: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
-			or: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
-			nand: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
-			nor: z.lazy(() => z.array(rollOption.or(predicate)).min(1)).optional(),
+			and: z
+				.lazy(() =>
+					z
+						.array(rollOption.or(predicate))
+						.min(1)
+						.refine(...uniqueItems),
+				)
+				.optional(),
+			or: z
+				.lazy(() =>
+					z
+						.array(rollOption.or(predicate))
+						.min(1)
+						.refine(...uniqueItems),
+				)
+				.optional(),
+			nand: z
+				.lazy(() =>
+					z
+						.array(rollOption.or(predicate))
+						.min(1)
+						.refine(...uniqueItems),
+				)
+				.optional(),
+			nor: z
+				.lazy(() =>
+					z
+						.array(rollOption.or(predicate))
+						.min(1)
+						.refine(...uniqueItems),
+				)
+				.optional(),
 		})
 		.strict()
 		.refine(...nonEmpty),
@@ -100,11 +136,20 @@ const soundData = z
 		volume: z.number().optional(),
 		duration: z.number().optional(),
 		constrainedByWalls: z.boolean().optional(),
-		predicate: z.array(predicate).min(1).optional(),
+		predicate: z
+			.array(predicate)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
 		default: z.boolean().optional(),
 	})
 	.strict()
-const soundConfig = soundData.or(z.array(soundData).min(1))
+const soundConfig = soundData.or(
+	z
+		.array(soundData)
+		.min(1)
+		.refine(...uniqueItems),
+)
 
 const presetOptions = z.enum(['target', 'source', 'both']).or(
 	z.object({
@@ -131,7 +176,11 @@ const shape = z
 		radius: z.number().positive().optional(),
 		width: z.number().positive().optional(),
 		height: z.number().positive().optional(),
-		points: z.array(z.array(z.number()).length(2).or(vector2)).min(1).optional(),
+		points: z
+			.array(z.array(z.number()).length(2).or(vector2))
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
 		gridUnits: z.literal(true).optional(),
 		name: z.string().optional(),
 		fillColor: hexColour.or(z.number()).optional(),
@@ -163,7 +212,15 @@ export const effectOptions = z
 		randomizeMirrorY: z.literal(true).optional(),
 		mirrorX: z.literal(true).optional(),
 		mirrorY: z.literal(true).optional(),
-		remove: z.string().or(z.array(z.string()).min(1)).optional(),
+		remove: z
+			.string()
+			.or(
+				z
+					.array(z.string())
+					.min(1)
+					.refine(...uniqueItems),
+			)
+			.optional(),
 		tieToDocuments: z.literal(true).optional(),
 		belowTokens: z.literal(true).optional(),
 		waitUntilFinished: z
@@ -379,7 +436,11 @@ export const effectOptions = z
 								duration: z.number(),
 								from: z.number().optional(),
 								to: z.number().optional(),
-								values: z.array(z.number()).min(1).optional(),
+								values: z
+									.array(z.number())
+									.min(1)
+									.refine(...uniqueItems)
+									.optional(),
 								loops: z.number().optional(),
 								pingPong: z.literal(true).optional(),
 								delay: z.number().optional(),
@@ -392,6 +453,7 @@ export const effectOptions = z
 					.strict(),
 			)
 			.min(1)
+			.refine(...uniqueItems)
 			.optional(),
 		animateProperty: z
 			.array(
@@ -414,19 +476,35 @@ export const effectOptions = z
 					.strict(),
 			)
 			.min(1)
+			.refine(...uniqueItems)
 			.optional(),
-		shape: shape.or(z.array(shape).min(1)).optional(),
+		shape: shape
+			.or(
+				z
+					.array(shape)
+					.min(1)
+					.refine(...uniqueItems),
+			)
+			.optional(),
 	})
 	.strict()
 	.refine(...nonEmpty)
 
 const animationDataObject = z.object({
-	overrides: z.array(rollOption).min(1).optional(),
+	overrides: z
+		.array(rollOption)
+		.min(1)
+		.refine(...uniqueItems)
+		.optional(),
 	trigger: z.enum(AnimCore.CONST.TRIGGERS),
 	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
 	file: fileName,
 	default: z.literal(true).optional(),
-	predicate: z.array(predicate).min(1).optional(),
+	predicate: z
+		.array(predicate)
+		.min(1)
+		.refine(...uniqueItems)
+		.optional(),
 	options: z.any().optional(), // :(
 })
 
@@ -435,7 +513,10 @@ type FolderObject = Partial<z.infer<typeof animationDataObject>> & {
 	contents?: (z.infer<typeof animationDataObject> | FolderObject)[]
 }
 const folderObject: z.ZodType<FolderObject> = animationDataObject.partial().extend({
-	contents: z.lazy(() => z.array(animationDataObject.or(folderObject)).min(1)).optional(),
+	contents: z
+		.lazy(() => z.array(animationDataObject.or(folderObject)).min(1))
+		.refine(...uniqueItems)
+		.optional(),
 })
 // end
 
@@ -445,5 +526,57 @@ const referenceObject = animationDataObject.partial().extend({
 
 export const animations = z.record(
 	rollOption,
-	rollOption.or(z.array(folderObject.or(referenceObject).refine(...nonEmpty)).min(1)),
+	rollOption.or(
+		z
+			.array(folderObject.or(referenceObject).refine(...nonEmpty))
+			.min(1)
+			.refine(...uniqueItems),
+	),
 )
+
+export const tokenImages = z.object({
+	_tokenImages: z
+		.array(
+			z
+				.object({
+					name: z.string().min(1),
+					uuid: z.string().regex(/^[a-z0-9]+(\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
+					rules: z
+						.array(
+							z.tuple([z.string(), z.string(), z.number()]).or(
+								z
+									.object({
+										key: JSONValue.optional(),
+										label: JSONValue.optional(),
+										slug: JSONValue.optional(),
+										predicate: JSONValue.optional(),
+										priority: JSONValue.optional(),
+										ignored: JSONValue.optional(),
+										requiresInvestment: JSONValue.optional(),
+										requiresEquipped: JSONValue.optional(),
+										removeUponCreate: JSONValue.optional(),
+										value: z.string(),
+										scale: z.number().optional(),
+										tint: z.string().optional(),
+										alpha: z.number().optional(),
+										animation: z
+											.object({
+												duration: z.number().optional(),
+												transition: z.string().optional(),
+												easing: z.string().optional(),
+												name: z.string().optional(),
+											})
+											.strict()
+											.refine(...nonEmpty),
+									})
+									.strict(),
+							),
+						)
+						.min(1)
+						.refine(...uniqueItems),
+				})
+				.strict(),
+		)
+		.min(1)
+		.refine(...uniqueItems),
+})
