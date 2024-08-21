@@ -1,21 +1,21 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
-	import { i18n } from 'src/utils'
+	import { i18n } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
-	import { getContext } from 'svelte'
-	import AnimationEditor from '../_components/AnimationEditor.svelte'
+	import { getContext } from 'svelte';
+	import AnimationEditor from '../_components/AnimationEditor.svelte';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core'
-	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
+	import { ApplicationShell } from '#runtime/svelte/component/core';
+	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 
-	export let storeDocument: TJSDocument<UserPF2e>
-	export let document: UserPF2e
-	export let elementRoot: HTMLElement | undefined
+	export let storeDocument: TJSDocument<UserPF2e>;
+	export let document: UserPF2e;
+	export let elementRoot: HTMLElement | undefined;
 
-	const doc = storeDocument
+	const doc = storeDocument;
 
-	const tabs = ['user-animations'] as const
-	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number])
+	const tabs = ['user-animations'] as const;
+	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number]);
 </script>
 
 <ApplicationShell bind:elementRoot>

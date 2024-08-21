@@ -1,39 +1,39 @@
 <script lang='ts'>
-	import { ErrorMsg } from 'src/utils'
-	import type { CustomTokenImage } from '../tokenimage-manager.svelte'
+	import { ErrorMsg } from 'src/utils';
+	import type { CustomTokenImage } from '../tokenimage-manager.svelte';
 
-	export let rule: CustomTokenImage
-	export let updateRules: (rule1?: CustomTokenImage, rule2?: Partial<CustomTokenImage>) => void
+	export let rule: CustomTokenImage;
+	export let updateRules: (rule1?: CustomTokenImage, rule2?: Partial<CustomTokenImage>) => void;
 
 	async function dropPredicate(event: DragEvent, rule: CustomTokenImage): Promise<void> {
-		const data = event?.dataTransfer?.getData('text/plain')
-		if (!data) return
-		const effect = await fromUuid(JSON.parse(data).uuid) as EffectPF2e
+		const data = event?.dataTransfer?.getData('text/plain');
+		if (!data) return;
+		const effect = await fromUuid(JSON.parse(data).uuid) as EffectPF2e;
 
-		if (effect?.type !== 'effect') throw new ErrorMsg('The dragged entity is not an effect!')
+		if (effect?.type !== 'effect') throw new ErrorMsg('The dragged entity is not an effect!');
 
 		// TODO: I swear this feels so wrong using an index for this.
 		return updateRules(rule, {
 			predicate: [`self:${effect.getRollOptions()[1]}`],
 			uuidPredicate: effect.uuid,
-		})
+		});
 	}
 
 	function removeDropPredicate(rule: CustomTokenImage) {
-		rule.predicate = []
-		rule.uuidPredicate = ''
-		updateRules()
+		rule.predicate = [];
+		rule.uuidPredicate = '';
+		updateRules();
 	}
 
 	function isEffect(doc?: ClientDocument | null): doc is EffectPF2e {
-		return doc?.type === 'effect'
+		return doc?.type === 'effect';
 	}
 
-	let showPredicate = (rule.predicate || [])?.length > 1 || !rule.uuidPredicate
+	let showPredicate = (rule.predicate || [])?.length > 1 || !rule.uuidPredicate;
 
 	function updatePredicates(e: Event) {
-		rule.predicate = JSON.parse((e.target as HTMLInputElement)?.value ?? '[]')
-		updateRules()
+		rule.predicate = JSON.parse((e.target as HTMLInputElement)?.value ?? '[]');
+		updateRules();
 	}
 </script>
 

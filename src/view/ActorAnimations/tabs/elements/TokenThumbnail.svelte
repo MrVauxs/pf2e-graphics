@@ -1,15 +1,15 @@
 <script lang='ts'>
-	export let img = ''
-	export let transform = 1
+	export let img = '';
+	export let transform = 1;
 
 	// This file is basically to not have Svelte re-render the image every time the window changes.
-	let thumb = ''
+	let thumb = '';
 	$: ImageHelper
 		.createThumbnail(img, { width: 200, height: 200 })
-		.then((v) => { thumb = v.thumb })
+		.then((v) => { thumb = v.thumb; });
 
 	function popout() {
-		new ImagePopout(img).render(true)
+		new ImagePopout(img).render(true);
 	}
 </script>
 

@@ -1,21 +1,21 @@
-import WorldAnimationsApp from './WorldAnimationsApp.ts'
+import WorldAnimationsApp from './WorldAnimationsApp.ts';
 
 export default class WorldAnimationsShim extends FormApplication {
 	/**
 	 * @inheritDoc
 	 */
 	constructor() {
-		super()
+		super();
 
 		new WorldAnimationsApp().render(true, {
 			focus: true,
-		})
+		});
 	}
 
 	async _updateObject() {}
 	override render() {
-		this.close()
-		return this
+		this.close();
+		return this;
 	}
 }
 
@@ -27,5 +27,5 @@ Hooks.once('ready', () => {
 		icon: 'fas fa-globe',
 		type: WorldAnimationsShim,
 		restricted: true,
-	})
-})
+	});
+});

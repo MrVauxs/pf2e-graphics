@@ -1,14 +1,14 @@
 <script lang='ts'>
-	import { i18n } from 'src/utils'
-	import JSONEditorApp from 'src/view/_components/JSONEditor/JSONEditor'
-	import { writable } from 'svelte/store'
+	import { i18n } from 'src/utils';
+	import JSONEditorApp from 'src/view/_components/JSONEditor/JSONEditor';
+	import { writable } from 'svelte/store';
 
-	export let doc
+	export let doc;
 
-	const animData = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees($doc.getRollOptions('item'), $doc.actor, $doc)
+	const animData = window.pf2eGraphics.AnimCore.getMatchingAnimationTrees($doc.getRollOptions('item'), $doc.actor, $doc);
 
 	function findSource(key: string) {
-		return Object.entries(animData.sources).findLast((([,v]) => v.includes(key)))?.[0]
+		return Object.entries(animData.sources).findLast((([,v]) => v.includes(key)))?.[0];
 	}
 </script>
 
@@ -34,7 +34,7 @@
 										permission: false,
 									}).render(true, {
 										focus: true,
-									})
+									});
 								}}
 							></button>
 						</div>
