@@ -12,7 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **New Sounds from [Tom Music](https://tommusic.itch.io/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- **New Sounds** from [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - from [Tom Music](https://tommusic.itch.io/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- **New Animations**
+  - Briny Bolt ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](https://github.com/Lerosnn))
+
+### Fixed
+
+- Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
 
 ## [0.7.4] - 2024-08-21
 

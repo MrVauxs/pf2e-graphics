@@ -1,0 +1,28 @@
+{
+	"effect:boost-eidolon": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.energy_wall.01.circle.900x900.01.complete.purple",
+
+			"predicate": [{ "gte": ["graphics-quality", 1] }],
+			"options": {
+				"scaleToObject": {
+					"value": 1,
+					"considerTokenScale": true
+				},
+				"fadeIn": {
+					"value": 500
+				},
+				"fadeOut": {
+					"value": 500
+				},
+				"persist": {
+					"value": true,
+					"persistTokenPrototype": true
+				},
+				"tieToDocuments": true
+			}
+		}
+	]
+}

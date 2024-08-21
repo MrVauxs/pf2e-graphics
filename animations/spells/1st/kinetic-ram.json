@@ -1,0 +1,28 @@
+{
+	"item:slug:kinetic-ram": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"file": "jb2a.melee_generic.bludgeoning.two_handed",
+			"options": {
+				"preset": "target",
+				"scaleToObject": {
+					"value": 3,
+					"considerTokenScale": true
+				},
+				"rotateTowards": {},
+				"anchor": {
+					"x": 0.6
+				}
+			}
+		}
+	],
+
+	"origin:item:slug:kinetic-ram": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.explosion.04.dark_purple"
+		}
+	]
+}

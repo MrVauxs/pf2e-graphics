@@ -66,31 +66,6 @@ export const database = {
 		},
 	},
 	magic: {
-		water: {
-			cast: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
-				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
-			},
-			hold: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
-			},
-			impact: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
-			},
-			launch: {
-
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
-			},
-			wave: {
-				'01': `${p}sounds/tom-music/magic/water/Wave Attack 1.ogg`,
-				'02': `${p}sounds/tom-music/magic/water/Wave Attack 2.ogg`,
-			},
-			spray: {
-
-				'01': `${p}sounds/tom-music/magic/water/Waterspray 1.ogg`,
-				'02': `${p}sounds/tom-music/magic/water/Waterspray 2.ogg`,
-			},
-		},
 		fire: {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
@@ -150,6 +125,22 @@ export const database = {
 				'02': `${p}sounds/tom-music/magic/ice/Ice Wall 2.ogg`,
 			},
 		},
+		holy: {
+			protection: {
+				'01': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-01.ogg`,
+				'02': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-02.ogg`,
+				'03': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-03.ogg`,
+				'04': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-04.ogg`,
+				'05': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-05.ogg`,
+			},
+		},
+		healing: {
+			'01': {
+				'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
+				'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
+				'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
+			},
+		},
 		lightning: {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
@@ -163,6 +154,22 @@ export const database = {
 			},
 			launch: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
+			},
+		},
+		water: {
+			cast: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
+			},
+			hold: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
+			},
+			impact: {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
+			},
+			launch: {
+
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
 			},
 		},
 	},
