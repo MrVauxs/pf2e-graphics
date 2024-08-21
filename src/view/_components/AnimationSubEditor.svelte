@@ -1,19 +1,19 @@
 <script lang='ts'>
-	import { AnimCore, type JSONData } from 'src/storage/AnimCore'
-	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils'
-	import { flip } from 'svelte/animate'
-	import type { Writable } from 'svelte/store'
-	import { slide } from 'svelte/transition'
-	import Separator from './Separator.svelte'
+	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
+	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils';
+	import { flip } from 'svelte/animate';
+	import type { Writable } from 'svelte/store';
+	import { slide } from 'svelte/transition';
+	import Separator from './Separator.svelte';
 
-	export let key: string
-	export let value: JSONData[string]
-	export let flag: Writable<JSONData>
-	export let disabled: boolean = false
+	export let key: string;
+	export let value: JSONData[string];
+	export let flag: Writable<JSONData>;
+	export let disabled: boolean = false;
 
-	let isReference = typeof value === 'string'
-	$: isReference = typeof value === 'string'
-	let hidden = window.pf2eGraphics.liveSettings.dev
+	let isReference = typeof value === 'string';
+	$: isReference = typeof value === 'string';
+	let hidden = window.pf2eGraphics.liveSettings.dev;
 
 	function convertToReference() {
 		if (!isReference) {
@@ -22,28 +22,28 @@
 				rejectClose: false,
 				modal: true,
 			}).then((x) => {
-				if (!x) return
-				value = ''
-			})
+				if (!x) return;
+				value = '';
+			});
 		} else {
-			value = [AnimCore.CONST.TEMPLATE_ANIMATION()]
+			value = [AnimCore.CONST.TEMPLATE_ANIMATION()];
 		}
 	}
 
 	function bindJSON(event: Event, obj: Record<string, any>, prop: string) {
 		try {
-			obj[prop] = JSON.parse((event.target as HTMLInputElement).value)
-			$flag = $flag
+			obj[prop] = JSON.parse((event.target as HTMLInputElement).value);
+			$flag = $flag;
 		} catch {
-			throw new ErrorMsg('Invalid JSON!')
+			throw new ErrorMsg('Invalid JSON!');
 		}
 	}
 
 	function addNewAnimation() {
 		if (typeof value === 'string')
-			throw new ErrorMsg('Trying to push a new animation into a reference!')
+			throw new ErrorMsg('Trying to push a new animation into a reference!');
 
-		value = [...value, (AnimCore.CONST.TEMPLATE_ANIMATION())]
+		value = [...value, (AnimCore.CONST.TEMPLATE_ANIMATION())];
 	}
 
 	function remove() {
@@ -52,10 +52,10 @@
 			rejectClose: false,
 			modal: true,
 		}).then((x) => {
-			if (!x) return
+			if (!x) return;
 			// @ts-ignore Explicit Deletion
-			$flag[key] = null
-		})
+			$flag[key] = null;
+		});
 	}
 
 	function removeSub(index: number) {
@@ -64,34 +64,34 @@
 			rejectClose: false,
 			modal: true,
 		}).then((x) => {
-			if (!x || typeof value === 'string') return
-			value.splice(index, 1)
-			value = value
-		})
+			if (!x || typeof value === 'string') return;
+			value.splice(index, 1);
+			value = value;
+		});
 	}
 
 	function dragStart(event: DragEvent, index: Number) {
-		const data = { indexFrom: index }
-		event.dataTransfer?.setData('text/plain', JSON.stringify(data))
+		const data = { indexFrom: index };
+		event.dataTransfer?.setData('text/plain', JSON.stringify(data));
 	}
 
 	function drop(event: DragEvent, indexTo: number) {
-		event?.preventDefault()
-		const json = event.dataTransfer?.getData('text/plain')
-		const { indexFrom } = JSON.parse(String(json))
+		event?.preventDefault();
+		const json = event.dataTransfer?.getData('text/plain');
+		const { indexFrom } = JSON.parse(String(json));
 
-		if (disabled || typeof value === 'string' || !nonNullable(indexFrom) || indexFrom === indexTo) return
+		if (disabled || typeof value === 'string' || !nonNullable(indexFrom) || indexFrom === indexTo) return;
 
-		value = arrayMove(value, indexFrom, indexTo)
+		value = arrayMove(value, indexFrom, indexTo);
 	}
 
 	// @ts-expect-error TODO: Yes it does.
-	const dbEntries = window.Sequencer.Database.entries
+	const dbEntries = window.Sequencer.Database.entries;
 	const macroEntries = [
 		...window.game.packs.filter(x => x.metadata.type === 'Macro').flatMap(x => Array.from(x.index)).map(x => x.uuid),
 		...window.game.macros.contents.map(x => x.uuid),
-	]
-	const wrapTooltipText = (text: string) => `<div class='pf2e-g'>${i18n(`editor.tooltip.${text}`)}</div>`
+	];
+	const wrapTooltipText = (text: string) => `<div class='pf2e-g'>${i18n(`editor.tooltip.${text}`)}</div>`;
 </script>
 
 {#if nonNullable(value)}
@@ -107,7 +107,7 @@
 				on:click={() => hidden = !hidden}
 				role='button'
 				tabindex='-1'
-			/>
+			></i>
 			<div>{key}</div>
 			<div class='flex flex-grow justify-end gap-1'>
 				{#if isReference}
@@ -138,7 +138,7 @@
 						data-tooltip='pf2e-graphics.reference'
 						on:click={convertToReference}
 						tabindex='-1'
-					/>
+					></button>
 					{#if !isReference}
 						<button
 							{disabled}
@@ -149,7 +149,7 @@
 							data-tooltip='pf2e-graphics.addAnim'
 							on:click={addNewAnimation}
 							tabindex='-1'
-						/>
+						></button>
 					{/if}
 					<button
 						{disabled}
@@ -160,7 +160,7 @@
 						data-tooltip='Delete'
 						on:click={remove}
 						tabindex='-1'
-					/>
+					></button>
 				</div>
 			</div>
 		</header>
@@ -242,7 +242,7 @@
 									class='fa fa-trash w-8'
 									data-tooltip='Delete'
 									on:click={() => removeSub(index)}
-								/>
+								></button>
 							</header>
 
 							{#if ani.preset === 'macro'}
@@ -278,7 +278,7 @@
 													absolute text-base right-2 top-px leading-6 text-center
 												'
 												data-tooltip='pf2e-graphics.editor.notDb'
-											/>
+											></i>
 											<i
 												class='
 													fa fa-warning
@@ -286,7 +286,7 @@
 													absolute text-base right-2 top-px leading-6 text-center
 												'
 												data-tooltip='pf2e-graphics.editor.notDb'
-											/>
+											></i>
 										{/if}
 										<input
 											{disabled}
@@ -299,7 +299,7 @@
 										class='fas fa-database w-min leading-6'
 										data-tooltip='SEQUENCER.SidebarButtons.Database'
 										on:click={() => window.Sequencer.DatabaseViewer.show()}
-									/>
+									></button>
 								</label>
 								{(ani.options.sound ??= {}) && ''}
 								{#if Array.isArray(ani.options.sound)}
@@ -322,7 +322,7 @@
 														absolute text-base right-2 top-px leading-6 text-center
 													'
 													data-tooltip='pf2e-graphics.editor.notDb'
-												/>
+												></i>
 												<i
 													class='
 														fa fa-warning
@@ -330,7 +330,7 @@
 														absolute text-base right-2 top-px leading-6 text-center
 													'
 													data-tooltip='pf2e-graphics.editor.notDb'
-												/>
+												></i>
 											{/if}
 											<input
 												{disabled}
@@ -343,7 +343,7 @@
 											class='fas fa-database w-min leading-6'
 											data-tooltip='SEQUENCER.SidebarButtons.Database'
 											on:click={() => window.Sequencer.DatabaseViewer.show()}
-										/>
+										></button>
 									</label>
 								{/if}
 								<Separator>
@@ -537,11 +537,11 @@
 												data-tooltip={wrapTooltipText('gridUnits')}
 												value={ani.options.size?.gridUnits}
 												on:change={(ev) => {
-													const bool = ev.currentTarget?.checked
+													const bool = ev.currentTarget?.checked;
 													if (bool) {
-														ani.options.size = { value: Number(ani.options.size), gridUnits: true }
+														ani.options.size = { value: Number(ani.options.size), gridUnits: true };
 													} else {
-														ani.options.size = ani.options.size?.value || undefined
+														ani.options.size = ani.options.size?.value || undefined;
 													}
 												}}
 											/>

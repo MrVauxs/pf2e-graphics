@@ -1,0 +1,9 @@
+{
+	"item:slug:force-barrage": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.magic_missile.purple"
+		}
+	]
+}

@@ -22,9 +22,9 @@
 					"predicate": [
 						{
 							"or": [
-								"outcome:success",
-								"outcome:failure",
-								"outcome:criticalFailure"
+								"check:outcome:success",
+								"check:outcome:failure",
+								"check:outcome:critical-failure"
 							]
 						}
 					],
@@ -40,7 +40,7 @@
 					"preset": "onToken",
 					"file": "jb2a.smoke.puff.ring.01.white.0",
 					"predicate": [
-						"outcome:criticalSuccess"
+						"check:outcome:critical-success"
 					],
 					"options": {
 						"preset": "target",

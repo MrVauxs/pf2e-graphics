@@ -13,4 +13,4 @@ export default {
 	},
 	important: '.pf2e-g',
 	plugins: [],
-}
+};

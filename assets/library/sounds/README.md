@@ -13,3 +13,7 @@ The following directories are named after their creators and are used under thei
 - Soniss: <https://sonniss.com/gdc-bundle-license>
 - SoundFlakes: ["CC BY 4.0" Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) ([1](https://freesound.org/people/SoundFlakes/packs/27753/), [2](https://freesound.org/people/SoundFlakes/packs/27745/))
 - Last Day Dreaming: [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) (https://lastdaydreaming.itch.io/)
+- EminYILDIRIM
+  - Holy Protection Skill Buff by EminYILDIRIM -- https://freesound.org/s/621206/ -- License: Attribution 4.0
+  - Healing Spell by EminYILDIRIM -- https://freesound.org/s/563662/ -- License: Attribution 4.0
+- Tom Music [Royalty-free](https://en.wikipedia.org/wiki/Royalty-free) (https://tommusic.itch.io/)

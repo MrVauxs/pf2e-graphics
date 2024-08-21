@@ -1,4 +1,4 @@
-import './WorldAnimations'
-import './UserAnimations'
-import './ActorAnimations'
-import './ItemAnimations'
+import './WorldAnimations';
+import './UserAnimations';
+import './ActorAnimations';
+import './ItemAnimations';

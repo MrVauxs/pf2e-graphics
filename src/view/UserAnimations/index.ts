@@ -1,23 +1,23 @@
-import UserAnimationsApp from './UserAnimationsApp'
+import UserAnimationsApp from './UserAnimationsApp';
 
 export default class UserAnimationsShim extends FormApplication {
 	/**
 	 * @inheritDoc
 	 */
 	constructor(options: { user?: UserPF2e } = { user: game.user }) {
-		super()
+		super();
 
 		new UserAnimationsApp({
 			document: options.user ?? game.user,
 		}).render(true, {
 			focus: true,
-		})
+		});
 	}
 
 	async _updateObject() {}
 	override render() {
-		this.close()
-		return this
+		this.close();
+		return this;
 	}
 }
 
@@ -29,5 +29,5 @@ Hooks.once('ready', () => {
 		icon: 'fas fa-user',
 		type: UserAnimationsShim,
 		restricted: false,
-	})
-})
+	});
+});
