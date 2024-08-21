@@ -11,10 +11,41 @@
 			"predicate": [
 			  "item:trait:electricity"
 			],
+			"preset": "ranged"
+		  },
+		  {
+			"predicate": [
+			  {
+				"not": "item:trait:electricity"
+			  }
+			],
 			"options": {
 			  "sound": {}
 			},
-			"preset": "ranged"
+			"preset": "ranged",
+			"trigger": "attack-roll",
+			"contents": [
+			  {
+				"predicate": [
+				  "jb2a:patreon"
+				],
+				"file": "jb2a.spell_projectile.earth.01.browngreen",
+				"options": {
+				  "filter": {
+					"type": "ColorMatrix",
+					"options": {
+					  "hue": 140,
+					  "saturate": -0.6
+					}
+				  }
+				}
+			  },
+			  {
+				"predicate": [
+				  "jb2a:free"
+				]
+			  }
+			]
 		  }
 		],
 		"options": {
@@ -28,7 +59,14 @@
 		  "item:trait:earth"
 		],
 		"contents": [
-		  {}
+		  {
+			"file": "jb2a.spell_projectile.earth.01.browngreen",
+			"options": {
+			  "sound": {}
+			},
+			"preset": "ranged",
+			"trigger": "attack-roll"
+		  }
 		],
 		"options": {
 		  "sound": {}
@@ -45,9 +83,6 @@
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.fire_bolt.orange",
-			"predicate": [
-			  "item:trait:fire"
-			],
 			"options": {
 			  "sound": {}
 			}
@@ -64,7 +99,19 @@
 		  "item:trait:metal"
 		],
 		"contents": [
-		  {}
+		  {
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.dart.01.throw.physical.white",
+			"predicate": [
+			  "jb2a:patreon"
+			],
+			"options": {
+			  "sound": {
+				"file": "pf2e-graphics.spear.miss.01"
+			  }
+			}
+		  }
 		],
 		"options": {
 		  "sound": {}
