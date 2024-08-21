@@ -1,0 +1,21 @@
+{
+	"effect:ill-omen": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.circle.02.necromancy.complete.dark_purple",
+			"predicate": [{ "gte": ["graphics-quality", 1] }],
+			"options": {
+				"scaleToObject": {
+					"value": 0.8,
+					"considerTokenScale": true
+				},
+				"persist": {
+					"value": true,
+					"persistTokenPrototype": true
+				},
+				"tieToDocuments": true
+			}
+		}
+	]
+}
