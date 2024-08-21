@@ -59,14 +59,14 @@ export const database = {
 				'03': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-03.ogg`,
 				'04': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-04.ogg`,
 				'05': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-05.ogg`,
-			}
+			},
 		},
 		healing: {
 			'01': {
 				'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
 				'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
 				'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
-			}
+			},
 		},
 		lightning: {
 			cast: {
