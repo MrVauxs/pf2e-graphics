@@ -23,7 +23,7 @@
 					}
 				},
 				{
-					"predicate": ["item:trait:unholy", "jb2a:premium"],
+					"predicate": ["item:trait:unholy", "jb2a:patreon"],
 					"file": "jb2a.ranged.01.projectile.01.dark_purple"
 				},
 				{

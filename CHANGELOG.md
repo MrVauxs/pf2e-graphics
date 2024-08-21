@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > (P) - A premium version of that animation is available.
 
 ## [Unreleased]
+
+### Added
+
 - **New Sounds** from [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
+### Fixed
+
+- Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
 
 ## [0.7.4] - 2024-08-21
 
