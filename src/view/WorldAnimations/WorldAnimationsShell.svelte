@@ -50,7 +50,7 @@
 			{#if $activeTab === 'preset-animations'}
 				<div class='text-nowrap flex justify-stretch mx-auto'>
 					<div>
-						<i class='fa fa-grid' /> Columns
+						<i class='fa fa-grid'></i> Columns
 						<input
 							step='1'
 							min='1'
@@ -60,7 +60,7 @@
 						/>
 					</div>
 					<div>
-						<i class='fa fa-search' /> Search
+						<i class='fa fa-search'></i> Search
 						<input
 							class='w-1/2 mx-1'
 							bind:value={search}
@@ -68,7 +68,7 @@
 						/>
 					</div>
 					<div>
-						<i class='fa fa-tally' /> Total
+						<i class='fa fa-tally'></i> Total
 						<input
 							disabled
 							class='w-1/2 mx-1'
@@ -90,7 +90,7 @@
 							<span class='w-[90%] truncate text-nowrap'>
 								{key}
 								{#if typeof animation !== 'string' && animation.some(ani => ani.options?.sound)}
-									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound' />)
+									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound'></i>)
 								{/if}
 							</span>
 							<button
@@ -104,7 +104,7 @@
 										focus: true,
 									})
 								}}
-							/>
+							></button>
 						</div>
 					{/each}
 				</div>

@@ -105,12 +105,12 @@
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>
 						<h3 class='border-b-0'>
-							<i class='fa-regular fa-circle align-middle' />
+							<i class='fa-regular fa-circle align-middle'></i>
 							Token Image
 						</h3>
 						<div class='ml-auto flex items-center'>
 							<label class='flex items-center' data-tooltip='PF2E.RuleEditor.General.PriorityHint'>
-								<i class='fa-solid fa-fw fa-list-ol mr-1' />
+								<i class='fa-solid fa-fw fa-list-ol mr-1'></i>
 								<input
 									class='h-8 w-10'
 									type='number'
@@ -119,7 +119,7 @@
 							</label>
 							<button
 								on:click={() => removeRule(rule)}
-								class='fas fa-trash-can size-8' />
+								class='fas fa-trash-can size-8'></button>
 						</div>
 					</section>
 					<div class='grid grid-cols-5 items-center gap-1.5
@@ -160,7 +160,7 @@
 									rule.value = String(x)
 									updateRules()
 								})}
-							/>
+							></button>
 						</section>
 						<!-- #endregion -->
 						<!-- #region Transitions -->
@@ -192,14 +192,14 @@
 							<label class='grid grid-cols-2 items-center'>
 								<span>
 									<a class='no-underline' href='https://easings.net/' data-tooltip='pf2e-graphics.easingTooltip'>
-										<i class='fa fa-info-circle size-4' />
+										<i class='fa fa-info-circle size-4'></i>
 									</a>
 									Easing:
 								</span>
 								<select name='easing'
 									bind:value={rule.animation.easing}
 									on:change={() => updateRules()}>
-									<option value="" />
+									<option value=""></option>
 									{#each EaseNames as value}
 										<option {value}>{value}</option>
 									{/each}
@@ -236,7 +236,7 @@
 											rule.tint = undefined
 											updateRules()
 										}}
-									/>
+									></button>
 								</div>
 							</label>
 							<label class='grid grid-cols-2 items-center'>
@@ -253,12 +253,12 @@
 			{/each}
 			<div class='flex w-2/3 text-nowrap mx-auto flex-grow basis-1/2 h-8'>
 				<button class='m-1 h-full' on:click={createRule}>
-					<i class='fas fa-plus' />
+					<i class='fas fa-plus'></i>
 					Create Token Image
 				</button>
 				{#if !showImagePacks}
 					<button class='m-1 h-full' on:click={() => { showImagePacks = !showImagePacks }}>
-						<i class='fas fa-plus' />
+						<i class='fas fa-plus'></i>
 						Import Token Image Pack
 					</button>
 				{:else}
@@ -268,7 +268,7 @@
 								<option value={pack.rules}>{pack.uuid ? window.fromUuidSync(pack.uuid)?.name : pack.name}</option>
 							{/each}
 						</select>
-						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)} />
+						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)}></button>
 					</div>
 				{/if}
 			</div>
@@ -279,10 +279,10 @@
 				<input type='checkbox' id='displayFeat' bind:checked={display} on:change={invisibility} />
 			</div>
 			<button class='' on:click={takethAway}>
-				<i class='fa fa-trash-can pr-1' />{i18n('Delete')}
+				<i class='fa fa-trash-can pr-1'></i>{i18n('Delete')}
 			</button>
 			<button class='' on:click={() => $feat.sheet.render(true)}>
-				<i class='fa fa-folder-open pr-1' />{i18n('actorAnimation.openFeat')}
+				<i class='fa fa-folder-open pr-1'></i>{i18n('actorAnimation.openFeat')}
 			</button>
 		</div>
 	{:else}

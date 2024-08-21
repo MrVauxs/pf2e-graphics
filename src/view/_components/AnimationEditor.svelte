@@ -64,14 +64,14 @@
 	overflow-clip
 '>
 	<div class='[&>*:not(:first-child)]:mx-1 my-auto flex items-center text-nowrap'>
-		<span><i class='fa fa-search' /> Search</span><input bind:value={search} />
+		<span><i class='fa fa-search'></i> Search</span><input bind:value={search} />
 	</div>
 
 	<button
 		class='fa fa-brackets-curly size-8 ml-auto'
 		data-tooltip='pf2e-graphics.jsonEditor'
 		on:click={openJSON}
-	/>
+	></button>
 	{#if newAnimeKey.length}
 		<input bind:value={newAnimeKey} />
 	{/if}
@@ -80,7 +80,7 @@
 		data-tooltip='pf2e-graphics.addAnim'
 		on:click={addNew}
 		disabled={$inStasis}
-	/>
+	></button>
 </div>
 <div class='flex flex-col gap-1'>
 	{#each Object.keys($flag).filter(k => k.includes(search)) as key}

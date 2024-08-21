@@ -107,7 +107,7 @@
 				on:click={() => hidden = !hidden}
 				role='button'
 				tabindex='-1'
-			/>
+			></i>
 			<div>{key}</div>
 			<div class='flex flex-grow justify-end gap-1'>
 				{#if isReference}
@@ -138,7 +138,7 @@
 						data-tooltip='pf2e-graphics.reference'
 						on:click={convertToReference}
 						tabindex='-1'
-					/>
+					></button>
 					{#if !isReference}
 						<button
 							{disabled}
@@ -149,7 +149,7 @@
 							data-tooltip='pf2e-graphics.addAnim'
 							on:click={addNewAnimation}
 							tabindex='-1'
-						/>
+						></button>
 					{/if}
 					<button
 						{disabled}
@@ -160,7 +160,7 @@
 						data-tooltip='Delete'
 						on:click={remove}
 						tabindex='-1'
-					/>
+					></button>
 				</div>
 			</div>
 		</header>
@@ -242,7 +242,7 @@
 									class='fa fa-trash w-8'
 									data-tooltip='Delete'
 									on:click={() => removeSub(index)}
-								/>
+								></button>
 							</header>
 
 							{#if ani.preset === 'macro'}
@@ -278,7 +278,7 @@
 													absolute text-base right-2 top-px leading-6 text-center
 												'
 												data-tooltip='pf2e-graphics.editor.notDb'
-											/>
+											></i>
 											<i
 												class='
 													fa fa-warning
@@ -286,7 +286,7 @@
 													absolute text-base right-2 top-px leading-6 text-center
 												'
 												data-tooltip='pf2e-graphics.editor.notDb'
-											/>
+											></i>
 										{/if}
 										<input
 											{disabled}
@@ -299,7 +299,7 @@
 										class='fas fa-database w-min leading-6'
 										data-tooltip='SEQUENCER.SidebarButtons.Database'
 										on:click={() => window.Sequencer.DatabaseViewer.show()}
-									/>
+									></button>
 								</label>
 								{(ani.options.sound ??= {}) && ''}
 								{#if Array.isArray(ani.options.sound)}
@@ -322,7 +322,7 @@
 														absolute text-base right-2 top-px leading-6 text-center
 													'
 													data-tooltip='pf2e-graphics.editor.notDb'
-												/>
+												></i>
 												<i
 													class='
 														fa fa-warning
@@ -330,7 +330,7 @@
 														absolute text-base right-2 top-px leading-6 text-center
 													'
 													data-tooltip='pf2e-graphics.editor.notDb'
-												/>
+												></i>
 											{/if}
 											<input
 												{disabled}
@@ -343,7 +343,7 @@
 											class='fas fa-database w-min leading-6'
 											data-tooltip='SEQUENCER.SidebarButtons.Database'
 											on:click={() => window.Sequencer.DatabaseViewer.show()}
-										/>
+										></button>
 									</label>
 								{/if}
 								<Separator>

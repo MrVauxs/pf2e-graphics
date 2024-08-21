@@ -74,7 +74,7 @@
 							tabindex='-1'
 							on:click|stopPropagation={() => removeDropPredicate(rule)}
 							on:keyup|stopPropagation={() => removeDropPredicate(rule)}
-						/>
+						></i>
 					</div>
 				{:else}
 					<span class='px-1'>Drag and drop an effect to predicate onto!</span>
@@ -82,6 +82,6 @@
 			</div>
 		{/if}
 
-		<button data-tooltip='pf2e-graphics.actorAnimation.switch' class='fa fa-refresh w-min' on:click={() => showPredicate = !showPredicate} />
+		<button data-tooltip='pf2e-graphics.actorAnimation.switch' class='fa fa-refresh w-min' on:click={() => showPredicate = !showPredicate}></button>
 	{/await}
 </section>
