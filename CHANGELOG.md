@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New Sounds** from [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
 - **New Animations**
   - Briny Bolt ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - Boost Eidolon ([@Lerosnn](https://github.com/Lerosnn))
+  - Detect Magic ([@Lerosnn](https://github.com/Lerosnn))
+  - Evolution Surge ([@Lerosnn](https://github.com/Lerosnn))
+  - Force Barrage ([@Lerosnn](https://github.com/Lerosnn))
+  - Grim Tendrils ([@Lerosnn](https://github.com/Lerosnn))
+  - Ill Omen ([@Lerosnn](https://github.com/Lerosnn))
+  - Kinetic Ram ([@Lerosnn](https://github.com/Lerosnn))
 
 ### Fixed
 
