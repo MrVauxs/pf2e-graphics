@@ -10,16 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.4] - 2024-08-21
+
 ### Added
+
 - **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- Improvements to Custom Animations Menu:
+  - Tooltips explaining options.
+  - Delete button for subsidiary animations.
+  - Tie To Documents only being shown with Persistent being on.
+  - Warning when using file paths instead of Sequencer Database paths.
+  - Setting preset to Macro reducing the menu down to macro input.
+  - Significantly expanded the options available.
+    - Randomize Mirror X/Y, Mirror X/Y, Fade In/Out, Size (+ Grid Units), Scale, Scale To Object
 
-## [0.7.3] - 2024-08-20
+### Fixed
 
-### Changed
-
-- Removed update delay from World Animation settings.
-
-## [0.7.2] - 2024-08-20
+- The menu being partially not i18n-able.
 
 ## [0.7.3] - 2024-08-20
 
@@ -319,7 +326,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.4...HEAD
+[0.7.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.0...v0.7.1
