@@ -10,9 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Added
+### Added
+
+- **New Sounds** from [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
 - **New Animations**
   - Briny Bolt ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
+### Fixed
+
+- Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
 ## [0.7.4] - 2024-08-21
 
 ### Added
