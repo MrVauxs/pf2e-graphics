@@ -1,29 +1,29 @@
-import { z } from 'zod'
-import { AnimCore } from './AnimCore'
-import { presets } from './presets'
+import { z } from 'zod';
+import { AnimCore } from './AnimCore';
+import { presets } from './presets';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
 	num => num !== 0,
 	'Value cannot be 0. If you want the value to be 0, simply leave the property undefined.',
-]
+];
 const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Objects must not be empty',
-]
+];
 export const uniqueItems: [(a: any[]) => boolean, string] = [
 	(a: object[]): boolean => new Set(a.map(e => JSON.stringify(e))).size === a.length,
 	'Unique items required',
-]
+];
 // end
 
-const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()])
+const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()]);
 
-const ID = z.string().regex(/^[a-z]+(-[a-z])+$/, 'Must be a valid slug.')
+const ID = z.string().regex(/^[a-z]+(-[a-z])+$/, 'Must be a valid slug.');
 
 const rollOption = z
 	.string()
-	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/i, 'Must be a valid roll option.')
+	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/i, 'Must be a valid roll option.');
 
 // Following required to allow Zod to evaluate recursive structures
 const predicateComparisonObject = z.object({
@@ -55,16 +55,16 @@ const predicateComparisonObject = z.object({
 			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
 		)
 		.optional(),
-})
+});
 type Predicate =
 	| z.infer<typeof rollOption>
 	| (z.infer<typeof predicateComparisonObject> & {
-		not?: Predicate
-		and?: Predicate[]
-		or?: Predicate[]
-		nand?: Predicate[]
-		nor?: Predicate[]
-	})
+		not?: Predicate;
+		and?: Predicate[];
+		or?: Predicate[];
+		nand?: Predicate[];
+		nor?: Predicate[];
+	});
 const predicate: z.ZodType<Predicate> = rollOption.or(
 	predicateComparisonObject
 		.extend({
@@ -104,19 +104,19 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 		})
 		.strict()
 		.refine(...nonEmpty),
-)
+);
 // end
 
-const hexColour = z.string().regex(/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.')
+const hexColour = z.string().regex(/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.');
 
 const fileName = z
 	.string()
 	.refine(
 		str => !str.match(/[<>:"/\\|?*]/g),
 		'The following characters are unsafe for cross-platform filesystems: <>:"/\\|?*',
-	)
+	);
 
-const vector2 = z.object({ x: z.number(), y: z.number() }).strict()
+const vector2 = z.object({ x: z.number(), y: z.number() }).strict();
 
 const soundData = z
 	.object({
@@ -143,13 +143,13 @@ const soundData = z
 			.optional(),
 		default: z.boolean().optional(),
 	})
-	.strict()
+	.strict();
 const soundConfig = soundData.or(
 	z
 		.array(soundData)
 		.min(1)
 		.refine(...uniqueItems),
-)
+);
 
 const presetOptions = z.enum(['target', 'source', 'both']).or(
 	z.object({
@@ -161,14 +161,14 @@ const presetOptions = z.enum(['target', 'source', 'both']).or(
 			.strict(),
 		templateAsOrigin: z.literal(true).optional(),
 	}),
-)
+);
 
 const easingOptions = z
 	.object({
 		ease: z.string().optional(),
 		delay: z.number().positive().optional(),
 	})
-	.strict()
+	.strict();
 
 const shape = z
 	.object({
@@ -199,7 +199,7 @@ const shape = z
 		isMask: z.literal(true).optional(),
 	})
 	.strict()
-	.refine(...nonEmpty)
+	.refine(...nonEmpty);
 
 export const effectOptions = z
 	.object({
@@ -488,7 +488,7 @@ export const effectOptions = z
 			.optional(),
 	})
 	.strict()
-	.refine(...nonEmpty)
+	.refine(...nonEmpty);
 
 const animationDataObject = z.object({
 	overrides: z
@@ -505,24 +505,24 @@ const animationDataObject = z.object({
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	options: z.any().optional(), // :(
-})
+	options: effectOptions.optional(), // :(
+});
 
 // Following required to allow Zod to evaluate recursive structures
 type FolderObject = Partial<z.infer<typeof animationDataObject>> & {
-	contents?: (z.infer<typeof animationDataObject> | FolderObject)[]
-}
+	contents?: (z.infer<typeof animationDataObject> | FolderObject)[];
+};
 const folderObject: z.ZodType<FolderObject> = animationDataObject.partial().extend({
 	contents: z
 		.lazy(() => z.array(animationDataObject.or(folderObject)).min(1))
 		.refine(...uniqueItems)
 		.optional(),
-})
+});
 // end
 
 const referenceObject = animationDataObject.partial().extend({
 	reference: rollOption,
-})
+});
 
 export const animations = z.record(
 	rollOption,
@@ -532,7 +532,7 @@ export const animations = z.record(
 			.min(1)
 			.refine(...uniqueItems),
 	),
-)
+);
 
 export const tokenImages = z.object({
 	_tokenImages: z
@@ -579,4 +579,4 @@ export const tokenImages = z.object({
 		)
 		.min(1)
 		.refine(...uniqueItems),
-})
+});

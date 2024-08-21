@@ -1,38 +1,38 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor'
-	import type { Writable } from 'svelte/store'
-	import { onDestroy, onMount } from 'svelte'
-	import { animations, tokenImages } from 'src/storage/animationsSchema'
-	import { fromZodIssue } from 'zod-validation-error'
+	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
+	import type { Writable } from 'svelte/store';
+	import { onDestroy, onMount } from 'svelte';
+	import { animations, tokenImages } from 'src/storage/animationsSchema';
+	import { fromZodIssue } from 'zod-validation-error';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core'
+	import { ApplicationShell } from '#runtime/svelte/component/core';
 
-	export let elementRoot: HTMLElement | undefined
-	export let store: Writable<object>
-	export let permission: boolean
-	export let stasis: Writable<boolean>
+	export let elementRoot: HTMLElement | undefined;
+	export let store: Writable<object>;
+	export let permission: boolean;
+	export let stasis: Writable<boolean>;
 
 	let content = {
 		json: $store,
-	} as { json: object, text: string }
+	} as { json: object; text: string };
 
 	$: {
 		if (content.json) {
-			store.set(content.json)
+			store.set(content.json);
 		} else {
 			try {
-				const data = JSON.parse(content.text)
-				store.set(data)
+				const data = JSON.parse(content.text);
+				store.set(data);
 			} catch {}
 		}
 	}
 
 	const validator = (json: unknown): ValidationError[] => {
-		const schema = (json as any)._tokenImages ? tokenImages : animations
-		const result = schema.safeParse(json)
-		if (result.success) return []
+		const schema = (json as any)._tokenImages ? tokenImages : animations;
+		const result = schema.safeParse(json);
+		if (result.success) return [];
 		return result.error.issues.map(issue => ({
 			path: issue.path as string[], // Can't be number[] since we're dealing with JSON, which only accepts string keys
 			message: fromZodIssue(issue, {
@@ -40,18 +40,18 @@
 				prefix: null,
 			}).toString(),
 			severity: ValidationSeverity[ValidationSeverity.error],
-		}))
-	}
+		}));
+	};
 
-	const mode = 'text' as Mode // TS...
+	const mode = 'text' as Mode; // TS...
 
 	onMount(() => {
-		stasis.set(true)
-	})
+		stasis.set(true);
+	});
 
 	onDestroy(() => {
-		stasis.set(false)
-	})
+		stasis.set(false);
+	});
 </script>
 
 <ApplicationShell bind:elementRoot>
