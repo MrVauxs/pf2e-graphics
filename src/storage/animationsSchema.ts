@@ -255,17 +255,6 @@ export const effectOptions = z
 			.refine(...nonZero)
 			.or(easingOptions.extend({ value: z.number() }).strict())
 			.optional(),
-		scale: z
-			.number()
-			.or(
-				z
-					.object({
-						min: z.number().or(z.object({ x: z.number(), y: z.number() })),
-						max: z.number().optional(),
-					})
-					.strict(),
-			)
-			.optional(),
 		wait: z
 			.number()
 			.or(
@@ -283,6 +272,28 @@ export const effectOptions = z
 				z
 					.object({
 						min: z.number().refine(...nonZero),
+						max: z.number().optional(),
+					})
+					.strict(),
+			)
+			.optional(),
+		size: z
+			.number()
+			.or(
+				z
+					.object({
+						value: z.number().positive(),
+						gridUnits: z.literal(true).optional(),
+					})
+					.strict(),
+			)
+			.optional(),
+		scale: z
+			.number()
+			.or(
+				z
+					.object({
+						min: z.number().or(z.object({ x: z.number(), y: z.number() })),
 						max: z.number().optional(),
 					})
 					.strict(),
@@ -307,17 +318,6 @@ export const effectOptions = z
 				local: z.literal(true).optional(),
 			})
 			.strict()
-			.optional(),
-		size: z
-			.number()
-			.or(
-				z
-					.object({
-						value: z.number().positive(),
-						gridUnits: z.literal(true).optional(),
-					})
-					.strict(),
-			)
 			.optional(),
 		persist: z
 			.literal(true)
