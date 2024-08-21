@@ -375,9 +375,7 @@ export let AnimCore = class AnimCore {
 			trigger: this.CONST.TRIGGERS[0],
 			preset: this.CONST.PRESETS[0],
 			file: '',
-			options: {
-				tieToDocuments: true,
-			},
+			options: {},
 		}),
 		PRESETS: Object.keys(presets) as PresetKeys[],
 		TRIGGERS: [

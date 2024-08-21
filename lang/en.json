@@ -109,11 +109,52 @@
 			"modifiers-matter": "Modifiers Matter"
 		},
 		"editor": {
+			"tooltip": {
+				"gridUnits": "Use Grid Units (squares, hexes)",
+				"preset": "A basic template for which your animation bases off of. A basic projectile would be Ranged, an AoE spell would be a Template. You can check out more details on the wiki.",
+				"trigger": "What action or roll should trigger the animation. You can check out more details on the wiki.",
+				"predicate": "What roll options the triggering action should have. This is in addition to the primary key. Otherwise works the same as normal PF2e Rule Element predicates. You can check out more details on the wiki.",
+				"persistent": "Causes an animation to stay on the canvas and loop until manually removed or if \"Tie To Documents\" is enabled.",
+				"tieToDocuments": "Causes the persistent animation to be removed when its origin (ex. an Effect) has been removed.",
+				"masked": "Causes the effect to be restricted to the span of the token, making it not visible past the token image.",
+				"belowTokens": "Makes the animation appear below tokens, irrespective of elevation.",
+				"randomizeMirrorY": "Randomly flips the animation on its Y (height) axis, making it upside down with a 50/50 chance.",
+				"randomizeMirrorX": "Randomly flips the animation on its X (width) axis, making it sideways with a 50/50 chance",
+				"mirrorX": "Flips the animation on its X (width) axis, making it sideways.",
+				"mirrorY": "Flips the animation on its Y (height) axis, making it upside down.",
+				"scale": "Multiplies the size of the animation by a given amount.",
+				"scaleToObject": "Multiplies the size of the animation by a given amount, adjusted for token size.",
+				"size": "Changes the actual size of the animation in pixels or optionally grid units.",
+				"fadeOut": "Causes the animation to fade out of view as it ends, counted in milliseconds.",
+				"fadeIn": "Causes the animation to fade into of view as it begins, counted in milliseconds.",
+				"waitUntilFinished": "The animation will wait for the previous animation to finish and then wait the set amount. A negative value will make it start earlier, while the previous animation is still playing.",
+				"delay": "Delays or \"staggers\" the animation to start a set amount of milliseconds."
+			},
 			"preset": "Preset",
 			"trigger": "Trigger",
 			"predicate": "Predicate",
 			"imageFile": "Image File",
-			"soundFile": "Sound File"
+			"soundFile": "Sound File",
+			"soundDisclaimer": "This animation contains multiple sounds which are modifiable only through JSON editor.",
+			"notDb": "Using a file path is not the recommended way of creating an animation. Use a Sequencer Database path when able.",
+			"persistent": "Persistent",
+			"tieToDocuments": "Tie To Documents",
+			"waitUntilFinished": "Wait Until Finished",
+			"wait": "Wait",
+			"delay": "Delay",
+			"macro": "Macro",
+			"advancedOptions": "Advanced Options",
+			"randomizeMirrorY": "Randomize Mirror Y",
+			"randomizeMirrorX": "Randomize Mirror X",
+			"mirrorY": "Mirror Y",
+			"mirrorX": "Mirror X",
+			"scale": "Scale",
+			"scaleToObject": "Scale To Object",
+			"size": "Size",
+			"fadeOut": "Fade Out",
+			"fadeIn": "Fade In",
+			"belowTokens": "Below Tokens",
+			"masked": "Masked"
 		}
 	}
 }

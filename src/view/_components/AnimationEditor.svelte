@@ -5,7 +5,7 @@
 	import { type Writable, writable } from 'svelte/store'
 	import { ErrorMsg, nonNullable } from 'src/utils'
 	import JSONEditorApp from './JSONEditor/JSONEditor'
-	import SingleEditor from './SingleEditor.svelte'
+	import SingleEditor from './AnimationSubEditor.svelte'
 
 	export let doc: TJSDocument<ActorPF2e | ItemPF2e | UserPF2e> | Writable<{ id: 'settings' }>
 	export function createAnimation() {}

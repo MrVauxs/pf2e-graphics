@@ -247,10 +247,6 @@ export interface EffectOptions<T extends PresetKeys> {
 	fadeOut?: number | {
 		value: number
 	} & EasingOptions
-	scale?: number | {
-		min: number | { x: number, y: number }
-		max?: number
-	}
 	wait?: number | {
 		min: number
 		max?: number
@@ -259,15 +255,19 @@ export interface EffectOptions<T extends PresetKeys> {
 		min: number
 		max?: number
 	}
+	size?: number | {
+		value: number
+	} & Parameters<EffectSection['size']>[1]
+	scale?: number | {
+		min: number | { x: number, y: number }
+		max?: number
+	}
 	scaleToObject?: number | {
 		value: number
 	} & Parameters<EffectSection['scaleToObject']>[1]
 	spriteOffset?: {
 		offset: Parameters<EffectSection['spriteOffset']>[0]
 	} & Parameters<EffectSection['spriteOffset']>[1]
-	size?: number | {
-		value: number
-	} & Parameters<EffectSection['size']>[1]
 	persist?: boolean | {
 		value: boolean
 	} & Parameters<EffectSection['persist']>[1]
