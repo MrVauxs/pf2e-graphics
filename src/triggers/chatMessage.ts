@@ -35,7 +35,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 		: message.token
 
 	const deliverable = {
-		rollOptions: rollOptions.concat([`outcome:${message.flags.pf2e.context?.outcome || 'none'}`]),
+		rollOptions: rollOptions.concat([`check:outcome:${message.flags.pf2e.context?.outcome?.slugify() || 'none'}`]),
 		trigger,
 		targets,
 		source,
