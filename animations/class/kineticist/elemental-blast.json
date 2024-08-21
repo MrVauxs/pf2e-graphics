@@ -1,27 +1,112 @@
 {
 	"item:slug:elemental-blast": [
-		{
+	  {
+		"predicate": [
+		  "item:trait:air"
+		],
+		"contents": [
+		  {
 			"reference": "item:slug:electric-arc",
 			"trigger": "attack-roll",
 			"predicate": [
-				"item:trait:electricity"
-			]
+			  "item:trait:electricity"
+			],
+			"options": {
+			  "sound": {}
+			},
+			"preset": "ranged"
+		  }
+		],
+		"options": {
+		  "sound": {}
 		},
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.spell_projectile.ice_shard.blue",
-			"predicate": [
-				"item:trait:cold"
-			]
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  },
+	  {
+		"predicate": [
+		  "item:trait:earth"
+		],
+		"contents": [
+		  {}
+		],
+		"options": {
+		  "sound": {}
 		},
-		{
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  },
+	  {
+		"predicate": [
+		  "item:trait:fire"
+		],
+		"contents": [
+		  {
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.fire_bolt.orange",
 			"predicate": [
-				"item:trait:fire"
-			]
-		}
+			  "item:trait:fire"
+			],
+			"options": {
+			  "sound": {}
+			}
+		  }
+		],
+		"options": {
+		  "sound": {}
+		},
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  },
+	  {
+		"predicate": [
+		  "item:trait:metal"
+		],
+		"contents": [
+		  {}
+		],
+		"options": {
+		  "sound": {}
+		},
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  },
+	  {
+		"predicate": [
+		  "item:trait:water"
+		],
+		"contents": [
+		  {
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.spell_projectile.ice_shard.blue",
+			"predicate": [
+			  "item:trait:cold"
+			],
+			"options": {
+			  "sound": {}
+			}
+		  }
+		],
+		"options": {
+		  "sound": {}
+		},
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  },
+	  {
+		"predicate": [
+		  "item:trait:wood"
+		],
+		"contents": [
+		  {}
+		],
+		"options": {
+		  "sound": {}
+		},
+		"preset": "ranged",
+		"trigger": "attack-roll"
+	  }
 	]
-}
+  }
