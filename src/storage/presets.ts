@@ -202,8 +202,6 @@ export const helpers = {
 					sound.duration(options.duration);
 				if (options?.waitUntilFinished)
 					sound.waitUntilFinished(options.waitUntilFinished);
-				if (options?.syncGroup)
-					sound.syncGroup(options.syncGroup);
 				if (options?.muffledEffect)
 					sound.muffledEffect(options.muffledEffect);
 				if (options?.baseEffect)
@@ -236,7 +234,6 @@ interface SoundData {
 	predicate?: string[];
 	default?: boolean;
 	delay?: number;
-	syncGroup?: string;
 	muffledEffect: Parameters<SoundSection['muffledEffect']>[0];
 	baseEffect: Parameters<SoundSection['baseEffect']>[0];
 }

@@ -1,10 +1,19 @@
 {
 	"compilerOptions": {
 		"composite": true,
+		"lib": [
+			"ESNext"
+		],
 		"module": "ESNext",
 		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
 		"strict": true,
+		"noEmit": true,
 		"skipLibCheck": true
 	},
-	"include": ["vite.config.ts"]
+	"include": [
+		"./src/assets/soundDb.ts",
+		"./tests",
+		"vite.config.ts"
+	]
 }
