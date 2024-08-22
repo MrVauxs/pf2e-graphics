@@ -1,26 +1,371 @@
 {
 	"item:slug:elemental-blast": [
 		{
-			"reference": "item:slug:electric-arc",
-			"trigger": "attack-roll",
 			"predicate": [
-				"item:trait:electricity"
+				"item:trait:air"
+			],
+			"contents": [
+				{
+					"predicate": [
+						"item:trait:electricity"
+					],
+					"contents": [
+						{
+							"trigger": "attack-roll",
+							"file": "jb2a.chain_lightning.primary.blue",
+							"options": {
+								"sound": {
+									"file": "pf2e-graphics.lightning_bolt.impact"
+								}
+							},
+							"preset": "ranged"
+						},
+						{
+							"trigger": "damage-roll",
+							"preset": "onToken",
+							"file": "jb2a.static_electricity.03.blue",
+							"predicate": [
+								"action:cost:2"
+							],
+							"options": {
+								"preset": "target",
+								"scaleToObject": 1,
+								"fadeIn": 250,
+								"duration": 1000,
+								"fadeOut": 500
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"not": "item:trait:electricity"
+						}
+					],
+					"contents": [
+						{
+							"preset": "ranged",
+							"trigger": "attack-roll",
+							"contents": [
+								{
+									"predicate": [
+										"jb2a:patreon"
+									],
+									"file": "jb2a.spell_projectile.earth.01.browngreen",
+									"options": {
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"hue": 140,
+												"saturate": -0.6
+											}
+										}
+									}
+								},
+								{
+									"predicate": [
+										"jb2a:free"
+									],
+									"file": "jb2a.gust_of_wind.veryfast"
+								}
+							]
+						},
+						{
+							"trigger": "damage-roll",
+							"preset": "onToken",
+							"file": "jb2a.template_circle.aura.01.complete.small.bluepurple",
+							"predicate": [
+								"action:cost:2"
+							],
+							"options": {
+								"preset": "target",
+								"scaleToObject": 1.5,
+								"fadeIn": 250,
+								"duration": 1000,
+								"fadeOut": 500,
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -70,
+										"saturate": -0.8
+									}
+								}
+							}
+						}
+					]
+				}
 			]
 		},
 		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.spell_projectile.ice_shard.blue",
 			"predicate": [
-				"item:trait:cold"
+				"item:trait:earth"
+			],
+			"contents": [
+				{
+					"file": "jb2a.boulder.toss.02.01.stone.brown",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.magic.earth.ranged.single"
+						}
+					},
+					"preset": "ranged",
+					"trigger": "attack-roll"
+				},
+				{
+					"predicate": [
+						"action:cost:2"
+					],
+					"trigger": "damage-roll",
+					"preset": "onToken",
+					"options": {
+						"preset": "target",
+						"scaleToObject": 1.5
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.impact.earth.01.browngreen.0"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.scorched_earth.black",
+							"options": {
+								"belowTokens": true,
+								"fadeIn": 250,
+								"duration": 1000,
+								"fadeOut": 500
+							}
+						}
+					]
+				}
 			]
 		},
 		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.fire_bolt.orange",
 			"predicate": [
 				"item:trait:fire"
+			],
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"preset": "ranged",
+					"file": "jb2a.fire_bolt.orange",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.magic.fire.cast"
+						}
+					}
+				},
+				{
+					"predicate": [
+						"action:cost:2"
+					],
+					"trigger": "damage-roll",
+					"preset": "onToken",
+					"options": {
+						"preset": "target",
+						"scaleToObject": 1.5
+					},
+					"file": "jb2a.impact.fire.01.orange.0"
+				}
+			]
+		},
+		{
+			"predicate": [
+				"item:trait:metal"
+			],
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"preset": "ranged",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.spear.miss.01"
+						}
+					},
+					"contents": [
+						{
+							"file": "jb2a.dagger.throw.01.white",
+							"predicate": [
+								"jb2a:free"
+							]
+						},
+						{
+							"file": "jb2a.dart.01.throw.physical.white",
+							"predicate": [
+								"jb2a:patreon"
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"action:cost:2"
+					],
+					"trigger": "damage-roll",
+					"preset": "onToken",
+					"options": {
+						"preset": "target",
+						"scaleToObject": 1.5,
+						"belowTokens": true
+					},
+					"file": "jb2a.spike_trap.10x10ft.top.holes.normal.01"
+				}
+			]
+		},
+		{
+			"predicate": [
+				"item:trait:water"
+			],
+			"contents": [
+				{
+					"predicate": [
+						"item:trait:cold"
+					],
+					"contents": [
+						{
+							"trigger": "attack-roll",
+							"preset": "ranged",
+							"file": "jb2a.spell_projectile.ice_shard.blue"
+						},
+						{
+							"predicate": [
+								"action:cost:2"
+							],
+							"trigger": "damage-roll",
+							"preset": "onToken",
+							"file": "jb2a.ice_spikes.radial.burst.white",
+							"options": {
+								"preset": "target",
+								"belowTokens": true,
+								"scaleToObject": 1.5
+							}
+
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"not": "item:trait:cold"
+						}
+					],
+					"contents": [
+
+						{
+							"trigger": "attack-roll",
+							"preset": "ranged",
+							"options": {
+								"sound": {
+									"file": "pf2e-graphics.magic.water.cast"
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"jb2a:patreon"
+									],
+									"file": "jb2a.ranged.04.projectile.01.blue"
+								},
+								{
+									"predicate": [
+										"jb2a:free"
+									],
+									"file": "jb2a.ranged.04.projectile.01.green",
+									"options": {
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"hue": 110
+											}
+										}
+									}
+								}
+							]
+						},
+						{
+							"predicate": [
+								"action:cost:2"
+							],
+							"trigger": "damage-roll",
+							"preset": "onToken",
+							"file": "jb2a.liquid.splash.blue",
+							"options": {
+								"preset": "target",
+								"belowTokens": true,
+								"scaleToObject": 1.5
+							}
+						}
+
+					]
+				}
+			]
+		},
+		{
+			"predicate": [
+				"item:trait:wood"
+			],
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not:": "item:trait:vitality"
+						}
+					],
+					"contents": [{
+						"file": "jb2a.barrel.toss.wooden.01.01.brown",
+						"options": {
+							"sound": {
+								"file": "pf2e-graphics.magic.earth.ranged.single"
+							}
+						},
+						"preset": "ranged",
+						"trigger": "attack-roll"
+					}, {
+						"predicate": [
+							"action:cost:2"
+						],
+						"trigger": "damage-roll",
+						"preset": "onToken",
+						"file": "jb2a.explosion.shrapnel.bomb.01.black",
+						"options": {
+							"preset": "target",
+							"belowTokens": true,
+							"scaleToObject": 1.5
+						}
+					}]
+				},
+				{
+					"predicate": [
+						"item:trait:vitality"
+					],
+					"contents": [{
+						"file": "jb2a.ranged.03.instant.01.bluegreen",
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -75
+							}
+						},
+						"preset": "ranged",
+						"trigger": "attack-roll"
+					}, {
+						"predicate": [
+							"action:cost:2"
+						],
+						"trigger": "damage-roll",
+						"preset": "onToken",
+						"file": "jb2a.energy_strands.in.green.01",
+						"options": {
+							"preset": "target",
+							"scaleToObject": 1.5
+						}
+					}]
+				}
 			]
 		}
 	]
