@@ -1,41 +1,41 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import { JSONEditor, Mode } from 'svelte-jsoneditor'
-	import type { Writable } from 'svelte/store'
-	import { onDestroy, onMount } from 'svelte'
+	import { JSONEditor, Mode } from 'svelte-jsoneditor';
+	import type { Writable } from 'svelte/store';
+	import { onDestroy, onMount } from 'svelte';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core'
+	import { ApplicationShell } from '#runtime/svelte/component/core';
 
-	export let elementRoot: HTMLElement | undefined
-	export let store: Writable<object>
-	export let permission: boolean
-	export let stasis: Writable<boolean>
+	export let elementRoot: HTMLElement | undefined;
+	export let store: Writable<object>;
+	export let permission: boolean;
+	export let stasis: Writable<boolean>;
 
 	let content = {
 		json: $store,
-	} as { json: object, text: string }
+	} as { json: object; text: string };
 
 	$: {
 		if (content.json) {
-			store.set(content.json)
+			store.set(content.json);
 		} else {
 			try {
-				const data = JSON.parse(content.text)
-				store.set(data)
+				const data = JSON.parse(content.text);
+				store.set(data);
 			} catch {}
 		}
 	}
 
-	const mode = 'text' as Mode // TS...
+	const mode = 'text' as Mode; // TS...
 
 	onMount(() => {
-		stasis.set(true)
-	})
+		stasis.set(true);
+	});
 
 	onDestroy(() => {
-		stasis.set(false)
-	})
+		stasis.set(false);
+	});
 </script>
 
 <ApplicationShell bind:elementRoot>

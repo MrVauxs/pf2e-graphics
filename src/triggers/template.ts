@@ -1,7 +1,7 @@
-import { devMessage } from 'src/utils'
+import { devMessage } from 'src/utils';
 
 const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template: MeasuredTemplateDocumentPF2e) => {
-	const { actor, item, message, flags: { pf2e: { origin } } } = template
+	const { actor, item, message, flags: { pf2e: { origin } } } = template;
 
 	const deliverable = {
 		rollOptions: [
@@ -15,18 +15,18 @@ const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template:
 		source: message?.token,
 		actor,
 		item,
-	}
+	};
 
-	devMessage('Template Hook Data', deliverable)
+	devMessage('Template Hook Data', deliverable);
 	// Timed out because of some bizzare circumstance where coordinates are not delivered on time resulting in a 0,0 position.
-	setTimeout(() => window.pf2eGraphics.AnimCore.findAndAnimate(deliverable), 100)
-})
+	setTimeout(() => window.pf2eGraphics.AnimCore.findAndAnimate(deliverable), 100);
+});
 
 if (import.meta.hot) {
 	// Prevents reloads
-	import.meta.hot.accept()
+	import.meta.hot.accept();
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
-		Hooks.off('createMeasuredTemplate', createMeasuredTemplateHook)
-	})
+		Hooks.off('createMeasuredTemplate', createMeasuredTemplateHook);
+	});
 }

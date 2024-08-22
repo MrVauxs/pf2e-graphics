@@ -1,4 +1,4 @@
-<div class='separator'><slot /></div>
+<div class='separator'><slot></slot></div>
 
 <style>
 	.separator {

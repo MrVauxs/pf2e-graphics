@@ -1,8 +1,8 @@
-import type { Writable } from 'svelte/store'
-import { Timing } from '@typhonjs-fvtt/runtime/util'
-import type { TJSDocument } from '#runtime/svelte/store/fvtt/document'
-import { writableDerived } from '#runtime/svelte/store/writable-derived'
-import { isObject } from '#runtime/util/object'
+import type { Writable } from 'svelte/store';
+import { Timing } from '@typhonjs-fvtt/runtime/util';
+import type { TJSDocument } from '#runtime/svelte/store/fvtt/document';
+import { writableDerived } from '#runtime/svelte/store/writable-derived';
+import { isObject } from '#runtime/util/object';
 
 /**
  * Currently supports object data as the flag value.
@@ -34,26 +34,26 @@ export default function docFlagDerived<T>(
 					for (const key in data) {
 						if (data[key] === null) {
 							if (key.startsWith('-=')) {
-								delete data[key]
-								continue
+								delete data[key];
+								continue;
 							}
-							data[`-=${key}`] = null
-							delete data[key]
+							data[`-=${key}`] = null;
+							delete data[key];
 						} else if (isObject(data[key])) {
-							changeValue(data[key])
+							changeValue(data[key]);
 						}
 					}
 				}
-				return data
+				return data;
 			}
 
-			const save = () => doc.setFlag(scope, key, changeValue(data))
+			const save = () => doc.setFlag(scope, key, changeValue(data));
 			if (debounce) {
-				Timing.debounce(save, debounce)()
+				Timing.debounce(save, debounce)();
 			} else {
-				save()
+				save();
 			}
-			return doc
+			return doc;
 		},
-	)
+	);
 }

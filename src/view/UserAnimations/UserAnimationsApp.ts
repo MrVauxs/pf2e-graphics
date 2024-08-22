@@ -1,17 +1,17 @@
-import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
-import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
-import { ErrorMsg, kofiButton } from 'src/utils'
-import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-import BasicAppShell from './UserAnimationsShell.svelte'
+import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
+import { ErrorMsg, kofiButton } from 'src/utils';
+import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
+import BasicAppShell from './UserAnimationsShell.svelte';
 
 interface UserAnimationsOptions {
-	document: UserPF2e
+	document: UserPF2e;
 }
 
 export default class UserAnimationsApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & UserAnimationsOptions) {
 		// @ts-expect-error TJS-2-TS
-		super(_options)
+		super(_options);
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
@@ -29,20 +29,20 @@ export default class UserAnimationsApp extends SvelteApplication {
 				intro: true,
 				props: function () {
 					// @ts-expect-error TJS-2-TS
-					const doc = this.options.document
-					if (!doc) throw new ErrorMsg('No Document Provided in UserAnimationsApp!')
+					const doc = this.options.document;
+					if (!doc) throw new ErrorMsg('No Document Provided in UserAnimationsApp!');
 					return {
 						storeDocument: new TJSDocument(doc),
 						document: doc,
-					}
+					};
 				} as () => UserAnimationsOptions,
 			},
-		})
+		});
 	}
 
 	override _getHeaderButtons() {
-		const buttons = super._getHeaderButtons()
-		kofiButton(buttons)
-		return buttons
+		const buttons = super._getHeaderButtons();
+		kofiButton(buttons);
+		return buttons;
 	}
 }

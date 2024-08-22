@@ -17,8 +17,8 @@
 						"predicate": [
 							{
 								"or": [
-									"outcome:failure",
-									"outcome:criticalFailure"
+									"check:outcome:failure",
+									"check:outcome:critical-failure"
 								]
 							}
 						]

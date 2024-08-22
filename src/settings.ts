@@ -1,17 +1,17 @@
-import type { JSONData } from './storage/AnimCore'
-import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings'
+import type { JSONData } from './storage/AnimCore';
+import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
-const storeSettings = new TJSGameSettings('pf2e-graphics')
-export type storeSettingsType = typeof storeSettings
+const storeSettings = new TJSGameSettings('pf2e-graphics');
+export type storeSettingsType = typeof storeSettings;
 
 let settings: TJSLiveGameSettings & {
-	windowPosition: 'sidebar' | 'onTop'
-	quality: 0 | 1 | 2 | 3
-	buttonPosition: 0 | 1
-	dev: boolean
-	worldAnimations: JSONData
-}
-export type liveSettings = typeof settings
+	windowPosition: 'sidebar' | 'onTop';
+	quality: 0 | 1 | 2 | 3;
+	buttonPosition: 0 | 1;
+	dev: boolean;
+	worldAnimations: JSONData;
+};
+export type liveSettings = typeof settings;
 
 const settingsData = [
 	{
@@ -93,13 +93,13 @@ const settingsData = [
 			default: false,
 		},
 	},
-] as const
+] as const;
 
 Hooks.once('init', () => {
-	storeSettings.registerAll(settingsData, true)
+	storeSettings.registerAll(settingsData, true);
 
-	settings = new TJSLiveGameSettings(storeSettings) as typeof settings
+	settings = new TJSLiveGameSettings(storeSettings) as typeof settings;
 
-	window.pf2eGraphics.liveSettings = settings
-	window.pf2eGraphics.storeSettings = storeSettings
-})
+	window.pf2eGraphics.liveSettings = settings;
+	window.pf2eGraphics.storeSettings = storeSettings;
+});

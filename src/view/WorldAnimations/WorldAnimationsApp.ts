@@ -1,8 +1,8 @@
-import type { CombinedSvelteApplicationOptions } from 'src/extensions'
-import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
-import { kofiButton } from 'src/utils'
-import { writable } from 'svelte/store'
-import BasicAppShell from './WorldAnimationsShell.svelte'
+import type { CombinedSvelteApplicationOptions } from 'src/extensions';
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
+import { kofiButton } from 'src/utils';
+import { writable } from 'svelte/store';
+import BasicAppShell from './WorldAnimationsShell.svelte';
 
 export default class WorldAnimationsApp extends SvelteApplication {
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
@@ -23,12 +23,12 @@ export default class WorldAnimationsApp extends SvelteApplication {
 					storeDocument: writable({ id: 'settings' }),
 				},
 			},
-		})
+		});
 	}
 
 	override _getHeaderButtons() {
-		const buttons = super._getHeaderButtons()
-		kofiButton(buttons)
-		return buttons
+		const buttons = super._getHeaderButtons();
+		kofiButton(buttons);
+		return buttons;
 	}
 }
