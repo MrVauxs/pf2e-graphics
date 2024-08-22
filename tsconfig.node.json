@@ -12,8 +12,6 @@
 		"skipLibCheck": true
 	},
 	"include": [
-		"./src/assets/soundDb.ts",
-		"./tests",
 		"vite.config.ts"
 	]
 }
