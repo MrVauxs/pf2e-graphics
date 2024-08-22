@@ -215,9 +215,13 @@
 										{i18n('editor.trigger')}
 									</span>
 									<select bind:value={ani.trigger} {disabled}>
-										{#each AnimCore.CONST.TRIGGERS as trigger}
-											<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
-										{/each}
+										{#if ani.preset === 'template'}
+											<option value='place-template'>{i18n(`triggers.place-template`)}</option>
+										{:else}
+											{#each AnimCore.CONST.TRIGGERS as trigger}
+												<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
+											{/each}
+										{/if}
 									</select>
 								</label>
 
