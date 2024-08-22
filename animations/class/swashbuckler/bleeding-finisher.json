@@ -1,0 +1,14 @@
+{
+	"finisher:bleeding": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.liquid.splash.red",
+			"options": {
+				"sound": { "file": "pf2e-graphics.finisher.01" },
+				"belowTokens": true,
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}
