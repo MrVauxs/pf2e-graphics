@@ -8,14 +8,14 @@
 					"file": "jb2a.chain_lightning.primary.blue",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.shock.impact"
+							"file": "pf2e-graphics.magic.shock.impact"
 						},
 						"waitUntilFinished": -1000,
 						"preset": {
 							"bounce": {
 								"file": "jb2a.chain_lightning.secondary.blue",
 								"sound": {
-									"file": "pf2e-graphics.shock.impact"
+									"file": "pf2e-graphics.magic.shock.impact"
 								}
 							}
 						}
