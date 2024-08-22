@@ -223,7 +223,9 @@ export let AnimCore = class AnimCore {
 			world: Object.keys(window.pf2eGraphics.liveSettings.worldAnimations),
 			user: Object.keys(userKeys),
 			origin: Object.keys(itemOriginKeys),
-			actor: Object.keys(actorKeys),
+			actorOrigin: Object.keys(actorOriginKeys),
+			itemOrigin: Object.keys(itemOriginKeys),
+			actor: Object.keys(itemKeys),
 			item: Object.keys(itemKeys),
 		} as const;
 
