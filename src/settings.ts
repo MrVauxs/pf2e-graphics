@@ -10,6 +10,7 @@ let settings: TJSLiveGameSettings & {
 	buttonPosition: 0 | 1;
 	dev: boolean;
 	worldAnimations: JSONData;
+	suppressWarnings: boolean;
 };
 export type liveSettings = typeof settings;
 
@@ -78,6 +79,19 @@ const settingsData = [
 				0: 'pf2e-graphics.settings.buttonPosition.0',
 				1: 'pf2e-graphics.settings.buttonPosition.1',
 			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'suppressWarnings',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.suppressWarnings.name',
+			hint: 'pf2e-graphics.settings.suppressWarnings.hint',
+			scope: 'client',
+			config: true,
+			type: Boolean,
+			default: false,
 		},
 	},
 	{
