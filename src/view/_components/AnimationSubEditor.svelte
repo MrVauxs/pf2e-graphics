@@ -291,7 +291,7 @@
 										<input
 											{disabled}
 											type='text'
-											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a).dbPath}
+											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a ?? [{ dbPath: 'No JB2A entries?! Enable at least one of them!' }]).dbPath}
 											bind:value={ani.file}
 										/>
 									</div>
