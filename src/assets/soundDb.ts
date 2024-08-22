@@ -135,11 +135,9 @@ export const database = {
 			},
 		},
 		healing: {
-			'01': {
-				'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
-				'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
-				'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
-			},
+			'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
+			'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
+			'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
 		},
 		lightning: {
 			cast: {
@@ -168,7 +166,6 @@ export const database = {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
 			},
 			launch: {
-
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
 			},
 		},

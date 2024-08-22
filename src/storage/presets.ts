@@ -1,5 +1,6 @@
 import { ErrorMsg, clearEmpties, devMessage, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
+import { AnimCore } from './AnimCore';
 
 export const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
@@ -44,6 +45,10 @@ export const helpers = {
 		options = clearEmpties(options || {});
 		if (nonNullable(options?.zIndex) && Boolean(options?.zIndex))
 			seq.zIndex(options.zIndex);
+		if (nonNullable(options?.syncGroup) && Boolean(options?.syncGroup))
+			seq.syncGroup(options.syncGroup);
+		if (nonNullable(options?.randomRotation) && Boolean(options?.randomRotation))
+			seq.randomRotation(options.randomRotation);
 		if (nonNullable(options?.scale) && Boolean(options?.scale)) {
 			if (typeof options.scale === 'object') {
 				seq.scale(options.scale.min, options.scale.max);
@@ -180,10 +185,12 @@ export const helpers = {
 
 		_options
 			.forEach((options) => {
-				seq.file(options?.file);
+				seq.file(AnimCore.parseFile(options?.file));
 
 				if (options?.atLocation)
 					seq.atLocation(target, options.atLocation);
+				if (options?.delay)
+					seq.delay(options.delay);
 				if (options?.radius)
 					seq.radius(options.radius);
 				if (options?.constrainedByWalls)
@@ -192,6 +199,10 @@ export const helpers = {
 					seq.volume(options.volume);
 				if (options?.duration)
 					seq.duration(options.duration);
+				if (options?.waitUntilFinished)
+					seq.waitUntilFinished(options.waitUntilFinished);
+				if (options?.syncGroup)
+					seq.syncGroup(options.syncGroup);
 			});
 
 		return seq;
@@ -219,6 +230,8 @@ interface SoundData {
 	constrainedByWalls?: boolean;
 	predicate?: string[];
 	default?: boolean;
+	delay?: number;
+	syncGroup?: string;
 }
 
 export interface EffectOptions<T extends PresetKeys> {
@@ -227,6 +240,8 @@ export interface EffectOptions<T extends PresetKeys> {
 	locally?: boolean;
 	id?: string;
 	name?: string;
+	syncGroup?: string;
+	randomRotation?: boolean;
 	randomizeMirrorX?: boolean;
 	randomizeMirrorY?: boolean;
 	mirrorX?: boolean;
@@ -314,30 +329,32 @@ export const presets = {
 			throw new ErrorMsg('Ranged animation requires a source token!');
 
 		targets.forEach((target, i) => {
+			if (options?.preset?.bounce && i > 0) {
+				if (nonNullable(options?.preset?.bounce.sound)) {
+					const sound = seq.sound();
+					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound, rollOptions);
+				}
+			} else {
+				if (nonNullable(options?.sound)) {
+					const sound = seq.sound();
+					helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
+				}
+			}
+
 			const effect = seq.effect()
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
 				effect
 					.atLocation(targets[i - 1], helpers.parseOffsetEmbedded(options?.atLocation, targets[i - 1], target))
-					.file(options?.preset.bounce.file);
-
-				if (nonNullable(options?.preset?.bounce.sound)) {
-					const sound = seq.sound();
-					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound, rollOptions);
-				}
+					.file(AnimCore.parseFile(options?.preset.bounce.file));
 			} else {
 				effect
-					.file(file)
+					.file(AnimCore.parseFile(file))
 					.atLocation(
 						options?.preset?.templateAsOrigin ? target : source,
 						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
 					);
-
-				if (nonNullable(options?.sound)) {
-					const sound = seq.sound();
-					helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
-				}
 			}
 
 			helpers.genericSequencerFunctions(effect, item, target, options);
@@ -363,17 +380,17 @@ export const presets = {
 		}, options);
 
 		for (const target of targets) {
-			const section = seq.effect()
-				.file(file)
-				.attachTo(source, helpers.parseOffsetEmbedded(options?.attachTo, source, target))
-				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, source, target));
-
-			helpers.genericSequencerFunctions(section, item, target, options);
-
 			if (nonNullable(options?.sound)) {
 				const sound = seq.sound();
 				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
 			}
+
+			const section = seq.effect()
+				.file(AnimCore.parseFile(file))
+				.attachTo(source, helpers.parseOffsetEmbedded(options?.attachTo, source, target))
+				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, source, target));
+
+			helpers.genericSequencerFunctions(section, item, target, options);
 		}
 
 		return seq;
@@ -403,8 +420,13 @@ export const presets = {
 		for (const token of affectedTokens) {
 			if (!token) return;
 
+			if (nonNullable(options?.sound)) {
+				const sound = seq.sound();
+				helpers.genericSoundFunction(sound, item, token, options.sound, rollOptions);
+			}
+
 			const result = seq.effect()
-				.file(file);
+				.file(AnimCore.parseFile(file));
 
 			if (options?.atLocation) {
 				result.atLocation(token, helpers.parseOffsetEmbedded(options?.atLocation, token, target || token));
@@ -416,11 +438,6 @@ export const presets = {
 				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, token, target || token));
 
 			helpers.genericSequencerFunctions(result, item, token, options);
-
-			if (nonNullable(options?.sound)) {
-				const sound = seq.sound();
-				helpers.genericSoundFunction(sound, item, token, options.sound, rollOptions);
-			}
 		}
 
 		return seq;
@@ -430,19 +447,19 @@ export const presets = {
 			throw new ErrorMsg('Template animation requires a template!');
 
 		for (const target of targets) {
+			if (nonNullable(options?.sound)) {
+				const sound = seq.sound();
+				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
+			}
+
 			const section = seq.effect()
-				.file(file)
+				.file(AnimCore.parseFile(file))
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.attachTo, target, target));
 
 			if (!options?.attachTo && (target.t === 'ray' || target.t === 'cone'))
 				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, target, target));
 
 			helpers.genericSequencerFunctions(section, item, target, options);
-
-			if (nonNullable(options?.sound)) {
-				const sound = seq.sound();
-				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
-			}
 		}
 
 		return seq;
