@@ -177,7 +177,7 @@ export const helpers = {
 
 		return seq;
 	},
-	genericSoundFunction(seq: SoundSection, _item: ItemPF2e, target: Target, _options: SoundConfig, rollOptions: string[]) {
+	genericSoundFunction(seq: Sequence, _item: ItemPF2e, target: Target, _options: SoundConfig, rollOptions: string[]) {
 		_options = [_options].flat()
 			.filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions));
 
@@ -185,24 +185,29 @@ export const helpers = {
 
 		_options
 			.forEach((options) => {
-				seq.file(AnimCore.parseFile(options?.file));
+				const sound = seq.sound();
+				sound.file(AnimCore.parseFile(options?.file));
 
 				if (options?.atLocation)
-					seq.atLocation(target, options.atLocation);
+					sound.atLocation(target, options.atLocation);
 				if (options?.delay)
-					seq.delay(options.delay);
+					sound.delay(options.delay);
 				if (options?.radius)
-					seq.radius(options.radius);
+					sound.radius(options.radius);
 				if (options?.constrainedByWalls)
-					seq.constrainedByWalls(options.constrainedByWalls);
+					sound.constrainedByWalls(options.constrainedByWalls);
 				if (options?.volume)
-					seq.volume(options.volume);
+					sound.volume(options.volume);
 				if (options?.duration)
-					seq.duration(options.duration);
+					sound.duration(options.duration);
 				if (options?.waitUntilFinished)
-					seq.waitUntilFinished(options.waitUntilFinished);
+					sound.waitUntilFinished(options.waitUntilFinished);
 				if (options?.syncGroup)
-					seq.syncGroup(options.syncGroup);
+					sound.syncGroup(options.syncGroup);
+				if (options?.muffledEffect)
+					sound.muffledEffect(options.muffledEffect);
+				if (options?.baseEffect)
+					sound.baseEffect(options.baseEffect);
 			});
 
 		return seq;
@@ -232,6 +237,8 @@ interface SoundData {
 	default?: boolean;
 	delay?: number;
 	syncGroup?: string;
+	muffledEffect: Parameters<SoundSection['muffledEffect']>[0];
+	baseEffect: Parameters<SoundSection['baseEffect']>[0];
 }
 
 export interface EffectOptions<T extends PresetKeys> {
@@ -331,13 +338,11 @@ export const presets = {
 		targets.forEach((target, i) => {
 			if (options?.preset?.bounce && i > 0) {
 				if (nonNullable(options?.preset?.bounce.sound)) {
-					const sound = seq.sound();
-					helpers.genericSoundFunction(sound, item, targets[i - 1], options.preset.bounce.sound, rollOptions);
+					helpers.genericSoundFunction(seq, item, targets[i - 1], options.preset.bounce.sound, rollOptions);
 				}
 			} else {
 				if (nonNullable(options?.sound)) {
-					const sound = seq.sound();
-					helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
+					helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 				}
 			}
 
@@ -381,8 +386,7 @@ export const presets = {
 
 		for (const target of targets) {
 			if (nonNullable(options?.sound)) {
-				const sound = seq.sound();
-				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
+				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
 			const section = seq.effect()
@@ -421,8 +425,7 @@ export const presets = {
 			if (!token) return;
 
 			if (nonNullable(options?.sound)) {
-				const sound = seq.sound();
-				helpers.genericSoundFunction(sound, item, token, options.sound, rollOptions);
+				helpers.genericSoundFunction(seq, item, token, options.sound, rollOptions);
 			}
 
 			const result = seq.effect()
@@ -448,8 +451,7 @@ export const presets = {
 
 		for (const target of targets) {
 			if (nonNullable(options?.sound)) {
-				const sound = seq.sound();
-				helpers.genericSoundFunction(sound, item, target, options.sound, rollOptions);
+				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
 			const section = seq.effect()
