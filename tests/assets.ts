@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as core from '@actions/core';
 import { database } from '../src/assets/soundDb.ts';
 import { flatten } from './helpers.ts';
 
@@ -31,7 +30,7 @@ function checkOggFiles(directory: string): void {
 				if (!existingEntries.includes(fullPath))
 					errors.push(fullPath);
 			} else {
-				console.warn(`An asset file with a not-allowed extension found!\n${fullPath}`);
+				core.warning(`An asset file with a not-allowed extension found!\n${fullPath}`);
 			}
 		}
 	}
@@ -41,7 +40,8 @@ function checkOggFiles(directory: string): void {
 checkOggFiles('./assets');
 
 if (errors.length) {
-	console.error(`The following assets have not been added to the soundDb.ts!\n${errors.join('\n')}`);
+	core.setFailed(' The following assets have not been added to the soundDb.ts!');
+	errors.forEach(m => core.error(` ${m}`));
 } else {
-	console.log('All asset files are valid.');
+	core.info('All asset files are valid!');
 }
