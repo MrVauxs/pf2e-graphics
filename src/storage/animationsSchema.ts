@@ -11,19 +11,19 @@ const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Objects must not be empty',
 ];
-export const uniqueItems: [(a: any[]) => boolean, string] = [
-	(a: object[]): boolean => new Set(a.map(e => JSON.stringify(e))).size === a.length,
+export const uniqueItems: [(arr: any[]) => boolean, string] = [
+	arr => new Set(arr.map(e => JSON.stringify(e))).size === arr.length,
 	'Unique items required',
 ];
 // end
 
 const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()]);
 
-const ID = z.string().regex(/^[a-z]+(-[a-z])+$/, 'Must be a valid slug.');
+const ID = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Must be a valid slug.');
 
 const rollOption = z
 	.string()
-	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/i, 'Must be a valid roll option.');
+	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'Must be a valid roll option.');
 
 // Following required to allow Zod to evaluate recursive structures
 const predicateComparisonObject = z.object({
@@ -107,7 +107,7 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 );
 // end
 
-const hexColour = z.string().regex(/^#[0-9a-f]{3}(#[0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour code.');
+const hexColour = z.string().regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour-code.');
 
 const fileName = z
 	.string()
@@ -116,7 +116,19 @@ const fileName = z
 		'The following characters are unsafe for cross-platform filesystems: <>:"/\\|?*',
 	);
 
-const vector2 = z.object({ x: z.number(), y: z.number() }).strict();
+const vector2 = z
+	.object({
+		x: z
+			.number()
+			.refine(...nonZero)
+			.optional(),
+		y: z
+			.number()
+			.refine(...nonZero)
+			.optional(),
+	})
+	.strict()
+	.refine(...nonEmpty);
 
 const soundData = z
 	.object({
@@ -248,12 +260,12 @@ export const effectOptions = z
 		fadeIn: z
 			.number()
 			.refine(...nonZero)
-			.or(easingOptions.extend({ value: z.number() }).strict())
+			.or(easingOptions.extend({ value: z.number().refine(...nonZero) }).strict())
 			.optional(),
 		fadeOut: z
 			.number()
 			.refine(...nonZero)
-			.or(easingOptions.extend({ value: z.number() }).strict())
+			.or(easingOptions.extend({ value: z.number().refine(...nonZero) }).strict())
 			.optional(),
 		wait: z
 			.number()
@@ -505,7 +517,7 @@ const animationDataObject = z.object({
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	options: effectOptions.optional(), // :(
+	options: effectOptions.optional(),
 });
 
 // Following required to allow Zod to evaluate recursive structures
