@@ -1,22 +1,22 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
-	import { i18n } from 'src/utils'
+	import { i18n } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
-	import { getContext } from 'svelte'
-	import { type Writable, writable } from 'svelte/store'
-	import AnimationEditor from '../_components/AnimationEditor.svelte'
-	import JSONEditorApp from '../_components/JSONEditor/JSONEditor'
+	import { getContext } from 'svelte';
+	import { type Writable, writable } from 'svelte/store';
+	import AnimationEditor from '../_components/AnimationEditor.svelte';
+	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core'
+	import { ApplicationShell } from '#runtime/svelte/component/core';
 
-	export let storeDocument: Writable<{ id: 'settings' }>
-	export let elementRoot: HTMLElement | undefined
+	export let storeDocument: Writable<{ id: 'settings' }>;
+	export let elementRoot: HTMLElement | undefined;
 
-	const tabs = ['world-animations', 'preset-animations'] as const
-	const activeTab = getContext('#external').sessionStorage.getStore('settings', tabs[0] as typeof tabs[number])
+	const tabs = ['world-animations', 'preset-animations'] as const;
+	const activeTab = getContext('#external').sessionStorage.getStore('settings', tabs[0] as typeof tabs[number]);
 
-	let search = ''
-	let columns = 4
+	let search = '';
+	let columns = 4;
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -50,7 +50,7 @@
 			{#if $activeTab === 'preset-animations'}
 				<div class='text-nowrap flex justify-stretch mx-auto'>
 					<div>
-						<i class='fa fa-grid' /> Columns
+						<i class='fa fa-grid'></i> Columns
 						<input
 							step='1'
 							min='1'
@@ -60,7 +60,7 @@
 						/>
 					</div>
 					<div>
-						<i class='fa fa-search' /> Search
+						<i class='fa fa-search'></i> Search
 						<input
 							class='w-1/2 mx-1'
 							bind:value={search}
@@ -68,7 +68,7 @@
 						/>
 					</div>
 					<div>
-						<i class='fa fa-tally' /> Total
+						<i class='fa fa-tally'></i> Total
 						<input
 							disabled
 							class='w-1/2 mx-1'
@@ -90,7 +90,7 @@
 							<span class='w-[90%] truncate text-nowrap'>
 								{key}
 								{#if typeof animation !== 'string' && animation.some(ani => ani.options?.sound)}
-									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound' />)
+									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound'></i>)
 								{/if}
 							</span>
 							<button
@@ -102,9 +102,9 @@
 										permission: false,
 									}).render(true, {
 										focus: true,
-									})
+									});
 								}}
-							/>
+							></button>
 						</div>
 					{/each}
 				</div>

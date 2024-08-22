@@ -1,4 +1,4 @@
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu(
 	{
@@ -8,13 +8,18 @@ export default antfu(
 		stylistic: {
 			indent: 'tab',
 			quotes: 'single',
-			// semi: true
+			semi: true,
 		},
 
 		rules: {
 			'svelte/html-self-closing': [
 				'error',
-				'all',
+				{
+					void: 'always', // or "never" or "ignore"
+					normal: 'never',
+					component: 'always',
+					svelte: 'always',
+				},
 			],
 			'svelte/prefer-style-directive': 'warn',
 			'antfu/consistent-list-newline': 'warn',
@@ -34,4 +39,4 @@ export default antfu(
 			'no-self-assign': 'off',
 		},
 	},
-)
+);

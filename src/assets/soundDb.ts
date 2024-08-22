@@ -1,5 +1,5 @@
 // Start from 01
-const p = 'modules/pf2e-graphics/assets/library'
+const p = 'modules/pf2e-graphics/assets/library';
 export const database = {
 	attack: {
 		miss: {
@@ -268,11 +268,11 @@ export const database = {
 	},
 
 	// Work in Progress
-}
+};
 
 Hooks.once('sequencerReady', () => {
-	Sequencer.Database.registerEntries('pf2e-graphics', database)
-})
+	Sequencer.Database.registerEntries('pf2e-graphics', database);
+});
 
 /*
 import { get } from 'svelte/store'

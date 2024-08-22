@@ -1,23 +1,23 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
-	import { i18n } from 'src/utils'
+	import { i18n } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
-	import { getContext } from 'svelte'
-	import AnimationEditor from '../_components/AnimationEditor.svelte'
-	import UserAnimationsApp from '../UserAnimations/UserAnimationsApp'
-	import PresetAnimations from './tabs/preset-animations.svelte'
+	import { getContext } from 'svelte';
+	import AnimationEditor from '../_components/AnimationEditor.svelte';
+	import UserAnimationsApp from '../UserAnimations/UserAnimationsApp';
+	import PresetAnimations from './tabs/preset-animations.svelte';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core'
-	import { TJSDocument } from '#runtime/svelte/store/fvtt/document'
+	import { ApplicationShell } from '#runtime/svelte/component/core';
+	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 
-	export let storeDocument: TJSDocument<ItemPF2e>
-	export let document: ItemPF2e
-	export let elementRoot: HTMLElement | undefined
+	export let storeDocument: TJSDocument<ItemPF2e>;
+	export let document: ItemPF2e;
+	export let elementRoot: HTMLElement | undefined;
 
-	const doc = storeDocument
+	const doc = storeDocument;
 
-	const tabs = ['preset-animations', 'custom-animations'] as const
-	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number])
+	const tabs = ['preset-animations', 'custom-animations'] as const;
+	const activeTab = getContext('#external').sessionStorage.getStore(document.id, tabs[0] as typeof tabs[number]);
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -89,7 +89,7 @@
 							id='actor'
 							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
 							on:click={() => {
-								$doc.actor?.sheet.render(true)
+								$doc.actor?.sheet.render(true);
 							}}
 						>
 							{$doc.actor?.name || 'No Actor'}
@@ -105,7 +105,7 @@
 							id='item'
 							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
 							on:click={() => {
-								$doc.sheet.render(true)
+								$doc.sheet.render(true);
 							}}
 						>
 							{$doc.name}
@@ -122,7 +122,7 @@
 							id='item'
 							data-tooltip='pf2e-graphics.itemAnimation.openSheet'
 							on:click={() => {
-								new UserAnimationsApp({ document: window.game.user }).render(true)
+								new UserAnimationsApp({ document: window.game.user }).render(true);
 							}}
 						>
 							{window.game.user.name}

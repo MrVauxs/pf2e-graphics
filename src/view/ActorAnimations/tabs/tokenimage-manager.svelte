@@ -6,96 +6,96 @@
 		uuidPredicate: '',
 		animation: {},
 		predicate: [] as (string | object)[],
-	})
-	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource
+	});
+	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource;
 </script>
 
 <script lang='ts'>
-	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document'
-	import { devMessage, i18n } from 'src/utils'
-	import { derived } from 'svelte/store'
-	import { AnimCore } from 'src/storage/AnimCore'
-	import featData from './tokenimage-feat.json'
-	import TokenThumbnail from './elements/TokenThumbnail.svelte'
-	import PredicateSection from './elements/PredicateSection.svelte'
+	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
+	import { devMessage, i18n } from 'src/utils';
+	import { derived } from 'svelte/store';
+	import { AnimCore } from 'src/storage/AnimCore';
+	import featData from './tokenimage-feat.json';
+	import TokenThumbnail from './elements/TokenThumbnail.svelte';
+	import PredicateSection from './elements/PredicateSection.svelte';
 
-	export let actor: TJSDocument<ActorPF2e>
+	export let actor: TJSDocument<ActorPF2e>;
 
-	const tokenImageID = derived(actor, $actor => $actor.flags['pf2e-graphics']?.tokenImageID)
-	const derivedFeat = derived(actor, $actor => $actor.items.get(String($actor.flags['pf2e-graphics']?.tokenImageID)))
-	const feat = new TJSDocument($derivedFeat)
+	const tokenImageID = derived(actor, $actor => $actor.flags['pf2e-graphics']?.tokenImageID);
+	const derivedFeat = derived(actor, $actor => $actor.items.get(String($actor.flags['pf2e-graphics']?.tokenImageID)));
+	const feat = new TJSDocument($derivedFeat);
 
-	derivedFeat.subscribe(value => feat.set(value))
+	derivedFeat.subscribe(value => feat.set(value));
 
 	if ($tokenImageID && !$feat) {
-		ui.notifications.error('PF2e Graphics | PF2e Graphics bonus feat got deleted! Removing flags.')
-		$actor.unsetFlag('pf2e-graphics', 'tokenImageID')
+		ui.notifications.error('PF2e Graphics | PF2e Graphics bonus feat got deleted! Removing flags.');
+		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
-	devMessage($actor, $feat, $feat?.system.rules)
-	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat
-	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action
+	devMessage($actor, $feat, $feat?.system.rules);
+	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat;
+	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action;
 
 	async function giveth() {
 		const feature = $actor.isOfType('character')
 			? new FeatPF2e({ ...featData, type: 'feat' })
-			: new ActionPF2e({ ...featData, type: 'action' })
+			: new ActionPF2e({ ...featData, type: 'action' });
 
 		// @ts-ignore Idle did it and why shouldn't I
-		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0] as typeof feature
+		const feat = (await $actor.createEmbeddedDocuments('Item', [feature]))[0] as typeof feature;
 
-		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id)
+		$actor.setFlag('pf2e-graphics', 'tokenImageID', feat.id);
 	}
 
 	async function takethAway() {
-		($actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))?.delete()
-		$actor.unsetFlag('pf2e-graphics', 'tokenImageID')
+		($actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))?.delete();
+		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
 	async function modifieth(e: Event) {
-		$actor.setFlag('pf2e-graphics', 'tokenImageID', (e.target as HTMLSelectElement)?.value)
-		$actor.setFlag('pf2e-graphics', 'displayFeat', true)
+		$actor.setFlag('pf2e-graphics', 'tokenImageID', (e.target as HTMLSelectElement)?.value);
+		$actor.setFlag('pf2e-graphics', 'displayFeat', true);
 	}
 
-	let display = $actor.getFlag('pf2e-graphics', 'displayFeat') as boolean
+	let display = $actor.getFlag('pf2e-graphics', 'displayFeat') as boolean;
 	async function invisibility() {
-		$actor.setFlag('pf2e-graphics', 'displayFeat', display)
+		$actor.setFlag('pf2e-graphics', 'displayFeat', display);
 	}
 
 	async function createRule(_event: Event, rules?: TokenImageRuleSource[]) {
-		await $feat?.update({ 'system.rules': $feat.system.rules.concat(rules ?? ruleTemplate($feat)) })
+		await $feat?.update({ 'system.rules': $feat.system.rules.concat(rules ?? ruleTemplate($feat)) });
 	}
 
 	async function removeRule(rule: RuleElementSource) {
-		await $feat?.update({ 'system.rules': $feat.system.rules.filter(x => x !== rule) })
+		await $feat?.update({ 'system.rules': $feat.system.rules.filter(x => x !== rule) });
 	}
 
 	async function updateRules(toUpdate?: CustomTokenImage, updateWith?: Partial<CustomTokenImage>) {
-		const rules = $feat.system.rules
+		const rules = $feat.system.rules;
 		if (toUpdate && updateWith) {
 			// Doing black magic just to get around APPARENT Object.preventExtensions()
-			rules[rules.findIndex(x => x === toUpdate)] = foundry.utils.mergeObject({ ...toUpdate }, updateWith)
+			rules[rules.findIndex(x => x === toUpdate)] = foundry.utils.mergeObject({ ...toUpdate }, updateWith);
 		}
 
-		await $feat?.update({ 'system.rules': rules })
+		await $feat?.update({ 'system.rules': rules });
 	}
 
 	async function PickAFile(current: string) {
 		// @ts-ignore Good grief, why cant all these be FilePicker options be OPTIONAL?
-		return new Promise(resolve => new FilePicker({ current, callback: result => resolve(result) }).browse())
+		return new Promise(resolve => new FilePicker({ current, callback: result => resolve(result) }).browse());
 	}
 
 	function isCustomTokenImage(rule: RuleElementSource): rule is CustomTokenImage {
-		return rule.key === 'TokenImage'
+		return rule.key === 'TokenImage';
 	}
 
-	let toggleExisting = false
+	let toggleExisting = false;
 
-	const TransitionFilters = Object.values(TextureTransitionFilter.TYPES)
-	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')))
+	const TransitionFilters = Object.values(TextureTransitionFilter.TYPES);
+	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')));
 
-	let showImagePacks = false
-	let packToImport: TokenImageRuleSource[] = []
+	let showImagePacks = false;
+	let packToImport: TokenImageRuleSource[] = [];
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full w-full'>
@@ -105,12 +105,12 @@
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>
 						<h3 class='border-b-0'>
-							<i class='fa-regular fa-circle align-middle' />
+							<i class='fa-regular fa-circle align-middle'></i>
 							Token Image
 						</h3>
 						<div class='ml-auto flex items-center'>
 							<label class='flex items-center' data-tooltip='PF2E.RuleEditor.General.PriorityHint'>
-								<i class='fa-solid fa-fw fa-list-ol mr-1' />
+								<i class='fa-solid fa-fw fa-list-ol mr-1'></i>
 								<input
 									class='h-8 w-10'
 									type='number'
@@ -119,7 +119,7 @@
 							</label>
 							<button
 								on:click={() => removeRule(rule)}
-								class='fas fa-trash-can size-8' />
+								class='fas fa-trash-can size-8'></button>
 						</div>
 					</section>
 					<div class='grid grid-cols-5 items-center gap-1.5
@@ -157,10 +157,10 @@
 								aria-label={i18n('FILES.BrowseTooltip')}
 								tabindex='-1'
 								on:click={() => PickAFile(rule.value).then((x) => {
-									rule.value = String(x)
-									updateRules()
+									rule.value = String(x);
+									updateRules();
 								})}
-							/>
+							></button>
 						</section>
 						<!-- #endregion -->
 						<!-- #region Transitions -->
@@ -192,14 +192,14 @@
 							<label class='grid grid-cols-2 items-center'>
 								<span>
 									<a class='no-underline' href='https://easings.net/' data-tooltip='pf2e-graphics.easingTooltip'>
-										<i class='fa fa-info-circle size-4' />
+										<i class='fa fa-info-circle size-4'></i>
 									</a>
 									Easing:
 								</span>
 								<select name='easing'
 									bind:value={rule.animation.easing}
 									on:change={() => updateRules()}>
-									<option value="" />
+									<option value=""></option>
 									{#each EaseNames as value}
 										<option {value}>{value}</option>
 									{/each}
@@ -233,10 +233,10 @@
 									<button
 										class='fa fa-refresh bg-button h-6 w-10'
 										on:click={() => {
-											rule.tint = undefined
-											updateRules()
+											rule.tint = undefined;
+											updateRules();
 										}}
-									/>
+									></button>
 								</div>
 							</label>
 							<label class='grid grid-cols-2 items-center'>
@@ -253,12 +253,12 @@
 			{/each}
 			<div class='flex w-2/3 text-nowrap mx-auto flex-grow basis-1/2 h-8'>
 				<button class='m-1 h-full' on:click={createRule}>
-					<i class='fas fa-plus' />
+					<i class='fas fa-plus'></i>
 					Create Token Image
 				</button>
 				{#if !showImagePacks}
-					<button class='m-1 h-full' on:click={() => { showImagePacks = !showImagePacks }}>
-						<i class='fas fa-plus' />
+					<button class='m-1 h-full' on:click={() => { showImagePacks = !showImagePacks; }}>
+						<i class='fas fa-plus'></i>
 						Import Token Image Pack
 					</button>
 				{:else}
@@ -268,7 +268,7 @@
 								<option value={pack.rules}>{pack.uuid ? window.fromUuidSync(pack.uuid)?.name : pack.name}</option>
 							{/each}
 						</select>
-						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)} />
+						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)}></button>
 					</div>
 				{/if}
 			</div>
@@ -279,10 +279,10 @@
 				<input type='checkbox' id='displayFeat' bind:checked={display} on:change={invisibility} />
 			</div>
 			<button class='' on:click={takethAway}>
-				<i class='fa fa-trash-can pr-1' />{i18n('Delete')}
+				<i class='fa fa-trash-can pr-1'></i>{i18n('Delete')}
 			</button>
 			<button class='' on:click={() => $feat.sheet.render(true)}>
-				<i class='fa fa-folder-open pr-1' />{i18n('actorAnimation.openFeat')}
+				<i class='fa fa-folder-open pr-1'></i>{i18n('actorAnimation.openFeat')}
 			</button>
 		</div>
 	{:else}
@@ -312,7 +312,7 @@
 						{/each}
 					</select>
 				{:else}
-					<button class='m-1 basis-1/2' on:click={() => { toggleExisting = !toggleExisting }}>
+					<button class='m-1 basis-1/2' on:click={() => { toggleExisting = !toggleExisting; }}>
 						Select an Existing Feature
 					</button>
 				{/if}

@@ -1,15 +1,15 @@
-import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application'
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 
-import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions'
-import { ErrorMsg } from 'src/utils'
-import { type Writable, get } from 'svelte/store'
-import BasicAppShell from './JSONEditor.svelte'
+import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
+import { ErrorMsg } from 'src/utils';
+import { type Writable, get } from 'svelte/store';
+import BasicAppShell from './JSONEditor.svelte';
 
-interface extra { store: Writable<object>, permission: boolean, stasis: Writable<boolean> }
+interface extra { store: Writable<object>; permission: boolean; stasis: Writable<boolean> }
 export default class JSONEditorApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & extra) {
 		// @ts-expect-error TJS-2-TS
-		super(_options)
+		super(_options);
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
@@ -27,24 +27,24 @@ export default class JSONEditorApp extends SvelteApplication {
 				intro: true,
 				props: function () {
 					// @ts-expect-error TJS-2-TS
-					const store = this.options.store
-					if (!store) throw new ErrorMsg('No Store Provided in ItemAnimationsApp!')
+					const store = this.options.store;
+					if (!store) throw new ErrorMsg('No Store Provided in ItemAnimationsApp!');
 					// @ts-expect-error TJS-2-TS
-					const permission = this.options.permission ?? false
+					const permission = this.options.permission ?? false;
 					// @ts-expect-error TJS-2-TS
-					const stasis = this.options.stasis
+					const stasis = this.options.stasis;
 					return {
 						store,
 						permission,
 						stasis,
-					}
-				} as () => { store: Writable<object>, permission: boolean },
+					};
+				} as () => { store: Writable<object>; permission: boolean },
 			},
-		})
+		});
 	}
 
 	override _getHeaderButtons() {
-		const buttons = super._getHeaderButtons()
+		const buttons = super._getHeaderButtons();
 		buttons.unshift({
 			icon: 'fas fa-copy',
 			class: '',
@@ -52,14 +52,14 @@ export default class JSONEditorApp extends SvelteApplication {
 			onclick: async () => {
 				try {
 					// @ts-expect-error Types
-					await navigator.clipboard.writeText(JSON.stringify(get(this.options.store), null, '\t'))
-					ui.notifications.info(`Copied to clipboard!`)
+					await navigator.clipboard.writeText(JSON.stringify(get(this.options.store), null, '\t'));
+					ui.notifications.info(`Copied to clipboard!`);
 				} catch (err) {
-					ui.notifications.error(`Failed to copy, check console.`)
-					console.error(err)
+					ui.notifications.error(`Failed to copy, check console.`);
+					console.error(err);
 				}
 			},
-		})
-		return buttons
+		});
+		return buttons;
 	}
 }

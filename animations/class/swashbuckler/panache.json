@@ -1,0 +1,49 @@
+{
+	"effect:panache": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"contents": [
+				{
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -165
+							}
+						},
+						"waitUntilFinished": -100,
+						"tieToDocuments": true,
+						"scaleToObject": 1
+					},
+					"file": "jb2a.shimmer.01.blue"
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"graphics-quality",
+								1
+							]
+						}
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true,
+						"scaleToObject": 1.6,
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -165
+							}
+						}
+					},
+					"file": "jb2a.token_border.circle.spinning.blue.001"
+				}
+			]
+		}
+	]
+}
