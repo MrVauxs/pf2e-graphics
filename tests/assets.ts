@@ -44,8 +44,8 @@ if (errors.length) {
 	core.startGroup(' \x1B[33;40m==== Missing DB Entries ====\x1B[0m ');
 	// eslint-disable-next-line no-template-curly-in-string
 	errors.map(e => e.replaceAll('assets/library', '${p}')).forEach(m => core.info(`\`${m}\``));
-	core.info(`\x1B[4;1mTotal of \x1B[31m${errors.length}\x1B[39m unassigned files.\x1B[0m`);
 	core.endGroup();
+	core.info(`\x1B[4;1mTotal of \x1B[31m${errors.length}\x1B[39m unassigned files.\x1B[0m`);
 } else {
 	core.info('✅ All asset files are valid!');
 }
