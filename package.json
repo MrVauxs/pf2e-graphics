@@ -10,7 +10,8 @@
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --fix --cache",
-		"changelog": "changelog --format markdownlint --release --create"
+		"changelog": "changelog --format markdownlint --release --create",
+		"test:assets": "node --experimental-strip-types ./tests/assets.ts"
 	},
 	"imports": {
 		"#runtime/*": "@typhonjs-fvtt/runtime/*",

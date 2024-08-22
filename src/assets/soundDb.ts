@@ -58,13 +58,6 @@ export const database = {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-throw-swoosh-02.ogg`,
 		},
 	},
-	lightning_bolt: {
-		impact: {
-			'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
-			'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
-			'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
-		},
-	},
 	magic: {
 		fire: {
 			cast: {
@@ -138,6 +131,13 @@ export const database = {
 			'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
 			'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
 			'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
+		},
+		shock: {
+			impact: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
+			},
 		},
 		lightning: {
 			cast: {
@@ -263,24 +263,4 @@ export const database = {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
 		},
 	},
-
-	// Work in Progress
 };
-
-Hooks.once('sequencerReady', () => {
-	Sequencer.Database.registerEntries('pf2e-graphics', database);
-});
-
-/*
-import { get } from 'svelte/store'
-if (import.meta.hot) {
-	import.meta.hot.accept((newModule) => {
-		if (newModule) {
-			// Breaks Sequencer Database Viewer
-			// Sequencer.Database.entriesStore.set({ ...get(Sequencer.Database.entriesStore), 'pf2e-graphics': undefined })
-			Sequencer.Database.registerEntries('pf2e-graphics', newModule.database)
-			ui.notifications.info('Updated Sounds!')
-		}
-	})
-}
-*/

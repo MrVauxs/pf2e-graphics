@@ -20,7 +20,7 @@
 									"file": "jb2a.chain_lightning.primary.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.lightning_bolt.impact",
+											"file": "pf2e-graphics.shock.impact",
 											"delay": 500
 										}
 									},
