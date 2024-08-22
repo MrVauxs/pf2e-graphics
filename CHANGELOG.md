@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- Elemental Blasts predicates for ranged + 2 action animation on damage ([@ChasarooniZ](https://github.com/ChasarooniZ))
 
 ## [0.7.4] - 2024-08-21
 
