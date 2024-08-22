@@ -50,6 +50,11 @@ export function getPlayerOwners(actor: ActorPF2e) {
 		return game.users.contents;
 	}
 
+	// If "nobody" owns it, whoever is the primaryUpdater (read: GM) does.
+	if (Object.keys(actor.ownership).length === 1) {
+		return actor.primaryUpdater;
+	}
+
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
 	return Object.keys(actor.ownership)
 		.filter(x => x !== 'default')
