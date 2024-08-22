@@ -58,24 +58,24 @@ jobs:
       - name: Test Eslint
         run: npm run lint
   assets:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-node@v4
-          with:
-            node-version: 22.6
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.6
 
-        - name: Cache NPM Deps
-          id: cache-npm
-          uses: actions/cache@v4
-          with:
-            path: node_modules/
-            key: npm-${{ hashFiles('package-lock.json') }}
+      - name: Cache NPM Deps
+        id: cache-npm
+        uses: actions/cache@v4
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
 
-        - name: Install NPM Deps
-          if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-          run: |
-            npm ci
+      - name: Install NPM Deps
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: |
+          npm ci
 
-        - name: Test Assets
-          run: npm run test:assets
+      - name: Test Assets
+        run: npm run test:assets
