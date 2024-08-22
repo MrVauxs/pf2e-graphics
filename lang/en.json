@@ -53,6 +53,13 @@
 				"name": "World Animations",
 				"hint": "Customize global animations everyone will have by default.",
 				"label": "Open Menu"
+			},
+			"suppressWarnings": {
+				"name": "Suppress Startup Warnings",
+				"hint": "Enable this setting if you are using an alternative source for animations than JB2A.",
+				"warnFremium": "You have JB2A (Free) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
+				"warnPremium": "You have JB2A (Patreon) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
+				"warnNone": "You don't have JB2A installed, please install and enable it in order for PF2e Graphics to function!"
 			}
 		},
 		"tooltip": {
