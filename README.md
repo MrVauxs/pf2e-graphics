@@ -8,6 +8,10 @@
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fpf2e-graphics&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=pf2e-graphics)
 [![ko-fi](https://shields.io/badge/ko--fi-Buy_me_a_coffee-ff5f5f?logo=ko-fi&style=for-the-badgeKo-fi)](https://ko-fi.com/O4O4DLQC)
 
+## Wiki
+
+You can check out the [GitHub wiki](https://github.com/MrVauxs/pf2e-graphics/wiki) for more information about the module!
+
 ## Contact
 
 If you have any questions, you can contact me on Discord on the [JB2A](https://discord.gg/BPB4XjTdYD) and [PF2e on Foundry VTT Community and Volunteer Development Server](https://discord.gg/pf2e) servers.
