@@ -5,7 +5,10 @@
 			"preset": "onToken",
 			"file": "jb2a.liquid.splash.blue",
 			"options": {
-				"scaleToObject": 1.5
+				"scaleToObject": 1.5,
+				"sound": {
+					"file": "pf2e-graphics.magic.water.impact.01"
+				}
 			}
 		}
 	]

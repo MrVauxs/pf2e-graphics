@@ -3,7 +3,12 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.boulder.toss.01"
+			"file": "jb2a.boulder.toss.01",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.magic.earth.close"
+				}
+			}
 		}
 	]
 }
