@@ -1,0 +1,31 @@
+{
+	"item:nudge-the-scales": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.healing_generic.03.burst.bluepurple",
+			"options": {
+				"scaleToObject": 1.5,
+				"tieToDocuments": true,
+				"randomizeMirrorY": true
+			},
+			"predicate": [
+				"nudge-the-scales:death"
+			]
+		},
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.healing_generic.03.burst.green",
+			"options": {
+				"scaleToObject": 1.5,
+				"persist": false,
+				"tieToDocuments": true,
+				"randomizeMirrorY": true
+			},
+			"predicate": [
+				"nudge-the-scales:life"
+			]
+		}
+	]
+}
