@@ -33,15 +33,7 @@
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.particles.inward.greenyellow.01.01",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -20
-									}
-								}
-							}
+							"file": "jb2a.particles.inward.greenyellow.01.01"
 						}
 					]
 				},
@@ -66,15 +58,7 @@
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.particles.inward.greenyellow.01.01",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -20
-									}
-								}
-							}
+							"file": "jb2a.particles.inward.greenyellow.01.01"
 						}
 					]
 				},
@@ -101,15 +85,7 @@
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.particles.inward.greenyellow.01.01",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -20
-									}
-								}
-							}
+							"file": "jb2a.particles.inward.greenyellow.01.01"
 						}
 					]
 				}

@@ -1,53 +1,139 @@
 {
 	"condition:dying": [
-		{
-			"preset": "onToken",
-			"file": "jb2a.markers.skull.dark_orange.02",
+	  {
+		"preset": "onToken",
+		"file": "jb2a.markers.skull.dark_orange.03",
+		"options": {
+		  "id": "dying-entry",
+		  "remove": "dying-entry",
+		  "scaleToObject": {
+			"value": 1.5,
+			"considerTokenScale": true
+		  },
+		  "fadeOut": 500,
+		  "fadeIn": 250
+		},
+		"contents": [
+		  {
+			"predicate": [
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
+			],
+			"trigger": "startTurn",
+			"contents": [
+			  {
+				"predicate": [
+				  "undefined:badge:value:1"
+				]
+			  },
+			  {
+				"predicate": [
+				  "undefined:badge:value:2"
+				],
+				"file": "jb2a.markers.skull.dark_orange.02"
+			  },
+			  {
+				"predicate": [
+				  {
+					"gte": [
+					  "undefined:badge:value",
+					  3
+					]
+				  }
+				],
+				"file": "jb2a.markers.skull.dark_orange.01"
+			  }
+			]
+		  },
+		  {
+			"predicate": [
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
+			],
+			"trigger": "toggle",
+			"contents": [
+			  {
+				"predicate": [
+				  "undefined:badge:value:1"
+				]
+			  },
+			  {
+				"predicate": [
+				  "undefined:badge:value:2"
+				],
+				"file": "jb2a.markers.skull.dark_orange.02"
+			  },
+			  {
+				"predicate": [
+				  {
+					"gte": [
+					  "undefined:badge:value",
+					  3
+					]
+				  }
+				],
+				"file": "jb2a.markers.skull.dark_orange.01"
+			  }
+			]
+		  },
+		  {
+			"predicate": [
+			  "graphics-quality:3"
+			],
+			"trigger": "toggle",
 			"options": {
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
-				"fadeOut": 500,
-				"fadeIn": 250
+			  "tieToDocuments": true,
+			  "persist": {
+				"value": true,
+				"persistTokenPrototype": true
+			  }
 			},
 			"contents": [
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn"
-				},
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
-					],
-					"trigger": "effect",
-					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						}
-					}
-				}
+			  {
+				"predicate": [
+				  "undefined:badge:value:1"
+				]
+			  },
+			  {
+				"predicate": [
+				  "undefined:badge:value:2"
+				],
+				"file": "jb2a.markers.skull.dark_orange.02"
+			  },
+			  {
+				"predicate": [
+				  {
+					"gte": [
+					  "undefined:badge:value",
+					  3
+					]
+				  }
+				],
+				"file": "jb2a.markers.skull.dark_orange.01"
+			  }
 			]
+		  }
+		]
+	  },
+	  {
+		"preset": "onToken",
+		"predicate": [
+		  {
+			"not": "undefined:origin:condition:dying"
+		  }
+		],
+		"trigger": "toggle",
+		"options": {
+		  "remove": "dying-entry"
 		}
+	  }
 	]
-}
+  }
