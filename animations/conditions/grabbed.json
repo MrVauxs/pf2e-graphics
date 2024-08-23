@@ -1,56 +1,56 @@
 {
 	"condition:grabbed": [
-	  {
+		{
 			"preset": "onToken",
 			"file": "jb2a.markers.chain.standard.complete.02.red",
 			"options": {
 				"tieToDocuments": true,
-		  "scaleToObject": {
+				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
-		  },
-		  "fadeOut": 500,
-		  "fadeIn": 250,
-		  "sound": {}
+				},
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"sound": {}
 			},
 			"contents": [
-		  {
+				{
 					"predicate": [
-			  {
+						{
 							"lte": [
-				  "graphics-quality",
-				  2
+								"graphics-quality",
+								2
 							]
-			  }
+						}
 					],
 					"trigger": "startTurn"
-		  },
-		  {
+				},
+				{
 					"predicate": [
-			  {
+						{
 							"lte": [
-				  "graphics-quality",
-				  2
+								"graphics-quality",
+								2
 							]
-			  }
+						}
 					],
 					"trigger": "effect"
-		  },
-		  {
+				},
+				{
 					"predicate": [
-			  "graphics-quality:3"
+						"graphics-quality:3"
 					],
 					"trigger": "effect",
 					"options": {
-			  "tieToDocuments": true,
-			  "persist": {
+						"tieToDocuments": true,
+						"persist": {
 							"value": true,
 							"persistTokenPrototype": true
-			  }
+						}
 					}
-		  }
+				}
 			],
 			"trigger": "attack-roll"
-	  }
+		}
 	]
 }
