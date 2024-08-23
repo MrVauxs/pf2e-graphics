@@ -6,7 +6,10 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 		options: [] as string[],
 	};
 
-	if (i.system.rules.length) {
+	if (
+		i.system.rules.length
+		|| i.isOfType('condition')
+	) {
 		result.bool = true;
 	}
 
