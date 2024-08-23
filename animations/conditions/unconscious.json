@@ -3,6 +3,7 @@
 		{
 			"preset": "onToken",
 			"options": {
+				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 1.1,
 					"considerTokenScale": true

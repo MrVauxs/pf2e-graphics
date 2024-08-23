@@ -4,6 +4,7 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.runes03.dark_orange.03",
 			"options": {
+				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
