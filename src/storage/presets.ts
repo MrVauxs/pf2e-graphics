@@ -163,7 +163,12 @@ export const helpers = {
 		if (nonNullable(options?.mask) && Boolean(options?.mask))
 			seq.mask();
 		if (nonNullable(options?.remove) && Boolean(options?.remove)) {
-			[options.remove].flat().forEach(origin => Sequencer.EffectManager.endEffects({ origin }));
+			[options.remove].flat().forEach((origin) => {
+				if (origin === 'all') {
+					Sequencer.EffectManager.endEffects({ object: _target });
+				}
+				Sequencer.EffectManager.endEffects({ origin });
+			});
 		}
 
 		if (_item) {
