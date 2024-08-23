@@ -3,6 +3,9 @@
 	  {
 		"preset": "onToken",
 		"file": "jb2a.markers.skull.dark_orange.03",
+		"predicate": [
+		  "undefined:origin:condition:doomed"
+		],
 		"options": {
 		  "id": "doomed-entry",
 		  "remove": "doomed-entry",

@@ -3,6 +3,9 @@
 	  {
 		"preset": "onToken",
 		"file": "jb2a.markers.drop.red.03",
+		"predicate": [
+		  "undefined:origin:condition:wounded"
+		],
 		"options": {
 		  "id": "wounded-entry",
 		  "remove": "wounded-entry",

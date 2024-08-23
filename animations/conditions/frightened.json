@@ -3,6 +3,9 @@
 	  {
 		"preset": "onToken",
 		"file": "jb2a.markers.horror.purple.03",
+		"predicate": [
+		  "undefined:origin:condition:frightened"
+		],
 		"options": {
 		  "id": "frightened-entry",
 		  "remove": "frightened-entry",

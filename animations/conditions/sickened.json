@@ -3,6 +3,9 @@
 	  {
 		"preset": "onToken",
 		"file": "jb2a.markers.poison.dark_green.03",
+		"predicate": [
+		  "undefined:origin:condition:sickened"
+		],
 		"options": {
 		  "id": "sickened-entry",
 		  "remove": "sickened-entry",
