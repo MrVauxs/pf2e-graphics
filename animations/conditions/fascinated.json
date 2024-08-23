@@ -1,60 +1,60 @@
 {
-    "condition:fascinated": [
-      {
-        "preset": "onToken",
-        "file": "jb2a.markers.light.complete.blue",
-        "options": {
-          "scaleToObject": {
-            "value": 1.5,
-            "considerTokenScale": true
-          },
-          "filter": {
-            "type": "ColorMatrix",
-            "options": {
-              "saturate": 0.3,
-              "hue": 85
-            }
-          },
-          "fadeOut": 500,
-          "fadeIn": 250
-        },
-        "contents": [
-          {
-            "predicate": [
-              {
-                "lte": [
-                  "graphics-quality",
-                  2
-                ]
-              }
-            ],
-            "trigger": "startTurn"
-          },
-          {
-            "predicate": [
-              {
-                "lte": [
-                  "graphics-quality",
-                  2
-                ]
-              }
-            ],
-            "trigger": "effect"
-          },
-          {
-            "predicate": [
-              "graphics-quality:3"
-            ],
-            "trigger": "effect",
-            "options": {
-              "tieToDocuments": true,
-              "persist": {
-                "value": true,
-                "persistTokenPrototype": true
-              }
-            }
-          }
-        ]
-      }
-    ]
-  }
+	"condition:fascinated": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.light.complete.blue",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"saturate": 0.3,
+						"hue": 85
+					}
+				},
+				"fadeOut": 500,
+				"fadeIn": 250
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}

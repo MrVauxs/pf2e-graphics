@@ -1,154 +1,154 @@
 {
-    "condition:slowed": [
-      {
-        "preset": "onToken",
-        "file": "jb2a.markers.snowflake.blue.03",
-        "options": {
-          "scaleToObject": {
-            "value": 1.5,
-            "considerTokenScale": true
-          },
-          "fadeOut": 500,
-          "fadeIn": 250,
-          "repeats": {
-            "count": 1,
-            "delayMin": 750,
-            "delayMax": 1500
-          }
-        },
-        "contents": [
-          {
-            "predicate": [
-              {
-                "lte": [
-                  "graphics-quality",
-                  2
-                ]
-              }
-            ],
-            "trigger": "startTurn",
-            "contents": [
-              {
-                "predicate": [
-                  "undefined:badge:value:1"
-                ]
-              },
-              {
-                "predicate": [
-                  "undefined:badge:value:2"
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 2
-                  }
-                }
-              },
-              {
-                "predicate": [
-                  {
-                    "gte": [
-                      "undefined:badge:value",
-                      3
-                    ]
-                  }
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 3
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "predicate": [
-              {
-                "lte": [
-                  "graphics-quality",
-                  2
-                ]
-              }
-            ],
-            "trigger": "effect",
-            "contents": [
-              {
-                "predicate": [
-                  "undefined:badge:value:1"
-                ]
-              },
-              {
-                "predicate": [
-                  "undefined:badge:value:2"
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 2
-                  }
-                }
-              },
-              {
-                "predicate": [
-                  {
-                    "gte": [
-                      "undefined:badge:value",
-                      3
-                    ]
-                  }
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 3
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "predicate": [
-              "graphics-quality:3"
-            ],
-            "trigger": "effect",
-            "options": {
-              "tieToDocuments": true,
-              "persist": {
-                "value": true,
-                "persistTokenPrototype": true
-              }
-            },
-            "contents": [
-              {
-                "predicate": [
-                  "undefined:badge:value:1"
-                ]
-              },
-              {
-                "predicate": [
-                  "undefined:badge:value:2"
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 2
-                  }
-                }
-              },
-              {
-                "predicate": [
-                  {
-                    "gte": [
-                      "undefined:badge:value",
-                      3
-                    ]
-                  }
-                ],
-                "options": {
-                  "repeats": {
-                    "count": 3
-                  }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+	"condition:slowed": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.snowflake.blue.03",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"repeats": {
+					"count": 1,
+					"delayMin": 750,
+					"delayMax": 1500
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"undefined:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"undefined:badge:value:2"
+							],
+							"options": {
+								"repeats": {
+									"count": 2
+								}
+							}
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"undefined:badge:value",
+										3
+									]
+								}
+							],
+							"options": {
+								"repeats": {
+									"count": 3
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect",
+					"contents": [
+						{
+							"predicate": [
+								"undefined:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"undefined:badge:value:2"
+							],
+							"options": {
+								"repeats": {
+									"count": 2
+								}
+							}
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"undefined:badge:value",
+										3
+									]
+								}
+							],
+							"options": {
+								"repeats": {
+									"count": 3
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"undefined:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"undefined:badge:value:2"
+							],
+							"options": {
+								"repeats": {
+									"count": 2
+								}
+							}
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"undefined:badge:value",
+										3
+									]
+								}
+							],
+							"options": {
+								"repeats": {
+									"count": 3
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
