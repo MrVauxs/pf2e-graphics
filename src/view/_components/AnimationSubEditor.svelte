@@ -215,9 +215,13 @@
 										{i18n('editor.trigger')}
 									</span>
 									<select bind:value={ani.trigger} {disabled}>
-										{#each AnimCore.CONST.TRIGGERS as trigger}
-											<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
-										{/each}
+										{#if ani.preset === 'template'}
+											<option value='place-template'>{i18n(`triggers.place-template`)}</option>
+										{:else}
+											{#each AnimCore.CONST.TRIGGERS as trigger}
+												<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
+											{/each}
+										{/if}
 									</select>
 								</label>
 
@@ -291,7 +295,7 @@
 										<input
 											{disabled}
 											type='text'
-											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a).dbPath}
+											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a ?? [{ dbPath: 'No JB2A entries?! Enable at least one of them!' }]).dbPath}
 											bind:value={ani.file}
 										/>
 									</div>

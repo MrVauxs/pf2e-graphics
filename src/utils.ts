@@ -41,13 +41,18 @@ export function dedupeStrings(array: string[]) {
 	return Array.from(new Set(array));
 }
 
-export function getPlayerOwners(actor: ActorPF2e) {
+export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 	const assigned = game.users.contents.find(user => user.character?.id === actor.id);
 	if (assigned) return [assigned];
 
 	// If everyone owns it, nobody does.
 	if (actor.ownership.default === 3) {
 		return game.users.contents;
+	}
+
+	// If "nobody" owns it, whoever is the primaryUpdater (read: GM) does.
+	if (Object.keys(actor.ownership).length === 1) {
+		return [actor.primaryUpdater || game.user];
 	}
 
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.

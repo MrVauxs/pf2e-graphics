@@ -115,7 +115,6 @@
 													"from": 0,
 													"to": -100,
 													"duration": 6000,
-													"pingPong": true,
 													"delay": 2000
 												}
 											}

@@ -12,16 +12,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Warnings for when you dont have JB2A enabled.
 - **New Sounds**
   - [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
   - [Tom Music](https://tommusic.itch.io/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
 - **New Animations**
-  - Briny Bolt, Divine Wrath ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache ([@ChasarooniZ](https://github.com/ChasarooniZ))
   - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](https://github.com/Lerosnn))
+
+### Changed
+
+- Sounds now are played before animations, allowing for more intuitive usage of `waitUntilFinished`.
 
 ### Fixed
 
+- The Animations Menu breaking when JB2A is not enabled ([#88](https://github.com/MrVauxs/pf2e-graphics/issues/88))
 - Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- Shield Boss Group Fix ([@ChasarooniZ](https://github.com/ChasarooniZ))
+
 
 ## [0.7.4] - 2024-08-21
 

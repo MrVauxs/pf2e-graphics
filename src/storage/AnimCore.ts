@@ -125,8 +125,7 @@ export let AnimCore = class AnimCore {
 
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
-			.flatMap(x => AnimCore.unfoldAnimations(x))
-			.map(a => ({ ...a, file: this.parseFile(a.file) }));
+			.flatMap(x => AnimCore.unfoldAnimations(x));
 	}
 
 	// Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
@@ -223,7 +222,9 @@ export let AnimCore = class AnimCore {
 			world: Object.keys(window.pf2eGraphics.liveSettings.worldAnimations),
 			user: Object.keys(userKeys),
 			origin: Object.keys(itemOriginKeys),
-			actor: Object.keys(actorKeys),
+			actorOrigin: Object.keys(actorOriginKeys),
+			itemOrigin: Object.keys(itemOriginKeys),
+			actor: Object.keys(itemKeys),
 			item: Object.keys(itemKeys),
 		} as const;
 
