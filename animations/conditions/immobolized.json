@@ -10,6 +10,11 @@
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
+			"predicate": [
+				{
+					"nand": ["condition:grabbed","condition:restrained"]
+				}
+			],
 			"contents": [
 				{
 					"predicate": [
@@ -26,7 +31,7 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.chain.standard.complete.02.purple"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
@@ -37,7 +42,7 @@
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"hue": -100
+										"hue": 50
 									}
 								}
 							}
@@ -59,7 +64,7 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.chain.standard.complete.02.purple"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
@@ -70,7 +75,7 @@
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"hue": -100
+										"hue": 50
 									}
 								}
 							}
@@ -94,7 +99,7 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.chain.standard.complete.02.purple"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
@@ -105,7 +110,7 @@
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"hue": -100
+										"hue": 50
 									}
 								}
 							}
