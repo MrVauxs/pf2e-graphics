@@ -4,6 +4,7 @@
 			"preset": "onToken",
 			"file": "jb2a.static_electricity.03.blue",
 			"options": {
+				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true

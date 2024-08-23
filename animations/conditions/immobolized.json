@@ -3,6 +3,7 @@
 		{
 			"preset": "onToken",
 			"options": {
+				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
@@ -10,14 +11,6 @@
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [
-				{
-					"not": "condition:grabbed"
-				},
-				{
-					"not": "condition:restrained"
-				}
-			],
 			"contents": [
 				{
 					"predicate": [

@@ -1,148 +1,333 @@
 {
 	"condition:drained": [
-		{
+	  {
 			"preset": "onToken",
+			"predicate": [
+		  "undefined:origin:condition:drained"
+			],
 			"options": {
-				"scaleToObject": {
+		  "id": "drained-entry",
+		  "remove": "drained-entry",
+		  "scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
-				},
-				"fadeOut": 500,
-				"fadeIn": 250
+		  },
+		  "fadeOut": 500,
+		  "fadeIn": 250
 			},
 			"contents": [
-				{
+		  {
 					"predicate": [
-						{
+			  {
 							"lte": [
-								"graphics-quality",
-								2
+				  "graphics-quality",
+				  2
 							]
-						}
+			  }
 					],
 					"trigger": "startTurn",
 					"contents": [
-						{
+			  {
 							"predicate": [
-								"jb2a:patreon"
+				  "undefined:badge:value:1"
 							],
-							"file": "jb2a.markers.heart.dark_red.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.03",
 									"options": {
-										"brightness": 0.7,
-										"contrast": 0.8,
-										"hue": 65
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
 									}
-								}
-							}
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 155
-									}
-								}
-							}
-						}
-					]
-				},
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
+				  }
 							]
-						}
-					],
-					"trigger": "effect",
-					"contents": [
-						{
+			  },
+			  {
 							"predicate": [
-								"jb2a:patreon"
+				  "undefined:badge:value:2"
 							],
-							"file": "jb2a.markers.heart.dark_red.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.02",
 									"options": {
-										"brightness": 0.7,
-										"contrast": 0.8,
-										"hue": 65
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
 									}
-								}
-							}
-						},
-						{
+				  }
+							]
+			  },
+			  {
 							"predicate": [
-								"jb2a:free"
+				  {
+									"gte": [
+					  "undefined:badge:value",
+					  3
+									]
+				  }
 							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.01",
 									"options": {
-										"hue": 155
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
 									}
-								}
-							}
-						}
+				  }
+							]
+			  }
 					]
-				},
-				{
+		  },
+		  {
 					"predicate": [
-						"graphics-quality:3"
+			  {
+							"lte": [
+				  "graphics-quality",
+				  2
+							]
+			  }
 					],
-					"trigger": "effect",
+					"trigger": "toggle",
+					"contents": [
+			  {
+							"predicate": [
+				  "undefined:badge:value:1"
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.03",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  },
+			  {
+							"predicate": [
+				  "undefined:badge:value:2"
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.02",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  },
+			  {
+							"predicate": [
+				  {
+									"gte": [
+					  "undefined:badge:value",
+					  3
+									]
+				  }
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.01",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  }
+					]
+		  },
+		  {
+					"predicate": [
+			  "graphics-quality:3"
+					],
+					"trigger": "toggle",
 					"options": {
-						"tieToDocuments": true,
-						"persist": {
+			  "tieToDocuments": true,
+			  "persist": {
 							"value": true,
 							"persistTokenPrototype": true
-						}
+			  }
 					},
 					"contents": [
-						{
+			  {
 							"predicate": [
-								"jb2a:patreon"
+				  "undefined:badge:value:1"
 							],
-							"file": "jb2a.markers.heart.dark_red.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.03",
 									"options": {
-										"brightness": 0.7,
-										"contrast": 0.8,
-										"hue": 65
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
 									}
-								}
-							}
-						},
-						{
+				  }
+							]
+			  },
+			  {
 							"predicate": [
-								"jb2a:free"
+				  "undefined:badge:value:2"
 							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.02",
 									"options": {
-										"hue": 155
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
 									}
-								}
-							}
-						}
+				  }
+							]
+			  },
+			  {
+							"predicate": [
+				  {
+									"gte": [
+					  "undefined:badge:value",
+					  3
+									]
+				  }
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.01",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  }
 					]
-				}
+		  }
 			]
-		}
+	  },
+	  {
+			"preset": "onToken",
+			"predicate": [
+		  {
+					"not": "undefined:origin:condition:drained"
+		  }
+			],
+			"trigger": "toggle",
+			"options": {
+		  "remove": "drained-entry"
+			}
+	  }
 	]
 }

@@ -1,61 +1,94 @@
 {
 	"condition:clumsy": [
-		{
+	  {
 			"preset": "onToken",
-			"file": "jb2a.markers.stun.purple.03",
 			"options": {
-				"scaleToObject": {
+		  "scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
-				},
-				"fadeOut": 500,
-				"fadeIn": 250,
-				"filter": {
-					"type": "ColorMatrix",
-					"options": {
-						"contrast": 0.5,
-						"brightness": 0.8,
-						"hue": 130
-					}
-				}
+		  },
+		  "fadeOut": 500,
+		  "fadeIn": 250
 			},
 			"contents": [
-				{
+		  {
 					"predicate": [
-						{
+			  {
 							"lte": [
-								"graphics-quality",
-								2
+				  "graphics-quality",
+				  2
 							]
-						}
+			  }
 					],
-					"trigger": "startTurn"
-				},
-				{
+					"trigger": "startTurn",
+					"contents": [
+			  {
+							"predicate": [
+				  "jb2a:patreon"
+							],
+							"file": "jb2a.markers.runes.yellow.03"
+			  },
+			  {
+							"predicate": [
+				  "jb2a:free"
+							],
+							"file": "jb2a.markers.runes.dark_orange.03"
+			  }
+					]
+		  },
+		  {
 					"predicate": [
-						{
+			  {
 							"lte": [
-								"graphics-quality",
-								2
+				  "graphics-quality",
+				  2
 							]
-						}
+			  }
 					],
-					"trigger": "effect"
-				},
-				{
+					"trigger": "effect",
+					"contents": [
+			  {
+							"predicate": [
+				  "jb2a:patreon"
+							],
+							"file": "jb2a.markers.runes.yellow.03"
+			  },
+			  {
+							"predicate": [
+				  "jb2a:free"
+							],
+							"file": "jb2a.markers.runes.dark_orange.03"
+			  }
+					]
+		  },
+		  {
 					"predicate": [
-						"graphics-quality:3"
+			  "graphics-quality:3"
 					],
 					"trigger": "effect",
 					"options": {
-						"tieToDocuments": true,
-						"persist": {
+			  "tieToDocuments": true,
+			  "persist": {
 							"value": true,
 							"persistTokenPrototype": true
-						}
-					}
-				}
+			  }
+					},
+					"contents": [
+			  {
+							"predicate": [
+				  "jb2a:patreon"
+							],
+							"file": "jb2a.markers.runes.yellow.03"
+			  },
+			  {
+							"predicate": [
+				  "jb2a:free"
+							],
+							"file": "jb2a.markers.runes.dark_orange.03"
+			  }
+					]
+		  }
 			]
-		}
+	  }
 	]
 }
