@@ -324,6 +324,10 @@ export const database = {
 				'01': `${p}/sounds/tom-music/magic/fire/Firespray 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/fire/Firespray 2.ogg`,
 			},
+			loop: {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_02.ogg`,
+			},
 		},
 		earth: {
 			ranged: {
@@ -361,29 +365,32 @@ export const database = {
 						'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 002.ogg`,
 					},
 				},
+				frostbourne: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frostbourne 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frostbourne 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frostbourne 003.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frostbourne 004.ogg`,
+				},
 			},
 			wall: {
 				'01': `${p}/sounds/tom-music/magic/ice/Ice Wall 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/ice/Ice Wall 2.ogg`,
-			},
-			bless: {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/River Blessing.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 001.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 002.ogg`,
+				'05': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 003.ogg`,
 			},
 			seal: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Seal Of The Ocean Loop.ogg`,
 			iceberg: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Iceberg 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Iceberg 002.ogg`,
 			},
-			ward: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Wave Ward.ogg`,
-			summon: {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 001.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 002.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
-			},
 			dispel: {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 001.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 002.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 003.ogg`,
+				magic: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Dispel 003.ogg`,
+				},
+				iceberg: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Dispel Iceberg.ogg`,
 			},
 			cast: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 001.ogg`,
@@ -453,9 +460,20 @@ export const database = {
 				'01': `${p}/sounds/tom-music/magic/water/Waterspray 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/water/Waterspray 2.ogg`,
 			},
+			bless: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/River Blessing.ogg`,
+			},
+			call: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Call Of The Deep.ogg`,
 			wave: {
 				'01': `${p}/sounds/tom-music/magic/water/Wave Attack 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/water/Wave Attack 2.ogg`,
+			},
+			tides: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Enchantment Of Tides Loop.ogg`,
+			ward: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Wave Ward.ogg`,
+			summon: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
 			},
 		},
 		movement: {
