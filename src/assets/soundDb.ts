@@ -74,6 +74,67 @@ export const database = {
 		},
 	},
 	magic: {
+		air: {
+			blade: {
+				aero: {
+					cast: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast C.ogg`,
+					},
+					impact: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact C.ogg`,
+					},
+					trail: {
+						loop: `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Trail Loop.ogg`,
+					},
+				},
+				cyclone: {
+					cast: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast C.ogg`,
+					},
+					impact: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact C.ogg`,
+					},
+					trail: {
+						loop: `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Trail Loop.ogg`,
+					},
+				},
+			},
+			teleport: {
+				'01': {
+					in: `${p}/sounds/ovani-sounds/Magic/Air/Aeroportation In.ogg`,
+					out: `${p}/sounds/ovani-sounds/Magic/Air/Aeroportation Out.ogg`,
+				},
+			},
+			gust: {
+				echoing: {
+					cast: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Cast.ogg`,
+					impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust impact.ogg`,
+				},
+				whirlwind: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
+				},
+			},
+			mist: {
+				form: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Air/Mistform.ogg`,
+				},
+			},
+			surge: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Air/Sky Surge.ogg`,
+			},
+			zephyr: {
+				embrace: `${p}/sounds/ovani-sounds/Magic/Air/Zephyrs Embrace.ogg`,
+				resonance: `${p}/sounds/ovani-sounds/Magic/Air/Zephyrs Resonance.ogg`,
+			},
+		},
 		fire: {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
