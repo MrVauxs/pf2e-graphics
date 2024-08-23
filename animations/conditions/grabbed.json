@@ -4,6 +4,8 @@
 		"preset": "onToken",
 		"file": "jb2a.markers.chain.standard.complete.02.red",
 		"options": {
+			"id": "grabbed-entry",
+			"remove": "immobilized-entry",
 		  "scaleToObject": {
 			"value": 1.5,
 			"considerTokenScale": true

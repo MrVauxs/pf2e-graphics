@@ -3,6 +3,7 @@
 		{
 			"preset": "onToken",
 			"options": {
+				"id": "immobilized-entry",
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
