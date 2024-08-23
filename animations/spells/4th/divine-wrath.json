@@ -6,8 +6,7 @@
 			"options": {
 				"tieToDocuments": true,
 				"scaleToObject": 1.5,
-				"waitUntilFinished": -1200,
-				"sound": {}
+				"waitUntilFinished": -1200
 			},
 			"contents": [
 				{
@@ -101,8 +100,7 @@
 			"preset": "template",
 			"options": {
 				"tieToDocuments": true,
-				"scaleToObject": 1.3,
-				"sound": {}
+				"scaleToObject": 1.3
 			},
 			"contents": [
 				{
