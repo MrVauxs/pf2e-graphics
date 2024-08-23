@@ -3,8 +3,6 @@
 	  {
 		"preset": "onToken",
 		"options": {
-			"id": "restrained-entry",
-			"remove": "grabbed-entry",
 		  "scaleToObject": {
 			"value": 1.5,
 			"considerTokenScale": true

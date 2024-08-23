@@ -3,7 +3,6 @@
 		{
 			"preset": "onToken",
 			"options": {
-				"id": "immobilized-entry",
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
@@ -11,11 +10,6 @@
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [
-				{
-					"nand": ["condition:grabbed","condition:restrained"]
-				}
-			],
 			"contents": [
 				{
 					"predicate": [
