@@ -1,53 +1,118 @@
 {
 	"condition:restrained": [
-		{
-			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+	  {
+		"preset": "onToken",
+		"options": {
+		  "scaleToObject": {
+			"value": 1.5,
+			"considerTokenScale": true
+		  },
+		  "fadeOut": 500,
+		  "fadeIn": 250
+		},
+		"contents": [
+		  {
+			"predicate": [
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
+			],
+			"trigger": "startTurn",
+			"contents": [
+			  {
+				"predicate": [
+				  "jb2a:patreon"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.purple"
+			  },
+			  {
+				"predicate": [
+				  "jb2a:free"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.red",
+				"options": {
+				  "filter": {
+					"type": "ColorMatrix",
+					"options": {
+					  "hue": -100
+					}
+				  }
+				}
+			  }
+			]
+		  },
+		  {
+			"predicate": [
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
+			],
+			"trigger": "effect",
+			"contents": [
+			  {
+				"predicate": [
+				  "jb2a:patreon"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.purple"
+			  },
+			  {
+				"predicate": [
+				  "jb2a:free"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.red",
+				"options": {
+				  "filter": {
+					"type": "ColorMatrix",
+					"options": {
+					  "hue": -100
+					}
+				  }
+				}
+			  }
+			]
+		  },
+		  {
+			"predicate": [
+			  "graphics-quality:3"
+			],
+			"trigger": "effect",
 			"options": {
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
-				"fadeOut": 500,
-				"fadeIn": 250
+			  "tieToDocuments": true,
+			  "persist": {
+				"value": true,
+				"persistTokenPrototype": true
+			  }
 			},
 			"contents": [
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn"
-				},
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
-					],
-					"trigger": "effect",
+			  {
+				"predicate": [
+				  "jb2a:patreon"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.purple"
+			  },
+			  {
+				"predicate": [
+				  "jb2a:free"
+				],
+				"file": "jb2a.markers.chain.standard.complete.02.red",
+				"options": {
+				  "filter": {
+					"type": "ColorMatrix",
 					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						}
+					  "hue": -100
 					}
+				  }
 				}
+			  }
 			]
-		}
+		  }
+		]
+	  }
 	]
-}
+  }

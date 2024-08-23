@@ -1,64 +1,60 @@
 {
 	"condition:grabbed": [
-		{
-			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
-			"options": {
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
-				"fadeOut": 500,
-				"fadeIn": 250,
-				"filter": {
-					"type": "ColorMatrix",
-					"options": {
-						"hue": 25
-					}
-				}
-			},
+	  {
+		"preset": "onToken",
+		"file": "jb2a.markers.chain.standard.complete.02.red",
+		"options": {
+		  "scaleToObject": {
+			"value": 1.5,
+			"considerTokenScale": true
+		  },
+		  "fadeOut": 500,
+		  "fadeIn": 250,
+		  "sound": {}
+		},
+		"predicate": [
+		  {
+			"not": "condition:restrained"
+		  }
+		],
+		"contents": [
+		  {
 			"predicate": [
-				{
-					"not": "condition:restrained"
-				}
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
 			],
-			"contents": [
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn"
-				},
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
-					],
-					"trigger": "effect",
-					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						}
-					}
-				}
-			]
-		}
+			"trigger": "startTurn"
+		  },
+		  {
+			"predicate": [
+			  {
+				"lte": [
+				  "graphics-quality",
+				  2
+				]
+			  }
+			],
+			"trigger": "effect"
+		  },
+		  {
+			"predicate": [
+			  "graphics-quality:3"
+			],
+			"trigger": "effect",
+			"options": {
+			  "tieToDocuments": true,
+			  "persist": {
+				"value": true,
+				"persistTokenPrototype": true
+			  }
+			}
+		  }
+		],
+		"trigger": "attack-roll"
+	  }
 	]
-}
+  }
