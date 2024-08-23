@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Holding Shift to see processed version of premade animations in Preset Animations menu.
+- Ability to see errorenous sounds in Preset Animations menu.
 - Ability to use multiple Triggers for animations.
 - Warnings for when you dont have JB2A enabled.
 - **New Sounds**

@@ -19,6 +19,7 @@
 		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
 		"areYouSureM8": "Are you sure?",
 		"hasSound": "Has sound effects",
+		"hasSoundWrong": "Has sound effects, some of which do not exist!",
 		"settings": {
 			"windowPosition": {
 				"name": "Window Position",
@@ -74,6 +75,7 @@
 			"openSheet": "Open Sheet"
 		},
 		"worldAnimation": {
+			"shiftJSON": "Hold Shift to preview the processed version",
 			"tabs": {
 				"preset-animations": "Preset Animations",
 				"world-animations": "World Animations"
