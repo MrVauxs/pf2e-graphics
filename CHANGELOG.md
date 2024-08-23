@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ability to see errorenous sounds in Preset Animations menu.
 - Ability to use multiple Triggers for animations.
 - Warnings for when you dont have JB2A enabled.
+- Conditions triggering `toggle` animations.
 - **New Sounds**
   - [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
   - [Tom Music](https://tommusic.itch.io/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
