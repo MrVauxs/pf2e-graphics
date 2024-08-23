@@ -1,11 +1,11 @@
 {
-	"condition:restrained": [
+	"condition:dazzled": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+			"file": "jb2a.glint.yellow.many",
 			"options": {
 				"scaleToObject": {
-					"value": 1.5,
+					"value": 1,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,

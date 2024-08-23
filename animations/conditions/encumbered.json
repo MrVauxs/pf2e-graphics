@@ -1,5 +1,5 @@
 {
-	"condition:fascinated": [
+	"condition:encumbered": [
 		{
 			"preset": "onToken",
 			"options": {
@@ -8,7 +8,8 @@
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"mask": true
 			},
 			"contents": [
 				{
@@ -26,19 +27,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.particles.inward.orange.01.01"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.particles.inward.greenyellow.01.01",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": -20
 									}
 								}
 							}
@@ -60,19 +60,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.particles.inward.orange.01.01"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.particles.inward.greenyellow.01.01",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": -20
 									}
 								}
 							}
@@ -96,19 +95,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.particles.inward.orange.01.01"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.particles.inward.greenyellow.01.01",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": -20
 									}
 								}
 							}

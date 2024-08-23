@@ -1,11 +1,11 @@
 {
-	"condition:restrained": [
+	"condition:petrified": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+			"file": "jb2a.markers.runes03.dark_orange.01",
 			"options": {
 				"scaleToObject": {
-					"value": 1.5,
+					"value": 1,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,

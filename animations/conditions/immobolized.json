@@ -1,15 +1,23 @@
 {
-	"condition:fascinated": [
+	"condition:immobilized": [
 		{
 			"preset": "onToken",
 			"options": {
 				"scaleToObject": {
-					"value": 1.1,
+					"value": 1.5,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
+			"predicate": [
+				{
+					"not": "condition:grabbed"
+				},
+				{
+					"not": "condition:restrained"
+				}
+			],
 			"contents": [
 				{
 					"predicate": [
@@ -26,19 +34,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.markers.chain.standard.complete.02.red",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": 50
 									}
 								}
 							}
@@ -60,19 +67,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.markers.chain.standard.complete.02.red",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": 50
 									}
 								}
 							}
@@ -96,19 +102,18 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.light.complete.pink"
+							"file": "jb2a.markers.chain.standard.complete.02.yellow"
 						},
 						{
 							"predicate": [
 								"jb2a:free"
 							],
-							"file": "jb2a.markers.light.complete.blue",
+							"file": "jb2a.markers.chain.standard.complete.02.red",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"saturate": 0.3,
-										"hue": 85
+										"hue": 50
 									}
 								}
 							}

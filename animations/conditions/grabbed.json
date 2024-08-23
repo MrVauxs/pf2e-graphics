@@ -1,5 +1,5 @@
 {
-	"condition:restrained": [
+	"condition:grabbed": [
 		{
 			"preset": "onToken",
 			"file": "jb2a.markers.chain.standard.complete.02.red",
@@ -9,8 +9,19 @@
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": 25
+					}
+				}
 			},
+			"predicate": [
+				{
+					"not": "condition:restrained"
+				}
+			],
 			"contents": [
 				{
 					"predicate": [

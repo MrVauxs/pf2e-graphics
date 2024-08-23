@@ -1,8 +1,8 @@
 {
-	"condition:restrained": [
+	"condition:blinded": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+			"file": "jb2a.markers.smoke.ring.loop.bluepurple",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,

@@ -1,15 +1,21 @@
 {
-	"condition:restrained": [
+	"condition:sickened": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+			"file": "jb2a.markers.horror.purple.02",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": 170
+					}
+				}
 			},
 			"contents": [
 				{

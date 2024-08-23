@@ -1,8 +1,8 @@
 {
-	"condition:restrained": [
+	"condition:stupefied": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.chain.standard.complete.02.red",
+			"file": "jb2a.markers.stun.purple.02",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
