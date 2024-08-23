@@ -4,7 +4,7 @@ const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;
 
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
-	const rollOptions = item.getRollOptions();
+	const rollOptions = item.getRollOptions(item.type);
 
 	const deliverable = {
 		rollOptions,

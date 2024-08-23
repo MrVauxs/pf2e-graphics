@@ -11,10 +11,12 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 		|| i.isOfType('condition')
 	) {
 		result.bool = true;
+		result.options.push(...i.getRollOptions('condition'));
 	}
 
 	if (o?.system?.equipped?.carryType || o?.system?.equipped?.handsHeld) {
 		result.bool = true;
+		result.options.push(...i.getRollOptions('item'));
 		// @ts-expect-error These do exist.
 		if (i.system.usage.type === i.system.equipped.carryType && i.system.usage.hands <= i.system.equipped.handsHeld) {
 			result.options.push(`equipment:wielded`);
@@ -33,13 +35,13 @@ function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<I
 	if (!item.actor || !bool) return;
 
 	const deliverable = {
-		rollOptions: [...item.getRollOptions(), ...item.actor.getRollOptions(), ...newOptions],
+		rollOptions: [...item.actor.getRollOptions(), ...newOptions],
 		trigger: 'toggle' as const,
 		actor: item.actor,
 		item,
 	};
 
-	devMessage('Toggle Hook Data', deliverable, _options, newOptions);
+	devMessage('Toggle Hook Data', deliverable, _options);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
