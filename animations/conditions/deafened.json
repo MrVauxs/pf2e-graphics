@@ -9,13 +9,7 @@
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250,
-				"filter": {
-					"type": "ColorMatrix",
-					"options": {
-						"hue": 15
-					}
-				}
+				"fadeIn": 250
 			},
 			"contents": [
 				{
