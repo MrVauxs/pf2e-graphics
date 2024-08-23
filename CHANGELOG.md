@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Ability to use multiple Triggers for animations.
 - Warnings for when you dont have JB2A enabled.
 - **New Sounds**
   - [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
