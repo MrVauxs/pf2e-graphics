@@ -3,6 +3,11 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.spear.hit"
+				}
+			},
 			"contents": [
 				{
 					"predicate": ["item:trait:holy"],

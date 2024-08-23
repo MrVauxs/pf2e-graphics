@@ -4,7 +4,10 @@ import { devMessage, log } from 'src/utils';
 function handleChatMessage(message: ChatMessagePF2e) {
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
 	const trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
-	if (!message.token) return;
+	if (!message.token) {
+		log('No token found. Aborting.');
+		return;
+	};
 
 	if (!trigger) {
 		log('No message type found. Aborting.');
@@ -34,8 +37,18 @@ function handleChatMessage(message: ChatMessagePF2e) {
 		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
 		: message.token;
 
+	const newOptions = [
+	];
+	const outcome = message.flags.pf2e.context?.outcome?.slugify();
+	if (outcome) newOptions.push(`check:outcome:${outcome}`);
+	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
+		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
+		if (options)
+			newOptions.push(...options, 'target');
+	}
+
 	const deliverable = {
-		rollOptions: rollOptions.concat([`check:outcome:${message.flags.pf2e.context?.outcome?.slugify() || 'none'}`]),
+		rollOptions: rollOptions.concat(newOptions),
 		trigger,
 		targets,
 		source,

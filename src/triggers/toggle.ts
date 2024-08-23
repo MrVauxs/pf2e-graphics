@@ -6,14 +6,17 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 		options: [] as string[],
 	};
 
-	if (i.system.rules.length) {
+	if (
+		i.system.rules.length
+		|| i.isOfType('condition')
+	) {
 		result.bool = true;
 	}
 
 	if (o?.system?.equipped?.carryType || o?.system?.equipped?.handsHeld) {
 		result.bool = true;
 		// @ts-expect-error These do exist.
-		if (Number(i.handsHeld) === Number(i.hands.replace('+', ''))) {
+		if (i.system.usage.type === i.system.equipped.carryType && i.system.usage.hands <= i.system.equipped.handsHeld) {
 			result.options.push(`equipment:wielded`);
 		} else {
 			result.options.push(`equipment:${o.system.equipped.carryType}`);
