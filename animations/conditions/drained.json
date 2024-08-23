@@ -1,333 +1,333 @@
 {
 	"condition:drained": [
 	  {
-		"preset": "onToken",
-		"predicate": [
+			"preset": "onToken",
+			"predicate": [
 		  "undefined:origin:condition:drained"
-		],
-		"options": {
+			],
+			"options": {
 		  "id": "drained-entry",
 		  "remove": "drained-entry",
 		  "scaleToObject": {
-			"value": 1.5,
-			"considerTokenScale": true
+					"value": 1.5,
+					"considerTokenScale": true
 		  },
 		  "fadeOut": 500,
 		  "fadeIn": 250
-		},
-		"contents": [
+			},
+			"contents": [
 		  {
-			"predicate": [
+					"predicate": [
 			  {
-				"lte": [
+							"lte": [
 				  "graphics-quality",
 				  2
-				]
+							]
 			  }
-			],
-			"trigger": "startTurn",
-			"contents": [
+					],
+					"trigger": "startTurn",
+					"contents": [
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:1"
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.03"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.03",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.03",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:2"
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.02"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.02",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.02",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  {
-					"gte": [
+									"gte": [
 					  "undefined:badge:value",
 					  3
-					]
+									]
 				  }
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.01"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.01",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.01",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  }
-			]
+					]
 		  },
 		  {
-			"predicate": [
+					"predicate": [
 			  {
-				"lte": [
+							"lte": [
 				  "graphics-quality",
 				  2
-				]
+							]
 			  }
-			],
-			"trigger": "toggle",
-			"contents": [
+					],
+					"trigger": "toggle",
+					"contents": [
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:1"
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.03"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.03",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.03",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:2"
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.02"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.02",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.02",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  {
-					"gte": [
+									"gte": [
 					  "undefined:badge:value",
 					  3
-					]
+									]
 				  }
-				],
-				"contents": [
+							],
+							"contents": [
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.01"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
 				  },
 				  {
-					"predicate": [
+									"predicate": [
 					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.01",
-					"options": {
+									],
+									"file": "jb2a.markers.drop.red.01",
+									"options": {
 					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
+											"type": "ColorMatrix",
+											"options": {
 						  "hue": 105
-						}
+											}
 					  }
-					}
+									}
 				  }
-				]
+							]
 			  }
-			]
+					]
 		  },
 		  {
-			"predicate": [
+					"predicate": [
 			  "graphics-quality:3"
+					],
+					"trigger": "toggle",
+					"options": {
+			  "tieToDocuments": true,
+			  "persist": {
+							"value": true,
+							"persistTokenPrototype": true
+			  }
+					},
+					"contents": [
+			  {
+							"predicate": [
+				  "undefined:badge:value:1"
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.03"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.03",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  },
+			  {
+							"predicate": [
+				  "undefined:badge:value:2"
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.02"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.02",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  },
+			  {
+							"predicate": [
+				  {
+									"gte": [
+					  "undefined:badge:value",
+					  3
+									]
+				  }
+							],
+							"contents": [
+				  {
+									"predicate": [
+					  "jb2a:patreon"
+									],
+									"file": "jb2a.markers.drop.dark_green.01"
+				  },
+				  {
+									"predicate": [
+					  "jb2a:free"
+									],
+									"file": "jb2a.markers.drop.red.01",
+									"options": {
+					  "filter": {
+											"type": "ColorMatrix",
+											"options": {
+						  "hue": 105
+											}
+					  }
+									}
+				  }
+							]
+			  }
+					]
+		  }
+			]
+	  },
+	  {
+			"preset": "onToken",
+			"predicate": [
+		  {
+					"not": "undefined:origin:condition:drained"
+		  }
 			],
 			"trigger": "toggle",
 			"options": {
-			  "tieToDocuments": true,
-			  "persist": {
-				"value": true,
-				"persistTokenPrototype": true
-			  }
-			},
-			"contents": [
-			  {
-				"predicate": [
-				  "undefined:badge:value:1"
-				],
-				"contents": [
-				  {
-					"predicate": [
-					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.03"
-				  },
-				  {
-					"predicate": [
-					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.03",
-					"options": {
-					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
-						  "hue": 105
-						}
-					  }
-					}
-				  }
-				]
-			  },
-			  {
-				"predicate": [
-				  "undefined:badge:value:2"
-				],
-				"contents": [
-				  {
-					"predicate": [
-					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.02"
-				  },
-				  {
-					"predicate": [
-					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.02",
-					"options": {
-					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
-						  "hue": 105
-						}
-					  }
-					}
-				  }
-				]
-			  },
-			  {
-				"predicate": [
-				  {
-					"gte": [
-					  "undefined:badge:value",
-					  3
-					]
-				  }
-				],
-				"contents": [
-				  {
-					"predicate": [
-					  "jb2a:patreon"
-					],
-					"file": "jb2a.markers.drop.dark_green.01"
-				  },
-				  {
-					"predicate": [
-					  "jb2a:free"
-					],
-					"file": "jb2a.markers.drop.red.01",
-					"options": {
-					  "filter": {
-						"type": "ColorMatrix",
-						"options": {
-						  "hue": 105
-						}
-					  }
-					}
-				  }
-				]
-			  }
-			]
-		  }
-		]
-	  },
-	  {
-		"preset": "onToken",
-		"predicate": [
-		  {
-			"not": "undefined:origin:condition:drained"
-		  }
-		],
-		"trigger": "toggle",
-		"options": {
 		  "remove": "drained-entry"
-		}
+			}
 	  }
 	]
-  }
+}

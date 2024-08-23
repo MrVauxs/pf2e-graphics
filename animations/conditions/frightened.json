@@ -1,142 +1,142 @@
 {
 	"condition:frightened": [
 	  {
-		"preset": "onToken",
-		"file": "jb2a.markers.horror.purple.03",
-		"predicate": [
+			"preset": "onToken",
+			"file": "jb2a.markers.horror.purple.03",
+			"predicate": [
 		  "undefined:origin:condition:frightened"
-		],
-		"options": {
+			],
+			"options": {
 		  "id": "frightened-entry",
 		  "remove": "frightened-entry",
 		  "scaleToObject": {
-			"value": 1.5,
-			"considerTokenScale": true
+					"value": 1.5,
+					"considerTokenScale": true
 		  },
 		  "fadeOut": 500,
 		  "fadeIn": 250
-		},
-		"contents": [
+			},
+			"contents": [
 		  {
-			"predicate": [
+					"predicate": [
 			  {
-				"lte": [
+							"lte": [
 				  "graphics-quality",
 				  2
-				]
+							]
 			  }
-			],
-			"trigger": "startTurn",
-			"contents": [
+					],
+					"trigger": "startTurn",
+					"contents": [
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:1"
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:2"
-				],
-				"file": "jb2a.markers.horror.purple.02"
+							],
+							"file": "jb2a.markers.horror.purple.02"
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  {
-					"gte": [
+									"gte": [
 					  "undefined:badge:value",
 					  3
-					]
+									]
 				  }
-				],
-				"file": "jb2a.markers.horror.purple.01"
+							],
+							"file": "jb2a.markers.horror.purple.01"
 			  }
-			]
+					]
 		  },
 		  {
-			"predicate": [
+					"predicate": [
 			  {
-				"lte": [
+							"lte": [
 				  "graphics-quality",
 				  2
-				]
+							]
 			  }
-			],
-			"trigger": "toggle",
-			"contents": [
+					],
+					"trigger": "toggle",
+					"contents": [
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:1"
-				]
+							]
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  "undefined:badge:value:2"
-				],
-				"file": "jb2a.markers.horror.purple.02"
+							],
+							"file": "jb2a.markers.horror.purple.02"
 			  },
 			  {
-				"predicate": [
+							"predicate": [
 				  {
-					"gte": [
+									"gte": [
 					  "undefined:badge:value",
 					  3
-					]
+									]
 				  }
-				],
-				"file": "jb2a.markers.horror.purple.01"
+							],
+							"file": "jb2a.markers.horror.purple.01"
 			  }
-			]
+					]
 		  },
 		  {
-			"predicate": [
+					"predicate": [
 			  "graphics-quality:3"
+					],
+					"trigger": "toggle",
+					"options": {
+			  "tieToDocuments": true,
+			  "persist": {
+							"value": true,
+							"persistTokenPrototype": true
+			  }
+					},
+					"contents": [
+			  {
+							"predicate": [
+				  "undefined:badge:value:1"
+							]
+			  },
+			  {
+							"predicate": [
+				  "undefined:badge:value:2"
+							],
+							"file": "jb2a.markers.horror.purple.02"
+			  },
+			  {
+							"predicate": [
+				  {
+									"gte": [
+					  "undefined:badge:value",
+					  3
+									]
+				  }
+							],
+							"file": "jb2a.markers.horror.purple.01"
+			  }
+					]
+		  }
+			]
+	  },
+	  {
+			"preset": "onToken",
+			"predicate": [
+		  {
+					"not": "undefined:origin:condition:frightened"
+		  }
 			],
 			"trigger": "toggle",
 			"options": {
-			  "tieToDocuments": true,
-			  "persist": {
-				"value": true,
-				"persistTokenPrototype": true
-			  }
-			},
-			"contents": [
-			  {
-				"predicate": [
-				  "undefined:badge:value:1"
-				]
-			  },
-			  {
-				"predicate": [
-				  "undefined:badge:value:2"
-				],
-				"file": "jb2a.markers.horror.purple.02"
-			  },
-			  {
-				"predicate": [
-				  {
-					"gte": [
-					  "undefined:badge:value",
-					  3
-					]
-				  }
-				],
-				"file": "jb2a.markers.horror.purple.01"
-			  }
-			]
-		  }
-		]
-	  },
-	  {
-		"preset": "onToken",
-		"predicate": [
-		  {
-			"not": "undefined:origin:condition:frightened"
-		  }
-		],
-		"trigger": "toggle",
-		"options": {
 		  "remove": "frightened-entry"
-		}
+			}
 	  }
 	]
-  }
+}
