@@ -1,0 +1,120 @@
+{
+	"condition:unconscious": [
+		{
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": {
+					"value": 1.1,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.sleep.symbol.yellow"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.sleep.symbol.pink",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 100
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.sleep.symbol.yellow"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.sleep.symbol.pink",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 0.3,
+										"hue": 100
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.sleep.symbol.yellow"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.sleep.symbol.pink",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 0.3,
+										"hue": 100
+									}
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,53 @@
+{
+	"condition:petrified": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.runes03.dark_orange.01",
+			"options": {
+				"scaleToObject": {
+					"value": 1,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}

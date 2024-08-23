@@ -1,0 +1,315 @@
+{
+	"condition:stunned": [
+		{
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"repeats": {
+					"count": 1,
+					"delayMin": 750,
+					"delayMax": 1500
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"undefined:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"undefined:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"undefined:badge:value",
+												3
+											]
+										}
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

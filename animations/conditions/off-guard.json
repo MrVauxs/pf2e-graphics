@@ -1,0 +1,61 @@
+{
+	"condition:off-guard": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.shield_cracked.purple.03",
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"contrast": 0.5,
+						"brightness": 0.8,
+						"saturate": -1
+					}
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn"
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect"
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}
