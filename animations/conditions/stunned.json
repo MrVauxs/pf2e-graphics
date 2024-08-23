@@ -3,7 +3,7 @@
 		{
 			"preset": "onToken",
 			"predicate": [
-				"undefined:origin:condition:stunned"
+				"condition:origin:condition:stunned"
 			],
 			"options": {
 				"id": "stunned-entry",
@@ -40,12 +40,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -55,7 +55,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -67,7 +67,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -92,12 +92,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -107,7 +107,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -119,7 +119,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -149,12 +149,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -164,7 +164,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -176,7 +176,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -201,12 +201,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -216,7 +216,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -228,7 +228,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -260,12 +260,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -277,7 +277,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -291,7 +291,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -316,12 +316,12 @@
 							"contents": [
 								{
 									"predicate": [
-										"undefined:badge:value:1"
+										"condition:badge:value:1"
 									]
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:2"
+										"condition:badge:value:2"
 									],
 									"options": {
 										"repeats": {
@@ -333,7 +333,7 @@
 								},
 								{
 									"predicate": [
-										"undefined:badge:value:3"
+										"condition:badge:value:3"
 									],
 									"options": {
 										"repeats": {
@@ -347,7 +347,7 @@
 									"predicate": [
 										{
 											"gte": [
-												"undefined:badge:value",
+												"condition:badge:value",
 												4
 											]
 										}
@@ -364,7 +364,7 @@
 			"preset": "onToken",
 			"predicate": [
 				{
-					"not": "undefined:origin:condition:stunned"
+					"not": "condition:origin:condition:stunned"
 				}
 			],
 			"trigger": "toggle",

@@ -4,7 +4,7 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.horror.purple.03",
 			"predicate": [
-				"undefined:origin:condition:frightened"
+				"condition:origin:condition:frightened"
 			],
 			"options": {
 				"id": "frightened-entry",
@@ -30,12 +30,12 @@
 					"contents": [
 						{
 							"predicate": [
-								"undefined:badge:value:1"
+								"condition:badge:value:1"
 							]
 						},
 						{
 							"predicate": [
-								"undefined:badge:value:2"
+								"condition:badge:value:2"
 							],
 							"file": "jb2a.markers.horror.purple.02"
 						},
@@ -43,7 +43,7 @@
 							"predicate": [
 								{
 									"gte": [
-										"undefined:badge:value",
+										"condition:badge:value",
 										3
 									]
 								}
@@ -65,12 +65,12 @@
 					"contents": [
 						{
 							"predicate": [
-								"undefined:badge:value:1"
+								"condition:badge:value:1"
 							]
 						},
 						{
 							"predicate": [
-								"undefined:badge:value:2"
+								"condition:badge:value:2"
 							],
 							"file": "jb2a.markers.horror.purple.02"
 						},
@@ -78,7 +78,7 @@
 							"predicate": [
 								{
 									"gte": [
-										"undefined:badge:value",
+										"condition:badge:value",
 										3
 									]
 								}
@@ -102,12 +102,12 @@
 					"contents": [
 						{
 							"predicate": [
-								"undefined:badge:value:1"
+								"condition:badge:value:1"
 							]
 						},
 						{
 							"predicate": [
-								"undefined:badge:value:2"
+								"condition:badge:value:2"
 							],
 							"file": "jb2a.markers.horror.purple.02"
 						},
@@ -115,7 +115,7 @@
 							"predicate": [
 								{
 									"gte": [
-										"undefined:badge:value",
+										"condition:badge:value",
 										3
 									]
 								}
@@ -130,7 +130,7 @@
 			"preset": "onToken",
 			"predicate": [
 				{
-					"not": "undefined:origin:condition:frightened"
+					"not": "condition:origin:condition:frightened"
 				}
 			],
 			"trigger": "toggle",
