@@ -11,6 +11,7 @@
           "filter": {
             "type": "ColorMatrix",
             "options": {
+              "saturate": 0.3,
               "hue": 85
             }
           },
