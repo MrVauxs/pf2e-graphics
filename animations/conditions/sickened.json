@@ -2,10 +2,7 @@
 	"condition:sickened": [
 	  {
 		"preset": "onToken",
-		"file": "jb2a.markers.horror.purple.03",
-		"predicate": [
-		  "undefined:origin:condition:sickened"
-		],
+		"file": "jb2a.markers.poison.dark_green.03",
 		"options": {
 		  "id": "sickened-entry",
 		  "remove": "sickened-entry",
@@ -14,19 +11,7 @@
 			"considerTokenScale": true
 		  },
 		  "fadeOut": 500,
-		  "fadeIn": 250,
-		  "repeats": {
-			"count": 1,
-			"delayMin": 900,
-			"delayMax": 1300
-		  },
-		  "filter": {
-			"type": "ColorMatrix",
-			"options": {
-			  "brightness": 0.6,
-			  "hue": 170
-			}
-		  }
+		  "fadeIn": 250
 		},
 		"contents": [
 		  {
@@ -49,32 +34,18 @@
 				"predicate": [
 				  "undefined:badge:value:2"
 				],
-				"options": {
-				  "repeats": {
-					"count": 2
-				  }
-				}
-			  },
-			  {
-				"predicate": [
-				  "undefined:badge:value:3"
-				],
-				"options": {
-				  "repeats": {
-					"count": 3
-				  }
-				}
+				"file": "jb2a.markers.poison.dark_green.02"
 			  },
 			  {
 				"predicate": [
 				  {
 					"gte": [
 					  "undefined:badge:value",
-					  4
+					  3
 					]
 				  }
 				],
-				"file": "jb2a.markers.horror.purple.02"
+				"file": "jb2a.markers.poison.dark_green.01"
 			  }
 			]
 		  },
@@ -98,32 +69,18 @@
 				"predicate": [
 				  "undefined:badge:value:2"
 				],
-				"options": {
-				  "repeats": {
-					"count": 2
-				  }
-				}
-			  },
-			  {
-				"predicate": [
-				  "undefined:badge:value:3"
-				],
-				"options": {
-				  "repeats": {
-					"count": 3
-				  }
-				}
+				"file": "jb2a.markers.poison.dark_green.02"
 			  },
 			  {
 				"predicate": [
 				  {
 					"gte": [
 					  "undefined:badge:value",
-					  4
+					  3
 					]
 				  }
 				],
-				"file": "jb2a.markers.horror.purple.02"
+				"file": "jb2a.markers.poison.dark_green.01"
 			  }
 			]
 		  },
@@ -149,36 +106,18 @@
 				"predicate": [
 				  "undefined:badge:value:2"
 				],
-				"options": {
-				  "repeats": {
-					"count": 2,
-					"delayMin": 3000,
-					"delayMax": 3000
-				  }
-				}
-			  },
-			  {
-				"predicate": [
-				  "undefined:badge:value:3"
-				],
-				"options": {
-				  "repeats": {
-					"count": 3,
-					"delayMin": 2000,
-					"delayMax": 2000
-				  }
-				}
+				"file": "jb2a.markers.poison.dark_green.02"
 			  },
 			  {
 				"predicate": [
 				  {
 					"gte": [
 					  "undefined:badge:value",
-					  4
+					  3
 					]
 				  }
 				],
-				"file": "jb2a.markers.horror.purple.02"
+				"file": "jb2a.markers.poison.dark_green.01"
 			  }
 			]
 		  }
