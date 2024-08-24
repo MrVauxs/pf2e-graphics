@@ -1,0 +1,376 @@
+{
+	"condition:stunned": [
+		{
+			"preset": "onToken",
+			"predicate": [
+				"condition:origin:condition:stunned"
+			],
+			"options": {
+				"id": "stunned-entry",
+				"remove": "stunned-entry",
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"repeats": {
+					"count": 1,
+					"delayMin": 900,
+					"delayMax": 1300
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.dark_teal.02"
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.purple.02"
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "effect",
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.dark_teal.02"
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.purple.02"
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.markers.stun.dark_teal.03",
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2,
+											"delayMin": 3000,
+											"delayMax": 3000
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3,
+											"delayMin": 2000,
+											"delayMax": 2000
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.dark_teal.02"
+								}
+							]
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.markers.stun.purple.03",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -95
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"condition:badge:value:1"
+									]
+								},
+								{
+									"predicate": [
+										"condition:badge:value:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 2,
+											"delayMin": 3000,
+											"delayMax": 3000
+										}
+									}
+								},
+								{
+									"predicate": [
+										"condition:badge:value:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 3,
+											"delayMin": 2000,
+											"delayMax": 2000
+										}
+									}
+								},
+								{
+									"predicate": [
+										{
+											"gte": [
+												"condition:badge:value",
+												4
+											]
+										}
+									],
+									"file": "jb2a.markers.stun.purple.02"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"preset": "onToken",
+			"predicate": [
+				{
+					"not": "condition:origin:condition:stunned"
+				}
+			],
+			"trigger": "toggle",
+			"options": {
+				"remove": "stunned-entry"
+			}
+		}
+	]
+}

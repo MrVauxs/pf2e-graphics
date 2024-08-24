@@ -1,0 +1,142 @@
+{
+	"condition:wounded": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.drop.red.03",
+			"predicate": [
+				"condition:origin:condition:wounded"
+			],
+			"options": {
+				"id": "wounded-entry",
+				"remove": "wounded-entry",
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.drop.red.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.drop.red.01"
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "toggle",
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.drop.red.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.drop.red.01"
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "toggle",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.drop.red.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.drop.red.01"
+						}
+					]
+				}
+			]
+		},
+		{
+			"preset": "onToken",
+			"predicate": [
+				{
+					"not": "condition:origin:condition:wounded"
+				}
+			],
+			"trigger": "toggle",
+			"options": {
+				"remove": "wounded-entry"
+			}
+		}
+	]
+}

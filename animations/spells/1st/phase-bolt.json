@@ -3,7 +3,13 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.bolt.physical.purple"
+			"file": "jb2a.bolt.physical.purple",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.magic.fire.launch.01",
+					"delay": 750
+				}
+			}
 		}
 	]
 }

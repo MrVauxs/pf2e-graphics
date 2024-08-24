@@ -303,7 +303,7 @@ export let AnimCore = class AnimCore {
 
 		for (const [key, branch] of Object.entries(animationTree)) {
 			let validBranchAnimations = branch
-				.filter(a => a.trigger === trigger)
+				.filter(a => [a.trigger].flat().includes(trigger))
 				.filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
 				.filter(narrow);
 
@@ -433,7 +433,7 @@ export type TriggerTypes = typeof AnimCore['CONST']['TRIGGERS'][number];
 
 export interface AnimationDataObject {
 	overrides?: string[];
-	trigger: TriggerTypes;
+	trigger: TriggerTypes | TriggerTypes[];
 	preset: PresetKeys;
 	file: string;
 	default?: boolean;

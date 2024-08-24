@@ -4,6 +4,7 @@
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';
 	import { type Writable, writable } from 'svelte/store';
+	import { AnimCore } from 'src/storage/AnimCore';
 	import AnimationEditor from '../_components/AnimationEditor.svelte';
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 	// @ts-ignore - TJS-2-TS
@@ -17,6 +18,17 @@
 
 	let search = '';
 	let columns = 4;
+
+	function validateSound(sound: string): true | string {
+		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFile(sound), { softFail: true });
+		return !!entry;
+	}
+
+	let parsedAnimations = window.pf2eGraphics.AnimCore.allAnimations();
+
+	import.meta.hot?.on('updateAnims', () => {
+		parsedAnimations = window.pf2eGraphics.AnimCore.allAnimations();
+	});
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -72,7 +84,7 @@
 						<input
 							disabled
 							class='w-1/2 mx-1'
-							value={Object.keys(window.pf2eGraphics.AnimCore.animations).length}
+							value={Object.keys(parsedAnimations).length}
 							type='number'
 						/>
 					</div>
@@ -81,8 +93,8 @@
 					class='p-1 pb-0 items-center overflow-x-hidden overflow-y-scroll grid gap-x-1'
 					style:grid-template-columns='repeat({columns}, minmax(0, 1fr))'
 				>
-					{#each Object.keys(window.pf2eGraphics.AnimCore.animations).filter(k => k.includes(search)).sort() as key}
-						{@const animation = window.pf2eGraphics.AnimCore.animations[key]}
+					{#each Object.keys(parsedAnimations).filter(k => k.includes(search)).sort() as key}
+						{@const animation = parsedAnimations[key]}
 						<div
 							class='w-full p-0.5 mb-1 flex border border-solid bg-gray-400 bg-opacity-50 rounded-sm'
 							data-tooltip={key}
@@ -90,14 +102,34 @@
 							<span class='w-[90%] truncate text-nowrap'>
 								{key}
 								{#if typeof animation !== 'string' && animation.some(ani => ani.options?.sound)}
-									(<i class='fa fa-volume align-middle leading-4' data-tooltip='pf2e-graphics.hasSound'></i>)
+									{@const check = animation
+										.filter(x => x.options?.sound)
+										.filter(x => Array.isArray(x.options.sound)
+											// @ts-ignore I can't add types in Svelte markup
+											? x.options.sound.some(x => !validateSound(x.file))
+											: !validateSound(x.options?.sound.file),
+										)
+									}
+									(<i class='
+										fa {!check.length ? 'fa-volume' : 'fa-volume-xmark text-red-500'}
+										align-middle leading-4
+									'
+										data-tooltip={!check.length ? 'pf2e-graphics.hasSound' : 'pf2e-graphics.hasSoundWrong'}>
+									</i>)
 								{/if}
 							</span>
 							<button
+								data-tooltip='pf2e-graphics.worldAnimation.shiftJSON'
 								class='fas fa-brackets-curly h-full w-min ml-auto'
-								on:click={() => {
+								on:click={(ev) => {
+									let obj;
+									if (ev.shiftKey) {
+										obj = { [key]: parsedAnimations[key] };
+									} else {
+										obj = { [key]: window.pf2eGraphics.AnimCore.animations[key] };
+									}
 									new JSONEditorApp({
-										store: writable({ [key]: animation }),
+										store: writable(obj),
 										stasis: writable(true),
 										permission: false,
 									}).render(true, {

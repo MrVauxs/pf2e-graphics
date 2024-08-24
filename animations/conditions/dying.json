@@ -1,0 +1,142 @@
+{
+	"condition:dying": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.skull.dark_orange.03",
+			"predicate": [
+				"condition:origin:condition:dying"
+			],
+			"options": {
+				"id": "dying-entry",
+				"remove": "dying-entry",
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"fadeOut": 500,
+				"fadeIn": 250
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "startTurn",
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.skull.dark_orange.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.skull.dark_orange.01"
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"lte": [
+								"graphics-quality",
+								2
+							]
+						}
+					],
+					"trigger": "toggle",
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.skull.dark_orange.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.skull.dark_orange.01"
+						}
+					]
+				},
+				{
+					"predicate": [
+						"graphics-quality:3"
+					],
+					"trigger": "toggle",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"condition:badge:value:1"
+							]
+						},
+						{
+							"predicate": [
+								"condition:badge:value:2"
+							],
+							"file": "jb2a.markers.skull.dark_orange.02"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"condition:badge:value",
+										3
+									]
+								}
+							],
+							"file": "jb2a.markers.skull.dark_orange.01"
+						}
+					]
+				}
+			]
+		},
+		{
+			"preset": "onToken",
+			"predicate": [
+				{
+					"not": "condition:origin:condition:dying"
+				}
+			],
+			"trigger": "toggle",
+			"options": {
+				"remove": "dying-entry"
+			}
+		}
+	]
+}

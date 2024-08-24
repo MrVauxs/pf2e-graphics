@@ -12,13 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Holding Shift to see processed version of premade animations in Preset Animations menu.
+- Ability to see errorenous sounds in Preset Animations menu.
+- Ability to use multiple Triggers for animations.
 - Warnings for when you dont have JB2A enabled.
+- Conditions triggering `toggle` animations.
 - **New Sounds**
   - [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
   - [Tom Music](https://tommusic.itch.io/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
 - **New Animations**
-  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](https://github.com/ChasarooniZ))
   - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](https://github.com/Lerosnn))
+  - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](https://github.com/Mystler)!)
 
 ### Changed
 

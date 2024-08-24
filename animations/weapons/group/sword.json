@@ -9,7 +9,7 @@
 			"options": {
 				"sound": [
 					{
-						"file": "pf2e-graphics.attack.sword.01",
+						"file": "pf2e-graphics.sword.melee.01",
 						"default": true
 					},
 					{
