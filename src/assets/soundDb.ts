@@ -100,18 +100,18 @@ export const database = {
 		},
 	},
 	bow: {
-		'01': `${p}/sounds/gamedev-market/BowWhistleShot1.ogg`,
-		'02': `${p}/sounds/gamedev-market/BowWhistleShot2.ogg`,
-		'03': `${p}/sounds/gamedev-market/BowWhistleShot3.ogg`,
-		'04': `${p}/sounds/gamedev-market/BowWhistleShot4.ogg`,
-		'05': `${p}/sounds/gamedev-market/BowWhistleShot5.ogg`,
-		'06': `${p}/sounds/gamedev-market/BowWhistleShot6.ogg`,
-		'07': `${p}/sounds/gamedev-market/BowWhistleShot7.ogg`,
-		'attack': {
+		attack: {
 			'01': `${p}/sounds/tom-music/bow/Bow Attack 1.ogg`,
 			'02': `${p}/sounds/tom-music/bow/Bow Attack 2.ogg`,
+			'03': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot1.ogg`,
+			'04': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot2.ogg`,
+			'05': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot3.ogg`,
+			'06': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot4.ogg`,
+			'07': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot5.ogg`,
+			'08': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot6.ogg`,
+			'09': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot7.ogg`,
 		},
-		'hit': {
+		hit: {
 			solid: {
 				'01': `${p}/sounds/tom-music/bow/Bow Blocked 1.ogg`,
 				'02': `${p}/sounds/tom-music/bow/Bow Blocked 2.ogg`,
@@ -123,10 +123,10 @@ export const database = {
 				'03': `${p}/sounds/tom-music/bow/Bow Impact Hit 3.ogg`,
 			},
 		},
-		'sheath': {
+		sheath: {
 			'01': `${p}/sounds/tom-music/bow/Bow Put Away 1.ogg`,
 		},
-		'unsheath': {
+		unsheath: {
 			'01': `${p}/sounds/tom-music/bow/Bow Take Out 1.ogg`,
 		},
 	},
