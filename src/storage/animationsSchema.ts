@@ -106,13 +106,15 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 		.refine(...nonEmpty),
 );
 
-const hexColour = z.string().regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
-
-const fileName = z
+const hexColour = z
 	.string()
-	.refine(
-		str => !str.match(/[<>:"\\|?*]/g),
-		'String must be a valid filename. The following characters are unsafe for cross-platform filesystems: <>:"\\|?*',
+	.regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
+
+const filePath = z
+	.string()
+	.regex(
+		/^\w[^"*:<>?\\|]+\.\w{3,5}$/,
+		'String must be a valid filepath. The following characters are unsafe for cross-platform filesystems: "*:<>?\\|',
 	);
 
 const sequencerDBEntry = z
@@ -141,7 +143,7 @@ const soundEffect = z
 	.strict();
 const soundData = z
 	.object({
-		file: sequencerDBEntry,
+		file: sequencerDBEntry.or(filePath),
 		waitUntilFinished: z.number().optional(),
 		atLocation: z
 			.object({
@@ -156,19 +158,19 @@ const soundData = z
 		radius: z.number().optional(),
 		volume: z.number().optional(),
 		duration: z.number().optional(),
-		constrainedByWalls: z.boolean().optional(),
+		constrainedByWalls: z.literal(true).optional(),
 		predicate: z
 			.array(predicate)
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
-		default: z.boolean().optional(),
+		default: z.literal(true).optional(),
 		delay: z
 			.number()
 			.refine(...nonZero)
 			.optional(),
-		muffledEffect: soundEffect,
-		baseEffect: soundEffect,
+		muffledEffect: soundEffect.optional(),
+		baseEffect: soundEffect.optional(),
 	})
 	.strict();
 const soundConfig = soundData.or(
@@ -182,10 +184,11 @@ const presetOptions = z.enum(['target', 'source', 'both']).or(
 	z.object({
 		bounce: z
 			.object({
-				file: sequencerDBEntry,
+				file: sequencerDBEntry.or(filePath),
 				sound: soundConfig,
 			})
-			.strict(),
+			.strict()
+			.optional(),
 		templateAsOrigin: z.literal(true).optional(),
 	}),
 );
@@ -233,7 +236,7 @@ export const effectOptions = z
 		sound: soundConfig.optional(),
 		preset: presetOptions.optional(),
 		locally: z.literal(true).optional(),
-		id: sequencerDBEntry.optional(),
+		id: slug.optional(),
 		name: z.string().min(1).optional(),
 		syncGroup: z.string().optional(),
 		randomRotation: z.literal(true).optional(),
@@ -241,11 +244,10 @@ export const effectOptions = z
 		randomizeMirrorY: z.literal(true).optional(),
 		mirrorX: z.literal(true).optional(),
 		mirrorY: z.literal(true).optional(),
-		remove: z
-			.string()
+		remove: slug
 			.or(
 				z
-					.array(z.string())
+					.array(slug)
 					.min(1)
 					.refine(...uniqueItems),
 			)
@@ -368,10 +370,18 @@ export const effectOptions = z
 				z
 					.object({
 						count: z.number().min(1),
-						delayMin: z.number(),
-						delayMax: z.number(),
+						delayMin: z.number().optional(),
+						delayMax: z.number().positive().optional(),
 					})
-					.strict(),
+					.strict()
+					.refine(
+						obj => (obj.delayMax ? obj.delayMin || obj.delayMin === 0 : true),
+						'`delayMin` is required if `delayMax` is defined.',
+					)
+					.refine(
+						obj => (obj.delayMax ? obj.delayMax > obj.delayMin! : true),
+						'`delayMax` must be greater than `delayMin`.',
+					),
 			)
 			.optional(),
 		moveTowards: easingOptions
@@ -527,7 +537,7 @@ const referenceObject = z.object({
 		.optional(),
 	trigger: z.enum(AnimCore.CONST.TRIGGERS).or(z.array(z.enum(AnimCore.CONST.TRIGGERS)).min(1)),
 	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
-	file: sequencerDBEntry,
+	file: sequencerDBEntry.or(filePath),
 	default: z.literal(true).optional(),
 	predicate: z
 		.array(predicate)
@@ -550,7 +560,38 @@ export const animationObject: z.ZodType<AnimationObject> = referenceObject
 			.refine(...uniqueItems)
 			.optional(),
 	})
-	.refine(...nonEmpty);
+	.superRefine(
+		// Test that `options.preset` matches `preset`
+		(obj, ctx) => {
+			if (!obj.preset || !obj.options) return true;
+			if (obj.preset === 'onToken') {
+				if (typeof obj.options.preset !== 'string') {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_type,
+						expected: 'string',
+						received: typeof obj.options.preset,
+						message: '`options.preset` must be a string when `preset` is `"onToken"`.',
+					});
+				}
+			} else if (obj.preset === 'ranged') {
+				if (typeof obj.options.preset !== 'object') {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_type,
+						expected: 'object',
+						received: typeof obj.options.preset,
+						message: '`options.preset` must be an object when `preset` is `"ranged"`.',
+					});
+				}
+			} else if (obj.options.preset) {
+				return ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					expected: 'undefined',
+					received: typeof obj.options.preset,
+					message: '`options.preset` cannot exist unless `preset` is either `"onToken"` or `"ranged"`.',
+				});
+			}
+		},
+	);
 // .refine(obj => !obj.reference !== !obj.contents, 'Requires either `reference` or `contents`.')
 /* .refine(
 		obj => (!obj.reference ? !!obj.file : true),
@@ -561,7 +602,7 @@ export const animations = z.record(
 	rollOption,
 	rollOption.or(
 		z
-			.array(animationObject)
+			.array(animationObject.refine(...nonEmpty))
 			.min(1)
 			.refine(...uniqueItems),
 	),
@@ -576,7 +617,7 @@ export const tokenImages = z.object({
 					uuid: z.string().regex(/^[a-z0-9]+(\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
-							z.tuple([slug, fileName, z.number().positive()]).or(
+							z.tuple([slug, filePath, z.number().positive()]).or(
 								z
 									.object({
 										key: JSONValue.optional(),
