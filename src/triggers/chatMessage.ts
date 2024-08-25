@@ -3,15 +3,21 @@ import { devMessage, log } from 'src/utils';
 
 function handleChatMessage(message: ChatMessagePF2e) {
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
-	const trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
+	let trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
+	let special: string = '';
 	if (!message.token) {
 		log('No token found. Aborting.');
 		return;
 	};
 
 	if (!trigger) {
-		log('No message type found. Aborting.');
-		return;
+		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
+			trigger = 'damage-roll';
+			special = 'persistent';
+		} else {
+			log(`No valid message type found (Got "${trigger}"). Aborting.`);
+			return;
+		}
 	}
 
 	const missed = message.flags.pf2e.context?.outcome?.includes('ailure') ?? false;
@@ -21,7 +27,10 @@ function handleChatMessage(message: ChatMessagePF2e) {
 
 	// If its a save or damage taken, use message.token
 	// Otherwise grab whatever targets are available
-	const targets = trigger === 'saving-throw' || trigger === 'damage-taken'
+	const targets = trigger === 'saving-throw'
+		|| trigger === 'damage-taken'
+		|| trigger === 'flat-check'
+		|| special === 'persistent'
 		? [message.token]
 		: (toolbelt ?? (
 				message.target?.token

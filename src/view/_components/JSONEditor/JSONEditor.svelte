@@ -18,16 +18,31 @@
 		json: $store,
 	} as { json: object; text: string };
 
-	$: {
+	function updateUpstream() {
+		let payload;
+
 		if (content.json) {
-			store.set(content.json);
+			payload = (content.json);
 		} else {
 			try {
 				const data = JSON.parse(content.text);
-				store.set(data);
+				payload = (data);
 			} catch {}
 		}
+
+		if (payload) {
+			const newKeys = Object.keys(payload);
+			const oldKeys = Object.keys($store);
+
+			oldKeys.filter(oldKey => !newKeys.includes(oldKey)).forEach((removedKey) => {
+				payload[removedKey] = null;
+			});
+
+			store.set(payload);
+		};
 	}
+
+	$: updateUpstream();
 
 	const formatValidationIssue = (issue: ZodIssue, initialPath: (string | number)[] = []): ValidationError => {
 		const path = [...initialPath, ...issue.path] as string[]; // Can't be number[] since we're dealing with JSON, which only accepts string keys
@@ -98,12 +113,13 @@
 	});
 
 	onDestroy(() => {
+		updateUpstream();
 		stasis.set(false);
 	});
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='h-full w-full overflow-clip'>
+	<main class='h-full w-full overflow-clip relative'>
 		<JSONEditor bind:content readOnly={!permission} {mode} mainMenuBar={permission} {validator} />
 	</main>
 </ApplicationShell>

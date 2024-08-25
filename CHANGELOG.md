@@ -12,18 +12,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added support for flat-check animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
+- Animation volume adjustment in both module settings and playlist tab. ([#89](<https://github.com/MrVauxs/pf2e-graphics/issues/89>))
 - Holding Shift to see processed version of premade animations in Preset Animations menu.
 - Ability to see errorenous sounds in Preset Animations menu.
 - Ability to use multiple Triggers for animations.
 - Warnings for when you dont have JB2A enabled.
 - Conditions triggering `toggle` animations.
 - **New Sounds**
-  - [EminYILDIRIM](https://freesound.org/people/EminYILDIRIM/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
-  - [Tom Music](https://tommusic.itch.io/) ([@ChasarooniZ](https://github.com/ChasarooniZ))
+  - [EminYILDIRIM](<https://freesound.org/people/EminYILDIRIM/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - [Tom Music](<https://tommusic.itch.io/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - **New Animations**
-  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](https://github.com/ChasarooniZ))
-  - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](https://github.com/Lerosnn))
-  - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](https://github.com/Mystler)!)
+  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](<https://github.com/Lerosnn>))
+  - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](<https://github.com/Mystler>)!)
 
 ### Changed
 
@@ -31,16 +33,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- The Animations Menu breaking when JB2A is not enabled ([#88](https://github.com/MrVauxs/pf2e-graphics/issues/88))
-- Divine Lance predicates ([@ChasarooniZ](https://github.com/ChasarooniZ))
-- Shield Boss Group Fix ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- The Animations Menu breaking when JB2A is not enabled ([#88](<https://github.com/MrVauxs/pf2e-graphics/issues/88>))
+- Divine Lance predicates ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- Shield Boss Group Fix ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- Raise a Shield using the Shield cantrip animation.
 
 
 ## [0.7.4] - 2024-08-21
 
 ### Added
 
-- **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! ([@ChasarooniZ](https://github.com/ChasarooniZ))
+- **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - Improvements to Custom Animations Menu:
   - Tooltips explaining options.
   - Delete button for subsidiary animations.
@@ -78,7 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dev Mode not working without a refresh.
 - World Animations menu not being able to properly delete animations.
 - **Fixed Animations**:
-  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](https://github.com/7H3LaughingMan))
+  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](<https://github.com/7H3LaughingMan>))
 
 ## [0.7.1] - 2024-08-18
 
@@ -98,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New Animations**:
   - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
   - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
-  - Pick Weapon Group (free JB2A version) ([@MrVauxs](https://mrvauxs.net/))
+  - Pick Weapon Group (free JB2A version) ([@MrVauxs](<https://mrvauxs.net/>))
 - **New Sounds** from [SoundFlakes](https://freesound.org/people/SoundFlakes/)!
 
 ### Changed
@@ -120,7 +123,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `origin-exists` roll option to predicate animations based on whether the effect comes from another actor than the recipient.
 - `mirrorY` and `mirrorX` Sequencer options.
 - **New Animations**:
-  - Spell Effect: Shield (giving it to another token) ([@MrVauxs](https://mrvauxs.net/))
+  - Spell Effect: Shield (giving it to another token) ([@MrVauxs](<https://mrvauxs.net/>))
   - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
 
 ### Changed
@@ -297,7 +300,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - "Developer mode" setting. Puts into console what is being played with what roll options. Automatically on in `npm run dev`.
-- Token Image Manager ([#4](https://github.com/MrVauxs/pf2e-graphics/issues/4))
+- Token Image Manager ([#4](<https://github.com/MrVauxs/pf2e-graphics/issues/4>))
 - **New Animations**: Melee Ignition, Jaws, Unarmed Attack / Fist
 
 ### Changed
@@ -312,7 +315,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Sounds ([#5](https://github.com/MrVauxs/pf2e-graphics/issues/5))
+- Sounds ([#5](<https://github.com/MrVauxs/pf2e-graphics/issues/5>))
 - `.overrides` property, allowing for animations to remove others from being played.
   - Examples include preventing playing generic base animations on specific weapons (Arquebus > Firearm group.)
 - `.wait` and `.delay` Sequencer options.
@@ -347,7 +350,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Merge separate animations files via Vite plugin ([#1](https://github.com/MrVauxs/pf2e-graphics/issues/1))
+- Merge separate animations files via Vite plugin ([#1](<https://github.com/MrVauxs/pf2e-graphics/issues/1>))
 - Eslint Rules
 - Moved internal structure
 - Pre-release versions to be semver compliant

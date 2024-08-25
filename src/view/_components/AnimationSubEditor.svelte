@@ -98,7 +98,7 @@
 	<section class='
 		border border-solid border-slate-600 rounded-sm
 		bg-slate-300 bg-opacity-50
-		w-full px-1 pt-2
+		w-full px-1 py-2
 	'>
 		<header class='flex text-lg items-center px-1'>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -305,7 +305,6 @@
 										on:click={() => window.Sequencer.DatabaseViewer.show()}
 									></button>
 								</label>
-								{(ani.options.sound ??= {}) && ''}
 								{#if Array.isArray(ani.options.sound)}
 									<div class='p-1 text-center text-opacity-50 text-slate-600 border border-solid rounded-sm'>
 										<i>{i18n('editor.soundDisclaimer')}</i>
@@ -319,7 +318,7 @@
 											{i18n('editor.soundFile')}
 										</span>
 										<div class='w-full relative'>
-											{#if ani.options.sound.file?.includes('/')}
+											{#if ani.options.sound?.file?.includes('/')}
 												<i
 													class='
 														fa fa-warning
@@ -340,7 +339,11 @@
 												{disabled}
 												type='text'
 												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
-												bind:value={ani.options.sound.file}
+												value={ani.options.sound?.file || ''}
+												on:change={(ev) => {
+													ani.options.sound ??= {};
+													ani.options.sound.file = ev.currentTarget.value;
+												}}
 											/>
 										</div>
 										<button
