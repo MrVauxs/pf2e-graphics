@@ -190,8 +190,12 @@ export const helpers = {
 
 		_options
 			.forEach((options) => {
+				options.volume ??= 1;
+				options.volume *= window.pf2eGraphics.liveSettings.volume;
+
 				const sound = seq.sound();
 				sound.file(AnimCore.parseFile(options?.file));
+				sound.volume(options.volume);
 
 				if (options?.atLocation)
 					sound.atLocation(target, options.atLocation);
@@ -201,8 +205,6 @@ export const helpers = {
 					sound.radius(options.radius);
 				if (options?.constrainedByWalls)
 					sound.constrainedByWalls(options.constrainedByWalls);
-				if (options?.volume)
-					sound.volume(options.volume);
 				if (options?.duration)
 					sound.duration(options.duration);
 				if (options?.waitUntilFinished)

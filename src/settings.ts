@@ -11,6 +11,7 @@ let settings: TJSLiveGameSettings & {
 	dev: boolean;
 	worldAnimations: JSONData;
 	suppressWarnings: boolean;
+	volume: number;
 };
 export type liveSettings = typeof settings;
 
@@ -44,6 +45,24 @@ const settingsData = [
 				1: 'pf2e-graphics.settings.quality.1',
 				2: 'pf2e-graphics.settings.quality.2',
 				3: 'pf2e-graphics.settings.quality.3',
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'volume',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.volume.name',
+			hint: 'pf2e-graphics.settings.volume.hint',
+			scope: 'client',
+			config: true,
+			type: Number,
+			default: 1,
+			range: {
+				min: 0,
+				step: 0.1,
+				max: 2,
 			},
 		},
 	},
