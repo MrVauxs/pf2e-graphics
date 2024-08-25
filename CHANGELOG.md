@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added support for flat-check animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
+- Added support for persistent damage animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
 - Animation volume adjustment in both module settings and playlist tab. ([#89](<https://github.com/MrVauxs/pf2e-graphics/issues/89>))
 - Holding Shift to see processed version of premade animations in Preset Animations menu.
 - Ability to see errorenous sounds in Preset Animations menu.
