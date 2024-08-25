@@ -19,7 +19,6 @@
 			"file": "jb2a.healing_generic.03.burst.green",
 			"options": {
 				"scaleToObject": 1.5,
-				"persist": false,
 				"tieToDocuments": true,
 				"randomizeMirrorY": true
 			},
