@@ -63,12 +63,19 @@
 					severity: ValidationSeverity[ValidationSeverity.error],
 				});
 			} else {
-				const value = (json as { [key: string]: any })[key] as string | object[];
+				const value = (json as { [key: string]: unknown })[key];
 				if (typeof value === 'string') {
 					const result = rollOption.safeParse(value);
 					if (!result.success) {
 						issues.push(...result.error.issues.map(issue => formatValidationIssue(issue, [key])));
 					}
+				} else if (typeof value !== 'object' || value === null || !Array.isArray(value)) {
+					issues.push({
+						path: [key],
+						message:
+							'Animation data must be an array of objects, or a string referencing another roll option.',
+						severity: ValidationSeverity[ValidationSeverity.error],
+					});
 				} else {
 					for (let i = 0; i < value.length; i++) {
 						const result = animationObject.safeParse(value[i]);

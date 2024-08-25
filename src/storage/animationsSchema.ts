@@ -5,25 +5,25 @@ import { presets } from './presets';
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
 	num => num !== 0,
-	'Value cannot be 0. If you want the value to be 0, simply leave the property undefined.',
+	'Number cannot be 0. If you want the value to be 0, simply leave the property undefined.',
 ];
 const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
-	'Objects must not be empty',
+	'Object must not be empty.',
 ];
 export const uniqueItems: [(arr: any[]) => boolean, string] = [
 	arr => new Set(arr.map(e => JSON.stringify(e))).size === arr.length,
-	'Unique items required',
+	'Items must be unique.',
 ];
 // end
 
 const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()]);
 
-const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Must be a valid slug.');
+const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'String must be a valid slug.');
 
 export const rollOption = z
 	.string()
-	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'Must be a valid roll option.');
+	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'String must be a valid roll option.');
 
 // Following required to allow Zod to evaluate recursive structures
 const predicateComparisonObject = z.object({
@@ -105,20 +105,19 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 		.strict()
 		.refine(...nonEmpty),
 );
-// end
 
-const hexColour = z.string().regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'Must be a valid hexadecimal colour-code.');
+const hexColour = z.string().regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
 
 const fileName = z
 	.string()
 	.refine(
 		str => !str.match(/[<>:"\\|?*]/g),
-		'The following characters are unsafe for cross-platform filesystems: <>:"\\|?*',
+		'String must be a valid filename. The following characters are unsafe for cross-platform filesystems: <>:"\\|?*',
 	);
 
 const sequencerDBEntry = z
 	.string()
-	.regex(/^[\w-]+(\.[\w-]+)+$/, 'Must be a valid Sequencer database entry.');
+	.regex(/^[\w-]+(\.[\w-]+)+$/, 'String must be a valid Sequencer database entry.');
 
 const vector2 = z
 	.object({
@@ -384,7 +383,7 @@ export const effectOptions = z
 		filter: z
 			.object({
 				type: z.string(),
-				options: z.object({}), // Structure isn't documented?
+				options: z.object({}), // Needs to be pulled from Sequencer
 			})
 			.strict()
 			.optional(),
@@ -449,7 +448,7 @@ export const effectOptions = z
 		anchor: vector2.optional(),
 		template: z
 			.object({
-				gridSize: z.number().min(0),
+				gridSize: z.number().positive(),
 				startPoint: z.number(),
 				endPoint: z.number(),
 			})
@@ -471,9 +470,9 @@ export const effectOptions = z
 									.min(1)
 									.refine(...uniqueItems)
 									.optional(),
-								loops: z.number().optional(),
+								loops: z.number().int().positive().optional(),
 								pingPong: z.literal(true).optional(),
-								delay: z.number().optional(),
+								delay: z.number().positive().optional(),
 								ease: z.string().optional(),
 								fromEnd: z.literal(true).optional(),
 								gridUnits: z.literal(true).optional(),
@@ -557,7 +556,6 @@ export const animationObject: z.ZodType<AnimationObject> = referenceObject
 		obj => (!obj.reference ? !!obj.file : true),
 		'Animations must either include an animation `file` or `reference` one.',
 	); */
-// end
 
 export const animations = z.record(
 	rollOption,
