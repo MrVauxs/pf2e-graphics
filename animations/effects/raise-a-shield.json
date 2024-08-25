@@ -2,49 +2,14 @@
 	"effect:raise-a-shield": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.shield.01.complete.01.yellow",
+			"file": "jb2a.markers.shield_rampart.complete.01.orange",
 			"options": {
-				"scaleToObject": 1.5
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true }
 			},
 			"contents": [
 				{
-					"predicate": ["jb2a:free"],
-					"file": "jb2a.shield.01.complete.01.blue",
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -155
-						}
-					},
-					"contents": [
-						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
-							"trigger": "startTurn"
-						},
-						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
-							"trigger": "effect"
-						},
-						{
-							"predicate": ["graphics-quality:3"],
-							"trigger": "effect",
-							"options": {
-								"tieToDocuments": true,
-								"persist": {
-									"value": true,
-									"persistTokenPrototype": true
-								}
-							}
-						}
-					]
-				},
-				{
 					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "startTurn"
-				},
-				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "effect"
+					"trigger": ["startTurn", "effect"]
 				},
 				{
 					"predicate": ["graphics-quality:3"],
