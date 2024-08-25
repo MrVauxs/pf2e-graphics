@@ -297,8 +297,14 @@ export const database = {
 		},
 		fire: {
 			cast: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
-				'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
+				single: {
+					'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
+					'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
+				},
+				loop: {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_02.ogg`,
+				},
 			},
 			hold: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_HOLD_4s.ogg`,
@@ -314,19 +320,56 @@ export const database = {
 					'03': `${p}/sounds/tom-music/magic/fire/Fireball 3.ogg`,
 				},
 			},
-			effect: {
-				buff: {
-					'01': `${p}/sounds/tom-music/magic/fire/Firebuff 1.ogg`,
-					'02': `${p}/sounds/tom-music/magic/fire/Firebuff 2.ogg`,
+			gust: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 003.ogg`,
+			},
+			enchant: {
+				lava: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Lava Enchantment Loop 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Lava Enchantment Loop 002.ogg`,
 				},
+			},
+			ward: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Ward 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Ward 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Ward 003.ogg`,
+			},
+			miasma: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 003.ogg`,
+			},
+			smoke: {
+				loop: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Suffocating Smoke Loop 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Suffocating Smoke Loop 002.ogg`,
+				},
+				strike: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Smoke Strike 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Smoke Strike 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Smoke Strike 003.ogg`,
+				},
+			},
+			summon: {
+				'coal-spirit': `${p}/sounds/ovani-sounds/Magic II/Fire/Summon Coal Spirit.ogg`,
+				'fire-spawn': `${p}/sounds/ovani-sounds/Magic II/Fire/Summon Fire Spawn.ogg`,
+				'sparkle': `${p}/sounds/ovani-sounds/Magic II/Fire/Summon Sparkle.ogg`,
+			},
+			ignite: {
+				'01': `${p}/sounds/tom-music/magic/fire/Firebuff 1.ogg`,
+				'02': `${p}/sounds/tom-music/magic/fire/Firebuff 2.ogg`,
+			},
+			buff: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 004.ogg`,
 			},
 			spray: {
 				'01': `${p}/sounds/tom-music/magic/fire/Firespray 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/fire/Firespray 2.ogg`,
-			},
-			loop: {
-				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_01.ogg`,
-				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_02.ogg`,
 			},
 		},
 		earth: {
@@ -399,6 +442,12 @@ export const database = {
 			},
 		},
 		holy: {
+			smite: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Smite 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Smite 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Smite 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Light/Smite 004.ogg`,
+			},
 			flyby: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/angels-flying.ogg`,
 			protection: {
 				'01': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-01.ogg`,
@@ -406,6 +455,33 @@ export const database = {
 				'03': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-03.ogg`,
 				'04': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-04.ogg`,
 				'05': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-05.ogg`,
+			},
+			seal: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Holy Seal Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Holy Seal Loop 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Holy Seal Loop 003.ogg`,
+			},
+			bliss: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Eternal Bliss 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Eternal Bliss 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Eternal Bliss 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Light/Eternal Bliss 004.ogg`,
+			},
+			restoration: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 003.ogg`,
+			},
+			cure: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 004.ogg`,
+			},
+			bless: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 003.ogg`,
 			},
 		},
 		healing: {
@@ -511,6 +587,46 @@ export const database = {
 			'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet C.ogg`,
 			'08': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet B.ogg`,
 			'09': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet A.ogg`,
+		},
+		nature: {
+			'animate-tree': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 004.ogg`,
+			},
+			'roots': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 004.ogg`,
+			},
+			'charm': {
+				single: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 003.ogg`,
+				},
+				loop: `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop.ogg`,
+			},
+			'buff': {
+				'bear-rage': `${p}/sounds/ovani-sounds/Magic II/Nature/Bear Rage.ogg`,
+				'bird-flight': `${p}/sounds/ovani-sounds/Magic II/Nature/Bird Flight.ogg`,
+				'horse-speed': `${p}/sounds/ovani-sounds/Magic II/Nature/Horse Speed.ogg`,
+				'lion-courage': `${p}/sounds/ovani-sounds/Magic II/Nature/Lion Courage.ogg`,
+				'owl-wisdom': `${p}/sounds/ovani-sounds/Magic II/Nature/Owl Wisdom.ogg`,
+			},
+			'poison-swarm': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 003.ogg`,
+			},
+			'seal': {
+				loop: {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
+				},
+			},
 		},
 	},
 	movement: {
