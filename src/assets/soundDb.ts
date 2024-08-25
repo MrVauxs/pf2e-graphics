@@ -373,15 +373,50 @@ export const database = {
 			},
 		},
 		earth: {
+			geokinesis: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Geokinesis Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Geokinesis Loop 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Geokinesis Loop 003.ogg`,
+			},
+			stoneskin: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 004.ogg`,
+			},
+			quicksand: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Quicksand Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Quicksand Loop 002.ogg`,
+			},
+			grease: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Grease Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Grease Loop 002.ogg`,
+			},
 			ranged: {
 				single: {
-					'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 1.ogg`,
-					'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 2.ogg`,
+					throw: {
+						'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 1.ogg`,
+						'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 2.ogg`,
+					},
+					missile: {
+						'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 002.ogg`,
+					},
 				},
 				barrage: {
-					'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Swarm 1.ogg`,
-					'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Swarm 2.ogg`,
+					throw: {
+						'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Swarm 1.ogg`,
+						'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Swarm 2.ogg`,
+					},
+					missile: `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 003.ogg`,
 				},
+				storm: `${p}/sounds/ovani-sounds/Magic II/Earth/Stonepocalypse.ogg`,
+			},
+			ward: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Stone Ward 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Stone Ward 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Stone Ward 003.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic II/Earth/Stone Ward 004.ogg`,
 			},
 			wall: {
 				'01': `${p}/sounds/tom-music/magic/earth/Rock Wall 1.ogg`,
@@ -394,6 +429,11 @@ export const database = {
 			},
 			explosion: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/stone-with-chains-is-destroyed.ogg`,
+			},
+			eruption: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 003.ogg`,
 			},
 		},
 		ice: {
