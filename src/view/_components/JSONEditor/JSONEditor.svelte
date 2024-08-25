@@ -16,7 +16,7 @@
 		json: $store,
 	} as { json: object; text: string };
 
-	$: {
+	function updateUpstream() {
 		let payload;
 
 		if (content.json) {
@@ -40,6 +40,8 @@
 		};
 	}
 
+	$: updateUpstream();
+
 	const mode = 'text' as Mode; // TS...
 
 	onMount(() => {
@@ -47,12 +49,13 @@
 	});
 
 	onDestroy(() => {
+		updateUpstream();
 		stasis.set(false);
 	});
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='h-full w-full overflow-clip'>
+	<main class='h-full w-full overflow-clip relative'>
 		<JSONEditor bind:content readOnly={!permission} {mode} mainMenuBar={permission} />
 	</main>
 </ApplicationShell>
