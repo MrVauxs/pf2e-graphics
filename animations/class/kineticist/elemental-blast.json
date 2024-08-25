@@ -11,31 +11,77 @@
 					],
 					"contents": [
 						{
-							"trigger": "attack-roll",
-							"file": "jb2a.chain_lightning.primary.blue",
-							"options": {
-								"sound": {
-									"file": "pf2e-graphics.magic.shock.impact",
-									"delay": 500
+							"predicate": ["ranged"],
+							"contents": [
+								{
+									"trigger": "attack-roll",
+									"file": "jb2a.chain_lightning.primary.blue",
+									"options": {
+										"sound": {
+											"file": "pf2e-graphics.magic.shock.impact",
+											"delay": 500
+										}
+									},
+									"preset": "ranged"
+								},
+								{
+									"trigger": "attack-roll",
+									"preset": "onToken",
+									"file": "jb2a.static_electricity.03.blue",
+									"predicate": [
+										"action:cost:2"
+									],
+									"options": {
+										"delay": 1000,
+										"preset": "target",
+										"scaleToObject": 1,
+										"fadeIn": 250,
+										"duration": 1000,
+										"fadeOut": 500
+									}
 								}
-							},
-							"preset": "ranged"
+							]
 						},
 						{
-							"trigger": "attack-roll",
-							"preset": "onToken",
-							"file": "jb2a.static_electricity.03.blue",
-							"predicate": [
-								"action:cost:2"
-							],
-							"options": {
-								"delay": 1000,
-								"preset": "target",
-								"scaleToObject": 1,
-								"fadeIn": 250,
-								"duration": 1000,
-								"fadeOut": 500
-							}
+							"predicate": ["melee"],
+							"preset": "melee",
+							"contents": [
+								{
+									"file": "jb2a.unarmed_strike.magical.01.blue",
+									"options": {
+										"sound": [
+											{
+												"file": "pf2e-graphics.unarmed.01",
+												"delay": 250
+											}
+										]
+									}
+								},
+								{
+									"file": "jb2a.chain_lightning.secondary.blue",
+									"options": {
+										"sound": [
+											{
+												"file": "pf2e-graphics.magic.lightning.cast",
+												"delay": 600
+											}
+										],
+										"delay": 600,
+										"waitUntilFinished": -500
+									}
+								},
+								{
+									"predicate": [
+										"action:cost:2"
+									],
+									"file": "jb2a.static_electricity.03.blue",
+									"preset": "onToken",
+									"options": {
+										"scaleToObject": 1.2,
+										"preset": "target"
+									}
+								}
+							]
 						}
 					]
 				},
@@ -47,56 +93,120 @@
 					],
 					"contents": [
 						{
-							"preset": "ranged",
-							"trigger": "attack-roll",
-							"options": {
-								"waitUntilFinished": -1000
-							},
+							"predicate": ["ranged"],
 							"contents": [
 								{
-									"predicate": [
-										"jb2a:patreon"
-									],
-									"file": "jb2a.spell_projectile.earth.01.browngreen",
+									"preset": "ranged",
+									"trigger": "attack-roll",
 									"options": {
+										"waitUntilFinished": -1000
+									},
+									"contents": [
+										{
+											"predicate": [
+												"jb2a:patreon"
+											],
+											"file": "jb2a.spell_projectile.earth.01.browngreen",
+											"options": {
+												"filter": {
+													"type": "ColorMatrix",
+													"options": {
+														"hue": 140,
+														"saturate": -0.6
+													}
+												}
+											}
+										},
+										{
+											"predicate": [
+												"jb2a:free"
+											],
+											"file": "jb2a.gust_of_wind.veryfast"
+										}
+									]
+								},
+								{
+									"trigger": "attack-roll",
+									"preset": "onToken",
+									"file": "jb2a.template_circle.aura.01.complete.small.bluepurple",
+									"predicate": [
+										"action:cost:2"
+									],
+									"options": {
+										"preset": "target",
+										"scaleToObject": 1.5,
+										"fadeIn": 250,
+										"duration": 1200,
+										"fadeOut": { "value": 500, "ease": "easeOutSine" },
 										"filter": {
 											"type": "ColorMatrix",
 											"options": {
-												"hue": 140,
-												"saturate": -0.6
+												"hue": -70,
+												"saturate": -0.8
 											}
 										}
 									}
-								},
-								{
-									"predicate": [
-										"jb2a:free"
-									],
-									"file": "jb2a.gust_of_wind.veryfast"
 								}
 							]
 						},
 						{
-							"trigger": "attack-roll",
-							"preset": "onToken",
-							"file": "jb2a.template_circle.aura.01.complete.small.bluepurple",
-							"predicate": [
-								"action:cost:2"
-							],
+							"predicate": ["melee"],
+							"preset": "melee",
 							"options": {
-								"preset": "target",
-								"scaleToObject": 1.5,
-								"fadeIn": 250,
-								"duration": 1200,
-								"fadeOut": { "value": 500, "ease": "easeOutSine" },
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"hue": -70,
-										"saturate": -0.8
+										"brightness": 1.4,
+										"saturate": -1
 									}
+								},
+								"scaleToObject": 2.5,
+								"anchor": {
+									"x": 0.35,
+									"y": 0.5
+								},
+								"loopProperty": [
+									{
+										"target": "sprite",
+										"property": "position.x",
+										"options": {
+											"delay": 750,
+											"from": 0,
+											"to": 0.5,
+											"duration": 750,
+											"pingPong": true,
+											"gridUnits": true,
+											"ease": "easeInOutCubic"
+										}
+									}
+								],
+								"opacity": 0.6
+							},
+							"contents": [
+								{
+									"default": true,
+									"options": {
+										"scaleToObject": 4,
+										"sound": {
+											"file": "pf2e-graphics.attack.swing.01",
+											"waitUntilFinished": -2000
+										}
+									},
+									"file": "jb2a.melee_generic.whirlwind.01.orange.1"
+								},
+								{
+									"predicate": [
+										"action:cost:2"
+									],
+									"options": {
+										"sound": {
+											"file": "pf2e-graphics.sword.throw.01",
+											"delay": 500
+										}
+									},
+									"file": "jb2a.melee_generic.whirlwind.01.orange.0"
 								}
-							}
+							]
 						}
 					]
 				}
