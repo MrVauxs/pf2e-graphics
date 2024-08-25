@@ -21,7 +21,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 
 	// If its a save or damage taken, use message.token
 	// Otherwise grab whatever targets are available
-	const targets = trigger === 'saving-throw' || trigger === 'damage-taken'
+	const targets = trigger === 'saving-throw' || trigger === 'damage-taken' || trigger === 'flat-check'
 		? [message.token]
 		: (toolbelt ?? (
 				message.target?.token
