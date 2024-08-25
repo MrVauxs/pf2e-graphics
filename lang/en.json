@@ -23,6 +23,10 @@
 		"animationsVolume-tooltip": "Controls the volume of sounds created by PF2e Graphics.",
 		"hasSoundWrong": "Has sound effects, some of which do not exist!",
 		"settings": {
+			"volume": {
+				"name": "Animations Volume",
+				"hint": "Multiplies the volume of animations by a set amount. Does not override animations own volume settings."
+			},
 			"windowPosition": {
 				"name": "Window Position",
 				"hint": "Changes where the animation configuration appears.",

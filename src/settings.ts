@@ -61,7 +61,7 @@ const settingsData = [
 			default: 1,
 			range: {
 				min: 0,
-				step: 0.1,
+				step: 0.05,
 				max: 2,
 			},
 		},
