@@ -17,14 +17,27 @@
 	} as { json: object; text: string };
 
 	$: {
+		let payload;
+
 		if (content.json) {
-			store.set(content.json);
+			payload = (content.json);
 		} else {
 			try {
 				const data = JSON.parse(content.text);
-				store.set(data);
+				payload = (data);
 			} catch {}
 		}
+
+		if (payload) {
+			const newKeys = Object.keys(payload);
+			const oldKeys = Object.keys($store);
+
+			oldKeys.filter(oldKey => !newKeys.includes(oldKey)).forEach((removedKey) => {
+				payload[removedKey] = null;
+			});
+
+			store.set(payload);
+		};
 	}
 
 	const mode = 'text' as Mode; // TS...
