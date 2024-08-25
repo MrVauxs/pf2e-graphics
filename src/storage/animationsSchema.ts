@@ -19,9 +19,9 @@ export const uniqueItems: [(arr: any[]) => boolean, string] = [
 
 const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()]);
 
-const ID = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Must be a valid slug.');
+const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Must be a valid slug.');
 
-const rollOption = z
+export const rollOption = z
 	.string()
 	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'Must be a valid roll option.');
 
@@ -112,9 +112,13 @@ const hexColour = z.string().regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'Must be a v
 const fileName = z
 	.string()
 	.refine(
-		str => !str.match(/[<>:"/\\|?*]/g),
-		'The following characters are unsafe for cross-platform filesystems: <>:"/\\|?*',
+		str => !str.match(/[<>:"\\|?*]/g),
+		'The following characters are unsafe for cross-platform filesystems: <>:"\\|?*',
 	);
+
+const sequencerDBEntry = z
+	.string()
+	.regex(/^[\w-]+(\.[\w-]+)+$/, 'Must be a valid Sequencer database entry.');
 
 const vector2 = z
 	.object({
@@ -130,9 +134,15 @@ const vector2 = z
 	.strict()
 	.refine(...nonEmpty);
 
+const soundEffect = z
+	.object({
+		type: z.string().min(1),
+		intensity: z.number().positive(),
+	})
+	.strict();
 const soundData = z
 	.object({
-		file: z.string(),
+		file: sequencerDBEntry,
 		waitUntilFinished: z.number().optional(),
 		atLocation: z
 			.object({
@@ -154,6 +164,12 @@ const soundData = z
 			.refine(...uniqueItems)
 			.optional(),
 		default: z.boolean().optional(),
+		delay: z
+			.number()
+			.refine(...nonZero)
+			.optional(),
+		muffledEffect: soundEffect,
+		baseEffect: soundEffect,
 	})
 	.strict();
 const soundConfig = soundData.or(
@@ -167,7 +183,7 @@ const presetOptions = z.enum(['target', 'source', 'both']).or(
 	z.object({
 		bounce: z
 			.object({
-				file: fileName,
+				file: sequencerDBEntry,
 				sound: soundConfig,
 			})
 			.strict(),
@@ -218,8 +234,10 @@ export const effectOptions = z
 		sound: soundConfig.optional(),
 		preset: presetOptions.optional(),
 		locally: z.literal(true).optional(),
-		id: ID.optional(),
+		id: sequencerDBEntry.optional(),
 		name: z.string().min(1).optional(),
+		syncGroup: z.string().optional(),
+		randomRotation: z.literal(true).optional(),
 		randomizeMirrorX: z.literal(true).optional(),
 		randomizeMirrorY: z.literal(true).optional(),
 		mirrorX: z.literal(true).optional(),
@@ -502,15 +520,15 @@ export const effectOptions = z
 	.strict()
 	.refine(...nonEmpty);
 
-const animationDataObject = z.object({
+const referenceObject = z.object({
 	overrides: z
 		.array(rollOption)
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	trigger: z.enum(AnimCore.CONST.TRIGGERS),
+	trigger: z.enum(AnimCore.CONST.TRIGGERS).or(z.array(z.enum(AnimCore.CONST.TRIGGERS)).min(1)),
 	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
-	file: fileName,
+	file: sequencerDBEntry,
 	default: z.literal(true).optional(),
 	predicate: z
 		.array(predicate)
@@ -518,29 +536,34 @@ const animationDataObject = z.object({
 		.refine(...uniqueItems)
 		.optional(),
 	options: effectOptions.optional(),
+	reference: rollOption.optional(),
 });
 
 // Following required to allow Zod to evaluate recursive structures
-type FolderObject = Partial<z.infer<typeof animationDataObject>> & {
-	contents?: (z.infer<typeof animationDataObject> | FolderObject)[];
+type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
+	contents?: AnimationObject[];
 };
-const folderObject: z.ZodType<FolderObject> = animationDataObject.partial().extend({
-	contents: z
-		.lazy(() => z.array(animationDataObject.or(folderObject)).min(1))
-		.refine(...uniqueItems)
-		.optional(),
-});
+export const animationObject: z.ZodType<AnimationObject> = referenceObject
+	.partial()
+	.extend({
+		contents: z
+			.lazy(() => z.array(animationObject).min(1))
+			.refine(...uniqueItems)
+			.optional(),
+	})
+	.refine(...nonEmpty);
+// .refine(obj => !obj.reference !== !obj.contents, 'Requires either `reference` or `contents`.')
+/* .refine(
+		obj => (!obj.reference ? !!obj.file : true),
+		'Animations must either include an animation `file` or `reference` one.',
+	); */
 // end
-
-const referenceObject = animationDataObject.partial().extend({
-	reference: rollOption,
-});
 
 export const animations = z.record(
 	rollOption,
 	rollOption.or(
 		z
-			.array(folderObject.or(referenceObject).refine(...nonEmpty))
+			.array(animationObject)
 			.min(1)
 			.refine(...uniqueItems),
 	),
@@ -555,7 +578,7 @@ export const tokenImages = z.object({
 					uuid: z.string().regex(/^[a-z0-9]+(\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
-							z.tuple([z.string(), z.string(), z.number()]).or(
+							z.tuple([slug, fileName, z.number().positive()]).or(
 								z
 									.object({
 										key: JSONValue.optional(),
