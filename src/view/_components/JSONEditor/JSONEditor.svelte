@@ -69,14 +69,7 @@
 					if (!result.success) {
 						issues.push(...result.error.issues.map(issue => formatValidationIssue(issue, [key])));
 					}
-				} else if (typeof value !== 'object' || value === null || !Array.isArray(value)) {
-					issues.push({
-						path: [key],
-						message:
-							'Animation data must be an array of objects, or a string referencing another roll option.',
-						severity: ValidationSeverity[ValidationSeverity.error],
-					});
-				} else {
+				} else if (Array.isArray(value)) {
 					for (let i = 0; i < value.length; i++) {
 						const result = animationObject.safeParse(value[i]);
 						if (!result.success) {
@@ -85,6 +78,13 @@
 							);
 						}
 					}
+				} else {
+					issues.push({
+						path: [key],
+						message:
+							'Animation data must be an array of objects, or a string referencing another roll option.',
+						severity: ValidationSeverity[ValidationSeverity.error],
+					});
 				}
 			}
 		}
