@@ -10,7 +10,7 @@ function handleChatMessage(message: ChatMessagePF2e) {
 	};
 
 	if (!trigger) {
-		log('No message type found. Aborting.');
+		log(`No valid message type found (Got "${trigger}"). Aborting.`);
 		return;
 	}
 
