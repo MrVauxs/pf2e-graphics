@@ -4,7 +4,7 @@
 	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
 	import type { Writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
-	import { animationObject, rollOption, tokenImages } from 'src/storage/animationsSchema';
+	import { animationObject, nonEmpty, rollOption, tokenImages } from 'src/storage/animationsSchema';
 	import { type ZodIssue, fromZodIssue } from 'zod-validation-error';
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
@@ -22,11 +22,11 @@
 		let payload;
 
 		if (content.json) {
-			payload = (content.json);
+			payload = content.json;
 		} else {
 			try {
 				const data = JSON.parse(content.text);
-				payload = (data);
+				payload = data;
 			} catch {}
 		}
 
@@ -34,12 +34,14 @@
 			const newKeys = Object.keys(payload);
 			const oldKeys = Object.keys($store);
 
-			oldKeys.filter(oldKey => !newKeys.includes(oldKey)).forEach((removedKey) => {
-				payload[removedKey] = null;
-			});
+			oldKeys
+				.filter(oldKey => !newKeys.includes(oldKey))
+				.forEach((removedKey) => {
+					payload[removedKey] = null;
+				});
 
 			store.set(payload);
-		};
+		}
 	}
 
 	$: updateUpstream();
@@ -86,7 +88,7 @@
 					}
 				} else if (Array.isArray(value)) {
 					for (let i = 0; i < value.length; i++) {
-						const result = animationObject.safeParse(value[i]);
+						const result = animationObject.refine(...nonEmpty).safeParse(value[i]);
 						if (!result.success) {
 							issues.push(
 								...result.error.issues.map(issue => formatValidationIssue(issue, [key, i])),

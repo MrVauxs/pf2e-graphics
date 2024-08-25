@@ -7,7 +7,7 @@ const nonZero: [(num: number) => boolean, string] = [
 	num => num !== 0,
 	'Number cannot be 0. If you want the value to be 0, simply leave the property undefined.',
 ];
-const nonEmpty: [(obj: object) => boolean, string] = [
+export const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Object must not be empty.',
 ];
@@ -155,9 +155,9 @@ const soundData = z
 			})
 			.strict()
 			.optional(),
-		radius: z.number().optional(),
-		volume: z.number().optional(),
-		duration: z.number().optional(),
+		radius: z.number().positive().optional(),
+		volume: z.number().positive().optional(),
+		duration: z.number().positive().optional(),
 		constrainedByWalls: z.literal(true).optional(),
 		predicate: z
 			.array(predicate)
@@ -563,7 +563,7 @@ export const animationObject: z.ZodType<AnimationObject> = referenceObject
 	.superRefine(
 		// Test that `options.preset` matches `preset`
 		(obj, ctx) => {
-			if (!obj.preset || !obj.options) return true;
+			if (!obj.preset || !obj.options || !obj.options.preset) return true;
 			if (obj.preset === 'onToken') {
 				if (typeof obj.options.preset !== 'string') {
 					return ctx.addIssue({
