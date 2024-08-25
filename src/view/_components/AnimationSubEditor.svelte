@@ -98,7 +98,7 @@
 	<section class='
 		border border-solid border-slate-600 rounded-sm
 		bg-slate-300 bg-opacity-50
-		w-full px-1 pt-2
+		w-full px-1 py-2
 	'>
 		<header class='flex text-lg items-center px-1'>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
