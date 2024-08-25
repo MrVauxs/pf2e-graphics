@@ -19,5 +19,4 @@ The following directories are named after their creators and are used under thei
 - Tom Music [Royalty-free](https://en.wikipedia.org/wiki/Royalty-free) (https://tommusic.itch.io/)
 
 > [!important]
-> Sharing and usage of the above files outside of the PF2e Graphics module is STRICTLY PROHIBITED.
-> The content above may only be distributed as part of the PF2e Graphics module.
+> Content inside this folder may only be distributed as part of the PF2e Graphics module. Sharing and usage of the files outside of the PF2e Graphics module is STRICTLY PROHIBITED. Exceptions apply. Please ensure you only access content in accordance to their licensing as listed above the disclaimer.
