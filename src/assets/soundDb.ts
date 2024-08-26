@@ -824,41 +824,51 @@ export const database = {
 				},
 				strike: {
 					loop: {
-						'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 001.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 002.ogg`,
-					},
-					lance: {
-						cast: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast C.ogg`,
+						generic: {
+							'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 001.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 002.ogg`,
 						},
-						impact: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact C.ogg`,
-						},
-						loop: {
-							travel: {
+						lance: {
+							'01': {
 								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Travel Loop.ogg`,
-							},
+							}
+						},
+						snowball: {
+							'01': {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Travel Loop.ogg`,
+							}
+						}
+					},
+					cast: {
+						lance: {
+							'01': {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
+								'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast B.ogg`,
+								'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast C.ogg`,
+							}
+						},
+						snowball: {
+							'01': {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball A.ogg`,
+								'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball B.ogg`,
+								'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball C.ogg`,
+							}
 						},
 					},
-					snowball: {
-						cast: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball C.ogg`,
+					impact: {
+						lance: {
+							'01': {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
+								'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact B.ogg`,
+								'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact C.ogg`,
+							}
 						},
-						impact: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact C.ogg`,
-						},
-						loop: {
-							travel: {
-								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Travel Loop.ogg`,
-							},
+						snowball: {
+							'01': {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
+								'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact B.ogg`,
+								'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact C.ogg`,
+							}
 						},
 					},
 				},
@@ -870,12 +880,18 @@ export const database = {
 				},
 			},
 			wall: {
-				'01': `${p}/sounds/tom-music/magic/ice/Ice Wall 1.ogg`,
-				'02': `${p}/sounds/tom-music/magic/ice/Ice Wall 2.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 001.ogg`,
-				'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 002.ogg`,
-				'05': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 003.ogg`,
-				'06': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Column.ogg`,
+				'01': {
+					'01': `${p}/sounds/tom-music/magic/ice/Ice Wall 1.ogg`,
+					'02': `${p}/sounds/tom-music/magic/ice/Ice Wall 2.ogg`,
+				},
+				'02': {
+					'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 001.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 002.ogg`,
+					'05': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 003.ogg`,
+				},
+				'03': {
+					'06': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Column.ogg`,
+				},
 			},
 			seal: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Seal Of The Ocean Loop.ogg`,
 			iceberg: {
@@ -1006,515 +1022,534 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 003.ogg`,
 			},
 			bolt: {
-				'01': {
-					cast: {
+				cast: {
+					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast C.ogg`,
-					},
-					impact: {
+					}
+				},
+				impact: {
+					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact C.ogg`,
-					},
-					trail_loop: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Trail Loop.ogg`,
-					},
+					}
+				},
+				loop: {
+					trail: {
+						'01': {
+							'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Trail Loop.ogg`,
+						}
+					}
 				},
 			},
 		},
-		healing: {
+	},
+	healing: {
+		'01': {
+			'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
+			'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
+			'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
+		},
+		'02': {
+			'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_01.ogg`,
+			'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_02.ogg`,
+			'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_03.ogg`,
+			'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_04.ogg`,
+			'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_05.ogg`,
+			'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_06.ogg`,
+			'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_07.ogg`,
+			'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_08.ogg`,
+			'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_09.ogg`,
+			'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_10.ogg`,
+		},
+	},
+	shock: {
+		impact: {
+			'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
+		},
+	},
+	lightning: {
+		cast: {
 			'01': {
-				'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
-				'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
-				'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
+				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
 			},
 			'02': {
-				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_01.ogg`,
-				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_02.ogg`,
-				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_03.ogg`,
-				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_04.ogg`,
-				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_05.ogg`,
-				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_06.ogg`,
-				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_07.ogg`,
-				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_08.ogg`,
-				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_09.ogg`,
-				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_10.ogg`,
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_07.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_08.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_09.ogg`,
+				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_10.ogg`,
+			},
+			'03': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 002.ogg`,
 			},
 		},
-		shock: {
-			impact: {
-				'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
-			},
+		hold: {
+			'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_HOLD_5s.ogg`,
 		},
-		lightning: {
-			cast: {
+		impact: {
+			'thunder': {
 				'01': {
-					'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
-					'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/FThunder Strike 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 003.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 004.ogg`,
+				},
+			},
+			'lightning': {
+				'01': {
+					'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
 				},
 				'02': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_05.ogg`,
-					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_06.ogg`,
-					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_07.ogg`,
-					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_08.ogg`,
-					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_09.ogg`,
-					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_10.ogg`,
-				},
-				'03': {
-					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 001.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 002.ogg`,
-				},
-			},
-			hold: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_HOLD_5s.ogg`,
-			},
-			impact: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
-				'thunder': {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 001.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 002.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 003.ogg`,
-						'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 004.ogg`,
-					},
-				},
-				'electro': {
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 003.ogg`,
 					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 004.ogg`,
 					'05': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 005.ogg`,
 					'06': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 006.ogg`,
-				},
-			},
-			buff: {
-				'01': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_05.ogg`,
-				},
-			},
-			launch: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
-			},
-			bolt: {
-				'01': {
-					cast: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast C.ogg`,
-					},
-					impact: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
-					},
-					loop: {
-						trail: `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Trail Loop.ogg`,
-					},
-				},
-				'02': {
-					cast: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast C.ogg`,
-					},
-					impact: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact C.ogg`,
-					},
-				},
-			},
-			whip: {
-				'01': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip A.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip B.ogg`,
-					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip C.ogg`,
-				},
-			},
-			boom: {
-				'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderous Boom.ogg`,
-			},
-			loop: {
-				electric_field: {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 001.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 002.ogg`,
-					},
-					'02': {
-						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 001.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 002.ogg`,
-					},
-				},
-				storm: {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 001.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 002.ogg`,
-					},
-				},
-				lightning: {
-					cast: {
-						'01': {
-							'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_01.ogg`,
-							'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_02.ogg`,
-						},
-					},
-				},
-			},
-		},
-		water: {
-			charm: {
-				single: {
-					'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm 001.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm 002.ogg`,
-				},
-				loop: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm Loop.ogg`,
-			},
-			cast: {
-				'01': {
-					'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
-					'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
-				},
-				'02': {
-					'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
-				},
-				'03': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_05.ogg`,
-					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_06.ogg`,
-					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_07.ogg`,
-					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_08.ogg`,
-					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_09.ogg`,
-					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_10.ogg`,
-				},
-			},
-			hold: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
-			},
-			impact: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
-			},
-			launch: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
-			},
-			spray: {
-				'01': `${p}/sounds/tom-music/magic/water/Waterspray 1.ogg`,
-				'02': `${p}/sounds/tom-music/magic/water/Waterspray 2.ogg`,
-			},
-			bless: {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/River Blessing.ogg`,
-				'02': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_05.ogg`,
-				},
-			},
-			call: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Call Of The Deep.ogg`,
-			wave: {
-				'01': `${p}/sounds/tom-music/magic/water/Wave Attack 1.ogg`,
-				'02': `${p}/sounds/tom-music/magic/water/Wave Attack 2.ogg`,
-			},
-			heal: {
-				'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Heal.ogg`,
-				'purify': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Water/Purify.ogg`,
-
-				},
-			},
-			bolt: {
-				cast: {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast C.ogg`,
-					},
-					'02': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast C.ogg`,
-					},
-				},
-				impact: {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
-					},
-					'02': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact C.ogg`,
-					},
-				},
-				loop: {
-					'01': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Trail Loop.ogg`,
-					},
-					'02': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Trail Loop.ogg`,
-					},
-				},
-			},
-			loop: {
-				'01': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
-				},
-			},
-			bubble: {
-				prison: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Water/Bubble Prison.ogg`,
-				},
-			},
-			tides: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Enchantment Of Tides Loop.ogg`,
-			ward: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Wave Ward.ogg`,
-			summon: {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 001.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 002.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
-			},
-		},
-		movement: {
-			blink: {
-				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-blink-01.ogg`,
-				'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-blink-02.ogg`,
-			},
-			strafe: {
-				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-01.ogg`,
-				'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-02.ogg`,
-				'03': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-03.ogg`,
-			},
-			fly: {
-				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-wings-swing-01.ogg`,
-				'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-wings-swing-02.ogg`,
-			},
-		},
-		counterspell: {
-			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
-		},
-		fail: {
-			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-land-on-giant.ogg`,
-		},
-		weapons: {
-			summon: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-in-the-air.ogg`,
-			launch: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-launch.ogg`,
-		},
-		arcane: {
-			cast: {
-				'01': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_05.ogg`,
-					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_06.ogg`,
-					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_07.ogg`,
-				},
-				'02': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_05.ogg`,
-					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_06.ogg`,
-					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_07.ogg`,
-					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_08.ogg`,
-					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_09.ogg`,
-					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_10.ogg`,
-				},
-				'03': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_05.ogg`,
-					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_06.ogg`,
-					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_07.ogg`,
-					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_08.ogg`,
-					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
-					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
-				},
-			},
-			buff: {
-				'01': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_02.ogg`,
-					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
-					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
-					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
-				},
-			},
-			loop: {
-				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
+				}
 			},
 		},
 		buff: {
-			'01': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use B.ogg`,
-			'02': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use A.ogg`,
-			'03': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm C.ogg`,
-			'04': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm B.ogg`,
-			'05': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm A.ogg`,
-			'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet D.ogg`,
-			'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet C.ogg`,
-			'08': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet B.ogg`,
-			'09': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet A.ogg`,
+			'01': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_05.ogg`,
+			},
 		},
-		nature: {
-			'whip': {
-				vine: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine A.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine B.ogg`,
-					'03': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine C.ogg`,
-					'04': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine D.ogg`,
-				},
-			},
-			'summon': {
-				rain: {
-					cast: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Cast.ogg`,
-					},
-					start: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Start.ogg`,
-					},
-					end: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain End.ogg`,
-					},
-					loop: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Loop.ogg`,
-					},
-				},
-				sapling: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Sapling.ogg`,
-				},
-				bramble_trap: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Bramble Trap.ogg`,
-				},
-			},
-			'shield': {
-				thorn: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Thorn Shield.ogg`,
-				},
-			},
-			'burst': {
-				bulb: {
-					'plant': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
-					},
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
-				},
-				bramble: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bramble Burst.ogg`,
-				},
-			},
-			'healing': {
+		launch: {
+			'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
+		},
+		bolt: {
+			cast: {
 				'01': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Natural Healing.ogg`,
+					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast C.ogg`,
+				},
+				'02': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast C.ogg`,
+				}
+			},
+			impact: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
+				},
+				'02': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact C.ogg`,
+				}
+			},
+			trail: {
+				loop: {
+					'01': { '01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Trail Loop.ogg`, }
+				}
+			}
+		},
+	},
+	whip: {
+		'01': {
+			'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip A.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip B.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip C.ogg`,
+		},
+	},
+	boom: {
+		'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderous Boom.ogg`,
+	},
+	loop: {
+		electric_field: {
+			'01': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 002.ogg`,
+			},
+			'02': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 002.ogg`,
+			},
+		},
+		storm: {
+			'01': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 002.ogg`,
+			},
+		},
+		lightning: {
+			cast: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_02.ogg`,
 				},
 			},
-			'moon': {
-				beam: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Moon Beam.ogg`,
-				},
+		},
+	},
+},
+	water: {
+		charm: {
+			single: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm 002.ogg`,
 			},
-			'sun': {
-				beam: {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Sun Beam.ogg`,
-				},
+			loop: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm Loop.ogg`,
+		},
+		cast: {
+			'01': {
+				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
+				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
 			},
-			'growth': {
+			'02': {
+				'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
+			},
+			'03': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_07.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_08.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_09.ogg`,
+				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_10.ogg`,
+			},
+		},
+		hold: {
+			'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
+		},
+		impact: {
+			'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
+		},
+		launch: {
+			'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
+		},
+		spray: {
+			'01': `${p}/sounds/tom-music/magic/water/Waterspray 1.ogg`,
+			'02': `${p}/sounds/tom-music/magic/water/Waterspray 2.ogg`,
+		},
+		bless: {
+			'01': {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/River Blessing.ogg`,
+			},
+			'02': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_05.ogg`,
+			},
+		},
+		call: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Call Of The Deep.ogg`,
+		wave: {
+			'01': `${p}/sounds/tom-music/magic/water/Wave Attack 1.ogg`,
+			'02': `${p}/sounds/tom-music/magic/water/Wave Attack 2.ogg`,
+		},
+		heal: {
+			'01': {
+				'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Heal.ogg`,
+			},
+			'02': {
+				'01': `${p}/sounds/ovani-sounds/Magic/Water/Purify.ogg`,
 
-				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Verdant Growth.ogg`,
 			},
-			'bond': {
-				animorphic: `${p}/sounds/ovani-sounds/Magic/Nature/Animorphic Bond.ogg`,
+		},
+		bolt: {
+			cast: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast C.ogg`,
+				},
+				'02': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast C.ogg`,
+				},
 			},
-			'animate-tree': {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 001.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 002.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 003.ogg`,
-				'04': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 004.ogg`,
+			impact: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
+				},
+				'02': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact C.ogg`,
+				},
 			},
-			'roots': {
+			loop: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Trail Loop.ogg`,
+				},
+				'02': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Trail Loop.ogg`,
+				},
+			},
+		},
+		loop: {
+			'01': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
+			},
+		},
+		bubble: {
+			prison: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Water/Bubble Prison.ogg`,
+			},
+		},
+		tides: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Enchantment Of Tides Loop.ogg`,
+		ward: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Wave Ward.ogg`,
+		summon: {
+			'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 001.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 002.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
+		},
+	},
+	movement: {
+		blink: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-blink-01.ogg`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-blink-02.ogg`,
+		},
+		strafe: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-01.ogg`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-02.ogg`,
+			'03': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-strafe-03.ogg`,
+		},
+		fly: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-wings-swing-01.ogg`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-wings-swing-02.ogg`,
+		},
+	},
+	counterspell: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
+	},
+	fail: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-land-on-giant.ogg`,
+	},
+	weapons: {
+		summon: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-in-the-air.ogg`,
+		launch: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-launch.ogg`,
+	},
+	arcane: {
+		cast: {
+			'01': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_07.ogg`,
+			},
+			'02': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_07.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_08.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_09.ogg`,
+				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_10.ogg`,
+			},
+			'03': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_07.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_08.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
+				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
+			},
+		},
+		buff: {
+			'01': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
+			},
+		},
+		loop: {
+			'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
+		},
+	},
+	buff: {
+		'01': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use B.ogg`,
+		'02': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use A.ogg`,
+		'03': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm C.ogg`,
+		'04': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm B.ogg`,
+		'05': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Charm A.ogg`,
+		'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet D.ogg`,
+		'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet C.ogg`,
+		'08': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet B.ogg`,
+		'09': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet A.ogg`,
+	},
+	nature: {
+		'whip': {
+			vine: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine A.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine B.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine C.ogg`,
+				'04': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine D.ogg`,
+			},
+		},
+		'summon': {
+			rain: {
+				cast: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Cast.ogg`,
+				},
+				start: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Start.ogg`,
+				},
+				end: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain End.ogg`,
+				},
+				loop: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Loop.ogg`,
+				},
+			},
+			sapling: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Sapling.ogg`,
+			},
+			bramble_trap: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Bramble Trap.ogg`,
+			},
+		},
+		'shield': {
+			thorn: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Thorn Shield.ogg`,
+			},
+		},
+		'burst': {
+			bulb: {
+				'plant': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
+				},
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
+			},
+			bramble: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bramble Burst.ogg`,
+			},
+		},
+		'healing': {
+			'01': {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Natural Healing.ogg`,
+			},
+		},
+		'moon': {
+			beam: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Moon Beam.ogg`,
+			},
+		},
+		'sun': {
+			beam: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Sun Beam.ogg`,
+			},
+		},
+		'growth': {
+			'01': `${p}/sounds/ovani-sounds/Magic/Nature/Verdant Growth.ogg`,
+		},
+		'bond': {
+			animorphic: `${p}/sounds/ovani-sounds/Magic/Nature/Animorphic Bond.ogg`,
+		},
+		'animate-tree': {
+			'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 001.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 002.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 003.ogg`,
+			'04': `${p}/sounds/ovani-sounds/Magic II/Nature/Animate Tree 004.ogg`,
+		},
+		'roots': {
+			'01': {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 003.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Magic II/Nature/Deep Roots 004.ogg`,
-				'snare': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Root Snare.ogg`,
-				},
 			},
-			'charm': {
-				single: {
-					'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 001.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 002.ogg`,
-					'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 003.ogg`,
-				},
-				loop: `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop.ogg`,
+			'02': {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Root Snare.ogg`,
 			},
-			'buff': {
-				'bear-rage': `${p}/sounds/ovani-sounds/Magic II/Nature/Bear Rage.ogg`,
-				'bird-flight': `${p}/sounds/ovani-sounds/Magic II/Nature/Bird Flight.ogg`,
-				'horse-speed': `${p}/sounds/ovani-sounds/Magic II/Nature/Horse Speed.ogg`,
-				'lion-courage': `${p}/sounds/ovani-sounds/Magic II/Nature/Lion Courage.ogg`,
-				'owl-wisdom': `${p}/sounds/ovani-sounds/Magic II/Nature/Owl Wisdom.ogg`,
-				'barkskin': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Barkskin.ogg`,
-				},
+		},
+		'charm': {
+			single: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 002.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop 003.ogg`,
 			},
-			'poison-swarm': {
-				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 001.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 002.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 003.ogg`,
+			loop: `${p}/sounds/ovani-sounds/Magic II/Nature/Dryad Charm Loop.ogg`,
+		},
+		'buff': {
+			'bear-rage': `${p}/sounds/ovani-sounds/Magic II/Nature/Bear Rage.ogg`,
+			'bird-flight': `${p}/sounds/ovani-sounds/Magic II/Nature/Bird Flight.ogg`,
+			'horse-speed': `${p}/sounds/ovani-sounds/Magic II/Nature/Horse Speed.ogg`,
+			'lion-courage': `${p}/sounds/ovani-sounds/Magic II/Nature/Lion Courage.ogg`,
+			'owl-wisdom': `${p}/sounds/ovani-sounds/Magic II/Nature/Owl Wisdom.ogg`,
+			'barkskin': {
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Barkskin.ogg`,
 			},
-			'seal': {
-				loop: {
-					'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 001.ogg`,
-					'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
-				},
+		},
+		'poison-swarm': {
+			'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 001.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 002.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic II/Nature/Poisonous Swarm 003.ogg`,
+		},
+		'seal': {
+			loop: {
+				'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 001.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
 			},
 		},
 	},
-	buff: {
-		weapon: {
-			generic: {
-				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
+},
+buff: {
+	weapon: {
+		generic: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
 			},
-			fire: {
-				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
+		fire: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
 			},
-			ice: {
-				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
+		ice: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
 			},
-			lightning: {
-				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
+		lightning: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
 			},
-			poison: {
-				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
+		poison: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
 			},
-		},
 	},
-	movement: {
-		landing: {
-			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/tyrael-landing_footsteps.ogg`,
+},
+movement: {
+	landing: {
+		'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/tyrael-landing_footsteps.ogg`,
 		},
-	},
-	dodge: {
-		'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/auriel-avoiding.ogg`,
+},
+dodge: {
+	'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/auriel-avoiding.ogg`,
 	},
 	// #endregion
 };
