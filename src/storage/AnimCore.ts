@@ -347,13 +347,17 @@ export let AnimCore = class AnimCore {
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
-		devMessage('Animating the Following', Object.keys(validAnimations), {
-			trigger,
-			rollOptions,
-			item,
-			actor,
-			source,
-		});
+		devMessage(
+			'Animating the Following',
+			validAnimations,
+			{
+				trigger,
+				rollOptions,
+				item,
+				actor,
+				source,
+			},
+		);
 
 		for (const anim of Object.values(validAnimations)) {
 			if (!anim.length) return;
