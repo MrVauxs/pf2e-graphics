@@ -163,6 +163,12 @@ export const database = {
 			'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Flail Whoosh E.ogg`,
 			'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Flail Whoosh F.ogg`,
 		},
+		flame: {
+
+			'01': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Chain A.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Chain B.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Chain C.ogg`,
+		},
 	},
 	spear: {
 		hit: {
@@ -215,6 +221,12 @@ export const database = {
 		impact: {
 			'01': `${p}/sounds/tom-music/torch/Torch Impact 1.ogg`,
 			'02': `${p}/sounds/tom-music/torch/Torch Impact 2.ogg`,
+		},
+	},
+	whip: {
+		flame: {
+
+			'01': `${p}/sounds/ovani-sounds/Magic/Fire/Fire Whip.ogg`,
 		},
 	},
 	// #endregion
@@ -301,9 +313,39 @@ export const database = {
 					'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
 					'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
 				},
+				small: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast C.ogg`,
+				},
+				medium: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast C.ogg`,
+				},
+				large: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast C.ogg`,
+
+				},
 				loop: {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_02.ogg`,
+					'small': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Trail Loop.ogg`,
+					},
+					'medium': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Trail Loop.ogg`,
+					},
+					'large': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Trail Loop.ogg`,
+					},
 				},
 			},
 			hold: {
@@ -311,6 +353,24 @@ export const database = {
 			},
 			impact: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_IMPACT_01.ogg`,
+				'small': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact C.ogg`,
+				},
+				'medium': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact C.ogg`,
+				},
+				'large': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Impact A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Impact B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Impact C.ogg`,
+
+				},
 			},
 			launch: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_LAUNCH_01.ogg`,
@@ -319,11 +379,21 @@ export const database = {
 					'02': `${p}/sounds/tom-music/magic/fire/Fireball 2.ogg`,
 					'03': `${p}/sounds/tom-music/magic/fire/Fireball 3.ogg`,
 				},
+
+				'03': `${p}/sounds/ovani-sounds/Magic/Fire/Burning Hands.ogg`,
+				'phoenix': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Phoenix Flash.ogg`,
+				},
 			},
 			gust: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 003.ogg`,
+			},
+			armor: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Armor.ogg`,
 			},
 			enchant: {
 				lava: {
@@ -340,6 +410,14 @@ export const database = {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 003.ogg`,
+			},
+			comet: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Blazing Comet.ogg`,
+			},
+			pillar: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Pillar.ogg`,
 			},
 			smoke: {
 				loop: {
@@ -360,6 +438,7 @@ export const database = {
 			ignite: {
 				'01': `${p}/sounds/tom-music/magic/fire/Firebuff 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/fire/Firebuff 2.ogg`,
+				'snap': `${p}/sounds/ovani-sounds/Magic/Fire/Combustion.ogg`,
 			},
 			buff: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 001.ogg`,
@@ -370,6 +449,16 @@ export const database = {
 			spray: {
 				'01': `${p}/sounds/tom-music/magic/fire/Firespray 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/fire/Firespray 2.ogg`,
+			},
+			burst: {
+				lava: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Lava Burst.ogg`,
+				},
+				phoenix: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Phoenix Burst.ogg`,
+				},
 			},
 		},
 		dark: {
