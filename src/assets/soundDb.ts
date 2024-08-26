@@ -356,7 +356,7 @@ export const database = {
 						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_08.ogg`,
 						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_09.ogg`,
 						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_10.ogg`,
-					}
+					},
 				},
 				small: {
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast A.ogg`,
