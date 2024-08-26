@@ -371,17 +371,19 @@ export const database = {
 					},
 				},
 				gust: {
-					'echoing': {
-						cast: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Cast.ogg`,
-						impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Impact.ogg`,
-					},
-					'whirlwind': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
-					},
 					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 002.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 003.ogg`,
+					},
+					'02': {
+						echoing: {
+							cast: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Cast.ogg`,
+							impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Impact.ogg`,
+						},
+						whirlwind: {
+							'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
+						},
 					},
 				},
 				clear: {
@@ -571,9 +573,13 @@ export const database = {
 					'sparkle': `${p}/sounds/ovani-sounds/Magic II/Fire/Summon Sparkle.ogg`,
 				},
 				ignite: {
-					'01': `${p}/sounds/tom-music/magic/fire/Firebuff 1.ogg`,
-					'02': `${p}/sounds/tom-music/magic/fire/Firebuff 2.ogg`,
-					'snap': `${p}/sounds/ovani-sounds/Magic/Fire/Combustion.ogg`,
+					'01': {
+						'01': `${p}/sounds/tom-music/magic/fire/Firebuff 1.ogg`,
+						'02': `${p}/sounds/tom-music/magic/fire/Firebuff 2.ogg`,
+					},
+					'02': {
+						snap: `${p}/sounds/ovani-sounds/Magic/Fire/Combustion.ogg`,
+					},
 				},
 				buff: {
 					'01': {
@@ -1489,10 +1495,11 @@ export const database = {
 				},
 				'burst': {
 					bulb: {
-						'plant': {
-							'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
+						'01': {
+							plant: `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
+							burst: `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
+
 						},
-						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
 					},
 					bramble: {
 						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bramble Burst.ogg`,
