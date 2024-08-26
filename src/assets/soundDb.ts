@@ -648,11 +648,51 @@ export const database = {
 				barrage: {
 					'01': `${p}/sounds/tom-music/magic/ice/Ice Barrage 1.ogg`,
 					'02': `${p}/sounds/tom-music/magic/ice/Ice Barrage 2.ogg`,
+
+					'03': `${p}/sounds/ovani-sounds/Magic/Ice/Icicle Barrage.ogg`,
 				},
 				strike: {
 					loop: {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Loop 002.ogg`,
+					},
+					lance: {
+						cast: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
+						},
+						impact: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
+						},
+						loop: {
+							travel: {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Travel Loop.ogg`,
+							},
+						},
+					},
+					snowball: {
+						cast: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
+						},
+						impact: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
+						},
+						loop: {
+							travel: {
+								'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Travel Loop.ogg`,
+							},
+						},
 					},
 				},
 				frostbourne: {
@@ -668,6 +708,8 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 001.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 002.ogg`,
 				'05': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 003.ogg`,
+
+				'06': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Column.ogg`,
 			},
 			seal: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Seal Of The Ocean Loop.ogg`,
 			iceberg: {
@@ -682,10 +724,31 @@ export const database = {
 				},
 				iceberg: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Dispel Iceberg.ogg`,
 			},
+			shield: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Ice/Glacial Shield.ogg`,
+			},
+			freeze: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Ice/Icy Veins.ogg`,
+
+				'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frozen Echo.ogg`,
+			},
+			buff: {
+				water_walk: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Water Walking.ogg`,
+				},
+			},
 			cast: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 003.ogg`,
+				'area': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Artic Gale.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frost Nova.ogg`,
+				},
 			},
 		},
 		holy: {
