@@ -3,7 +3,7 @@
 		{
 			"preset": "onToken",
 			"options": {
-				"preset": "target",
+				"preset": { "location": "target" },
 				"scaleToObject": 1.5,
 				"fadeIn": 250,
 				"fadeOut": 250
@@ -69,7 +69,7 @@
 		{
 			"preset": "onToken",
 			"options": {
-				"preset": "source",
+				"preset": { "location": "source" },
 				"scaleToObject": 1.5,
 				"fadeIn": 250,
 				"fadeOut": 250

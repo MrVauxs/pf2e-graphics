@@ -12,7 +12,8 @@ export const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces;
 	},
-	parseOffsetEmbedded(options: { offset?: Offset } | undefined, source: Point, target: Point) {
+	parseOffsetEmbedded(options: { offset?: Offset } | undefined | boolean, source: Point, target: Point) {
+		if (typeof options !== 'object') return {};
 		return { ...options, offset: (options?.offset ? this.parseOffset(options?.offset, source, target) : undefined) };
 	},
 	parseOffset(offset: Offset, source: Point, target: Point) {
@@ -220,13 +221,44 @@ export const helpers = {
 };
 
 type presetOptions<T> =
-	| T extends 'onToken' ? ('target' | 'source' | 'both') :
+	| T extends 'onToken' ? onTokenOptions :
 	| T extends 'ranged' ? rangedOptions :
+	| T extends 'melee' ? meleeOptions :
+	| T extends 'template' ? templateOptions :
 	| never;
 
+/**
+ * Any variables that can be `true` are optional overrides that change how the Sequence is
+ * structured, as opposed to just adding more information to existing presets.
+ * ex. 	ranged attacks are assumed to just originate from a point (atLocation) and not change,
+ * 		but attachTo allows them to be linked and move with their attached point (ex. a token)
+ * 		so a projectile from A to B vs. a rope attached to and moving *with* you and your targets
+ *
+ * All other properties are options to existing functions.
+ */
+interface templateOptions {
+	attachTo?: Parameters<EffectSection['attachTo']>[1];
+	stretchTo?: Parameters<EffectSection['stretchTo']>[1];
+}
+
+interface onTokenOptions {
+	rotateTowards?: true | Parameters<EffectSection['rotateTowards']>[1];
+	atLocation?: true | Parameters<EffectSection['atLocation']>[1];
+	location?: ('target' | 'source' | 'both');
+	attachTo?: Parameters<EffectSection['attachTo']>[1];
+}
+
+interface meleeOptions {
+	attachTo?: Parameters<EffectSection['attachTo']>[1];
+	rotateTowards?: Parameters<EffectSection['rotateTowards']>[1];
+}
+
 interface rangedOptions {
-	bounce: { file: string; sound: SoundConfig };
-	templateAsOrigin: boolean;
+	attachTo?: true | Parameters<EffectSection['attachTo']>[1];
+	bounce?: { file: string; sound: SoundConfig };
+	templateAsOrigin?: boolean;
+	atLocation?: Parameters<EffectSection['atLocation']>[1];
+	stretchTo?: Parameters<EffectSection['stretchTo']>[1];
 }
 
 type SoundConfig = SoundData | SoundData[];
@@ -310,10 +342,6 @@ export interface EffectOptions<T extends PresetKeys> {
 		options: Parameters<EffectSection['filter']>[1];
 	};
 	missed?: boolean;
-	attachTo?: Parameters<EffectSection['attachTo']>[1];
-	atLocation?: Parameters<EffectSection['atLocation']>[1];
-	stretchTo?: Parameters<EffectSection['stretchTo']>[1];
-	rotateTowards?: Parameters<EffectSection['rotateTowards']>[1];
 	anchor?: Parameters<EffectSection['anchor']>[0];
 	template?: Parameters<EffectSection['template']>[0];
 	loopProperty?: {
@@ -351,19 +379,36 @@ export const presets = {
 			}
 
 			const effect = seq.effect()
-				.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, source, target));
+				.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
-				effect
-					.atLocation(targets[i - 1], helpers.parseOffsetEmbedded(options?.atLocation, targets[i - 1], target))
-					.file(AnimCore.parseFile(options?.preset.bounce.file));
-			} else {
-				effect
-					.file(AnimCore.parseFile(file))
-					.atLocation(
-						options?.preset?.templateAsOrigin ? target : source,
-						helpers.parseOffsetEmbedded(options?.atLocation, source, target),
+				effect.file(AnimCore.parseFile(options?.preset.bounce.file));
+
+				if (options.preset.attachTo) {
+					effect.attachTo(
+						targets[i - 1],
+						helpers.parseOffsetEmbedded(options?.preset?.attachTo, targets[i - 1], target),
 					);
+				} else {
+					effect.atLocation(
+						targets[i - 1],
+						helpers.parseOffsetEmbedded(options?.preset?.atLocation, targets[i - 1], target),
+					);
+				}
+			} else {
+				effect.file(AnimCore.parseFile(file));
+
+				if (options?.preset?.attachTo) {
+					effect.attachTo(
+						options?.preset?.templateAsOrigin ? target : source,
+						helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target),
+					);
+				} else {
+					effect.atLocation(
+						options?.preset?.templateAsOrigin ? target : source,
+						helpers.parseOffsetEmbedded(options?.preset?.atLocation, source, target),
+					);
+				}
 			}
 
 			helpers.genericSequencerFunctions(effect, item, target, options);
@@ -395,8 +440,8 @@ export const presets = {
 
 			const section = seq.effect()
 				.file(AnimCore.parseFile(file))
-				.attachTo(source, helpers.parseOffsetEmbedded(options?.attachTo, source, target))
-				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, source, target));
+				.attachTo(source, helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target))
+				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, source, target));
 
 			helpers.genericSequencerFunctions(section, item, target, options);
 		}
@@ -407,9 +452,9 @@ export const presets = {
 		const target = targets?.[0];
 		const affectedTokens = [];
 
-		if (options?.preset === 'both') {
+		if (options?.preset?.location === 'both') {
 			affectedTokens.push(target, source);
-		} else if (options?.preset === 'target') {
+		} else if (options?.preset?.location === 'target') {
 			affectedTokens.push(target);
 		} else {
 			affectedTokens.push(source);
@@ -435,14 +480,14 @@ export const presets = {
 			const result = seq.effect()
 				.file(AnimCore.parseFile(file));
 
-			if (options?.atLocation) {
-				result.atLocation(token, helpers.parseOffsetEmbedded(options?.atLocation, token, target || token));
+			if (options?.preset?.atLocation) {
+				result.atLocation(token, helpers.parseOffsetEmbedded(options?.preset?.atLocation, token, target || token));
 			} else {
-				result.attachTo(token, helpers.parseOffsetEmbedded(options?.attachTo, token, target || token));
+				result.attachTo(token, helpers.parseOffsetEmbedded(options?.preset?.attachTo, token, target || token));
 			}
 
-			if (options?.rotateTowards)
-				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.rotateTowards, token, target || token));
+			if (options?.preset?.rotateTowards)
+				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, token, target || token));
 
 			helpers.genericSequencerFunctions(result, item, token, options);
 		}
@@ -460,10 +505,10 @@ export const presets = {
 
 			const section = seq.effect()
 				.file(AnimCore.parseFile(file))
-				.attachTo(target, helpers.parseOffsetEmbedded(options?.attachTo, target, target));
+				.attachTo(target, helpers.parseOffsetEmbedded(options?.preset?.attachTo, target, target));
 
-			if (!options?.attachTo && (target.t === 'ray' || target.t === 'cone'))
-				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.stretchTo, target, target));
+			if (!options?.preset?.attachTo && (target.t === 'ray' || target.t === 'cone'))
+				section.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, target, target));
 
 			helpers.genericSequencerFunctions(section, item, target, options);
 		}

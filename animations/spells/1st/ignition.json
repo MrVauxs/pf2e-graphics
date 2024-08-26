@@ -8,8 +8,9 @@
 					"preset": "onToken",
 					"file": "jb2a.cast_generic.fire.side01.orange.0",
 					"options": {
+						"sound": { "file": "pf2e-graphics.magic.fire.launch.02.01", "delay": 600 },
 						"waitUntilFinished": -1200,
-						"rotateTowards": {},
+						"preset": { "rotateTowards": true },
 						"anchor": {
 							"x": 0.25
 						},
@@ -21,7 +22,18 @@
 				{
 					"preset": "ranged",
 					"file": "jb2a.fire_bolt.orange",
-					"options": {}
+					"options": {
+						"waitUntilFinished": -1200
+					}
+				},
+				{
+					"preset": "onToken",
+					"options": {
+						"sound": { "file": "pf2e-graphics.magic.fire.impact.01" },
+						"preset": { "location": "target" },
+						"scaleToObject": 1.5
+					},
+					"file": "jb2a.impact.fire.01.orange.0"
 				}
 			]
 		},
@@ -31,7 +43,10 @@
 				"item:melee"
 			],
 			"preset": "ranged",
-			"file": "jb2a.unarmed_strike.magical.{01,02}.orange"
+			"file": "jb2a.unarmed_strike.magical.{01,02}.orange",
+			"options": {
+				"sound": { "file": "pf2e-graphics.magic.fire.impact.small", "delay": 250 }
+			}
 		},
 		{
 			"trigger": "attack-roll",
@@ -44,7 +59,7 @@
 					"file": "jb2a.cast_generic.fire.side01.orange.0",
 					"options": {
 						"waitUntilFinished": -1200,
-						"rotateTowards": {},
+						"preset": { "rotateTowards": true },
 						"anchor": {
 							"x": 1
 						},

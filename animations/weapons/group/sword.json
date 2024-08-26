@@ -9,11 +9,26 @@
 			"options": {
 				"sound": [
 					{
-						"file": "pf2e-graphics.sword.melee.01",
+						"delay": 200,
+						"file": "pf2e-graphics.sword.melee.hit.flesh",
 						"default": true
 					},
 					{
-						"file": "pf2e-graphics.attack.miss.01",
+						"delay": 200,
+						"file": "pf2e-graphics.sword.melee.hit.solid",
+						"predicate": [
+							"target:trait:construct",
+							{
+								"nor": [
+									"check:outcome:failure",
+									"check:outcome:critical-failure"
+								]
+							}
+						]
+					},
+					{
+						"delay": 200,
+						"file": "pf2e-graphics.sword.melee.miss",
 						"predicate": [
 							{
 								"or": [

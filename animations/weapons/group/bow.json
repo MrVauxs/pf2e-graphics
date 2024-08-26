@@ -6,10 +6,12 @@
 			"file": "jb2a.arrow.physical.white.01",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.bow"
+					"file": "pf2e-graphics.bow.attack"
 				},
-				"stretchTo": {
-					"randomOffset": 0.5
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
 			}
 		}

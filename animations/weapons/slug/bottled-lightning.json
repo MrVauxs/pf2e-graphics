@@ -20,7 +20,7 @@
 					"preset": "onToken",
 					"file": "jb2a.static_electricity.03.blue",
 					"options": {
-						"preset": "target",
+						"preset": { "location": "target" },
 						"scaleToObject": {
 							"value": 1.5
 						}

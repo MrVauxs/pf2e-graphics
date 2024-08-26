@@ -10,8 +10,7 @@
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250,
-				"sound": {}
+				"fadeIn": 250
 			},
 			"contents": [
 				{

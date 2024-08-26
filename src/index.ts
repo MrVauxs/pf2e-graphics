@@ -2,17 +2,12 @@ import './settings.ts';
 import './app.postcss';
 import './view';
 import './storage';
-import { database } from './assets/soundDb';
+import './assets';
 import { i18n } from './utils.ts';
 
 Hooks.once('pf2e.systemReady', () => {
 	import('./triggers');
 });
-
-Hooks.once('sequencerReady', () => {
-	Sequencer.Database.registerEntries('pf2e-graphics', database);
-});
-
 Hooks.once('ready', () => {
 	const premium =	game.modules.get('jb2a_patreon');
 	const fremium =	game.modules.get('JB2A_D&D5e');

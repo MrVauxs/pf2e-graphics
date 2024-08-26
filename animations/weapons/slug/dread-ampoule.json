@@ -29,7 +29,7 @@
 						}
 					],
 					"options": {
-						"preset": "target",
+						"preset": { "location": "target" },
 						"tint": "#846e9c",
 						"scaleToObject": {
 							"value": 1.5
@@ -43,7 +43,7 @@
 						"check:outcome:critical-success"
 					],
 					"options": {
-						"preset": "target",
+						"preset": { "location": "target" },
 						"tint": "#846e9c",
 						"scaleToObject": {
 							"value": 1.5

@@ -7,7 +7,7 @@
 				{
 					"predicate": [{ "gte": ["graphics-quality", 1] }],
 					"options": {
-						"atLocation": true,
+						"preset": { "atLocation": true },
 						"size": {
 							"value": 4,
 							"gridUnits": true
@@ -57,9 +57,11 @@
 								{
 									"file": "jb2a.wind_stream.white",
 									"options": {
-										"atLocation": {
-											"offset": {
-												"y": -50
+										"preset": {
+											"atLocation": {
+												"offset": {
+													"y": -50
+												}
 											}
 										},
 										"size": {

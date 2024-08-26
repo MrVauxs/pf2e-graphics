@@ -23,22 +23,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New Sounds**
   - [EminYILDIRIM](<https://freesound.org/people/EminYILDIRIM/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - [Tom Music](<https://tommusic.itch.io/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - Mapped metric ton of sounds to the DB from Ovani Sounds and GameDev Market ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - **New Animations**
   - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](<https://github.com/Lerosnn>))
   - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](<https://github.com/Mystler>)!)
+  - Added Sounds to Ignite. ([@MrVauxs](<https://mrvauxs.net/>))
 
 ### Changed
 
 - Sounds now are played before animations, allowing for more intuitive usage of `waitUntilFinished`.
+  - As such, animations have been adjusted for this change.
+- `atLocation`, `attachTo`, `stretchTo`, and `rotateTowards` have been removed from the `options` object and moved to `options.preset`, as these options are specific to each preset.
 
 ### Fixed
 
 - The Animations Menu breaking when JB2A is not enabled ([#88](<https://github.com/MrVauxs/pf2e-graphics/issues/88>))
 - Divine Lance predicates ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - Shield Boss Group Fix ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-- Raise a Shield using the Shield cantrip animation.
-
+- Raise a Shield using the Shield cantrip animation. It uses the Shield Rampart animation now.
 
 ## [0.7.4] - 2024-08-21
 
