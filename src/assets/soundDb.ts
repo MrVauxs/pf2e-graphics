@@ -923,6 +923,7 @@ export const database = {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
 			},
 			hold: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
@@ -944,6 +945,55 @@ export const database = {
 			wave: {
 				'01': `${p}/sounds/tom-music/magic/water/Wave Attack 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/water/Wave Attack 2.ogg`,
+			},
+			heal: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Heal.ogg`,
+				'purify': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Purify.ogg`,
+
+				},
+			},
+			bolt: {
+				'01': {
+					cast: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast C.ogg`,
+					},
+					impact: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
+					},
+					loop: {
+						trail: `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Trail Loop.ogg`,
+					},
+				},
+				'02': {
+					cast: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast C.ogg`,
+					},
+					impact: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact C.ogg`,
+					},
+					loop: {
+						trail: `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Trail Loop.ogg`,
+					},
+				},
+			},
+			bubble: {
+				prison: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Water/Bubble Prison.ogg`,
+				},
 			},
 			tides: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Enchantment Of Tides Loop.ogg`,
 			ward: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Wave Ward.ogg`,
