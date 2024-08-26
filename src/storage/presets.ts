@@ -230,9 +230,9 @@ type presetOptions<T> =
 /**
  * Any variables that can be `true` are optional overrides that change how the Sequence is
  * structured, as opposed to just adding more information to existing presets.
- * ex. 	ranged attacks are assumed to just originate from a point and not change their location,
+ * ex. 	ranged attacks are assumed to just originate from a point (atLocation) and not change,
  * 		but attachTo allows them to be linked and move with their attached point (ex. a token)
- * 		so a projectile from A to B vs. a beam that moves with you and your targets
+ * 		so a projectile from A to B vs. a rope attached to and moving *with* you and your targets
  */
 interface templateOptions {
 	attachTo?: Parameters<EffectSection['attachTo']>[1];
