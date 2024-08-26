@@ -24,7 +24,7 @@ function check(object: db, lastKey: string) {
 check(database, 'pf2e-graphics');
 
 if (errors.length) {
-	core.setFailed('The following database paths have are improperly formatted!');
+	core.setFailed('The following database paths are improperly formatted!');
 	core.startGroup(' \x1B[33;40m==== Mixed words and numbers ====\x1B[0m ');
 	errors.forEach(m => core.info(m));
 	core.endGroup();
