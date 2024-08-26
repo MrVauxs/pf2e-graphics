@@ -277,6 +277,20 @@ export const database = {
 					},
 				},
 			},
+			cast: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_10.ogg`,
+				},
+			},
 			teleport: {
 				'01': {
 					in: `${p}/sounds/ovani-sounds/Magic/Air/Aeroportation In.ogg`,
@@ -328,6 +342,15 @@ export const database = {
 			loop: {
 				wind: {
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Sparkling Wind Loop.ogg`,
+				},
+			},
+			buff: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_05.ogg`,
 				},
 			},
 			glyph: {
@@ -533,6 +556,29 @@ export const database = {
 			wave: {
 				'01': `${p}/sounds/ovani-sounds/Magic/Dark/Abyssal Pulse.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic/Dark/Dread Wave.ogg`,
+			},
+			buff: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Buff_05.ogg`,
+				},
+			},
+			cast: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_10.ogg`,
+				},
 			},
 			curse: {
 				'01': {
@@ -1077,6 +1123,18 @@ export const database = {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
+				'04': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_10.ogg`,
+				},
 				'loop': {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
@@ -1097,6 +1155,13 @@ export const database = {
 			},
 			bless: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/River Blessing.ogg`,
+				'02': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Buff_05.ogg`,
+				},
 			},
 			call: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Call Of The Deep.ogg`,
 			wave: {
