@@ -12,6 +12,7 @@ let settings: TJSLiveGameSettings & {
 	worldAnimations: JSONData;
 	suppressWarnings: boolean;
 	volume: number;
+	delay: number;
 };
 export type liveSettings = typeof settings;
 
@@ -63,6 +64,24 @@ const settingsData = [
 				min: 0,
 				step: 0.05,
 				max: 2,
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'delay',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.delay.name',
+			hint: 'pf2e-graphics.settings.delay.hint',
+			scope: 'client',
+			config: true,
+			type: Number,
+			default: 0,
+			range: {
+				min: 0,
+				step: 1,
+				max: 10,
 			},
 		},
 	},

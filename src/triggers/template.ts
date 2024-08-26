@@ -1,6 +1,12 @@
-import { devMessage } from 'src/utils';
+import { devMessage, log } from 'src/utils';
 
-const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template: MeasuredTemplateDocumentPF2e) => {
+function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false) {
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => handleTemplate(template, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
+
 	const { actor, item, message, flags: { pf2e: { origin } } } = template;
 
 	const deliverable = {
@@ -20,7 +26,9 @@ const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', (template:
 	devMessage('Template Hook Data', deliverable);
 	// Timed out because of some bizzare circumstance where coordinates are not delivered on time resulting in a 0,0 position.
 	setTimeout(() => window.pf2eGraphics.AnimCore.findAndAnimate(deliverable), 100);
-});
+}
+
+const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', handleTemplate);
 
 if (import.meta.hot) {
 	// Prevents reloads

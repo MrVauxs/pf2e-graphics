@@ -1,7 +1,13 @@
-import { devMessage } from 'src/utils';
+import { devMessage, log } from 'src/utils';
 
-const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF2e['id']) => {
+function handleEffect(item: ItemPF2e, delayed = false) {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;
+
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => handleEffect(item, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
 
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
 	const rollOptions = item.getRollOptions(item.type);
@@ -17,7 +23,9 @@ const createItem = Hooks.on('createItem', (item: ItemPF2e, _options, _id: ItemPF
 
 	devMessage('Effect Hook Data', deliverable);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
-});
+}
+
+const createItem = Hooks.on('createItem', handleEffect);
 
 if (import.meta.hot) {
 	// Prevents reloads

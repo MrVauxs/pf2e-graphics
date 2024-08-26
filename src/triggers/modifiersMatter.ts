@@ -1,14 +1,22 @@
-import { devMessage } from 'src/utils';
+import { devMessage, log } from 'src/utils';
 
-const modifiersMatter = Hooks.on('modifiersMatter', (
-	{ actorWithDc, chatMessage, rollingActor, significantModifiers, targetedToken }: {
-		actorWithDc: ActorPF2e;
-		chatMessage: ChatMessagePF2e;
-		rollingActor: ActorPF2e;
-		significantModifiers: { significance: string; name: string; value: number; appliedTo: string }[];
-		targetedToken: TokenDocumentPF2e;
-	},
-) => {
+interface modifiersMatterType {
+	actorWithDc: ActorPF2e;
+	chatMessage: ChatMessagePF2e;
+	rollingActor: ActorPF2e;
+	significantModifiers: { significance: string; name: string; value: number; appliedTo: string }[];
+	targetedToken: TokenDocumentPF2e;
+};
+
+function handleModifiersMatter(options: modifiersMatterType, delayed = false) {
+	const { actorWithDc, chatMessage, rollingActor, significantModifiers, targetedToken } = options;
+
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => handleModifiersMatter(options, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
+
 	devMessage('Modifiers Matter Hook Data', { actorWithDc, chatMessage, rollingActor, significantModifiers, targetedToken });
 
 	for (const modifier of significantModifiers) {
@@ -22,7 +30,8 @@ const modifiersMatter = Hooks.on('modifiersMatter', (
 
 		window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 	}
-});
+}
+const modifiersMatter = Hooks.on('modifiersMatter', handleModifiersMatter);
 
 if (import.meta.hot) {
 	// Prevents reloads

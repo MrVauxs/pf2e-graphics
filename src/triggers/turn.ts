@@ -1,6 +1,14 @@
-import { devMessage } from 'src/utils';
+import { devMessage, log } from 'src/utils';
 
-function handler({ actor, token }: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end') {
+function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end', delayed = false) {
+	const { actor, token } = combatant;
+
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => handler(combatant, _encounter, type, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
+
 	const deliverable = {
 		trigger: `${type}Turn` as const,
 		source: token,

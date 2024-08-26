@@ -1,7 +1,13 @@
 import type { TriggerTypes } from 'src/storage/AnimCore';
 import { devMessage, log } from 'src/utils';
 
-function handleChatMessage(message: ChatMessagePF2e) {
+function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => handleChatMessage(message, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
+
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
 	let trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
 	let special: string = '';

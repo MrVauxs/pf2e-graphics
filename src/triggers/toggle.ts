@@ -1,4 +1,4 @@
-import { devMessage } from 'src/utils';
+import { devMessage, log } from 'src/utils';
 
 function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	const result = {
@@ -28,7 +28,13 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	return result;
 }
 
-function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<ItemPF2e['system']> }, _id: ItemPF2e['id']) {
+function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<ItemPF2e['system']> }, delayed = false) {
+	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
+		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
+		setTimeout(() => trifectaFunc(item, _options, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		return;
+	}
+
 	const { bool, options: newOptions } = check(item, _options);
 	// If there is no actor, don't.
 	// 	If there are no rules AND no special changes, don't. || If there are either rules or special changes, continue.
@@ -45,9 +51,9 @@ function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<I
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const updateItem = Hooks.on('updateItem', trifectaFunc);
-const createItem = Hooks.on('createItem', trifectaFunc);
-const deleteItem = Hooks.on('deleteItem', trifectaFunc);
+const updateItem = Hooks.on('updateItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
+const createItem = Hooks.on('createItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
+const deleteItem = Hooks.on('deleteItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
 
 if (import.meta.hot) {
 	// Prevents reloads

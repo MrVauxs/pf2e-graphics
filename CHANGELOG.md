@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](<https://keepachangelog.com/en/1.1.0/>),
+and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.0.html>).
 
 > Dictionary
 > (P) - A premium version of that animation is available.
@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Delay Animations settings. ([#111](<https://github.com/MrVauxs/pf2e-graphics/issues/111>))
 - Added support for flat-check animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
 - Added support for persistent damage animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
 - Animation volume adjustment in both module settings and playlist tab. ([#89](<https://github.com/MrVauxs/pf2e-graphics/issues/89>))
@@ -77,8 +78,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More options to the Custom Animation menu.
 - Drag and Drop ordering of Custom Animations ([#46](<https://github.com/MrVauxs/pf2e-graphics/issues/46>))
 - **New Animations**:
-  - Administer First Aid, Aid, Admonishing Ray (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
-  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](https://github.com/Mystler)!)
+  - Administer First Aid, Aid, Admonishing Ray (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
+  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](<https://github.com/Mystler>)!)
 
 ### Fixed
 
@@ -103,10 +104,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ability to force `attachTo` on line and cone animations instead of standard `stretchTo`.
 - SFX indicators, a Search bar, total tally, and columns config to Preset Animations Menu.
 - **New Animations**:
-  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
-  - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
+  - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
   - Pick Weapon Group (free JB2A version) ([@MrVauxs](<https://mrvauxs.net/>))
-- **New Sounds** from [SoundFlakes](https://freesound.org/people/SoundFlakes/)!
+- **New Sounds** from [SoundFlakes](<https://freesound.org/people/SoundFlakes/>)!
 
 ### Changed
 
@@ -128,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `mirrorY` and `mirrorX` Sequencer options.
 - **New Animations**:
   - Spell Effect: Shield (giving it to another token) ([@MrVauxs](<https://mrvauxs.net/>))
-  - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](https://github.com/ChasarooniZ)!)
+  - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
 
 ### Changed
 
@@ -150,7 +151,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `template:typeOfTemplate` roll options for templates.
-- **New Animations**: Acid Flask, Alchemist's Fire, Bottled Lightning, and Frost Vial (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
+- **New Animations**: Acid Flask, Alchemist's Fire, Bottled Lightning, and Frost Vial (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
 
 ### Fixed
 
@@ -169,7 +170,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `jb2a:patreon` and `jb2a:free` roll options for animations.
 - Preset Animations tab in World Animations menu. Allows you to see all pre-made animations and their code.
-- **New Animations**: Club, Dart, Shield, Spear, Axe, Bomb, Brawling, Flail, Hammer, Polearm, and Sling (thank you [@7H3LaughingMan](https://github.com/7H3LaughingMan)!)
+- **New Animations**: Club, Dart, Shield, Spear, Axe, Bomb, Brawling, Flail, Hammer, Polearm, and Sling (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
 
 ### Changed
 
@@ -345,7 +346,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Changelogs using [keep a changelog](https://keepachangelog.com/en/1.1.0/) format.
+- Changelogs using [keep a changelog](<https://keepachangelog.com/en/1.1.0/>) format.
 - Performance Settings
 - Basic Sounds (Unprocessed)
 - Ko-Fi Donation Button
