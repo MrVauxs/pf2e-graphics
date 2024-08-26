@@ -1,6 +1,7 @@
 import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
+import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
@@ -359,6 +360,15 @@ export let AnimCore = class AnimCore {
 			},
 		);
 
+		this.createHistoryEntry({
+			trigger,
+			rollOptions,
+			animations: Object.entries(validAnimations)
+				.flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
+			item: item ? { name: item?.name, uuid: item.uuid } : undefined,
+			actor: { name: actor.name, uuid: actor.uuid },
+		});
+
 		for (const anim of Object.values(validAnimations)) {
 			if (!anim.length) return;
 
@@ -373,6 +383,16 @@ export let AnimCore = class AnimCore {
 
 			await sequence.play({ preload: true, local: true });
 		}
+	}
+
+	static createHistoryEntry(data: Omit<AnimationHistoryObject, 'timestamp'>) {
+		window.pf2eGraphics.history.update((v) => {
+			v.push({
+				timestamp: Date.now(),
+				...data,
+			});
+			return v;
+		});
 	}
 
 	static CONST = {
@@ -448,6 +468,15 @@ export interface AnimationDataObject {
 
 // #endregion
 
+interface AnimationHistoryObject {
+	timestamp: number;
+	rollOptions: string[];
+	trigger: TriggerTypes | TriggerTypes[];
+	animations: AnimationDataObject[];
+	item?: { name: string; uuid: string };
+	actor: { name: string; uuid: string };
+};
+
 declare global {
 	interface Window {
 		pf2eGraphics: pf2eGraphics;
@@ -458,5 +487,6 @@ declare global {
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
+		history: Writable<AnimationHistoryObject[]>;
 	}
 }
