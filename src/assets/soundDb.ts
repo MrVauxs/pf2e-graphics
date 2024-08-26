@@ -571,6 +571,12 @@ export const database = {
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Whispering Horror Loop 002.ogg`,
 					},
 				},
+				cast: {
+					'01': {
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Shadow_Cast_Loop_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Shadow_Cast_Loop_02.ogg`,
+					},
+				},
 			},
 			break: {
 				mana: {
@@ -812,18 +818,15 @@ export const database = {
 				iceberg: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Dispel Iceberg.ogg`,
 			},
 			shield: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Ice/Glacial Shield.ogg`,
 			},
 			freeze: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Ice/Icy Veins.ogg`,
 
 				'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frozen Echo.ogg`,
 			},
 			buff: {
 				water_walk: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Water Walking.ogg`,
 				},
 			},
@@ -832,9 +835,14 @@ export const database = {
 				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 003.ogg`,
 				'area': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Artic Gale.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frost Nova.ogg`,
+				},
+				'loop': {
+					'01': {
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Ice_Cast_Loop_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Ice_Cast_Loop_02.ogg`,
+					},
 				},
 			},
 		},
@@ -946,9 +954,14 @@ export const database = {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
 				'storm': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 002.ogg`,
+				},
+				'loop': {
+					'01': {
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_02.ogg`,
+					},
 				},
 			},
 			hold: {
@@ -1055,6 +1068,10 @@ export const database = {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
+				'loop': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
+				},
 			},
 			hold: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
@@ -1158,6 +1175,11 @@ export const database = {
 		weapons: {
 			summon: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-in-the-air.ogg`,
 			launch: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-launch.ogg`,
+		},
+		cast: {
+			loop: {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
+			},
 		},
 		buff: {
 			'01': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use B.ogg`,
