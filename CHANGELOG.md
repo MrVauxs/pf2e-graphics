@@ -33,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Sounds now are played before animations, allowing for more intuitive usage of `waitUntilFinished`.
+  - As such, animations have been adjusted for this change.
+- `atLocation`, `attachTo`, `stretchTo`, and `rotateTowards` have been removed from the `options` object and moved to `options.preset`, as these options are specific to each preset.
 
 ### Fixed
 
@@ -40,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Divine Lance predicates ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - Shield Boss Group Fix ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - Raise a Shield using the Shield cantrip animation. It uses the Shield Rampart animation now.
-
 
 ## [0.7.4] - 2024-08-21
 
