@@ -825,13 +825,13 @@ export const database = {
 					lance: {
 						cast: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast C.ogg`,
 						},
 						impact: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact C.ogg`,
 						},
 						loop: {
 							travel: {
@@ -842,13 +842,13 @@ export const database = {
 					snowball: {
 						cast: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast C.ogg`,
 						},
 						impact: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact C.ogg`,
 						},
 						loop: {
 							travel: {
