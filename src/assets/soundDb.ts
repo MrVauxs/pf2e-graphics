@@ -1450,23 +1450,6 @@ export const database = {
 					'08': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet B.ogg`,
 					'09': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Equip Amulet A.ogg`,
 				},
-				weapon: {
-					generic: {
-						'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
-					},
-					fire: {
-						'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
-					},
-					ice: {
-						'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
-					},
-					lightning: {
-						'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
-					},
-					poison: {
-						'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
-					},
-				},
 			},
 			nature: {
 				'whip': {
@@ -1587,6 +1570,25 @@ export const database = {
 		movement: {
 			landing: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/tyrael-landing_footsteps.ogg`,
+			},
+		},
+		buff: {
+			weapon: {
+				generic: {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
+				},
+				fire: {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
+				},
+				ice: {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
+				},
+				lightning: {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
+				},
+				poison: {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
+				},
 			},
 		},
 		dodge: {
