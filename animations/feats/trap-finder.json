@@ -1,5 +1,5 @@
 {
-	"feat:slug:trap-finder": [
+	"feat:trap-finder": [
 		{
 			"trigger": "toggle",
 			"preset": "onToken",
