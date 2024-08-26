@@ -8,8 +8,10 @@
 				"sound": {
 					"file": "pf2e-graphics.bow"
 				},
-				"stretchTo": {
-					"randomOffset": 0.5
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
 			}
 		}

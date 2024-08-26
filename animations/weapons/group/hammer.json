@@ -32,8 +32,10 @@
 				"thrown"
 			],
 			"options": {
-				"stretchTo": {
-					"randomOffset": 0.5
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
 			}
 		}

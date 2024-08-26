@@ -9,7 +9,7 @@
 					"file": "pf2e-graphics.finisher.01"
 				},
 				"delay": 1500,
-				"preset": "target",
+				"preset": { "location": "target" },
 				"scaleToObject": {
 					"value": 1.2,
 					"considerTokenScale": true
