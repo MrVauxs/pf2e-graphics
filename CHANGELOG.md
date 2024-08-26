@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](<https://github.com/Lerosnn>))
   - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](<https://github.com/Mystler>)!)
+  - Added Sounds to Ignite. ([@MrVauxs](<https://mrvauxs.net/>))
 
 ### Changed
 
@@ -38,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Animations Menu breaking when JB2A is not enabled ([#88](<https://github.com/MrVauxs/pf2e-graphics/issues/88>))
 - Divine Lance predicates ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - Shield Boss Group Fix ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-- Raise a Shield using the Shield cantrip animation.
+- Raise a Shield using the Shield cantrip animation. It uses the Shield Rampart animation now.
 
 
 ## [0.7.4] - 2024-08-21

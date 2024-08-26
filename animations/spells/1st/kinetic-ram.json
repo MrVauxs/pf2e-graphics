@@ -10,7 +10,7 @@
 					"value": 3,
 					"considerTokenScale": true
 				},
-				"rotateTowards": {},
+				"rotateTowards": true,
 				"anchor": {
 					"x": 0.6
 				}
