@@ -11,7 +11,7 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 		|| i.isOfType('condition')
 	) {
 		result.bool = true;
-		result.options.push(...i.getRollOptions('condition'));
+		result.options.push(...i.getRollOptions(i.type));
 	}
 
 	if (o?.system?.equipped?.carryType || o?.system?.equipped?.handsHeld) {
