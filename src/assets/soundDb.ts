@@ -709,22 +709,22 @@ export const database = {
 							'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 2.ogg`,
 						},
 						'02': {
-							'boulder': {
+							boulder: {
 								'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast A.ogg`,
 								'02': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast B.ogg`,
 								'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast C.ogg`,
 							},
-							'rock': {
+							rock: {
 								'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
 								'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
 								'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
 							},
-							'stone': {
+							stone: {
 								'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
 								'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
 								'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
-							}
-						}
+							},
+						},
 
 					},
 					missile: {
@@ -935,7 +935,7 @@ export const database = {
 				'03': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Arctic Gale.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frost Nova.ogg`,
-				}
+				},
 			},
 		},
 		holy: {
@@ -1168,8 +1168,8 @@ export const database = {
 							'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_01.ogg`,
 							'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Lightning_Cast_Loop_02.ogg`,
 						},
-					}
-				}
+					},
+				},
 			},
 		},
 		water: {
