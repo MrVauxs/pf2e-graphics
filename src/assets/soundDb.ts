@@ -786,7 +786,6 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 001.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 002.ogg`,
 				'05': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Frost Wall 003.ogg`,
-
 				'06': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Column.ogg`,
 			},
 			seal: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Seal Of The Ocean Loop.ogg`,
@@ -811,14 +810,33 @@ export const database = {
 				'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frozen Echo.ogg`,
 			},
 			buff: {
-				water_walk: {
+				'water_walk': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Water Walking.ogg`,
+				},
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_05.ogg`,
 				},
 			},
 			cast: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Ice Strike Cast 003.ogg`,
+				'04': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_10.ogg`,
+				},
 				'area': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Artic Gale.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frost Nova.ogg`,
@@ -932,6 +950,18 @@ export const database = {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
+				'03': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Spell_10.ogg`,
+				},
 				'storm': {
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 002.ogg`,
@@ -963,6 +993,15 @@ export const database = {
 					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 004.ogg`,
 					'05': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 005.ogg`,
 					'06': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 006.ogg`,
+				},
+			},
+			buff: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Lightning/Lightning_Buff_05.ogg`,
 				},
 			},
 			launch: {
