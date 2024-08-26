@@ -1176,10 +1176,33 @@ export const database = {
 			summon: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-in-the-air.ogg`,
 			launch: `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-spears-launch.ogg`,
 		},
-		cast: {
-			loop: {
-				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
+		arcane: {
+			cast: {
+				loop: {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
+				},
+				strike: {
+
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_10.ogg`,
+				}
 			},
+			buff: {
+
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
+			}
 		},
 		buff: {
 			'01': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use B.ogg`,
