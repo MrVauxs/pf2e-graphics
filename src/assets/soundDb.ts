@@ -868,6 +868,49 @@ export const database = {
 			launch: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
 			},
+			bolt: {
+				'01': {
+					cast: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast C.ogg`,
+					},
+					impact: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
+					},
+					loop: {
+						trail: `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Trail Loop.ogg`,
+					},
+				},
+				'02': {
+					cast: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast C.ogg`,
+					},
+					impact: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact C.ogg`,
+					},
+				},
+			},
+			whip: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Whip C.ogg`,
+				},
+			},
+			boom: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderous Boom.ogg`,
+			},
 		},
 		water: {
 			charm: {
