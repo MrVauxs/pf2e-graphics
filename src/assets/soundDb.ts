@@ -941,10 +941,10 @@ export const database = {
 					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frozen Echo.ogg`,
 				},
 				buff: {
-					'water_walk': {
-						'01': `${p}/sounds/ovani-sounds/Magic/Ice/Water Walking.ogg`,
-					},
 					'01': {
+						water_walk: `${p}/sounds/ovani-sounds/Magic/Ice/Water Walking.ogg`,
+					},
+					'02': {
 						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_01.ogg`,
 						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_02.ogg`,
 						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_03.ogg`,
@@ -1119,7 +1119,7 @@ export const database = {
 				impact: {
 					thunder: {
 						'01': {
-							'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/FThunder Strike 001.ogg`,
+							'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 001.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 002.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 003.ogg`,
 							'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 004.ogg`,
