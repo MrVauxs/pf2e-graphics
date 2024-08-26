@@ -19,7 +19,6 @@
 			}
 		}
 	],
-
 	"origin:item:slug:kinetic-ram": [
 		{
 			"trigger": "place-template",
