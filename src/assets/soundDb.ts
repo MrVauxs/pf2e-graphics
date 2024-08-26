@@ -1181,10 +1181,14 @@ export const database = {
 				loop: `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Mermaid Charm Loop.ogg`,
 			},
 			cast: {
-				'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
-				'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
-				'04': {
+				'01': {
+					'01': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_01.ogg`,
+					'02': `${p}/sounds/LastDayDreaming/Magic/Water/EM_WATER_CAST_02.ogg`,
+				},
+				'02': {
+					'03': `${p}/sounds/ovani-sounds/Magic/Water/Tidal Surge.ogg`,
+				},
+				'03': {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_02.ogg`,
 					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_03.ogg`,
@@ -1195,10 +1199,6 @@ export const database = {
 					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_08.ogg`,
 					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_09.ogg`,
 					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_10.ogg`,
-				},
-				'loop': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
-					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
 				},
 			},
 			hold: {
@@ -1237,35 +1237,43 @@ export const database = {
 				},
 			},
 			bolt: {
-				'01': {
-					cast: {
+				cast: {
+					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast C.ogg`,
 					},
-					impact: {
-						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
-						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
-						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
-					},
-					loop: {
-						trail: `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Trail Loop.ogg`,
-					},
-				},
-				'02': {
-					cast: {
+					'02': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast C.ogg`,
 					},
-					impact: {
+				},
+				impact: {
+					'01': {
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
+					},
+					'02': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact C.ogg`,
 					},
-					loop: {
-						trail: `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Trail Loop.ogg`,
+				},
+				loop: {
+					'01': {
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Trail Loop.ogg`,
 					},
+					'02': {
+						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Trail Loop.ogg`,
+					},
+				},
+			},
+			loop: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Water_Cast_Loop_02.ogg`,
 				},
 			},
 			bubble: {
@@ -1317,24 +1325,7 @@ export const database = {
 					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_06.ogg`,
 					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_07.ogg`,
 				},
-				'loop': {
-					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
-				},
-				'negative': {
-					'01': {
-						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_01.ogg`,
-						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_02.ogg`,
-						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_03.ogg`,
-						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_04.ogg`,
-						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_05.ogg`,
-						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_06.ogg`,
-						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_07.ogg`,
-						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_08.ogg`,
-						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
-						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
-					},
-				},
-				'strike': {
+				'02': {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
 					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
@@ -1346,14 +1337,30 @@ export const database = {
 					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_09.ogg`,
 					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_10.ogg`,
 				},
+				'03': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_07.ogg`,
+					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_08.ogg`,
+					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
+					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
+				},
 			},
 			buff: {
-
-				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_01.ogg`,
-				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_02.ogg`,
-				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
-				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
-				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
+				},
+			},
+			loop: {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
 			},
 		},
 		buff: {
@@ -1484,17 +1491,19 @@ export const database = {
 	},
 	buff: {
 		weapon: {
-			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
-			'fire': {
+			generic: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
+			},
+			fire: {
 				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
 			},
-			'ice': {
+			ice: {
 				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
 			},
-			'lightning': {
+			lightning: {
 				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
 			},
-			'poison': {
+			poison: {
 				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
 			},
 		},
