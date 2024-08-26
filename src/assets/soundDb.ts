@@ -547,14 +547,14 @@ export const database = {
 					'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Hex 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Dark/Hex 003.ogg`,
 					'04': `${p}/sounds/ovani-sounds/Magic II/Dark/Hex 004.ogg`,
-				}
+				},
 			},
 			bells: {
 				'01': {
 					'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Unholy Bells 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Unholy Bells 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Dark/Unholy Bells 003.ogg`,
-				}
+				},
 			},
 			loop: {
 				bells: {
@@ -563,30 +563,30 @@ export const database = {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 002.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 003.ogg`,
-					}
+					},
 				},
 				whispering: {
 					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Whispering Horror Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Whispering Horror Loop 002.ogg`,
-					}
-				}
+					},
+				},
 			},
 			break: {
 				mana: {
 					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Mana Break 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Mana Break 002.ogg`,
-					}
+					},
 				},
 				soul: {
 
 					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Soul Break 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Soul Break 002.ogg`,
-					}
-				}
-			}
+					},
+				},
+			},
 		},
 		earth: {
 			geokinesis: {
