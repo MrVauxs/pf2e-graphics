@@ -346,7 +346,7 @@ export const database = {
 			gust: {
 				'echoing': {
 					cast: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Cast.ogg`,
-					impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust impact.ogg`,
+					impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Impact.ogg`,
 				},
 				'whirlwind': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
@@ -733,14 +733,14 @@ export const database = {
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact C.ogg`,
 						},
 						rock: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Impact C.ogg`,
 						},
 						stone: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Impact C.ogg`,
 						},
 					},
 				},
@@ -761,7 +761,7 @@ export const database = {
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Trail Loop.ogg`,
 						},
 						stone: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Trail Loop.ogg`,
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Trail Loop.ogg`,
 						},
 					},
 				},
@@ -803,7 +803,7 @@ export const database = {
 			},
 			grab: {
 
-				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthern Grasp.ogg`,
+				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthen Grasp.ogg`,
 			},
 			meld: {
 
@@ -922,7 +922,7 @@ export const database = {
 					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Spell_10.ogg`,
 				},
 				'area': {
-					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Artic Gale.ogg`,
+					'01': `${p}/sounds/ovani-sounds/Magic/Ice/Arctic Gale.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Ice/Frost Nova.ogg`,
 				},
 				'loop': {
@@ -969,8 +969,8 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 003.ogg`,
 			},
 			light: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Light/Illuminate.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic/Light/Holy Light.ogg`,
 			},
 			attack: {
 				shock: {
@@ -1022,6 +1022,18 @@ export const database = {
 			'01': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-1.ogg`,
 			'02': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-2.ogg`,
 			'03': `${p}/sounds/EminYILDIRIM/magic/heal/eminyildirim_healing-spell-3.ogg`,
+			'04': {
+				'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_01.ogg`,
+				'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_02.ogg`,
+				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_03.ogg`,
+				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_04.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_05.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_06.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_07.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_08.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_09.ogg`,
+				'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_10.ogg`,
+			},
 		},
 		shock: {
 			impact: {
@@ -1285,10 +1297,33 @@ export const database = {
 		},
 		arcane: {
 			cast: {
-				loop: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_01.ogg`,
+					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_02.ogg`,
+					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_03.ogg`,
+					'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_04.ogg`,
+					'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_05.ogg`,
+					'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_06.ogg`,
+					'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Cast_07.ogg`,
+				},
+				'loop': {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
 				},
-				strike: {
+				'negative': {
+					'01': {
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_02.ogg`,
+						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_03.ogg`,
+						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_04.ogg`,
+						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_05.ogg`,
+						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_06.ogg`,
+						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_07.ogg`,
+						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_08.ogg`,
+						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_09.ogg`,
+						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_10.ogg`,
+					},
+				},
+				'strike': {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
 					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
