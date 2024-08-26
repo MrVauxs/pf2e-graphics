@@ -1,6 +1,7 @@
 {
 	"item:slug:elemental-blast": [
 		{
+			"trigger": "attack-roll",
 			"predicate": [
 				"item:trait:air"
 			],
@@ -14,7 +15,6 @@
 							"predicate": ["ranged"],
 							"contents": [
 								{
-									"trigger": "attack-roll",
 									"file": "jb2a.chain_lightning.primary.blue",
 									"options": {
 										"sound": {
@@ -25,7 +25,6 @@
 									"preset": "ranged"
 								},
 								{
-									"trigger": "attack-roll",
 									"preset": "onToken",
 									"file": "jb2a.static_electricity.03.blue",
 									"predicate": [
@@ -44,9 +43,9 @@
 						},
 						{
 							"predicate": ["melee"],
-							"preset": "melee",
 							"contents": [
 								{
+									"preset": "melee",
 									"file": "jb2a.unarmed_strike.magical.01.blue",
 									"options": {
 										"sound": {
@@ -56,10 +55,11 @@
 									}
 								},
 								{
+									"preset": "ranged",
 									"file": "jb2a.chain_lightning.secondary.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.lightning.cast",
+											"file": "pf2e-graphics.magic.lightning.cast.01",
 											"delay": 600
 										},
 										"delay": 600,
@@ -93,7 +93,6 @@
 							"contents": [
 								{
 									"preset": "ranged",
-									"trigger": "attack-roll",
 									"options": {
 										"waitUntilFinished": -1000
 									},
@@ -122,7 +121,6 @@
 									]
 								},
 								{
-									"trigger": "attack-roll",
 									"preset": "onToken",
 									"file": "jb2a.template_circle.aura.01.complete.small.bluepurple",
 									"predicate": [
@@ -184,7 +182,7 @@
 									"options": {
 										"scaleToObject": 4,
 										"sound": {
-											"file": "pf2e-graphics.attack.swing.01",
+											"file": "pf2e-graphics.magic.air.blade.aero.cast",
 											"waitUntilFinished": -2000
 										}
 									},
@@ -196,7 +194,7 @@
 									],
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.sword.throw.01",
+											"file": "pf2e-graphics.magic.air.gust.echoing.cast",
 											"delay": 500
 										}
 									},
