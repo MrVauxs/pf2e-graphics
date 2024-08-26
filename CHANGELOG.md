@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New Sounds**
   - [EminYILDIRIM](<https://freesound.org/people/EminYILDIRIM/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - [Tom Music](<https://tommusic.itch.io/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-  - Mapped metric ton of sounds to the DB from Ovani Sounds and GameDev Market ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - Mapped metric ton of sounds to the DB from Ovani Sounds and GameDev Market ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
 - **New Animations**
   - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](<https://github.com/Lerosnn>))
