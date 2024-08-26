@@ -345,6 +345,18 @@ export const database = {
 				single: {
 					'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_01.ogg`,
 					'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
+					'03': {
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_02.ogg`,
+						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_03.ogg`,
+						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_04.ogg`,
+						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_05.ogg`,
+						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_06.ogg`,
+						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_07.ogg`,
+						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_08.ogg`,
+						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_09.ogg`,
+						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Spell_10.ogg`,
+					}
 				},
 				small: {
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast A.ogg`,
@@ -470,6 +482,11 @@ export const database = {
 				'02': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 003.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Magic II/Fire/Warm Buff 004.ogg`,
+				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Buff_01.ogg`,
+				'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Buff_02.ogg`,
+				'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Buff_03.ogg`,
+				'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Buff_04.ogg`,
+				'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Fire/Fire_Buff_05.ogg`,
 			},
 			spray: {
 				'01': `${p}/sounds/tom-music/magic/fire/Firespray 1.ogg`,
