@@ -766,6 +766,10 @@ export const database = {
 				'04': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-04.ogg`,
 				'05': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-05.ogg`,
 			},
+			ward: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Ward.ogg`,
+			},
 			seal: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Holy Seal Loop 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Holy Seal Loop 002.ogg`,
@@ -782,6 +786,31 @@ export const database = {
 				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Divine Restoration 003.ogg`,
 			},
+			light: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Light/Illuminate.ogg`,
+			},
+			attack: {
+				shock: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Shock.ogg`,
+				},
+				hammer: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Light/Consecrate.ogg`,
+				},
+				fire: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Light/Heavenly Flame.ogg`,
+				},
+				bell: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Nova.ogg`,
+				},
+				blast: {
+					'01': `${p}/sounds/ovani-sounds/Magic/Light/Heavenly Wrath.ogg`,
+				},
+			},
 			cure: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Cure 002.ogg`,
@@ -792,6 +821,25 @@ export const database = {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Light/Bless 003.ogg`,
+			},
+			bolt: {
+				'01': {
+					cast: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast C.ogg`,
+					},
+					impact: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact C.ogg`,
+					},
+					trail_loop: {
+
+						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Trail Loop.ogg`,
+					},
+				},
 			},
 		},
 		healing: {
