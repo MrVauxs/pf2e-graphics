@@ -151,6 +151,44 @@ export const database = {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/axe-throwing.ogg`,
 		},
 	},
+	potion: {
+		bomb: {
+			break: {
+				'01': {
+					'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Break A.ogg`,
+					'02': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Break B.ogg`,
+					'03': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Break C.ogg`,
+				},
+			},
+			acid: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Acid.ogg`,
+			},
+			blood: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Blood.ogg`,
+			},
+			explosion: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Explosion.ogg`,
+			},
+			fire: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Fire.ogg`,
+			},
+			holy_water: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Holy Water.ogg`,
+			},
+			ice: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Ice.ogg`,
+			},
+			lightning: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Lightning.ogg`,
+			},
+			poison: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Poison.ogg`,
+			},
+			water: {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Pot Water.ogg`,
+			},
+		},
+	},
 	flail: {
 		miss: {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/bludgeon-throwing.ogg`,
@@ -1395,6 +1433,23 @@ export const database = {
 					'01': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
 				},
+			},
+		},
+	},
+	buff: {
+		weapon: {
+			'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up.ogg`,
+			'fire': {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Fire.ogg`,
+			},
+			'ice': {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Ice.ogg`,
+			},
+			'lightning': {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Lightning.ogg`,
+			},
+			'poison': {
+				'01': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
 			},
 		},
 	},
