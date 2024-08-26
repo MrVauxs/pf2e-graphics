@@ -5,7 +5,7 @@
 			"preset": "onToken",
 			"file": "jb2a.template_circle.out_pulse.02.burst",
 			"options": {
-				"preset": "target",
+				"preset": { "location": "target" },
 				"scaleToObject": 1,
 				"fadeIn": 250,
 				"fadeOut": 500

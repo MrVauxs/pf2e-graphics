@@ -5,10 +5,13 @@
 			"preset": "onToken",
 			"file": "jb2a.melee_generic.bludgeoning.two_handed",
 			"options": {
-				"preset": "target",
 				"scaleToObject": {
 					"value": 3,
 					"considerTokenScale": true
+				},
+				"preset": {
+					"location": "target",
+					"rotateTowards": true
 				},
 				"anchor": {
 					"x": 0.6
@@ -16,7 +19,6 @@
 			}
 		}
 	],
-
 	"origin:item:slug:kinetic-ram": [
 		{
 			"trigger": "place-template",

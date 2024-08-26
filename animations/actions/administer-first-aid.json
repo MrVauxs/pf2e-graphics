@@ -5,7 +5,7 @@
 			"preset": "onToken",
 			"file": "jb2a.healing_generic.200px.red",
 			"options": {
-				"preset": "target",
+				"preset": { "location": "target" },
 				"scaleToObject": 1.5,
 				"fadeIn": 250,
 				"fadeOut": 250

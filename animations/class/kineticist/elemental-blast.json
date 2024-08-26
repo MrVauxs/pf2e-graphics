@@ -33,7 +33,7 @@
 									],
 									"options": {
 										"delay": 1000,
-										"preset": "target",
+										"preset": { "location": "target" },
 										"scaleToObject": 1,
 										"fadeIn": 250,
 										"duration": 1000,
@@ -49,23 +49,19 @@
 								{
 									"file": "jb2a.unarmed_strike.magical.01.blue",
 									"options": {
-										"sound": [
-											{
-												"file": "pf2e-graphics.unarmed.01",
-												"delay": 250
-											}
-										]
+										"sound": {
+											"file": "pf2e-graphics.unarmed.01",
+											"delay": 250
+										}
 									}
 								},
 								{
 									"file": "jb2a.chain_lightning.secondary.blue",
 									"options": {
-										"sound": [
-											{
-												"file": "pf2e-graphics.magic.lightning.cast",
-												"delay": 600
-											}
-										],
+										"sound": {
+											"file": "pf2e-graphics.magic.lightning.cast",
+											"delay": 600
+										},
 										"delay": 600,
 										"waitUntilFinished": -500
 									}
@@ -78,7 +74,7 @@
 									"preset": "onToken",
 									"options": {
 										"scaleToObject": 1.2,
-										"preset": "target"
+										"preset": { "location": "target" }
 									}
 								}
 							]
@@ -133,7 +129,7 @@
 										"action:cost:2"
 									],
 									"options": {
-										"preset": "target",
+										"preset": { "location": "target" },
 										"scaleToObject": 1.5,
 										"fadeIn": 250,
 										"duration": 1200,
@@ -223,7 +219,8 @@
 					"trigger": "attack-roll",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.magic.earth.ranged.single"
+							"delay": 400,
+							"file": "pf2e-graphics.magic.earth.ranged.single.throw.meteor"
 						},
 						"waitUntilFinished": -100
 					}
@@ -235,7 +232,7 @@
 					"trigger": "attack-roll",
 					"preset": "onToken",
 					"options": {
-						"preset": "target",
+						"preset": { "location": "target" },
 						"scaleToObject": 1.5
 					},
 					"contents": [
@@ -284,8 +281,8 @@
 					"trigger": "attack-roll",
 					"preset": "onToken",
 					"options": {
-						"sound": { "file": "pf2e-graphics.magic.fire.impact.01" },
-						"preset": "target",
+						"sound": { "file": "pf2e-graphics.magic.fire.impact.01.small" },
+						"preset": { "location": "target" },
 						"scaleToObject": 1.5
 					},
 					"file": "jb2a.impact.fire.01.orange.0"
@@ -331,7 +328,7 @@
 						"sound": {
 							"file": "pf2e-graphics.sword.melee.hit.flesh"
 						},
-						"preset": "target",
+						"preset": { "location": "target" },
 						"scaleToObject": 1.5
 					},
 					"file": "jb2a.impact.003.blue"
@@ -370,7 +367,7 @@
 								"sound": {
 									"file": "pf2e-graphics.magic.water.impact"
 								},
-								"preset": "target",
+								"preset": { "location": "target" },
 								"belowTokens": true,
 								"scaleToObject": 2
 							}
@@ -428,7 +425,7 @@
 								"sound": {
 									"file": "pf2e-graphics.magic.water.impact"
 								},
-								"preset": "target",
+								"preset": { "location": "target" },
 								"scaleToObject": 1.5
 							}
 						}
@@ -467,7 +464,7 @@
 							"file": "jb2a.explosion.shrapnel.bomb.01.black",
 							"options": {
 								"sound": { "file": "pf2e-graphics.bow.hit.solid.01" },
-								"preset": "target",
+								"preset": { "location": "target" },
 								"scaleToObject": 2
 							}
 						}
@@ -503,7 +500,7 @@
 							"preset": "onToken",
 							"file": "jb2a.energy_strands.in.green.01",
 							"options": {
-								"preset": "target",
+								"preset": { "location": "target" },
 								"scaleToObject": 1.5
 							}
 						}

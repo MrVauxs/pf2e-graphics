@@ -5,8 +5,10 @@
 			"preset": "ranged",
 			"file": "jb2a.dart.01.throw",
 			"options": {
-				"stretchTo": {
-					"randomOffset": 0.5
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
 			}
 		}

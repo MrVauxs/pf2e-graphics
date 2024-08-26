@@ -5,7 +5,7 @@
 			"preset": "onToken",
 			"file": "jb2a.whirlwind.purple",
 			"options": {
-				"preset": "target",
+				"preset": { "location": "target" },
 				"scaleToObject": 1,
 				"fadeIn": 250,
 				"fadeOut": 500

@@ -8,6 +8,7 @@
 					"file": "jb2a.chain_lightning.primary.blue",
 					"options": {
 						"sound": {
+							"delay": 500,
 							"file": "pf2e-graphics.magic.shock.impact"
 						},
 						"waitUntilFinished": -1000,
