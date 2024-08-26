@@ -233,6 +233,8 @@ type presetOptions<T> =
  * ex. 	ranged attacks are assumed to just originate from a point (atLocation) and not change,
  * 		but attachTo allows them to be linked and move with their attached point (ex. a token)
  * 		so a projectile from A to B vs. a rope attached to and moving *with* you and your targets
+ *
+ * All other properties are options to existing functions.
  */
 interface templateOptions {
 	attachTo?: Parameters<EffectSection['attachTo']>[1];
@@ -240,9 +242,9 @@ interface templateOptions {
 }
 
 interface onTokenOptions {
-	location: ('target' | 'source' | 'both');
 	rotateTowards?: true | Parameters<EffectSection['rotateTowards']>[1];
 	atLocation?: true | Parameters<EffectSection['atLocation']>[1];
+	location?: ('target' | 'source' | 'both');
 	attachTo?: Parameters<EffectSection['attachTo']>[1];
 }
 
@@ -252,11 +254,11 @@ interface meleeOptions {
 }
 
 interface rangedOptions {
-	bounce: { file: string; sound: SoundConfig };
-	templateAsOrigin: boolean;
+	attachTo?: true | Parameters<EffectSection['attachTo']>[1];
+	bounce?: { file: string; sound: SoundConfig };
+	templateAsOrigin?: boolean;
 	atLocation?: Parameters<EffectSection['atLocation']>[1];
 	stretchTo?: Parameters<EffectSection['stretchTo']>[1];
-	attachTo?: true | Parameters<EffectSection['attachTo']>[1];
 }
 
 type SoundConfig = SoundData | SoundData[];
