@@ -53,7 +53,6 @@ export const database = {
 			},
 			hit: {
 				solid: {
-
 					'04': `${p}/sounds/soniss/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.ogg`,
 					'01': `${p}/sounds/tom-music/sword/Sword Blocked 1.ogg`,
 					'02': `${p}/sounds/tom-music/sword/Sword Blocked 2.ogg`,
@@ -63,7 +62,6 @@ export const database = {
 					'01': `${p}/sounds/tom-music/sword/Sword Impact Hit 1.ogg`,
 					'02': `${p}/sounds/tom-music/sword/Sword Impact Hit 2.ogg`,
 					'03': `${p}/sounds/tom-music/sword/Sword Impact Hit 3.ogg`,
-
 					'04': `${p}/sounds/soundflakes/diablo-wrath-weapon/sword-out-of-flesh.ogg`,
 					'05': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-01.ogg`,
 					'06': `${p}/sounds/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-02.ogg`,
@@ -302,7 +300,6 @@ export const database = {
 					'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
 				},
 				'01': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 003.ogg`,
@@ -310,7 +307,6 @@ export const database = {
 			},
 			clear: {
 				wind: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 003.ogg`,
@@ -331,7 +327,6 @@ export const database = {
 			},
 			loop: {
 				wind: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Sparkling Wind Loop.ogg`,
 				},
 			},
@@ -352,13 +347,11 @@ export const database = {
 					'02': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_CAST_02.ogg`,
 				},
 				small: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast A.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast B.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Cast C.ogg`,
 				},
 				medium: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast A.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast B.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Cast C.ogg`,
@@ -373,15 +366,12 @@ export const database = {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Fire_Cast_Loop_02.ogg`,
 					'small': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Trail Loop.ogg`,
 					},
 					'medium': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Trail Loop.ogg`,
 					},
 					'large': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Trail Loop.ogg`,
 					},
 				},
@@ -392,13 +382,11 @@ export const database = {
 			impact: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Fire/EM_FIRE_IMPACT_01.ogg`,
 				'small': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact A.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact B.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Small Fireball Impact C.ogg`,
 				},
 				'medium': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact A.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact B.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic/Fire/Medium Fireball Impact C.ogg`,
@@ -420,7 +408,6 @@ export const database = {
 
 				'03': `${p}/sounds/ovani-sounds/Magic/Fire/Burning Hands.ogg`,
 				'phoenix': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Phoenix Flash.ogg`,
 				},
 			},
@@ -490,11 +477,9 @@ export const database = {
 			},
 			burst: {
 				lava: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Lava Burst.ogg`,
 				},
 				phoenix: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Fire/Phoenix Burst.ogg`,
 				},
 			},
@@ -559,7 +544,6 @@ export const database = {
 			loop: {
 				bells: {
 					grave: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 002.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic II/Dark/Grave Ringing Loop 003.ogg`,
@@ -586,7 +570,6 @@ export const database = {
 					},
 				},
 				soul: {
-
 					'01': {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Dark/Soul Break 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Dark/Soul Break 002.ogg`,
@@ -623,19 +606,16 @@ export const database = {
 						'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 1.ogg`,
 						'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 2.ogg`,
 						'boulder': {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast C.ogg`,
 						},
 						'rock': {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
 						},
 						'stone': {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
@@ -647,19 +627,16 @@ export const database = {
 					},
 					impact: {
 						boulder: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact C.ogg`,
 						},
 						rock: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
 						},
 						stone: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
@@ -677,15 +654,12 @@ export const database = {
 				trail: {
 					loop: {
 						boulder: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Trail Loop.ogg`,
 						},
 						rock: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Trail Loop.ogg`,
 						},
 						stone: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Trail Loop.ogg`,
 						},
 					},
@@ -723,7 +697,6 @@ export const database = {
 			},
 			magnet: {
 				burst: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Earth/Magnetic Burst.ogg`,
 				},
 			},
@@ -741,7 +714,6 @@ export const database = {
 				barrage: {
 					'01': `${p}/sounds/tom-music/magic/ice/Ice Barrage 1.ogg`,
 					'02': `${p}/sounds/tom-music/magic/ice/Ice Barrage 2.ogg`,
-
 					'03': `${p}/sounds/ovani-sounds/Magic/Ice/Icicle Barrage.ogg`,
 				},
 				strike: {
@@ -751,13 +723,11 @@ export const database = {
 					},
 					lance: {
 						cast: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Cast A.ogg`,
 						},
 						impact: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Crystal Lance Impact A.ogg`,
@@ -770,13 +740,11 @@ export const database = {
 					},
 					snowball: {
 						cast: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
 						},
 						impact: {
-
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
@@ -887,19 +855,15 @@ export const database = {
 			},
 			attack: {
 				shock: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Shock.ogg`,
 				},
 				hammer: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Light/Consecrate.ogg`,
 				},
 				fire: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Light/Heavenly Flame.ogg`,
 				},
 				bell: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Nova.ogg`,
 				},
 				blast: {
@@ -925,13 +889,11 @@ export const database = {
 						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Cast C.ogg`,
 					},
 					impact: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Impact C.ogg`,
 					},
 					trail_loop: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Light/Light Bolt Trail Loop.ogg`,
 					},
 				},
@@ -971,7 +933,6 @@ export const database = {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
 				'thunder': {
 					'01': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 002.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 003.ogg`,
@@ -979,7 +940,6 @@ export const database = {
 					},
 				},
 				'electro': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 001.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 002.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 003.ogg`,
@@ -994,13 +954,11 @@ export const database = {
 			bolt: {
 				'01': {
 					cast: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Cast C.ogg`,
 					},
 					impact: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Lightning Bolt Impact C.ogg`,
@@ -1011,13 +969,11 @@ export const database = {
 				},
 				'02': {
 					cast: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Strike Cast C.ogg`,
 					},
 					impact: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderbolt Impact C.ogg`,
@@ -1037,19 +993,16 @@ export const database = {
 			loop: {
 				electric_field: {
 					'01': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 002.ogg`,
 					},
 					'02': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 002.ogg`,
 					},
 				},
 				storm: {
 					'01': {
-
 						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 002.ogg`,
 					},
@@ -1104,13 +1057,11 @@ export const database = {
 			bolt: {
 				'01': {
 					cast: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Cast C.ogg`,
 					},
 					impact: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Bolt Impact C.ogg`,
@@ -1121,13 +1072,11 @@ export const database = {
 				},
 				'02': {
 					cast: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Cast C.ogg`,
 					},
 					impact: {
-
 						'01': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact A.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Water/Aqua Jet Impact C.ogg`,
@@ -1139,7 +1088,6 @@ export const database = {
 			},
 			bubble: {
 				prison: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Water/Bubble Prison.ogg`,
 				},
 			},
@@ -1182,7 +1130,6 @@ export const database = {
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
 				},
 				strike: {
-
 					'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_01.ogg`,
 					'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_02.ogg`,
 					'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_03.ogg`,
@@ -1193,7 +1140,7 @@ export const database = {
 					'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_08.ogg`,
 					'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_09.ogg`,
 					'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Spell_10.ogg`,
-				}
+				},
 			},
 			buff: {
 
@@ -1202,7 +1149,7 @@ export const database = {
 				'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_03.ogg`,
 				'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
 				'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
-			}
+			},
 		},
 		buff: {
 			'01': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Items & Misc/Item Use B.ogg`,
@@ -1218,7 +1165,6 @@ export const database = {
 		nature: {
 			'whip': {
 				vine: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine A.ogg`,
 					'02': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine B.ogg`,
 					'03': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine C.ogg`,
@@ -1241,17 +1187,14 @@ export const database = {
 					},
 				},
 				sapling: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Sapling.ogg`,
 				},
 				bramble_trap: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Bramble Trap.ogg`,
 				},
 			},
 			'shield': {
 				thorn: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Thorn Shield.ogg`,
 				},
 			},
@@ -1260,11 +1203,9 @@ export const database = {
 					'plant': {
 						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
 					},
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
 				},
 				bramble: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bramble Burst.ogg`,
 				},
 			},
@@ -1275,13 +1216,11 @@ export const database = {
 			},
 			'moon': {
 				beam: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Moon Beam.ogg`,
 				},
 			},
 			'sun': {
 				beam: {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Sun Beam.ogg`,
 				},
 			},
@@ -1322,7 +1261,6 @@ export const database = {
 				'lion-courage': `${p}/sounds/ovani-sounds/Magic II/Nature/Lion Courage.ogg`,
 				'owl-wisdom': `${p}/sounds/ovani-sounds/Magic II/Nature/Owl Wisdom.ogg`,
 				'barkskin': {
-
 					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Barkskin.ogg`,
 				},
 			},
