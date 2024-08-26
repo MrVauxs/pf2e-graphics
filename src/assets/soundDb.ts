@@ -841,9 +841,9 @@ export const database = {
 					},
 					snowball: {
 						cast: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Cast C.ogg`,
+							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball C.ogg`,
 						},
 						impact: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Ice/Snow Ball Impact A.ogg`,
@@ -1311,16 +1311,16 @@ export const database = {
 				},
 				'negative': {
 					'01': {
-						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_01.ogg`,
-						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_02.ogg`,
-						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_03.ogg`,
-						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_04.ogg`,
-						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_05.ogg`,
-						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_06.ogg`,
-						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_07.ogg`,
-						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_08.ogg`,
-						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_09.ogg`,
-						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/General Magic/Negative_Aura_10.ogg`,
+						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_01.ogg`,
+						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_02.ogg`,
+						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_03.ogg`,
+						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_04.ogg`,
+						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_05.ogg`,
+						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_06.ogg`,
+						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_07.ogg`,
+						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_08.ogg`,
+						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
+						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
 					},
 				},
 				'strike': {
