@@ -424,6 +424,9 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 003.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Magic II/Earth/Stoneskin 004.ogg`,
 			},
+			armor: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Armor.ogg`,
+			},
 			quicksand: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Quicksand Loop 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Quicksand Loop 002.ogg`,
@@ -437,10 +440,48 @@ export const database = {
 					throw: {
 						'01': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 1.ogg`,
 						'02': `${p}/sounds/tom-music/magic/earth/Rock Meteor Throw 2.ogg`,
+						'boulder': {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Cast C.ogg`,
+						},
+						'rock': {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
+						},
+						'stone': {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
+						},
 					},
 					missile: {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 001.ogg`,
 						'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 002.ogg`,
+					},
+					impact: {
+						boulder: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Impact C.ogg`,
+						},
+						rock: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Cast C.ogg`,
+						},
+						stone: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
+						},
 					},
 				},
 				barrage: {
@@ -451,6 +492,22 @@ export const database = {
 					missile: `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 003.ogg`,
 				},
 				storm: `${p}/sounds/ovani-sounds/Magic II/Earth/Stonepocalypse.ogg`,
+				trail: {
+					loop: {
+						boulder: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Boulder Throw Trail Loop.ogg`,
+						},
+						rock: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Rock Throw Trail Loop.ogg`,
+						},
+						stone: {
+
+							'01': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Trail Loop.ogg`,
+						},
+					},
+				},
 			},
 			ward: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Stone Ward 001.ogg`,
@@ -461,6 +518,7 @@ export const database = {
 			wall: {
 				'01': `${p}/sounds/tom-music/magic/earth/Rock Wall 1.ogg`,
 				'02': `${p}/sounds/tom-music/magic/earth/Rock Wall 2.ogg`,
+				'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Wall.ogg`,
 			},
 			close: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/stone-door-shuted-01.ogg`,
@@ -469,11 +527,31 @@ export const database = {
 			},
 			explosion: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/stone-with-chains-is-destroyed.ogg`,
+
+				'02': `${p}/sounds/ovani-sounds/Magic/Earth/Quake Step.ogg`,
 			},
 			eruption: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 001.ogg`,
 				'02': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 002.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 003.ogg`,
+			},
+			pulse: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Seismic Pulse.ogg`,
+			},
+			magnet: {
+				burst: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Earth/Magnetic Burst.ogg`,
+				},
+			},
+			grab: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthern Grasp.ogg`,
+			},
+			meld: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthmeld.ogg`,
 			},
 		},
 		ice: {
