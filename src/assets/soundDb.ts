@@ -372,6 +372,46 @@ export const database = {
 				'02': `${p}/sounds/tom-music/magic/fire/Firespray 2.ogg`,
 			},
 		},
+		dark: {
+			bolt: {
+				'01': {
+					cast: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Cast A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Cast B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Cast C.ogg`,
+					},
+					impact: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Impact A.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Impact B.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Impact C.ogg`,
+					},
+					trail: {
+						loop: {
+							'01': `${p}/sounds/ovani-sounds/Magic/Dark/Shadow Bolt Trail Loop.ogg`,
+						},
+					},
+				},
+			},
+			siphon: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Dark/Soul Siphon.ogg`,
+			},
+			shatter: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Dark/Soul Shatter.ogg`,
+			},
+			light: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Dark/Necrotic Touch.ogg`,
+			},
+			wave: {
+				'01': `${p}/sounds/ovani-sounds/Magic/Dark/Abyssal Pulse.ogg`,
+				'02': `${p}/sounds/ovani-sounds/Magic/Dark/Dread Wave.ogg`,
+			},
+			curse: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Dark/Nightshade Curse.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Dark/Horrify.ogg`,
+				},
+			},
+		},
 		earth: {
 			geokinesis: {
 				'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Geokinesis Loop 001.ogg`,
