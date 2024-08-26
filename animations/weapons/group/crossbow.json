@@ -6,7 +6,7 @@
 			"file": "jb2a.bolt.physical.white02",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.crossbow"
+					"file": "pf2e-graphics.crossbow.shot"
 				},
 				"preset": {
 					"stretchTo": {
