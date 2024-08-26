@@ -910,6 +910,94 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
 			},
 		},
+		nature: {
+			whip: {
+				vine: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine A.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine B.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine C.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic/Nature/Whip Vine D.ogg`,
+				},
+			},
+			summon: {
+				rain: {
+					cast: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Cast.ogg`,
+					},
+					start: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Start.ogg`,
+					},
+					end: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain End.ogg`,
+					},
+					loop: {
+						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Rain Loop.ogg`,
+					},
+				},
+				sapling: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Sapling.ogg`,
+				},
+				bramble_trap: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Summon Bramble Trap.ogg`,
+				},
+			},
+			shield: {
+				thorn: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Thorn Shield.ogg`,
+				},
+			},
+			burst: {
+				bulb: {
+					'plant': {
+						'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
+					},
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
+				},
+				bramble: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Bramble Burst.ogg`,
+				},
+			},
+			barkskin: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Barkskin.ogg`,
+			},
+			snare: {
+				root: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Root Snare.ogg`,
+				},
+			},
+			healing: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Natural Healing.ogg`,
+				},
+			},
+			moon: {
+				beam: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Moon Beam.ogg`,
+				},
+			},
+			sun: {
+				beam: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic/Nature/Sun Beam.ogg`,
+				},
+			},
+			growth: {
+
+				'01': `${p}/sounds/ovani-sounds/Magic/Nature/Verdant Growth.ogg`,
+			},
+			bond: {
+				animorphic: `${p}/sounds/ovani-sounds/Magic/Nature/Animorphic Bond.ogg`,
+			},
+		},
 		movement: {
 			blink: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/etherael-blink-01.ogg`,
