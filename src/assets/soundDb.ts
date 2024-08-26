@@ -99,15 +99,19 @@ export const database = {
 	},
 	bow: {
 		attack: {
-			'01': `${p}/sounds/tom-music/bow/Bow Attack 1.ogg`,
-			'02': `${p}/sounds/tom-music/bow/Bow Attack 2.ogg`,
-			'03': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot1.ogg`,
-			'04': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot2.ogg`,
-			'05': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot3.ogg`,
-			'06': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot4.ogg`,
-			'07': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot5.ogg`,
-			'08': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot6.ogg`,
-			'09': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot7.ogg`,
+			'01': {
+				'01': `${p}/sounds/tom-music/bow/Bow Attack 1.ogg`,
+				'02': `${p}/sounds/tom-music/bow/Bow Attack 2.ogg`,
+			},
+			'02': {
+				'03': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot1.ogg`,
+				'04': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot2.ogg`,
+				'05': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot3.ogg`,
+				'06': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot4.ogg`,
+				'07': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot5.ogg`,
+				'08': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot6.ogg`,
+				'09': `${p}/sounds/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/BowWhistleShot7.ogg`,
+			},
 		},
 		hit: {
 			solid: {
@@ -225,8 +229,12 @@ export const database = {
 				'07': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/spear-penetration.ogg`,
 				'08': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-hit-the-giant.ogg`,
 			},
-			'miss': {
+		},
+		miss: {
+			'01': {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/imperius-spear-whoosh.ogg`,
+			},
+			'02': {
 				'02': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Spear Whoosh A.ogg`,
 				'03': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Spear Whoosh B.ogg`,
 				'04': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Spear Whoosh C.ogg`,
@@ -234,10 +242,10 @@ export const database = {
 				'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Spear Whoosh E.ogg`,
 				'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Spear Whoosh F.ogg`,
 			},
-			'parry': {
-				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/diablo-reflect-the-spear-01.ogg`,
-				'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/diablo-reflect-the-spear-02.ogg`,
-			},
+		},
+		parry: {
+			'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/diablo-reflect-the-spear-01.ogg`,
+			'02': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/diablo-reflect-the-spear-02.ogg`,
 		},
 		shield: {
 			break: {
@@ -291,50 +299,61 @@ export const database = {
 		},
 		magic: {
 			air: {
-				blade: {
-					aero: {
-						cast: {
+				cast: {
+					blade: {
+						aero: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Cast C.ogg`,
 						},
-						impact: {
-							'01': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact A.ogg`,
-							'02': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact B.ogg`,
-							'03': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact C.ogg`,
-						},
-						trail: {
-							loop: `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Trail Loop.ogg`,
-						},
-					},
-					cyclone: {
-						cast: {
+						cyclone: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Cast C.ogg`,
 						},
-						impact: {
+					},
+					generic: {
+						'01': {
+							'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_01.ogg`,
+							'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_02.ogg`,
+							'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_03.ogg`,
+							'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_04.ogg`,
+							'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_05.ogg`,
+							'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_06.ogg`,
+							'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_07.ogg`,
+							'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_08.ogg`,
+							'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_09.ogg`,
+							'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_10.ogg`,
+						},
+					},
+				},
+				impact: {
+					blade: {
+						aero: {
+							'01': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact A.ogg`,
+							'02': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact B.ogg`,
+							'03': `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Impact C.ogg`,
+						},
+
+						cyclone: {
 							'01': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact C.ogg`,
 						},
-						trail: {
-							loop: `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Trail Loop.ogg`,
-						},
+
 					},
-				},
-				cast: {
-					'01': {
-						'01': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_01.ogg`,
-						'02': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_02.ogg`,
-						'03': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_03.ogg`,
-						'04': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_04.ogg`,
-						'05': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_05.ogg`,
-						'06': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_06.ogg`,
-						'07': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_07.ogg`,
-						'08': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_08.ogg`,
-						'09': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_09.ogg`,
-						'10': `${p}/sounds/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_10.ogg`,
+					loop: {
+						'01': {
+
+							blade: {
+								aero: {
+									trail: `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Trail Loop.ogg`,
+								},
+								cyclone: {
+									trail: `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Trail Loop.ogg`,
+								},
+							},
+						},
 					},
 				},
 				teleport: {
