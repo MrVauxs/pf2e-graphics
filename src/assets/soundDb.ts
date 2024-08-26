@@ -285,13 +285,36 @@ export const database = {
 					out: `${p}/sounds/ovani-sounds/Magic/Air/Aeroportation Out.ogg`,
 				},
 			},
+			strike: {
+				wind: {
+					'01': {
+						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Strike 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Strike 002.ogg`,
+					},
+				},
+			},
 			gust: {
-				echoing: {
+				'echoing': {
 					cast: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust Cast.ogg`,
 					impact: `${p}/sounds/ovani-sounds/Magic/Air/Echoing Gust impact.ogg`,
 				},
-				whirlwind: {
+				'whirlwind': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Air/Whirlwind Gust.ogg`,
+				},
+				'01': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Blow 003.ogg`,
+				},
+			},
+			clear: {
+				wind: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 003.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Wind Clearance 004.ogg`,
 				},
 			},
 			mist: {
@@ -305,6 +328,21 @@ export const database = {
 			zephyr: {
 				embrace: `${p}/sounds/ovani-sounds/Magic/Air/Zephyrs Embrace.ogg`,
 				resonance: `${p}/sounds/ovani-sounds/Magic/Air/Zephyrs Resonance.ogg`,
+			},
+			loop: {
+				wind: {
+
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Sparkling Wind Loop.ogg`,
+				},
+			},
+			glyph: {
+				'01': {
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 003.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 004.ogg`,
+				},
+
 			},
 		},
 		fire: {
@@ -858,12 +896,35 @@ export const database = {
 			cast: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_01_L.ogg`,
 				'02': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_CAST_02_S.ogg`,
+				'storm': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Cast 002.ogg`,
+				},
 			},
 			hold: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_HOLD_5s.ogg`,
 			},
 			impact: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
+				'thunder': {
+					'01': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 002.ogg`,
+						'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 003.ogg`,
+						'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Thunder Strike 004.ogg`,
+					},
+				},
+				'electro': {
+
+					'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 001.ogg`,
+					'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 002.ogg`,
+					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 003.ogg`,
+					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 004.ogg`,
+					'05': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 005.ogg`,
+					'06': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electro Strike 006.ogg`,
+				},
 			},
 			launch: {
 				'01': `${p}/sounds/LastDayDreaming/Magic/Lightning/EM_LIGHT_LAUNCH_01.ogg`,
@@ -910,6 +971,27 @@ export const database = {
 			},
 			boom: {
 				'01': `${p}/sounds/ovani-sounds/Magic/Shock/Thunderous Boom.ogg`,
+			},
+			loop: {
+				electric_field: {
+					'01': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Electric Field Loop 002.ogg`,
+					},
+					'02': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Arc Field Loop 002.ogg`,
+					},
+				},
+				storm: {
+					'01': {
+
+						'01': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 001.ogg`,
+						'02': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Storm Loop 002.ogg`,
+					},
+				},
 			},
 		},
 		water: {
