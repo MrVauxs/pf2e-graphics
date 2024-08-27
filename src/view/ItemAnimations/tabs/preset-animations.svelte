@@ -30,7 +30,6 @@
 								on:click={() => {
 									new JSONEditorApp({
 										store: writable({ [key]: animation }),
-										stasis: writable(true),
 										permission: false,
 									}).render(true, {
 										focus: true,

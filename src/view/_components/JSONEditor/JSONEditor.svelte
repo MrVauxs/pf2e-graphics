@@ -2,16 +2,18 @@
 
 <script lang='ts'>
 	import { JSONEditor, Mode } from 'svelte-jsoneditor';
-	import type { Writable } from 'svelte/store';
+	import type { Unsubscriber, Writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
 
 	export let elementRoot: HTMLElement | undefined;
 	export let store: Writable<object>;
-	export let permission: boolean;
+	export let readOnly: boolean;
 	export let stasis: Writable<boolean>;
 
+	let editor: JSONEditor;
+	let unsubscribe: Unsubscriber;
 	let content = {
 		json: $store,
 	} as { json: object; text: string };
@@ -46,18 +48,32 @@
 
 	onMount(() => {
 		stasis.set(true);
+
+		if (readOnly) {
+			unsubscribe = store.subscribe((v) => {
+				editor.set({ json: v });
+			});
+		}
 	});
 
 	onDestroy(() => {
 		updateUpstream();
 		stasis.set(false);
+		if (readOnly) unsubscribe();
 	});
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='h-full w-full overflow-clip relative'>
-		<JSONEditor bind:content readOnly={!permission} {mode} mainMenuBar={permission} />
+	<main class='h-full w-full overflow-clip relative grow'>
+		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} />
 	</main>
+	{#if !readOnly}
+		<footer class='grow-0'>
+			<button class='m-0' on:click={updateUpstream}>
+				<i class='fa fa-save'></i> Save
+			</button>
+		</footer>
+	{/if}
 </ApplicationShell>
 
 <style style='postcss'>

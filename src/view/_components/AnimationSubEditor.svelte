@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { AnimCore, type AnimationDataObject, type JSONData, type ReferenceObject } from 'src/storage/AnimCore';
+	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
 	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils';
 	import { flip } from 'svelte/animate';
 	import type { Writable } from 'svelte/store';
@@ -92,11 +92,6 @@
 		...window.game.macros.contents.map(x => x.uuid),
 	];
 	const wrapTooltipText = (text: string) => `<div class='pf2e-g'>${i18n(`editor.tooltip.${text}`)}</div>`;
-
-	function overridesInput(ev: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }, ani: AnimationDataObject | ReferenceObject) {
-		const value = (ev.currentTarget.previousElementSibling as HTMLInputElement).value;
-		if (value) ani.overrides = [...ani.overrides ?? [], value];
-	}
 </script>
 
 {#if nonNullable(value)}
@@ -213,27 +208,33 @@
 								</label>
 
 								<!-- Trigger -->
-								<label class='flex items-center gap-2'>
+								<label class='flex items-center gap-2' for='trigger'>
 									<span
 										class='mr-1 text-nowrap'
 										data-tooltip={wrapTooltipText('trigger')}
 									>
 										{i18n('editor.trigger')}
 									</span>
-									<select
-										{disabled}
-										bind:value={ani.trigger}
-										required multiple
-										class='h-7 p-0 max-h-60 resize-y overflow-y-auto'
-									>
-										{#if ani.preset === 'template'}
-											<option value='place-template'>{i18n(`triggers.place-template`)}</option>
-										{:else}
-											{#each AnimCore.CONST.TRIGGERS as trigger}
-												<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
-											{/each}
-										{/if}
-									</select>
+									{#if Array.isArray(ani.trigger)}
+										<div class='p-1 text-center text-opacity-50 text-slate-600 rounded-sm'>
+											<i>{i18n('editor.triggerDisclaimer')}</i>
+										</div>
+									{:else}
+										<select
+											{disabled}
+											bind:value={ani.trigger}
+											required
+											class='h-7 p-0 max-h-60 resize-y overflow-y-auto'
+										>
+											{#if ani.preset === 'template'}
+												<option value='place-template'>{i18n(`triggers.place-template`)}</option>
+											{:else}
+												{#each AnimCore.CONST.TRIGGERS as trigger}
+													<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
+												{/each}
+											{/if}
+										</select>
+									{/if}
 								</label>
 
 								<!-- Predicate -->
@@ -398,47 +399,6 @@
 								<Separator>
 									{i18n('editor.advancedOptions')}
 								</Separator>
-								<!-- Overrides -->
-								<div class='flex justify-between gap-2'>
-									<label class='flex items-center gap-1 text-nowrap'>
-										<span
-											class='mr-1 text-nowrap'
-											data-tooltip={wrapTooltipText('overrides')}
-										>
-											{i18n('editor.overrides')}
-										</span>
-										<input
-											{disabled}
-											type='text'
-										/>
-										<button
-											class='fa fa-add w-min h-full'
-											on:click={ev => overridesInput(ev, ani)}
-										></button>
-										{#if ani.overrides}
-											{#each ani.overrides as override}
-												<div class='
-													border border-solid border-slate-400 bg-slate-200 rounded-sm
-													p-1 px-2
-												'>
-													{override}
-													<i
-														role='button'
-														tabindex='-1'
-														class='
-															fa fa-remove text-xs
-															align-middle
-															hover:text-red-500 hover:scale-105 transition-transform
-														'
-														on:click={() => ani.overrides = ani.overrides?.filter(x => x !== override)}
-														on:keydown={() => ani.overrides = ani.overrides?.filter(x => x !== override)}
-													></i>
-												</div>
-											{/each}
-										{/if}
-									</label>
-								</div>
-
 								<!-- Booleans -->
 								<div class='flex justify-evenly flex-wrap'>
 									<label class='flex items-center gap-1 text-nowrap'>

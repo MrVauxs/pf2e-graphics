@@ -34,11 +34,12 @@
 	let newAnimeKey = '';
 	const inStasis = writable(false);
 
-	function openJSON() {
+	function openJSON(event: MouseEvent) {
 		new JSONEditorApp({
 			id: `pf2e-graphics-${$doc.id}`,
 			store: flag,
-			stasis: inStasis,
+			stasis: event.shiftKey ? undefined : inStasis,
+			readOnly: event.shiftKey ? true : undefined,
 			permission: 'canUserModify' in $doc ? $doc.canUserModify(game.user, 'update') : true,
 		}).render(true);
 	}
@@ -69,7 +70,7 @@
 
 	<button
 		class='fa fa-brackets-curly size-8 ml-auto'
-		data-tooltip='pf2e-graphics.jsonEditor'
+		data-tooltip='pf2e-graphics.jsonEditorTooltip'
 		on:click={openJSON}
 	></button>
 	{#if newAnimeKey.length}

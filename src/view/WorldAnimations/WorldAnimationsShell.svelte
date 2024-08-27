@@ -130,7 +130,6 @@
 									}
 									new JSONEditorApp({
 										store: writable(obj),
-										stasis: writable(true),
 										permission: false,
 									}).render(true, {
 										focus: true,
