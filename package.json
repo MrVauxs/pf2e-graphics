@@ -11,7 +11,7 @@
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --fix --cache",
 		"changelog": "changelog --format markdownlint --release --create",
-		"test": "npm run test:assets && npm run test:animations -- fast",
+		"test": "npm run test:assets && npm run test:animations",
 		"test:animations": "tsx ./tests/animations.ts",
 		"test:assets": "npm run test:assets:exist && npm run test:assets:format",
 		"test:assets:exist": "tsx ./tests/assets/exist.ts",
