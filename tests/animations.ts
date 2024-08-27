@@ -51,11 +51,11 @@ if (targetPath.endsWith('.json')) {
 
 	const errors = results.filter(result => !result.success);
 	if (errors.length) {
-		core.startGroup(chalk.dim.underline('Invalid animation files:'));
+		core.startGroup(chalk.dim.underline.bold.red('Invalid animation files:'));
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 60);
 		errors.forEach(result =>
 			core.info(
-				chalk.dim.bold(
+				chalk.dim(
 					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${chalk.dim(result.message)}` : ''}`,
 				),
 			),
