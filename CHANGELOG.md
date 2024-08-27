@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
-- Ther Sounds database being wrapped by one too many object brackets.
+- The Sounds database being wrapped by one too many object brackets.
 
 ## [0.8.0] - 2024-08-27
 
