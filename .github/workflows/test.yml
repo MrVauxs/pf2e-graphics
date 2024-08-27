@@ -57,7 +57,7 @@ jobs:
 
       - name: Test Eslint
         run: npm run lint
-  assets:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
