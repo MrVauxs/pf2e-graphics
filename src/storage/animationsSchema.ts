@@ -1,17 +1,15 @@
 import { z } from 'zod';
-import { AnimCore } from './AnimCore';
-import { presets } from './presets';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
 	num => num !== 0,
 	'Number cannot be 0. If you want the value to be 0, simply leave the property undefined.',
 ];
-export const nonEmpty: [(obj: object) => boolean, string] = [
+const nonEmpty: [(obj: object) => boolean, string] = [
 	obj => Object.keys(obj).length !== 0,
 	'Object must not be empty.',
 ];
-export const uniqueItems: [(arr: any[]) => boolean, string] = [
+const uniqueItems: [(arr: any[]) => boolean, string] = [
 	arr => new Set(arr.map(e => JSON.stringify(e))).size === arr.length,
 	'Items must be unique.',
 ];
@@ -21,7 +19,7 @@ const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.
 
 const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'String must be a valid slug.');
 
-export const rollOption = z
+const rollOption = z
 	.string()
 	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'String must be a valid roll option.');
 
@@ -119,7 +117,7 @@ const filePath = z
 
 const sequencerDBEntry = z
 	.string()
-	.regex(/^[\w-]+(\.[\w-]+)+$/, 'String must be a valid Sequencer database entry.');
+	.regex(/^[\w-]+(\.([\w-]+|\{\w+(,\w+)+\}))+$/, 'String must be a valid Sequencer database entry.');
 
 const vector2 = z
 	.object({
@@ -180,8 +178,40 @@ const soundConfig = soundData.or(
 		.refine(...uniqueItems),
 );
 
-const presetOptions = z.enum(['target', 'source', 'both']).or(
-	z.object({
+const presetOptions = z
+	.object({
+		attachTo: z.literal(true).or(
+			z
+				.object({
+					align: z.string().optional(),
+					edge: z.string().optional(),
+					bindVisibility: z.literal(true).optional(),
+					bindAlpha: z.literal(true).optional(),
+					bindScale: z.literal(true).optional(),
+					bindElevation: z.literal(true).optional(),
+					followRotation: z.literal(true).optional(),
+					offset: vector2.optional(),
+					randomOffset: z.number().optional(),
+					gridUnits: z.literal(true).optional(),
+					local: z.literal(true).optional(),
+				})
+				.strict()
+				.refine(...nonEmpty)
+				.optional(),
+		),
+		atLocation: z.literal(true).or(
+			z
+				.object({
+					cacheLocation: z.literal(true).optional(),
+					offset: vector2.optional(),
+					randomOffset: z.number().optional(),
+					gridUnits: z.literal(true).optional(),
+					local: z.literal(true).optional(),
+				})
+				.strict()
+				.refine(...nonEmpty)
+				.optional(),
+		),
 		bounce: z
 			.object({
 				file: sequencerDBEntry.or(filePath),
@@ -189,9 +219,41 @@ const presetOptions = z.enum(['target', 'source', 'both']).or(
 			})
 			.strict()
 			.optional(),
+		location: z.enum(['target', 'source', 'both']).optional(),
+		rotateTowards: z.literal(true).or(
+			z
+				.object({
+					rotationOffset: z.number().optional(),
+					cacheLocation: z.literal(true).optional(),
+					attachTo: z.literal(true).optional(),
+					offset: vector2.optional(),
+					randomOffset: z.number().optional(),
+					gridUnits: z.literal(true).optional(),
+					local: z.literal(true).optional(),
+				})
+				.strict()
+				.refine(...nonEmpty)
+				.optional(),
+		),
+		stretchTo: z
+			.object({
+				cacheLocation: z.literal(true).optional(),
+				attachTo: z.literal(true).optional(),
+				onlyX: z.literal(true).optional(),
+				tiling: z.literal(true).optional(),
+				offset: vector2.optional(),
+				randomOffset: z.number().optional(),
+				gridUnits: z.literal(true).optional(),
+				local: z.literal(true).optional(),
+				requiresLineOfSight: z.literal(true).optional(),
+				hideLineOfSight: z.literal(true).optional(),
+			})
+			.strict()
+			.refine(...nonEmpty)
+			.optional(),
 		templateAsOrigin: z.literal(true).optional(),
-	}),
-);
+	})
+	.refine(...nonEmpty);
 
 const easingOptions = z
 	.object({
@@ -231,7 +293,7 @@ const shape = z
 	.strict()
 	.refine(...nonEmpty);
 
-export const effectOptions = z
+const effectOptions = z
 	.object({
 		sound: soundConfig.optional(),
 		preset: presetOptions.optional(),
@@ -398,63 +460,6 @@ export const effectOptions = z
 			.strict()
 			.optional(),
 		missed: z.literal(true).optional(),
-		attachTo: z
-			.object({
-				align: z.string().optional(),
-				edge: z.string().optional(),
-				bindVisibility: z.literal(true).optional(),
-				bindAlpha: z.literal(true).optional(),
-				bindScale: z.literal(true).optional(),
-				bindElevation: z.literal(true).optional(),
-				followRotation: z.literal(true).optional(),
-				offset: vector2.optional(),
-				randomOffset: z.number().optional(),
-				gridUnits: z.literal(true).optional(),
-				local: z.literal(true).optional(),
-			})
-			.strict()
-			.refine(...nonEmpty)
-			.optional(),
-		atLocation: z
-			.object({
-				cacheLocation: z.literal(true).optional(),
-				offset: vector2.optional(),
-				randomOffset: z.number().optional(),
-				gridUnits: z.literal(true).optional(),
-				local: z.literal(true).optional(),
-			})
-			.strict()
-			.refine(...nonEmpty)
-			.optional(),
-		stretchTo: z
-			.object({
-				cacheLocation: z.literal(true).optional(),
-				attachTo: z.literal(true).optional(),
-				onlyX: z.literal(true).optional(),
-				tiling: z.literal(true).optional(),
-				offset: vector2.optional(),
-				randomOffset: z.number().optional(),
-				gridUnits: z.literal(true).optional(),
-				local: z.literal(true).optional(),
-				requiresLineOfSight: z.literal(true).optional(),
-				hideLineOfSight: z.literal(true).optional(),
-			})
-			.strict()
-			.refine(...nonEmpty)
-			.optional(),
-		rotateTowards: z
-			.object({
-				rotationOffset: z.number().optional(),
-				cacheLocation: z.literal(true).optional(),
-				attachTo: z.literal(true).optional(),
-				offset: vector2.optional(),
-				randomOffset: z.number().optional(),
-				gridUnits: z.literal(true).optional(),
-				local: z.literal(true).optional(),
-			})
-			.strict()
-			.refine(...nonEmpty)
-			.optional(),
 		anchor: vector2.optional(),
 		template: z
 			.object({
@@ -529,14 +534,35 @@ export const effectOptions = z
 	.strict()
 	.refine(...nonEmpty);
 
+const triggers = z.enum([
+	'attack-roll',
+	'damage-roll',
+	'place-template',
+	'spell-cast',
+	'toggle',
+	'effect',
+	'self-effect',
+	'startTurn',
+	'endTurn',
+	'damage-taken',
+	'saving-throw',
+	'check',
+	'skill-check',
+	'flat-check',
+	'initiative',
+	'perception-check',
+	'counteract-check',
+	'modifiers-matter',
+]);
+
 const referenceObject = z.object({
 	overrides: z
 		.array(rollOption)
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	trigger: z.enum(AnimCore.CONST.TRIGGERS).or(z.array(z.enum(AnimCore.CONST.TRIGGERS)).min(1)),
-	preset: z.enum(Object.keys(presets) as [string, ...string[]]),
+	trigger: triggers.or(z.array(triggers).min(1)),
+	preset: z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']),
 	file: sequencerDBEntry.or(filePath),
 	default: z.literal(true).optional(),
 	predicate: z
@@ -552,7 +578,7 @@ const referenceObject = z.object({
 type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
 	contents?: AnimationObject[];
 };
-export const animationObject: z.ZodType<AnimationObject> = referenceObject
+const animationObject: z.ZodType<AnimationObject> = referenceObject
 	.partial()
 	.extend({
 		contents: z
@@ -564,41 +590,58 @@ export const animationObject: z.ZodType<AnimationObject> = referenceObject
 		// Test that `options.preset` matches `preset`
 		(obj, ctx) => {
 			if (!obj.preset || !obj.options || !obj.options.preset) return true;
-			if (obj.preset === 'onToken') {
-				if (typeof obj.options.preset !== 'string') {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.invalid_type,
-						expected: 'string',
-						received: typeof obj.options.preset,
-						message: '`options.preset` must be a string when `preset` is `"onToken"`.',
-					});
-				}
-			} else if (obj.preset === 'ranged') {
-				if (typeof obj.options.preset !== 'object') {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.invalid_type,
-						expected: 'object',
-						received: typeof obj.options.preset,
-						message: '`options.preset` must be an object when `preset` is `"ranged"`.',
-					});
-				}
-			} else if (obj.options.preset) {
+
+			if (obj.preset === 'macro' && obj.options.preset) {
 				return ctx.addIssue({
 					code: z.ZodIssueCode.invalid_type,
 					expected: 'undefined',
 					received: typeof obj.options.preset,
-					message: '`options.preset` cannot exist unless `preset` is either `"onToken"` or `"ranged"`.',
+					message: '`options.preset` cannot exist while `preset` equals `"macro"`.',
+				});
+			}
+
+			const presetOptionsProperties = {
+				template: ['attachTo', 'stretchTo'],
+				onToken: ['rotateTowards', 'atLocation', 'location', 'attachTo'],
+				melee: ['attachTo', 'rotateTowards'],
+				ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
+				macro: ['(none)'],
+			};
+
+			const illegalProperties = Object.keys(obj.options.preset).filter(prop =>
+				!presetOptionsProperties[obj.preset!].includes(prop),
+			);
+
+			if (illegalProperties.length) {
+				return ctx.addIssue({
+					code: z.ZodIssueCode.unrecognized_keys,
+					keys: illegalProperties,
+					message: `The following properties aren't allowed when \`preset\` is \`"${obj.preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
+				});
+			}
+
+			if (
+				(obj.preset !== 'onToken'
+				&& (typeof obj.options.preset.rotateTowards === 'boolean'
+				|| typeof obj.options.preset.atLocation === 'boolean'))
+				|| (obj.preset !== 'ranged' && typeof obj.options.preset.attachTo === 'boolean')
+			) {
+				return ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					received: 'boolean',
+					expected: 'object',
 				});
 			}
 		},
 	);
-// .refine(obj => !obj.reference !== !obj.contents, 'Requires either `reference` or `contents`.')
-/* .refine(
-		obj => (!obj.reference ? !!obj.file : true),
-		'Animations must either include an animation `file` or `reference` one.',
-	); */
 
-export const animations = z.record(
+const animationObjects = z
+	.array(animationObject.refine(...nonEmpty))
+	.min(1)
+	.refine(...uniqueItems);
+
+/* Full-file animations schema (sans _tokenImages)
+const animations = z.record(
 	rollOption,
 	rollOption.or(
 		z
@@ -607,8 +650,9 @@ export const animations = z.record(
 			.refine(...uniqueItems),
 	),
 );
+*/
 
-export const tokenImages = z.object({
+const tokenImages = z.object({
 	_tokenImages: z
 		.array(
 			z
@@ -654,3 +698,63 @@ export const tokenImages = z.object({
 		.min(1)
 		.refine(...uniqueItems),
 });
+
+export function validateAnimationJSON(json: unknown): { success: true } | { success: false; error: z.ZodError } {
+	if (typeof json !== 'object' || Array.isArray(json) || json === null) {
+		return {
+			success: false,
+			error: new z.ZodError([
+				{
+					code: z.ZodIssueCode.invalid_type,
+					expected: 'object',
+					received: json === Array.isArray(json) ? 'array' : json === 'null' ? 'null' : typeof json,
+					path: [],
+					message: 'JSON must represent an object.',
+				},
+			]),
+		};
+	}
+
+	const issues: z.ZodIssue[] = [];
+
+	for (const key in json) {
+		// Test _tokenImages as special case
+		if (key === '_tokenImages') {
+			const result = tokenImages.safeParse(json);
+			if (!result.success) issues.push(...result.error.issues);
+		} else {
+			// Test key
+			if (!rollOption.safeParse(key).success) {
+				issues.push({
+					code: z.ZodIssueCode.invalid_string,
+					path: [key],
+					validation: 'regex',
+					message: 'Must be a valid roll option.',
+				});
+			}
+
+			// Test value
+			const value = (json as { [key: string]: unknown })[key];
+			if (typeof value === 'string') {
+				const result = rollOption.safeParse(value);
+				if (!result.success)
+					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
+			} else {
+				const result = animationObjects.safeParse(value);
+				if (!result.success)
+					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
+			}
+		}
+	}
+
+	if (issues.length) {
+		return {
+			success: false,
+			error: new z.ZodError(issues),
+		};
+	}
+
+	return {
+		success: true,
+	};
+}

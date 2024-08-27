@@ -11,9 +11,11 @@
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --fix --cache",
 		"changelog": "changelog --format markdownlint --release --create",
+		"test": "npm run test:assets && npm run test:animations -- fast",
+		"test:animations": "tsx ./tests/animations.ts",
 		"test:assets": "npm run test:assets:exist && npm run test:assets:format",
-		"test:assets:exist": "node --experimental-strip-types ./tests/assets/exist.ts",
-		"test:assets:format": "node --experimental-strip-types ./tests/assets/format.ts"
+		"test:assets:exist": "tsx ./tests/assets/exist.ts",
+		"test:assets:format": "tsx ./tests/assets/format.ts"
 	},
 	"imports": {
 		"#runtime/*": "@typhonjs-fvtt/runtime/*",
@@ -31,6 +33,7 @@
 		"@tsconfig/svelte": "^5.0.4",
 		"@types/lodash": "^4.17.6",
 		"autoprefixer": "^10.4.18",
+		"chalk": "^5.3.0",
 		"eslint": "9.9.1",
 		"eslint-plugin-format": "^0.1.2",
 		"eslint-plugin-svelte": "^2.41.0",
@@ -46,6 +49,7 @@
 		"svelte-preprocess": "^6.0.1",
 		"tailwindcss": "^3.4.10",
 		"tslib": "^2.7.0",
+		"tsx": "^4.18.0",
 		"typescript": "^5.4.5",
 		"vite": "^5.4.2",
 		"vite-plugin-checker": "^0.7.2",
