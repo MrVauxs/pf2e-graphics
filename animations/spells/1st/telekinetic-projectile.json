@@ -19,16 +19,27 @@
 			},
 			"contents": [
 				{
+					"predicate": ["jb2a:free"],
 					"contents": [
 						{
 							"predicate": ["item:damage:bludgeoning"],
-							"file": "jb2a.boulder.toss.02.01.stone.brown"
+							"file": "jb2a.boulder.toss.02.01.stone.brown",
+							"options": {
+								"sound": {
+									"file": "pf2e-graphics.spear.magic.earth.ranged.single.throw.01",
+									"delay": 750
+								}
+							}
 						},
 						{
 							"predicate": ["item:damage:piercing"],
 							"file": "jb2a.template_line_piercing.generic.01.orange",
 							"preset": "onToken",
 							"options": {
+								"sound": {
+									"file": "pf2e-graphics.sword.melee.impale",
+									"waitUntilFinished": -2000
+								},
 								"preset": {
 									"location": "target",
 									"rotateTowards": true
@@ -41,6 +52,10 @@
 							"file": "jb2a.melee_generic.slash.01.orange",
 							"preset": "onToken",
 							"options": {
+								"sound": {
+									"file": "pf2e-graphics.generic.swing",
+									"waitUntilFinished": -2000
+								},
 								"preset": {
 									"location": "target",
 									"rotateTowards": true
@@ -51,21 +66,37 @@
 					]
 				},
 				{
-					"predicate": ["jb2a:patreon123"],
+					"predicate": ["jb2a:patreon"],
 					"contents": [
 						{
 							"predicate": ["item:damage:bludgeoning"],
-							"file": "jb2a.slingshot"
+							"file": "jb2a.slingshot",
+							"options": {
+								"sound": {
+									"file": "pf2e-graphics.spear.magic.earth.ranged.single.throw.01",
+									"delay": 1750
+								}
+							}
 						},
 						{
 							"predicate": ["item:damage:piercing"],
-							"file": "jb2a.dart.01.throw.physical.white"
+							"file": "jb2a.dart.01.throw.physical.white",
+							"options": {
+								"sound": {
+									"file": "pf2e-graphics.generic.throw",
+									"delay": 750
+								}
+							}
 						},
 						{
 							"predicate": ["item:damage:slashing"],
 							"preset": "onToken",
 							"file": "jb2a.melee_generic.slashing",
 							"options": {
+								"sound": {
+									"file": "pf2e-graphics.generic.swing",
+									"waitUntilFinished": -2000
+								},
 								"preset": {
 									"location": "target",
 									"rotateTowards": true
