@@ -22,11 +22,7 @@
 					"contents": [
 						{
 							"predicate": [{ "lte": ["graphics-quality", 2] }],
-							"trigger": "startTurn"
-						},
-						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
-							"trigger": "effect"
+							"trigger": ["startTurn", "effect"]
 						},
 						{
 							"predicate": ["graphics-quality:3"],
@@ -44,11 +40,7 @@
 				},
 				{
 					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "startTurn"
-				},
-				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "effect"
+					"trigger": ["startTurn", "effect"]
 				},
 				{
 					"predicate": ["graphics-quality:3"],

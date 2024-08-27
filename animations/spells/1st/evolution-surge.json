@@ -3,25 +3,34 @@
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.aura_themed.01.outward.complete.cold.01.purple",
+			"file": "jb2a.aura_themed.01.outward.complete.cold.01",
 			"predicate": [{ "gte": ["graphics-quality", 1] }],
 			"options": {
 				"scaleToObject": {
-					"value": 1.1,
+					"value": 1.5,
 					"considerTokenScale": true
 				},
-				"fadeIn": {
-					"value": 500
-				},
-				"fadeOut": {
-					"value": 500
-				},
-				"persist": {
-					"value": true,
-					"persistTokenPrototype": true
-				},
+				"fadeIn": 500,
+				"fadeOut": 500,
 				"tieToDocuments": true
-			}
+			},
+			"contents": [
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": ["startTurn", "effect"]
+				},
+				{
+					"predicate": ["graphics-quality:3"],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
 		}
 	]
 }
