@@ -3,8 +3,7 @@
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.energy_wall.01.circle.900x900.01.complete.purple",
-
+			"file": "jb2a.energy_wall.01.circle.500x500.01.complete",
 			"predicate": [{ "gte": ["graphics-quality", 1] }],
 			"options": {
 				"scaleToObject": {

@@ -34,7 +34,7 @@
 							}
 						},
 						{
-							"predicate": [{ "lte": ["graphics-quality", 3] }],
+							"predicate": [{ "gte": ["graphics-quality", 2] }],
 							"contents": [
 								{
 									"file": "jb2a.impact.ground_crack.still_frame.01",
@@ -137,6 +137,7 @@
 					]
 				},
 				{
+					"predicate": [{ "gte": ["graphics-quality", 1] }],
 					"options": {
 						"tieToDocuments": true,
 						"persist": {
