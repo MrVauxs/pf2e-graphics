@@ -10,8 +10,17 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.8.1] - 2024-08-27
+
+### Fixed
+
+- The Sounds database being wrapped by one too many object brackets.
+
+## [0.8.0] - 2024-08-27
+
 ### Added
 
+- Live preview mode to JSON Editor. Accessed by Shift clicking.
 - `action` trigger. Activates animations whenever an action is posted, like Recognize Spell or Change Shape.
 - Animation History menu. Stores animations played in the current session. Removed on refresh.
 - Delay Animations settings. ([#111](<https://github.com/MrVauxs/pf2e-graphics/issues/111>))
@@ -20,7 +29,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Animation volume adjustment in both module settings and playlist tab. ([#89](<https://github.com/MrVauxs/pf2e-graphics/issues/89>))
 - Holding Shift to see processed version of premade animations in Preset Animations menu.
 - Ability to see errorenous sounds in Preset Animations menu.
-- Ability to use multiple Triggers for animations.
+- Support for multiple Triggers in animations.
 - Warnings for when you dont have JB2A enabled.
 - Conditions triggering `toggle` animations.
 - **New Sounds**
@@ -362,7 +371,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.4...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.4...v0.8.0
 [0.7.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.1...v0.7.2

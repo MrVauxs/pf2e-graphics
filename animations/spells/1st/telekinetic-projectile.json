@@ -27,7 +27,7 @@
 							"file": "jb2a.boulder.toss.02.01.stone.brown",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.spear.magic.earth.ranged.single.throw.01",
+									"file": "pf2e-graphics.magic.earth.ranged.single.throw.01",
 									"delay": 750
 								}
 							}
@@ -74,7 +74,7 @@
 							"file": "jb2a.slingshot",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.spear.magic.earth.ranged.single.throw.01",
+									"file": "pf2e-graphics.magic.earth.ranged.single.throw.01",
 									"delay": 1750
 								}
 							}

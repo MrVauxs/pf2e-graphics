@@ -12,6 +12,7 @@
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
 		"jsonEditor": "JSON View / Edit",
+		"jsonEditorTooltip": "JSON Editor (Shift-click for a Read-Only view)",
 		"confirmConvert": "Are you sure you want to convert this into a reference? This gets rid of all your data.",
 		"reference": "Set to Reference another Animation",
 		"addAnim": "Add a New Animation",
@@ -132,7 +133,8 @@
 			"startTurn": "Start of Turn",
 			"endTurn": "End of Turn",
 			"self-effect": "'Use' Effect",
-			"modifiers-matter": "Modifiers Matter"
+			"modifiers-matter": "Modifiers Matter",
+			"action": "Action"
 		},
 		"editor": {
 			"tooltip": {
@@ -154,14 +156,17 @@
 				"fadeOut": "Causes the animation to fade out of view as it ends, counted in milliseconds.",
 				"fadeIn": "Causes the animation to fade into of view as it begins, counted in milliseconds.",
 				"waitUntilFinished": "The animation will wait for the previous animation to finish and then wait the set amount. A negative value will make it start earlier, while the previous animation is still playing.",
-				"delay": "Delays or \"staggers\" the animation to start a set amount of milliseconds."
+				"delay": "Delays or \"staggers\" the animation to start a set amount of milliseconds.",
+				"overrides": "Causes the animation to override other animations of a given roll option. Accepts multiple strings.<p />Best used for weapons which already have a <code>item:group</code> animation defined."
 			},
 			"preset": "Preset",
+			"overrides": "Overrides",
 			"trigger": "Trigger",
 			"predicate": "Predicate",
 			"imageFile": "Image File",
 			"soundFile": "Sound File",
 			"soundDisclaimer": "This animation contains multiple sounds which are modifiable only through JSON editor.",
+			"triggerDisclaimer": "Multiple triggers detected. Modify through JSON editor.",
 			"notDb": "Using a file path is not the recommended way of creating an animation. Use a Sequencer Database path when able.",
 			"persistent": "Persistent",
 			"tieToDocuments": "Tie To Documents",

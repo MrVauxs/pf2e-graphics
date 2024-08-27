@@ -27,7 +27,6 @@
 	function openEditor(entry: object) {
 		new JSONEditorApp({
 			store: writable(entry),
-			stasis: writable(true),
 			permission: false,
 		}).render(true, {
 			focus: true,

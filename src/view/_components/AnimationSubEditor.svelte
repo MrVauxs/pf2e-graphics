@@ -199,7 +199,8 @@
 									>
 										{i18n('editor.preset')}
 									</span>
-									<select bind:value={ani.preset} {disabled}>
+									<select bind:value={ani.preset} {disabled} required
+										class='h-7'>
 										{#each AnimCore.CONST.PRESETS as preset}
 											<option value={preset}>{camelToSpaces(preset).titleCase()}</option>
 										{/each}
@@ -207,22 +208,33 @@
 								</label>
 
 								<!-- Trigger -->
-								<label class='flex items-center gap-2'>
+								<label class='flex items-center gap-2' for='trigger'>
 									<span
 										class='mr-1 text-nowrap'
 										data-tooltip={wrapTooltipText('trigger')}
 									>
 										{i18n('editor.trigger')}
 									</span>
-									<select bind:value={ani.trigger} {disabled}>
-										{#if ani.preset === 'template'}
-											<option value='place-template'>{i18n(`triggers.place-template`)}</option>
-										{:else}
-											{#each AnimCore.CONST.TRIGGERS as trigger}
-												<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
-											{/each}
-										{/if}
-									</select>
+									{#if Array.isArray(ani.trigger)}
+										<div class='p-1 text-center text-opacity-50 text-slate-600 rounded-sm'>
+											<i>{i18n('editor.triggerDisclaimer')}</i>
+										</div>
+									{:else}
+										<select
+											{disabled}
+											bind:value={ani.trigger}
+											required
+											class='h-7 p-0 max-h-60 resize-y overflow-y-auto'
+										>
+											{#if ani.preset === 'template'}
+												<option value='place-template'>{i18n(`triggers.place-template`)}</option>
+											{:else}
+												{#each AnimCore.CONST.TRIGGERS as trigger}
+													<option value={trigger}>{i18n(`triggers.${trigger}`)}</option>
+												{/each}
+											{/if}
+										</select>
+									{/if}
 								</label>
 
 								<!-- Predicate -->
@@ -295,6 +307,7 @@
 										<input
 											{disabled}
 											type='text'
+											class='pr-6'
 											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a ?? [{ dbPath: 'No JB2A entries?! Enable at least one of them!' }]).dbPath}
 											bind:value={ani.file}
 										/>
@@ -303,6 +316,20 @@
 										class='fas fa-database w-min leading-6'
 										data-tooltip='SEQUENCER.SidebarButtons.Database'
 										on:click={() => window.Sequencer.DatabaseViewer.show()}
+									></button>
+									<!-- svelte-ignore missing-declaration -->
+									<button
+										class='fas fa-file-import fa-fw w-min leading-6'
+										data-tooltip='FILES.BrowseTooltip'
+										on:click={() => {
+											new FilePicker({
+												type: 'imagevideo',
+												callback: (v) => {
+													ani.file = v;
+												},
+												current: ani.file,
+											}).render();
+										}}
 									></button>
 								</label>
 								{#if Array.isArray(ani.options.sound)}
@@ -338,6 +365,7 @@
 											<input
 												{disabled}
 												type='text'
+												class='pr-6'
 												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
 												value={ani.options.sound?.file || ''}
 												on:change={(ev) => {
@@ -350,6 +378,21 @@
 											class='fas fa-database w-min leading-6'
 											data-tooltip='SEQUENCER.SidebarButtons.Database'
 											on:click={() => window.Sequencer.DatabaseViewer.show()}
+										></button>
+										<!-- svelte-ignore missing-declaration -->
+										<button
+											class='fas fa-file-import fa-fw w-min leading-6'
+											data-tooltip='FILES.BrowseTooltip'
+											on:click={() => {
+												new FilePicker({
+													type: 'audio',
+													callback: (v) => {
+														ani.options.sound ??= {};
+														ani.options.sound.file = v;
+													},
+													current: ani.options.sound?.file,
+												}).render();
+											}}
 										></button>
 									</label>
 								{/if}
@@ -462,7 +505,6 @@
 										/>
 									</label>
 								</div>
-
 								<!-- Fade -->
 								<div class='flex justify-between gap-2'>
 									<label class='flex items-center gap-1 text-nowrap'>
@@ -490,7 +532,6 @@
 										/>
 									</label>
 								</div>
-
 								<!-- Scale -->
 								{#if ani.preset !== 'ranged'}
 									<div class='flex justify-between gap-2'>

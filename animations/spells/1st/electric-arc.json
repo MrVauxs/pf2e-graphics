@@ -9,7 +9,7 @@
 					"options": {
 						"sound": {
 							"delay": 500,
-							"file": "pf2e-graphics.spear.magic.lightning.bolt.impact.01"
+							"file": "pf2e-graphics.magic.lightning.bolt.impact.01"
 						},
 						"waitUntilFinished": -1000,
 						"preset": {
