@@ -6,6 +6,7 @@
 			"3": "Help the Author"
 		},
 		"source": "source: {format}",
+		"history": "See Animation History",
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",
@@ -22,10 +23,20 @@
 		"animationsVolume": "Animations",
 		"animationsVolume-tooltip": "Controls the volume of sounds created by PF2e Graphics.",
 		"hasSoundWrong": "Has sound effects, some of which do not exist!",
+		"historyMenu": {
+			"title": "Animation History",
+			"animations": "{count} animations",
+			"animation": "1 animation",
+			"open": "Open JSON Data"
+		},
 		"settings": {
 			"volume": {
-				"name": "Animations Volume",
+				"name": "Animation Volume",
 				"hint": "Multiplies the volume of animations by a set amount. Does not override animations own volume settings."
+			},
+			"delay": {
+				"name": "Animation Delay",
+				"hint": "Adds a delay in seconds to every animation being processed and triggered."
 			},
 			"windowPosition": {
 				"name": "Window Position",

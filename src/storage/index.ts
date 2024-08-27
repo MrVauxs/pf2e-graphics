@@ -1,8 +1,9 @@
 import './presets.ts';
+import { writable } from 'svelte/store';
 import { AnimCore } from './AnimCore.ts';
 
 Object.assign(window, {
-	pf2eGraphics: { modules: {}, AnimCore },
+	pf2eGraphics: { modules: {}, AnimCore, history: writable([]) },
 	AnimCore,
 });
 
