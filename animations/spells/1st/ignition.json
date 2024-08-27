@@ -8,7 +8,10 @@
 					"preset": "onToken",
 					"file": "jb2a.cast_generic.fire.side01.orange.0",
 					"options": {
-						"sound": { "file": "pf2e-graphics.magic.fire.launch.02.01", "delay": 600 },
+						"sound": {
+							"file": "pf2e-graphics.magic.fire.launch.02",
+							"delay": 600
+						},
 						"waitUntilFinished": -1200,
 						"preset": { "rotateTowards": true },
 						"anchor": {
@@ -45,7 +48,10 @@
 			"preset": "ranged",
 			"file": "jb2a.unarmed_strike.magical.{01,02}.orange",
 			"options": {
-				"sound": { "file": "pf2e-graphics.magic.fire.impact.small", "delay": 250 }
+				"sound": {
+					"file": "pf2e-graphics.magic.fire.impact.02.small",
+					"delay": 250
+				}
 			}
 		},
 		{

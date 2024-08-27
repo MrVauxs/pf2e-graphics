@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.8.1] - 2024-08-27
+
+### Fixed
+
+- Ther Sounds database being wrapped by one too many object brackets.
+
 ## [0.8.0] - 2024-08-27
 
 ### Added
@@ -365,7 +371,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.4...v0.8.0
 [0.7.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.7.2...v0.7.3

@@ -1,6 +1,6 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
-	import { i18n } from 'src/utils';
+	import { i18n, log } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';
 	import { type Writable, writable } from 'svelte/store';
@@ -110,6 +110,10 @@
 											: !validateSound(x.options?.sound.file),
 										)
 									}
+									{(() => {
+										if (check.length) log('The following sounds do not exist!', check.flatMap(x => x.options.sound));
+										return '';
+									})()}
 									(<i class='
 										fa {!check.length ? 'fa-volume' : 'fa-volume-xmark text-red-500'}
 										align-middle leading-4

@@ -18,7 +18,7 @@
 									"file": "jb2a.chain_lightning.primary.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.shock.impact",
+											"file": "pf2e-graphics.magic.lightning.impact.burst.01",
 											"delay": 500
 										}
 									},
@@ -182,7 +182,7 @@
 									"options": {
 										"scaleToObject": 4,
 										"sound": {
-											"file": "pf2e-graphics.magic.air.blade.aero.cast",
+											"file": "pf2e-graphics.magic.air.cast.blade.aero",
 											"waitUntilFinished": -2000
 										}
 									},
@@ -194,7 +194,7 @@
 									],
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.air.gust.echoing.cast",
+											"file": "pf2e-graphics.magic.air.gust.02.echoing",
 											"delay": 500
 										}
 									},
@@ -218,7 +218,7 @@
 					"options": {
 						"sound": {
 							"delay": 400,
-							"file": "pf2e-graphics.magic.earth.ranged.single.throw.meteor"
+							"file": "pf2e-graphics.magic.earth.ranged.single.throw.01"
 						},
 						"waitUntilFinished": -100
 					}
@@ -279,7 +279,7 @@
 					"trigger": "attack-roll",
 					"preset": "onToken",
 					"options": {
-						"sound": { "file": "pf2e-graphics.magic.fire.impact.01.small" },
+						"sound": { "file": "pf2e-graphics.magic.fire.impact.02.small" },
 						"preset": { "location": "target" },
 						"scaleToObject": 1.5
 					},
@@ -297,7 +297,7 @@
 					"preset": "ranged",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.sword.melee.{07,08}"
+							"file": "pf2e-graphics.sword.melee.miss.{01,02,03}"
 						},
 						"waitUntilFinished": -600
 					},
@@ -447,7 +447,7 @@
 						{
 							"file": "jb2a.barrel.toss.wooden.01.01.brown",
 							"options": {
-								"sound": { "file": "pf2e-graphics.attack.miss.01" },
+								"sound": { "file": "pf2e-graphics.generic.miss" },
 								"waitUntilFinished": -200
 							},
 							"preset": "ranged",
