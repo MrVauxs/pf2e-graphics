@@ -79,7 +79,7 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='h-full w-full overflow-clip relative grow'>
-		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} {validator}  />
+		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} {validator} />
 	</main>
 	{#if !readOnly}
 		<footer class='grow-0'>
