@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
+	import { AnimCore, type AnimationDataObject, type JSONData, type ReferenceObject } from 'src/storage/AnimCore';
 	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils';
 	import { flip } from 'svelte/animate';
 	import type { Writable } from 'svelte/store';
@@ -92,6 +92,11 @@
 		...window.game.macros.contents.map(x => x.uuid),
 	];
 	const wrapTooltipText = (text: string) => `<div class='pf2e-g'>${i18n(`editor.tooltip.${text}`)}</div>`;
+
+	function overridesInput(ev: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }, ani: AnimationDataObject | ReferenceObject) {
+		const value = (ev.currentTarget.previousElementSibling as HTMLInputElement).value;
+		if (value) ani.overrides = [...ani.overrides ?? [], value];
+	}
 </script>
 
 {#if nonNullable(value)}
@@ -408,10 +413,7 @@
 										/>
 										<button
 											class='fa fa-add w-min h-full'
-											on:click={(ev) => {
-												const value = ev.currentTarget.previousElementSibling?.value;
-												if (value) ani.overrides = [...ani.overrides ?? [], value];
-											}}
+											on:click={ev => overridesInput(ev, ani)}
 										></button>
 										{#if ani.overrides}
 											{#each ani.overrides as override}
