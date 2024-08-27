@@ -20,6 +20,8 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
 			trigger = 'damage-roll';
 			special = 'persistent';
+		} else if (message.item?.isOfType('action') || message.item?.isOfType('feat')) {
+			trigger = 'action';
 		} else {
 			log(`No valid message type found (Got "${trigger}"). Aborting.`);
 			return;

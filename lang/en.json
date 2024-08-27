@@ -26,7 +26,8 @@
 		"historyMenu": {
 			"title": "Animation History",
 			"animations": "{count} animations",
-			"animation": "1 animation"
+			"animation": "1 animation",
+			"open": "Open JSON Data"
 		},
 		"settings": {
 			"volume": {

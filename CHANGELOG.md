@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Added
 
+- `action` trigger. Activates animations whenever an action is posted, like Recognize Spell or Change Shape.
+- Animation History menu. Stores animations played in the current session. Removed on refresh.
 - Delay Animations settings. ([#111](<https://github.com/MrVauxs/pf2e-graphics/issues/111>))
 - Added support for flat-check animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))
 - Added support for persistent damage animations. ([#110](<https://github.com/MrVauxs/pf2e-graphics/issues/110>))

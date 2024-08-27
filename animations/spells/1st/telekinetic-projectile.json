@@ -3,12 +3,79 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.boulder.toss.01",
 			"options": {
-				"sound": {
-					"file": "pf2e-graphics.magic.earth.close"
+				"preset": {
+					"atLocation": {
+						"offset": {
+							"x": [0.25, -0.5],
+							"y": [0.5, -0.5]
+						},
+						"gridUnits": true
+					},
+					"stretchTo": {
+						"randomOffset": 0.75
+					}
 				}
-			}
+			},
+			"contents": [
+				{
+					"contents": [
+						{
+							"predicate": ["item:damage:bludgeoning"],
+							"file": "jb2a.boulder.toss.02.01.stone.brown"
+						},
+						{
+							"predicate": ["item:damage:piercing"],
+							"file": "jb2a.template_line_piercing.generic.01.orange",
+							"preset": "onToken",
+							"options": {
+								"preset": {
+									"location": "target",
+									"rotateTowards": true
+								},
+								"scaleToObject": 2
+							}
+						},
+						{
+							"predicate": ["item:damage:slashing"],
+							"file": "jb2a.melee_generic.slash.01.orange",
+							"preset": "onToken",
+							"options": {
+								"preset": {
+									"location": "target",
+									"rotateTowards": true
+								},
+								"scaleToObject": 2.5
+							}
+						}
+					]
+				},
+				{
+					"predicate": ["jb2a:patreon123"],
+					"contents": [
+						{
+							"predicate": ["item:damage:bludgeoning"],
+							"file": "jb2a.slingshot"
+						},
+						{
+							"predicate": ["item:damage:piercing"],
+							"file": "jb2a.dart.01.throw.physical.white"
+						},
+						{
+							"predicate": ["item:damage:slashing"],
+							"preset": "onToken",
+							"file": "jb2a.melee_generic.slashing",
+							"options": {
+								"preset": {
+									"location": "target",
+									"rotateTowards": true
+								},
+								"scaleToObject": 2.5
+							}
+						}
+					]
+				}
+			]
 		}
 	]
 }
