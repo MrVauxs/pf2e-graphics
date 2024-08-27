@@ -1,80 +1,80 @@
 {
 	"effect:aid": [
-	  {
+		{
 			"preset": "onToken",
 			"trigger": "effect",
 			"options": {
-		  "preset": {
+				"preset": {
 					"location": "source"
-		  },
-		  "scaleToObject": 1.5,
-		  "sound": {
+				},
+				"scaleToObject": 1.5,
+				"sound": {
 					"file": "pf2e-graphics.magic.buff.generic.08"
-		  },
-		  "fadeIn": 250,
-		  "fadeOut": 250
+				},
+				"fadeIn": 250,
+				"fadeOut": 250
 			},
 			"contents": [
-		  {
+				{
 					"file": "jb2a.condition.boon.01.004.yellow",
 					"predicate": [
-			  "jb2a:patreon"
+						"jb2a:patreon"
 					]
-		  },
-		  {
+				},
+				{
 					"file": "jb2a.condition.boon.01.004.green",
 					"predicate": [
-			  "jb2a:free"
+						"jb2a:free"
 					],
 					"filter": {
-			  "type": "ColorMatrix",
-			  "options": {
+						"type": "ColorMatrix",
+						"options": {
 							"hue": -70
-			  }
+						}
 					}
-		  }
+				}
 			]
-	  }
+		}
 	],
 	"all": [
-	  {
+		{
 			"trigger": "modifiers-matter",
 			"preset": "onToken",
 			"options": {
-		  "scaleToObject": 1.5,
-		  "sound": {
+				"scaleToObject": 1.5,
+				"sound": {
 					"file": "pf2e-graphics.magic.buff.generic.08"
-		  }
+				}
 			},
 			"predicate": [
-		  "self:effect:aid",
-		  {
+				"self:effect:aid",
+				{
 					"or": [
-			  "significance:essential",
-			  "significance:detrimental"
+						"significance:essential",
+						"significance:detrimental"
 					]
-		  }
+				}
 			],
 			"contents": [
-		  {
+				{
 					"file": "jb2a.condition.boon.01.004.yellow",
 					"predicate": [
-			  "jb2a:patreon"
+						"jb2a:patreon"
 					]
-		  },
-		  {
+				},
+				{
 					"file": "jb2a.condition.boon.01.004.green",
 					"predicate": [
-			  "jb2a:free"
+						"jb2a:free"
 					],
 					"filter": {
-			  "type": "ColorMatrix",
-			  "options": {
+						"type": "ColorMatrix",
+						"options": {
 							"hue": -70
-			  }
+						}
 					}
-		  }
+				}
 			]
-	  }
+		}
 	]
 }
