@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Animation volume adjustment in both module settings and playlist tab. ([#89](<https://github.com/MrVauxs/pf2e-graphics/issues/89>))
 - Holding Shift to see processed version of premade animations in Preset Animations menu.
 - Ability to see errorenous sounds in Preset Animations menu.
-- Support for multiple Triggers in animations. Not supported by the
+- Support for multiple Triggers in animations.
 - Warnings for when you dont have JB2A enabled.
 - Conditions triggering `toggle` animations.
 - **New Sounds**
