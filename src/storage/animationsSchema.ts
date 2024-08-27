@@ -538,6 +538,7 @@ const triggers = z.enum([
 	'attack-roll',
 	'damage-roll',
 	'place-template',
+	'action',
 	'spell-cast',
 	'toggle',
 	'effect',
