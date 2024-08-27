@@ -28,6 +28,7 @@ if (targetPath.endsWith('.json')) {
 			const formattedIssue = fromZodIssue(issue);
 			console.log(`  • ${formattedIssue.details[0].path.join('.')} :  ${formattedIssue.details[0].message}`);
 		});
+		process.exitCode = 1;
 	}
 } else {
 	const results = testFilesRecursively(
@@ -50,23 +51,32 @@ if (targetPath.endsWith('.json')) {
 	);
 
 	const errors = results.filter(result => !result.success);
-	if (errors.length) {
-		core.startGroup(chalk.red.dim.bold.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`));
+	if (!errors.length) {
+		core.info(chalk.green('All animation files are valid!'));
+	} else {
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 60);
-		errors.forEach(result =>
-			core.info(
-				chalk.dim(
+
+		if (process.argv[2] === 'fast') {
+			console.error(
+				chalk.red(
+					`${chalk.bold('Invalid animation file: ')}\n  • ${`${errors[0].file}${errors[0].message ? `${' '.repeat(Math.max(columnWidth - errors[0].file.length, 3))}${chalk.dim(errors[0].message)}` : ''}`}`,
+				),
+			);
+			console.warn(chalk.yellow.dim('Process terminated early; other invalid files may exist.'));
+			process.exitCode = 1;
+		} else {
+			core.startGroup(chalk.red.bold.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`));
+			errors.forEach(result =>
+				core.info(
 					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${chalk.dim(result.message)}` : ''}`,
 				),
-			),
-		);
-		core.endGroup();
-		core.setFailed(
-			chalk.red(
-				`${chalk.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
-			),
-		);
-	} else {
-		core.info(chalk.green('All animation files are valid!'));
+			);
+			core.endGroup();
+			core.setFailed(
+				chalk.red(
+					`${chalk.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
+				),
+			);
+		}
 	}
 }
