@@ -199,7 +199,8 @@
 									>
 										{i18n('editor.preset')}
 									</span>
-									<select bind:value={ani.preset} {disabled}>
+									<select bind:value={ani.preset} {disabled} required
+										class='h-7'>
 										{#each AnimCore.CONST.PRESETS as preset}
 											<option value={preset}>{camelToSpaces(preset).titleCase()}</option>
 										{/each}
@@ -214,7 +215,12 @@
 									>
 										{i18n('editor.trigger')}
 									</span>
-									<select bind:value={ani.trigger} {disabled}>
+									<select
+										{disabled}
+										bind:value={ani.trigger}
+										required multiple
+										class='h-7 p-0 max-h-60 resize-y overflow-y-auto'
+									>
 										{#if ani.preset === 'template'}
 											<option value='place-template'>{i18n(`triggers.place-template`)}</option>
 										{:else}
@@ -295,6 +301,7 @@
 										<input
 											{disabled}
 											type='text'
+											class='pr-6'
 											placeholder={window.Sequencer.Helpers.random_array_element(dbEntries.jb2a ?? [{ dbPath: 'No JB2A entries?! Enable at least one of them!' }]).dbPath}
 											bind:value={ani.file}
 										/>
@@ -303,6 +310,20 @@
 										class='fas fa-database w-min leading-6'
 										data-tooltip='SEQUENCER.SidebarButtons.Database'
 										on:click={() => window.Sequencer.DatabaseViewer.show()}
+									></button>
+									<!-- svelte-ignore missing-declaration -->
+									<button
+										class='fas fa-file-import fa-fw w-min leading-6'
+										data-tooltip='FILES.BrowseTooltip'
+										on:click={() => {
+											new FilePicker({
+												type: 'imagevideo',
+												callback: (v) => {
+													ani.file = v;
+												},
+												current: ani.file,
+											}).render();
+										}}
 									></button>
 								</label>
 								{#if Array.isArray(ani.options.sound)}
@@ -338,6 +359,7 @@
 											<input
 												{disabled}
 												type='text'
+												class='pr-6'
 												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
 												value={ani.options.sound?.file || ''}
 												on:change={(ev) => {
@@ -351,11 +373,70 @@
 											data-tooltip='SEQUENCER.SidebarButtons.Database'
 											on:click={() => window.Sequencer.DatabaseViewer.show()}
 										></button>
+										<!-- svelte-ignore missing-declaration -->
+										<button
+											class='fas fa-file-import fa-fw w-min leading-6'
+											data-tooltip='FILES.BrowseTooltip'
+											on:click={() => {
+												new FilePicker({
+													type: 'audio',
+													callback: (v) => {
+														ani.options.sound ??= {};
+														ani.options.sound.file = v;
+													},
+													current: ani.options.sound?.file,
+												}).render();
+											}}
+										></button>
 									</label>
 								{/if}
 								<Separator>
 									{i18n('editor.advancedOptions')}
 								</Separator>
+								<!-- Overrides -->
+								<div class='flex justify-between gap-2'>
+									<label class='flex items-center gap-1 text-nowrap'>
+										<span
+											class='mr-1 text-nowrap'
+											data-tooltip={wrapTooltipText('overrides')}
+										>
+											{i18n('editor.overrides')}
+										</span>
+										<input
+											{disabled}
+											type='text'
+										/>
+										<button
+											class='fa fa-add w-min h-full'
+											on:click={(ev) => {
+												const value = ev.currentTarget.previousElementSibling?.value;
+												if (value) ani.overrides = [...ani.overrides ?? [], value];
+											}}
+										></button>
+										{#if ani.overrides}
+											{#each ani.overrides as override}
+												<div class='
+													border border-solid border-slate-400 bg-slate-200 rounded-sm
+													p-1 px-2
+												'>
+													{override}
+													<i
+														role='button'
+														tabindex='-1'
+														class='
+															fa fa-remove text-xs
+															align-middle
+															hover:text-red-500 hover:scale-105 transition-transform
+														'
+														on:click={() => ani.overrides = ani.overrides?.filter(x => x !== override)}
+														on:keydown={() => ani.overrides = ani.overrides?.filter(x => x !== override)}
+													></i>
+												</div>
+											{/each}
+										{/if}
+									</label>
+								</div>
+
 								<!-- Booleans -->
 								<div class='flex justify-evenly flex-wrap'>
 									<label class='flex items-center gap-1 text-nowrap'>
@@ -462,7 +543,6 @@
 										/>
 									</label>
 								</div>
-
 								<!-- Fade -->
 								<div class='flex justify-between gap-2'>
 									<label class='flex items-center gap-1 text-nowrap'>
@@ -490,7 +570,6 @@
 										/>
 									</label>
 								</div>
-
 								<!-- Scale -->
 								{#if ani.preset !== 'ranged'}
 									<div class='flex justify-between gap-2'>
