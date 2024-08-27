@@ -51,7 +51,7 @@ if (targetPath.endsWith('.json')) {
 
 	const errors = results.filter(result => !result.success);
 	if (errors.length) {
-		core.startGroup(chalk.dim.underline.bold.red('Invalid animation files:'));
+		core.startGroup(chalk.red.dim.bold.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`));
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 60);
 		errors.forEach(result =>
 			core.info(
@@ -63,7 +63,7 @@ if (targetPath.endsWith('.json')) {
 		core.endGroup();
 		core.setFailed(
 			chalk.red(
-				`${chalk.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} contain schema-validation errors.`,
+				`${chalk.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
 			),
 		);
 	} else {

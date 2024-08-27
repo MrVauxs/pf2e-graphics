@@ -51,7 +51,7 @@
 		if (result.success) return [];
 		return result.error.issues.map(issue => ({
 			path: issue.path.map(piece => piece.toString()),
-			message: fromZodIssue(issue, { prefix: null }).toString(),
+			message: fromZodIssue(issue, { prefix: null, includePath: false }).toString(),
 			severity: ValidationSeverity.error,
 		}));
 	};

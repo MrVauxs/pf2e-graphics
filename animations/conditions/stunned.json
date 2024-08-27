@@ -270,8 +270,7 @@
 									"options": {
 										"repeats": {
 											"count": 2,
-											"delayMin": 3000,
-											"delayMax": 3000
+											"delayMin": 3000
 										}
 									}
 								},
@@ -282,8 +281,7 @@
 									"options": {
 										"repeats": {
 											"count": 3,
-											"delayMin": 2000,
-											"delayMax": 2000
+											"delayMin": 2000
 										}
 									}
 								},
@@ -326,8 +324,7 @@
 									"options": {
 										"repeats": {
 											"count": 2,
-											"delayMin": 3000,
-											"delayMax": 3000
+											"delayMin": 3000
 										}
 									}
 								},
@@ -338,8 +335,7 @@
 									"options": {
 										"repeats": {
 											"count": 3,
-											"delayMin": 2000,
-											"delayMax": 2000
+											"delayMin": 2000
 										}
 									}
 								},
