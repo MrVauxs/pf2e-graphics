@@ -5,7 +5,7 @@
 import * as fs from 'node:fs';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
-import { validateAnimationJSON } from '../src/storage/animationsSchema';
+import { validateAnimationData } from '../src/storage/animationsSchema';
 import { Log, testFilesRecursively } from './helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
@@ -13,7 +13,7 @@ const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[
 if (targetPath.endsWith('.json')) {
 	if (!fs.existsSync(targetPath)) throw new Error(`No such file exists at ${targetPath}`);
 	const json = JSON.parse(fs.readFileSync(targetPath, { encoding: 'utf8' }));
-	const result = validateAnimationJSON(json);
+	const result = validateAnimationData(json);
 	if (result.success) {
 		Log.info(p.green('No validation errors!'));
 	} else {
@@ -35,7 +35,7 @@ if (targetPath.endsWith('.json')) {
 				if (path.match(/^[a-z0-9]+(-[a-z0-9]+)*$/))
 					return { success: false, message: 'Invalid filename.' };
 				const json = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
-				const result = validateAnimationJSON(json);
+				const result = validateAnimationData(json);
 				if (result.success) return { success: true };
 				return {
 					success: false,

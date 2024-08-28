@@ -454,8 +454,87 @@ const effectOptions = z
 			.optional(),
 		filter: z
 			.object({
-				type: z.string(),
-				options: z.object({}), // Needs to be pulled from Sequencer
+				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
+				options: z
+					.object({
+						hue: z.number().gt(-180).lte(180).describe('The hue, in degrees.').optional(),
+						brightness: z
+							.number()
+							.nonnegative()
+							.lte(1)
+							.describe('The value of the brightness (0 to 1, where 0 is black)')
+							.optional(),
+						contrast: z
+							.number()
+							.nonnegative()
+							.lte(1)
+							.describe('The value of the contrast (0 to 1).')
+							.optional(),
+						saturate: z
+							.number()
+							.gte(-1)
+							.lte(1)
+							.describe(
+								'The value of the saturation amount. Negative numbers cause it to become desaturated (-1 to 1)',
+							)
+							.optional(),
+						distance: z
+							.number()
+							.positive()
+							.describe('The distance of the glow, in pixels.')
+							.optional(),
+						outerStrength: z
+							.number()
+							.positive()
+							.describe('The strength of the glow outward from the edge of the sprite.')
+							.optional(),
+						innerStrength: z
+							.number()
+							.positive()
+							.describe('The strength of the glow inward from the edge of the sprite.')
+							.optional(),
+						color: hexColour.describe('The color of the glow').optional(),
+						quality: z
+							.number()
+							.describe(
+								'Glow: describes the quality of the glow (0 to 1); the higher the number the less performant.\nBlur: quality of the filter.',
+							)
+							.optional(),
+						knockout: z
+							.literal(true)
+							.describe(
+								'Toggle to hide the contents and only show the glow (effectively hides the sprite).',
+							)
+							.optional(),
+						strength: z.number().positive().describe('The strength of the filter.').optional(),
+						blur: z
+							.number()
+							.positive()
+							.describe('sets the strength of both the blurX and blurY properties simultaneously')
+							.optional(),
+						blurX: z
+							.number()
+							.positive()
+							.describe('The strength of the blur on the horizontal axis.')
+							.optional(),
+						blurY: z
+							.number()
+							.positive()
+							.describe('The strength of the blur on the vertical axis.')
+							.optional(),
+						resolution: z
+							.number()
+							.positive()
+							.describe('Sets the resolution of the blur filter.')
+							.optional(),
+						kernelSize: z
+							.number()
+							.positive()
+							.int()
+							.describe('Effectively how many passes the blur goes through.')
+							.optional(),
+					})
+					.strict(),
 			})
 			.strict()
 			.optional(),
@@ -609,8 +688,8 @@ const animationObject: z.ZodType<AnimationObject> = referenceObject
 				macro: ['(none)'],
 			};
 
-			const illegalProperties = Object.keys(obj.options.preset).filter(prop =>
-				!presetOptionsProperties[obj.preset!].includes(prop),
+			const illegalProperties = Object.keys(obj.options.preset).filter(
+				prop => !presetOptionsProperties[obj.preset!].includes(prop),
 			);
 
 			if (illegalProperties.length) {
@@ -641,7 +720,7 @@ const animationObjects = z
 	.min(1)
 	.refine(...uniqueItems);
 
-/* Full-file animations schema (sans _tokenImages)
+/* Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below).
 const animations = z.record(
 	rollOption,
 	rollOption.or(
@@ -700,15 +779,23 @@ const tokenImages = z.object({
 		.refine(...uniqueItems),
 });
 
-export function validateAnimationJSON(json: unknown): { success: true } | { success: false; error: z.ZodError } {
-	if (typeof json !== 'object' || Array.isArray(json) || json === null) {
+/**
+ * Validates general animation data.
+ *
+ * @remarks This function is a fair bit more complicated than a basic Zod validation, because the latter results in near-meaningless errors due to the schema being a multiply-nested union. For instance, if an object validation fails, Zod doesn't know whether you made a mistake writing the object, or if you failed to write a string. `validateAnimationData` instead first validates that `data` is an object literal, and then validates each property sequentially, applying a narrower schema depending on context. All issues found are then concatenated together with reconstructed paths.
+ *
+ * @param data - The data to validate as parsed JSON.
+ * @returns An object with a boolean `success` property indicating whether the validation succeeded or not. If validation failed, the Zod error is included in the `error` property.
+ */
+export function validateAnimationData(data: unknown): { success: true } | { success: false; error: z.ZodError } {
+	if (typeof data !== 'object' || Array.isArray(data) || data === null) {
 		return {
 			success: false,
 			error: new z.ZodError([
 				{
 					code: z.ZodIssueCode.invalid_type,
 					expected: 'object',
-					received: json === Array.isArray(json) ? 'array' : json === 'null' ? 'null' : typeof json,
+					received: data === Array.isArray(data) ? 'array' : data === 'null' ? 'null' : typeof data,
 					path: [],
 					message: 'JSON must represent an object.',
 				},
@@ -718,10 +805,10 @@ export function validateAnimationJSON(json: unknown): { success: true } | { succ
 
 	const issues: z.ZodIssue[] = [];
 
-	for (const key in json) {
+	for (const key in data) {
 		// Test _tokenImages as special case
 		if (key === '_tokenImages') {
-			const result = tokenImages.safeParse(json);
+			const result = tokenImages.safeParse(data);
 			if (!result.success) issues.push(...result.error.issues);
 		} else {
 			// Test key
@@ -735,7 +822,7 @@ export function validateAnimationJSON(json: unknown): { success: true } | { succ
 			}
 
 			// Test value
-			const value = (json as { [key: string]: unknown })[key];
+			const value = (data as { [key: string]: unknown })[key];
 			if (typeof value === 'string') {
 				const result = rollOption.safeParse(value);
 				if (!result.success)
