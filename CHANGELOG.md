@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
+- Dice So Nice causing animations to not trigger.
 - JB2A Warnings triggering despite the free JB2A module being active.
 - Tokens with no ownership crashing animations.
 

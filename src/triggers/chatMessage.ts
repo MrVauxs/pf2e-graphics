@@ -76,19 +76,16 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const diceSoNiceHook = Hooks.on('diceSoNiceRollComplete', (id: string) => {
-	if (!game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')) {
-		const message = game.messages.get(id);
-		if (message) handleChatMessage(message);
-	}
-});
-
 const chatMessageHook = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
 	if (
-		game.modules.get('dice-so-nice')?.active
+		msg.rolls.length
+		&& game.modules.get('dice-so-nice')?.active
 		&& !game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')
-	) { return; }
-	handleChatMessage(msg);
+	) {
+		setTimeout(() => handleChatMessage(msg), 1500); // Dice So Nice doesnt detect persistent damage rolls and whatever else I might not know about, so instead of relying on it I will just delay it.
+	} else {
+		handleChatMessage(msg);
+	}
 });
 
 const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
@@ -130,7 +127,6 @@ if (import.meta.hot) {
 	import.meta.hot.accept();
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
-		Hooks.off('diceSoNiceHook', diceSoNiceHook);
 		Hooks.off('createChatMessage', chatMessageHook);
 		Hooks.off('updateChatMessage', targetHelper);
 	});
