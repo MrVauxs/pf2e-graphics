@@ -76,19 +76,28 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const chatMessageHook = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
+const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) => {
+	const message = game.messages.get(id);
+	if (message) {
+		devMessage('Dice So Nice Proxy Triggered');
+		handleChatMessage(message);
+	};
+});
+
+const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
 	if (
-		msg.rolls.length
-		&& game.modules.get('dice-so-nice')?.active
-		&& !game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')
+		!(
+			game.modules.get('dice-so-nice')?.active
+			&& msg.isRoll
+			&& msg.rolls.some(roll => roll.dice.length > 0)
+			// replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
+		)
 	) {
-		setTimeout(() => handleChatMessage(msg), 1500); // Dice So Nice doesnt detect persistent damage rolls and whatever else I might not know about, so instead of relying on it I will just delay it.
-	} else {
 		handleChatMessage(msg);
 	}
 });
 
-const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
+const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
 	if (!flags) return;
 	if ('pf2e-toolbelt' in flags) {
 		// @ts-expect-error - Too lazy to properly define custom modules flags
@@ -127,7 +136,8 @@ if (import.meta.hot) {
 	import.meta.hot.accept();
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
-		Hooks.off('createChatMessage', chatMessageHook);
-		Hooks.off('updateChatMessage', targetHelper);
+		Hooks.off('diceSoNiceRollComplete', diceSoNiceRollComplete);
+		Hooks.off('createChatMessage', createChatMessage);
+		Hooks.off('updateChatMessage', updateChatMessage);
 	});
 }
