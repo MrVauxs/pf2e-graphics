@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
-- JB2A Warnings triggering despite the free JB2A module being active.   
+- JB2A Warnings triggering despite the free JB2A module being active.
+- Tokens with no ownership crashing animations.
 
 ## [0.8.1] - 2024-08-27
 
