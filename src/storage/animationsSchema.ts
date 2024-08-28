@@ -729,7 +729,7 @@ const referenceObject = z.object({
 });
 
 // Following required to allow Zod to evaluate recursive structures
-type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
+export type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
 	contents?: AnimationObject[];
 };
 const animationObject: z.ZodType<AnimationObject> = referenceObject
@@ -852,6 +852,10 @@ const tokenImages = z.object({
 		.min(1)
 		.refine(...uniqueItems),
 });
+type TokenImages = z.infer<typeof tokenImages>;
+
+// GENERIC ANIMATION TYPE
+export type Animations = Partial<TokenImages> & { [rollOption: string]: string | AnimationObject[] };
 
 /**
  * Validates general animation data.
