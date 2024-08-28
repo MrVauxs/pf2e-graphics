@@ -12,6 +12,13 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
 	const rollOptions = item.getRollOptions(item.type);
 
+	if (item.flags.pf2e.rulesSelections) {
+		rollOptions.push(
+			...Object.keys(item.flags.pf2e.rulesSelections)
+				.map(k => `effect:rulesSelections:${k}:${JSON.stringify(item.flags.pf2e.rulesSelections[k])}`),
+		);
+	}
+
 	const deliverable = {
 		rollOptions,
 		trigger: 'effect' as const,

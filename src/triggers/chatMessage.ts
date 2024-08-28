@@ -9,18 +9,22 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	}
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
-	let trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
+	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
 	let special: string = '';
 	if (!message.token) {
 		log('No token found. Aborting.');
 		return;
 	};
 
-	if (!trigger) {
+	if (!trigger || trigger === 'spell-cast') {
 		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
 			trigger = 'damage-roll';
 			special = 'persistent';
-		} else if (message.item?.isOfType('action') || message.item?.isOfType('feat')) {
+		} else if (
+			message.item?.isOfType('action')
+			|| message.item?.isOfType('feat')
+			|| message.item?.isOfType('spell')
+		) {
 			trigger = 'action';
 		} else {
 			log(`No valid message type found (Got "${trigger}"). Aborting.`);
@@ -54,14 +58,19 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
 		: message.token;
 
-	const newOptions = [
-	];
+	const newOptions = [];
+
 	const outcome = message.flags.pf2e.context?.outcome?.slugify();
 	if (outcome) newOptions.push(`check:outcome:${outcome}`);
+
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
 		if (options)
 			newOptions.push(...options, 'target');
+	}
+
+	if (trigger === 'action') {
+		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
 	const deliverable = {
