@@ -537,6 +537,78 @@ const effectOptions = z
 					.strict(),
 			})
 			.strict()
+			.superRefine(
+				// Test that `filter.options` matches `filter.type`
+				(filter, ctx) => {
+					const filterOptionsProperties = {
+						ColorMatrix: ['hue', 'brightness', 'contrast', 'saturate'],
+						Glow: ['distance', 'outerStrength', 'innerStrength', 'color', 'quality', 'knockout'],
+						Blur: ['strength', 'blur', 'blurX', 'blurY', 'quality', 'resolution', 'kernelSize'],
+					};
+
+					const illegalProperties = Object.keys(filter.options).filter(
+						prop => !filterOptionsProperties[filter.type].includes(prop),
+					);
+
+					if (illegalProperties.length) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.unrecognized_keys,
+							keys: illegalProperties,
+							message: `The following properties aren't allowed when \`type\` is \`"${filter.type}"\`: \`${illegalProperties.join('`, `')}\`.`,
+						});
+					}
+
+					if (filter.options.blur && (filter.options.blurX || filter.options.blurY)) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.unrecognized_keys,
+							keys: Object.keys(filter).filter(key => key === 'blurX' || key === 'blurY'),
+							message:
+								'`blur` is used to set both `blurX` and `blurY` simultaneously and cannot be mixed.',
+						});
+					}
+
+					if (filter.options.quality) {
+						if (filter.type === 'Blur') {
+							if (Number.isInteger(filter.options.quality)) {
+								return ctx.addIssue({
+									code: z.ZodIssueCode.invalid_type,
+									expected: 'integer',
+									received: 'float',
+									message: 'Expected integer, received float.',
+								});
+							}
+							if (filter.options.quality < 0) {
+								return ctx.addIssue({
+									code: z.ZodIssueCode.too_small,
+									minimum: 0,
+									type: 'number',
+									inclusive: true,
+									message: 'Number must be greater than or equal to 0.',
+								});
+							}
+						} else if (filter.type === 'Glow') {
+							if (filter.options.quality >= 1) {
+								return ctx.addIssue({
+									code: z.ZodIssueCode.too_big,
+									maximum: 1,
+									type: 'number',
+									inclusive: true,
+									message: 'Number must be less than or equal to 1.',
+								});
+							}
+							if (filter.options.quality < 0) {
+								return ctx.addIssue({
+									code: z.ZodIssueCode.too_small,
+									minimum: 0,
+									type: 'number',
+									inclusive: true,
+									message: 'Number must be greater than or equal to 0.',
+								});
+							}
+						}
+					}
+				},
+			)
 			.optional(),
 		missed: z.literal(true).optional(),
 		anchor: vector2.optional(),
