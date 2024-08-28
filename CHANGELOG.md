@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Added
+
+- Triggers being shown in Animation History
+
 ## [0.8.2] - 2024-08-28
 
 ### Changed

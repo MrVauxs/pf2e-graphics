@@ -52,13 +52,15 @@
 					on:keydown={() => openEditor(entry)}
 					data-tooltip='pf2e-graphics.historyMenu.open'
 				>
-					<div>
-						{entry.actor.name} - {entry.item?.name}
-						({entry.animations.length > 1 || !entry.animations.length
-							? i18n('pf2e-graphics.historyMenu.animations', { count: entry.animations.length })
-							: i18n('pf2e-graphics.historyMenu.animation')})
-					</div>
-					<div class='ml-auto'>
+					<header class='text-nowrap truncate'>
+						{entry.trigger} | {entry.actor.name} | {entry.item?.name ? entry.item?.name : '???'}
+					</header>
+					<div class='ml-auto text-nowrap'>
+						<i
+							data-tooltip={entry.animations.length > 1 || !entry.animations.length
+								? i18n('pf2e-graphics.historyMenu.animations', { count: entry.animations.length })
+								: i18n('pf2e-graphics.historyMenu.animation')}
+							class='fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}'></i>
 						{window.foundry.utils.timeSince(new Date(entry.timestamp))}
 					</div>
 				</div>
