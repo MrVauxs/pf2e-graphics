@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - Triggers being shown in Animation History.
 - Rudimentary support for rulesSelections as predicates (ex. `effect:rulesSelections:aidBonus:-1`).
+- Flying Flame ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
 ### Changed
 
