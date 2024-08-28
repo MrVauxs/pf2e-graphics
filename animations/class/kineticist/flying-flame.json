@@ -7,7 +7,7 @@
 				{
 					"contents": [
 						{
-							"predicates": ["jb2a:patreon"],
+							"predicate": ["jb2a:patreon"],
 							"file": "jb2a.pack_hound_missile.orange.01",
 							"options": {
 								"sound": {
@@ -29,7 +29,7 @@
 							}
 						},
 						{
-							"predicates": ["jb2a:free"],
+							"predicate": ["jb2a:free"],
 							"file": "jb2a.pack_hound_missile.blue.01",
 							"options": {
 								"sound": {
