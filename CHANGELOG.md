@@ -15,9 +15,10 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Various persistent animations to abide by standards.
   - For reference, those standards are: Minimum quality settings do not have persistent animations, Low quality get either very basic persistent animations, or more long-term / advanced animations that show only on beginning of turn, Medium quality get an extension of Low with extra stuff added in, and Maximum quality users get all animations for as long as the effect or condition applies.
 
-### Fixed 
-- Aid Animation ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+### Fixed
 
+- JB2A Warnings triggering despite the free JB2A module being active.   
+- Aid Animation ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 ## [0.8.1] - 2024-08-27
 
 ### Fixed

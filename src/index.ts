@@ -10,7 +10,7 @@ Hooks.once('pf2e.systemReady', () => {
 });
 Hooks.once('ready', () => {
 	const premium =	game.modules.get('jb2a_patreon');
-	const fremium =	game.modules.get('JB2A_D&D5e');
+	const fremium =	game.modules.get('JB2A_DnD5e');
 
 	if (premium?.active || fremium?.active || window.pf2eGraphics.liveSettings.suppressWarnings) return;
 
