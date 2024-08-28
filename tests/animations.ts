@@ -3,11 +3,10 @@
 // To test one specific file with issues listed, use `npm run test:animations -- <path to file>` (e.g. `npm run test:animation -- animations/actions/aid.json`).
 
 import * as fs from 'node:fs';
-import * as core from '@actions/core';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
 import { validateAnimationJSON } from '../src/storage/animationsSchema';
-import { testFilesRecursively } from './helpers.ts';
+import { Log, testFilesRecursively } from './helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
 
@@ -16,15 +15,17 @@ if (targetPath.endsWith('.json')) {
 	const json = JSON.parse(fs.readFileSync(targetPath, { encoding: 'utf8' }));
 	const result = validateAnimationJSON(json);
 	if (result.success) {
-		console.log(p.green('No validation errors!'));
+		Log.info(p.green('No validation errors!'));
 	} else {
 		const issues = result.error.issues;
-		console.log(p.red(`${p.bold(issues.length)} validation error${issues.length === 1 ? '' : 's'}:`));
-		issues.forEach((issue) => {
-			const formatted = fromZodIssue(issue);
-			console.log(`  • ${formatted.details[0].path.join('.')} :  ${formatted.details[0].message}`);
+		Log.details({
+			level: 'error',
+			title: p.red(`${p.bold(issues.length)} validation error${issues.length === 1 ? '' : 's'}:`),
+			messages: issues.map((issue) => {
+				const formatted = fromZodIssue(issue);
+				return `${formatted.details[0].path.join('.')} :  ${formatted.details[0].message}`;
+			}),
 		});
-		process.exitCode = 1;
 	}
 } else {
 	const results = testFilesRecursively(
@@ -48,41 +49,29 @@ if (targetPath.endsWith('.json')) {
 
 	const errors = results.filter(result => !result.success);
 	if (!errors.length) {
-		const message = p.green('All animation files are valid!');
-		if (process.env.GITHUB_ACTIONS) {
-			core.info(message);
-		} else {
-			console.log(message);
-		}
+		Log.info(p.green('All animation files are valid!'));
 	} else {
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 50);
 
-		const message1 = p.red(p.bold(p.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`)));
-		if (process.env.GITHUB_ACTIONS) {
-			core.startGroup(message1);
-		} else {
-			console.error(message1);
-		}
-
-		errors.forEach((result) => {
-			const message = `${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}`;
-			if (process.env.GITHUB_ACTIONS) return core.info(message);
-			return console.log(`  • ${message}`);
+		Log.details({
+			level: 'info',
+			title: p.red(p.bold(p.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`))),
+			messages: errors.map(
+				result =>
+					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}`,
+			),
 		});
 
-		if (process.env.GITHUB_ACTIONS) core.endGroup();
-
-		if (process.argv[2] === 'fast')
-			console.warn(p.dim('\nProcess terminated early; other invalid files may exist.'));
-
-		const message2 = p.red(
-			`\n${p.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
-		);
-		if (process.env.GITHUB_ACTIONS) {
-			core.setFailed(message2);
+		if (process.argv[2] === 'fast') {
+			Log.newLine();
+			Log.warning(p.dim('Process terminated early; other invalid files may exist.'));
 		} else {
-			if (process.argv[2] !== 'fast') console.error(message2);
-			process.exitCode = 1;
+			Log.newLine();
+			Log.error(
+				p.red(
+					`${p.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
+				),
+			);
 		}
 	}
 }

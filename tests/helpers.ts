@@ -1,5 +1,84 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as core from '@actions/core';
+
+/**
+ * Helper class to write unified logs to both local terminals and GitHub Actions.
+ */
+export class Log {
+	/**
+	 * Log a general message.
+	 *
+	 * @param message
+	 */
+	static info = (message?: string): void => {
+		if (process.env.GITHUB_ACTIONS) return core.info(message ?? '');
+		return console.log(message);
+	};
+
+	/**
+	 * Log a warning.
+	 *
+	 * @param message
+	 */
+	static warning = (message: string): void => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message);
+		return console.warn(message);
+	};
+
+	/**
+	 * Log an error and set the exit code to 1.
+	 *
+	 * @param message
+	 */
+	static error = (message: string): void => {
+		process.exitCode = 1;
+		if (process.env.GITHUB_ACTIONS) return core.error(message);
+		return console.error(message);
+	};
+
+	/**
+	 * Log a block of information. In GitHub Actions' logs, this block is automatically collapsed into the `title`.
+	 *
+	 * @param data
+	 * @param data.level - The message type to log at.
+	 * @param data.title - A short header for the section (default = "Details").
+	 * @param data.messages - The list of messages.
+	 */
+	static details = (data: { level: 'info' | 'warning' | 'error'; title?: string; messages: string[] }): void => {
+		data.title = data.title ?? 'Details';
+		if (data.level === 'error') process.exitCode = 1;
+		if (process.env.GITHUB_ACTIONS) {
+			core.startGroup(data.title);
+			for (const message of data.messages) {
+				core[data.level](message);
+			}
+			core.endGroup();
+		} else {
+			const core2Node = {
+				info: 'log',
+				warning: 'warn',
+				error: 'error',
+			} as const;
+			console.group(data.title);
+			for (const message of data.messages) {
+				console[core2Node[data.level]](message);
+			}
+			console.groupEnd();
+		}
+	};
+
+	/**
+	 * Prints new lines to the log.
+	 *
+	 * @param count - The number of new lines to print (default = 1).
+	 */
+	static newLine = (count: number = 1): void => {
+		for (let i = 0; i < count; i++) {
+			Log.info('');
+		}
+	};
+}
 
 type Flatten<T extends object> = {
 	[K in keyof T]: T[K] extends object
