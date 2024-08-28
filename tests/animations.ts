@@ -4,7 +4,7 @@
 
 import * as fs from 'node:fs';
 import * as core from '@actions/core';
-import chalk from 'chalk';
+import pico from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
 import { validateAnimationJSON } from '../src/storage/animationsSchema';
 import { testFilesRecursively } from './helpers.ts';
@@ -17,11 +17,11 @@ if (targetPath.endsWith('.json')) {
 	const json = JSON.parse(fs.readFileSync(targetPath, { encoding: 'utf8' }));
 	const result = validateAnimationJSON(json);
 	if (result.success) {
-		console.log(chalk.green('No validation errors!'));
+		console.log(pico.green('No validation errors!'));
 	} else {
 		console.log(
-			chalk.red(
-				`${chalk.bold(result.error.issues.length)} validation error${result.error.issues.length === 1 ? '' : 's'}:`,
+			pico.red(
+				`${pico.bold(result.error.issues.length)} validation error${result.error.issues.length === 1 ? '' : 's'}:`,
 			),
 		);
 		result.error.issues.forEach((issue) => {
@@ -42,7 +42,7 @@ if (targetPath.endsWith('.json')) {
 				if (result.success) return { success: true };
 				return {
 					success: false,
-					message: `${chalk.bold(result.error.issues.length)} schema issue${result.error.issues.length === 1 ? '' : 's'}.`,
+					message: `${pico.bold(result.error.issues.length)} schema issue${result.error.issues.length === 1 ? '' : 's'}.`,
 				};
 			},
 			'default': false,
@@ -52,31 +52,45 @@ if (targetPath.endsWith('.json')) {
 
 	const errors = results.filter(result => !result.success);
 	if (!errors.length) {
-		core.info(chalk.green('All animation files are valid!'));
+		const message = pico.green('All animation files are valid!');
+		if (process.env.GITHUB_ACTIONS) {
+			core.info(message);
+		} else {
+			console.log(message);
+		}
 	} else {
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 60);
 
 		if (process.argv[2] === 'fast') {
 			console.error(
-				chalk.red(
-					`${chalk.bold('Invalid animation file: ')}\n  • ${`${errors[0].file}${errors[0].message ? `${' '.repeat(Math.max(columnWidth - errors[0].file.length, 3))}${chalk.dim(errors[0].message)}` : ''}`}`,
+				pico.red(
+					`${pico.bold('Invalid animation file: ')}\n  • ${`${errors[0].file}${errors[0].message ? `${' '.repeat(Math.max(columnWidth - errors[0].file.length, 3))}${pico.dim(errors[0].message)}` : ''}`}`,
 				),
 			);
-			console.warn(chalk.yellow.dim('Process terminated early; other invalid files may exist.'));
+			console.warn(pico.yellow(pico.dim('Process terminated early; other invalid files may exist.')));
 			process.exitCode = 1;
 		} else {
-			core.startGroup(chalk.red.bold.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`));
-			errors.forEach(result =>
-				core.info(
-					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${chalk.dim(result.message)}` : ''}`,
-				),
+			const message1 = pico.red(
+				pico.bold(pico.underline(`Invalid animation file${errors.length === 1 ? '' : 's'}:`)),
 			);
-			core.endGroup();
-			core.setFailed(
-				chalk.red(
-					`${chalk.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
-				),
+			if (process.env.GITHUB_ACTIONS) core.startGroup(message1);
+			console.log(message1);
+			errors.forEach((result) => {
+				const message = `${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${pico.dim(result.message)}` : ''}`;
+				if (process.env.GITHUB_ACTIONS) return core.info(message);
+				return console.log(message);
+			});
+			if (process.env.GITHUB_ACTIONS) core.endGroup();
+
+			const message2 = pico.red(
+				`${pico.bold(errors.length)} animation file${errors.length === 1 ? '' : 's'} of ${results.length} (${Math.round((1000 * errors.length) / results.length) / 10}\%) failed validation.`,
 			);
+			if (process.env.GITHUB_ACTIONS) {
+				core.setFailed(message2);
+			} else {
+				console.error(message2);
+				process.exitCode = 1;
+			}
 		}
 	}
 }
