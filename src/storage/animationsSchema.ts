@@ -253,6 +253,7 @@ const presetOptions = z
 			.optional(),
 		templateAsOrigin: z.literal(true).optional(),
 	})
+	.strict()
 	.refine(...nonEmpty);
 
 const easingOptions = z
@@ -537,6 +538,7 @@ const effectOptions = z
 					.strict(),
 			})
 			.strict()
+			.refine(...nonEmpty)
 			.superRefine(
 				// Test that `filter.options` matches `filter.type`
 				(filter, ctx) => {
