@@ -60,15 +60,7 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.shield_cracked.purple.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 85
-									}
-								}
-							}
+							"file": "jb2a.markers.shield_cracked.dark_red.03"
 						},
 						{
 							"predicate": [
