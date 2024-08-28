@@ -39,4 +39,10 @@ export default antfu(
 			'no-self-assign': 'off',
 		},
 	},
+	{
+		files: ['tests/**'],
+		rules: {
+			'no-console': 'off',
+		},
+	},
 );
