@@ -1,11 +1,11 @@
 // To test and report on all files, use `npm run test:animations`.
 // To check as quickly as possible whether any of the files are invalid, use `npm run test:animations -- fast`.
-// To test one specific file with issues listed, use `npm run test:animations -- <path to file>` (e.g. `npm run test:animation -- animations/actions/aid.json`).
+// To validate one specific file with issues listed, use `npm run test:animations -- <path to file>` (e.g. `npm run test:animation -- animations/actions/aid.json`).
 
 import * as fs from 'node:fs';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
-import { validateAnimationData } from '../src/storage/animationsSchema';
+import { type AnimationObject, validateAnimationData } from '../src/storage/animationsSchema';
 import { Log, testFilesRecursively } from './helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
@@ -28,19 +28,61 @@ if (targetPath.endsWith('.json')) {
 		});
 	}
 } else {
+	class ReferenceTracker {
+		confirmed: Set<string>;
+		pending: { [s: string]: string[] };
+		constructor() {
+			this.confirmed = new Set();
+			this.pending = {};
+		}
+
+		#addPending(rollOption: string, file: string): void {
+			if (this.pending[rollOption]) {
+				this.pending[rollOption].push(file);
+			} else {
+				this.pending[rollOption] = [file];
+			}
+		}
+
+		populate(file: string, key: string, value: string | AnimationObject[]): void {
+			this.confirmed.add(key);
+			if (typeof value === 'string') {
+				this.#addPending(value, file);
+			} else {
+				for (const obj of value) {
+					if (obj.reference) this.#addPending(obj.reference, file);
+					for (const override of obj.overrides ?? []) {
+						this.#addPending(override, file);
+					}
+				}
+			}
+		}
+	}
+	const referenceTracker = new ReferenceTracker();
+
 	const results = testFilesRecursively(
 		targetPath,
 		{
 			'.json': (path) => {
+				// Test filename
 				if (path.match(/^[a-z0-9]+(-[a-z0-9]+)*$/))
 					return { success: false, message: 'Invalid filename.' };
+
 				const json = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
-				const result = validateAnimationData(json);
-				if (result.success) return { success: true };
-				return {
-					success: false,
-					message: `${p.bold(result.error.issues.length)} schema issue${result.error.issues.length === 1 ? '' : 's'}.`,
-				};
+
+				// Test schema
+				const schemaResult = validateAnimationData(json);
+				if (!schemaResult.success) {
+					return {
+						success: false,
+						message: `${p.bold(schemaResult.error.issues.length)} schema issue${schemaResult.error.issues.length === 1 ? '' : 's'}.`,
+					};
+				}
+
+				// Populate referenced rollOptions for validation afterwards
+				Object.keys(json).forEach(key => referenceTracker.populate(path, key, json[key]));
+
+				return { success: true };
 			},
 			'default': false,
 		},
@@ -48,10 +90,23 @@ if (targetPath.endsWith('.json')) {
 	);
 
 	const errors = results.filter(result => !result.success);
+
+	Object.keys(referenceTracker.pending).forEach((rollOption) => {
+		if (!referenceTracker.confirmed.has(rollOption)) {
+			referenceTracker.pending[rollOption].forEach(file =>
+				errors.push({
+					file,
+					success: false,
+					message: `Could not find referenced roll option: ${rollOption}`,
+				}),
+			);
+		}
+	});
+
 	if (!errors.length) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
-		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 50);
+		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 58);
 
 		Log.details({
 			level: 'info',
