@@ -12,7 +12,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
 	let special: string = '';
 	if (!message.token) {
-		log('No token found. Aborting.');
+		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
 	};
 
