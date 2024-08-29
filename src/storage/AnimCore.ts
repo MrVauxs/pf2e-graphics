@@ -342,9 +342,9 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes;
 		animationOptions?: object;
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) return log('No Actor Found! Aborting.');
+		if (!actor) return log('No actor found! Aborting.');
 		if (!source) source = actor.getActiveTokens()[0]; // TODO: Maybe rewrite to take multiple linked tokens into account?
-		if (!source) return log('No Token Found to animate with! Aborting.');
+		if (!source) return log('No source token found on the active scene! Aborting.');
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
