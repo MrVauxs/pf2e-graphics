@@ -1,0 +1,33 @@
+{
+"action:shove": [
+    {
+      "trigger": "skill-check",
+      "contents": [
+        {
+          "preset": "melee",
+          "file": "jb2a.unarmed_strike.physical.02.blue",
+          "options": {
+            "sound": {
+              "file": "pf2e-graphics.movement.landing",
+              "delay": 300
+            },
+            "waitUntilFinished": 100
+          }
+        },
+        {
+          "preset": "onToken",
+          "file": "jb2a.wind_stream.white",
+          "options": {
+            "fadeOut": 500,
+            "preset": {
+              "location": "target"
+            },
+            "scaleToObject": {
+              "value": 1.5
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
