@@ -1,0 +1,73 @@
+{
+	"origin:item:slug:telekinetic-rend": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"contents": [
+				{
+					"predicate": [
+						{
+							"or": [
+								"origin:item:damage:bludgeoning",
+								{
+									"and": [
+										"origin:item:tag:amped",
+										{
+											"gte": [
+												"graphics-quality",
+												2
+											]
+										}
+									]
+								}
+							]
+						}
+					],
+					"file": "jb2a.falling_rocks.top.1x1.grey",
+					"options": {
+						"scaleToObject": {
+							"value": 2,
+							"uniform": true
+						},
+						"sound": {
+							"file": "pf2e-graphics.magic.earth.eruption"
+						}
+					}
+				},
+				{
+					"predicate": [
+						{
+							"or": [
+								"origin:item:damage:slashing",
+								{
+									"and": [
+										"origin:item:tag:amped",
+										{
+											"gte": [
+												"graphics-quality",
+												2
+											]
+										}
+									]
+								}
+							]
+						}
+					],
+					"file": "jb2a.whirlwind.bluegrey",
+					"options": {
+						"scaleToObject": {
+							"value": 1.5,
+							"uniform": true
+						},
+						"duration": 5000,
+						"fadeIn": 250,
+						"fadeOut": 1000,
+						"sound": {
+							"file": "pf2e-graphics.magic.earth.ranged.storm"
+						}
+					}
+				}
+			]
+		}
+	]
+}

@@ -2,9 +2,36 @@
 	"item:slug:daze": [
 		{
 			"trigger": "damage-roll",
+			"preset": "ranged",
+			"options": {
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
+				},
+				"sound": {
+					"file": "pf2e-graphics.magic.dark.buff"
+				}
+			},
 			"contents": [
 				{
-					"preset": "ranged",
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.fire_bolt.orange",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -110
+							}
+						}
+					}
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"file": "jb2a.fire_bolt.purple"
 				}
 			]
