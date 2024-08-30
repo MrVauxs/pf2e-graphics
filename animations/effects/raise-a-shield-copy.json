@@ -1,0 +1,28 @@
+{
+	"effect:raise-a-shield": [
+		{
+			"preset": "onToken",
+			"file": "jb2a.markers.shield_rampart.complete.01.orange",
+			"options": {
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true }
+			},
+			"contents": [
+				{
+					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"trigger": ["startTurn", "effect"]
+				},
+				{
+					"predicate": ["graphics-quality:3"],
+					"trigger": "effect",
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
+		}
+	]
+}
