@@ -10,6 +10,7 @@ const options: Partial<Options> = {
 	markdownDescription: true,
 	removeAdditionalStrategy: 'strict',
 	applyRegexFlags: true,
+	// errorMessages: true, // Would like this enabled, but it seems to cause problems in VSCode
 };
 
 const animationSchema = zodToJsonSchema(animations, options);
