@@ -692,7 +692,6 @@ const triggers = z.enum([
 	'damage-roll',
 	'place-template',
 	'action',
-	'spell-cast',
 	'toggle',
 	'effect',
 	'self-effect',
@@ -865,7 +864,7 @@ export type Animations = Partial<TokenImages> & { [rollOption: string]: string |
  * @param data - The data to validate as parsed JSON.
  * @returns An object with a boolean `success` property indicating whether the validation succeeded or not. If validation failed, the Zod error is included in the `error` property.
  */
-export function validateAnimationData(data: unknown): { success: true } | { success: false; error: z.ZodError } {
+export function validateAnimationData(data: JSONValue): { success: true } | { success: false; error: z.ZodError } {
 	if (typeof data !== 'object' || Array.isArray(data) || data === null) {
 		return {
 			success: false,

@@ -21,8 +21,8 @@ export class Log {
 	 *
 	 * @param message
 	 */
-	static warning = (message: string): void => {
-		if (process.env.GITHUB_ACTIONS) return core.warning(message);
+	static warning = (message?: string): void => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message ?? '');
 		return console.warn(message);
 	};
 
@@ -31,9 +31,9 @@ export class Log {
 	 *
 	 * @param message
 	 */
-	static error = (message: string): void => {
+	static error = (message?: string): void => {
 		process.exitCode = 1;
-		if (process.env.GITHUB_ACTIONS) return core.error(message);
+		if (process.env.GITHUB_ACTIONS) return core.error(message ?? '');
 		return console.error(message);
 	};
 
@@ -41,13 +41,20 @@ export class Log {
 	 * Log a block of information. In GitHub Actions' logs, this block is automatically collapsed into the `title`.
 	 *
 	 * @param data
-	 * @param data.level - The message type to log at.
+	 * @param data.level - The message type to log at (default = "info").
 	 * @param data.title - A short header for the section (default = "Details").
 	 * @param data.messages - The list of messages.
 	 */
-	static details = (data: { level: 'info' | 'warning' | 'error'; title?: string; messages: string[] }): void => {
+	static details = (data: {
+		level?: 'info' | 'warning' | 'error';
+		title?: string;
+		messages: string[];
+	}): void => {
+		data.level = data.level ?? 'info';
 		data.title = data.title ?? 'Details';
+
 		if (data.level === 'error') process.exitCode = 1;
+
 		if (process.env.GITHUB_ACTIONS) {
 			core.startGroup(data.title);
 			for (const message of data.messages) {
@@ -55,12 +62,12 @@ export class Log {
 			}
 			core.endGroup();
 		} else {
+			console.group(data.title);
 			const core2Node = {
 				info: 'log',
 				warning: 'warn',
 				error: 'error',
 			} as const;
-			console.group(data.title);
 			for (const message of data.messages) {
 				console[core2Node[data.level]](message);
 			}
@@ -74,9 +81,7 @@ export class Log {
 	 * @param count - The number of new lines to print (default = 1).
 	 */
 	static newLine = (count: number = 1): void => {
-		for (let i = 0; i < count; i++) {
-			Log.info('');
-		}
+		Log.info('\n'.repeat(count - 1));
 	};
 }
 
@@ -110,6 +115,23 @@ export function flatten<T extends object>(obj: T, parentKey: string = ''): Flatt
 }
 
 /**
+ * A data-valiation wrapper around `JSON.parse()` for when data is ingested from external sources.
+ *
+ * @param input - The input string.
+ * @returns An object with a `success` property indicating the success state. If `input` was parsed successfully, it is included in the `json` property.
+ */
+export function safeJSONParse(input: string): { success: true; json: JSONValue } | { success: false } {
+	try {
+		return {
+			success: true,
+			json: JSON.parse(input),
+		};
+	} catch {
+		return { success: false };
+	}
+}
+
+/**
  * Gets a list of files by walking through the file-tree, starting from a particular path.
  *
  * @param targetPath - The initial path.
@@ -138,9 +160,9 @@ export function getFilesRecursively(targetPath: string): string[] {
  * @param targetPath - The initial path. If the path is a directory, all files and subdirectories will be tested. If the path is a file, only that file will be tested.
  * @param tests - An object mapping extensions (e.g. ".png", with the leading ".") to either a boolean or a test function. The behaviour for extensions without an explicit property is defined by the "default" property.
  * @param options
- * @param options.breakEarly - Stops testing upon the first error, returning all tested files up to and including it.
+ * @param options.breakEarly - Stops testing upon the first failed validation, returning all tested files up to and including it.
  * @param options.ignoreGit - Ignores Git files, such as ".gitignore", ".gitkeep", etc. Requires `tests[""]` to be undefined.
- * @returns An array of objects. The objects have a `file` property with the filepath, a `success` property with the success state, and optionally an `error` returned by the test function.
+ * @returns An array of objects. The objects have a `file` property with the filepath, a `success` property with the success state, and optionally a `message` returned by the test function.
  */
 export function testFilesRecursively(
 	targetPath: string,

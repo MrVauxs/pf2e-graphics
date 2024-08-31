@@ -6,7 +6,7 @@ import * as fs from 'node:fs';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
 import { type AnimationObject, validateAnimationData } from '../src/storage/animationsSchema';
-import { Log, testFilesRecursively } from './helpers.ts';
+import { Log, safeJSONParse, testFilesRecursively } from './helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
 
@@ -36,7 +36,7 @@ if (targetPath.endsWith('.json')) {
 			this.pending = {};
 		}
 
-		#addPending(rollOption: string, file: string): void {
+		private addPending(rollOption: string, file: string): void {
 			if (this.pending[rollOption]) {
 				this.pending[rollOption].push(file);
 			} else {
@@ -47,12 +47,12 @@ if (targetPath.endsWith('.json')) {
 		populate(file: string, key: string, value: string | AnimationObject[]): void {
 			this.confirmed.add(key);
 			if (typeof value === 'string') {
-				this.#addPending(value, file);
+				this.addPending(value, file);
 			} else {
 				for (const obj of value) {
-					if (obj.reference) this.#addPending(obj.reference, file);
+					if (obj.reference) this.addPending(obj.reference, file);
 					for (const override of obj.overrides ?? []) {
-						this.#addPending(override, file);
+						this.addPending(override, file);
 					}
 				}
 			}
@@ -68,10 +68,11 @@ if (targetPath.endsWith('.json')) {
 				if (path.match(/^[a-z0-9]+(-[a-z0-9]+)*$/))
 					return { success: false, message: 'Invalid filename.' };
 
-				const json = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
+				const file = safeJSONParse(fs.readFileSync(path, { encoding: 'utf8' }));
+				if (!file.success) return { success: false, message: 'Invalid JSON syntax.' };
 
 				// Test schema
-				const schemaResult = validateAnimationData(json);
+				const schemaResult = validateAnimationData(file.json);
 				if (!schemaResult.success) {
 					return {
 						success: false,
@@ -80,7 +81,14 @@ if (targetPath.endsWith('.json')) {
 				}
 
 				// Populate referenced rollOptions for validation afterwards
-				Object.keys(json).forEach(key => referenceTracker.populate(path, key, json[key]));
+				// We know the type of `file.json` because otherwise the schema validation above would have returned early.
+				Object.keys(file.json!).forEach(key =>
+					referenceTracker.populate(
+						path,
+						key,
+						(file.json as { [key: string]: string | AnimationObject[] })[key],
+					),
+				);
 
 				return { success: true };
 			},
