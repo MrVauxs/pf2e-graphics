@@ -17,11 +17,14 @@ const uniqueItems: [(arr: any[]) => boolean, string] = [
 
 const JSONValue = z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null(), z.undefined()]);
 
-const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'String must be a valid slug.');
+const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'String must be a valid slug.');
 
 const rollOption = z
 	.string()
-	.regex(/^[a-z0-9]+(-[a-z0-9]+)*(:[a-z0-9]+(-[a-z0-9]+)*)*$/, 'String must be a valid roll option.');
+	.regex(
+		/^[a-z0-9]+(?:-[a-z0-9]+)*(?::[a-z0-9]+(?:-[a-z0-9]+)*)*(?::-?\d+)?$/i,
+		'String must be a valid roll option.',
+	);
 
 // Following required to allow Zod to evaluate recursive structures
 const predicateComparisonObject = z.object({
@@ -203,7 +206,24 @@ const presetOptions = z
 			z
 				.object({
 					cacheLocation: z.literal(true).optional(),
-					offset: vector2.optional(),
+					offset: z
+						.object({
+							x: z
+								.number()
+								.refine(...nonZero)
+								.or(z.tuple([z.number().refine(...nonZero), z.number().refine(...nonZero)]))
+								.optional(),
+							y: z
+								.number()
+								.refine(...nonZero)
+								.or(z.tuple([z.number().refine(...nonZero), z.number().refine(...nonZero)]))
+								.optional(),
+							flipX: z.literal(true).optional(),
+							flipY: z.literal(true).optional(),
+						})
+						.strict()
+						.refine(...nonEmpty)
+						.optional(),
 					randomOffset: z.number().optional(),
 					gridUnits: z.literal(true).optional(),
 					local: z.literal(true).optional(),
@@ -214,10 +234,11 @@ const presetOptions = z
 		),
 		bounce: z
 			.object({
-				file: sequencerDBEntry.or(filePath),
-				sound: soundConfig,
+				file: sequencerDBEntry.or(filePath).optional(),
+				sound: soundConfig.optional(),
 			})
 			.strict()
+			.refine(...nonEmpty)
 			.optional(),
 		location: z.enum(['target', 'source', 'both']).optional(),
 		rotateTowards: z.literal(true).or(
@@ -864,7 +885,7 @@ export type Animations = Partial<TokenImages> & { [rollOption: string]: string |
  * @param data - The data to validate as parsed JSON.
  * @returns An object with a boolean `success` property indicating whether the validation succeeded or not. If validation failed, the Zod error is included in the `error` property.
  */
-export function validateAnimationData(data: JSONValue): { success: true } | { success: false; error: z.ZodError } {
+export function validateAnimationData(data: unknown): { success: true } | { success: false; error: z.ZodError } {
 	if (typeof data !== 'object' || Array.isArray(data) || data === null) {
 		return {
 			success: false,
