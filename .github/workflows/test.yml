@@ -57,7 +57,7 @@ jobs:
 
       - name: Test Eslint
         run: npm run lint
-  test:
+  animations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -77,5 +77,5 @@ jobs:
         run: |
           npm ci
 
-      - name: Test
+      - name: Test animation files
         run: npm run test
