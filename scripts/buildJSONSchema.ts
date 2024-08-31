@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import { type Options, zodToJsonSchema } from 'zod-to-json-schema';
 import p from 'picocolors';
-import { Log } from '../tests/helpers';
 import { animations, tokenImages } from '../src/storage/animationsSchema';
+import { Log } from './helpers';
 
 const OUTPUT_DIRECTORY = './dist';
 
