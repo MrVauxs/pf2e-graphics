@@ -10,9 +10,12 @@ import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules 
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 import nesting from 'tailwindcss/nesting';
-// @ts-expect-error - not typed, but the entire thing is tiny
 import minify from 'postcss-minify';
+import p from 'picocolors';
+import { fromZodIssue } from 'zod-validation-error';
 import moduleJSON from './module.json' with { type: 'json' };
+import { validateAnimationData } from './src/storage/animationsSchema';
+import { Log } from './tests/helpers';
 
 const packagePath = `modules/${moduleJSON.id}`;
 // const { esmodules, styles } = moduleJSON
@@ -142,6 +145,9 @@ function mergeAnimationsPlugin(): PluginOption {
 	const mergeAnimations = () => {
 		let animations: Record<string, any> = {};
 		const duplicateKeys: string[] = [];
+		const validationIssues: string[] = [];
+
+		// Merging objects and gathering of duplicate keys
 		for (const file of glob.globSync('./animations/**/*.json')) {
 			try {
 				const content = fs.readFileSync(file, { encoding: 'utf-8' });
@@ -154,7 +160,27 @@ function mergeAnimationsPlugin(): PluginOption {
 				throw new Error(`Failed to parse ${file}: ${e}`);
 			}
 		}
-		return { animations, duplicateKeys };
+
+		// Validation
+		const result = validateAnimationData(animations);
+		if (result.success) {
+			Log.info(p.green('No validation errors!'));
+		} else {
+			const issues = result.error.issues;
+			Log.details({
+				level: 'error',
+				title: p.red(`[Zod] Found ${p.bold(issues.length)} validation error${issues.length === 1 ? '' : 's'}.`),
+				messages: issues.map((issue) => {
+					const formatted = fromZodIssue(issue);
+
+					validationIssues.push(`${formatted.details[0].path.join('.')} - ${formatted.details[0].message}`);
+
+					return `${p.bgBlack(formatted.details[0].path.join('.'))}\n\t∟ ${formatted.details[0].message}`;
+				}),
+			});
+		}
+
+		return { animations, duplicateKeys, validationIssues };
 	};
 
 	return [
@@ -165,13 +191,20 @@ function mergeAnimationsPlugin(): PluginOption {
 				server.watcher.add('./animations');
 				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
-						const { animations, duplicateKeys } = mergeAnimations();
+						const { animations, duplicateKeys, validationIssues } = mergeAnimations();
 						res.end(JSON.stringify(animations));
 						if (duplicateKeys.length) {
 							server.ws.send({
-								event: 'updateAnimsError',
+								event: 'updateDuplicateKeysError',
 								type: 'custom',
 								data: JSON.stringify(duplicateKeys),
+							});
+						}
+						if (validationIssues.length) {
+							server.ws.send({
+								event: 'updateValidationError',
+								type: 'custom',
+								data: JSON.stringify(validationIssues),
 							});
 						}
 					} else {

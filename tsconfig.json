@@ -35,13 +35,8 @@
 		"isolatedModules": true,
 		"skipLibCheck": true
 	},
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	],
 	"include": [
-		"./tests",
+		"tests/**/*.ts",
 		"src/**/*.ts",
 		"src/**/*.js",
 		"src/**/*.svelte"
