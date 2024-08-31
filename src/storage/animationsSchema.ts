@@ -136,6 +136,33 @@ const vector2 = z
 	.strict()
 	.refine(...nonEmpty);
 
+const offset = z
+	.object({
+		x: z
+			.number()
+			.refine(...nonZero)
+			.or(
+				z
+					.tuple([z.number(), z.number()])
+					.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
+			)
+			.optional(),
+		y: z
+			.number()
+			.refine(...nonZero)
+			.or(
+				z
+					.tuple([z.number(), z.number()])
+					.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
+			)
+			.optional(),
+		flipX: z.literal(true).optional(),
+		flipY: z.literal(true).optional(),
+	})
+	.strict()
+	.refine(...nonEmpty)
+	.refine(obj => obj.x || obj.y, 'At least one offset dimension (`x` or `y`) must be specified.');
+
 const soundEffect = z
 	.object({
 		type: z.string().min(1),
@@ -149,7 +176,7 @@ const soundData = z
 		atLocation: z
 			.object({
 				cacheLocation: z.literal(true).optional(),
-				offset: vector2.optional(),
+				offset: offset.optional(),
 				randomOffset: z.number().optional(),
 				gridUnits: z.literal(true).optional(),
 				local: z.literal(true).optional(),
@@ -193,7 +220,7 @@ const presetOptions = z
 					bindScale: z.literal(true).optional(),
 					bindElevation: z.literal(true).optional(),
 					followRotation: z.literal(true).optional(),
-					offset: vector2.optional(),
+					offset: offset.optional(),
 					randomOffset: z.number().optional(),
 					gridUnits: z.literal(true).optional(),
 					local: z.literal(true).optional(),
@@ -206,32 +233,7 @@ const presetOptions = z
 			z
 				.object({
 					cacheLocation: z.literal(true).optional(),
-					offset: z
-						.object({
-							x: z
-								.number()
-								.refine(...nonZero)
-								.or(
-									z
-										.tuple([z.number(), z.number()])
-										.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
-								)
-								.optional(),
-							y: z
-								.number()
-								.refine(...nonZero)
-								.or(
-									z
-										.tuple([z.number(), z.number()])
-										.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
-								)
-								.optional(),
-							flipX: z.literal(true).optional(),
-							flipY: z.literal(true).optional(),
-						})
-						.strict()
-						.refine(...nonEmpty)
-						.optional(),
+					offset: offset.optional(),
 					randomOffset: z.number().optional(),
 					gridUnits: z.literal(true).optional(),
 					local: z.literal(true).optional(),
@@ -255,7 +257,7 @@ const presetOptions = z
 					rotationOffset: z.number().optional(),
 					cacheLocation: z.literal(true).optional(),
 					attachTo: z.literal(true).optional(),
-					offset: vector2.optional(),
+					offset: offset.optional(),
 					randomOffset: z.number().optional(),
 					gridUnits: z.literal(true).optional(),
 					local: z.literal(true).optional(),
@@ -270,7 +272,7 @@ const presetOptions = z
 				attachTo: z.literal(true).optional(),
 				onlyX: z.literal(true).optional(),
 				tiling: z.literal(true).optional(),
-				offset: vector2.optional(),
+				offset: offset.optional(),
 				randomOffset: z.number().optional(),
 				gridUnits: z.literal(true).optional(),
 				local: z.literal(true).optional(),
@@ -436,7 +438,7 @@ const effectOptions = z
 			.optional(),
 		spriteOffset: z
 			.object({
-				offset: vector2,
+				offset,
 				gridUnits: z.literal(true).optional(),
 				local: z.literal(true).optional(),
 			})
@@ -492,10 +494,7 @@ const effectOptions = z
 							.number()
 							.describe('The value of the brightness (0 to 1, where 0 is black)')
 							.optional(),
-						contrast: z
-							.number()
-							.describe('The value of the contrast (0 to 1).')
-							.optional(),
+						contrast: z.number().describe('The value of the contrast (0 to 1).').optional(),
 						saturate: z
 							.number()
 							.describe(
