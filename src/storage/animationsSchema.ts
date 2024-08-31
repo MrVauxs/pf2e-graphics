@@ -242,7 +242,7 @@ const presetOptions = z
 		),
 		bounce: z
 			.object({
-				file: sequencerDBEntry.or(filePath).optional(),
+				file: sequencerDBEntry.or(filePath),
 				sound: soundConfig.optional(),
 			})
 			.strict()
@@ -490,20 +490,14 @@ const effectOptions = z
 						hue: z.number().gt(-180).lte(180).describe('The hue, in degrees.').optional(),
 						brightness: z
 							.number()
-							.nonnegative()
-							.lte(1)
 							.describe('The value of the brightness (0 to 1, where 0 is black)')
 							.optional(),
 						contrast: z
 							.number()
-							.nonnegative()
-							.lte(1)
 							.describe('The value of the contrast (0 to 1).')
 							.optional(),
 						saturate: z
 							.number()
-							.gte(-1)
-							.lte(1)
 							.describe(
 								'The value of the saturation amount. Negative numbers cause it to become desaturated (-1 to 1)',
 							)
