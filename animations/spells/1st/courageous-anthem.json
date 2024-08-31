@@ -1,0 +1,15 @@
+{
+	"effect:slug:aura-courageous-anthem": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.bardic_inspiration",
+			"options": {
+				"scaleToObject": 5,
+				"sound": {
+					"file": "pf2e-graphics.magic.buff.generic"
+				}
+			}
+		}
+	]
+}

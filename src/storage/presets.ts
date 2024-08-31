@@ -255,7 +255,7 @@ interface meleeOptions {
 
 interface rangedOptions {
 	attachTo?: true | Parameters<EffectSection['attachTo']>[1];
-	bounce?: { file: string; sound: SoundConfig };
+	bounce?: { file: string; sound?: SoundConfig };
 	templateAsOrigin?: boolean;
 	atLocation?: Parameters<EffectSection['atLocation']>[1];
 	stretchTo?: Parameters<EffectSection['stretchTo']>[1];

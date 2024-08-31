@@ -5,18 +5,28 @@
 			"preset": "ranged",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.spear.hit"
+					"file": "pf2e-graphics.magic.holy.bolt.impact"
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
 			},
 			"contents": [
 				{
-					"predicate": ["item:trait:holy"],
+					"predicate": [
+						"item:trait:holy"
+					],
 					"file": "jb2a.ranged.01.projectile.01.dark_orange"
 				},
 				{
 					"predicate": [
 						{
-							"nand": ["item:trait:holy", "item:trait:unholy"]
+							"nand": [
+								"item:trait:holy",
+								"item:trait:unholy"
+							]
 						}
 					],
 					"file": "jb2a.ranged.01.projectile.01.dark_orange",
@@ -28,11 +38,17 @@
 					}
 				},
 				{
-					"predicate": ["item:trait:unholy", "jb2a:patreon"],
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:patreon"
+					],
 					"file": "jb2a.ranged.01.projectile.01.dark_purple"
 				},
 				{
-					"predicate": ["item:trait:unholy", "jb2a:free"],
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:free"
+					],
 					"filter": {
 						"type": "ColorMatrix",
 						"options": {
