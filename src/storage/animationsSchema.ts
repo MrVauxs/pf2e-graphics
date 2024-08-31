@@ -825,7 +825,7 @@ const animationObjects = z
 // Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below).
 export const animations = z.record(rollOption, rollOption.or(animationObjects));
 
-const tokenImages = z.object({
+export const tokenImages = z.object({
 	_tokenImages: z
 		.array(
 			z
