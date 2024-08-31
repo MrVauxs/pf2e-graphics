@@ -17,15 +17,11 @@
 	// Add JSON Validation
 	"json.schemas": [
 		{
-			"fileMatch": [
-				"animations/*/**/*.json"
-			],
+			"fileMatch": ["animations/*/**/*.json"],
 			"url": "./dist/animations-schema.json"
 		},
 		{
-			"fileMatch": [
-				"animations/tokenImages.json"
-			],
+			"fileMatch": ["animations/tokenImages.json"],
 			"url": "./dist/token-images-schema.json"
 		}
 	],
