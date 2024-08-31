@@ -5,7 +5,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "vite build && npm run build:schema",
+		"build:vite": "vite build",
+		"build:schema": "tsx ./scripts/buildJSONSchema.ts",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint . --cache",
