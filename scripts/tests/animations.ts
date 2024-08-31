@@ -5,8 +5,8 @@
 import * as fs from 'node:fs';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
-import { type AnimationObject, validateAnimationData } from '../src/storage/animationsSchema';
-import { Log, safeJSONParse, testFilesRecursively } from '../scripts/helpers.ts';
+import { type AnimationObject, validateAnimationData } from '../../src/storage/animationsSchema';
+import { Log, safeJSONParse, testFilesRecursively } from '../helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
 

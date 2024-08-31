@@ -15,7 +15,7 @@ import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
 import moduleJSON from './module.json' with { type: 'json' };
 import { validateAnimationData } from './src/storage/animationsSchema';
-import { Log } from './tests/helpers';
+import { Log } from './scripts/helpers';
 
 const packagePath = `modules/${moduleJSON.id}`;
 // const { esmodules, styles } = moduleJSON

@@ -14,11 +14,11 @@
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --fix --cache",
 		"changelog": "changelog --format markdownlint --release --create",
-		"test": "npm run test:assets && npm run test:animations",
-		"test:animations": "tsx ./tests/animations.ts",
+		"test": "npm run test:assets && npm run test:animations && npm run lint:fix",
+		"test:animations": "tsx ./scripts/tests/animations.ts",
 		"test:assets": "npm run test:assets:exist && npm run test:assets:format",
-		"test:assets:exist": "tsx ./tests/assets/exist.ts",
-		"test:assets:format": "tsx ./tests/assets/format.ts"
+		"test:assets:exist": "tsx ./scripts/tests/assets/exist.ts",
+		"test:assets:format": "tsx ./scripts/tests/assets/format.ts"
 	},
 	"imports": {
 		"#runtime/*": "@typhonjs-fvtt/runtime/*",
