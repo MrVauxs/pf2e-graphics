@@ -14,15 +14,13 @@ import minify from 'postcss-minify';
 import p from 'picocolors';
 import { fromZodIssue } from 'zod-validation-error';
 import moduleJSON from './module.json' with { type: 'json' };
-import { validateAnimationData } from './src/storage/animationsSchema';
+import { getJSONSchema, validateAnimationData } from './src/storage/animationsSchema';
 import { Log } from './scripts/helpers';
 
 const packagePath = `modules/${moduleJSON.id}`;
 // const { esmodules, styles } = moduleJSON
 
-const skippedFiles = [
-	`${moduleJSON.id}.css`,
-].map(f => `dist/${f}`).join('|');
+const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
 export default defineConfig(({ command: _buildOrServe }) => ({
 	root: 'src',
@@ -82,7 +80,8 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		},
 		rollupOptions: {
 			output: {
-				assetFileNames: assetInfo => (assetInfo.name === 'style.css') ? `${moduleJSON.id}.css` : (assetInfo.name as string),
+				assetFileNames: assetInfo =>
+					assetInfo.name === 'style.css' ? `${moduleJSON.id}.css` : (assetInfo.name as string),
 			},
 		},
 	},
@@ -100,7 +99,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 				typescript: true,
 				eslint: process.env.IGNORE_ESLINT
 					? undefined
-					:	{
+					: {
 							useFlatConfig: true,
 							lintCommand: 'eslint',
 						},
@@ -133,7 +132,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			buildStart() {
 				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
 				for (const name of files) {
-					fs.writeFileSync(`${name}`, '', { flag: 'a' });
+					fs.writeFileSync(name, '', { flag: 'a' });
 				}
 			},
 		},
@@ -169,11 +168,15 @@ function mergeAnimationsPlugin(): PluginOption {
 			const issues = result.error.issues;
 			Log.details({
 				level: 'error',
-				title: p.red(`[Zod] Found ${p.bold(issues.length)} validation error${issues.length === 1 ? '' : 's'}.`),
+				title: p.red(
+					`[Zod] Found ${p.bold(issues.length)} validation error${issues.length === 1 ? '' : 's'}.`,
+				),
 				messages: issues.map((issue) => {
 					const formatted = fromZodIssue(issue);
 
-					validationIssues.push(`${formatted.details[0].path.join('.')} - ${formatted.details[0].message}`);
+					validationIssues.push(
+						`${formatted.details[0].path.join('.')} - ${formatted.details[0].message}`,
+					);
 
 					return `${p.bgBlack(formatted.details[0].path.join('.'))}\n\t∟ ${formatted.details[0].message}`;
 				}),
@@ -190,25 +193,31 @@ function mergeAnimationsPlugin(): PluginOption {
 			configureServer(server) {
 				server.watcher.add('./animations');
 				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
-					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
-						const { animations, duplicateKeys, validationIssues } = mergeAnimations();
-						res.end(JSON.stringify(animations));
-						if (duplicateKeys.length) {
-							server.ws.send({
-								event: 'updateDuplicateKeysError',
-								type: 'custom',
-								data: JSON.stringify(duplicateKeys),
-							});
+					switch (req.originalUrl) {
+						case `/${packagePath}/dist/animations.json`: {
+							const { animations, duplicateKeys, validationIssues } = mergeAnimations();
+							if (duplicateKeys.length) {
+								server.ws.send({
+									event: 'updateDuplicateKeysError',
+									type: 'custom',
+									data: JSON.stringify(duplicateKeys),
+								});
+							}
+							if (validationIssues.length) {
+								server.ws.send({
+									event: 'updateValidationError',
+									type: 'custom',
+									data: JSON.stringify(validationIssues),
+								});
+							}
+							return res.end(JSON.stringify(animations));
 						}
-						if (validationIssues.length) {
-							server.ws.send({
-								event: 'updateValidationError',
-								type: 'custom',
-								data: JSON.stringify(validationIssues),
-							});
-						}
-					} else {
-						next();
+						case `/${packagePath}/dist/animations-schema.json`:
+							return res.end(JSON.stringify(getJSONSchema('animations')));
+						case `/${packagePath}/dist/token-images-schema.json`:
+							return res.end(JSON.stringify(getJSONSchema('tokenImages')));
+						default:
+							next();
 					}
 				});
 			},
@@ -240,6 +249,22 @@ function mergeAnimationsPlugin(): PluginOption {
 					type: 'asset',
 					fileName: 'animations.json',
 					source: JSON.stringify(animations),
+				});
+			},
+		},
+		{
+			name: 'build-json-schemas',
+			apply: 'build',
+			generateBundle() {
+				this.emitFile({
+					type: 'asset',
+					fileName: 'animations-schema.json',
+					source: JSON.stringify(getJSONSchema('animations')),
+				});
+				this.emitFile({
+					type: 'asset',
+					fileName: 'token-images-schema.json',
+					source: JSON.stringify(getJSONSchema('tokenImages')),
 				});
 			},
 		},

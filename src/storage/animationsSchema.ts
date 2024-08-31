@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
@@ -925,4 +926,28 @@ export function validateAnimationData(data: unknown): { success: true } | { succ
 	return {
 		success: true,
 	};
+}
+
+/**
+ * Converts a Zod schema into a JSON schema.
+ *
+ * @param schemaName - The type of the Zod schema being emitted (either `animations` or `tokenImages`).
+ * @returns The JSON-schema representation for that Zod schema.
+ */
+export function getJSONSchema(schemaName: 'animations' | 'tokenImages') {
+	const options: Partial<zodToJsonSchemaOptions> = {
+		markdownDescription: true,
+		removeAdditionalStrategy: 'strict',
+		applyRegexFlags: true,
+		// errorMessages: true, // Would like this enabled, but it seems to cause problems in VSCode
+	};
+
+	switch (schemaName) {
+		case 'animations':
+			return zodToJsonSchema(animations, options);
+		case 'tokenImages':
+			return zodToJsonSchema(tokenImages, options);
+		default:
+			throw new Error('Unknown schema name');
+	}
 }

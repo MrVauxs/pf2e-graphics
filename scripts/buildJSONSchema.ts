@@ -1,27 +1,20 @@
+// JSON schemas are emitted automatically via Vite.
+// Use `npm run build:schema` to emit the JSON schema manually.
+
 import fs from 'node:fs/promises';
-import { type Options, zodToJsonSchema } from 'zod-to-json-schema';
 import p from 'picocolors';
-import { animations, tokenImages } from '../src/storage/animationsSchema';
+import { getJSONSchema } from 'src/storage/animationsSchema';
 import { Log } from './helpers';
 
 const OUTPUT_DIRECTORY = './dist';
 
-const options: Partial<Options> = {
-	markdownDescription: true,
-	removeAdditionalStrategy: 'strict',
-	applyRegexFlags: true,
-	// errorMessages: true, // Would like this enabled, but it seems to cause problems in VSCode
-};
-
-const animationSchema = zodToJsonSchema(animations, options);
-fs.writeFile(`${OUTPUT_DIRECTORY}/animations-schema.json`, JSON.stringify(animationSchema), {
+fs.writeFile(`${OUTPUT_DIRECTORY}/animations-schema.json`, JSON.stringify(getJSONSchema('animations')), {
 	encoding: 'utf8',
 })
 	.then(() => Log.info(p.green('Generated animations JSON schema.')))
 	.catch(() => Log.error(p.red('Failed to generate token-images JSON schema.')));
 
-const tokenImagesSchema = zodToJsonSchema(tokenImages, options);
-fs.writeFile(`${OUTPUT_DIRECTORY}/token-images-schema.json`, JSON.stringify(tokenImagesSchema), {
+fs.writeFile(`${OUTPUT_DIRECTORY}/token-images-schema.json`, JSON.stringify(getJSONSchema('tokenImages')), {
 	encoding: 'utf8',
 })
 	.then(() => Log.info(p.green('Generated token-images JSON schema.')))
