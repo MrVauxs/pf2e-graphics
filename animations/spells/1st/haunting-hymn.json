@@ -3,21 +3,33 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
+			"file": "jb2a.energy_conduit.bluepurple.circle",
 			"options": {
-				"repeats": {
-					"count": 2,
-					"delayMin": 200
+				"preset": {
+					"attachTo": {
+						"offset": {
+							"x": 1.5
+						},
+						"local": true,
+						"gridUnits": true
+					}
 				},
-				"mask": true,
+				"scaleToObject": {
+					"uniform": true
+				},
+				"duration": 3000,
+				"fadeOut": 500,
+				"fadeIn": 250,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": 35
+					}
+				},
 				"sound": {
 					"file": "pf2e-graphics.magic.dark.bells"
-				},
-				"randomizeMirrorY": true
-			},
-			"contents": [
-				{ "file": "jb2a.side_impact.part.shockwave.blue", "predicate": ["jb2a:free"] },
-				{ "file": "jb2a.side_impact.part.slow.music_note.pink", "predicate": ["jb2a:patreon"] }
-			]
+				}
+			}
 		}
 	]
 }
