@@ -211,12 +211,20 @@ const presetOptions = z
 							x: z
 								.number()
 								.refine(...nonZero)
-								.or(z.tuple([z.number().refine(...nonZero), z.number().refine(...nonZero)]))
+								.or(
+									z
+										.tuple([z.number(), z.number()])
+										.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
+								)
 								.optional(),
 							y: z
 								.number()
 								.refine(...nonZero)
-								.or(z.tuple([z.number().refine(...nonZero), z.number().refine(...nonZero)]))
+								.or(
+									z
+										.tuple([z.number(), z.number()])
+										.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
+								)
 								.optional(),
 							flipX: z.literal(true).optional(),
 							flipY: z.literal(true).optional(),
@@ -291,7 +299,7 @@ const shape = z
 		width: z.number().positive().optional(),
 		height: z.number().positive().optional(),
 		points: z
-			.array(z.array(z.number()).length(2).or(vector2))
+			.array(z.tuple([z.number(), z.number()]).or(vector2))
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
