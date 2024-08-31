@@ -1,15 +1,16 @@
 import fs from 'node:fs/promises';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import { type Options, zodToJsonSchema } from 'zod-to-json-schema';
 import p from 'picocolors';
 import { Log } from '../tests/helpers';
 import { animations, tokenImages } from '../src/storage/animationsSchema';
 
 const OUTPUT_DIRECTORY = './dist';
 
-const options = {
+const options: Partial<Options> = {
 	markdownDescription: true,
 	removeAdditionalStrategy: 'strict',
-} as const;
+	applyRegexFlags: true,
+};
 
 const animationSchema = zodToJsonSchema(animations, options);
 fs.writeFile(`${OUTPUT_DIRECTORY}/animations-schema.json`, JSON.stringify(animationSchema), {
