@@ -12,6 +12,8 @@
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
 		"jsonEditor": "JSON View / Edit",
+		"hasAnimations": "Has Animations",
+		"noAnimations": "No Animations",
 		"jsonEditorTooltip": "JSON Editor (Shift-click for a Read-Only view)",
 		"confirmConvert": "Are you sure you want to convert this into a reference? This gets rid of all your data.",
 		"reference": "Set to Reference another Animation",

@@ -9,18 +9,22 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	}
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
-	let trigger = message.flags.pf2e.context?.type as TriggerTypes | undefined;
+	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
 	let special: string = '';
 	if (!message.token) {
-		log('No token found. Aborting.');
+		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
 	};
 
-	if (!trigger) {
+	if (!trigger || trigger === 'spell-cast') {
 		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
 			trigger = 'damage-roll';
 			special = 'persistent';
-		} else if (message.item?.isOfType('action') || message.item?.isOfType('feat')) {
+		} else if (
+			message.item?.isOfType('action')
+			|| message.item?.isOfType('feat')
+			|| message.item?.isOfType('spell')
+		) {
 			trigger = 'action';
 		} else {
 			log(`No valid message type found (Got "${trigger}"). Aborting.`);
@@ -54,14 +58,19 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
 		: message.token;
 
-	const newOptions = [
-	];
+	const newOptions = [];
+
 	const outcome = message.flags.pf2e.context?.outcome?.slugify();
 	if (outcome) newOptions.push(`check:outcome:${outcome}`);
+
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
 		if (options)
 			newOptions.push(...options, 'target');
+	}
+
+	if (trigger === 'action') {
+		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
 	const deliverable = {
@@ -76,22 +85,28 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const diceSoNiceHook = Hooks.on('diceSoNiceRollComplete', (id: string) => {
-	if (!game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')) {
-		const message = game.messages.get(id);
-		if (message) handleChatMessage(message);
+const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) => {
+	const message = game.messages.get(id);
+	if (message) {
+		devMessage('Dice So Nice Proxy Triggered');
+		handleChatMessage(message);
+	};
+});
+
+const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
+	if (
+		!(
+			game.modules.get('dice-so-nice')?.active
+			&& msg.isRoll
+			&& msg.rolls.some(roll => roll.dice.length > 0)
+			// replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
+		)
+	) {
+		handleChatMessage(msg);
 	}
 });
 
-const chatMessageHook = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
-	if (
-		game.modules.get('dice-so-nice')?.active
-		&& !game.settings.get('dice-so-nice', 'immediatelyDisplayChatMessages')
-	) { return; }
-	handleChatMessage(msg);
-});
-
-const targetHelper = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
+const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
 	if (!flags) return;
 	if ('pf2e-toolbelt' in flags) {
 		// @ts-expect-error - Too lazy to properly define custom modules flags
@@ -130,8 +145,8 @@ if (import.meta.hot) {
 	import.meta.hot.accept();
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
-		Hooks.off('diceSoNiceHook', diceSoNiceHook);
-		Hooks.off('createChatMessage', chatMessageHook);
-		Hooks.off('updateChatMessage', targetHelper);
+		Hooks.off('diceSoNiceRollComplete', diceSoNiceRollComplete);
+		Hooks.off('createChatMessage', createChatMessage);
+		Hooks.off('updateChatMessage', updateChatMessage);
 	});
 }

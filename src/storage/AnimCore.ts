@@ -342,9 +342,9 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes;
 		animationOptions?: object;
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) return log('No Actor Found! Aborting.');
+		if (!actor) return log('No actor found! Aborting.');
 		if (!source) source = actor.getActiveTokens()[0]; // TODO: Maybe rewrite to take multiple linked tokens into account?
-		if (!source) return log('No Token Found to animate with! Aborting.');
+		if (!source) return log('No source token found on the active scene! Aborting.');
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
@@ -370,7 +370,7 @@ export let AnimCore = class AnimCore {
 		});
 
 		for (const anim of Object.values(validAnimations)) {
-			if (!anim.length) return;
+			if (!anim.length) continue;
 
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
@@ -381,7 +381,7 @@ export let AnimCore = class AnimCore {
 				);
 			}
 
-			await sequence.play({ preload: true, local: true });
+			sequence.play({ preload: true, local: true });
 		}
 	}
 
@@ -408,7 +408,6 @@ export let AnimCore = class AnimCore {
 			'damage-roll',
 			'place-template',
 			'action',
-			'spell-cast',
 			'toggle',
 			'effect',
 			'self-effect',

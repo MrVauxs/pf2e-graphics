@@ -1,168 +1,54 @@
 {
-	"action:aid": [
+	"effect:aid": [
 		{
+			"trigger": "effect",
 			"preset": "onToken",
 			"options": {
-				"preset": { "location": "target" },
-				"scaleToObject": 1.5,
+				"scaleToObject": {
+					"value": 2,
+					"considerTokenScale": true
+				},
 				"fadeIn": 250,
 				"fadeOut": 250
 			},
 			"contents": [
 				{
-					"file": "jb2a.condition.boon.01.004.yellow",
+					"file": "jb2a.condition.boon.01.005.green",
+					"default": true
+				},
+				{
+					"file": "jb2a.condition.curse.01.004.red",
 					"predicate": [
-						"jb2a:patreon"
-					],
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
+						"effect:rulesSelections:aidBonus:-1"
 					]
-				},
-				{
-					"file": "jb2a.condition.boon.01.004.green",
-					"predicate": [
-						"jb2a:free"
-					],
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
-					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -70
-						}
-					}
-				},
-				{
-					"trigger": "attack-roll",
-					"file": "jb2a.condition.boon.01.004.green",
-					"predicate": [
-						"jb2a:free"
-					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -70
-						}
-					}
 				}
 			]
 		}
 	],
-	"effect:aid": [
+	"self:effect:aid": [
 		{
+			"trigger": "modifiers-matter",
 			"preset": "onToken",
 			"options": {
 				"preset": { "location": "source" },
-				"scaleToObject": 1.5,
+				"scaleToObject": {
+					"value": 2,
+					"considerTokenScale": true
+				},
 				"fadeIn": 250,
 				"fadeOut": 250
 			},
 			"contents": [
 				{
-					"file": "jb2a.condition.boon.01.004.yellow",
+					"file": "jb2a.condition.boon.01.005.green",
 					"predicate": [
-						"significance:essential",
-						"jb2a:patreon"
-					],
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
+						"significance:essential"
 					]
 				},
 				{
-					"file": "jb2a.condition.boon.01.004.yellow",
+					"file": "jb2a.condition.curse.01.004.red",
 					"predicate": [
-						"significance:detrimental",
-						"jb2a:patreon"
-					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -150
-						}
-					},
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
-					]
-				},
-				{
-					"file": "jb2a.condition.boon.01.004.green",
-					"predicate": [
-						"significance:essential",
-						"jb2a:free"
-					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -70
-						}
-					},
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
-					]
-				},
-				{
-					"file": "jb2a.condition.boon.01.004.green",
-					"predicate": [
-						"significance:detrimental",
-						"jb2a:free"
-					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": 120
-						}
-					},
-					"contents": [
-						{
-							"trigger": "attack-roll"
-						},
-						{
-							"trigger": "skill-check"
-						},
-						{
-							"trigger": "saving-throw"
-						}
+						"significance:detrimental"
 					]
 				}
 			]

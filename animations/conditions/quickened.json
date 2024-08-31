@@ -5,7 +5,7 @@
 			"options": {
 				"tieToDocuments": true,
 				"scaleToObject": {
-					"value": 1.5,
+					"value": 2,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
@@ -21,32 +21,7 @@
 							]
 						}
 					],
-					"trigger": "startTurn",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.token_border.circle.static.blue.009"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.token_border.circle.static.blue.002"
-						}
-					]
-				},
-				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect",
+					"trigger": ["startTurn", "effect"],
 					"contents": [
 						{
 							"predicate": [
