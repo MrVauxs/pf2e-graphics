@@ -25,9 +25,14 @@ if (import.meta.hot) {
 		window.pf2eGraphics.modules['pf2e-graphics'] = JSON.parse(data);
 		ui.notifications.info('Animations updated!');
 	});
-	import.meta.hot.on('updateAnimsError', (data) => {
+	import.meta.hot.on('updateDuplicateKeysError', (data) => {
 		ui.notifications.error('Animation files contain duplicate keys! Check the console for details.');
 		console.error('Duplicate keys: ', data);
+	});
+	import.meta.hot.on('updateValidationError', (data) => {
+		const array = JSON.parse(data);
+		ui.notifications.error(`${array.length} Animations have failed validation against the schema! Check the console for details.`);
+		console.error('Failing Validation: ', array);
 	});
 	import.meta.hot.accept('./AnimationStorage.ts', (newModule) => {
 		if (newModule) {
