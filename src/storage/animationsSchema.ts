@@ -109,7 +109,7 @@ const predicate: z.ZodType<Predicate> = rollOption.or(
 
 const hexColour = z
 	.string()
-	.regex(/^#[0-9a-f]{3}([0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
+	.regex(/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
 
 const filePath = z
 	.string()
@@ -120,7 +120,7 @@ const filePath = z
 
 const sequencerDBEntry = z
 	.string()
-	.regex(/^[\w-]+(\.([\w-]+|\{\w+(,\w+)+\}))+$/, 'String must be a valid Sequencer database entry.');
+	.regex(/^[\w-]+(?:\.([\w-]+|\{\w+(?:,\w+)+\}))+$/, 'String must be a valid Sequencer database entry.');
 
 const vector2 = z
 	.object({
@@ -822,17 +822,8 @@ const animationObjects = z
 	.min(1)
 	.refine(...uniqueItems);
 
-/* Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below).
-const animations = z.record(
-	rollOption,
-	rollOption.or(
-		z
-			.array(animationObject.refine(...nonEmpty))
-			.min(1)
-			.refine(...uniqueItems),
-	),
-);
-*/
+// Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below).
+export const animations = z.record(rollOption, rollOption.or(animationObjects));
 
 const tokenImages = z.object({
 	_tokenImages: z
@@ -840,7 +831,7 @@ const tokenImages = z.object({
 			z
 				.object({
 					name: z.string().min(1),
-					uuid: z.string().regex(/^[a-z0-9]+(\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
+					uuid: z.string().regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
 							z.tuple([slug, filePath, z.number().positive()]).or(
@@ -882,7 +873,7 @@ const tokenImages = z.object({
 });
 type TokenImages = z.infer<typeof tokenImages>;
 
-// GENERIC ANIMATION TYPE
+// GENERIC ANIMATION SCHEMA
 export type Animations = Partial<TokenImages> & { [rollOption: string]: string | AnimationObject[] };
 
 /**

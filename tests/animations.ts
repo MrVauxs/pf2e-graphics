@@ -65,7 +65,7 @@ if (targetPath.endsWith('.json')) {
 		{
 			'.json': (path) => {
 				// Test filename
-				if (path.match(/^[a-z0-9]+(-[a-z0-9]+)*$/))
+				if (path.match(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))
 					return { success: false, message: 'Invalid filename.' };
 
 				const file = safeJSONParse(fs.readFileSync(path, { encoding: 'utf8' }));
