@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Added
 
-- Flying Flame ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- Tweaked Animations
+  - Admonishing Ray (sound), Caustic Blast (sound), Daze, Divine Lance, Phase Bolt, Shield (sound), Void Warp (sound) ([@Mystler](<https://github.com/Mystler>))
+- **New Animations**
+  - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
+  - Flying Flame ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
 ## [0.8.3] - 2024-08-28
 

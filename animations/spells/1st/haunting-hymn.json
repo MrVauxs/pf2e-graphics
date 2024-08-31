@@ -1,0 +1,23 @@
+{
+	"origin:item:slug:haunting-hymn": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"options": {
+				"repeats": {
+					"count": 2,
+					"delayMin": 200
+				},
+				"mask": true,
+				"sound": {
+					"file": "pf2e-graphics.magic.dark.bells"
+				},
+				"randomizeMirrorY": true
+			},
+			"contents": [
+				{ "file": "jb2a.side_impact.part.shockwave.blue", "predicate": ["jb2a:free"] },
+				{ "file": "jb2a.side_impact.part.slow.music_note.pink", "predicate": ["jb2a:patreon"] }
+			]
+		}
+	]
+}

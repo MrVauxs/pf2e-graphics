@@ -1,0 +1,37 @@
+{
+	"item:slug:heal": [
+		{
+			"trigger": "damage-taken",
+			"preset": "ranged",
+			"file": "jb2a.bullet.01.green",
+			"predicate": [
+				{
+					"gte": [
+						"graphics-quality",
+						1
+					]
+				},
+				"jb2a:patreon"
+			]
+		},
+		{
+			"trigger": "damage-taken",
+			"preset": "onToken",
+			"file": "jb2a.healing_generic.400px.green",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.magic.healing.02",
+					"delay": 100
+				},
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"preset": {
+					"location": "target"
+				},
+				"delay": 300
+			}
+		}
+	]
+}

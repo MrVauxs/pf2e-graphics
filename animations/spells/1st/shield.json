@@ -4,7 +4,15 @@
 			"trigger": "effect",
 			"preset": "ranged",
 			"file": "jb2a.bullet.03.blue",
-			"predicate": [{ "gte": ["graphics-quality", 1] }, "origin-exists"],
+			"predicate": [
+				{
+					"gte": [
+						"graphics-quality",
+						1
+					]
+				},
+				"origin-exists"
+			],
 			"options": {
 				"mirrorX": true,
 				"waitUntilFinished": -1000
@@ -14,7 +22,14 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.shield.01.complete.01.blue",
-			"predicate": [{ "gte": ["graphics-quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"graphics-quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
@@ -24,7 +39,10 @@
 					"value": true,
 					"persistTokenPrototype": true
 				},
-				"tieToDocuments": true
+				"tieToDocuments": true,
+				"sound": {
+					"file": "pf2e-graphics.magic.buff.generic.03"
+				}
 			}
 		}
 	]

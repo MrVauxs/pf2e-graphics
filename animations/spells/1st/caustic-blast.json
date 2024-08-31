@@ -16,6 +16,9 @@
 					"options": {
 						"scaleToObject": {
 							"value": 1.5
+						},
+						"sound": {
+							"file": "pf2e-graphics.potion.bomb.acid"
 						}
 					}
 				}
