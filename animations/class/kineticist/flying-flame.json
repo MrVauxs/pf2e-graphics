@@ -3,41 +3,20 @@
 		{
 			"trigger": "damage-roll",
 			"preset": "ranged",
-			"contents": [
-				{
-					"predicate": [
-						"jb2a:patreon"
-					],
-					"file": "jb2a.pack_hound_missile.orange.01"
-				},
-				{
-					"predicate": [
-						"jb2a:free"
-					],
-					"file": "jb2a.pack_hound_missile.blue.01",
-					"options": {
-						"filter": {
-							"type": "ColorMatrix",
-							"options": {
-								"hue": -150
-							}
-						}
-					}
-				}
-			],
+			"file": "jb2a.pack_hound_missile.blue.01",
 			"options": {
 				"sound": {
 					"delay": 200,
-					"file": "pf2e-graphics.magic.fire.cast.single.01",
+					"file": "pf2e-graphics.magic.fire.cast.single.02",
 					"volume": 1
 				},
-				"waitUntilFinished": -2800,
+				"waitUntilFinished": -3300,
 				"preset": {
 					"bounce": {
+						"file": "jb2a.pack_hound_missile.blue.01",
 						"sound": {
 							"delay": 200,
-							"file": "pf2e-graphics.magic.fire.cast.single.01",
-							"volume": 1
+							"file": "pf2e-graphics.magic.fire.cast.single.02"
 						}
 					}
 				}
