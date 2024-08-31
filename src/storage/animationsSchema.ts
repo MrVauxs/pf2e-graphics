@@ -26,35 +26,26 @@ const rollOption = z
 		'String must be a valid roll option.',
 	);
 
-// Following required to allow Zod to evaluate recursive structures
+const maxOneNumber: [(tuple: [unknown, unknown]) => boolean, string] = [
+	tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
+	'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
+];
 const predicateComparisonObject = z.object({
 	lt: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(
-			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
-			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
-		)
+		.refine(...maxOneNumber)
 		.optional(),
 	gt: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(
-			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
-			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
-		)
+		.refine(...maxOneNumber)
 		.optional(),
 	lte: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(
-			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
-			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
-		)
+		.refine(...maxOneNumber)
 		.optional(),
 	gte: z
 		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(
-			tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
-			'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
-		)
+		.refine(...maxOneNumber)
 		.optional(),
 });
 type Predicate =
@@ -749,7 +740,6 @@ const referenceObject = z.object({
 	reference: rollOption.optional(),
 });
 
-// Following required to allow Zod to evaluate recursive structures
 export type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
 	contents?: AnimationObject[];
 };
