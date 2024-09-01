@@ -42,6 +42,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const targets = trigger === 'saving-throw'
 		|| trigger === 'damage-taken'
 		|| trigger === 'flat-check'
+		|| trigger.includes('check')
 		|| special === 'persistent'
 		? [message.token]
 		: (toolbelt ?? (
