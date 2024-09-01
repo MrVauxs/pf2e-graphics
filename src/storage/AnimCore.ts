@@ -6,26 +6,6 @@ import type { storeSettingsType } from '../settings';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
 
-export const helpers = {
-	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
-		return canvas.grid.measurePath([token, target]);
-	},
-	measureDistanceFeet(token: TokenOrDoc, target: TokenOrDoc) {
-		return this.measureDistance(token, target).distance;
-	},
-	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
-		return this.measureDistance(token, target).spaces;
-	},
-	parseOffset(offset: { x: number; y: number; flip: { x: true; y: true } }, source: TokenOrDoc, target: TokenOrDoc) {
-		const result = { x: offset.x, y: offset.y };
-		if (offset.flip.x && source.x > target.x)
-			result.x *= -1;
-		if (offset.flip.y && source.y > target.y)
-			result.y *= -1;
-		return result;
-	},
-};
-
 function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
 	return typeof (reference as ReferenceObject).reference === 'string';
 }
@@ -446,6 +426,8 @@ if (import.meta.hot) {
 		}
 	});
 }
+
+// Types Below
 
 // #region JSON Data Parsing
 type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] };
