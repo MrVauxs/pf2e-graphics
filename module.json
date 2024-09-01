@@ -18,7 +18,7 @@
 	],
 	"compatibility": {
 		"minimum": "12.324",
-		"verified": "12.330",
+		"verified": "12.331",
 		"maximum": "12"
 	},
 	"flags": {
@@ -37,7 +37,7 @@
 				"type": "module",
 				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
 				"compatibility": {
-					"minimum": "3.2.14"
+					"minimum": "3.2.17"
 				}
 			}
 		],
@@ -47,7 +47,7 @@
 				"type": "system",
 				"manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/master/system.json",
 				"compatibility": {
-					"minimum": "6.2.0"
+					"minimum": "6.3.1"
 				}
 			}
 		]

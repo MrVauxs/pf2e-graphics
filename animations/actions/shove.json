@@ -1,0 +1,19 @@
+{
+	"action:shove": [
+		{
+			"trigger": "skill-check",
+			"contents": [
+				{
+					"preset": "melee",
+					"file": "jb2a.unarmed_strike.physical.02.blue",
+					"options": {
+						"sound": {
+							"file": "pf2e-graphics.movement.landing",
+							"delay": 300
+						}
+					}
+				}
+			]
+		}
+	]
+}

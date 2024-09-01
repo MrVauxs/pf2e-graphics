@@ -1,8 +1,7 @@
 import { ErrorMsg, clearEmpties, devMessage, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
-import { AnimCore } from './AnimCore';
 
-export const helpers = {
+const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
 		return canvas.grid.measurePath([token, target]);
 	},
@@ -195,7 +194,7 @@ export const helpers = {
 				options.volume *= window.pf2eGraphics.liveSettings.volume;
 
 				const sound = seq.sound();
-				sound.file(AnimCore.parseFile(options?.file));
+				sound.file(window.pf2eGraphics.AnimCore.parseFile(options?.file));
 				sound.volume(options.volume);
 
 				if (options?.atLocation)
@@ -277,7 +276,7 @@ interface SoundData {
 	baseEffect: Parameters<SoundSection['baseEffect']>[0];
 }
 
-export interface EffectOptions<T extends PresetKeys> {
+interface EffectOptions<T extends PresetKeys> {
 	sound?: SoundConfig;
 	preset?: presetOptions<T>;
 	locally?: boolean;
@@ -382,7 +381,7 @@ export const presets = {
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
-				effect.file(AnimCore.parseFile(options?.preset.bounce.file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFile(options?.preset.bounce.file));
 
 				if (options.preset.attachTo) {
 					effect.attachTo(
@@ -396,7 +395,7 @@ export const presets = {
 					);
 				}
 			} else {
-				effect.file(AnimCore.parseFile(file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFile(file));
 
 				if (options?.preset?.attachTo) {
 					effect.attachTo(
@@ -439,7 +438,7 @@ export const presets = {
 			}
 
 			const section = seq.effect()
-				.file(AnimCore.parseFile(file))
+				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(source, helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target))
 				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, source, target));
 
@@ -478,7 +477,7 @@ export const presets = {
 			}
 
 			const result = seq.effect()
-				.file(AnimCore.parseFile(file));
+				.file(window.pf2eGraphics.AnimCore.parseFile(file));
 
 			if (options?.preset?.atLocation) {
 				result.atLocation(token, helpers.parseOffsetEmbedded(options?.preset?.atLocation, token, target || token));
@@ -486,8 +485,12 @@ export const presets = {
 				result.attachTo(token, helpers.parseOffsetEmbedded(options?.preset?.attachTo, token, target || token));
 			}
 
-			if (options?.preset?.rotateTowards)
-				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, token, target || token));
+			if (options?.preset?.rotateTowards) {
+				result.rotateTowards(
+					options?.preset?.location === 'target' ? source : target,
+					helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, token, target || token),
+				);
+			}
 
 			helpers.genericSequencerFunctions(result, item, token, options);
 		}
@@ -504,7 +507,7 @@ export const presets = {
 			}
 
 			const section = seq.effect()
-				.file(AnimCore.parseFile(file))
+				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.preset?.attachTo, target, target));
 
 			if (!options?.preset?.attachTo && (target.t === 'ray' || target.t === 'cone'))
@@ -558,8 +561,8 @@ function applyPresets(override?: boolean) {
 Hooks.once('sequencerReady', () => applyPresets());
 
 if (import.meta.hot) {
-	import.meta.hot.accept((module) => {
-		if (module) {
+	import.meta.hot.accept((newModule) => {
+		if (newModule) {
 			applyPresets(true);
 			ui.notifications.info('Updated presets.ts!');
 		}

@@ -62,7 +62,6 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	build: {
 		copyPublicDir: false,
 		outDir: '../dist',
-		emptyOutDir: true,
 		sourcemap: true,
 		minify: 'terser' as const,
 		terserOptions: {

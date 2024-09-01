@@ -10,7 +10,6 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
 	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
-	let special: string = '';
 	if (!message.token) {
 		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
@@ -19,7 +18,6 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (!trigger || trigger === 'spell-cast') {
 		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
 			trigger = 'damage-roll';
-			special = 'persistent';
 		} else if (
 			message.item?.isOfType('action')
 			|| message.item?.isOfType('feat')
@@ -35,20 +33,11 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const missed = message.flags.pf2e.context?.outcome?.includes('ailure') ?? false;
 	const animationOptions = { missed };
 	// @ts-expect-error - Too lazy to properly define custom modules flags
-	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
+	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
+	const messageTargets = message.target?.token ? [message.target?.token] : Array.from((message.author as UserPF2e).targets);
 
-	// If its a save or damage taken, use message.token
-	// Otherwise grab whatever targets are available
-	const targets = trigger === 'saving-throw'
-		|| trigger === 'damage-taken'
-		|| trigger === 'flat-check'
-		|| special === 'persistent'
-		? [message.token]
-		: (toolbelt ?? (
-				message.target?.token
-					? [message.target?.token]
-					: Array.from((message.author as UserPF2e).targets)
-			));
+	const targets = toolbeltTargets ?? messageTargets ?? [message.token];
+	devMessage('Available Targets | Toolbelt - Message Targets - Message Token\n', toolbeltTargets, messageTargets, [message.token]);
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.');
 
