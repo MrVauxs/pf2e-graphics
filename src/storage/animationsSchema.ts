@@ -7,7 +7,11 @@ const nonZero: [(num: number) => boolean, string] = [
 	'Number cannot be 0. If you want the value to be 0, simply leave the property undefined.',
 ];
 const nonEmpty: [(obj: object) => boolean, string] = [
-	obj => Object.keys(obj).length !== 0,
+	(obj) => {
+		// eslint-disable-next-line no-unreachable-loop
+		for (const _key in obj) return true; // This is simply most performant ¯\_(ツ)_/¯
+		return false;
+	},
 	'Object must not be empty.',
 ];
 const uniqueItems: [(arr: any[]) => boolean, string] = [
@@ -806,8 +810,8 @@ const animationObjects = z
 	.min(1)
 	.refine(...uniqueItems);
 
-// Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below).
-export const animations = z.record(rollOption, rollOption.or(animationObjects));
+/** Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below). */
+const animations = z.record(rollOption, rollOption.or(animationObjects));
 
 export const tokenImages = z.object({
 	_tokenImages: z
@@ -865,7 +869,7 @@ export type Animations = Partial<TokenImages> & { [rollOption: string]: string |
  *
  * @remarks This function is a fair bit more complicated than a basic Zod validation, because the latter results in near-meaningless errors due to the schema being a multiply-nested union. For instance, if an object validation fails, Zod doesn't know whether you made a mistake writing the object, or if you failed to write a string. `validateAnimationData` instead first validates that `data` is an object literal, and then validates each property sequentially, applying a narrower schema depending on context. All issues found are then concatenated together with reconstructed paths.
  *
- * @param data - The data to validate as parsed JSON.
+ * @param data The data to validate as parsed JSON.
  * @returns An object with a boolean `success` property indicating whether the validation succeeded or not. If validation failed, the Zod error is included in the `error` property.
  */
 export function validateAnimationData(data: unknown): { success: true } | { success: false; error: z.ZodError } {
@@ -931,7 +935,7 @@ export function validateAnimationData(data: unknown): { success: true } | { succ
 /**
  * Converts a Zod schema into a JSON schema.
  *
- * @param schemaName - The type of the Zod schema being emitted (either `animations` or `tokenImages`).
+ * @param schemaName The type of the Zod schema being emitted (either `animations` or `tokenImages`).
  * @returns The JSON-schema representation for that Zod schema.
  */
 export function getJSONSchema(schemaName: 'animations' | 'tokenImages') {
