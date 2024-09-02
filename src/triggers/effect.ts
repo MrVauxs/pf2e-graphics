@@ -10,7 +10,7 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 	}
 
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
-	const rollOptions = item.getRollOptions(item.type);
+	const rollOptions = item.getRollOptions(item.type).concat(item.getOriginData().rollOptions || []);
 
 	if (item.flags.pf2e.rulesSelections) {
 		const entries = Object.entries(item.flags.pf2e.rulesSelections);

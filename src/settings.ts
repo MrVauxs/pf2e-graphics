@@ -7,6 +7,7 @@ export type storeSettingsType = typeof storeSettings;
 let settings: TJSLiveGameSettings & {
 	windowPosition: 'sidebar' | 'onTop';
 	quality: 0 | 1 | 2 | 3;
+	persistent: boolean;
 	buttonPosition: 0 | 1;
 	dev: boolean;
 	worldAnimations: JSONData;
@@ -47,6 +48,19 @@ const settingsData = [
 				2: 'pf2e-graphics.settings.quality.2',
 				3: 'pf2e-graphics.settings.quality.3',
 			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'persistent',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.persistent.name',
+			hint: 'pf2e-graphics.settings.persistent.hint',
+			scope: 'client',
+			config: true,
+			type: Boolean,
+			default: false,
 		},
 	},
 	{

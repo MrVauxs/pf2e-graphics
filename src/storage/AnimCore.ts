@@ -126,6 +126,7 @@ export let AnimCore = class AnimCore {
 			.concat(
 				[
 					`settings:quality:${window.pf2eGraphics.liveSettings.quality}`,
+					window.pf2eGraphics.liveSettings.persistent ? 'settings:persistent' : null,
 					game.modules.get('jb2a_patreon')?.active ? 'jb2a:patreon' : null,
 					game.modules.get('JB2A_DnD5e')?.active ? 'jb2a:free' : null,
 				].filter(x => typeof x === 'string'),

@@ -47,6 +47,10 @@
 				"sidebar": "Sidebar",
 				"onTop": "On Top"
 			},
+			"persistent": {
+				"name": "Persistent Animations",
+				"hint": "Enables persistent (looping) animations. Please note this can *SIGNIFICANTLY* reduce performance the more effects you have on screen. When turned off, premade animations will animate only once and possibly on start or end of turn."
+			},
 			"quality": {
 				"name": "Performance Settings",
 				"hint": "What level of detail animations should have. Some animations may be more hardware-demanding, requiring you to lower this setting.",
