@@ -283,9 +283,42 @@ const presetOptions = z
 	.strict()
 	.refine(...nonEmpty);
 
+const ease = z.enum([
+	'easeInBack',
+	'easeInBounce',
+	'easeInCirc',
+	'easeInCubic',
+	'easeInElastic',
+	'easeInExpo',
+	'easeInOutBack',
+	'easeInOutBounce',
+	'easeInOutCirc',
+	'easeInOutCubic',
+	'easeInOutElastic',
+	'easeInOutExpo',
+	'easeInOutQuad',
+	'easeInOutQuart',
+	'easeInOutQuint',
+	'easeInOutSine',
+	'easeInQuad',
+	'easeInQuart',
+	'easeInQuint',
+	'easeInSine',
+	'easeOutBack',
+	'easeOutBounce',
+	'easeOutCirc',
+	'easeOutCubic',
+	'easeOutElastic',
+	'easeOutExpo',
+	'easeOutQuad',
+	'easeOutQuart',
+	'easeOutQuint',
+	'easeOutSine',
+]);
+
 const easingOptions = z
 	.object({
-		ease: z.string().optional(),
+		ease: ease.optional(),
 		delay: z.number().positive().optional(),
 	})
 	.strict();
@@ -659,7 +692,7 @@ const effectOptions = z
 								loops: z.number().int().positive().optional(),
 								pingPong: z.literal(true).optional(),
 								delay: z.number().positive().optional(),
-								ease: z.string().optional(),
+								ease: ease.optional(),
 								fromEnd: z.literal(true).optional(),
 								gridUnits: z.literal(true).optional(),
 							})
@@ -682,7 +715,7 @@ const effectOptions = z
 								from: z.number(),
 								to: z.number(),
 								delay: z.number().optional(),
-								ease: z.string().optional(),
+								ease: ease.optional(),
 								fromEnd: z.literal(true).optional(),
 								gridUnits: z.literal(true).optional(),
 							})
@@ -819,6 +852,7 @@ export const tokenImages = z.object({
 			z
 				.object({
 					name: z.string().min(1),
+					requires: z.string().min(1),
 					uuid: z.string().regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
@@ -840,10 +874,10 @@ export const tokenImages = z.object({
 										alpha: z.number().optional(),
 										animation: z
 											.object({
-												duration: z.number().optional(),
-												transition: z.string().optional(),
-												easing: z.string().optional(),
-												name: z.string().optional(),
+												duration: z.number().positive().optional(),
+												transition: z.string().min(1).optional(),
+												easing: ease.optional(),
+												name: z.string().min(1).optional(),
 											})
 											.strict()
 											.refine(...nonEmpty),

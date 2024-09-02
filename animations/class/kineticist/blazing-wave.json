@@ -21,7 +21,7 @@
 											"duration": 3000,
 											"delay": 1000,
 											"pingPong": true,
-											"easing": "easeInOutCubic"
+											"ease": "easeInOutCubic"
 										}
 									}
 								]
@@ -39,7 +39,7 @@
 											"duration": 3000,
 											"delay": 1000,
 											"pingPong": true,
-											"easing": "easeInOutCubic"
+											"ease": "easeInOutCubic"
 										}
 									}
 								],
