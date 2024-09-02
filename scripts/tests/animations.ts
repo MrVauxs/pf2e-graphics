@@ -34,7 +34,7 @@ if (targetPath.endsWith('.json')) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
 		const errors = result.errors;
-		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 3)), 58);
+		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
 
 		Log.details({
 			level: 'info',
@@ -45,22 +45,17 @@ if (targetPath.endsWith('.json')) {
 			),
 		});
 
-		if (process.argv[2] === 'fast') {
-			Log.newLine();
-			Log.warning(p.dim('Process terminated early; other invalid files may exist.'));
-		} else {
-			Log.newLine();
-			Log.error(
-				p.red(
-					`${p.bold(errors.length)} animation ${pluralise('file', errors.length)} failed validation.`,
-				),
-			);
-			Log.newLine();
-			Log.info(
-				p.dim(
-					`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${errors[Math.floor(Math.random() * errors.length)].file}`)}`,
-				),
-			);
-		}
+		Log.newLine();
+		Log.error(
+			p.red(
+				`${p.bold(errors.length)} animation ${pluralise('file', errors.length)} failed validation.`,
+			),
+		);
+		Log.newLine();
+		Log.info(
+			p.dim(
+				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${errors[Math.floor(Math.random() * errors.length)].file}`)}`,
+			),
+		);
 	}
 }

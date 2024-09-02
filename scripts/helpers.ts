@@ -120,11 +120,11 @@ export function flatten<T extends object>(obj: T, parentKey: string = ''): Flatt
  * @param input The input string.
  * @returns An object with a `success` property indicating the success state. If `input` was parsed successfully, it is included in the `json` property.
  */
-export function safeJSONParse(input: string): { success: true; json: JSONValue } | { success: false } {
+export function safeJSONParse(input: string): { success: true; data: JSONValue } | { success: false } {
 	try {
 		return {
 			success: true,
-			json: JSON.parse(input),
+			data: JSON.parse(input),
 		};
 	} catch {
 		return { success: false };
@@ -158,7 +158,6 @@ export function getFilesRecursively(targetPath: string): string[] {
 export interface fileValidationResult {
 	file: string;
 	success: boolean;
-	error?: 'illegalFilename' | 'illegalExtension' | 'invalidSyntax' | 'badData' | 'failsSchema' | 'custom';
 	message?: string;
 }
 
@@ -168,7 +167,6 @@ export interface fileValidationResult {
  * @param targetPath The initial path. If the path is a directory, all files and subdirectories will be tested. If the path is a file, only that file will be tested.
  * @param tests An object mapping extensions (e.g. ".png", with the leading ".") to either a boolean or a test function. The behaviour for extensions without an explicit property is defined by the "default" property.
  * @param options
- * @param options.breakEarly Stops testing upon the first failed validation, returning all tested files up to and including it.
  * @param options.ignoreGit Ignores Git files, such as ".gitignore", ".gitkeep", etc. Requires `tests[""]` to be undefined.
  * @returns An array of objects. The objects have a `file` property with the filepath, a `success` property with the success state, and optionally a `message` returned by the test function.
  */
@@ -179,7 +177,7 @@ export function testFilesRecursively(
 			| boolean
 			| ((filepath: string) => Omit<fileValidationResult, 'file'>);
 	},
-	options?: { breakEarly?: boolean; ignoreGit?: boolean },
+	options?: { ignoreGit?: boolean },
 ): fileValidationResult[] {
 	tests.default = tests.default ?? false;
 
@@ -201,17 +199,13 @@ export function testFilesRecursively(
 			results.push({
 				file,
 				success: test,
-				error: test ? undefined : 'illegalExtension',
 				message: test ? undefined : `Extension ${extension} is not allowed.`,
 			});
-			if (options.breakEarly && !test) return results;
 		} else {
-			const result = test(file);
 			results.push({
 				file,
-				...result,
+				...test(file),
 			});
-			if (options.breakEarly && !result.success) return results;
 		}
 	}
 	return results;
