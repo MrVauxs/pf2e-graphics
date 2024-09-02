@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - **A separate Persistent Animations setting.** Allows you to play or disable persistent animations regardless of quality settings.
   - Its roll option for animations is `settings:persistent`.
+- `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
 - **New Animations**
   - Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))

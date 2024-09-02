@@ -15,7 +15,7 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 }
 
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>;
-interface TokenImageData { name: string; uuid: ItemUUID; rules: TokenImageDataRule[] }
+interface TokenImageData { name: string; uuid?: ItemUUID; rules: TokenImageDataRule[]; requires?: string }
 type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource);
 type TokenImageShorthand = [string, string, number];
 
@@ -61,6 +61,7 @@ export let AnimCore = class AnimCore {
 		return Object.keys(window.pf2eGraphics.modules)
 			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
 			.filter(nonNullable)
+			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
 			.map(x => ({
 				...x,
 				rules: x.rules.map((rule: TokenImageDataRule) => {

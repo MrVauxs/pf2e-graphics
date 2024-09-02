@@ -2,6 +2,7 @@
 	"_tokenImages": [
 		{
 			"name": "Aerial Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK",
 			"rules": [
 				["aerial-form-bat", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/bat-giant.webp", 1],
@@ -12,6 +13,7 @@
 		},
 		{
 			"name": "Animal Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp",
 			"rules": [
 				["animal-form-ape", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/gorilla.webp", 1],
@@ -27,6 +29,7 @@
 		},
 		{
 			"name": "Dinosaur Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.KhM8MhoUgoUjBMIz",
 			"rules": [
 				["dinosaur-form-ankylosaurus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/ankylosaurus.webp", 1],
@@ -39,6 +42,7 @@
 		},
 		{
 			"name": "Elemental Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs",
 			"rules": [
 				["elemental-form-air", "modules/pf2e-tokens-bestiaries/tokens/elemental/air/elemental-hurricane.webp", 1],
@@ -49,6 +53,7 @@
 		},
 		{
 			"name": "Insect Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.XI6Lzd2B5pernkPd",
 			"rules": [
 				["insect-form-ant", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/ant-giant.webp", 1],
@@ -61,6 +66,7 @@
 		},
 		{
 			"name": "Monstrosity Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.8AMvNVOUEtxBCDvJ",
 			"rules": [
 				["monstrosity-form-phoenix", "modules/pf2e-tokens-bestiaries/tokens/elemental/fire/phoenix.webp", 2],
@@ -70,6 +76,7 @@
 		},
 		{
 			"name": "Ooze Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.0gdZrT9lwO17EIxc",
 			"rules": [
 				["ooze-form-black-pudding", "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/black-pudding.webp", 1],
@@ -80,6 +87,7 @@
 		},
 		{
 			"name": "Plant Form",
+			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.zCcfPS4y5SrZzU2x",
 			"rules": [
 				["plant-form-arboreal", "modules/pf2e-tokens-bestiaries/tokens/plant/arboreal/arboreal-regent.webp", 1],
