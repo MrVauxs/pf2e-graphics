@@ -1,4 +1,4 @@
-import { devMessage, log } from 'src/utils';
+import { devMessage, log, nonNullable } from 'src/utils';
 
 function handleEffect(item: ItemPF2e, delayed = false) {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;
@@ -10,13 +10,18 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 	}
 
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
-	const rollOptions = item.getRollOptions(item.type);
+	const rollOptions = item.getRollOptions(item.type).concat(item.getOriginData().rollOptions || []);
 
 	if (item.flags.pf2e.rulesSelections) {
-		rollOptions.push(
-			...Object.keys(item.flags.pf2e.rulesSelections)
-				.map(k => `effect:rulesSelections:${k}:${JSON.stringify(item.flags.pf2e.rulesSelections[k])}`),
-		);
+		const entries = Object.entries(item.flags.pf2e.rulesSelections);
+		const RSRollOptions = entries
+			.map(([k, v]) =>
+				typeof v === 'string' || typeof v === 'number'
+					? `effect:rule-selection:${game.pf2e.system.sluggify(k)}:${JSON.stringify(v)}`
+					: undefined)
+			.filter(nonNullable);
+
+		rollOptions.push(...RSRollOptions);
 	}
 
 	const deliverable = {

@@ -7,7 +7,7 @@
 			"predicate": [
 				{
 					"gte": [
-						"graphics-quality",
+						"settings:quality",
 						1
 					]
 				},

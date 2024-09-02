@@ -24,15 +24,11 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "startTurn"
+					"predicate": [{ "lte": ["settings:quality", 2] }],
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "effect"
-				},
-				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

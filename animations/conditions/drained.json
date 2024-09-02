@@ -17,14 +17,7 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "startTurn",
 					"contents": [
 						{
@@ -116,14 +109,7 @@
 					]
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "toggle",
 					"contents": [
 						{
@@ -216,7 +202,7 @@
 				},
 				{
 					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "toggle",
 					"options": {

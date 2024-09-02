@@ -4,7 +4,7 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.energy_wall.01.circle.500x500.01.complete",
-			"predicate": [{ "gte": ["graphics-quality", 1] }],
+			"predicate": [{ "gte": ["settings:quality", 1] }],
 			"options": {
 				"scaleToObject": {
 					"value": 1,

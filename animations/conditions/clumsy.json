@@ -12,15 +12,8 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn",
+					"predicate": [{ "lte": ["settings:quality", 2] }],
+					"trigger": ["startTurn", "effect"],
 					"contents": [
 						{
 							"predicate": [
@@ -38,32 +31,7 @@
 				},
 				{
 					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.runes.yellow.03"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.runes.dark_orange.03"
-						}
-					]
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "effect",
 					"options": {

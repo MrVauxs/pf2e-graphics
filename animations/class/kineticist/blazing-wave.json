@@ -3,7 +3,53 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.breath_weapons02.burst.cone.fire.orange.02"
+			"file": "jb2a.breath_weapons02.burst.cone.fire.orange.02",
+			"contents": [
+				{ "default": true },
+				{
+					"predicate": [{ "gte": ["settings:quality", 2] }],
+					"contents": [
+						{
+							"options": {
+								"loopProperty": [
+									{
+										"target": "sprite",
+										"property": "rotation",
+										"options": {
+											"from": 0,
+											"to": 20,
+											"duration": 3000,
+											"delay": 1000,
+											"pingPong": true,
+											"easing": "easeInOutCubic"
+										}
+									}
+								]
+							}
+						},
+						{
+							"options": {
+								"loopProperty": [
+									{
+										"target": "sprite",
+										"property": "rotation",
+										"options": {
+											"from": 0,
+											"to": -20,
+											"duration": 3000,
+											"delay": 1000,
+											"pingPong": true,
+											"easing": "easeInOutCubic"
+										}
+									}
+								],
+								"mirrorY": true
+							}
+						}
+					]
+
+				}
+			]
 		}
 	]
 }
