@@ -2,6 +2,32 @@
 	"_tokenImages": [
 		{
 			"name": "Aerial Form",
+			"requires": "pf2e-tokens-monster-core",
+			"uuid": "Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK",
+			"rules": [
+				["aerial-form-bat", "modules/pf2e-tokens-monster-core/assets/tokens/bat-giant.webp", 1],
+				["aerial-form-bird", "modules/pf2e-tokens-monster-core/assets/tokens/eagle.webp", 1],
+				["aerial-form-pterosaur", "modules/pf2e-tokens-monster-core/assets/tokens/pterosaur-pteranodon.webp", 2],
+				["aerial-form-wasp", "modules/pf2e-tokens-monster-core/assets/tokens/wasp-giant.webp", 1]
+			]
+		},
+		{
+			"name": "Dragon Form",
+			"requires": "pf2e-tokens-monster-core",
+			"uuid": "Compendium.pf2e.spells-srd.Item.5c692cCcTDXjSEzk",
+			"rules": [
+				["dragon-form-adamantine", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-adamantine-adult.webp", 1],
+				["dragon-form-conspirator", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-conspirator-adult.webp", 2],
+				["dragon-form-diabolic", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-diabolic-adult.webp", 2],
+				["dragon-form-empyreal", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-empyreal-adult.webp", 2],
+				["dragon-form-fortune", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-fortune-adult.webp", 2],
+				["dragon-form-horned", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-horned-adult.webp", 2],
+				["dragon-form-mirage", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-mirage-adult.webp", 2],
+				["dragon-form-omen", "modules/pf2e-tokens-monster-core/assets/tokens/dragon-omen-adult.webp", 2]
+			]
+		},
+		{
+			"name": "Aerial Form",
 			"requires": "pf2e-tokens-bestiaries",
 			"uuid": "Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK",
 			"rules": [
