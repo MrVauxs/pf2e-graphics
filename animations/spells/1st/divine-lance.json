@@ -6,7 +6,7 @@
 			"options": {
 				"sound": {
 					"file": "pf2e-graphics.magic.holy.attack.blast",
-				 	"waitUntilFinished": -3200
+					"waitUntilFinished": -3200
 				},
 				"preset": {
 					"stretchTo": {
