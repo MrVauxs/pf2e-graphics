@@ -88,7 +88,7 @@ const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) =
 			game.modules.get('dice-so-nice')?.active
 			&& msg.isRoll
 			&& msg.rolls.some(roll => roll.dice.length > 0)
-			// replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
+			// TODO: replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
 		)
 	) {
 		handleChatMessage(msg);
