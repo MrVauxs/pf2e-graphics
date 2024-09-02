@@ -21,7 +21,7 @@
 					"trigger": "effect"
 				},
 				{
-					"predicate": ["settings:quality:3"],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

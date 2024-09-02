@@ -25,14 +25,10 @@
 			"contents": [
 				{
 					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn"
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect"
-				},
-				{
-					"predicate": ["settings:quality:3"],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

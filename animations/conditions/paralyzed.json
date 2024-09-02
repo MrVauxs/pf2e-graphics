@@ -14,30 +14,16 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [
-						{
-							"lte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "effect"
 				},
 				{
 					"predicate": [
-						"settings:quality:3"
+						"settings:persistent"
 					],
 					"trigger": "effect",
 					"options": {
