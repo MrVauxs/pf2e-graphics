@@ -204,17 +204,15 @@ function getAnimationsPlugin(): PluginOption {
 			generateBundle() {
 				const result = testAndMergeAnimations('./animations');
 
-				// Return early: don't build bad data
-				if (!result.success) return reportErrors(result.errors);
+				// No return: build whatever data we've got
+				if (!result.success) reportErrors(result.errors);
 
 				Log.info(p.green('[Animations] All files passing.'));
-				if (result.data) {
-					this.emitFile({
-						type: 'asset',
-						fileName: 'animations.json',
-						source: JSON.stringify(result.data),
-					});
-				}
+				this.emitFile({
+					type: 'asset',
+					fileName: 'animations.json',
+					source: JSON.stringify(result.data ?? {}),
+				});
 			},
 		},
 		{
