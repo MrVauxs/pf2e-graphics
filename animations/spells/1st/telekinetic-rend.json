@@ -14,7 +14,7 @@
 										"origin:item:tag:amped",
 										{
 											"gte": [
-												"graphics-quality",
+												"settings:quality",
 												2
 											]
 										}
@@ -44,7 +44,7 @@
 										"origin:item:tag:amped",
 										{
 											"gte": [
-												"graphics-quality",
+												"settings:quality",
 												2
 											]
 										}

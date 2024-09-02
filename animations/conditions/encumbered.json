@@ -17,7 +17,7 @@
 					"predicate": [
 						{
 							"lte": [
-								"graphics-quality",
+								"settings:quality",
 								2
 							]
 						}
@@ -42,7 +42,7 @@
 					"predicate": [
 						{
 							"lte": [
-								"graphics-quality",
+								"settings:quality",
 								2
 							]
 						}
@@ -65,7 +65,7 @@
 				},
 				{
 					"predicate": [
-						"graphics-quality:3"
+						"settings:quality:3"
 					],
 					"trigger": "effect",
 					"options": {

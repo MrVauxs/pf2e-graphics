@@ -48,12 +48,8 @@
 		if (newAnimeKey.trim().length) {
 			$flag[newAnimeKey.trim()] ??= [AnimCore.CONST.TEMPLATE_ANIMATION()];
 			newAnimeKey = '';
-		} else if ('getRollOptions' in $doc) {
-			const types = ['weapon', 'action'];
-			const prefix = $doc.isOfType(...types) ? 'item' : undefined;
-			newAnimeKey = (($doc as ItemPF2e).getRollOptions(prefix))[2];
 		} else {
-			newAnimeKey = ' ';
+			newAnimeKey = ($doc as ItemPF2e)?.slug ? `item:slug:${($doc as ItemPF2e).slug}` : ' ';
 		}
 	}
 </script>

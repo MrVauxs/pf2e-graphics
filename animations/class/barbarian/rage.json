@@ -5,7 +5,7 @@
 			"preset": "onToken",
 			"contents": [
 				{
-					"predicate": [{ "gte": ["graphics-quality", 1] }],
+					"predicate": [{ "gte": ["settings:quality", 1] }],
 					"options": {
 						"preset": { "atLocation": true },
 						"size": {
@@ -34,7 +34,7 @@
 							}
 						},
 						{
-							"predicate": [{ "gte": ["graphics-quality", 2] }],
+							"predicate": [{ "gte": ["settings:quality", 2] }],
 							"contents": [
 								{
 									"file": "jb2a.impact.ground_crack.still_frame.01",
@@ -137,7 +137,7 @@
 					]
 				},
 				{
-					"predicate": [{ "gte": ["graphics-quality", 1] }],
+					"predicate": [{ "gte": ["settings:quality", 1] }],
 					"options": {
 						"tieToDocuments": true,
 						"persist": {
@@ -147,7 +147,7 @@
 					},
 					"contents": [
 						{
-							"predicate": [{ "gte": ["graphics-quality", 2] }],
+							"predicate": [{ "gte": ["settings:quality", 2] }],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {

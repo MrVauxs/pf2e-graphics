@@ -13,15 +13,15 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "startTurn"
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"trigger": "effect"
 				},
 				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": ["settings:quality:3"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

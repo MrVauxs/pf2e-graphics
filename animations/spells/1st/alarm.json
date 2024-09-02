@@ -5,11 +5,11 @@
 			"preset": "template",
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
+					"predicate": [{ "lte": ["settings:quality", 2] }],
 					"file": "jb2a.magic_signs.circle.02.abjuration.intro.blue"
 				},
 				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": ["settings:quality:3"],
 					"file": "jb2a.magic_signs.circle.02.abjuration.complete.blue",
 					"options": {
 						"tieToDocuments": true,
