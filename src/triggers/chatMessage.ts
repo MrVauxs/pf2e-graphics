@@ -49,8 +49,8 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	const newOptions = [];
 
-	const outcome = message.flags.pf2e.context?.outcome?.slugify();
-	if (outcome) newOptions.push(`check:outcome:${outcome}`);
+	const outcome = message.flags.pf2e.context?.outcome;
+	if (outcome) newOptions.push(`check:outcome:${game.pf2e.system.sluggify(outcome)}`);
 
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
