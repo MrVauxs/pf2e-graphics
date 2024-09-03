@@ -41,8 +41,6 @@ function trifectaFunc(
 	}
 
 	const { bool, options: newOptions } = check(item, _options);
-	// If there is no actor, don't.
-	// 	If there are no rules AND no special changes, don't. || If there are either rules or special changes, continue.
 	if (!item.actor || !bool) return;
 
 	const deliverable = {
