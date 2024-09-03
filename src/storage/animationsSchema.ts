@@ -870,7 +870,7 @@ const animationObjects = z
 				}
 
 				// split to {}, permute, test each possibility
-				const extractPermutations = (str: string): string[] => {
+				const extractPermutations = (_str: string): string[] => {
 					// TODO
 					return [];
 				};
