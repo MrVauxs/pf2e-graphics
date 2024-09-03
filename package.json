@@ -40,6 +40,7 @@
 		"eslint-plugin-format": "^0.1.2",
 		"eslint-plugin-svelte": "^2.41.0",
 		"foundry-pf2e": "github:reonZ/foundry-pf2e",
+		"jb2a-databases": "github:Spappz/jb2a-databases#package",
 		"keep-a-changelog": "^2.5.3",
 		"lodash": "^4.17.21",
 		"picocolors": "^1.0.1",

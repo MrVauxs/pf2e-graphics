@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
+import JB2AFreeDatabasePaths from 'node_modules/jb2a-databases/JB2A_DnD5e/json/database-paths.json' with { type: 'json' };
+import JB2APatreonDatabasePaths from 'node_modules/jb2a-databases/jb2a_patreon/json/database-paths.json' with { type: 'json' };
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
@@ -110,8 +112,8 @@ const hexColour = z
 const filePath = z
 	.string()
 	.regex(
-		/^\w[^"*:<>?\\|]+\.\w{3,5}$/,
-		'String must be a valid filepath. The following characters are unsafe for cross-platform filesystems: "*:<>?\\|',
+		/^\w[^":<>?\\|]+\.\w{3,5}$/,
+		'String must be a valid filepath. The following characters are unsafe for cross-platform filesystems: ":<>?\\|',
 	);
 
 const sequencerDBEntry = z
@@ -785,65 +787,205 @@ const animationObject: z.ZodType<AnimationObject> = referenceObject
 	.partial()
 	.extend({
 		contents: z
-			.lazy(() => z.array(animationObject).min(1))
-			.refine(...uniqueItems)
+			.lazy(() =>
+				z
+					.array(animationObject)
+					.min(1)
+					.refine(...uniqueItems),
+			)
 			.optional(),
 	})
-	.superRefine(
-		// Test that `options.preset` matches `preset`
-		(obj, ctx) => {
-			if (!obj.preset || !obj.options || !obj.options.preset) return true;
+	.refine(...nonEmpty)
+	// Test that `options.preset` matches `preset`
+	.superRefine((obj, ctx) => {
+		if (!obj.preset || !obj.options || !obj.options.preset) return;
 
-			if (obj.preset === 'macro' && obj.options.preset) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_type,
-					expected: 'undefined',
-					received: typeof obj.options.preset,
-					message: '`options.preset` cannot exist while `preset` equals `"macro"`.',
-				});
-			}
+		if (obj.preset === 'macro' && obj.options.preset) {
+			return ctx.addIssue({
+				code: z.ZodIssueCode.invalid_type,
+				expected: 'undefined',
+				received: typeof obj.options.preset,
+				message: '`options.preset` cannot exist while `preset` equals `"macro"`.',
+			});
+		}
 
-			const presetOptionsProperties = {
-				template: ['attachTo', 'stretchTo'],
-				onToken: ['rotateTowards', 'atLocation', 'location', 'attachTo'],
-				melee: ['attachTo', 'rotateTowards'],
-				ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
-				macro: ['(none)'],
-			};
+		/** A map of preset types to the `options` properties they permit. `(none)` is used for no properties allowed. */
+		const PRESET_OPTIONS_PROPERTIES = {
+			template: ['attachTo', 'stretchTo'],
+			onToken: ['rotateTowards', 'atLocation', 'location', 'attachTo'],
+			melee: ['attachTo', 'rotateTowards'],
+			ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
+			macro: ['(none)'],
+		} as const;
 
-			const illegalProperties = Object.keys(obj.options.preset).filter(
-				prop => !presetOptionsProperties[obj.preset!].includes(prop),
-			);
+		const illegalProperties = Object.keys(obj.options.preset).filter(
+			prop => !PRESET_OPTIONS_PROPERTIES[obj.preset!].includes(prop),
+		);
 
-			if (illegalProperties.length) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.unrecognized_keys,
-					keys: illegalProperties,
-					message: `The following properties aren't allowed when \`preset\` is \`"${obj.preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
-				});
-			}
+		if (illegalProperties.length) {
+			return ctx.addIssue({
+				code: z.ZodIssueCode.unrecognized_keys,
+				keys: illegalProperties,
+				message: `The following properties aren't allowed when \`preset\` is \`"${obj.preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
+			});
+		}
 
-			if (
-				(obj.preset !== 'onToken'
-				&& (typeof obj.options.preset.rotateTowards === 'boolean'
-				|| typeof obj.options.preset.atLocation === 'boolean'))
-				|| (obj.preset !== 'ranged' && typeof obj.options.preset.attachTo === 'boolean')
-			) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_type,
-					received: 'boolean',
-					expected: 'object',
-				});
-			}
-		},
-	);
+		if (
+			(obj.preset !== 'onToken'
+			&& (typeof obj.options.preset.rotateTowards === 'boolean'
+			|| typeof obj.options.preset.atLocation === 'boolean'))
+			|| (obj.preset !== 'ranged' && typeof obj.options.preset.attachTo === 'boolean')
+		) {
+			return ctx.addIssue({
+				code: z.ZodIssueCode.invalid_type,
+				received: 'boolean',
+				expected: 'object',
+			});
+		}
+	});
 
 const animationObjects = z
-	.array(animationObject.refine(...nonEmpty))
+	.array(animationObject)
 	.min(1)
+	// Validate Sequencer database paths and confirm no only-Patreon options exist.
+	// This has to be done here rather than on `animationObject` itself because otherwise its recursive nature causes Problems™
+	.superRefine((arr, ctx) => {
+		const testDatabasePath = (
+			str: string,
+			type: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound',
+			path: (string | number)[],
+			JB2APremium: boolean,
+		) => {
+			const openBraces = str.split('{').length - 1;
+			const pathPermutations: string[] = [];
+			if (openBraces) {
+				const closedBraces = str.split('}').length - 1;
+				if (openBraces !== closedBraces) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_string,
+						path,
+						validation: 'regex',
+						message: `Inconsistent braces in ${str}`,
+					});
+				}
+
+				// split to {}, permute, test each possibility
+				const extractPermutations = (str: string): string[] => {
+					// TODO
+					return [];
+				};
+				pathPermutations.push(...extractPermutations(str));
+			} else {
+				pathPermutations.push(str);
+			}
+
+			if (type === 'sound') return; // TODO
+			const database = JB2APremium ? JB2APatreonDatabasePaths : JB2AFreeDatabasePaths;
+
+			for (const testPath of pathPermutations) {
+				if (!database.some(entry => entry.startsWith(testPath))) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_enum_value,
+						path,
+						received: testPath,
+						options: ['see `github:Jules-Bens-Aa/jb2a-databases` for more information'],
+						message: `No ${JB2APremium ? '' : 'free '}JB2A database entries found matching ${testPath}`,
+					});
+				}
+			}
+		};
+
+		/**
+		 * Intelligently walks through an AnimationObject looking for database paths that need validation. The following paths are tested:
+		 * - `file`
+		 * - `options.sound`
+		 * - `options.preset.bounce.file`
+		 * - `options.preset.bounce.sound`
+		 * - `contents.<...>` (recurses for each contained AnimationObject)
+		 */
+		const testAnimation = (
+			animation: AnimationObject,
+			path: (string | number)[] = [],
+			JB2APremium: boolean = false,
+		) => {
+			if (animation.predicate?.includes('jb2a:patreon')) JB2APremium = true;
+
+			if (animation.file) {
+				testDatabasePath(
+					animation.file,
+					JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
+					[...path, 'file'],
+					JB2APremium,
+				);
+			}
+
+			if (animation.options) {
+				if (animation.options.sound) {
+					if (Array.isArray(animation.options.sound)) {
+						for (let i = 0; i < animation.options.sound.length; i++) {
+							testDatabasePath(
+								animation.options.sound[i].file,
+								'sound',
+								[...path, 'options', 'sound', i, 'file'],
+								JB2APremium,
+							);
+						}
+					} else {
+						testDatabasePath(
+							animation.options.sound.file,
+							'sound',
+							[...path, 'options', 'sound', 'file'],
+							JB2APremium,
+						);
+					}
+				}
+
+				if (animation.options.preset?.bounce) {
+					if (animation.options.preset.bounce.file) {
+						testDatabasePath(
+							animation.options.preset.bounce.file,
+							JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
+							[...path, 'options', 'preset', 'bounce', 'file'],
+							JB2APremium,
+						);
+					}
+
+					if (animation.options.preset.bounce.sound) {
+						if (Array.isArray(animation.options.preset.bounce.sound)) {
+							for (let i = 0; i < animation.options.preset.bounce.sound.length; i++) {
+								testDatabasePath(
+									animation.options.preset.bounce.sound[i].file,
+									'sound',
+									[...path, 'options', 'preset', 'bounce', 'sound', i, 'file'],
+									JB2APremium,
+								);
+							}
+						} else {
+							testDatabasePath(
+								animation.options.preset.bounce.sound.file,
+								'sound',
+								[...path, 'options', 'preset', 'bounce', 'sound', 'file'],
+								JB2APremium,
+							);
+						}
+					}
+				}
+			}
+
+			if (animation.contents) {
+				for (let i = 0; i < animation.contents.length; i++) {
+					testAnimation(animation.contents[i], [...path, 'contents', i], JB2APremium);
+				}
+			}
+		};
+
+		for (let i = 0; i < arr.length; i++) {
+			testAnimation(arr[i], [i]);
+		}
+	})
 	.refine(...uniqueItems);
 
-/** Full-file animations schema (sans _tokenImages). Not currently used (see `validateAnimationData()` below). */
+/** Full-file animations schema (sans `_tokenImages`). Not currently used except for JSON-schema export. */
 const animations = z.record(rollOption, rollOption.or(animationObjects));
 
 export const tokenImages = z.object({
@@ -895,13 +1037,13 @@ export const tokenImages = z.object({
 });
 type TokenImages = z.infer<typeof tokenImages>;
 
-// GENERIC ANIMATION SCHEMA
+// GENERIC ANIMATION SCHEMA TYPE
 export type Animations = Partial<TokenImages> & { [rollOption: string]: string | AnimationObject[] };
 
 /**
  * Validates general animation data.
  *
- * @remarks This function is a fair bit more complicated than a basic Zod validation, because the latter results in near-meaningless errors due to the schema being a multiply-nested union. For instance, if an object validation fails, Zod doesn't know whether you made a mistake writing the object, or if you failed to write a string. `validateAnimationData` instead first validates that `data` is an object literal, and then validates each property sequentially, applying a narrower schema depending on context. All issues found are then concatenated together with reconstructed paths.
+ * @remarks This function is a fair bit more complicated than a basic Zod validation, because the latter results in near-meaningless errors due to the schema being a multiply-nested union. For instance, if an object validation fails, Zod doesn't know whether you made a mistake writing the object, or if you failed to write a string. `validateAnimationData` instead first validates that `data` is an object literal, and then validates each property sequentially, applying a narrower schema depending on JB2APremium. All issues found are then concatenated together with reconstructed paths.
  *
  * @param data The data to validate as parsed JSON.
  * @returns An object with a boolean `success` property indicating whether the validation succeeded or not. If validation failed, the Zod error is included in the `error` property.
@@ -948,8 +1090,9 @@ export function validateAnimationData(data: unknown): { success: true } | { succ
 					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
 			} else {
 				const result = animationObjects.safeParse(value);
-				if (!result.success)
+				if (!result.success) {
 					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
+				}
 			}
 		}
 	}
