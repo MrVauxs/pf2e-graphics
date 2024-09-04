@@ -110,6 +110,12 @@ const hexColour = z
 	.string()
 	.regex(/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.');
 
+const angle = z
+	.number()
+	.gt(-180)
+	.lte(180)
+	.refine(...nonZero);
+
 const filePath = z
 	.string()
 	.regex(
@@ -393,13 +399,7 @@ const effectOptions = z
 		tint: hexColour
 			.describe('A hexadecimal colour code to give the animationDataObject a certain tint.')
 			.optional(),
-		rotate: z
-			.number()
-			.describe('An angle in degrees (°) to rotate the animationDataObject.')
-			.gt(-180)
-			.lte(180)
-			.refine(...nonZero)
-			.optional(),
+		rotate: angle.describe('An angle in degrees (°) to rotate the animationDataObject.').optional(),
 		opacity: z.number().describe('An opacity scaler from 0 to 1 (exclusive).').positive().lt(1).optional(),
 		mask: z.literal(true).optional(),
 		fadeIn: z
@@ -445,6 +445,7 @@ const effectOptions = z
 					.strict(),
 			)
 			.optional(),
+		spriteRotation: angle.optional(),
 		scale: z
 			.number()
 			.or(
@@ -521,7 +522,7 @@ const effectOptions = z
 				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
 				options: z
 					.object({
-						hue: z.number().gt(-180).lte(180).describe('The hue, in degrees.').optional(),
+						hue: angle.describe('The hue, in degrees.').optional(),
 						brightness: z
 							.number()
 							.describe('The value of the brightness (0 to 1, where 0 is black)')
