@@ -11,8 +11,8 @@ const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces;
 	},
-	parseOffsetEmbedded(options: { offset?: Offset } | undefined | boolean, source: Point, target: Point) {
-		if (typeof options !== 'object') return {};
+	parseOffsetEmbedded(options: { offset?: Offset } | undefined | boolean, source: Point | string, target: Point | string) {
+		if (typeof options !== 'object' || typeof source === 'string' || typeof target === 'string') return {};
 		return { ...options, offset: (options?.offset ? this.parseOffset(options?.offset, source, target) : undefined) };
 	},
 	parseOffset(offset: Offset, source: Point, target: Point) {
@@ -32,7 +32,7 @@ const helpers = {
 
 		return result;
 	},
-	getCenterCoords(target: Target): Point | undefined {
+	getCenterCoords(target: Target) {
 		if (target instanceof TokenDocumentPF2e || target instanceof MeasuredTemplateDocumentPF2e) {
 			return target._object?.center;
 		}
@@ -58,6 +58,8 @@ const helpers = {
 		}
 		if (nonNullable(options?.spriteOffset) && Boolean(options?.spriteOffset))
 			seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset);
+		if (nonNullable(options?.spriteRotation) && Boolean(options?.spriteRotation))
+			seq.spriteRotation(options.spriteRotation);
 		if (nonNullable(options?.scaleToObject) && Boolean(options?.scaleToObject)) {
 			if (typeof options.scaleToObject === 'object') {
 				seq.scaleToObject(options.scaleToObject.value, options.scaleToObject);
@@ -312,6 +314,7 @@ interface EffectOptions<T extends PresetKeys> {
 		min: number;
 		max?: number;
 	};
+	spriteRotation?: Parameters<EffectSection['spriteRotation']>[0];
 	size?: number | {
 		value: number;
 	} & Parameters<EffectSection['size']>[1];
@@ -451,6 +454,8 @@ export const presets = {
 		const target = targets?.[0];
 		const affectedTokens = [];
 
+		// TODO: Refactor this to account for `.name()` targets.
+		// /\b(target|both|source)\b/.test("targets") full word test
 		if (options?.preset?.location === 'both') {
 			affectedTokens.push(target, source);
 		} else if (options?.preset?.location === 'target') {
@@ -541,7 +546,7 @@ interface GenericSequenceData<T extends PresetKeys> {
 	rollOptions: string[];
 }
 
-type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point);
+type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point | string);
 
 type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[]; source?: TokenOrDoc };
 
