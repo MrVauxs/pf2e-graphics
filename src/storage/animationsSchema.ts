@@ -927,15 +927,49 @@ const animationObjects = z
 		const testAnimation = (
 			animation: AnimationObject,
 			path: (string | number)[] = [],
-			JB2APremium: boolean = false,
+			context: { JB2APremium: boolean; persistent: boolean; triggers: Set<string> } = {
+				JB2APremium: false,
+				persistent: false,
+				triggers: new Set(),
+			},
 		) => {
-			if (animation.predicate?.includes('jb2a:patreon')) JB2APremium = true;
+			// if (animation.trigger) animation.trigger.forEach(trigger => context.triggers.add(trigger));
+			if (animation.predicate) {
+				if (animation.predicate.includes('jb2a:patreon')) context.JB2APremium = true;
+				if (animation.predicate.includes('settings:persistent')) context.persistent = true;
+			}
 
 			if (animation.file) {
-				testDatabasePath(animation.file, JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e', [...path, 'file']);
+				testDatabasePath(animation.file, context.JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e', [
+					...path,
+					'file',
+				]);
 			}
 
 			if (animation.options) {
+				if (animation.options.persist) {
+					if (!context.persistent) {
+						ctx.addIssue({
+							code: z.ZodIssueCode.unrecognized_keys,
+							path: [...path, 'options'],
+							keys: ['persist'],
+							message: '`options.persist` requires the `settings:persistent` predicate.',
+						});
+					}
+					// if (
+					// 	context.triggers.has('effect')
+					// 	|| context.triggers.has('place-template')
+					// 	|| context.triggers.has('toggle')
+					// ) {
+					// 	ctx.addIssue({
+					// 		code: z.ZodIssueCode.custom,
+					// 		path: [...path, 'options', 'persist'],
+					// 		message:
+					// 			'`options.persist` cannot be used with the triggers `effect`, `place-template`, or `toggle`.',
+					// 	});
+					// }
+				}
+
 				if (animation.options.sound) {
 					if (Array.isArray(animation.options.sound)) {
 						for (let i = 0; i < animation.options.sound.length; i++) {
@@ -961,7 +995,7 @@ const animationObjects = z
 					if (animation.options.preset.bounce.file) {
 						testDatabasePath(
 							animation.options.preset.bounce.file,
-							JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
+							context.JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
 							[...path, 'options', 'preset', 'bounce', 'file'],
 						);
 					}
@@ -995,7 +1029,7 @@ const animationObjects = z
 
 			if (animation.contents) {
 				for (let i = 0; i < animation.contents.length; i++) {
-					testAnimation(animation.contents[i], [...path, 'contents', i], JB2APremium);
+					testAnimation(animation.contents[i], [...path, 'contents', i], { ...context });
 				}
 			}
 		};
