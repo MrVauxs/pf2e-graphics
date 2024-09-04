@@ -2,72 +2,28 @@
 	"condition:fatigued": [
 		{
 			"preset": "onToken",
+			"file": "jb2a.particles.inward.orange.01.02",
 			"options": {
-				"tieToDocuments": true,
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
+				"scaleToObject": { "value": 1.2, "considerTokenScale": true },
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"mask": true,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"brightness": 0.75,
+						"hue": -40
+					}
+				}
 			},
+			"predicate": [{ "gte": ["settings:quality", 2] }],
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.heart.dark_red.03"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 65
-									}
-								}
-							}
-						}
-					]
+					"default": true,
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.heart.dark_red.03"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 65
-									}
-								}
-							}
-						}
-					]
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
@@ -75,29 +31,7 @@
 							"value": true,
 							"persistTokenPrototype": true
 						}
-					},
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.heart.dark_red.03"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.heart.pink.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 65
-									}
-								}
-							}
-						}
-					]
+					}
 				}
 			]
 		}

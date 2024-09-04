@@ -2,29 +2,21 @@
 	"condition:petrified": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.runes03.dark_orange.01",
+			"file": "jb2a.markers.runes03.dark_orange.03",
 			"options": {
-				"tieToDocuments": true,
-				"scaleToObject": {
-					"value": 1,
-					"considerTokenScale": true
-				},
+				"scaleToObject": { "value": 2, "considerTokenScale": true },
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"randomRotation": true
 			},
+			"predicate": [{ "gte": ["settings:quality", 1] }],
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn"
+					"default": true,
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
