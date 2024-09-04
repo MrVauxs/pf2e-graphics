@@ -2,73 +2,23 @@
 	"condition:unconscious": [
 		{
 			"preset": "onToken",
+			"file": "jb2a.sleep.symbol.dark_pink",
 			"options": {
-				"tieToDocuments": true,
-				"scaleToObject": {
-					"value": 1.1,
-					"considerTokenScale": true
-				},
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"anchor": {
+					"y": 0.7
+				}
 			},
+			"predicate": [{ "gte": ["settings:quality", 2] }],
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.sleep.symbol.yellow"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.sleep.symbol.pink",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": 100
-									}
-								}
-							}
-						}
-					]
+					"default": true,
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.sleep.symbol.yellow"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.sleep.symbol.pink",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"saturate": 0.3,
-										"hue": 100
-									}
-								}
-							}
-						}
-					]
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
@@ -76,30 +26,7 @@
 							"value": true,
 							"persistTokenPrototype": true
 						}
-					},
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.sleep.symbol.yellow"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.sleep.symbol.pink",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"saturate": 0.3,
-										"hue": 100
-									}
-								}
-							}
-						}
-					]
+					}
 				}
 			]
 		}

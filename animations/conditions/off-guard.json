@@ -4,21 +4,22 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.shield_cracked.purple.03",
 			"options": {
-				"scaleToObject": 1.75,
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
 				"fadeOut": 500,
 				"fadeIn": 250,
+				"randomRotation": true,
 				"filter": {
 					"type": "ColorMatrix",
 					"options": {
 						"contrast": -0.25,
 						"saturate": -1
 					}
-				},
-				"randomRotation": true
+				}
 			},
+			"predicate": [{ "gte": ["settings:quality", 1] }],
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
+					"default": true,
 					"trigger": ["startTurn", "effect"]
 				},
 				{

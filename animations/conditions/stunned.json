@@ -2,234 +2,41 @@
 	"condition:stunned": [
 		{
 			"preset": "onToken",
-			"predicate": [
-				"condition:origin:condition:stunned"
-			],
+			"file": "jb2a.markers.stun.purple.03",
+			"predicate": [{ "gte": ["settings:quality", 1] }, { "not": "toggle:delete" }],
 			"options": {
 				"id": "stunned-entry",
 				"remove": "stunned-entry",
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
+				"randomRotation": true,
 				"fadeOut": 500,
 				"fadeIn": 250,
-				"repeats": {
-					"count": 1,
-					"delayMin": 900,
-					"delayMax": 1300
+				"filter": {
+					"type": "ColorMatrix",
+					"options": { "hue": 160 }
 				}
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn",
+					"default": true,
+					"trigger": ["startTurn", "toggle"],
 					"contents": [
 						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.stun.dark_teal.03",
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.dark_teal.02"
-								}
-							]
+							"predicate": ["condition:badge:value:1"]
 						},
 						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.stun.purple.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -95
-									}
-								}
-							},
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.purple.02"
-								}
-							]
+							"predicate": ["condition:badge:value:2"],
+							"file": "jb2a.markers.stun.purple.02"
+						},
+						{
+							"predicate": [{ "gte": ["condition:badge:value", 3] }],
+							"file": "jb2a.markers.stun.purple.01"
 						}
 					]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect",
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.stun.dark_teal.03",
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.dark_teal.02"
-								}
-							]
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.stun.purple.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -95
-									}
-								}
-							},
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.purple.02"
-								}
-							]
-						}
-					]
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
-					"trigger": "effect",
+					"predicate": ["settings:persistent"],
+					"trigger": "toggle",
 					"options": {
 						"tieToDocuments": true,
 						"persist": {
@@ -239,124 +46,19 @@
 					},
 					"contents": [
 						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.markers.stun.dark_teal.03",
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2,
-											"delayMin": 3000,
-											"delayMax": 3000
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3,
-											"delayMin": 2000,
-											"delayMax": 2000
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.dark_teal.02"
-								}
-							]
+							"predicate": ["condition:badge:value:1"]
 						},
 						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.markers.stun.purple.03",
-							"options": {
-								"filter": {
-									"type": "ColorMatrix",
-									"options": {
-										"hue": -95
-									}
-								}
-							},
-							"contents": [
-								{
-									"predicate": [
-										"condition:badge:value:1"
-									]
-								},
-								{
-									"predicate": [
-										"condition:badge:value:2"
-									],
-									"options": {
-										"repeats": {
-											"count": 2,
-											"delayMin": 3000,
-											"delayMax": 3000
-										}
-									}
-								},
-								{
-									"predicate": [
-										"condition:badge:value:3"
-									],
-									"options": {
-										"repeats": {
-											"count": 3,
-											"delayMin": 2000,
-											"delayMax": 2000
-										}
-									}
-								},
-								{
-									"predicate": [
-										{
-											"gte": [
-												"condition:badge:value",
-												4
-											]
-										}
-									],
-									"file": "jb2a.markers.stun.purple.02"
-								}
-							]
+							"predicate": ["condition:badge:value:2"],
+							"file": "jb2a.markers.stun.purple.02"
+						},
+						{
+							"predicate": [{ "gte": ["condition:badge:value", 3] }],
+							"file": "jb2a.markers.stun.purple.01"
 						}
 					]
 				}
 			]
-		},
-		{
-			"preset": "onToken",
-			"predicate": [
-				{
-					"not": "condition:origin:condition:stunned"
-				}
-			],
-			"trigger": "toggle",
-			"options": {
-				"remove": "stunned-entry"
-			}
 		}
 	]
 }

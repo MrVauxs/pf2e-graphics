@@ -160,8 +160,14 @@ const helpers = {
 				seq.persist(options.persist || false);
 			}
 		}
-		if (nonNullable(options?.tieToDocuments) && Boolean(options?.tieToDocuments))
-			seq.tieToDocuments([_item]);
+		if (nonNullable(options?.tieToDocuments) && Boolean(options?.tieToDocuments)) {
+			if (!_item) {
+				// eslint-disable-next-line no-new
+				new ErrorMsg('tieToDocuments was called with no item present!');
+			} else {
+				seq.tieToDocuments([_item]);
+			}
+		}
 		if (nonNullable(options?.mask) && Boolean(options?.mask))
 			seq.mask();
 		if (nonNullable(options?.remove) && Boolean(options?.remove)) {

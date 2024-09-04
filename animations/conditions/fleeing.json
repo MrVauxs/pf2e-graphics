@@ -4,27 +4,18 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.fear.dark_purple.01",
 			"options": {
-				"tieToDocuments": true,
-				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
-				},
+				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
+			"predicate": [{ "gte": ["settings:quality", 1] }],
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "startTurn"
+					"default": true,
+					"trigger": ["startTurn", "effect"]
 				},
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
+					"predicate": ["settings:persistent"],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,
