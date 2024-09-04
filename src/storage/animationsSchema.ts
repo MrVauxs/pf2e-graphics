@@ -856,27 +856,44 @@ const animationObjects = z
 			path: (string | number)[],
 			JB2APremium: boolean,
 		) => {
-			const openBraces = str.split('{').length - 1;
 			const pathPermutations: string[] = [];
-			if (openBraces) {
-				const closedBraces = str.split('}').length - 1;
-				if (openBraces !== closedBraces) {
+
+			const openBraceStrings = str.split('{');
+			if (openBraceStrings.length === 1) {
+				// No moustaches
+				pathPermutations.push(str);
+			} else {
+				// Moustaches present!
+				// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
+				const matchingBraces = openBraceStrings.map(
+					str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
+				);
+				// We expect the first such string to have no close-braces
+				const first = matchingBraces.shift();
+				if (first || !matchingBraces.every(Boolean)) {
 					return ctx.addIssue({
 						code: z.ZodIssueCode.invalid_string,
 						path,
 						validation: 'regex',
-						message: `Inconsistent braces in ${str}`,
+						message: `Mismatched or empty braces.`,
 					});
 				}
 
-				// split to {}, permute, test each possibility
-				const extractPermutations = (_str: string): string[] => {
-					// TODO
-					return [];
+				// Get each permutation of "...{...}..." moustached strings
+				const extractPermutations = (str: string): string[] => {
+					const openBrace = str.indexOf('{');
+					if (openBrace === -1) return [str]; // Necessary due to recursion
+					const closeBrace = str.indexOf('}');
+					const elements = str.substring(openBrace + 1, closeBrace).split(',');
+					return elements
+						.map(element =>
+							extractPermutations(
+								`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
+							),
+						)
+						.flat();
 				};
 				pathPermutations.push(...extractPermutations(str));
-			} else {
-				pathPermutations.push(str);
 			}
 
 			if (type === 'sound') return; // TODO
@@ -889,7 +906,7 @@ const animationObjects = z
 						path,
 						received: testPath,
 						options: ['see `github:Jules-Bens-Aa/jb2a-databases` for more information'],
-						message: `No ${JB2APremium ? '' : 'free '}JB2A database entries found matching ${testPath}`,
+						message: `Not found among JB2A's ${JB2APremium ? '' : 'free '}database`,
 					});
 				}
 			}

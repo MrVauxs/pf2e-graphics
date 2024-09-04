@@ -67,7 +67,7 @@ export function testAndMergeAnimations(
 					if (mergedAnimations.has(key)) {
 						return {
 							success: false,
-							message: `Animation already assigned elsewhere to roll option ${key}`,
+							message: `Animation assigned elsewhere to roll option ${key}`,
 						};
 					}
 					mergedAnimations.set(key, animations[key]);
