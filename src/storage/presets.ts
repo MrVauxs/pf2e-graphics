@@ -169,7 +169,7 @@ const helpers = {
 				if (origin === 'all') {
 					Sequencer.EffectManager.endEffects({ object: _target });
 				}
-				Sequencer.EffectManager.endEffects({ origin });
+				Sequencer.EffectManager.endEffects({ origin, object: _target });
 			});
 		}
 
