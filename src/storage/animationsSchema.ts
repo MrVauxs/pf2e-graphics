@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
 import JB2AFreeDatabasePaths from 'node_modules/jb2a-databases/JB2A_DnD5e/json/database-paths.json' with { type: 'json' };
 import JB2APatreonDatabasePaths from 'node_modules/jb2a-databases/jb2a_patreon/json/database-paths.json' with { type: 'json' };
+import { flatDatabase as soundDatabasePaths } from 'src/assets/soundDb';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
@@ -854,7 +855,6 @@ const animationObjects = z
 			str: string,
 			type: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound',
 			path: (string | number)[],
-			JB2APremium: boolean,
 		) => {
 			const pathPermutations: string[] = [];
 
@@ -896,8 +896,12 @@ const animationObjects = z
 				pathPermutations.push(...extractPermutations(str));
 			}
 
-			if (type === 'sound') return; // TODO
-			const database = JB2APremium ? JB2APatreonDatabasePaths : JB2AFreeDatabasePaths;
+			const database
+				= type === 'sound'
+					? soundDatabasePaths
+					: type === 'jb2a_patreon'
+						? JB2APatreonDatabasePaths
+						: JB2AFreeDatabasePaths;
 
 			for (const testPath of pathPermutations) {
 				if (!database.some(entry => entry.startsWith(testPath))) {
@@ -905,20 +909,20 @@ const animationObjects = z
 						code: z.ZodIssueCode.invalid_enum_value,
 						path,
 						received: testPath,
-						options: ['see `github:Jules-Bens-Aa/jb2a-databases` for more information'],
-						message: `Not found among JB2A's ${JB2APremium ? '' : 'free '}database`,
+						options: [],
+						message: `Not found in the ${type} database.`,
 					});
 				}
 			}
 		};
 
 		/**
-		 * Intelligently walks through an AnimationObject looking for database paths that need validation. The following paths are tested:
+		 * Intelligently walks through an `AnimationObject` looking for Sequencer database paths that need validation. The following properties are tested:
 		 * - `file`
 		 * - `options.sound`
 		 * - `options.preset.bounce.file`
 		 * - `options.preset.bounce.sound`
-		 * - `contents.<...>` (recurses for each contained AnimationObject)
+		 * - `contents.<...>` (recurses for each contained `AnimationObject`)
 		 */
 		const testAnimation = (
 			animation: AnimationObject,
@@ -928,32 +932,28 @@ const animationObjects = z
 			if (animation.predicate?.includes('jb2a:patreon')) JB2APremium = true;
 
 			if (animation.file) {
-				testDatabasePath(
-					animation.file,
-					JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
-					[...path, 'file'],
-					JB2APremium,
-				);
+				testDatabasePath(animation.file, JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e', [...path, 'file']);
 			}
 
 			if (animation.options) {
 				if (animation.options.sound) {
 					if (Array.isArray(animation.options.sound)) {
 						for (let i = 0; i < animation.options.sound.length; i++) {
-							testDatabasePath(
-								animation.options.sound[i].file,
+							testDatabasePath(animation.options.sound[i].file, 'sound', [
+								...path,
+								'options',
 								'sound',
-								[...path, 'options', 'sound', i, 'file'],
-								JB2APremium,
-							);
+								i,
+								'file',
+							]);
 						}
 					} else {
-						testDatabasePath(
-							animation.options.sound.file,
+						testDatabasePath(animation.options.sound.file, 'sound', [
+							...path,
+							'options',
 							'sound',
-							[...path, 'options', 'sound', 'file'],
-							JB2APremium,
-						);
+							'file',
+						]);
 					}
 				}
 
@@ -963,27 +963,31 @@ const animationObjects = z
 							animation.options.preset.bounce.file,
 							JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
 							[...path, 'options', 'preset', 'bounce', 'file'],
-							JB2APremium,
 						);
 					}
 
 					if (animation.options.preset.bounce.sound) {
 						if (Array.isArray(animation.options.preset.bounce.sound)) {
 							for (let i = 0; i < animation.options.preset.bounce.sound.length; i++) {
-								testDatabasePath(
-									animation.options.preset.bounce.sound[i].file,
+								testDatabasePath(animation.options.preset.bounce.sound[i].file, 'sound', [
+									...path,
+									'options',
+									'preset',
+									'bounce',
 									'sound',
-									[...path, 'options', 'preset', 'bounce', 'sound', i, 'file'],
-									JB2APremium,
-								);
+									i,
+									'file',
+								]);
 							}
 						} else {
-							testDatabasePath(
-								animation.options.preset.bounce.sound.file,
+							testDatabasePath(animation.options.preset.bounce.sound.file, 'sound', [
+								...path,
+								'options',
+								'preset',
+								'bounce',
 								'sound',
-								[...path, 'options', 'preset', 'bounce', 'sound', 'file'],
-								JB2APremium,
-							);
+								'file',
+							]);
 						}
 					}
 				}
