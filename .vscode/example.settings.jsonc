@@ -14,7 +14,7 @@
 		"source.fixAll.eslint": "always",
 		"source.organizeImports": "never"
 	},
-	// Add JSON Validation
+	// Add JSON Validation - remember to either build with Vite or run `npm run build:schema` first!
 	"json.schemas": [
 		{
 			"fileMatch": ["animations/*/**/*.json"],

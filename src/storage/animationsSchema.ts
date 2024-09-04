@@ -1,8 +1,10 @@
 import { z } from 'zod';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
-import JB2AFreeDatabasePaths from 'node_modules/jb2a-databases/JB2A_DnD5e/json/database-paths.json' with { type: 'json' };
-import JB2APatreonDatabasePaths from 'node_modules/jb2a-databases/jb2a_patreon/json/database-paths.json' with { type: 'json' };
-import { flatDatabase as soundDatabasePaths } from 'src/assets/soundDb';
+import {
+	databasePathsFree as JB2AFreeDatabasePaths,
+	databasePathsPatreon as JB2APatreonDatabasePaths,
+} from 'jb2a-databases';
+import { flatDatabase as soundDatabasePaths } from '../assets/soundDb';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [

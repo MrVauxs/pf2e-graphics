@@ -15,8 +15,7 @@ Hooks.once('ready', async () => {
 		const path = animations.startsWith('modules/') ? animations : `modules/${mod.id}/${animations}`;
 
 		fetch(path)
-			.then(resp => resp.json()
-				.then((json) => { window.pf2eGraphics.modules[mod.id] = json; }));
+			.then(resp => resp.json().then((json) => { window.pf2eGraphics.modules[mod.id] = json; }));
 	}
 });
 
