@@ -63,7 +63,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		outDir: '../dist',
 		emptyOutDir: true,
 		sourcemap: true,
-		minify: 'terser' as const,
+		minify: 'terser',
 		terserOptions: {
 			mangle: {
 				toplevel: true,
