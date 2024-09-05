@@ -7,7 +7,9 @@
 			"options": {
 				"preset": {
 					"attachTo": {
-						"offset": { "x": 1 },
+						"offset": {
+							"x": 1
+						},
 						"local": true,
 						"gridUnits": true
 					}

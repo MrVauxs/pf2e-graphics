@@ -12,7 +12,9 @@
 					],
 					"contents": [
 						{
-							"predicate": ["ranged"],
+							"predicate": [
+								"ranged"
+							],
 							"contents": [
 								{
 									"file": "jb2a.chain_lightning.primary.blue",
@@ -32,7 +34,9 @@
 									],
 									"options": {
 										"delay": 1000,
-										"preset": { "location": "target" },
+										"preset": {
+											"location": "target"
+										},
 										"scaleToObject": 1,
 										"fadeIn": 250,
 										"duration": 1000,
@@ -42,7 +46,9 @@
 							]
 						},
 						{
-							"predicate": ["melee"],
+							"predicate": [
+								"melee"
+							],
 							"contents": [
 								{
 									"preset": "melee",
@@ -74,7 +80,9 @@
 									"preset": "onToken",
 									"options": {
 										"scaleToObject": 1.2,
-										"preset": { "location": "target" }
+										"preset": {
+											"location": "target"
+										}
 									}
 								}
 							]
@@ -89,7 +97,9 @@
 					],
 					"contents": [
 						{
-							"predicate": ["ranged"],
+							"predicate": [
+								"ranged"
+							],
 							"contents": [
 								{
 									"preset": "ranged",
@@ -127,11 +137,16 @@
 										"action:cost:2"
 									],
 									"options": {
-										"preset": { "location": "target" },
+										"preset": {
+											"location": "target"
+										},
 										"scaleToObject": 1.5,
 										"fadeIn": 250,
 										"duration": 1200,
-										"fadeOut": { "value": 500, "ease": "easeOutSine" },
+										"fadeOut": {
+											"value": 500,
+											"ease": "easeOutSine"
+										},
 										"filter": {
 											"type": "ColorMatrix",
 											"options": {
@@ -144,7 +159,9 @@
 							]
 						},
 						{
-							"predicate": ["melee"],
+							"predicate": [
+								"melee"
+							],
 							"preset": "melee",
 							"options": {
 								"filter": {
@@ -230,7 +247,9 @@
 					"trigger": "attack-roll",
 					"preset": "onToken",
 					"options": {
-						"preset": { "location": "target" },
+						"preset": {
+							"location": "target"
+						},
 						"scaleToObject": 1.5
 					},
 					"contents": [
@@ -279,8 +298,12 @@
 					"trigger": "attack-roll",
 					"preset": "onToken",
 					"options": {
-						"sound": { "file": "pf2e-graphics.magic.fire.impact.02.small" },
-						"preset": { "location": "target" },
+						"sound": {
+							"file": "pf2e-graphics.magic.fire.impact.02.small"
+						},
+						"preset": {
+							"location": "target"
+						},
 						"scaleToObject": 1.5
 					},
 					"file": "jb2a.impact.fire.01.orange.0"
@@ -326,7 +349,9 @@
 						"sound": {
 							"file": "pf2e-graphics.sword.melee.hit.flesh"
 						},
-						"preset": { "location": "target" },
+						"preset": {
+							"location": "target"
+						},
 						"scaleToObject": 1.5
 					},
 					"file": "jb2a.impact.003.blue"
@@ -365,7 +390,9 @@
 								"sound": {
 									"file": "pf2e-graphics.magic.water.impact"
 								},
-								"preset": { "location": "target" },
+								"preset": {
+									"location": "target"
+								},
 								"belowTokens": true,
 								"scaleToObject": 2
 							}
@@ -423,11 +450,12 @@
 								"sound": {
 									"file": "pf2e-graphics.magic.water.impact"
 								},
-								"preset": { "location": "target" },
+								"preset": {
+									"location": "target"
+								},
 								"scaleToObject": 1.5
 							}
 						}
-
 					]
 				}
 			]
@@ -447,7 +475,9 @@
 						{
 							"file": "jb2a.barrel.toss.wooden.01.01.brown",
 							"options": {
-								"sound": { "file": "pf2e-graphics.generic.miss" },
+								"sound": {
+									"file": "pf2e-graphics.generic.miss"
+								},
 								"waitUntilFinished": -200
 							},
 							"preset": "ranged",
@@ -461,8 +491,12 @@
 							"preset": "onToken",
 							"file": "jb2a.explosion.shrapnel.bomb.01.black",
 							"options": {
-								"sound": { "file": "pf2e-graphics.bow.hit.solid.01" },
-								"preset": { "location": "target" },
+								"sound": {
+									"file": "pf2e-graphics.bow.hit.solid.01"
+								},
+								"preset": {
+									"location": "target"
+								},
 								"scaleToObject": 2
 							}
 						}
@@ -498,7 +532,9 @@
 							"preset": "onToken",
 							"file": "jb2a.energy_strands.in.green.01",
 							"options": {
-								"preset": { "location": "target" },
+								"preset": {
+									"location": "target"
+								},
 								"scaleToObject": 1.5
 							}
 						}

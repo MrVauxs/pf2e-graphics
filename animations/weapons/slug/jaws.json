@@ -6,7 +6,9 @@
 			"preset": "onToken",
 			"file": "jb2a.bite.400px.red",
 			"options": {
-				"preset": { "location": "target" },
+				"preset": {
+					"location": "target"
+				},
 				"scaleToObject": {
 					"value": 2
 				}

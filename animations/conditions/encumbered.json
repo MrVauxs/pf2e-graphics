@@ -4,19 +4,34 @@
 			"preset": "onToken",
 			"file": "jb2a.particles.inward.orange.01.02",
 			"options": {
-				"scaleToObject": { "value": 1.1, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 1.1,
+					"considerTokenScale": true
+				},
 				"mask": true,
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [{ "gte": ["settings:quality", 2] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						2
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"]
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

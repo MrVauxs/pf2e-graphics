@@ -30,7 +30,9 @@
 			"trigger": "modifiers-matter",
 			"preset": "onToken",
 			"options": {
-				"preset": { "location": "source" },
+				"preset": {
+					"location": "source"
+				},
 				"scaleToObject": {
 					"value": 2,
 					"considerTokenScale": true

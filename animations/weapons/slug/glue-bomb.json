@@ -20,7 +20,9 @@
 					"preset": "onToken",
 					"file": "jb2a.liquid.splash.blue",
 					"options": {
-						"preset": { "location": "target" },
+						"preset": {
+							"location": "target"
+						},
 						"filter": {
 							"type": "ColorMatrix",
 							"options": {

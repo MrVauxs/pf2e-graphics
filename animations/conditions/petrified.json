@@ -4,19 +4,34 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.runes03.dark_orange.03",
 			"options": {
-				"scaleToObject": { "value": 2, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 2,
+					"considerTokenScale": true
+				},
 				"fadeOut": 500,
 				"fadeIn": 250,
 				"randomRotation": true
 			},
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"]
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

@@ -4,7 +4,14 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.magic_signs.circle.02.necromancy.complete.dark_purple",
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 0.8,

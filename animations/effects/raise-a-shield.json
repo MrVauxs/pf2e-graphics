@@ -4,15 +4,30 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.shield_rampart.complete.01.orange",
 			"options": {
-				"scaleToObject": { "value": 1.5, "considerTokenScale": true }
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				}
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": ["start-turn", "effect"]
+					"predicate": [
+						{
+							"lte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

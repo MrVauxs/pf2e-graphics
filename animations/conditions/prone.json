@@ -4,20 +4,35 @@
 			"preset": "onToken",
 			"file": "jb2a.wind_stream.200.white",
 			"options": {
-				"scaleToObject": { "value": 1, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 1,
+					"considerTokenScale": true
+				},
 				"fadeOut": 500,
 				"fadeIn": 250,
 				"mask": true,
 				"rotate": -90
 			},
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"]
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

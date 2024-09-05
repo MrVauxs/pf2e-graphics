@@ -5,16 +5,23 @@
 			"preset": "onToken",
 			"file": "jb2a.aura_themed.01.outward.complete.cold.01.blue",
 			"options": {
-				"size": { "value": 6.5, "gridUnits": true }
+				"size": {
+					"value": 6.5,
+					"gridUnits": true
+				}
 			},
 			"predicate": [
 				"toggle:create",
 				"kinetic-gate:water"
 			],
 			"contents": [
-				{ "default": true },
 				{
-					"predicate": ["settings:persistent"],
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
 					"options": {
 						"tieToDocuments": true,
 						"persist": {

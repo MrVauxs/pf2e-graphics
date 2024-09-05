@@ -4,18 +4,33 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.chain.standard.complete.02.red",
 			"options": {
-				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"]
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

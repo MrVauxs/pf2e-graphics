@@ -5,7 +5,9 @@
 			"preset": "onToken",
 			"file": "jb2a.healing_generic.200px.red",
 			"options": {
-				"preset": { "location": "target" },
+				"preset": {
+					"location": "target"
+				},
 				"scaleToObject": 1.5,
 				"fadeIn": 250,
 				"fadeOut": 250
@@ -13,11 +15,15 @@
 			"contents": [
 				{
 					"file": "jb2a.healing_generic.200px.green",
-					"predicate": ["action:administer-first-aid:stabilize"]
+					"predicate": [
+						"action:administer-first-aid:stabilize"
+					]
 				},
 				{
 					"file": "jb2a.healing_generic.200px.red",
-					"predicate": ["action:administer-first-aid:stop-bleeding"]
+					"predicate": [
+						"action:administer-first-aid:stop-bleeding"
+					]
 				}
 			]
 		}

@@ -5,9 +5,18 @@
 			"preset": "template",
 			"file": "jb2a.breath_weapons02.burst.cone.fire.orange.02",
 			"contents": [
-				{ "default": true },
 				{
-					"predicate": [{ "gte": ["settings:quality", 2] }],
+					"default": true
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
 					"contents": [
 						{
 							"options": {
@@ -47,7 +56,6 @@
 							}
 						}
 					]
-
 				}
 			]
 		}

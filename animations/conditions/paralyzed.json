@@ -4,18 +4,33 @@
 			"preset": "onToken",
 			"file": "jb2a.static_electricity.03.blue",
 			"options": {
-				"scaleToObject": { "value": 1, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 1,
+					"considerTokenScale": true
+				},
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"]
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

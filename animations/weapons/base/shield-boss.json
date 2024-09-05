@@ -8,7 +8,9 @@
 			"preset": "melee",
 			"contents": [
 				{
-					"predicate": ["jb2a:patreon"],
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"file": "jb2a.melee_generic.bludgeoning.one_handed"
 				},
 				{

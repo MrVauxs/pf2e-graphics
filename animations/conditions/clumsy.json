@@ -3,16 +3,29 @@
 		{
 			"preset": "onToken",
 			"options": {
-				"scaleToObject": { "value": 1.5, "considerTokenScale": true },
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
 				"randomRotation": true,
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
-			"predicate": [{ "gte": ["settings:quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["start-turn", "effect"],
+					"trigger": [
+						"start-turn",
+						"effect"
+					],
 					"contents": [
 						{
 							"predicate": [
@@ -29,7 +42,9 @@
 					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

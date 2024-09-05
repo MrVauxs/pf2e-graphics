@@ -19,7 +19,14 @@
 					"file": "jb2a.shimmer.01.blue"
 				},
 				{
-					"predicate": [{ "gte": ["settings:quality", 1] }],
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					],
 					"options": {
 						"persist": {
 							"value": true,

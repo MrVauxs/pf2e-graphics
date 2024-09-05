@@ -24,11 +24,23 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": ["start-turn", "effect"]
+					"predicate": [
+						{
+							"lte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

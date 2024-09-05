@@ -5,7 +5,9 @@
 			"preset": "melee",
 			"contents": [
 				{
-					"predicate": ["jb2a:patreon"],
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"options": {
 						"scaleToObject": {
 							"value": 5

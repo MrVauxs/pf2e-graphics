@@ -7,8 +7,14 @@
 				"preset": {
 					"atLocation": {
 						"offset": {
-							"x": [-0.25, 1],
-							"y": [-1, 1],
+							"x": [
+								-0.25,
+								1
+							],
+							"y": [
+								-1,
+								1
+							],
 							"flipX": true
 						},
 						"gridUnits": true
@@ -20,10 +26,14 @@
 			},
 			"contents": [
 				{
-					"predicate": ["jb2a:free"],
+					"predicate": [
+						"jb2a:free"
+					],
 					"contents": [
 						{
-							"predicate": ["item:damage:bludgeoning"],
+							"predicate": [
+								"item:damage:bludgeoning"
+							],
 							"file": "jb2a.boulder.toss.02.01.stone.brown",
 							"options": {
 								"sound": {
@@ -33,7 +43,9 @@
 							}
 						},
 						{
-							"predicate": ["item:damage:piercing"],
+							"predicate": [
+								"item:damage:piercing"
+							],
 							"file": "jb2a.template_line_piercing.generic.01.orange",
 							"preset": "onToken",
 							"options": {
@@ -49,7 +61,9 @@
 							}
 						},
 						{
-							"predicate": ["item:damage:slashing"],
+							"predicate": [
+								"item:damage:slashing"
+							],
 							"file": "jb2a.melee_generic.slash.01.orange",
 							"preset": "onToken",
 							"options": {
@@ -67,10 +81,14 @@
 					]
 				},
 				{
-					"predicate": ["jb2a:patreon"],
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"contents": [
 						{
-							"predicate": ["item:damage:bludgeoning"],
+							"predicate": [
+								"item:damage:bludgeoning"
+							],
 							"file": "jb2a.slingshot",
 							"options": {
 								"sound": {
@@ -80,7 +98,9 @@
 							}
 						},
 						{
-							"predicate": ["item:damage:piercing"],
+							"predicate": [
+								"item:damage:piercing"
+							],
 							"file": "jb2a.dart.01.throw.physical.white",
 							"options": {
 								"sound": {
@@ -90,7 +110,9 @@
 							}
 						},
 						{
-							"predicate": ["item:damage:slashing"],
+							"predicate": [
+								"item:damage:slashing"
+							],
 							"preset": "onToken",
 							"file": "jb2a.melee_generic.slashing",
 							"options": {
