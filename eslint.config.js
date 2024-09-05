@@ -12,8 +12,6 @@ export default antfu(
 		},
 
 		rules: {
-			// TODO: Disable when https://github.com/antfu/eslint-plugin-antfu/issues/31 is fixed
-			'antfu/consistent-chaining': 'off',
 			'unicorn/consistent-function-scoping': 'off',
 			'svelte/html-self-closing': [
 				'error',

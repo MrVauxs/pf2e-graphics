@@ -34,6 +34,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	 * @param db The database name to be searched.
 	 */
 	function testDatabasePath(path: Path, str: string, db: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound') {
+		return null; // TODO: Spappz
 		const pathPermutations: string[] = [];
 
 		const openBraceStrings = str.split('{');
