@@ -31,6 +31,7 @@
 									new JSONEditorApp({
 										store: writable({ [key]: animation }),
 										permission: false,
+										validate: true,
 									}).render(true, {
 										focus: true,
 									});

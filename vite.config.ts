@@ -184,8 +184,7 @@ function getAnimationsPlugin(): PluginOption {
 				if (file.startsWith('animations/') && file.endsWith('json')) {
 					const result = testAndMergeAnimations('./animations');
 
-					// Return early: don't update animations with bad data
-					if (!result.success) return reportErrors(result.errors, server);
+					if (!result.success) reportErrors(result.errors, server);
 
 					Log.info(p.green('[Animations] All files passing.'));
 					if (result.data) {

@@ -135,6 +135,7 @@
 									new JSONEditorApp({
 										store: writable(obj),
 										permission: false,
+										validate: true,
 									}).render(true, {
 										focus: true,
 									});

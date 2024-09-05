@@ -103,26 +103,6 @@
 					"animal-form-cat",
 					"modules/pf2e-tokens-monster-core/assets/tokens/cat-tiger.webp",
 					1
-				],
-				[
-					"animal-form-deer-no-image!",
-					"",
-					1
-				],
-				[
-					"animal-form-frog-no-image!",
-					"",
-					1
-				],
-				[
-					"animal-form-bull-no-image!",
-					"",
-					1
-				],
-				[
-					"animal-form-snake-no-image!",
-					"",
-					1
 				]
 			]
 		},
@@ -258,21 +238,6 @@
 					"ooze-form-black-pudding",
 					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/black-pudding.webp",
 					1
-				],
-				[
-					"ooze-form-gray-ooze-no-image!",
-					"",
-					1
-				],
-				[
-					"ooze-form-ochre-jelly-no-image!",
-					"",
-					1
-				],
-				[
-					"ooze-form-gelatinous-cube-no-image!",
-					"",
-					1
 				]
 			]
 		},
@@ -290,11 +255,6 @@
 					"plant-form-flytrap",
 					"modules/pf2e-tokens-monster-core/assets/tokens/flytrap-giant.webp",
 					2
-				],
-				[
-					"plant-form-shambler-no-image!",
-					"",
-					1
 				]
 			]
 		},

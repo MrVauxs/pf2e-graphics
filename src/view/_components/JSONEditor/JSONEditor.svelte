@@ -12,6 +12,7 @@
 	export let elementRoot: HTMLElement | undefined;
 	export let store: Writable<object>;
 	export let readOnly: boolean;
+	export let validate: boolean;
 	export let stasis: Writable<boolean>;
 
 	let editor: JSONEditor;
@@ -79,7 +80,7 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='h-full w-full overflow-clip relative grow'>
-		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} indentation='	' tabSize={3} {validator} />
+		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} indentation='	' tabSize={3} validator={validate ? validator : undefined} />
 	</main>
 	{#if !readOnly}
 		<footer class='grow-0'>

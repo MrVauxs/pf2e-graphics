@@ -57,6 +57,7 @@ export function testAndMergeAnimations(
 					return {
 						success: false,
 						message: `${schemaResult.error.issues.length} schema ${pluralise('issue', schemaResult.error.issues.length)}`,
+						issues: schemaResult.error.issues,
 					};
 				}
 
