@@ -1,10 +1,6 @@
 import { z } from 'zod';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
-import {
-	databasePathsFree as JB2AFreeDatabasePaths,
-	databasePathsPatreon as JB2APatreonDatabasePaths,
-} from 'jb2a-databases';
-import { flatDatabase as soundDatabasePaths } from '../assets/soundDb';
+import { superValidate } from './superValidateAnimations';
 
 // Helper validation functions
 const nonZero: [(num: number) => boolean, string] = [
@@ -293,6 +289,7 @@ const presetOptions = z
 	})
 	.strict()
 	.refine(...nonEmpty);
+export type PresetOptions = z.infer<typeof presetOptions>;
 
 const ease = z.enum([
 	'easeInBack',
@@ -744,7 +741,7 @@ const effectOptions = z
 	.strict()
 	.refine(...nonEmpty);
 
-const triggers = z.enum([
+const TRIGGERS = z.enum([
 	'attack-roll',
 	'damage-roll',
 	'place-template',
@@ -764,6 +761,10 @@ const triggers = z.enum([
 	'counteract-check',
 	'modifiers-matter',
 ]);
+export type Trigger = z.infer<typeof TRIGGERS>;
+
+const PRESETS = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
+export type Preset = z.infer<typeof PRESETS>;
 
 const referenceObject = z.object({
 	overrides: z
@@ -771,8 +772,8 @@ const referenceObject = z.object({
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	trigger: triggers.or(z.array(triggers).min(1)),
-	preset: z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']),
+	trigger: TRIGGERS.or(z.array(TRIGGERS).min(1)),
+	preset: PRESETS,
 	file: sequencerDBEntry.or(filePath),
 	default: z.literal(true).optional(),
 	predicate: z
@@ -799,248 +800,12 @@ const animationObject: z.ZodType<AnimationObject> = referenceObject
 			)
 			.optional(),
 	})
-	.refine(...nonEmpty)
-	// Test that `options.preset` matches `preset`
-	.superRefine((obj, ctx) => {
-		if (!obj.preset || !obj.options || !obj.options.preset) return;
-
-		if (obj.preset === 'macro' && obj.options.preset) {
-			return ctx.addIssue({
-				code: z.ZodIssueCode.invalid_type,
-				expected: 'undefined',
-				received: typeof obj.options.preset,
-				message: '`options.preset` cannot exist while `preset` equals `"macro"`.',
-			});
-		}
-
-		/** A map of preset types to the `options` properties they permit. `(none)` is used for no properties allowed. */
-		const PRESET_OPTIONS_PROPERTIES = {
-			template: ['attachTo', 'stretchTo'],
-			onToken: ['rotateTowards', 'atLocation', 'location', 'attachTo'],
-			melee: ['attachTo', 'rotateTowards'],
-			ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
-			macro: ['(none)'],
-		} as const;
-
-		const illegalProperties = Object.keys(obj.options.preset).filter(
-			prop => !PRESET_OPTIONS_PROPERTIES[obj.preset!].includes(prop),
-		);
-
-		if (illegalProperties.length) {
-			return ctx.addIssue({
-				code: z.ZodIssueCode.unrecognized_keys,
-				keys: illegalProperties,
-				message: `The following properties aren't allowed when \`preset\` is \`"${obj.preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
-			});
-		}
-
-		if (
-			(obj.preset !== 'onToken'
-			&& (typeof obj.options.preset.rotateTowards === 'boolean'
-			|| typeof obj.options.preset.atLocation === 'boolean'))
-			|| (obj.preset !== 'ranged' && typeof obj.options.preset.attachTo === 'boolean')
-		) {
-			return ctx.addIssue({
-				code: z.ZodIssueCode.invalid_type,
-				received: 'boolean',
-				expected: 'object',
-			});
-		}
-	});
+	.refine(...nonEmpty);
 
 const animationObjects = z
 	.array(animationObject)
 	.min(1)
-	// Validate Sequencer database paths and confirm no only-Patreon options exist.
-	// This has to be done here rather than on `animationObject` itself because otherwise its recursive nature causes Problems™
-	.superRefine((arr, ctx) => {
-		const testDatabasePath = (
-			str: string,
-			type: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound',
-			path: (string | number)[],
-		) => {
-			const pathPermutations: string[] = [];
-
-			const openBraceStrings = str.split('{');
-			if (openBraceStrings.length === 1) {
-				// No moustaches
-				pathPermutations.push(str);
-			} else {
-				// Moustaches present!
-				// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
-				const matchingBraces = openBraceStrings.map(
-					str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
-				);
-				// We expect the first such string to have no close-braces
-				const first = matchingBraces.shift();
-				if (first || !matchingBraces.every(Boolean)) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.invalid_string,
-						path,
-						validation: 'regex',
-						message: `Mismatched or empty braces.`,
-					});
-				}
-
-				// Get each permutation of "...{...}..." moustached strings
-				const extractPermutations = (str: string): string[] => {
-					const openBrace = str.indexOf('{');
-					if (openBrace === -1) return [str]; // Necessary due to recursion
-					const closeBrace = str.indexOf('}');
-					const elements = str.substring(openBrace + 1, closeBrace).split(',');
-					return elements
-						.map(element =>
-							extractPermutations(
-								`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
-							),
-						)
-						.flat();
-				};
-				pathPermutations.push(...extractPermutations(str));
-			}
-
-			const database
-				= type === 'sound'
-					? soundDatabasePaths
-					: type === 'jb2a_patreon'
-						? JB2APatreonDatabasePaths
-						: JB2AFreeDatabasePaths;
-
-			for (const testPath of pathPermutations) {
-				if (!database.some(entry => entry.startsWith(testPath))) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.invalid_enum_value,
-						path,
-						received: testPath,
-						options: [],
-						message: `Not found in the ${type} database.`,
-					});
-				}
-			}
-		};
-
-		/**
-		 * Intelligently walks through an `AnimationObject` looking for Sequencer database paths that need validation. The following properties are tested:
-		 * - `file`
-		 * - `options.sound`
-		 * - `options.preset.bounce.file`
-		 * - `options.preset.bounce.sound`
-		 * - `contents.<...>` (recurses for each contained `AnimationObject`)
-		 */
-		const testAnimation = (
-			animation: AnimationObject,
-			path: (string | number)[] = [],
-			context: { JB2APremium: boolean; persistent: boolean; triggers: Set<string> } = {
-				JB2APremium: false,
-				persistent: false,
-				triggers: new Set(),
-			},
-		) => {
-			// if (animation.trigger) animation.trigger.forEach(trigger => context.triggers.add(trigger));
-			if (animation.predicate) {
-				if (animation.predicate.includes('jb2a:patreon')) context.JB2APremium = true;
-				if (animation.predicate.includes('settings:persistent')) context.persistent = true;
-			}
-
-			if (animation.file) {
-				testDatabasePath(animation.file, context.JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e', [
-					...path,
-					'file',
-				]);
-			}
-
-			if (animation.options) {
-				if (animation.options.persist) {
-					if (!context.persistent) {
-						ctx.addIssue({
-							code: z.ZodIssueCode.unrecognized_keys,
-							path: [...path, 'options'],
-							keys: ['persist'],
-							message: '`options.persist` requires the `settings:persistent` predicate.',
-						});
-					}
-					// if (
-					// 	context.triggers.has('effect')
-					// 	|| context.triggers.has('place-template')
-					// 	|| context.triggers.has('toggle')
-					// ) {
-					// 	ctx.addIssue({
-					// 		code: z.ZodIssueCode.custom,
-					// 		path: [...path, 'options', 'persist'],
-					// 		message:
-					// 			'`options.persist` cannot be used with the triggers `effect`, `place-template`, or `toggle`.',
-					// 	});
-					// }
-				}
-
-				if (animation.options.sound) {
-					if (Array.isArray(animation.options.sound)) {
-						for (let i = 0; i < animation.options.sound.length; i++) {
-							testDatabasePath(animation.options.sound[i].file, 'sound', [
-								...path,
-								'options',
-								'sound',
-								i,
-								'file',
-							]);
-						}
-					} else {
-						testDatabasePath(animation.options.sound.file, 'sound', [
-							...path,
-							'options',
-							'sound',
-							'file',
-						]);
-					}
-				}
-
-				if (animation.options.preset?.bounce) {
-					if (animation.options.preset.bounce.file) {
-						testDatabasePath(
-							animation.options.preset.bounce.file,
-							context.JB2APremium ? 'jb2a_patreon' : 'JB2A_DnD5e',
-							[...path, 'options', 'preset', 'bounce', 'file'],
-						);
-					}
-
-					if (animation.options.preset.bounce.sound) {
-						if (Array.isArray(animation.options.preset.bounce.sound)) {
-							for (let i = 0; i < animation.options.preset.bounce.sound.length; i++) {
-								testDatabasePath(animation.options.preset.bounce.sound[i].file, 'sound', [
-									...path,
-									'options',
-									'preset',
-									'bounce',
-									'sound',
-									i,
-									'file',
-								]);
-							}
-						} else {
-							testDatabasePath(animation.options.preset.bounce.sound.file, 'sound', [
-								...path,
-								'options',
-								'preset',
-								'bounce',
-								'sound',
-								'file',
-							]);
-						}
-					}
-				}
-			}
-
-			if (animation.contents) {
-				for (let i = 0; i < animation.contents.length; i++) {
-					testAnimation(animation.contents[i], [...path, 'contents', i], { ...context });
-				}
-			}
-		};
-
-		for (let i = 0; i < arr.length; i++) {
-			testAnimation(arr[i], [i]);
-		}
-	})
+	.superRefine((arr, ctx) => superValidate(arr, ctx))
 	.refine(...uniqueItems);
 
 /** Full-file animations schema (sans `_tokenImages`). Not currently used except for JSON-schema export. */
