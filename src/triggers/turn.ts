@@ -10,7 +10,7 @@ function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'sta
 	}
 
 	const deliverable = {
-		trigger: `${type}Turn` as const,
+		trigger: `${type}-turn` as const,
 		source: token,
 		rollOptions: (actor?.getRollOptions() || [])
 			.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x),
