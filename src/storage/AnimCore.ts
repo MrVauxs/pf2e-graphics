@@ -31,8 +31,8 @@ export let AnimCore = class AnimCore {
 	 * - [ { reference: "reference:to:another:animation", "predicate": ["gate:air"] } ]
 	 */
 	static getAnimations(): JSONData {
+		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
 		return Object.keys(window.pf2eGraphics.modules)
-			// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
 			.sort((a, b) => a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0)
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {});
 	}
