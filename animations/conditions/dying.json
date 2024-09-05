@@ -22,7 +22,7 @@
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["startTurn", "toggle"],
+					"trigger": ["start-turn", "toggle"],
 					"contents": [
 						{
 							"predicate": ["condition:badge:value:1"]

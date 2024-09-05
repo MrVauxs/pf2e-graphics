@@ -12,7 +12,7 @@
 			"contents": [
 				{
 					"default": true,
-					"trigger": ["startTurn", "effect"]
+					"trigger": ["start-turn", "effect"]
 				},
 				{
 					"predicate": ["settings:persistent"],

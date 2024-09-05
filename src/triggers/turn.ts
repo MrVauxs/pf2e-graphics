@@ -10,7 +10,7 @@ function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'sta
 	}
 
 	const deliverable = {
-		trigger: `${type}Turn` as const,
+		trigger: `${type}-turn` as const,
 		source: token,
 		rollOptions: (actor?.getRollOptions() || [])
 			.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x),
@@ -21,7 +21,7 @@ function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'sta
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const startTurn = Hooks.on('pf2e.startTurn', (a: CombatantPF2e, b: EncounterPF2e) => handler(a, b, 'start'));
+const start-turn = Hooks.on('pf2e.start-turn', (a: CombatantPF2e, b: EncounterPF2e) => handler(a, b, 'start'));
 const endTurn = Hooks.on('pf2e.endTurn', (a: CombatantPF2e, b: EncounterPF2e) => handler(a, b, 'end'));
 
 if (import.meta.hot) {
@@ -29,7 +29,7 @@ if (import.meta.hot) {
 	import.meta.hot.accept();
 	// Disposes the previous hook
 	import.meta.hot.dispose(() => {
-		Hooks.off('pf2e.startTurn', startTurn);
+		Hooks.off('pf2e.start-turn', start-turn);
 		Hooks.off('pf2e.endTurn', endTurn);
 	});
 }
