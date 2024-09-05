@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as core from '@actions/core';
+import type { ZodIssue } from 'zod-validation-error';
 
 /**
  * Helper class to write unified logs to both local terminals and GitHub Actions.
@@ -156,6 +157,7 @@ export function getFilesRecursively(targetPath: string): string[] {
 }
 
 export interface fileValidationResult {
+	issues?: ZodIssue[];
 	file: string;
 	success: boolean;
 	message?: string;
