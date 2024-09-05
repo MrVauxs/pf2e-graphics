@@ -191,8 +191,7 @@ const helpers = {
 		return seq;
 	},
 	genericSoundFunction(seq: Sequence, _item: ItemPF2e, target: Target, _options: SoundConfig, rollOptions: string[]) {
-		_options = [_options].flat()
-			.filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions));
+		_options = [_options].flat().filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions));
 
 		if (_options.filter(a => !a.default).length > 0) _options = _options.filter(a => !a.default);
 
@@ -386,7 +385,8 @@ export const presets = {
 				}
 			}
 
-			const effect = seq.effect()
+			const effect = seq
+				.effect()
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
@@ -446,7 +446,8 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
-			const section = seq.effect()
+			const section = seq
+				.effect()
 				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(source, helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target))
 				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, source, target));
@@ -487,7 +488,8 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, token, options.sound, rollOptions);
 			}
 
-			const result = seq.effect()
+			const result = seq
+				.effect()
 				.file(window.pf2eGraphics.AnimCore.parseFile(file));
 
 			if (options?.preset?.atLocation) {
@@ -517,7 +519,8 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
-			const section = seq.effect()
+			const section = seq
+				.effect()
 				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.preset?.attachTo, target, target));
 
