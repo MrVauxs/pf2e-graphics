@@ -14,19 +14,19 @@
 			},
 			"contents": [
 				{
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 160
+							}
+						}
+					},
 					"predicate": [
 						"action:administer-first-aid:stabilize"
 					]
 				},
 				{
-					"options": {
-						"filter": {
-							"type": "ColorMatrix",
-							"options": {
-								"hue": 40
-							}
-						}
-					},
 					"predicate": [
 						"action:administer-first-aid:stop-bleeding"
 					]
