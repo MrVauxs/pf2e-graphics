@@ -1,5 +1,6 @@
 import './presets.ts';
 import { writable } from 'svelte/store';
+import { ErrorMsg } from 'src/utils.ts';
 import { AnimCore } from './AnimCore.ts';
 
 Object.assign(window, {
@@ -14,7 +15,14 @@ Hooks.once('ready', async () => {
 		if (!animations) continue;
 		const path = animations.startsWith('modules/') ? animations : `modules/${mod.id}/${animations}`;
 
-		fetch(path).then(resp => resp.json().then((json) => { window.pf2eGraphics.modules[mod.id] = json; }));
+		try {
+			const resp = await fetch(path);
+			const json = await resp.json();
+			window.pf2eGraphics.modules[mod.id] = json;
+		} catch {
+			// eslint-disable-next-line no-new
+			new ErrorMsg(`Failed to load ${mod.id} animations! Does the file exist?`);
+		}
 	}
 });
 
