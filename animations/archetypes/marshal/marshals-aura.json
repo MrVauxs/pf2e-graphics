@@ -2,7 +2,15 @@
 	"effect:marshals-aura": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.wind_stream.200.white",
+			"file": "jb2a.wind_stream.white",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
@@ -24,14 +32,7 @@
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
+					"default": true,
 					"trigger": [
 						"start-turn",
 						"effect"
