@@ -58,22 +58,18 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return Object.keys(window.pf2eGraphics.modules)
-			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
-			.filter(nonNullable)
-			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
-			.map(x => ({
-				...x,
-				rules: x.rules.map((rule: TokenImageDataRule) => {
-					if (!isShorthand(rule)) return rule;
-					return {
-						key: 'TokenImage',
-						predicate: [`self:effect:${rule[0]}`],
-						value: rule[1],
-						scale: rule[2],
-					} as TokenImageRuleSource;
-				}),
-			}));
+		return Object.keys(window.pf2eGraphics.modules).flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[]).filter(nonNullable).filter(x => x?.requires ? !!game.modules.get(x.requires) : true).map(x => ({
+			...x,
+			rules: x.rules.map((rule: TokenImageDataRule) => {
+				if (!isShorthand(rule)) return rule;
+				return {
+					key: 'TokenImage',
+					predicate: [`self:effect:${rule[0]}`],
+					value: rule[1],
+					scale: rule[2],
+				} as TokenImageRuleSource;
+			}),
+		}));
 	}
 
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
@@ -296,14 +292,12 @@ export let AnimCore = class AnimCore {
 		}
 
 		// Overrides handling
-		Object.values(validAnimations)
-			.map(anims => anims
-				.flatMap(x => x.overrides)
-				.filter(nonNullable),
-			)
-			.forEach((overrides) => {
-				overrides.forEach(s => delete validAnimations[s]);
-			});
+		Object.values(validAnimations).map(anims => anims
+			.flatMap(x => x.overrides)
+			.filter(nonNullable),
+		).forEach((overrides) => {
+			overrides.forEach(s => delete validAnimations[s]);
+		});
 
 		return validAnimations;
 	}
@@ -345,8 +339,7 @@ export let AnimCore = class AnimCore {
 		this.createHistoryEntry({
 			trigger,
 			rollOptions,
-			animations: Object.entries(validAnimations)
-				.flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
+			animations: Object.entries(validAnimations).flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
 			item: item ? { name: item?.name, uuid: item.uuid } : undefined,
 			actor: { name: actor.name, uuid: actor.uuid },
 		});

@@ -1,13 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as core from '@actions/core';
-import { database } from '../../src/assets/soundDb.ts';
-import { flatten } from '../helpers.ts';
+import { database } from '../../../src/assets/soundDb.ts';
+import { flatten } from '../../helpers.ts';
 
 const flattened = flatten(database);
-const existingEntries = Object.values(flattened)
-	.map((x: string) => x.replace('modules/pf2e-graphics/', ''))
-	.map((x: string) => core.toPosixPath(x));
+const existingEntries = Object.values(flattened).map((x: string) => x.replace('modules/pf2e-graphics/', '')).map((x: string) => core.toPosixPath(x));
 
 const errors: string[] = [];
 

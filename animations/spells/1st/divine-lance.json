@@ -48,7 +48,7 @@
 						"filter": {
 							"type": "ColorMatrix",
 							"options": {
-								"hue": 260
+								"hue": -100
 							}
 						}
 					},

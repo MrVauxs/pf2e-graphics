@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { database } from '../../src/assets/soundDb.ts';
+import { database } from '../../../src/assets/soundDb.ts';
 
 const errors: string[] = [];
 

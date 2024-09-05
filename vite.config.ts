@@ -1,25 +1,25 @@
 /* eslint-env node */
 import fs from 'node:fs';
-import { type Connect, type PluginOption, defineConfig } from 'vite';
+import { type Connect, type PluginOption, type ViteDevServer, defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { sveltePreprocess } from 'svelte-preprocess';
-import * as glob from 'glob';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 import nesting from 'tailwindcss/nesting';
-// @ts-expect-error - not typed, but the entire thing is tiny
 import minify from 'postcss-minify';
+import p from 'picocolors';
 import moduleJSON from './module.json' with { type: 'json' };
+import { getJSONSchema } from './src/storage/animationsSchema';
+import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
+import { Log, type fileValidationResult, pluralise } from './scripts/helpers';
 
 const packagePath = `modules/${moduleJSON.id}`;
 // const { esmodules, styles } = moduleJSON
 
-const skippedFiles = [
-	`${moduleJSON.id}.css`,
-].map(f => `dist/${f}`).join('|');
+const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
 export default defineConfig(({ command: _buildOrServe }) => ({
 	root: 'src',
@@ -61,8 +61,9 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	build: {
 		copyPublicDir: false,
 		outDir: '../dist',
+		emptyOutDir: true,
 		sourcemap: true,
-		minify: 'terser' as const,
+		minify: 'terser',
 		terserOptions: {
 			mangle: {
 				toplevel: true,
@@ -78,7 +79,8 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		},
 		rollupOptions: {
 			output: {
-				assetFileNames: assetInfo => (assetInfo.name === 'style.css') ? `${moduleJSON.id}.css` : (assetInfo.name as string),
+				assetFileNames: assetInfo =>
+					assetInfo.name === 'style.css' ? `${moduleJSON.id}.css` : (assetInfo.name as string),
 			},
 		},
 	},
@@ -96,7 +98,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 				typescript: true,
 				eslint: process.env.IGNORE_ESLINT
 					? undefined
-					:	{
+					: {
 							useFlatConfig: true,
 							lintCommand: 'eslint',
 						},
@@ -129,50 +131,50 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			buildStart() {
 				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
 				for (const name of files) {
-					fs.writeFileSync(`${name}`, '', { flag: 'a' });
+					fs.writeFileSync(name, '', { flag: 'a' });
 				}
 			},
 		},
-		mergeAnimationsPlugin(),
+		getAnimationsPlugin(),
 	],
 }));
 
-function mergeAnimationsPlugin(): PluginOption {
-	const mergeAnimations = () => {
-		let animations: Record<string, any> = {};
-		const duplicateKeys: string[] = [];
-		for (const file of glob.globSync('./animations/**/*.json')) {
-			try {
-				const content = fs.readFileSync(file, { encoding: 'utf-8' });
-				const json = JSON.parse(content);
-				for (const k of Object.keys(json)) {
-					if (k in animations) duplicateKeys.push(k);
-				}
-				animations = { ...json, ...animations };
-			} catch (e) {
-				throw new Error(`Failed to parse ${file}: ${e}`);
-			}
+function getAnimationsPlugin(): PluginOption {
+	function reportErrors(errors: fileValidationResult[], server?: ViteDevServer): void {
+		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
+		Log.newLine();
+		Log.details({
+			level: 'error',
+			title: p.red(
+				`[Animations] ${p.bold(errors.length)} animation ${pluralise('file', errors.length)} failed validation.`,
+			),
+			messages: errors.map(
+				error =>
+					`${error.file}${error.message ? `${' '.repeat(Math.max(columnWidth - error.file.length, 3))}${p.dim(error.message)}` : ''}`,
+			),
+		});
+		if (server) {
+			server.ws.send({
+				event: 'updateValidationError',
+				type: 'custom',
+				data: JSON.stringify(errors),
+			});
 		}
-		return { animations, duplicateKeys };
-	};
-
+	}
 	return [
 		{
 			name: 'build-animations-dev',
 			apply: 'serve',
 			configureServer(server) {
-				server.watcher.add('./animations');
+				server.watcher.add(['./animations']);
 				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
-						const { animations, duplicateKeys } = mergeAnimations();
-						res.end(JSON.stringify(animations));
-						if (duplicateKeys.length) {
-							server.ws.send({
-								event: 'updateAnimsError',
-								type: 'custom',
-								data: JSON.stringify(duplicateKeys),
-							});
-						}
+						const result = testAndMergeAnimations('./animations');
+
+						// No return: report errors but still serve something
+						if (!result.success) reportErrors(result.errors, server);
+
+						return res.end(JSON.stringify(result.data ?? {}));
 					} else {
 						next();
 					}
@@ -180,17 +182,17 @@ function mergeAnimationsPlugin(): PluginOption {
 			},
 			handleHotUpdate({ file, server }) {
 				if (file.startsWith('animations/') && file.endsWith('json')) {
-					const { animations, duplicateKeys } = mergeAnimations();
-					server.ws.send({
-						event: 'updateAnims',
-						type: 'custom',
-						data: JSON.stringify(animations),
-					});
-					if (duplicateKeys.length) {
+					const result = testAndMergeAnimations('./animations');
+
+					// Return early: don't update animations with bad data
+					if (!result.success) return reportErrors(result.errors, server);
+
+					Log.info(p.green('[Animations] All files passing.'));
+					if (result.data) {
 						server.ws.send({
-							event: 'updateAnimsError',
+							event: 'updateAnims',
 							type: 'custom',
-							data: JSON.stringify(duplicateKeys),
+							data: JSON.stringify(result.data),
 						});
 					}
 				}
@@ -200,12 +202,32 @@ function mergeAnimationsPlugin(): PluginOption {
 			name: 'build-animations',
 			apply: 'build',
 			generateBundle() {
-				const { animations, duplicateKeys } = mergeAnimations();
-				if (duplicateKeys.length) throw new Error(`Duplicate keys in animation files: ${duplicateKeys}`);
+				const result = testAndMergeAnimations('./animations');
+
+				// No return: build whatever data we've got
+				if (!result.success) reportErrors(result.errors);
+
+				Log.info(p.green('[Animations] All files passing.'));
 				this.emitFile({
 					type: 'asset',
 					fileName: 'animations.json',
-					source: JSON.stringify(animations),
+					source: JSON.stringify(result.data ?? {}),
+				});
+			},
+		},
+		{
+			name: 'build-json-schemas',
+			apply: 'build',
+			generateBundle() {
+				this.emitFile({
+					type: 'asset',
+					fileName: 'animations-schema.json',
+					source: JSON.stringify(getJSONSchema('animations')),
+				});
+				this.emitFile({
+					type: 'asset',
+					fileName: 'token-images-schema.json',
+					source: JSON.stringify(getJSONSchema('tokenImages')),
 				});
 			},
 		},
