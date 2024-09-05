@@ -25,7 +25,7 @@
 			"contents": [
 				{
 					"predicate": [{ "lte": ["settings:quality", 2] }],
-					"trigger": ["startTurn", "effect"]
+					"trigger": ["start-turn", "effect"]
 				},
 				{
 					"predicate": ["settings:persistent"],

@@ -136,8 +136,8 @@
 			"skill-check": "Skill Check",
 			"effect": "Effect Granted",
 			"toggle": "Toggle",
-			"startTurn": "Start of Turn",
-			"endTurn": "End of Turn",
+			"start-turn": "Start of Turn",
+			"end-turn": "End of Turn",
 			"self-effect": "'Use' Effect",
 			"modifiers-matter": "Modifiers Matter",
 			"action": "Action"
