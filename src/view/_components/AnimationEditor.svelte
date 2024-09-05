@@ -40,6 +40,7 @@
 			store: flag,
 			stasis: event.shiftKey ? undefined : inStasis,
 			readOnly: event.shiftKey ? true : undefined,
+			validate: true,
 			permission: 'canUserModify' in $doc ? $doc.canUserModify(game.user, 'update') : true,
 		}).render(true);
 	}
