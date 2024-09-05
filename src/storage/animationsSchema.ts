@@ -117,13 +117,13 @@ const angle = z
 const filePath = z
 	.string()
 	.regex(
-		/^\w[^":<>?\\|]+\.\w{3,5}$/,
+		/^\w[^":<>?\\|/]+(?:\/[^":<>?\\|/]+)+\.\w\w\w\w?$/,
 		'String must be a valid filepath. The following characters are unsafe for cross-platform filesystems: ":<>?\\|',
 	);
 
 const sequencerDBEntry = z
 	.string()
-	.regex(/^[\w-]+(?:\.([\w-]+|\{\w+(?:,\w+)+\}))+$/, 'String must be a valid Sequencer database entry.');
+	.regex(/^\w[\w-]+(?:\.(?:[\w-]+|\{\w+(?:,[^{},]+)+\}))+$/, 'String must be a valid Sequencer database entry.');
 
 const vector2 = z
 	.object({
@@ -741,7 +741,7 @@ const effectOptions = z
 	.strict()
 	.refine(...nonEmpty);
 
-const TRIGGERS = z.enum([
+const triggers = z.enum([
 	'attack-roll',
 	'damage-roll',
 	'place-template',
@@ -761,10 +761,10 @@ const TRIGGERS = z.enum([
 	'counteract-check',
 	'modifiers-matter',
 ]);
-export type Trigger = z.infer<typeof TRIGGERS>;
+export type Trigger = z.infer<typeof triggers>;
 
-const PRESETS = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
-export type Preset = z.infer<typeof PRESETS>;
+const presets = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
+export type Preset = z.infer<typeof presets>;
 
 const referenceObject = z.object({
 	overrides: z
@@ -772,8 +772,8 @@ const referenceObject = z.object({
 		.min(1)
 		.refine(...uniqueItems)
 		.optional(),
-	trigger: TRIGGERS.or(z.array(TRIGGERS).min(1)),
-	preset: PRESETS,
+	trigger: triggers.or(z.array(triggers).min(1)),
+	preset: presets,
 	file: sequencerDBEntry.or(filePath),
 	default: z.literal(true).optional(),
 	predicate: z

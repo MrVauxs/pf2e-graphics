@@ -109,9 +109,8 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			});
 		}
 		if (
-			context.triggers.has('effect')
-			|| context.triggers.has('place-template')
-			|| (context.triggers.has('toggle') && context.predicates.has('toggle:create'))
+			!context.triggers.isSubsetOf(new Set(['effect', 'place-template', 'toggle']))
+			|| (context.triggers.has('toggle') && !context.predicates.has('toggle:create'))
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
@@ -122,6 +121,12 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		}
 	}
 
+	/**
+	 * Test whether `options.preset` is valid given `preset`.
+	 * @param path The property path for issue-reporting.
+	 * @param preset The type of preset the animation uses.
+	 * @param options The options for the preset.
+	 */
 	function testPreset(path: Path, preset: Preset | null, options: PresetOptions) {
 		if (!preset) {
 			return ctx.addIssue({
@@ -189,7 +194,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		path: Path,
 		context: AnimationContext = new AnimationContext(),
 	) {
-		// Add context
+		// Context begin
 		if (animation.predicate) {
 			animation.predicate.forEach(predicate =>
 				typeof predicate === 'string' ? context.predicates.add(predicate) : null,
@@ -205,8 +210,9 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			}
 		}
 		if (animation.preset) context.preset = animation.preset;
-		// end
+		// end context
 
+		// Validation begin
 		if (animation.file) {
 			testDatabasePath(
 				[...path, 'file'],
@@ -262,7 +268,9 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				}
 			}
 		}
+		// end validation
 
+		// Recursion stuff
 		if (animation.contents) {
 			for (let i = 0; i < animation.contents.length; i++) {
 				testAnimation(animation.contents[i], [...path, 'contents', i], structuredClone(context));
