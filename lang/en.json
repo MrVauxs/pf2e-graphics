@@ -69,6 +69,12 @@
 				"name": "Developer Mode",
 				"hint": "Posts to various information to the console. Helpful when you are trying to make your own animations."
 			},
+			"jb2aMode": {
+				"name": "[DEV] JB2A Mode",
+				"hint": "Switch between free or patreon version for the purposes of predicates.",
+				"free": "Free",
+				"patreon": "Patreon"
+			},
 			"userMenu": {
 				"name": "User Animations",
 				"hint": "Customize your own personal animations or see others.",

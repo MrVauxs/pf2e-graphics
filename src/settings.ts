@@ -1,4 +1,5 @@
 import type { JSONData } from './storage/AnimCore';
+import { dev } from './utils';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
@@ -14,6 +15,7 @@ let settings: TJSLiveGameSettings & {
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;
+	jb2aMode: 'patreon' | 'free';
 };
 export type liveSettings = typeof settings;
 
@@ -157,6 +159,23 @@ const settingsData = [
 			config: true,
 			type: Boolean,
 			default: false,
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'jb2aMode',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.jb2aMode.name',
+			hint: 'pf2e-graphics.settings.jb2aMode.hint',
+			scope: 'client',
+			config: dev,
+			type: String,
+			default: 'patreon',
+			choices: {
+				patreon: 'pf2e-graphics.settings.jb2aMode.patreon',
+				free: 'pf2e-graphics.settings.jb2aMode.free',
+			},
 		},
 	},
 ] as const;

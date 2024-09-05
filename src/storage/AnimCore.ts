@@ -119,25 +119,23 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return dedupeStrings(this.uglifyRollOptions(array)
-			.concat(
-				[
-					`settings:quality:${window.pf2eGraphics.liveSettings.quality}`,
-					window.pf2eGraphics.liveSettings.persistent ? 'settings:persistent' : null,
-					game.modules.get('jb2a_patreon')?.active ? 'jb2a:patreon' : null,
-					game.modules.get('JB2A_DnD5e')?.active ? 'jb2a:free' : null,
-				].filter(x => typeof x === 'string'),
-			));
+		const extras: string[] = [];
+
+		extras.push(`settings:quality:${window.pf2eGraphics.liveSettings.quality}`);
+
+		if (window.pf2eGraphics.liveSettings.persistent) extras.push('settings:persistent');
+
+		if (game.modules.get('jb2a_patreon')?.active || (dev && window.pf2eGraphics.liveSettings.jb2aMode === "patreon"))
+			extras.push('jb2a:patreon');
+
+		if ((game.modules.get('JB2A_DnD5e')?.active || (dev && window.pf2eGraphics.liveSettings.jb2aMode === "free")) && !extras.includes("jb2a:patreon"))
+			extras.push('jb2a:free');
+
+		return dedupeStrings(array.concat(extras));
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
 		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {});
-	}
-
-	/** Not sure if this is a good idea, muddying up the waters. */
-	static uglifyRollOptions(array: string[]) {
-		return array;
-		// return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
 
 	/**
