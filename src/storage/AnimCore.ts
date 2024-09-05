@@ -125,11 +125,12 @@ export let AnimCore = class AnimCore {
 
 		if (window.pf2eGraphics.liveSettings.persistent) extras.push('settings:persistent');
 
-		if (game.modules.get('jb2a_patreon')?.active || (dev && window.pf2eGraphics.liveSettings.jb2aMode === "patreon"))
-			extras.push('jb2a:patreon');
-
-		if ((game.modules.get('JB2A_DnD5e')?.active || (dev && window.pf2eGraphics.liveSettings.jb2aMode === "free")) && !extras.includes("jb2a:patreon"))
-			extras.push('jb2a:free');
+		if (dev) {
+			extras.push(`jb2a:${window.pf2eGraphics.liveSettings.jb2aMode}`);
+		} else {
+			if (game.modules.get('jb2a_patreon')?.active) extras.push('jb2a:patreon');
+			if (game.modules.get('JB2A_DnD5e')?.active) extras.push('jb2a:free');
+		}
 
 		return dedupeStrings(array.concat(extras));
 	}

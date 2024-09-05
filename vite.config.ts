@@ -171,7 +171,6 @@ function getAnimationsPlugin(): PluginOption {
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
 						const result = testAndMergeAnimations('./animations');
 
-						// No return: report errors but still serve something
 						if (!result.success) reportErrors(result.errors, server);
 
 						return res.end(JSON.stringify(result.data ?? {}));
@@ -184,9 +183,12 @@ function getAnimationsPlugin(): PluginOption {
 				if (file.startsWith('animations/') && file.endsWith('json')) {
 					const result = testAndMergeAnimations('./animations');
 
-					if (!result.success) reportErrors(result.errors, server);
+					if (!result.success) {
+						reportErrors(result.errors);
+					} else {
+						Log.info(p.green('[Animations] All files passing.'));
+					}
 
-					Log.info(p.green('[Animations] All files passing.'));
 					if (result.data) {
 						server.ws.send({
 							event: 'updateAnims',
@@ -203,10 +205,12 @@ function getAnimationsPlugin(): PluginOption {
 			generateBundle() {
 				const result = testAndMergeAnimations('./animations');
 
-				// No return: build whatever data we've got
-				if (!result.success) reportErrors(result.errors);
+				if (!result.success) {
+					reportErrors(result.errors);
+				} else {
+					Log.info(p.green('[Animations] All files passing.'));
+				}
 
-				Log.info(p.green('[Animations] All files passing.'));
 				this.emitFile({
 					type: 'asset',
 					fileName: 'animations.json',

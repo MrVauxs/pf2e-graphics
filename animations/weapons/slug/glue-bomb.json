@@ -24,7 +24,7 @@
 								"filter": {
 									"type": "ColorMatrix",
 									"options": {
-										"contrast": 1,
+										"contrast": 0.5,
 										"saturate": -1
 									}
 								}

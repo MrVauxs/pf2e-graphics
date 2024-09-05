@@ -14,13 +14,19 @@
 			},
 			"contents": [
 				{
-					"file": "jb2a.healing_generic.200px.green",
 					"predicate": [
 						"action:administer-first-aid:stabilize"
 					]
 				},
 				{
-					"file": "jb2a.healing_generic.200px.red",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 40
+							}
+						}
+					},
 					"predicate": [
 						"action:administer-first-aid:stop-bleeding"
 					]
