@@ -109,9 +109,17 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				message: 'The `settings:persistent` predicate is required for persistence.',
 			});
 		}
+		/**
+		 * Check if the triggers is of an acceptable set, i.e. not a trigger that will repeat constantly.
+		 * Toggle is only acceptable in two scenarios:
+		 * 		1. The toggle is explicitly only when a document is created. Basically same as `effect`.
+		 * 		2. The toggle explicitly removes itself with a combination of `id`, `remove`, and `tieToDocuments`.
+		 * 			(`toggle:delete` is still unsuitable for persistent animations.)
+		 */
 		if (
 			!context.triggers.isSubsetOf(new Set(['effect', 'place-template', 'toggle']))
 			|| (context.triggers.has('toggle') && !context.predicates.has('toggle:create'))
+			// || (context.triggers.has('toggle') && !([context.options.remove].flat().includes(context.options.id)) && context.options.tieToDocuments) && (test for if `toggle:delete` would work. It should not.)
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
