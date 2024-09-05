@@ -15,9 +15,10 @@
 						"waitUntilFinished": -50
 					},
 					"contents": [
-						{ "predicate": ["jb2a:patreon"], "file": "jb2a.throwable.throw.flask.01.white" },
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.throwable.throw.flask.01.orange",
 							"options": {
 								"filter": {
@@ -28,6 +29,12 @@
 									}
 								}
 							}
+						},
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.throwable.throw.flask.01.white"
 						}
 					]
 				},
