@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - **Maximum Settings no longer create persistent animations.** See the Added section.
 - Quality Settings have been changed from `graphics-quality:X` to `settings:quality:X`.
 - Tweaked Animations
-  - Refactored all condition animations. Some, primarily those with multiple steps were changed. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Refactored all Conditions and some Effect animations. Some, primarily those with multiple steps were changed. ([@MrVauxs](<https://mrvauxs.net/>))
   - Delayed the Crossbow attack sound ([@MrVauxs](<https://mrvauxs.net/>))
   - Blazing Wave now covers lot more area. ([@MrVauxs](<https://mrvauxs.net/>))
   - Oscillating Wave ignite/produce flame now creates an ice projectile and not a blue fire bolt. ([@MrVauxs](<https://mrvauxs.net/>))
