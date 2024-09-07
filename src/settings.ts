@@ -6,7 +6,6 @@ const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;
 
 let settings: TJSLiveGameSettings & {
-	windowPosition: 'sidebar' | 'onTop';
 	quality: 0 | 1 | 2 | 3;
 	persistent: boolean;
 	buttonPosition: 0 | 1;
@@ -98,23 +97,6 @@ const settingsData = [
 				min: 0,
 				step: 1,
 				max: 10,
-			},
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
-		key: 'windowPosition',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.windowPosition.name',
-			hint: 'pf2e-graphics.settings.windowPosition.hint',
-			scope: 'client',
-			config: true,
-			type: String,
-			default: 'sidebar',
-			choices: {
-				sidebar: 'pf2e-graphics.settings.windowPosition.sidebar',
-				onTop: 'pf2e-graphics.settings.windowPosition.onTop',
 			},
 		},
 	},

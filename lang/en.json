@@ -41,12 +41,6 @@
 				"name": "Animation Delay",
 				"hint": "Adds a delay in seconds to every animation being processed and triggered."
 			},
-			"windowPosition": {
-				"name": "Window Position",
-				"hint": "Changes where the animation configuration appears.",
-				"sidebar": "Sidebar",
-				"onTop": "On Top"
-			},
 			"persistent": {
 				"name": "Persistent Animations",
 				"hint": "Enables persistent (looping) animations. Please note this can *SIGNIFICANTLY* reduce performance the more effects you have on screen. When turned off, premade animations will animate only once and possibly on start or end of turn."
