@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
+- Improved the handling of `default` animations, with multiple `default`s in separate parts of the same animation no longer causing issues.
 - Fixed roll-based triggers using the wrong sluggify function for roll outcomes (resulting in `criticalfailure` instead of `critical-failure`).
 - `remove` removing animations from all tokens and not just the one affected.
 

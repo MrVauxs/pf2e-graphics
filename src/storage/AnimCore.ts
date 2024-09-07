@@ -88,6 +88,7 @@ export let AnimCore = class AnimCore {
 	static getAnimationsArray(
 		key: string | undefined,
 		additionalAnimations?: ReturnType<typeof this.getAnimations>,
+		rollOptions?: string[],
 	): AnimationDataObject[] {
 		if (!key || typeof key !== 'string') {
 			throw new ErrorMsg(`You are trying to call 'getAnimationsArray' with a non-string value (${key})!`);
@@ -96,14 +97,14 @@ export let AnimCore = class AnimCore {
 		let animationObject = { ...this.getAnimations(), ...(additionalAnimations || {}) }[key];
 
 		if (typeof animationObject === 'string') {
-			animationObject = AnimCore.getAnimationsArray(animationObject);
+			animationObject = AnimCore.getAnimationsArray(animationObject, {}, rollOptions);
 		}
 
 		if (!nonNullable(animationObject)) return [];
 
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
-			.flatMap(x => AnimCore.unfoldAnimations(x));
+			.flatMap(x => AnimCore.unfoldAnimations(x, rollOptions));
 	}
 
 	// Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
@@ -211,7 +212,7 @@ export let AnimCore = class AnimCore {
 
 		obj.animations = keys
 			.filter(key => preparedOptions.includes(key))
-			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {});
+			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations, rollOptions) }), {});
 
 		obj.sources = clearEmpties(
 			(Object.keys(customSources) as (keyof typeof customSources)[])
@@ -225,23 +226,30 @@ export let AnimCore = class AnimCore {
 	}
 
 	/**
-	 Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
-	 All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
-	 The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
+	All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
+	The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	If rollOptions are provided, it will also filter them appropriately and exit the chain early.
+	TODO: Rewrite the other code to no longer need to filter. And probably rename this function. :weary:
 	 */
-	static unfoldAnimations(folder: FolderObject | AnimationDataObject): AnimationDataObject[] {
+	static unfoldAnimations(folder: FolderObject | AnimationDataObject, rollOptions: string[] = []): AnimationDataObject[] {
+		if (rollOptions.length && !game.pf2e.Predicate.test(folder.predicate, rollOptions)) return [];
+
 		if (!isFolder(folder)) return [folder];
-		const { contents, ...parentProps } = folder;
+		let { contents, ...parentProps } = folder;
 
-		const mergeProps = (parent: FolderObject, child: AnimationDataObject) => {
-			const result = mergeObjectsConcatArrays(parent, child);
-
-			return result;
-		};
+		if (contents && contents.some(x => x.default)) {
+			const valid = contents.filter(x => x.predicate?.length && game.pf2e.Predicate.test(x.predicate, rollOptions));
+			if (valid.length) {
+				contents = valid;
+			} else {
+				contents = contents.filter(x => x.default);
+			}
+		}
 
 		return (contents || [])
-			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
-			.map(child => mergeProps(parentProps, child));
+			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x, rollOptions) : x)
+			.map(child => mergeObjectsConcatArrays(parentProps, child));
 	}
 
 	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
@@ -280,12 +288,10 @@ export let AnimCore = class AnimCore {
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {};
 
 		for (const [key, branch] of Object.entries(animationTree)) {
-			let validBranchAnimations = branch
+			const validBranchAnimations = branch
 				.filter(a => [a.trigger].flat().includes(trigger))
 				.filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
 				.filter(narrow);
-
-			if (validBranchAnimations.filter(a => !a.default).length > 0) validBranchAnimations = validBranchAnimations.filter(a => !a.default);
 
 			validAnimations[key] = validBranchAnimations;
 		}
