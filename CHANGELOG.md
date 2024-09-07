@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - Its roll option for animations is `settings:persistent`.
 - Added `toggle:create`, `toggle:update`, and `toggle:delete` roll options for `toggle` trigger.
 - "JB2A Mode" dev-only setting, allowing to quickly change between the module acting if only jb2a_patreon or JB2A_DnD5e is installed.
+- Users now can see the Preset and World animations. They still cannot make changes to them.
 - `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
 - Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
 - **New Animations**

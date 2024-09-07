@@ -9,6 +9,7 @@
 
 	export let doc: TJSDocument<ActorPF2e | ItemPF2e | UserPF2e> | Writable<{ id: 'settings' }>;
 	export function createAnimation() {}
+	const inStasis = writable(true);
 
 	const flag = $doc.id === 'settings'
 		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<JSONData>
@@ -16,6 +17,8 @@
 		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 500);
 
 	if ($doc.id === 'settings') {
+		inStasis.set(!game.user.can('SETTINGS_MODIFY'));
+
 		flag.subscribe((v) => {
 			game.settings.set('pf2e-graphics', 'worldAnimations', v);
 		});
@@ -26,20 +29,21 @@
 			if (Object.keys(newFlag).length !== Object.keys(v).length)
 				flag.set(Object.fromEntries(Object.entries(v).filter(([,v]) => nonNullable(v))));
 		});
+	} else {
+		inStasis.set(!($doc as ActorPF2e | ItemPF2e | UserPF2e).canUserModify(game.user, 'update'));
 	}
 
 	if (!flag) throw new ErrorMsg('No document was provided to AnimationEditor?!');
 
 	let search = '';
 	let newAnimeKey = '';
-	const inStasis = writable(false);
 
 	function openJSON(event: MouseEvent) {
 		new JSONEditorApp({
 			id: `pf2e-graphics-${$doc.id}`,
 			store: flag,
-			stasis: event.shiftKey ? undefined : inStasis,
-			readOnly: event.shiftKey ? true : undefined,
+			stasis: $inStasis ? undefined : event.shiftKey ? undefined : inStasis,
+			readOnly: $inStasis || event.shiftKey ? true : undefined,
 			validate: true,
 			permission: 'canUserModify' in $doc ? $doc.canUserModify(game.user, 'update') : true,
 		}).render(true);
