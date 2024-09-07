@@ -1,5 +1,4 @@
 import type { JSONData } from './storage/AnimCore';
-import { dev } from './utils';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
@@ -102,19 +101,6 @@ const settingsData = [
 	},
 	{
 		namespace: 'pf2e-graphics',
-		key: 'suppressWarnings',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.suppressWarnings.name',
-			hint: 'pf2e-graphics.settings.suppressWarnings.hint',
-			scope: 'client',
-			config: true,
-			type: Boolean,
-			default: false,
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
 		key: 'dev',
 		folder: 'PF2e Graphics',
 		options: {
@@ -126,27 +112,46 @@ const settingsData = [
 			default: false,
 		},
 	},
-	{
-		namespace: 'pf2e-graphics',
-		key: 'jb2aMode',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.jb2aMode.name',
-			hint: 'pf2e-graphics.settings.jb2aMode.hint',
-			scope: 'client',
-			config: dev,
-			type: String,
-			default: 'patreon',
-			choices: {
-				patreon: 'pf2e-graphics.settings.jb2aMode.patreon',
-				free: 'pf2e-graphics.settings.jb2aMode.free',
+] as const;
+
+function devSettings() {
+	return [
+		{
+			namespace: 'pf2e-graphics',
+			key: 'suppressWarnings',
+			folder: 'PF2e Graphics',
+			options: {
+				name: 'pf2e-graphics.settings.suppressWarnings.name',
+				hint: 'pf2e-graphics.settings.suppressWarnings.hint',
+				scope: 'client',
+				config: game.settings.get('pf2e-graphics', 'dev') as boolean,
+				type: Boolean,
+				default: false,
 			},
 		},
-	},
-] as const;
+		{
+			namespace: 'pf2e-graphics',
+			key: 'jb2aMode',
+			folder: 'PF2e Graphics',
+			options: {
+				name: 'pf2e-graphics.settings.jb2aMode.name',
+				hint: 'pf2e-graphics.settings.jb2aMode.hint',
+				scope: 'client',
+				config: game.settings.get('pf2e-graphics', 'dev') as boolean,
+				type: String,
+				default: 'patreon',
+				choices: {
+					patreon: 'pf2e-graphics.settings.jb2aMode.patreon',
+					free: 'pf2e-graphics.settings.jb2aMode.free',
+				},
+			},
+		},
+	] as const;
+}
 
 Hooks.once('init', () => {
 	storeSettings.registerAll(settingsData, true);
+	storeSettings.registerAll(devSettings(), true);
 
 	settings = new TJSLiveGameSettings(storeSettings) as typeof settings;
 

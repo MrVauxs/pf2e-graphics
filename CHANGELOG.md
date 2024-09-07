@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Users now can see the Preset and World animations. They still cannot make changes to them.
 - `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
 - Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
+- JSON Editor now clearly states whether it is in edit mode or read-only mode.
 - **New Animations**
   - Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))

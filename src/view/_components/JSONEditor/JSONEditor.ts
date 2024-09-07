@@ -10,12 +10,16 @@ export default class JSONEditorApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & extra) {
 		// @ts-expect-error TJS-2-TS
 		super(_options);
+
+		// @ts-expect-error TJS-2-TS
+		const readOnly = this.options.readOnly ?? !this.options.permission;
+		this.options.title = readOnly ? 'pf2e-graphics.jsonEditorReadonly' : 'pf2e-graphics.jsonEditor';
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.jsonEditor', // Automatically localized from `lang/en.json`.
+			title: 'pf2e-graphics.jsonEditor',
 			width: 400,
 			height: 320,
 			classes: ['pf2e-g'],

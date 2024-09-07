@@ -11,7 +11,8 @@
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
-		"jsonEditor": "JSON View / Edit",
+		"jsonEditor": "JSON Editor",
+		"jsonEditorReadonly": "JSON Viewer (Read Only)",
 		"hasAnimations": "Has Animations",
 		"noAnimations": "No Animations",
 		"jsonEditorTooltip": "JSON Editor (Shift-click for a Read-Only view)",
@@ -61,7 +62,7 @@
 			},
 			"dev": {
 				"name": "Developer Mode",
-				"hint": "Posts to various information to the console. Helpful when you are trying to make your own animations."
+				"hint": "Enables console logs. Helpful when you are trying to make your own animations. Also adds new settings, visible on refresh."
 			},
 			"jb2aMode": {
 				"name": "[DEV] JB2A Mode",
@@ -80,7 +81,7 @@
 				"label": "Open Menu"
 			},
 			"suppressWarnings": {
-				"name": "Suppress Startup Warnings",
+				"name": "[DEV] Suppress Startup Warnings",
 				"hint": "Enable this setting if you are using an alternative source for animations than JB2A.",
 				"warnFremium": "You have JB2A (Free) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
 				"warnPremium": "You have JB2A (Patreon) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
