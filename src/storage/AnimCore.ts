@@ -334,7 +334,7 @@ export let AnimCore = class AnimCore {
 			validAnimations,
 			{
 				trigger,
-				rollOptions,
+				rollOptions: this.prepRollOptions(rollOptions),
 				item,
 				actor,
 				source,
@@ -343,7 +343,7 @@ export let AnimCore = class AnimCore {
 
 		this.createHistoryEntry({
 			trigger,
-			rollOptions,
+			rollOptions: this.prepRollOptions(rollOptions),
 			animations: Object.entries(validAnimations).flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
 			item: item ? { name: item?.name, uuid: item.uuid } : undefined,
 			actor: { name: actor.name, uuid: actor.uuid },

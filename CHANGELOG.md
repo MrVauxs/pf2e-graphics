@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
 - JSON Editor now clearly states whether it is in edit mode or read-only mode.
 - **New Animations**
-  - Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
+  - Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
   - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
+- Animation History not including `settings` roll options.
 - Improved the handling of `default` animations, with multiple `default`s in separate parts of the same animation no longer causing issues.
 - Fixed roll-based triggers using the wrong sluggify function for roll outcomes (resulting in `criticalfailure` instead of `critical-failure`).
 - `remove` removing animations from all tokens and not just the one affected.
