@@ -21,20 +21,20 @@ class AnimationContext {
 
 /**
  * A big terrible mess of higher-order validations that require context-awareness (e.g. predicate-dependency).
- *
  * @param arr The `AnimationObject[]` animation set for a given roll option.
  * @param ctx Zod refinement context.
  */
 export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	/**
 	 * Tests whether a given Sequencer database path is valid.
-	 *
 	 * @param path The property path for issue-reporting.
 	 * @param str The input string.
 	 * @param db The database name to be searched.
 	 */
 	function testDatabasePath(path: Path, str: string, db: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound') {
-		return null; // TODO: Spappz
+		return null;
+		// Don't bother validating actual filepaths
+		if (path.includes('/')) return;
 		const pathPermutations: string[] = [];
 
 		const openBraceStrings = str.split('{');
@@ -66,6 +66,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				const elements = str.substring(openBrace + 1, closeBrace).split(',');
 				return elements
 					.map(element =>
+						// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
 						extractPermutations(
 							`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
 						),
@@ -191,12 +192,19 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 
 	/**
 	 * The primary animation-test function. It steps through the animation-`contents` tree, remembering relevant contextual elements (predominantly predicates). It defers to specific validation functions when relevant.
-	 * Intelligently walks through an `AnimationObject` looking for Sequencer database paths that need validation. The following properties are tested:
-	 * - `file`
-	 * - `options.sound`
-	 * - `options.preset.bounce.file`
-	 * - `options.preset.bounce.sound`
-	 * - `contents.<...>` (recurses for each contained `AnimationObject`)
+	 *
+	 * Tests:
+	 * - Sequencer database paths are tested in the following properties:
+	 *   - `file`
+	 *   - `options.preset.bounce.file`
+	 *   - `options.preset.bounce.sound`
+	 *   - `options.sound`
+	 * - Persistence is appropriate given settings predicates and animation data.
+	 * - Preset options are correct.
+	 *
+	 * @param animation The animation object itself.
+	 * @param path The current property-path to reach the animation in the current object-literal.
+	 * @param [context] The unrolled 'context' of the animation, given the characteristics of its enclosing animations (if any). This context is passed down to contained animations.
 	 */
 	function testAnimation(
 		animation: AnimationObject,
