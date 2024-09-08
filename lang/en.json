@@ -186,7 +186,7 @@
 			"mirrorY": "Mirror Y",
 			"mirrorX": "Mirror X",
 			"scale": "Scale",
-			"scaleToObject": "Scale To Object",
+			"scaleToObject": "Scale To Object / Token",
 			"size": "Size",
 			"fadeOut": "Fade Out",
 			"fadeIn": "Fade In",

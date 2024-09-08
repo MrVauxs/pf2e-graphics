@@ -101,6 +101,23 @@ const settingsData = [
 	},
 	{
 		namespace: 'pf2e-graphics',
+		key: 'buttonPosition',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.buttonPosition.name',
+			hint: 'pf2e-graphics.settings.buttonPosition.hint',
+			scope: 'client',
+			config: true,
+			type: Number,
+			default: 0,
+			choices: {
+				0: 'pf2e-graphics.settings.buttonPosition.0',
+				1: 'pf2e-graphics.settings.buttonPosition.1',
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
 		key: 'dev',
 		folder: 'PF2e Graphics',
 		options: {
