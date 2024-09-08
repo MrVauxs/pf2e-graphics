@@ -1,7 +1,6 @@
 {
 	"effect:boost-eidolon": [
 		{
-			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.energy_wall.01.circle.500x500.01.complete",
 			"predicate": [
@@ -22,13 +21,24 @@
 				},
 				"fadeOut": {
 					"value": 500
+				}
+			},
+			"contents": [
+				{
+					"predicate": ["settings:persistent"],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
 				},
-				"persist": {
-					"value": true,
-					"persistTokenPrototype": true
-				},
-				"tieToDocuments": true
-			}
+				{
+					"default": true,
+					"trigger": ["effect", "start-turn"]
+				}
+			]
 		}
 	]
 }

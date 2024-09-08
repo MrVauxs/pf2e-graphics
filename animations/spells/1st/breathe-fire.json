@@ -5,13 +5,38 @@
 			"preset": "template",
 			"file": "jb2a.burning_hands.01.orange",
 			"contents": [
-				{},
 				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
 					"options": {
 						"rotate": -20
 					}
 				},
 				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
 					"options": {
 						"rotate": 20
 					}

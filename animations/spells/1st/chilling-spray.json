@@ -5,13 +5,38 @@
 			"preset": "template",
 			"file": "jb2a.cone_of_cold.blue",
 			"contents": [
-				{},
 				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
 					"options": {
 						"rotate": -20
 					}
 				},
 				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
 					"options": {
 						"rotate": 20
 					}

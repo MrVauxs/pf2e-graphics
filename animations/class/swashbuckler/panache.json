@@ -28,11 +28,6 @@
 						}
 					],
 					"options": {
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						},
-						"tieToDocuments": true,
 						"scaleToObject": 1.6,
 						"filter": {
 							"type": "ColorMatrix",
@@ -41,7 +36,23 @@
 							}
 						}
 					},
-					"file": "jb2a.token_border.circle.spinning.blue.001"
+					"file": "jb2a.token_border.circle.spinning.blue.001",
+					"contents": [
+						{
+							"predicate": ["settings:persistent"],
+							"options": {
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								},
+								"tieToDocuments": true
+							}
+						},
+						{
+							"default": true,
+							"trigger": ["effect", "start-turn"]
+						}
+					]
 				}
 			]
 		}

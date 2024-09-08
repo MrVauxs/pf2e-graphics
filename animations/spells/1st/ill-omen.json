@@ -1,7 +1,6 @@
 {
 	"effect:ill-omen": [
 		{
-			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.magic_signs.circle.02.necromancy.complete.dark_purple",
 			"predicate": [
@@ -16,13 +15,24 @@
 				"scaleToObject": {
 					"value": 0.8,
 					"considerTokenScale": true
+				}
+			},
+			"contents": [
+				{
+					"predicate": ["settings:persistent"],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
 				},
-				"persist": {
-					"value": true,
-					"persistTokenPrototype": true
-				},
-				"tieToDocuments": true
-			}
+				{
+					"default": true,
+					"trigger": ["effect", "start-turn"]
+				}
+			]
 		}
 	]
 }

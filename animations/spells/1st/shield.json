@@ -19,7 +19,6 @@
 			}
 		},
 		{
-			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.shield.01.complete.01.blue",
 			"predicate": [
@@ -35,15 +34,26 @@
 					"value": 1.5,
 					"considerTokenScale": true
 				},
-				"persist": {
-					"value": true,
-					"persistTokenPrototype": true
-				},
-				"tieToDocuments": true,
 				"sound": {
 					"file": "pf2e-graphics.magic.buff.generic.03"
 				}
-			}
+			},
+			"contents": [
+				{
+					"predicate": ["settings:persistent"],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				},
+				{
+					"default": true,
+					"trigger": ["effect", "start-turn"]
+				}
+			]
 		}
 	]
 }
