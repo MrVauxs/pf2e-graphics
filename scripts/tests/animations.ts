@@ -33,7 +33,7 @@ if (targetPath.endsWith('.json')) {
 	if (result.success) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
-		const errors = result.errors;
+		const errors = result.issues;
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
 
 		Log.details({

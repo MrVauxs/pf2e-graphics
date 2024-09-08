@@ -183,10 +183,10 @@ function getAnimationsPlugin(): PluginOption {
 				if (file.startsWith('animations/') && file.endsWith('json')) {
 					const result = testAndMergeAnimations('./animations');
 
-					if (!result.success) {
-						reportErrors(result.errors);
-					} else {
+					if (result.success) {
 						Log.info(p.green('[Animations] All files passing.'));
+					} else {
+						reportErrors(result.errors);
 					}
 
 					if (result.data) {
@@ -205,10 +205,10 @@ function getAnimationsPlugin(): PluginOption {
 			generateBundle() {
 				const result = testAndMergeAnimations('./animations');
 
-				if (!result.success) {
-					reportErrors(result.errors);
-				} else {
+				if (result.success) {
 					Log.info(p.green('[Animations] All files passing.'));
+				} else {
+					reportErrors(result.errors);
 				}
 
 				this.emitFile({

@@ -10,7 +10,7 @@ import { type fileValidationResult, pluralise, safeJSONParse, testFilesRecursive
  */
 export function testAndMergeAnimations(
 	targetPath: string,
-): { success: true; data: Animations } | { success: false; data?: Animations; errors: fileValidationResult[] } {
+): { success: true; data: Animations } | { success: false; data?: Animations; issues: fileValidationResult[] } {
 	const referenceTracker = new (class ReferenceTracker extends Map<string, Set<string>> {
 		constructor() {
 			super();
@@ -101,6 +101,6 @@ export function testAndMergeAnimations(
 
 	const data = mergedAnimations.size ? Object.fromEntries(mergedAnimations) : undefined;
 
-	if (errors.length) return { success: false, data, errors };
+	if (errors.length) return { success: false, data, issues: errors };
 	return { success: true, data: data! };
 }
