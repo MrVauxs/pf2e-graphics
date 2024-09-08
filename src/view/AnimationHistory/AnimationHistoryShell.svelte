@@ -28,6 +28,7 @@
 		new JSONEditorApp({
 			store: writable(entry),
 			permission: false,
+			validate: false,
 		}).render(true, {
 			focus: true,
 		});

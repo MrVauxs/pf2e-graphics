@@ -2,89 +2,511 @@
 	"_tokenImages": [
 		{
 			"name": "Aerial Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK",
 			"rules": [
-				["aerial-form-bat", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/bat-giant.webp", 1],
-				["aerial-form-bird", "modules/pf2e-tokens-bestiaries/tokens/bestial/avian/eagle.webp", 1],
-				["aerial-form-pterosaur", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/pteranodon.webp", 1],
-				["aerial-form-wasp", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/wasp-giant.webp", 1]
+				[
+					"aerial-form-bat",
+					"modules/pf2e-tokens-monster-core/assets/tokens/bat-giant.webp",
+					1
+				],
+				[
+					"aerial-form-bird",
+					"modules/pf2e-tokens-monster-core/assets/tokens/eagle.webp",
+					1
+				],
+				[
+					"aerial-form-pterosaur",
+					"modules/pf2e-tokens-monster-core/assets/tokens/pterosaur-pteranodon.webp",
+					2
+				],
+				[
+					"aerial-form-wasp",
+					"modules/pf2e-tokens-monster-core/assets/tokens/wasp-giant.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Dragon Form",
+			"requires": "pf2e-tokens-monster-core",
+			"uuid": "Compendium.pf2e.spells-srd.Item.5c692cCcTDXjSEzk",
+			"rules": [
+				[
+					"dragon-form-adamantine",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-adamantine-adult.webp",
+					1
+				],
+				[
+					"dragon-form-conspirator",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-conspirator-adult.webp",
+					2
+				],
+				[
+					"dragon-form-diabolic",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-diabolic-adult.webp",
+					2
+				],
+				[
+					"dragon-form-empyreal",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-empyreal-adult.webp",
+					2
+				],
+				[
+					"dragon-form-fortune",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-fortune-adult.webp",
+					2
+				],
+				[
+					"dragon-form-horned",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-horned-adult.webp",
+					2
+				],
+				[
+					"dragon-form-mirage",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-mirage-adult.webp",
+					2
+				],
+				[
+					"dragon-form-omen",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dragon-omen-adult.webp",
+					2
+				]
 			]
 		},
 		{
 			"name": "Animal Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp",
 			"rules": [
-				["animal-form-ape", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/gorilla.webp", 1],
-				["animal-form-bear", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/black-bear.webp", 1],
-				["animal-form-bull", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/bison.webp", 1],
-				["animal-form-canine", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/wolf.webp", 1],
-				["animal-form-cat", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/tiger.webp", 1],
-				["animal-form-deer", "modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/moose.webp", 1],
-				["animal-form-frog", "modules/pf2e-tokens-bestiaries/tokens/bestial/amphibian/frog-giant.webp", 1],
-				["animal-form-shark", "modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/great-white-shark.webp", 1],
-				["animal-form-snake", "modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/sea-snake.webp", 1]
+				[
+					"animal-form-ape",
+					"modules/pf2e-tokens-monster-core/assets/tokens/ape-gorilla.webp",
+					1
+				],
+				[
+					"animal-form-bear",
+					"modules/pf2e-tokens-monster-core/assets/tokens/bear-grizzly.webp",
+					1
+				],
+				[
+					"animal-form-shark",
+					"modules/pf2e-tokens-monster-core/assets/tokens/shark-great-white.webp",
+					1
+				],
+				[
+					"animal-form-canine",
+					"modules/pf2e-tokens-monster-core/assets/tokens/wolf.webp",
+					1
+				],
+				[
+					"animal-form-cat",
+					"modules/pf2e-tokens-monster-core/assets/tokens/cat-tiger.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Dinosaur Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.KhM8MhoUgoUjBMIz",
 			"rules": [
-				["dinosaur-form-ankylosaurus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/ankylosaurus.webp", 1],
-				["dinosaur-form-brontosaurus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/brontosaurus.webp", 2],
-				["dinosaur-form-deinonychus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/deinonychus.webp", 1],
-				["dinosaur-form-stegosaurus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/stegosaurus.webp", 1],
-				["dinosaur-form-triceratops", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/triceratops.webp", 1],
-				["dinosaur-form-tyrannosaurus", "modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/tyrannosaurus.webp", 1]
+				[
+					"dinosaur-form-ankylosaurus",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-ankylosaurus.webp",
+					2
+				],
+				[
+					"dinosaur-form-brontosaurus",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-brontosaurus.webp",
+					2
+				],
+				[
+					"dinosaur-form-deinonychus",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-deinonychus.webp",
+					1
+				],
+				[
+					"dinosaur-form-stegosaurus",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-stegosaurus.webp",
+					2
+				],
+				[
+					"dinosaur-form-triceratops",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-triceratops.webp",
+					1
+				],
+				[
+					"dinosaur-form-tyrannosaurus",
+					"modules/pf2e-tokens-monster-core/assets/tokens/dinosaur-tyrannosaurus.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Elemental Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs",
 			"rules": [
-				["elemental-form-air", "modules/pf2e-tokens-bestiaries/tokens/elemental/air/elemental-hurricane.webp", 1],
-				["elemental-form-earth", "modules/pf2e-tokens-bestiaries/tokens/elemental/earth/elemental-avalanche.webp", 1],
-				["elemental-form-fire", "modules/pf2e-tokens-bestiaries/tokens/elemental/fire/elemental-inferno.webp", 1],
-				["elemental-form-water", "modules/pf2e-tokens-bestiaries/tokens/elemental/water/elemental-tsunami.webp", 1]
+				[
+					"elemental-form-air",
+					"modules/pf2e-tokens-monster-core/assets/tokens/elemental-air-elemental-hurricane.webp",
+					1
+				],
+				[
+					"elemental-form-earth",
+					"modules/pf2e-tokens-monster-core/assets/tokens/elemental-earth-elemental-avalanche.webp",
+					1
+				],
+				[
+					"elemental-form-fire",
+					"modules/pf2e-tokens-monster-core/assets/tokens/elemental-fire-elemental-inferno.webp",
+					1
+				],
+				[
+					"elemental-form-water",
+					"modules/pf2e-tokens-monster-core/assets/tokens/elemental-water-living-waterfall.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Insect Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.XI6Lzd2B5pernkPd",
 			"rules": [
-				["insect-form-ant", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/ant-giant.webp", 1],
-				["insect-form-beetle", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/stag-beetle-giant.webp", 1],
-				["insect-form-centipede", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/centipede-giant.webp", 1],
-				["insect-form-mantis", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/mantis-giant.webp", 1],
-				["insect-form-scorpion", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/scorpion-giant.webp", 1.5],
-				["insect-form-spider", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/hunting-spider.webp", 1]
+				[
+					"insect-form-ant",
+					"modules/pf2e-tokens-monster-core/assets/tokens/ant-giant.webp",
+					1
+				],
+				[
+					"insect-form-beetle",
+					"modules/pf2e-tokens-monster-core/assets/tokens/beetle-giant-stag.webp",
+					1
+				],
+				[
+					"insect-form-centipede",
+					"modules/pf2e-tokens-monster-core/assets/tokens/centipede-giant.webp",
+					1
+				],
+				[
+					"insect-form-mantis",
+					"modules/pf2e-tokens-monster-core/assets/tokens/mantis-giant.webp",
+					1
+				],
+				[
+					"insect-form-scorpion",
+					"modules/pf2e-tokens-monster-core/assets/tokens/scorpion-giant-scorpion.webp",
+					2
+				],
+				[
+					"insect-form-spider",
+					"modules/pf2e-tokens-monster-core/assets/tokens/spider-hunting.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Monstrosity Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.8AMvNVOUEtxBCDvJ",
 			"rules": [
-				["monstrosity-form-phoenix", "modules/pf2e-tokens-bestiaries/tokens/elemental/fire/phoenix.webp", 2],
-				["monstrosity-form-cave-worm", "modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/worm-purple.webp", 1],
-				["monstrosity-form-sea-serpent", "modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/sea-serpent.webp", 1]
+				[
+					"monstrosity-form-phoenix",
+					"modules/pf2e-tokens-monster-core/assets/tokens/phoenix.webp",
+					2
+				],
+				[
+					"monstrosity-form-cave-worm",
+					"modules/pf2e-tokens-monster-core/assets/tokens/cave-worm.webp",
+					1
+				],
+				[
+					"monstrosity-form-sea-serpent",
+					"modules/pf2e-tokens-monster-core/assets/tokens/sea-serpent.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Ooze Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.0gdZrT9lwO17EIxc",
 			"rules": [
-				["ooze-form-black-pudding", "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/black-pudding.webp", 1],
-				["ooze-form-gelatinous-cube", "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gelatinous-cube.webp", 1],
-				["ooze-form-gray-ooze", "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/ochre-jelly.webp", 1],
-				["ooze-form-ochre-jelly", "modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gray-ooze.webp", 1]
+				[
+					"ooze-form-black-pudding",
+					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/black-pudding.webp",
+					1
+				]
 			]
 		},
 		{
 			"name": "Plant Form",
+			"requires": "pf2e-tokens-monster-core",
 			"uuid": "Compendium.pf2e.spells-srd.Item.zCcfPS4y5SrZzU2x",
 			"rules": [
-				["plant-form-arboreal", "modules/pf2e-tokens-bestiaries/tokens/plant/arboreal/arboreal-regent.webp", 1],
-				["plant-form-flytrap", "modules/pf2e-tokens-bestiaries/tokens/plant/flytrap-giant.webp", 1],
-				["plant-form-shambler", "modules/pf2e-tokens-bestiaries/tokens/plant/shambler.webp", 1]
+				[
+					"plant-form-arboreal",
+					"modules/pf2e-tokens-monster-core/assets/tokens/arboreal-regent.webp",
+					2
+				],
+				[
+					"plant-form-flytrap",
+					"modules/pf2e-tokens-monster-core/assets/tokens/flytrap-giant.webp",
+					2
+				]
+			]
+		},
+		{
+			"name": "Aerial Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.NzXpEzcZAjuDTZjK",
+			"rules": [
+				[
+					"aerial-form-bat",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/bat-giant.webp",
+					1
+				],
+				[
+					"aerial-form-bird",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/avian/eagle.webp",
+					1
+				],
+				[
+					"aerial-form-pterosaur",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/pteranodon.webp",
+					1
+				],
+				[
+					"aerial-form-wasp",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/wasp-giant.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Animal Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp",
+			"rules": [
+				[
+					"animal-form-ape",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/gorilla.webp",
+					1
+				],
+				[
+					"animal-form-bear",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/black-bear.webp",
+					1
+				],
+				[
+					"animal-form-bull",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/bison.webp",
+					1
+				],
+				[
+					"animal-form-canine",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/wolf.webp",
+					1
+				],
+				[
+					"animal-form-cat",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/tiger.webp",
+					1
+				],
+				[
+					"animal-form-deer",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/mammalian/moose.webp",
+					1
+				],
+				[
+					"animal-form-frog",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/amphibian/frog-giant.webp",
+					1
+				],
+				[
+					"animal-form-shark",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/great-white-shark.webp",
+					1
+				],
+				[
+					"animal-form-snake",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/sea-snake.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Dinosaur Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.KhM8MhoUgoUjBMIz",
+			"rules": [
+				[
+					"dinosaur-form-ankylosaurus",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/ankylosaurus.webp",
+					1
+				],
+				[
+					"dinosaur-form-brontosaurus",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/brontosaurus.webp",
+					2
+				],
+				[
+					"dinosaur-form-deinonychus",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/deinonychus.webp",
+					1
+				],
+				[
+					"dinosaur-form-stegosaurus",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/stegosaurus.webp",
+					1
+				],
+				[
+					"dinosaur-form-triceratops",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/triceratops.webp",
+					1
+				],
+				[
+					"dinosaur-form-tyrannosaurus",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/reptilian/tyrannosaurus.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Elemental Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs",
+			"rules": [
+				[
+					"elemental-form-air",
+					"modules/pf2e-tokens-bestiaries/tokens/elemental/air/elemental-hurricane.webp",
+					1
+				],
+				[
+					"elemental-form-earth",
+					"modules/pf2e-tokens-bestiaries/tokens/elemental/earth/elemental-avalanche.webp",
+					1
+				],
+				[
+					"elemental-form-fire",
+					"modules/pf2e-tokens-bestiaries/tokens/elemental/fire/elemental-inferno.webp",
+					1
+				],
+				[
+					"elemental-form-water",
+					"modules/pf2e-tokens-bestiaries/tokens/elemental/water/elemental-tsunami.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Insect Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.XI6Lzd2B5pernkPd",
+			"rules": [
+				[
+					"insect-form-ant",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/ant-giant.webp",
+					1
+				],
+				[
+					"insect-form-beetle",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/stag-beetle-giant.webp",
+					1
+				],
+				[
+					"insect-form-centipede",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/centipede-giant.webp",
+					1
+				],
+				[
+					"insect-form-mantis",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/mantis-giant.webp",
+					1
+				],
+				[
+					"insect-form-scorpion",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/scorpion-giant.webp",
+					1.5
+				],
+				[
+					"insect-form-spider",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/hunting-spider.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Monstrosity Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.8AMvNVOUEtxBCDvJ",
+			"rules": [
+				[
+					"monstrosity-form-phoenix",
+					"modules/pf2e-tokens-bestiaries/tokens/elemental/fire/phoenix.webp",
+					2
+				],
+				[
+					"monstrosity-form-cave-worm",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/invertebrate/worm-purple.webp",
+					1
+				],
+				[
+					"monstrosity-form-sea-serpent",
+					"modules/pf2e-tokens-bestiaries/tokens/bestial/aquatic/sea-serpent.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Ooze Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.0gdZrT9lwO17EIxc",
+			"rules": [
+				[
+					"ooze-form-black-pudding",
+					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/black-pudding.webp",
+					1
+				],
+				[
+					"ooze-form-gelatinous-cube",
+					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gelatinous-cube.webp",
+					1
+				],
+				[
+					"ooze-form-ochre-jelly",
+					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/ochre-jelly.webp",
+					1
+				],
+				[
+					"ooze-form-gray-ooze",
+					"modules/pf2e-tokens-bestiaries/tokens/aberrant/ooze/gray-ooze.webp",
+					1
+				]
+			]
+		},
+		{
+			"name": "Plant Form",
+			"requires": "pf2e-tokens-bestiaries",
+			"uuid": "Compendium.pf2e.spells-srd.Item.zCcfPS4y5SrZzU2x",
+			"rules": [
+				[
+					"plant-form-arboreal",
+					"modules/pf2e-tokens-bestiaries/tokens/plant/arboreal/arboreal-regent.webp",
+					1
+				],
+				[
+					"plant-form-flytrap",
+					"modules/pf2e-tokens-bestiaries/tokens/plant/flytrap-giant.webp",
+					1
+				],
+				[
+					"plant-form-shambler",
+					"modules/pf2e-tokens-bestiaries/tokens/plant/shambler.webp",
+					1
+				]
 			]
 		}
 	]

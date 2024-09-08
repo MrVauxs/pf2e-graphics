@@ -11,8 +11,8 @@ export default class WorldAnimationsApp extends SvelteApplication {
 			title: 'pf2e-graphics.modifyWorld', // Automatically localized from `lang/en.json`.
 			classes: ['pf2e-g'],
 			resizable: true,
-			width: 600,
-			height: 900,
+			width: 900,
+			height: 800,
 			id: 'pf2e-graphics-world-settings',
 
 			svelte: {

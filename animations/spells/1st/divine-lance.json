@@ -5,41 +5,54 @@
 			"preset": "ranged",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.spear.hit"
+					"file": "pf2e-graphics.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
 				}
 			},
 			"contents": [
 				{
-					"predicate": ["item:trait:holy"],
-					"file": "jb2a.ranged.01.projectile.01.dark_orange"
+					"predicate": [
+						"item:trait:holy"
+					],
+					"file": "jb2a.ranged.02.instant.01.yellow"
 				},
 				{
 					"predicate": [
 						{
-							"nand": ["item:trait:holy", "item:trait:unholy"]
+							"nor": [
+								"item:trait:holy",
+								"item:trait:unholy"
+							]
 						}
 					],
-					"file": "jb2a.ranged.01.projectile.01.dark_orange",
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": 170
-						}
-					}
+					"file": "jb2a.ranged.01.instant.01.dark_orange"
 				},
 				{
-					"predicate": ["item:trait:unholy", "jb2a:patreon"],
-					"file": "jb2a.ranged.01.projectile.01.dark_purple"
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:patreon"
+					],
+					"file": "jb2a.ranged.01.instant.01.dark_purple"
 				},
 				{
-					"predicate": ["item:trait:unholy", "jb2a:free"],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": 100
+					"predicate": [
+						"item:trait:unholy",
+						"jb2a:free"
+					],
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -100
+							}
 						}
 					},
-					"file": "jb2a.ranged.01.projectile.01.dark_orange"
+					"file": "jb2a.ranged.01.instant.01.dark_orange"
 				}
 			]
 		}

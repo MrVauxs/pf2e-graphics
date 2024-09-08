@@ -340,11 +340,9 @@ export const database = {
 						'02': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact B.ogg`,
 						'03': `${p}/sounds/ovani-sounds/Magic/Air/Cyclone Blade Impact C.ogg`,
 					},
-
 				},
 				loop: {
 					'01': {
-
 						blade: {
 							aero: {
 								trail: `${p}/sounds/ovani-sounds/Magic/Air/Aero Blade Trail Loop.ogg`,
@@ -427,7 +425,6 @@ export const database = {
 					'03': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 003.ogg`,
 					'04': `${p}/sounds/ovani-sounds/Magic II/Air and Thunder/Air Glyph 004.ogg`,
 				},
-
 			},
 		},
 		fire: {
@@ -464,7 +461,6 @@ export const database = {
 							'01': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast A.ogg`,
 							'02': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast B.ogg`,
 							'03': `${p}/sounds/ovani-sounds/Magic/Fire/Large Fireball Cast C.ogg`,
-
 						},
 					},
 				},
@@ -529,7 +525,6 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Fire Gust 003.ogg`,
 			},
 			armor: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Armor.ogg`,
 			},
 			enchant: {
@@ -549,11 +544,9 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Fire/Miasma 003.ogg`,
 			},
 			comet: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Blazing Comet.ogg`,
 			},
 			pillar: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Fire/Flame Pillar.ogg`,
 			},
 			smoke: {
@@ -776,7 +769,6 @@ export const database = {
 								'03': `${p}/sounds/ovani-sounds/Magic/Earth/Stone Throw Cast C.ogg`,
 							},
 						},
-
 					},
 					missile: {
 						'01': `${p}/sounds/ovani-sounds/Magic II/Earth/Rocky Missile 001.ogg`,
@@ -849,7 +841,6 @@ export const database = {
 				'03': `${p}/sounds/ovani-sounds/Magic II/Earth/Boulder Eruption 003.ogg`,
 			},
 			pulse: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Seismic Pulse.ogg`,
 			},
 			magnet: {
@@ -858,11 +849,9 @@ export const database = {
 				},
 			},
 			grab: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthen Grasp.ogg`,
 			},
 			meld: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Earth/Earthmeld.ogg`,
 			},
 		},
@@ -1021,7 +1010,6 @@ export const database = {
 				'05': `${p}/sounds/EminYILDIRIM/magic/holy/protection/eminyildirim_holy-protection-05.ogg`,
 			},
 			ward: {
-
 				'01': `${p}/sounds/ovani-sounds/Magic/Light/Holy Ward.ogg`,
 			},
 			seal: {
@@ -1314,7 +1302,6 @@ export const database = {
 				},
 				'02': {
 					'01': `${p}/sounds/ovani-sounds/Magic/Water/Purify.ogg`,
-
 				},
 			},
 			bolt: {
@@ -1498,7 +1485,6 @@ export const database = {
 					'01': {
 						plant: `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst Plant.ogg`,
 						burst: `${p}/sounds/ovani-sounds/Magic/Nature/Bulb Burst.ogg`,
-
 					},
 				},
 				bramble: {
@@ -1602,5 +1588,27 @@ export const database = {
 		'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/auriel-avoiding.ogg`,
 	},
 	// #endregion
+} as const;
 
-};
+/**
+ * Converts a nested Sequencer database object into a flat array of database paths.
+ *
+ * @param db The nested database object.
+ * @returns An array of dot-separated database paths prepended with the module name (e.g. "pf2e-graphics.generic.miss.01").
+ */
+function getSequencerDBPaths(db: typeof database): string[] {
+	const paths: Set<string> = new Set();
+	const followObjectTree = (path: string, value: any): void => {
+		if (typeof value === 'string') {
+			paths.add(path);
+		} else {
+			for (const key in value) {
+				followObjectTree(`${path}.${key}`, value[key]);
+			}
+		}
+	};
+	followObjectTree('pf2e-graphics', db);
+	return Array.from(paths);
+}
+
+export const flatDatabase = getSequencerDBPaths(database);

@@ -2,7 +2,15 @@
 	"effect:marshals-aura": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.wind_stream.200.white",
+			"file": "jb2a.wind_stream.white",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
@@ -24,15 +32,16 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "startTurn"
+					"default": true,
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": "effect"
-				},
-				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

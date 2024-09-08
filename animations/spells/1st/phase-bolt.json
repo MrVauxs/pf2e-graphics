@@ -3,13 +3,39 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.bolt.physical.purple",
 			"options": {
 				"sound": {
 					"file": "pf2e-graphics.magic.fire.launch.01",
 					"delay": 750
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
 				}
-			}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.bolt.physical.orange",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -110
+							}
+						}
+					}
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.bolt.physical.purple"
+				}
+			]
 		}
 	]
 }

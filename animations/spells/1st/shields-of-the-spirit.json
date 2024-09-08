@@ -11,7 +11,9 @@
 			},
 			"contents": [
 				{
-					"predicate": ["jb2a:free"],
+					"predicate": [
+						"jb2a:free"
+					],
 					"file": "jb2a.markers.shield_rampart.complete.01.orange",
 					"filter": {
 						"type": "ColorMatrix",
@@ -21,11 +23,23 @@
 					},
 					"contents": [
 						{
-							"predicate": [{ "lte": ["graphics-quality", 2] }],
-							"trigger": ["startTurn", "effect"]
+							"predicate": [
+								{
+									"lte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"trigger": [
+								"start-turn",
+								"effect"
+							]
 						},
 						{
-							"predicate": ["graphics-quality:3"],
+							"predicate": [
+								"settings:persistent"
+							],
 							"trigger": "effect",
 							"options": {
 								"tieToDocuments": true,
@@ -34,16 +48,27 @@
 									"persistTokenPrototype": true
 								}
 							}
-
 						}
 					]
 				},
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": ["startTurn", "effect"]
+					"predicate": [
+						{
+							"lte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

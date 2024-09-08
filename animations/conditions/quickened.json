@@ -2,44 +2,36 @@
 	"condition:quickened": [
 		{
 			"preset": "onToken",
+			"file": "jb2a.token_border.circle.static.blue.003",
 			"options": {
-				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 2,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"randomRotation": true,
+				"opacity": 0.8
 			},
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": ["startTurn", "effect"],
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.token_border.circle.static.blue.009"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.token_border.circle.static.blue.002"
-						}
+					"default": true,
+					"trigger": [
+						"start-turn",
+						"effect"
 					]
 				},
 				{
 					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "effect",
 					"options": {
@@ -48,21 +40,7 @@
 							"value": true,
 							"persistTokenPrototype": true
 						}
-					},
-					"contents": [
-						{
-							"predicate": [
-								"jb2a:patreon"
-							],
-							"file": "jb2a.token_border.circle.static.blue.009"
-						},
-						{
-							"predicate": [
-								"jb2a:free"
-							],
-							"file": "jb2a.token_border.circle.static.blue.002"
-						}
-					]
+					}
 				}
 			]
 		}

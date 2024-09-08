@@ -265,7 +265,10 @@
 					<div class='m-1 h-full w-full flex'>
 						<select class='w-full h-full block flex-grow' bind:value={packToImport}>
 							{#each AnimCore.getTokenImages() as pack}
-								<option value={pack.rules}>{pack.uuid ? window.fromUuidSync(pack.uuid)?.name : pack.name}</option>
+								<option value={pack.rules}>
+									{pack.uuid ? window.fromUuidSync(pack.uuid)?.name : pack.name}
+									{pack.requires ? `(${pack.requires})` : ''}
+								</option>
 							{/each}
 						</select>
 						<button class='fas fa-plus w-min' on:click={e => createRule(e, packToImport)}></button>

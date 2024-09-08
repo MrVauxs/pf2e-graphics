@@ -1,15 +1,18 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import { JSONEditor, Mode } from 'svelte-jsoneditor';
+	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
 	import type { Unsubscriber, Writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
+	import { fromZodIssue } from 'zod-validation-error';
+	import { validateAnimationData } from 'src/storage/animationsSchema';
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
 
 	export let elementRoot: HTMLElement | undefined;
 	export let store: Writable<object>;
 	export let readOnly: boolean;
+	export let validate: boolean;
 	export let stasis: Writable<boolean>;
 
 	let editor: JSONEditor;
@@ -22,11 +25,11 @@
 		let payload;
 
 		if (content.json) {
-			payload = (content.json);
+			payload = content.json;
 		} else {
 			try {
 				const data = JSON.parse(content.text);
-				payload = (data);
+				payload = data;
 			} catch {}
 		}
 
@@ -34,15 +37,27 @@
 			const newKeys = Object.keys(payload);
 			const oldKeys = Object.keys($store);
 
-			oldKeys.filter(oldKey => !newKeys.includes(oldKey)).forEach((removedKey) => {
-				payload[removedKey] = null;
-			});
+			oldKeys
+				.filter(oldKey => !newKeys.includes(oldKey))
+				.forEach((removedKey) => {
+					payload[removedKey] = null;
+				});
 
 			store.set(payload);
-		};
+		}
 	}
 
 	$: updateUpstream();
+
+	const validator = (json: unknown): ValidationError[] => {
+		const result = validateAnimationData(json);
+		if (result.success) return [];
+		return result.error.issues.map(issue => ({
+			path: issue.path.map(piece => piece.toString()),
+			message: fromZodIssue(issue, { prefix: null, includePath: false }).toString(),
+			severity: ValidationSeverity.error,
+		}));
+	};
 
 	const mode = 'text' as Mode; // TS...
 
@@ -65,7 +80,7 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='h-full w-full overflow-clip relative grow'>
-		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} />
+		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} indentation='	' tabSize={3} validator={validate ? validator : undefined} />
 	</main>
 	{#if !readOnly}
 		<footer class='grow-0'>
@@ -91,6 +106,6 @@
 	}
 
 	:global(.jse-button.jse-group-button:not(.jse-last)) {
-		border-right: 1px solid var(--jse-menu-color, var(--jse-text-color-inverse, #fff)) !important
+		border-right: 1px solid var(--jse-menu-color, var(--jse-text-color-inverse, #fff)) !important;
 	}
 </style>

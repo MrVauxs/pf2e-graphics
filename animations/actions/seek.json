@@ -1,0 +1,12 @@
+{
+	"action:seek": [
+		{
+			"trigger": "perception-check",
+			"preset": "onToken",
+			"file": "jb2a.eyes.01.dark_green.single",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

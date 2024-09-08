@@ -14,6 +14,17 @@
 		"source.fixAll.eslint": "always",
 		"source.organizeImports": "never"
 	},
+	// Add JSON Validation - remember to either build with Vite or run `npm run build:schema` first!
+	"json.schemas": [
+		{
+			"fileMatch": ["animations/*/**/*.json"],
+			"url": "./dist/animations-schema.json"
+		},
+		{
+			"fileMatch": ["animations/tokenImages.json"],
+			"url": "./dist/token-images-schema.json"
+		}
+	],
 	// Silent the stylistic rules in you IDE, but still auto fix them
 	"eslint.rules.customizations": [
 		{

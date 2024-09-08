@@ -10,9 +10,38 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Added
+
+- **A separate Persistent Animations setting.** Allows you to play or disable persistent animations regardless of quality settings.
+  - Its roll option for animations is `settings:persistent`.
+- Added `toggle:create`, `toggle:update`, and `toggle:delete` roll options for `toggle` trigger.
+- "JB2A Mode" dev-only setting, allowing to quickly change between the module acting if only jb2a_patreon or JB2A_DnD5e is installed.
+- Users now can see the Preset and World animations. They still cannot make changes to them.
+- `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
+- Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
+- JSON Editor now clearly states whether it is in edit mode or read-only mode.
+- **New Animations**
+  - Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
+  - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
+  - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
+
+### Changed
+
+- **Maximum Settings no longer create persistent animations.** See the Added section.
+- Quality Settings have been changed from `graphics-quality:X` to `settings:quality:X`.
+- Removed the *Window Location* setting. Its now always on top, matching the original sheet.
+- Tweaked Animations
+  - Refactored all Conditions and some Effect animations. Some, primarily those with multiple steps were changed. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Delayed the Crossbow attack sound ([@MrVauxs](<https://mrvauxs.net/>))
+  - Blazing Wave now covers lot more area. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Oscillating Wave ignite/produce flame now creates an ice projectile and not a blue fire bolt. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Admonishing Ray (sound), Caustic Blast (sound), Daze, Divine Lance, Phase Bolt, Shield (sound), Void Warp (sound) ([@Mystler](<https://github.com/Mystler>))
+
 ### Fixed
 
-- Offguard (patreon) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- Improved the handling of `default` animations, with multiple `default`s in separate parts of the same animation no longer causing issues.
+- Fixed roll-based triggers using the wrong sluggify function for roll outcomes (resulting in `criticalfailure` instead of `critical-failure`).
+- `remove` removing animations from all tokens and not just the one affected.
 
 ## [0.8.3] - 2024-08-28
 

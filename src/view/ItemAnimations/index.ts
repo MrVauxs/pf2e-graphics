@@ -5,25 +5,10 @@ const getItemSheetHeaderButtons = Hooks.on('getItemSheetHeaderButtons', (applica
 		class: 'pf2e-g',
 		icon: 'fas fa-film',
 		onclick: (event) => {
-			const positionSetting = window.pf2eGraphics.liveSettings.windowPosition;
-			let position = {};
-			const bounds = application.element[0].getBoundingClientRect();
-
-			switch (positionSetting) {
-				case 'sidebar':
-					position = {
-						...application.position,
-						left: bounds.right,
-						width: Number(application.position.width) / 2,
-					};
-					break;
-				case 'onTop':
-					position = {
-						...application.position,
-						top: (application.position.top ?? 0) + (application?.element?.[0]?.firstElementChild as HTMLElement)?.offsetHeight,
-					};
-					break;
-			}
+			const position = {
+				...application.position,
+				top: (application.position.top ?? 0) + (application?.element?.[0]?.firstElementChild as HTMLElement)?.offsetHeight,
+			};
 
 			if ((event as MouseEvent).shiftKey) application.close();
 

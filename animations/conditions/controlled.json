@@ -4,40 +4,33 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.runes03.dark_orange.03",
 			"options": {
-				"tieToDocuments": true,
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
 				},
+				"randomRotation": true,
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn"
+					"default": true,
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
 					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "effect",
 					"options": {

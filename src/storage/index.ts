@@ -1,5 +1,6 @@
 import './presets.ts';
 import { writable } from 'svelte/store';
+import { ErrorMsg } from 'src/utils.ts';
 import { AnimCore } from './AnimCore.ts';
 
 Object.assign(window, {
@@ -14,9 +15,14 @@ Hooks.once('ready', async () => {
 		if (!animations) continue;
 		const path = animations.startsWith('modules/') ? animations : `modules/${mod.id}/${animations}`;
 
-		fetch(path)
-			.then(resp => resp.json()
-				.then((json) => { window.pf2eGraphics.modules[mod.id] = json; }));
+		try {
+			const resp = await fetch(path);
+			const json = await resp.json();
+			window.pf2eGraphics.modules[mod.id] = json;
+		} catch {
+			// eslint-disable-next-line no-new
+			new ErrorMsg(`Failed to load ${mod.id} animations! Does the file exist?`);
+		}
 	}
 });
 
@@ -25,9 +31,10 @@ if (import.meta.hot) {
 		window.pf2eGraphics.modules['pf2e-graphics'] = JSON.parse(data);
 		ui.notifications.info('Animations updated!');
 	});
-	import.meta.hot.on('updateAnimsError', (data) => {
-		ui.notifications.error('Animation files contain duplicate keys! Check the console for details.');
-		console.error('Duplicate keys: ', data);
+	import.meta.hot.on('updateValidationError', (data) => {
+		const array = JSON.parse(data);
+		ui.notifications.error(`${array.length} animation files failed validation! Check the console (F12) for details.`);
+		console.error('Validation errors: ', array);
 	});
 	import.meta.hot.accept('./AnimationStorage.ts', (newModule) => {
 		if (newModule) {

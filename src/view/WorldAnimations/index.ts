@@ -26,6 +26,6 @@ Hooks.once('ready', () => {
 		label: 'pf2e-graphics.settings.worldMenu.label',
 		icon: 'fas fa-globe',
 		type: WorldAnimationsShim,
-		restricted: true,
+		restricted: false,
 	});
 });

@@ -1,8 +1,7 @@
 import { ErrorMsg, clearEmpties, devMessage, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
-import { AnimCore } from './AnimCore';
 
-export const helpers = {
+const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
 		return canvas.grid.measurePath([token, target]);
 	},
@@ -12,8 +11,8 @@ export const helpers = {
 	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
 		return this.measureDistance(token, target).spaces;
 	},
-	parseOffsetEmbedded(options: { offset?: Offset } | undefined | boolean, source: Point, target: Point) {
-		if (typeof options !== 'object') return {};
+	parseOffsetEmbedded(options: { offset?: Offset } | undefined | boolean, source: Point | string, target: Point | string) {
+		if (typeof options !== 'object' || typeof source === 'string' || typeof target === 'string') return {};
 		return { ...options, offset: (options?.offset ? this.parseOffset(options?.offset, source, target) : undefined) };
 	},
 	parseOffset(offset: Offset, source: Point, target: Point) {
@@ -33,7 +32,7 @@ export const helpers = {
 
 		return result;
 	},
-	getCenterCoords(target: Target): Point | undefined {
+	getCenterCoords(target: Target) {
 		if (target instanceof TokenDocumentPF2e || target instanceof MeasuredTemplateDocumentPF2e) {
 			return target._object?.center;
 		}
@@ -59,6 +58,8 @@ export const helpers = {
 		}
 		if (nonNullable(options?.spriteOffset) && Boolean(options?.spriteOffset))
 			seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset);
+		if (nonNullable(options?.spriteRotation) && Boolean(options?.spriteRotation))
+			seq.spriteRotation(options.spriteRotation);
 		if (nonNullable(options?.scaleToObject) && Boolean(options?.scaleToObject)) {
 			if (typeof options.scaleToObject === 'object') {
 				seq.scaleToObject(options.scaleToObject.value, options.scaleToObject);
@@ -159,8 +160,14 @@ export const helpers = {
 				seq.persist(options.persist || false);
 			}
 		}
-		if (nonNullable(options?.tieToDocuments) && Boolean(options?.tieToDocuments))
-			seq.tieToDocuments([_item]);
+		if (nonNullable(options?.tieToDocuments) && Boolean(options?.tieToDocuments)) {
+			if (!_item) {
+				// eslint-disable-next-line no-new
+				new ErrorMsg('tieToDocuments was called with no item present!');
+			} else {
+				seq.tieToDocuments([_item]);
+			}
+		}
 		if (nonNullable(options?.mask) && Boolean(options?.mask))
 			seq.mask();
 		if (nonNullable(options?.remove) && Boolean(options?.remove)) {
@@ -168,7 +175,7 @@ export const helpers = {
 				if (origin === 'all') {
 					Sequencer.EffectManager.endEffects({ object: _target });
 				}
-				Sequencer.EffectManager.endEffects({ origin });
+				Sequencer.EffectManager.endEffects({ origin, object: _target });
 			});
 		}
 
@@ -184,8 +191,7 @@ export const helpers = {
 		return seq;
 	},
 	genericSoundFunction(seq: Sequence, _item: ItemPF2e, target: Target, _options: SoundConfig, rollOptions: string[]) {
-		_options = [_options].flat()
-			.filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions));
+		_options = [_options].flat().filter(o => new game.pf2e.Predicate(o.predicate ?? []).test(rollOptions));
 
 		if (_options.filter(a => !a.default).length > 0) _options = _options.filter(a => !a.default);
 
@@ -195,7 +201,7 @@ export const helpers = {
 				options.volume *= window.pf2eGraphics.liveSettings.volume;
 
 				const sound = seq.sound();
-				sound.file(AnimCore.parseFile(options?.file));
+				sound.file(window.pf2eGraphics.AnimCore.parseFile(options?.file));
 				sound.volume(options.volume);
 
 				if (options?.atLocation)
@@ -255,7 +261,7 @@ interface meleeOptions {
 
 interface rangedOptions {
 	attachTo?: true | Parameters<EffectSection['attachTo']>[1];
-	bounce?: { file: string; sound: SoundConfig };
+	bounce?: { file: string; sound?: SoundConfig };
 	templateAsOrigin?: boolean;
 	atLocation?: Parameters<EffectSection['atLocation']>[1];
 	stretchTo?: Parameters<EffectSection['stretchTo']>[1];
@@ -277,7 +283,7 @@ interface SoundData {
 	baseEffect: Parameters<SoundSection['baseEffect']>[0];
 }
 
-export interface EffectOptions<T extends PresetKeys> {
+interface EffectOptions<T extends PresetKeys> {
 	sound?: SoundConfig;
 	preset?: presetOptions<T>;
 	locally?: boolean;
@@ -313,6 +319,7 @@ export interface EffectOptions<T extends PresetKeys> {
 		min: number;
 		max?: number;
 	};
+	spriteRotation?: Parameters<EffectSection['spriteRotation']>[0];
 	size?: number | {
 		value: number;
 	} & Parameters<EffectSection['size']>[1];
@@ -378,11 +385,12 @@ export const presets = {
 				}
 			}
 
-			const effect = seq.effect()
+			const effect = seq
+				.effect()
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
-				effect.file(AnimCore.parseFile(options?.preset.bounce.file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFile(options?.preset.bounce.file));
 
 				if (options.preset.attachTo) {
 					effect.attachTo(
@@ -396,7 +404,7 @@ export const presets = {
 					);
 				}
 			} else {
-				effect.file(AnimCore.parseFile(file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFile(file));
 
 				if (options?.preset?.attachTo) {
 					effect.attachTo(
@@ -438,8 +446,9 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
-			const section = seq.effect()
-				.file(AnimCore.parseFile(file))
+			const section = seq
+				.effect()
+				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(source, helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target))
 				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, source, target));
 
@@ -452,6 +461,8 @@ export const presets = {
 		const target = targets?.[0];
 		const affectedTokens = [];
 
+		// TODO: Refactor this to account for `.name()` targets.
+		// /\b(target|both|source)\b/.test("targets") full word test
 		if (options?.preset?.location === 'both') {
 			affectedTokens.push(target, source);
 		} else if (options?.preset?.location === 'target') {
@@ -477,8 +488,9 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, token, options.sound, rollOptions);
 			}
 
-			const result = seq.effect()
-				.file(AnimCore.parseFile(file));
+			const result = seq
+				.effect()
+				.file(window.pf2eGraphics.AnimCore.parseFile(file));
 
 			if (options?.preset?.atLocation) {
 				result.atLocation(token, helpers.parseOffsetEmbedded(options?.preset?.atLocation, token, target || token));
@@ -486,8 +498,12 @@ export const presets = {
 				result.attachTo(token, helpers.parseOffsetEmbedded(options?.preset?.attachTo, token, target || token));
 			}
 
-			if (options?.preset?.rotateTowards)
-				result.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, token, target || token));
+			if (options?.preset?.rotateTowards) {
+				result.rotateTowards(
+					options?.preset?.location === 'target' ? source : target,
+					helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, token, target || token),
+				);
+			}
 
 			helpers.genericSequencerFunctions(result, item, token, options);
 		}
@@ -503,8 +519,9 @@ export const presets = {
 				helpers.genericSoundFunction(seq, item, target, options.sound, rollOptions);
 			}
 
-			const section = seq.effect()
-				.file(AnimCore.parseFile(file))
+			const section = seq
+				.effect()
+				.file(window.pf2eGraphics.AnimCore.parseFile(file))
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.preset?.attachTo, target, target));
 
 			if (!options?.preset?.attachTo && (target.t === 'ray' || target.t === 'cone'))
@@ -538,7 +555,7 @@ interface GenericSequenceData<T extends PresetKeys> {
 	rollOptions: string[];
 }
 
-type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point);
+type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point | string);
 
 type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[]; source?: TokenOrDoc };
 
@@ -558,8 +575,8 @@ function applyPresets(override?: boolean) {
 Hooks.once('sequencerReady', () => applyPresets());
 
 if (import.meta.hot) {
-	import.meta.hot.accept((module) => {
-		if (module) {
+	import.meta.hot.accept((newModule) => {
+		if (newModule) {
 			applyPresets(true);
 			ui.notifications.info('Updated presets.ts!');
 		}

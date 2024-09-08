@@ -1,12 +1,36 @@
 {
 	"effect:kinetic-aura": [
 		{
-			"trigger": "effect",
+			"trigger": "toggle",
 			"preset": "onToken",
-			"file": "jb2a.impact.ground_crack.orange",
+			"file": "jb2a.aura_themed.01.outward.complete.cold.01.blue",
 			"options": {
-				"belowTokens": true
-			}
+				"size": {
+					"value": 6.5,
+					"gridUnits": true
+				}
+			},
+			"predicate": [
+				"toggle:create",
+				"kinetic-gate:water"
+			],
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"tieToDocuments": true,
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						}
+					}
+				}
+			]
 		}
 	]
 }

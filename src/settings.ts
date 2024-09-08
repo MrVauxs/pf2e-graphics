@@ -5,14 +5,15 @@ const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;
 
 let settings: TJSLiveGameSettings & {
-	windowPosition: 'sidebar' | 'onTop';
 	quality: 0 | 1 | 2 | 3;
+	persistent: boolean;
 	buttonPosition: 0 | 1;
 	dev: boolean;
 	worldAnimations: JSONData;
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;
+	jb2aMode: 'patreon' | 'free';
 };
 export type liveSettings = typeof settings;
 
@@ -47,6 +48,19 @@ const settingsData = [
 				2: 'pf2e-graphics.settings.quality.2',
 				3: 'pf2e-graphics.settings.quality.3',
 			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'persistent',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.persistent.name',
+			hint: 'pf2e-graphics.settings.persistent.hint',
+			scope: 'client',
+			config: true,
+			type: Boolean,
+			default: false,
 		},
 	},
 	{
@@ -87,53 +101,6 @@ const settingsData = [
 	},
 	{
 		namespace: 'pf2e-graphics',
-		key: 'windowPosition',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.windowPosition.name',
-			hint: 'pf2e-graphics.settings.windowPosition.hint',
-			scope: 'client',
-			config: true,
-			type: String,
-			default: 'sidebar',
-			choices: {
-				sidebar: 'pf2e-graphics.settings.windowPosition.sidebar',
-				onTop: 'pf2e-graphics.settings.windowPosition.onTop',
-			},
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
-		key: 'buttonPosition',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.buttonPosition.name',
-			hint: 'pf2e-graphics.settings.buttonPosition.hint',
-			scope: 'client',
-			config: true,
-			type: Number,
-			default: 0,
-			choices: {
-				0: 'pf2e-graphics.settings.buttonPosition.0',
-				1: 'pf2e-graphics.settings.buttonPosition.1',
-			},
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
-		key: 'suppressWarnings',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.suppressWarnings.name',
-			hint: 'pf2e-graphics.settings.suppressWarnings.hint',
-			scope: 'client',
-			config: true,
-			type: Boolean,
-			default: false,
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
 		key: 'dev',
 		folder: 'PF2e Graphics',
 		options: {
@@ -147,8 +114,44 @@ const settingsData = [
 	},
 ] as const;
 
+function devSettings() {
+	return [
+		{
+			namespace: 'pf2e-graphics',
+			key: 'suppressWarnings',
+			folder: 'PF2e Graphics',
+			options: {
+				name: 'pf2e-graphics.settings.suppressWarnings.name',
+				hint: 'pf2e-graphics.settings.suppressWarnings.hint',
+				scope: 'client',
+				config: game.settings.get('pf2e-graphics', 'dev') as boolean,
+				type: Boolean,
+				default: false,
+			},
+		},
+		{
+			namespace: 'pf2e-graphics',
+			key: 'jb2aMode',
+			folder: 'PF2e Graphics',
+			options: {
+				name: 'pf2e-graphics.settings.jb2aMode.name',
+				hint: 'pf2e-graphics.settings.jb2aMode.hint',
+				scope: 'client',
+				config: game.settings.get('pf2e-graphics', 'dev') as boolean,
+				type: String,
+				default: 'patreon',
+				choices: {
+					patreon: 'pf2e-graphics.settings.jb2aMode.patreon',
+					free: 'pf2e-graphics.settings.jb2aMode.free',
+				},
+			},
+		},
+	] as const;
+}
+
 Hooks.once('init', () => {
 	storeSettings.registerAll(settingsData, true);
+	storeSettings.registerAll(devSettings(), true);
 
 	settings = new TJSLiveGameSettings(storeSettings) as typeof settings;
 

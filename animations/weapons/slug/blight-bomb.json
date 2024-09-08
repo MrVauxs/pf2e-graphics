@@ -20,7 +20,9 @@
 					"preset": "onToken",
 					"file": "jb2a.liquid.splash.green",
 					"options": {
-						"preset": { "location": "target" },
+						"preset": {
+							"location": "target"
+						},
 						"scaleToObject": {
 							"value": 1.5
 						}

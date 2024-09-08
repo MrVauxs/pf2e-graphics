@@ -4,7 +4,15 @@
 			"preset": "onToken",
 			"file": "jb2a.markers.shield_cracked.purple.03",
 			"predicate": [
-				"condition:origin:condition:enfeebled"
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				},
+				{
+					"not": "toggle:delete"
+				}
 			],
 			"options": {
 				"id": "enfeebled-entry",
@@ -13,20 +21,17 @@
 					"value": 1.5,
 					"considerTokenScale": true
 				},
+				"randomRotation": true,
 				"fadeOut": 500,
 				"fadeIn": 250
 			},
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
+					"default": true,
+					"trigger": [
+						"start-turn",
+						"toggle"
 					],
-					"trigger": "startTurn",
 					"contents": [
 						{
 							"predicate": [
@@ -54,42 +59,7 @@
 				},
 				{
 					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "toggle",
-					"contents": [
-						{
-							"predicate": [
-								"condition:badge:value:1"
-							]
-						},
-						{
-							"predicate": [
-								"condition:badge:value:2"
-							],
-							"file": "jb2a.markers.shield_cracked.purple.02"
-						},
-						{
-							"predicate": [
-								{
-									"gte": [
-										"condition:badge:value",
-										3
-									]
-								}
-							],
-							"file": "jb2a.markers.shield_cracked.purple.01"
-						}
-					]
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "toggle",
 					"options": {
@@ -125,18 +95,6 @@
 					]
 				}
 			]
-		},
-		{
-			"preset": "onToken",
-			"predicate": [
-				{
-					"not": "condition:origin:condition:enfeebled"
-				}
-			],
-			"trigger": "toggle",
-			"options": {
-				"remove": "enfeebled-entry"
-			}
 		}
 	]
 }

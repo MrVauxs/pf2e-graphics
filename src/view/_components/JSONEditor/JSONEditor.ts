@@ -5,17 +5,21 @@ import { ErrorMsg } from 'src/utils';
 import { type Writable, get, writable } from 'svelte/store';
 import BasicAppShell from './JSONEditor.svelte';
 
-interface extra { store: Writable<object>; permission?: boolean; readOnly?: true; stasis?: Writable<boolean> }
+interface extra { store: Writable<object>; permission?: boolean; readOnly?: true; stasis?: Writable<boolean>; validate: boolean }
 export default class JSONEditorApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & extra) {
 		// @ts-expect-error TJS-2-TS
 		super(_options);
+
+		// @ts-expect-error TJS-2-TS
+		const readOnly = this.options.readOnly ?? !this.options.permission;
+		this.options.title = readOnly ? 'pf2e-graphics.jsonEditorReadonly' : 'pf2e-graphics.jsonEditor';
 	}
 
 	static override get defaultOptions(): CombinedSvelteApplicationOptions {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.jsonEditor', // Automatically localized from `lang/en.json`.
+			title: 'pf2e-graphics.jsonEditor',
 			width: 400,
 			height: 320,
 			classes: ['pf2e-g'],
@@ -32,11 +36,14 @@ export default class JSONEditorApp extends SvelteApplication {
 					// @ts-expect-error TJS-2-TS
 					const readOnly = this.options.readOnly ?? !this.options.permission;
 					// @ts-expect-error TJS-2-TS
+					const validate = this.options.validate;
+					// @ts-expect-error TJS-2-TS
 					const stasis = this.options.stasis ?? writable(false);
 					return {
 						store,
 						readOnly,
 						stasis,
+						validate,
 					};
 				} as () => { store: Writable<object>; readOnly: boolean; stasis: Writable<boolean> },
 			},

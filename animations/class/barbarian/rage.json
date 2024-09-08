@@ -5,9 +5,18 @@
 			"preset": "onToken",
 			"contents": [
 				{
-					"predicate": [{ "gte": ["graphics-quality", 1] }],
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					],
 					"options": {
-						"preset": { "atLocation": true },
+						"preset": {
+							"atLocation": true
+						},
 						"size": {
 							"value": 4,
 							"gridUnits": true
@@ -34,7 +43,14 @@
 							}
 						},
 						{
-							"predicate": [{ "gte": ["graphics-quality", 2] }],
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
 							"contents": [
 								{
 									"file": "jb2a.impact.ground_crack.still_frame.01",
@@ -137,17 +153,61 @@
 					]
 				},
 				{
-					"predicate": [{ "gte": ["graphics-quality", 1] }],
-					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
 						}
-					},
+					],
 					"contents": [
 						{
-							"predicate": [{ "gte": ["graphics-quality", 2] }],
+							"file": "jb2a.token_border.circle.static.orange.012",
+							"options": {
+								"fadeIn": 500,
+								"fadeOut": 2000,
+								"scaleToObject": 2,
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 1
+									}
+								},
+								"tint": "#FF0000",
+								"opacity": 0.6
+							},
+							"contents": [
+								{
+									"predicate": [
+										"settings:persistent"
+									],
+									"options": {
+										"tieToDocuments": true,
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										}
+									}
+								},
+								{
+									"default": true,
+									"trigger": [
+										"effect",
+										"start-turn"
+									]
+								}
+							]
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
 							"file": "jb2a.wind_stream.white",
 							"options": {
 								"scaleToObject": {
@@ -166,23 +226,28 @@
 								"rotate": 90,
 								"fadeIn": 500,
 								"fadeOut": 2000
-							}
-						},
-						{
-							"file": "jb2a.token_border.circle.static.orange.012",
-							"options": {
-								"fadeIn": 500,
-								"fadeOut": 2000,
-								"scaleToObject": 2,
-								"filter": {
-									"type": "ColorMatrix",
+							},
+							"contents": [
+								{
+									"predicate": [
+										"settings:persistent"
+									],
 									"options": {
-										"saturate": 1
+										"tieToDocuments": true,
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										}
 									}
 								},
-								"tint": "#FF0000",
-								"opacity": 0.6
-							}
+								{
+									"default": true,
+									"trigger": [
+										"effect",
+										"start-turn"
+									]
+								}
+							]
 						}
 					]
 				}

@@ -10,16 +10,14 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
 	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
-	let special: string = '';
 	if (!message.token) {
-		log('No token found. Aborting.');
+		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
 	};
 
 	if (!trigger || trigger === 'spell-cast') {
 		if (message?.item?.isOfType('condition') && message.item.slug === 'persistent-damage') {
 			trigger = 'damage-roll';
-			special = 'persistent';
 		} else if (
 			message.item?.isOfType('action')
 			|| message.item?.isOfType('feat')
@@ -35,20 +33,11 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const missed = message.flags.pf2e.context?.outcome?.includes('ailure') ?? false;
 	const animationOptions = { missed };
 	// @ts-expect-error - Too lazy to properly define custom modules flags
-	const toolbelt = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
+	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
+	const messageTargets = message.target?.token ? [message.target?.token] : Array.from((message.author as UserPF2e).targets);
 
-	// If its a save or damage taken, use message.token
-	// Otherwise grab whatever targets are available
-	const targets = trigger === 'saving-throw'
-		|| trigger === 'damage-taken'
-		|| trigger === 'flat-check'
-		|| special === 'persistent'
-		? [message.token]
-		: (toolbelt ?? (
-				message.target?.token
-					? [message.target?.token]
-					: Array.from((message.author as UserPF2e).targets)
-			));
+	const targets = toolbeltTargets ?? messageTargets ?? [message.token];
+	devMessage('Available Targets | Toolbelt - Message Targets - Message Token\n', toolbeltTargets, messageTargets, [message.token]);
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.');
 
@@ -60,8 +49,8 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	const newOptions = [];
 
-	const outcome = message.flags.pf2e.context?.outcome?.slugify();
-	if (outcome) newOptions.push(`check:outcome:${outcome}`);
+	const outcome = message.flags.pf2e.context?.outcome;
+	if (outcome) newOptions.push(`check:outcome:${game.pf2e.system.sluggify(outcome)}`);
 
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
@@ -99,7 +88,7 @@ const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) =
 			game.modules.get('dice-so-nice')?.active
 			&& msg.isRoll
 			&& msg.rolls.some(roll => roll.dice.length > 0)
-			// replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
+			// TODO: replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
 		)
 	) {
 		handleChatMessage(msg);

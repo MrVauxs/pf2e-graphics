@@ -4,7 +4,14 @@
 			"trigger": "effect",
 			"preset": "onToken",
 			"file": "jb2a.aura_themed.01.outward.complete.cold.01",
-			"predicate": [{ "gte": ["graphics-quality", 1] }],
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
@@ -16,11 +23,23 @@
 			},
 			"contents": [
 				{
-					"predicate": [{ "lte": ["graphics-quality", 2] }],
-					"trigger": ["startTurn", "effect"]
+					"predicate": [
+						{
+							"lte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
-					"predicate": ["graphics-quality:3"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"trigger": "effect",
 					"options": {
 						"tieToDocuments": true,

@@ -11,7 +11,8 @@
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",
 		"modifyWorld": "Manage World Animations",
-		"jsonEditor": "JSON View / Edit",
+		"jsonEditor": "JSON Editor",
+		"jsonEditorReadonly": "JSON Viewer (Read Only)",
 		"hasAnimations": "Has Animations",
 		"noAnimations": "No Animations",
 		"jsonEditorTooltip": "JSON Editor (Shift-click for a Read-Only view)",
@@ -41,11 +42,9 @@
 				"name": "Animation Delay",
 				"hint": "Adds a delay in seconds to every animation being processed and triggered."
 			},
-			"windowPosition": {
-				"name": "Window Position",
-				"hint": "Changes where the animation configuration appears.",
-				"sidebar": "Sidebar",
-				"onTop": "On Top"
+			"persistent": {
+				"name": "Persistent Animations",
+				"hint": "Enables persistent (looping) animations. Please note this can *SIGNIFICANTLY* reduce performance the more effects you have on screen. When turned off, premade animations will animate only once and possibly on start or end of turn."
 			},
 			"quality": {
 				"name": "Performance Settings",
@@ -63,7 +62,13 @@
 			},
 			"dev": {
 				"name": "Developer Mode",
-				"hint": "Posts to various information to the console. Helpful when you are trying to make your own animations."
+				"hint": "Enables console logs. Helpful when you are trying to make your own animations. Also adds new settings, visible on refresh."
+			},
+			"jb2aMode": {
+				"name": "[DEV] JB2A Mode",
+				"hint": "Switch between free or patreon version for the purposes of predicates.",
+				"free": "Free",
+				"patreon": "Patreon"
 			},
 			"userMenu": {
 				"name": "User Animations",
@@ -76,7 +81,7 @@
 				"label": "Open Menu"
 			},
 			"suppressWarnings": {
-				"name": "Suppress Startup Warnings",
+				"name": "[DEV] Suppress Startup Warnings",
 				"hint": "Enable this setting if you are using an alternative source for animations than JB2A.",
 				"warnFremium": "You have JB2A (Free) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
 				"warnPremium": "You have JB2A (Patreon) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
@@ -132,8 +137,8 @@
 			"skill-check": "Skill Check",
 			"effect": "Effect Granted",
 			"toggle": "Toggle",
-			"startTurn": "Start of Turn",
-			"endTurn": "End of Turn",
+			"start-turn": "Start of Turn",
+			"end-turn": "End of Turn",
 			"self-effect": "'Use' Effect",
 			"modifiers-matter": "Modifiers Matter",
 			"action": "Action"

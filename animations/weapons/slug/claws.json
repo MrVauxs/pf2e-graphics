@@ -9,7 +9,9 @@
 			"preset": "onToken",
 			"file": "jb2a.claws.400px.red",
 			"options": {
-				"preset": { "location": "target" },
+				"preset": {
+					"location": "target"
+				},
 				"scaleToObject": {
 					"value": 2
 				}

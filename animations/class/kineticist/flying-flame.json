@@ -1,0 +1,26 @@
+{
+	"item:slug:flying-flame": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.pack_hound_missile.blue.01",
+			"options": {
+				"sound": {
+					"delay": 200,
+					"file": "pf2e-graphics.magic.fire.cast.single.02",
+					"volume": 1
+				},
+				"waitUntilFinished": -3300,
+				"preset": {
+					"bounce": {
+						"file": "jb2a.pack_hound_missile.blue.01",
+						"sound": {
+							"delay": 200,
+							"file": "pf2e-graphics.magic.fire.cast.single.02"
+						}
+					}
+				}
+			}
+		}
+	]
+}

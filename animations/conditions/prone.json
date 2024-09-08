@@ -2,42 +2,36 @@
 	"condition:prone": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.shield_cracked.purple.03",
+			"file": "jb2a.wind_stream.200.white",
 			"options": {
-				"tieToDocuments": true,
 				"scaleToObject": {
-					"value": 1.5,
+					"value": 1,
 					"considerTokenScale": true
 				},
 				"fadeOut": 500,
-				"fadeIn": 250
+				"fadeIn": 250,
+				"mask": true,
+				"rotate": -90
 			},
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"contents": [
 				{
-					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "startTurn"
+					"default": true,
+					"trigger": [
+						"start-turn",
+						"effect"
+					]
 				},
 				{
 					"predicate": [
-						{
-							"lte": [
-								"graphics-quality",
-								2
-							]
-						}
-					],
-					"trigger": "effect"
-				},
-				{
-					"predicate": [
-						"graphics-quality:3"
+						"settings:persistent"
 					],
 					"trigger": "effect",
 					"options": {

@@ -6,26 +6,6 @@ import type { storeSettingsType } from '../settings';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
 
-export const helpers = {
-	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
-		return canvas.grid.measurePath([token, target]);
-	},
-	measureDistanceFeet(token: TokenOrDoc, target: TokenOrDoc) {
-		return this.measureDistance(token, target).distance;
-	},
-	measureDistanceSpaces(token: TokenOrDoc, target: TokenOrDoc) {
-		return this.measureDistance(token, target).spaces;
-	},
-	parseOffset(offset: { x: number; y: number; flip: { x: true; y: true } }, source: TokenOrDoc, target: TokenOrDoc) {
-		const result = { x: offset.x, y: offset.y };
-		if (offset.flip.x && source.x > target.x)
-			result.x *= -1;
-		if (offset.flip.y && source.y > target.y)
-			result.y *= -1;
-		return result;
-	},
-};
-
 function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
 	return typeof (reference as ReferenceObject).reference === 'string';
 }
@@ -35,7 +15,7 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 }
 
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>;
-interface TokenImageData { name: string; uuid: ItemUUID; rules: TokenImageDataRule[] }
+interface TokenImageData { name: string; uuid?: ItemUUID; rules: TokenImageDataRule[]; requires?: string }
 type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource);
 type TokenImageShorthand = [string, string, number];
 
@@ -51,8 +31,8 @@ export let AnimCore = class AnimCore {
 	 * - [ { reference: "reference:to:another:animation", "predicate": ["gate:air"] } ]
 	 */
 	static getAnimations(): JSONData {
+		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
 		return Object.keys(window.pf2eGraphics.modules)
-			// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
 			.sort((a, b) => a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0)
 			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {});
 	}
@@ -78,21 +58,18 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return Object.keys(window.pf2eGraphics.modules)
-			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
-			.filter(nonNullable)
-			.map(x => ({
-				...x,
-				rules: x.rules.map((rule: TokenImageDataRule) => {
-					if (!isShorthand(rule)) return rule;
-					return {
-						key: 'TokenImage',
-						predicate: [`self:effect:${rule[0]}`],
-						value: rule[1],
-						scale: rule[2],
-					} as TokenImageRuleSource;
-				}),
-			}));
+		return Object.keys(window.pf2eGraphics.modules).flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[]).filter(nonNullable).filter(x => x?.requires ? !!game.modules.get(x.requires) : true).map(x => ({
+			...x,
+			rules: x.rules.map((rule: TokenImageDataRule) => {
+				if (!isShorthand(rule)) return rule;
+				return {
+					key: 'TokenImage',
+					predicate: [`self:effect:${rule[0]}`],
+					value: rule[1],
+					scale: rule[2],
+				} as TokenImageRuleSource;
+			}),
+		}));
 	}
 
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
@@ -111,6 +88,7 @@ export let AnimCore = class AnimCore {
 	static getAnimationsArray(
 		key: string | undefined,
 		additionalAnimations?: ReturnType<typeof this.getAnimations>,
+		rollOptions?: string[],
 	): AnimationDataObject[] {
 		if (!key || typeof key !== 'string') {
 			throw new ErrorMsg(`You are trying to call 'getAnimationsArray' with a non-string value (${key})!`);
@@ -119,14 +97,14 @@ export let AnimCore = class AnimCore {
 		let animationObject = { ...this.getAnimations(), ...(additionalAnimations || {}) }[key];
 
 		if (typeof animationObject === 'string') {
-			animationObject = AnimCore.getAnimationsArray(animationObject);
+			animationObject = AnimCore.getAnimationsArray(animationObject, {}, rollOptions);
 		}
 
 		if (!nonNullable(animationObject)) return [];
 
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
-			.flatMap(x => AnimCore.unfoldAnimations(x));
+			.flatMap(x => AnimCore.unfoldAnimations(x, rollOptions));
 	}
 
 	// Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
@@ -142,24 +120,24 @@ export let AnimCore = class AnimCore {
 	}
 
 	static prepRollOptions(array: string[]) {
-		return dedupeStrings(this.uglifyRollOptions(array)
-			.concat(
-				[
-					`graphics-quality:${window.pf2eGraphics.liveSettings.quality}`,
-					game.modules.get('jb2a_patreon')?.active ? 'jb2a:patreon' : null,
-					game.modules.get('JB2A_DnD5e')?.active ? 'jb2a:free' : null,
-				].filter(x => typeof x === 'string'),
-			));
+		const extras: string[] = [];
+
+		extras.push(`settings:quality:${window.pf2eGraphics.liveSettings.quality}`);
+
+		if (window.pf2eGraphics.liveSettings.persistent) extras.push('settings:persistent');
+
+		if (dev) {
+			extras.push(`jb2a:${window.pf2eGraphics.liveSettings.jb2aMode}`);
+		} else {
+			if (game.modules.get('jb2a_patreon')?.active) extras.push('jb2a:patreon');
+			if (game.modules.get('JB2A_DnD5e')?.active) extras.push('jb2a:free');
+		}
+
+		return dedupeStrings(array.concat(extras));
 	}
 
 	static allAnimations(): { [key: string]: AnimationDataObject[] } {
 		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {});
-	}
-
-	/** Not sure if this is a good idea, muddying up the waters. */
-	static uglifyRollOptions(array: string[]) {
-		return array;
-		// return array.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x)
 	}
 
 	/**
@@ -234,7 +212,7 @@ export let AnimCore = class AnimCore {
 
 		obj.animations = keys
 			.filter(key => preparedOptions.includes(key))
-			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations) }), {});
+			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations, rollOptions) }), {});
 
 		obj.sources = clearEmpties(
 			(Object.keys(customSources) as (keyof typeof customSources)[])
@@ -248,23 +226,30 @@ export let AnimCore = class AnimCore {
 	}
 
 	/**
-	 Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
-	 All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
-	 The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	Unfold a folder object consisting of `contents: AnimationDataObject[] | FolderObject` into a flat array of AnimationDataObject
+	All children under this folder inherit any other properties of the folder, such as `options`, `predicate`, etc.
+	The properties of children are not to be overriden by the parent folder, only concatenated or merged.
+	If rollOptions are provided, it will also filter them appropriately and exit the chain early.
+	TODO: Rewrite the other code to no longer need to filter. And probably rename this function. :weary:
 	 */
-	static unfoldAnimations(folder: FolderObject | AnimationDataObject): AnimationDataObject[] {
+	static unfoldAnimations(folder: FolderObject | AnimationDataObject, rollOptions: string[] = []): AnimationDataObject[] {
+		if (rollOptions.length && !game.pf2e.Predicate.test(folder.predicate, rollOptions)) return [];
+
 		if (!isFolder(folder)) return [folder];
-		const { contents, ...parentProps } = folder;
+		let { contents, ...parentProps } = folder;
 
-		const mergeProps = (parent: FolderObject, child: AnimationDataObject) => {
-			const result = mergeObjectsConcatArrays(parent, child);
-
-			return result;
-		};
+		if (contents && contents.some(x => x.default)) {
+			const valid = contents.filter(x => x.predicate?.length && game.pf2e.Predicate.test(x.predicate, rollOptions));
+			if (valid.length) {
+				contents = valid;
+			} else {
+				contents = contents.filter(x => x.default);
+			}
+		}
 
 		return (contents || [])
-			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x) : x)
-			.map(child => mergeProps(parentProps, child));
+			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x, rollOptions) : x)
+			.map(child => mergeObjectsConcatArrays(parentProps, child));
 	}
 
 	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
@@ -303,25 +288,21 @@ export let AnimCore = class AnimCore {
 		const validAnimations: { [key: string]: AnimationDataObject[] } = {};
 
 		for (const [key, branch] of Object.entries(animationTree)) {
-			let validBranchAnimations = branch
+			const validBranchAnimations = branch
 				.filter(a => [a.trigger].flat().includes(trigger))
 				.filter(animation => game.pf2e.Predicate.test(animation.predicate, rollOptions))
 				.filter(narrow);
-
-			if (validBranchAnimations.filter(a => !a.default).length > 0) validBranchAnimations = validBranchAnimations.filter(a => !a.default);
 
 			validAnimations[key] = validBranchAnimations;
 		}
 
 		// Overrides handling
-		Object.values(validAnimations)
-			.map(anims => anims
-				.flatMap(x => x.overrides)
-				.filter(nonNullable),
-			)
-			.forEach((overrides) => {
-				overrides.forEach(s => delete validAnimations[s]);
-			});
+		Object.values(validAnimations).map(anims => anims
+			.flatMap(x => x.overrides)
+			.filter(nonNullable),
+		).forEach((overrides) => {
+			overrides.forEach(s => delete validAnimations[s]);
+		});
 
 		return validAnimations;
 	}
@@ -342,9 +323,9 @@ export let AnimCore = class AnimCore {
 		trigger: TriggerTypes;
 		animationOptions?: object;
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
-		if (!actor) return log('No Actor Found! Aborting.');
+		if (!actor) return log('No actor found! Aborting.');
 		if (!source) source = actor.getActiveTokens()[0]; // TODO: Maybe rewrite to take multiple linked tokens into account?
-		if (!source) return log('No Token Found to animate with! Aborting.');
+		if (!source) return log('No source token found on the active scene! Aborting.');
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
@@ -363,8 +344,7 @@ export let AnimCore = class AnimCore {
 		this.createHistoryEntry({
 			trigger,
 			rollOptions,
-			animations: Object.entries(validAnimations)
-				.flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
+			animations: Object.entries(validAnimations).flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
 			item: item ? { name: item?.name, uuid: item.uuid } : undefined,
 			actor: { name: actor.name, uuid: actor.uuid },
 		});
@@ -411,8 +391,8 @@ export let AnimCore = class AnimCore {
 			'toggle',
 			'effect',
 			'self-effect',
-			'startTurn',
-			'endTurn',
+			'start-turn',
+			'end-turn',
 			'damage-taken',
 			'saving-throw',
 			'check',
@@ -446,6 +426,8 @@ if (import.meta.hot) {
 		}
 	});
 }
+
+// Types Below
 
 // #region JSON Data Parsing
 type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] };

@@ -28,20 +28,23 @@ function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	return result;
 }
 
-function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<ItemPF2e['system']> }, delayed = false) {
+function trifectaFunc(
+	item: ItemPF2e,
+	_options: { _id: string; system: Partial<ItemPF2e['system']> },
+	action: 'update' | 'create' | 'delete',
+	delayed = false,
+) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
 		log(`Delaying animation by ${window.pf2eGraphics.liveSettings.delay} seconds as per settings.`);
-		setTimeout(() => trifectaFunc(item, _options, true), window.pf2eGraphics.liveSettings.delay * 1000);
+		setTimeout(() => trifectaFunc(item, _options, action, true), window.pf2eGraphics.liveSettings.delay * 1000);
 		return;
 	}
 
 	const { bool, options: newOptions } = check(item, _options);
-	// If there is no actor, don't.
-	// 	If there are no rules AND no special changes, don't. || If there are either rules or special changes, continue.
 	if (!item.actor || !bool) return;
 
 	const deliverable = {
-		rollOptions: [...item.actor.getRollOptions(), ...newOptions],
+		rollOptions: [...item.actor.getRollOptions(), ...newOptions, `toggle:${action}`],
 		trigger: 'toggle' as const,
 		actor: item.actor,
 		item,
@@ -51,9 +54,9 @@ function trifectaFunc(item: ItemPF2e, _options: { _id: string; system: Partial<I
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
-const updateItem = Hooks.on('updateItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
-const createItem = Hooks.on('createItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
-const deleteItem = Hooks.on('deleteItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b));
+const updateItem = Hooks.on('updateItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b, 'update'));
+const createItem = Hooks.on('createItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b, 'create'));
+const deleteItem = Hooks.on('deleteItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b, 'delete'));
 
 if (import.meta.hot) {
 	// Prevents reloads
