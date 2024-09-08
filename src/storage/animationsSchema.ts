@@ -535,7 +535,7 @@ const effectOptions = z
 				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
 				options: z
 					.object({
-						hue: angle.describe('The hue, in degrees.').optional(),
+						hue: angle.refine(...nonZero).describe('The hue, in degrees.').optional(),
 						brightness: z
 							.number()
 							.describe('The value of the brightness (0 to 1, where 0 is black)')
