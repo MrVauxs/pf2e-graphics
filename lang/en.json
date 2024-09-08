@@ -125,7 +125,6 @@
 		"triggers": {
 			"attack-roll": "Attack Roll",
 			"damage-roll": "Damage Roll",
-			"spell-cast": "Spell Cast",
 			"damage-taken": "Damage Taken",
 			"saving-throw": "Saving Throw",
 			"place-template": "Template Placed",
