@@ -32,77 +32,91 @@ const rollOption = z
 		'String must be a valid roll option.',
 	);
 
-const maxOneNumber: [(tuple: [unknown, unknown]) => boolean, string] = [
-	tuple => typeof tuple[0] !== 'number' || typeof tuple[1] !== 'number',
-	'Comparing two numbers produces a constant truth-value. Make sure you\'re comparing at least one variable.',
-];
-const predicateComparisonObject = z.object({
-	lt: z
-		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(...maxOneNumber)
-		.optional(),
-	gt: z
-		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(...maxOneNumber)
-		.optional(),
-	lte: z
-		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(...maxOneNumber)
-		.optional(),
-	gte: z
-		.tuple([rollOption.or(z.number()), rollOption.or(z.number())])
-		.refine(...maxOneNumber)
-		.optional(),
-});
-type Predicate =
-	| z.infer<typeof rollOption>
-	| (z.infer<typeof predicateComparisonObject> & {
-		not?: Predicate;
-		and?: Predicate[];
-		or?: Predicate[];
-		nand?: Predicate[];
-		nor?: Predicate[];
-	});
-const predicate: z.ZodType<Predicate> = rollOption.or(
-	predicateComparisonObject
-		.extend({
-			not: z.lazy(() => rollOption.or(predicate).optional()),
-			and: z
-				.lazy(() =>
-					z
-						.array(rollOption.or(predicate))
-						.min(1)
-						.refine(...uniqueItems),
-				)
-				.optional(),
-			or: z
-				.lazy(() =>
-					z
-						.array(rollOption.or(predicate))
-						.min(1)
-						.refine(...uniqueItems),
-				)
-				.optional(),
-			nand: z
-				.lazy(() =>
-					z
-						.array(rollOption.or(predicate))
-						.min(1)
-						.refine(...uniqueItems),
-				)
-				.optional(),
-			nor: z
-				.lazy(() =>
-					z
-						.array(rollOption.or(predicate))
-						.min(1)
-						.refine(...uniqueItems),
-				)
-				.optional(),
+export type Predicate =
+	| string
+	| { eq: [string, string | number] }
+	| { gt: [string, string | number] }
+	| { gte: [string, string | number] }
+	| { lt: [string, string | number] }
+	| { lte: [string, string | number] }
+	| { and: Predicate[] }
+	| { or: Predicate[] }
+	| { xor: Predicate[] }
+	| { not: Predicate }
+	| { nand: Predicate[] }
+	| { nor: Predicate[] }
+	| { if: Predicate; then: Predicate }
+	| { iff: Predicate[] };
+const predicate: z.ZodType<Predicate> = z.union([
+	rollOption,
+	z.object({ eq: z.tuple([rollOption, rollOption.or(z.number())]) }).strict(),
+	z.object({ gt: z.tuple([rollOption, rollOption.or(z.number())]) }).strict(),
+	z.object({ gte: z.tuple([rollOption, rollOption.or(z.number())]) }).strict(),
+	z.object({ lt: z.tuple([rollOption, rollOption.or(z.number())]) }).strict(),
+	z.object({ lte: z.tuple([rollOption, rollOption.or(z.number())]) }).strict(),
+	z
+		.object({
+			and: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
 		})
-		.strict()
-		.refine(...nonEmpty),
-);
+		.strict(),
+	z
+		.object({
+			or: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
+		})
+		.strict(),
+	z
+		.object({
+			xor: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
+		})
+		.strict(),
+	z.object({ not: z.lazy(() => predicate) }).strict(),
+	z
+		.object({
+			nand: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
+		})
+		.strict(),
+	z
+		.object({
+			nor: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
+		})
+		.strict(),
+	z.object({ if: z.lazy(() => predicate), then: z.lazy(() => predicate) }).strict(),
+	z
+		.object({
+			iff: z.lazy(() =>
+				z
+					.array(predicate)
+					.min(1)
+					.refine(...uniqueItems),
+			),
+		})
+		.strict(),
+]);
 
 const hexColour = z
 	.string()
