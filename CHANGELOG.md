@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
 - Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
 - JSON Editor now clearly states whether it is in edit mode or read-only mode.
+- Support for NPC and Item sheets having on-sheet "Animations" Tab button instead of a Header button. ([#154](https://github.com/MrVauxs/pf2e-graphics/issues/154))
+- New "button position" setting for minimized graphics Header button (i.e. just the icon, no text). ([#154](https://github.com/MrVauxs/pf2e-graphics/issues/154))
 - **New Animations**
   - Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
