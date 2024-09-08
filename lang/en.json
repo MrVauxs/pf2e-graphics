@@ -58,17 +58,12 @@
 				"name": "Actor Button Position",
 				"hint": "Where the button for managing Actor Graphics should be located. Change it if you have too many modules adding header buttons.",
 				"0": "Header",
-				"1": "Sheet"
+				"1": "Sheet",
+				"2": "Header (minimized)"
 			},
 			"dev": {
 				"name": "Developer Mode",
 				"hint": "Enables console logs. Helpful when you are trying to make your own animations. Also adds new settings, visible on refresh."
-			},
-			"jb2aMode": {
-				"name": "[DEV] JB2A Mode",
-				"hint": "Switch between free or patreon version for the purposes of predicates.",
-				"free": "Free",
-				"patreon": "Patreon"
 			},
 			"userMenu": {
 				"name": "User Animations",
@@ -79,6 +74,12 @@
 				"name": "World Animations",
 				"hint": "Customize global animations everyone will have by default.",
 				"label": "Open Menu"
+			},
+			"jb2aMode": {
+				"name": "[DEV] JB2A Mode",
+				"hint": "Switch between free or patreon version for the purposes of predicates.",
+				"free": "Free",
+				"patreon": "Patreon"
 			},
 			"suppressWarnings": {
 				"name": "[DEV] Suppress Startup Warnings",
