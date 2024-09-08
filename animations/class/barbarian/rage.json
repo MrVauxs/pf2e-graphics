@@ -179,7 +179,9 @@
 							},
 							"contents": [
 								{
-									"predicate": ["settings:persistent"],
+									"predicate": [
+										"settings:persistent"
+									],
 									"options": {
 										"tieToDocuments": true,
 										"persist": {
@@ -190,7 +192,10 @@
 								},
 								{
 									"default": true,
-									"trigger": ["effect", "start-turn"]
+									"trigger": [
+										"effect",
+										"start-turn"
+									]
 								}
 							]
 						},
@@ -224,7 +229,9 @@
 							},
 							"contents": [
 								{
-									"predicate": ["settings:persistent"],
+									"predicate": [
+										"settings:persistent"
+									],
 									"options": {
 										"tieToDocuments": true,
 										"persist": {
@@ -235,7 +242,10 @@
 								},
 								{
 									"default": true,
-									"trigger": ["effect", "start-turn"]
+									"trigger": [
+										"effect",
+										"start-turn"
+									]
 								}
 							]
 						}

@@ -40,7 +40,9 @@
 			},
 			"contents": [
 				{
-					"predicate": ["settings:persistent"],
+					"predicate": [
+						"settings:persistent"
+					],
 					"options": {
 						"persist": {
 							"value": true,
@@ -51,7 +53,10 @@
 				},
 				{
 					"default": true,
-					"trigger": ["effect", "start-turn"]
+					"trigger": [
+						"effect",
+						"start-turn"
+					]
 				}
 			]
 		}

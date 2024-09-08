@@ -39,7 +39,9 @@
 					"file": "jb2a.token_border.circle.spinning.blue.001",
 					"contents": [
 						{
-							"predicate": ["settings:persistent"],
+							"predicate": [
+								"settings:persistent"
+							],
 							"options": {
 								"persist": {
 									"value": true,
@@ -50,7 +52,10 @@
 						},
 						{
 							"default": true,
-							"trigger": ["effect", "start-turn"]
+							"trigger": [
+								"effect",
+								"start-turn"
+							]
 						}
 					]
 				}
