@@ -13,7 +13,7 @@
 
 <div class='pf2e-g'>
 	<li class='sound flexrow bg-purple-400/25 rounded-sm' data-tooltip='pf2e-graphics.animationsVolume-tooltip'>
-		<h4>{i18n('animationsVolume')}</h4>
+		<h4>{i18n('animations')}</h4>
 		<i class='volume-icon fas fa-volume-down'></i>
 		<input
 			bind:this={element}
