@@ -16,12 +16,12 @@ function spawn(application: CharacterSheetPF2e) {
 }
 
 const getActorSheetHeaderButtons = Hooks.on('getActorSheetHeaderButtons', (application: CharacterSheetPF2e, buttons: ApplicationHeaderButton[]) => {
-	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0) && application.actor.isOfType(...['npc', 'character'])) return;
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0 || window.pf2eGraphics.liveSettings.buttonPosition === 2) && application.actor.isOfType(...['npc', 'character'])) return;
 	buttons.unshift({
 		class: 'pf2e-g',
 		icon: 'fas fa-film',
 		onclick: () => { spawn(application); },
-		label: 'Graphics',
+		label: window.pf2eGraphics.liveSettings.buttonPosition === 2 ? '' : 'Graphics',
 	});
 });
 

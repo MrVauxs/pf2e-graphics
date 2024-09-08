@@ -16,7 +16,7 @@ function spawn(application: ItemSheetPF2e<any>) {
 }
 
 const getItemSheetHeaderButtons = Hooks.on('getItemSheetHeaderButtons', (application: ItemSheetPF2e<any>, buttons: ApplicationHeaderButton[]) => {
-	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0)) return;
+	if (!(window.pf2eGraphics.liveSettings.buttonPosition === 0 || window.pf2eGraphics.liveSettings.buttonPosition === 2)) return;
 	buttons.unshift({
 		class: 'pf2e-g',
 		icon: 'fas fa-film',
@@ -35,7 +35,7 @@ const getItemSheetHeaderButtons = Hooks.on('getItemSheetHeaderButtons', (applica
 				...position,
 			});
 		},
-		label: 'Animations',
+		label: window.pf2eGraphics.liveSettings.buttonPosition === 2 ? '' : 'Graphics',
 	});
 });
 
