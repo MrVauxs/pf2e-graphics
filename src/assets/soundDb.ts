@@ -5,6 +5,12 @@ export const database = {
 	generic: {
 		miss: {
 			'01': `${p}/sounds/soniss/SWSH_Swing 3 Large 03_DDUMAIS_NONE.ogg`,
+			'02': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh A.ogg`,
+			'03': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh B.ogg`,
+			'04': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh C.ogg`,
+			'05': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh D.ogg`,
+			'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh E.ogg`,
+			'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh F.ogg`,
 		},
 		swing: {
 			'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/giant-demon-sword-swoosh.ogg`,
@@ -15,12 +21,6 @@ export const database = {
 		hit: {
 			blunt: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-miscellaneous/imperius-hit-the-giants-eye_flesh.ogg`,
-				'02': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh A.ogg`,
-				'03': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh B.ogg`,
-				'04': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh C.ogg`,
-				'05': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh D.ogg`,
-				'06': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh E.ogg`,
-				'07': `${p}/sounds/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh F.ogg`,
 			},
 			sharp: {
 				'01': `${p}/sounds/soundflakes/diablo-wrath-weapon/malthael-weapon-hit.ogg`,

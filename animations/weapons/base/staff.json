@@ -1,16 +1,19 @@
 {
-	"item:group:club": [
+	"item:base:staff": [
 		{
+			"overrides": [
+				"item:group:club"
+			],
 			"trigger": "attack-roll",
 			"preset": "melee",
-			"file": "jb2a.melee_attack.02.club",
+			"file": "jb2a.quarterstaff.melee.01.white",
 			"options": {
 				"sound": {
 					"file": "pf2e-graphics.generic.hit.blunt",
-					"delay": 500
+					"delay": 800
 				},
 				"scaleToObject": {
-					"value": 5
+					"value": 4.5
 				}
 			}
 		}
