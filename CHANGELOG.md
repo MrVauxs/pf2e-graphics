@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
   - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - Tail ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
 ### Changed
 
