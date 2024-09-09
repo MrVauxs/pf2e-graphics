@@ -20,8 +20,11 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - `requires` to Token Image packs. If a given module is not installed (but can be inactive!), the given options will not be shown.
 - Monster Core Token Image Packs for Animal Form, Dragon Form, etcetera. Do note that Monster Core does not include images for every form.
 - JSON Editor now clearly states whether it is in edit mode or read-only mode.
+- Support for NPC and Item sheets having on-sheet "Animations" Tab button instead of a Header button. ([#154](https://github.com/MrVauxs/pf2e-graphics/issues/154))
+- New "button position" setting for minimized graphics Header button (i.e. just the icon, no text). ([#154](https://github.com/MrVauxs/pf2e-graphics/issues/154))
+- CSS Improvements (added [`content-visiblity`](<https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility>) and [`contain`](<https://developer.mozilla.org/en-US/docs/Web/CSS/contain>)) to list-like menus such as Animation History, Custom Animations, and Token Image Manager.
 - **New Animations**
-  - Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
+  - Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
   - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
   - Tail ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
@@ -40,6 +43,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Fixed
 
+- Animation History not including `settings` roll options.
 - Improved the handling of `default` animations, with multiple `default`s in separate parts of the same animation no longer causing issues.
 - Fixed roll-based triggers using the wrong sluggify function for roll outcomes (resulting in `criticalfailure` instead of `critical-failure`).
 - `remove` removing animations from all tokens and not just the one affected.

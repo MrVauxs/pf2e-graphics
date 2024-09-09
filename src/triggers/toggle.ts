@@ -1,4 +1,4 @@
-import { devMessage, log } from 'src/utils';
+import { devLog, log } from 'src/utils';
 
 function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	const result = {
@@ -50,7 +50,7 @@ function trifectaFunc(
 		item,
 	};
 
-	devMessage('Toggle Hook Data', deliverable, _options);
+	devLog('Toggle Hook Data', deliverable, _options);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 

@@ -84,7 +84,13 @@
 		disabled={$inStasis}
 	></button>
 </div>
-<div class='flex flex-col gap-1'>
+<div
+	class='
+		flex flex-col gap-1
+		contain-strict
+	'
+	style:content-visibility='auto'
+>
 	{#each Object.keys($flag).filter(k => k.includes(search)) as key}
 		<SingleEditor
 			bind:key
