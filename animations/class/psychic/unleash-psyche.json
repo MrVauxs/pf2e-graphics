@@ -1,0 +1,196 @@
+{
+	"effect:unleash-psyche": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"contents": [
+				{
+					"file": "jb2a.thunderwave.center.blue",
+					"options": {
+						"waitUntilFinished": -900,
+						"scaleToObject": {
+							"value": 3
+						},
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 100
+							}
+						}
+					}
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					],
+					"options": {
+						"fadeOut": 1500,
+						"fadeIn": 500
+					},
+					"contents": [
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"file": "jb2a.particles.inward.greenyellow.01.02",
+									"options": {
+										"scaleToObject": {
+											"value": 1
+										},
+										"zIndex": 1,
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"saturate": 1,
+												"hue": -80
+											}
+										}
+									},
+									"contents": [
+										{
+											"predicate": [
+												"settings:persistent"
+											],
+											"options": {
+												"persist": {
+													"value": true,
+													"persistTokenPrototype": true
+												},
+												"tieToDocuments": true
+											}
+										},
+										{
+											"default": true,
+											"trigger": [
+												"effect",
+												"start-turn"
+											]
+										}
+									]
+								},
+								{
+									"file": "jb2a.particles.swirl.greenyellow.01.01",
+									"options": {
+										"scaleToObject": {
+											"value": 1.4
+										},
+										"zIndex": 1,
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"saturate": 1,
+												"hue": -80
+											}
+										}
+									},
+									"contents": [
+										{
+											"predicate": [
+												"settings:persistent"
+											],
+											"options": {
+												"persist": {
+													"value": true,
+													"persistTokenPrototype": true
+												},
+												"tieToDocuments": true
+											}
+										},
+										{
+											"default": true,
+											"trigger": [
+												"effect",
+												"start-turn"
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"options": {
+								"scaleToObject": {
+									"value": 2
+								},
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 100
+									}
+								}
+							},
+							"contents": [
+								{
+									"predicate": [
+										"jb2a:patreon"
+									],
+									"file": "jb2a.token_border.circle.static.blue.012",
+									"contents": [
+										{
+											"predicate": [
+												"settings:persistent"
+											],
+											"options": {
+												"persist": {
+													"value": true,
+													"persistTokenPrototype": true
+												},
+												"tieToDocuments": true
+											}
+										},
+										{
+											"default": true,
+											"trigger": [
+												"effect",
+												"start-turn"
+											]
+										}
+									]
+								},
+								{
+									"predicate": [
+										"jb2a:free"
+									],
+									"file": "jb2a.token_border.circle.static.blue.005",
+									"contents": [
+										{
+											"predicate": [
+												"settings:persistent"
+											],
+											"options": {
+												"persist": {
+													"value": true,
+													"persistTokenPrototype": true
+												},
+												"tieToDocuments": true
+											}
+										},
+										{
+											"default": true,
+											"trigger": [
+												"effect",
+												"start-turn"
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

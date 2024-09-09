@@ -563,7 +563,7 @@
 												bind:value={ani.options.scaleToObject}
 											/>
 										</label>
-										<label class='flex items-center gap-1 text-nowrap'>
+										<!-- <label class='flex items-center gap-1 text-nowrap'>
 											<span
 												class='mr-1 text-nowrap'
 												data-tooltip={wrapTooltipText('size')}
@@ -583,7 +583,7 @@
 											{/if}
 											<input {disabled} type='checkbox'
 												data-tooltip={wrapTooltipText('gridUnits')}
-												value={ani.options.size?.gridUnits}
+												value={ani.options.size.gridUnits}
 												on:change={(ev) => {
 													const bool = ev.currentTarget?.checked;
 													if (bool) {
@@ -593,7 +593,7 @@
 													}
 												}}
 											/>
-										</label>
+										</label> -->
 									</div>
 								{/if}
 							{/if}
