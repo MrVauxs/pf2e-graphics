@@ -643,7 +643,7 @@ const effectOptions = z
 								});
 							}
 						} else if (filter.type === 'Glow') {
-							if (filter.options.quality >= 1) {
+							if (filter.options.quality > 1) {
 								return ctx.addIssue({
 									code: z.ZodIssueCode.too_big,
 									maximum: 1,
