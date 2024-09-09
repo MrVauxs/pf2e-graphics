@@ -36,7 +36,16 @@
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='flex flex-col gap-1 grow overflow-y-scroll -mr-2' bind:this={element}>
+	<main
+		class='
+			flex flex-col gap-1 grow
+			overflow-y-scroll
+			-mr-2
+			contain-strict
+		'
+		style:content-visibility='auto'
+		bind:this={element}
+	>
 		{#if $history.length}
 			{#each $history as entry}
 				<div

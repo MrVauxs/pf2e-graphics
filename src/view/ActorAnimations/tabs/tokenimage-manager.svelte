@@ -100,7 +100,15 @@
 
 <div class='p-2 pb-0 flex flex-col h-full w-full'>
 	{#if $tokenImageID && $feat}
-		<div class='flex-grow flex-shrink overflow-y-scroll mb-2 text-center'>
+		<div
+			class='
+				flex-grow flex-shrink
+				overflow-y-scroll
+				mb-2 text-center
+				contain-strict
+			'
+			style:content-visibility='auto'
+		>
 			{#each $feat.system.rules.filter(isCustomTokenImage) as rule}
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>
