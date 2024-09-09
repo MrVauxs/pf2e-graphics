@@ -7,7 +7,7 @@
 			"options": {
 				"scaleToObject": 5,
 				"sound": {
-					"file": "pf2e-graphics.magic.buff.generic"
+					"file": "graphics-sfx.magic.buff.generic"
 				}
 			}
 		}

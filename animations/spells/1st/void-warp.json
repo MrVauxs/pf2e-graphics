@@ -6,7 +6,7 @@
 			"file": "jb2a.energy_strands.range.standard.purple",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.arcane.cast.02"
+					"file": "graphics-sfx.magic.arcane.cast.02"
 				}
 			}
 		}

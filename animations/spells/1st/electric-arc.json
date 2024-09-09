@@ -9,14 +9,14 @@
 					"options": {
 						"sound": {
 							"delay": 500,
-							"file": "pf2e-graphics.magic.lightning.bolt.impact.01"
+							"file": "graphics-sfx.magic.lightning.bolt.impact.01"
 						},
 						"waitUntilFinished": -1000,
 						"preset": {
 							"bounce": {
 								"file": "jb2a.chain_lightning.secondary.blue",
 								"sound": {
-									"file": "pf2e-graphics.magic.shock.impact"
+									"file": "graphics-sfx.magic.shock.impact"
 								}
 							}
 						}
