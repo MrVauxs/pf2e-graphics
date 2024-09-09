@@ -36,8 +36,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
 	const messageTargets = message.target?.token ? [message.target?.token] : Array.from((message.author as UserPF2e).targets);
 
-	const targets = toolbeltTargets ?? messageTargets ?? [message.token];
-	devLog('Available Targets | Toolbelt - Message Targets - Message Token\n', toolbeltTargets, messageTargets, [message.token]);
+	const targets = toolbeltTargets ?? (messageTargets.length ? messageTargets : null) ?? [message.token];
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.');
 
