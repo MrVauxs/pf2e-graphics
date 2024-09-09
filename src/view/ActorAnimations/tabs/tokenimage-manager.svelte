@@ -12,7 +12,7 @@
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-	import { devMessage, i18n } from 'src/utils';
+	import { devLog, i18n } from 'src/utils';
 	import { derived } from 'svelte/store';
 	import { AnimCore } from 'src/storage/AnimCore';
 	import featData from './tokenimage-feat.json';
@@ -32,7 +32,7 @@
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
-	devMessage($actor, $feat, $feat?.system.rules);
+	devLog($actor, $feat, $feat?.system.rules);
 	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat;
 	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action;
 
