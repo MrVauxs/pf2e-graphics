@@ -84,13 +84,13 @@ export function testAndMergeAnimations(
 		{ ignoreGit: true },
 	);
 
-	const errors = results.filter(result => !result.success);
+	const issues = results.filter(result => !result.success);
 
 	// Test references
 	referenceTracker.forEach((files, rollOption) => {
 		if (!mergedAnimations.has(rollOption)) {
 			files.forEach(file =>
-				errors.push({
+				issues.push({
 					file,
 					success: false,
 					message: `Could not find referenced roll option ${rollOption}`,
@@ -101,6 +101,6 @@ export function testAndMergeAnimations(
 
 	const data = mergedAnimations.size ? Object.fromEntries(mergedAnimations) : undefined;
 
-	if (errors.length) return { success: false, data, issues: errors };
+	if (issues.length) return { success: false, data, issues };
 	return { success: true, data: data! };
 }

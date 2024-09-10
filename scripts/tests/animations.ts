@@ -33,13 +33,13 @@ if (targetPath.endsWith('.json')) {
 	if (result.success) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
-		const errors = result.issues;
-		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
+		const issues = result.issues;
+		const columnWidth = Math.min(Math.max(...issues.map(error => error.file.length + 5)), 58);
 
 		Log.details({
 			level: 'info',
-			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', errors.length)}:`))),
-			messages: errors.map(
+			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
+			messages: issues.map(
 				result =>
 					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}${result.issues
 						? `\n\t${result.issues.map((issue) => {
@@ -53,13 +53,13 @@ if (targetPath.endsWith('.json')) {
 		Log.newLine();
 		Log.error(
 			p.red(
-				`${p.bold(errors.length)} animation ${pluralise('file', errors.length)} failed validation.`,
+				`${p.bold(issues.length)} animation ${pluralise('file', issues.length)} failed validation.`,
 			),
 		);
 		Log.newLine();
 		Log.info(
 			p.dim(
-				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${errors[Math.floor(Math.random() * errors.length)].file}`)}`,
+				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${issues[Math.floor(Math.random() * issues.length)].file}`)}`,
 			),
 		);
 	}
