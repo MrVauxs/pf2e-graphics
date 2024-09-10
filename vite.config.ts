@@ -140,7 +140,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 }));
 
 function getAnimationsPlugin(): PluginOption {
-	function reportErrors(errors: fileValidationResult[], server?: ViteDevServer): void {
+	function reportIssues(errors: fileValidationResult[], server?: ViteDevServer): void {
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
 		Log.newLine();
 		Log.details({
@@ -171,7 +171,7 @@ function getAnimationsPlugin(): PluginOption {
 					if (req.originalUrl === `/${packagePath}/dist/animations.json`) {
 						const result = testAndMergeAnimations('./animations');
 
-						if (!result.success) reportErrors(result.errors, server);
+						if (!result.success) reportIssues(result.issues, server);
 
 						return res.end(JSON.stringify(result.data ?? {}));
 					} else {
@@ -186,7 +186,7 @@ function getAnimationsPlugin(): PluginOption {
 					if (result.success) {
 						Log.info(p.green('[Animations] All files passing.'));
 					} else {
-						reportErrors(result.errors);
+						reportIssues(result.issues);
 					}
 
 					if (result.data) {
@@ -208,7 +208,7 @@ function getAnimationsPlugin(): PluginOption {
 				if (result.success) {
 					Log.info(p.green('[Animations] All files passing.'));
 				} else {
-					reportErrors(result.errors);
+					reportIssues(result.issues);
 				}
 
 				this.emitFile({
