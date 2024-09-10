@@ -381,7 +381,7 @@ const effectOptions = z
 		sound: soundConfig.optional(),
 		preset: presetOptions.optional(),
 		locally: z.literal(true).optional(),
-		id: slug.optional(),
+		id: slug.min(6, 'Animation IDs should be reasonably unique.').optional(),
 		name: z.string().min(1).optional(),
 		syncGroup: z.string().optional(),
 		randomRotation: z.literal(true).optional(),
@@ -535,7 +535,10 @@ const effectOptions = z
 				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
 				options: z
 					.object({
-						hue: angle.refine(...nonZero).describe('The hue, in degrees.').optional(),
+						hue: angle
+							.refine(...nonZero)
+							.describe('The hue, in degrees.')
+							.optional(),
 						brightness: z
 							.number()
 							.describe('The value of the brightness (0 to 1, where 0 is black)')
