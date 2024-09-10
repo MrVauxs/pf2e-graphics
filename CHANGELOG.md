@@ -24,12 +24,14 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - New "button position" setting for minimized graphics Header button (i.e. just the icon, no text). ([#154](https://github.com/MrVauxs/pf2e-graphics/issues/154))
 - CSS Improvements (added [`content-visiblity`](<https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility>) and [`contain`](<https://developer.mozilla.org/en-US/docs/Web/CSS/contain>)) to list-like menus such as Animation History, Custom Animations, and Token Image Manager.
 - **New Animations**
-  - Warp Step, Slashing Gust, Staves, Drain Bonded Item, Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
+  - "Accelerate" and "Decelerate" from Dreams Circle (`graphics-vfx`)
+  - Stabilize (Tradition Variants), Haste, Slow, Warp Step, Slashing Gust, Staves, Drain Bonded Item, Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
   - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
   - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
 ### Changed
 
+- **Changed all sounds to use `graphics-sfx` instead of `pf2e-graphics`**. Added `graphics-vfx`.
 - **Maximum Settings no longer create persistent animations.** See the Added section.
 - Quality Settings have been changed from `graphics-quality:X` to `settings:quality:X`.
 - Removed the *Window Location* setting. Its now always on top, matching the original sheet.

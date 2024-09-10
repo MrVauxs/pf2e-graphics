@@ -4,21 +4,192 @@
 			"trigger": "action",
 			"preset": "onToken",
 			"options": {
-				"scaleToObject": 1.5,
-				"waitUntilFinished": -1500
+				"scaleToObject": 1.5
 			},
-			"file": "jb2a.divine_smite.caster.reversed.blueyellow"
+			"contents": [
+				{
+					"predicate": [
+						"spell:trait:divine"
+					],
+					"file": "jb2a.divine_smite.caster.reversed.blueyellow"
+				},
+				{
+					"predicate": [
+						"spell:trait:primal"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.divine_smite.caster.reversed.greenyellow"
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"file": "jb2a.divine_smite.caster.reversed.blueyellow",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 100
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"spell:trait:occult"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.divine_smite.caster.reversed.purplepink"
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"file": "jb2a.divine_smite.caster.reversed.blueyellow",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 20
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"spell:trait:arcane"
+					],
+					"file": "jb2a.divine_smite.caster.reversed.blueyellow",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"contrast": 0.2,
+								"brightness": 0.8,
+								"saturate": 1.2,
+								"hue": -160
+							}
+						}
+					}
+				}
+			]
 		},
 		{
 			"trigger": "action",
 			"preset": "onToken",
 			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.nature.healing.01.01",
+					"waitUntilFinished": -3500
+				},
 				"preset": {
 					"location": "target"
 				},
-				"scaleToObject": 2
+				"scaleToObject": 2,
+				"delay": 250
 			},
-			"file": "jb2a.healing_generic.03.burst.bluegreen"
+			"contents": [
+				{
+					"predicate": [
+						"spell:trait:divine"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.healing_generic.03.burst.yellow"
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"file": "jb2a.healing_generic.03.burst.bluegreen",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"brightness": 1.25,
+										"saturate": -0.5,
+										"hue": -140
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"spell:trait:primal"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.healing_generic.03.burst.green",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"brightness": 1.2,
+										"hue": -60
+									}
+								}
+							}
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"file": "jb2a.healing_generic.03.burst.bluegreen",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -20
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"spell:trait:occult"
+					],
+					"file": "jb2a.healing_generic.03.burst.bluegreen",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"brightness": 1.5,
+								"hue": 100
+							}
+						}
+					}
+				},
+				{
+					"predicate": [
+						"spell:trait:arcane"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.healing_generic.03.burst.bluepurple"
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"file": "jb2a.healing_generic.03.burst.bluegreen",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"brightness": 1.5,
+										"hue": 60
+									}
+								}
+							}
+						}
+					]
+				}
+			]
 		}
 	]
 }
