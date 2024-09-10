@@ -118,11 +118,11 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			readableDBName = soundDatabasePrefix;
 		} else {
 			if (context?.predicates.has('jb2a:patreon')) {
-				database = [...assetDatabasePaths, ...JB2APatreonDatabasePaths];
+				database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
 				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
 			} else {
-				database = [...assetDatabasePaths, ...JB2AFreeDatabasePaths];
-				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+				database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
+				readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
 			}
 		}
 
