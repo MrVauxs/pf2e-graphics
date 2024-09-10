@@ -1,0 +1,21 @@
+{
+	"item:base:staff": [
+		{
+			"overrides": [
+				"item:group:club"
+			],
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.quarterstaff.melee.01.white",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.generic.hit.blunt",
+					"delay": 800
+				},
+				"scaleToObject": {
+					"value": 4.5
+				}
+			}
+		}
+	]
+}

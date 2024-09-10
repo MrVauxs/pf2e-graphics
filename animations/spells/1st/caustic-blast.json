@@ -18,7 +18,7 @@
 							"value": 1.5
 						},
 						"sound": {
-							"file": "pf2e-graphics.potion.bomb.acid"
+							"file": "graphics-sfx.potion.bomb.acid"
 						}
 					}
 				}

@@ -5,6 +5,10 @@
 			"preset": "melee",
 			"file": "jb2a.melee_attack.02.club",
 			"options": {
+				"sound": {
+					"file": "graphics-sfx.generic.hit.blunt",
+					"delay": 500
+				},
 				"scaleToObject": {
 					"value": 5
 				}

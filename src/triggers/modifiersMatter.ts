@@ -1,4 +1,4 @@
-import { devMessage, log } from 'src/utils';
+import { devLog, log } from 'src/utils';
 
 interface modifiersMatterType {
 	actorWithDc: ActorPF2e;
@@ -17,7 +17,7 @@ function handleModifiersMatter(options: modifiersMatterType, delayed = false) {
 		return;
 	}
 
-	devMessage('Modifiers Matter Hook Data', { actorWithDc, chatMessage, rollingActor, significantModifiers, targetedToken });
+	devLog('Modifiers Matter Hook Data', { actorWithDc, chatMessage, rollingActor, significantModifiers, targetedToken });
 
 	for (const modifier of significantModifiers) {
 		const rollOptions = chatMessage.flags.pf2e.context?.options ?? [];

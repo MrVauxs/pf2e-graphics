@@ -8,7 +8,7 @@
 					"file": "jb2a.unarmed_strike.physical.02.blue",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.movement.landing",
+							"file": "graphics-sfx.movement.landing",
 							"delay": 300
 						}
 					}

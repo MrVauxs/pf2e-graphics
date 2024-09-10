@@ -35,7 +35,7 @@
 					"considerTokenScale": true
 				},
 				"sound": {
-					"file": "pf2e-graphics.magic.buff.generic.03"
+					"file": "graphics-sfx.magic.buff.generic.03"
 				}
 			},
 			"contents": [

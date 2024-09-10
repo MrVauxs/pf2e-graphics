@@ -30,7 +30,7 @@
 							"uniform": true
 						},
 						"sound": {
-							"file": "pf2e-graphics.magic.earth.eruption"
+							"file": "graphics-sfx.magic.earth.eruption"
 						}
 					}
 				},
@@ -63,7 +63,7 @@
 						"fadeIn": 250,
 						"fadeOut": 1000,
 						"sound": {
-							"file": "pf2e-graphics.magic.earth.ranged.storm"
+							"file": "graphics-sfx.magic.earth.ranged.storm"
 						}
 					}
 				}

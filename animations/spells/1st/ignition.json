@@ -21,7 +21,7 @@
 							"default": true,
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.fire.launch.02",
+									"file": "graphics-sfx.magic.fire.launch.02",
 									"delay": 600
 								}
 							}
@@ -32,7 +32,7 @@
 							],
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.ice.ranged.strike.cast.snowball.01"
+									"file": "graphics-sfx.magic.ice.ranged.strike.cast.snowball.01"
 								},
 								"filter": {
 									"type": "ColorMatrix",
@@ -80,7 +80,7 @@
 							"file": "jb2a.impact.fire.01.orange.0",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.fire.impact.01"
+									"file": "graphics-sfx.magic.fire.impact.01"
 								},
 								"scaleToObject": 1.5
 							}
@@ -92,7 +92,7 @@
 							"file": "jb2a.side_impact.ice_shard.blue",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.ice.ranged.strike.impact.snowball.01",
+									"file": "graphics-sfx.magic.ice.ranged.strike.impact.snowball.01",
 									"waitUntilFinished": -2100
 								},
 								"preset": {
@@ -121,7 +121,7 @@
 			],
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.fire.impact.02.small",
+					"file": "graphics-sfx.magic.fire.impact.02.small",
 					"delay": 250
 				}
 			},

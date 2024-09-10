@@ -10,12 +10,12 @@
 				"sound": [
 					{
 						"delay": 200,
-						"file": "pf2e-graphics.sword.melee.hit.flesh",
+						"file": "graphics-sfx.sword.melee.hit.flesh",
 						"default": true
 					},
 					{
 						"delay": 200,
-						"file": "pf2e-graphics.sword.melee.hit.solid",
+						"file": "graphics-sfx.sword.melee.hit.solid",
 						"predicate": [
 							"target:trait:construct",
 							{
@@ -28,7 +28,7 @@
 					},
 					{
 						"delay": 200,
-						"file": "pf2e-graphics.sword.melee.miss",
+						"file": "graphics-sfx.sword.melee.miss",
 						"predicate": [
 							{
 								"or": [

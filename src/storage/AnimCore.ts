@@ -1,4 +1,4 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
+import { ErrorMsg, dedupeStrings, dev, devLog, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
@@ -253,7 +253,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
-		devMessage('Animate', animation, data);
+		devLog('Animate', animation, data);
 
 		if (!data.sequence) throw new ErrorMsg('No Sequence defined in AnimCore.animate()!');
 
@@ -329,12 +329,12 @@ export let AnimCore = class AnimCore {
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
-		devMessage(
+		devLog(
 			'Animating the Following',
 			validAnimations,
 			{
 				trigger,
-				rollOptions,
+				rollOptions: this.prepRollOptions(rollOptions),
 				item,
 				actor,
 				source,
@@ -343,7 +343,7 @@ export let AnimCore = class AnimCore {
 
 		this.createHistoryEntry({
 			trigger,
-			rollOptions,
+			rollOptions: this.prepRollOptions(rollOptions),
 			animations: Object.entries(validAnimations).flatMap(([k, v]) => v.map(x => ({ ...x, predicate: [k, ...(x.predicate ?? [])] }))),
 			item: item ? { name: item?.name, uuid: item.uuid } : undefined,
 			actor: { name: actor.name, uuid: actor.uuid },

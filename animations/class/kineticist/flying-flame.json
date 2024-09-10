@@ -7,7 +7,7 @@
 			"options": {
 				"sound": {
 					"delay": 200,
-					"file": "pf2e-graphics.magic.fire.cast.single.02",
+					"file": "graphics-sfx.magic.fire.cast.single.02",
 					"volume": 1
 				},
 				"waitUntilFinished": -3300,
@@ -16,7 +16,7 @@
 						"file": "jb2a.pack_hound_missile.blue.01",
 						"sound": {
 							"delay": 200,
-							"file": "pf2e-graphics.magic.fire.cast.single.02"
+							"file": "graphics-sfx.magic.fire.cast.single.02"
 						}
 					}
 				}

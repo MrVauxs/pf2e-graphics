@@ -5,7 +5,7 @@
 			"preset": "ranged",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.fire.launch.01",
+					"file": "graphics-sfx.magic.fire.launch.01",
 					"delay": 750
 				},
 				"preset": {

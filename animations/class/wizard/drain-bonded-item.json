@@ -1,0 +1,21 @@
+{
+	"action:drain-bonded-item": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.divine_smite.caster.blueyellow",
+			"options": {
+				"preset": {
+					"location": "source"
+				},
+				"scaleToObject": 1.5,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": 160
+					}
+				}
+			}
+		}
+	]
+}

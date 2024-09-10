@@ -6,7 +6,7 @@
 			"file": "jb2a.sneak_attack.dark_green",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.finisher.01"
+					"file": "graphics-sfx.finisher.01"
 				},
 				"delay": 1500,
 				"preset": {

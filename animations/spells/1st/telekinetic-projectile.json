@@ -37,7 +37,7 @@
 							"file": "jb2a.boulder.toss.02.01.stone.brown",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.earth.ranged.single.throw.01",
+									"file": "graphics-sfx.magic.earth.ranged.single.throw.01",
 									"delay": 750
 								}
 							}
@@ -50,7 +50,7 @@
 							"preset": "onToken",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.sword.melee.impale",
+									"file": "graphics-sfx.sword.melee.impale",
 									"waitUntilFinished": -2000
 								},
 								"preset": {
@@ -68,7 +68,7 @@
 							"preset": "onToken",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.generic.swing",
+									"file": "graphics-sfx.generic.swing",
 									"waitUntilFinished": -2000
 								},
 								"preset": {
@@ -92,7 +92,7 @@
 							"file": "jb2a.slingshot",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.earth.ranged.single.throw.01",
+									"file": "graphics-sfx.magic.earth.ranged.single.throw.01",
 									"delay": 1750
 								}
 							}
@@ -104,7 +104,7 @@
 							"file": "jb2a.dart.01.throw.physical.white",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.generic.throw",
+									"file": "graphics-sfx.generic.throw",
 									"delay": 750
 								}
 							}
@@ -117,7 +117,7 @@
 							"file": "jb2a.melee_generic.slashing",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.generic.swing",
+									"file": "graphics-sfx.generic.swing",
 									"waitUntilFinished": -2000
 								},
 								"preset": {

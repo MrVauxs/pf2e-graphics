@@ -7,7 +7,7 @@ export type storeSettingsType = typeof storeSettings;
 let settings: TJSLiveGameSettings & {
 	quality: 0 | 1 | 2 | 3;
 	persistent: boolean;
-	buttonPosition: 0 | 1;
+	buttonPosition: 0 | 1 | 2;
 	dev: boolean;
 	worldAnimations: JSONData;
 	suppressWarnings: boolean;
@@ -96,6 +96,24 @@ const settingsData = [
 				min: 0,
 				step: 1,
 				max: 10,
+			},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'buttonPosition',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.buttonPosition.name',
+			hint: 'pf2e-graphics.settings.buttonPosition.hint',
+			scope: 'client',
+			config: true,
+			type: Number,
+			default: 0,
+			choices: {
+				0: 'pf2e-graphics.settings.buttonPosition.0',
+				1: 'pf2e-graphics.settings.buttonPosition.1',
+				2: 'pf2e-graphics.settings.buttonPosition.2',
 			},
 		},
 	},

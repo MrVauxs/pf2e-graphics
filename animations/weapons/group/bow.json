@@ -6,7 +6,7 @@
 			"file": "jb2a.arrow.physical.white.01",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.bow.attack"
+					"file": "graphics-sfx.bow.attack"
 				},
 				"preset": {
 					"stretchTo": {

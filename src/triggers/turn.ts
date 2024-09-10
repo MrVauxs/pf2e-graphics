@@ -1,4 +1,4 @@
-import { devMessage, log } from 'src/utils';
+import { devLog, log } from 'src/utils';
 
 function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end', delayed = false) {
 	const { actor, token } = combatant;
@@ -17,7 +17,7 @@ function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'sta
 		actor,
 	};
 
-	devMessage(`${type.toUpperCase()} Turn Hook Data`, deliverable);
+	devLog(`${type.toUpperCase()} Turn Hook Data`, deliverable);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 

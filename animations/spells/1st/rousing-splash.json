@@ -7,7 +7,7 @@
 			"options": {
 				"scaleToObject": 1.5,
 				"sound": {
-					"file": "pf2e-graphics.magic.water.impact.01"
+					"file": "graphics-sfx.magic.water.impact.01"
 				}
 			}
 		}
