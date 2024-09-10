@@ -1,9 +1,12 @@
-import {
-	databasePathsFree as JB2AFreeDatabasePaths,
-	databasePathsPatreon as JB2APatreonDatabasePaths,
-} from 'jb2a-databases';
 import { z } from 'zod';
-import { flatDatabase as soundDatabasePaths } from '../assets/soundDb';
+import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
+import { DB_PREFIX as assetDatabasePrefix } from 'src/assets/assetDb';
+import {
+	JB2AFreeDatabasePaths,
+	JB2APatreonDatabasePaths,
+	assetDatabasePaths,
+	soundDatabasePaths,
+} from 'src/assets/flatDbs';
 import type { AnimationObject, Predicate, Preset, PresetOptions, Trigger } from './animationsSchema';
 
 type Path = (string | number)[];
@@ -49,7 +52,7 @@ function addPredicates(context: AnimationContext, predicates: Predicate[]) {
 			addPredicates(context, predicate.iff);
 		}
 	}
-};
+}
 
 /**
  * A big terrible mess of higher-order validations that require context-awareness (e.g. predicate-dependency).
@@ -63,7 +66,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	 * @param str The input string.
 	 * @param db The database name to be searched.
 	 */
-	function testDatabasePath(path: Path, str: string, db: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound') {
+	function testDatabasePath(path: Path, str: string, db: 'asset' | 'sound', context?: AnimationContext) {
 		// Don't bother validating actual filepaths
 		if (path.includes('/')) return;
 
@@ -108,12 +111,20 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			pathPermutations.push(...extractPermutations(str));
 		}
 
-		const database
-			= db === 'sound'
-				? soundDatabasePaths
-				: db === 'jb2a_patreon'
-					? JB2APatreonDatabasePaths
-					: JB2AFreeDatabasePaths;
+		let database;
+		let readableDBName;
+		if (db === 'sound') {
+			database = soundDatabasePaths;
+			readableDBName = soundDatabasePrefix;
+		} else {
+			if (context?.predicates.has('jb2a:patreon')) {
+				database = [...assetDatabasePaths, ...JB2APatreonDatabasePaths];
+				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+			} else {
+				database = [...assetDatabasePaths, ...JB2AFreeDatabasePaths];
+				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+			}
+		}
 
 		for (const testPath of pathPermutations) {
 			if (!database.some(entry => entry.startsWith(testPath))) {
@@ -122,7 +133,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 					path,
 					received: testPath,
 					options: [],
-					message: `Not found in the ${db} database.`,
+					message: `Not found in the ${readableDBName} database.`,
 				});
 			}
 		}
@@ -268,11 +279,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 
 		// Validation begin
 		if (animation.file) {
-			testDatabasePath(
-				[...path, 'file'],
-				animation.file,
-				context.predicates.has('jb2a:patreon') ? 'jb2a_patreon' : 'JB2A_DnD5e',
-			);
+			testDatabasePath([...path, 'file'], animation.file, 'asset', context);
 		}
 
 		if (animation.options) {
@@ -293,7 +300,8 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 						testDatabasePath(
 							[...path, 'options', 'preset', 'bounce', 'file'],
 							animation.options.preset.bounce.file,
-							context.predicates.has('jb2a:patreon') ? 'jb2a_patreon' : 'JB2A_DnD5e',
+							'asset',
+							context,
 						);
 					}
 
