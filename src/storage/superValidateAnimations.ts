@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
-import { DB_PREFIX as assetDatabasePrefix } from 'src/assets/assetDb';
+import { DB_PREFIX as assetDatabasePrefix } from '../assets/assetDb';
 import {
+	assetDatabasePaths,
 	JB2AFreeDatabasePaths,
 	JB2APatreonDatabasePaths,
-	assetDatabasePaths,
 	soundDatabasePaths,
-} from 'src/assets/flatDbs';
+} from '../assets/flatDbs';
+import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
 import type { AnimationObject, Predicate, Preset, PresetOptions, Trigger } from './animationsSchema';
 
 type Path = (string | number)[];
@@ -239,8 +239,8 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 
 		if (
 			(preset !== 'onToken'
-			&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
-			|| (preset !== 'ranged' && options.attachTo === true)
+				&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
+				|| (preset !== 'ranged' && options.attachTo === true)
 		) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.invalid_type,

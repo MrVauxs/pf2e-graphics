@@ -1,5 +1,5 @@
-import { DB_PREFIX as assetDbPrefix, database as assetDb } from './assetDb';
-import { DB_PREFIX as soundDbPrefix, database as soundDb } from './soundDb';
+import { database as assetDb, DB_PREFIX as assetDbPrefix } from './assetDb';
+import { database as soundDb, DB_PREFIX as soundDbPrefix } from './soundDb';
 
 export {
 	databasePathsFree as JB2AFreeDatabasePaths,
@@ -17,7 +17,7 @@ type DatabaseValue = string | { [key: string]: unknown };
 function getSequencerDBPaths(db: { [key: string]: unknown }, prefix: string): string[] {
 	const paths: Set<string> = new Set();
 	const followObjectTree = (path: string, value: DatabaseValue): void => {
-		if (typeof value === 'string' || '_flipbook' in value || Array.isArray(value)) {
+		if (typeof value === 'string' || Array.isArray(value) || '_flipbook' in value) {
 			paths.add(path);
 		} else {
 			for (const key in value) {
