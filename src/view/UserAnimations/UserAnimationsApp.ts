@@ -1,7 +1,7 @@
-import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
-import { ErrorMsg, kofiButton } from 'src/utils';
 import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
+import { ErrorMsg, kofiButton } from 'src/utils';
+import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
 import BasicAppShell from './UserAnimationsShell.svelte';
 
 interface UserAnimationsOptions {

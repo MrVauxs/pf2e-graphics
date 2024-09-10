@@ -1,11 +1,11 @@
 <script lang='ts'>
-	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
 	import derivedFlag from 'src/lib/docFlagDerived';
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
-	import { type Writable, writable } from 'svelte/store';
 	import { ErrorMsg, nonNullable } from 'src/utils';
-	import JSONEditorApp from './JSONEditor/JSONEditor';
+	import { type Writable, writable } from 'svelte/store';
+	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
 	import SingleEditor from './AnimationSubEditor.svelte';
+	import JSONEditorApp from './JSONEditor/JSONEditor';
 
 	export let doc: TJSDocument<ActorPF2e | ItemPF2e | UserPF2e> | Writable<{ id: 'settings' }>;
 	export function createAnimation() {}

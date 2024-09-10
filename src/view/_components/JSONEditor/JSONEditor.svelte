@@ -1,13 +1,13 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
-	import type { Unsubscriber, Writable } from 'svelte/store';
-	import { onDestroy, onMount } from 'svelte';
-	import { fromZodIssue } from 'zod-validation-error';
-	import { validateAnimationData } from 'src/storage/animationsSchema';
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
+	import { validateAnimationData } from 'src/storage/animationsSchema';
+	import { onDestroy, onMount } from 'svelte';
+	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
+	import { fromZodIssue } from 'zod-validation-error';
+	import type { Unsubscriber, Writable } from 'svelte/store';
 
 	export let elementRoot: HTMLElement | undefined;
 	export let store: Writable<object>;

@@ -3,8 +3,8 @@
 
 import * as fs from 'node:fs';
 import p from 'picocolors';
-import { fromZodIssue } from 'zod-validation-error';
 import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
+import { fromZodIssue } from 'zod-validation-error';
 import { validateAnimationData } from '../../src/storage/animationsSchema.ts';
 import { Log, pluralise } from '../helpers.ts';
 

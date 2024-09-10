@@ -1,9 +1,9 @@
+import { i18n } from './utils.ts';
 import './settings.ts';
 import './app.postcss';
 import './view';
 import './storage';
 import './assets';
-import { i18n } from './utils.ts';
 
 Hooks.once('pf2e.systemReady', () => {
 	import('./triggers');

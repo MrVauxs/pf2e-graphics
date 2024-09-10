@@ -1,5 +1,5 @@
-import type { TriggerTypes } from 'src/storage/AnimCore';
 import { devLog, log } from 'src/utils';
+import type { TriggerTypes } from 'src/storage/AnimCore';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
