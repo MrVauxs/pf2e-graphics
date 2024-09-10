@@ -1,10 +1,10 @@
-import { ErrorMsg, dedupeStrings, dev, devMessage, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
+import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
-import type { storeSettingsType } from '../settings';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
+import type { storeSettingsType } from '../settings';
 
 function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
 	return typeof (reference as ReferenceObject).reference === 'string';
@@ -253,7 +253,7 @@ export let AnimCore = class AnimCore {
 	}
 
 	static animate(animation: AnimationDataObject, data: Record<string, any> & { sequence?: Sequence }): void {
-		devMessage('Animate', animation, data);
+		devLog('Animate', animation, data);
 
 		if (!data.sequence) throw new ErrorMsg('No Sequence defined in AnimCore.animate()!');
 
@@ -329,7 +329,7 @@ export let AnimCore = class AnimCore {
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
-		devMessage(
+		devLog(
 			'Animating the Following',
 			validAnimations,
 			{

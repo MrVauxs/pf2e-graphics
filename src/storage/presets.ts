@@ -1,4 +1,4 @@
-import { ErrorMsg, clearEmpties, devMessage, nonNullable } from 'src/utils';
+import { clearEmpties, devLog, ErrorMsg, log, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
 
 const helpers = {
@@ -162,8 +162,7 @@ const helpers = {
 		}
 		if (nonNullable(options?.tieToDocuments) && Boolean(options?.tieToDocuments)) {
 			if (!_item) {
-				// eslint-disable-next-line no-new
-				new ErrorMsg('tieToDocuments was called with no item present!');
+				log('tieToDocuments was called with no item present!');
 			} else {
 				seq.tieToDocuments([_item]);
 			}
@@ -557,12 +556,17 @@ interface GenericSequenceData<T extends PresetKeys> {
 
 type Target = (TokenOrDoc | MeasuredTemplateDocumentPF2e | Point | string);
 
-type TemplateSequenceData = Omit<GenericSequenceData<'template'>, 'targets' | 'source'> & { targets?: MeasuredTemplateDocumentPF2e[]; source?: TokenOrDoc };
+type TemplateSequenceData =
+	Omit<GenericSequenceData<'template'>, 'targets' | 'source'>
+	& {
+		targets?: MeasuredTemplateDocumentPF2e[];
+		source?: TokenOrDoc;
+	};
 
 interface MacroSequenceData { macro: string }
 
 function applyPresets(override?: boolean) {
-	devMessage('Applying new presets...');
+	devLog('Applying new presets...');
 	Object.keys(presets).forEach((key) => {
 		const preset = presets[key as PresetKeys];
 		if (typeof preset !== 'function') {

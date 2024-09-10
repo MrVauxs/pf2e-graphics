@@ -20,7 +20,7 @@
 			"file": "jb2a.healing_generic.400px.green",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.healing.02",
+					"file": "graphics-sfx.magic.healing.02",
 					"delay": 100
 				},
 				"scaleToObject": {

@@ -1,13 +1,7 @@
-import { database } from './soundDb';
+import { database as videoDb } from './assetDb';
+import { database as soundDb } from './soundDb';
 
 Hooks.once('sequencerReady', () => {
-	Sequencer.Database.registerEntries('pf2e-graphics', database);
+	Sequencer.Database.registerEntries('graphics-sfx', soundDb);
+	Sequencer.Database.registerEntries('graphics-vfx', videoDb);
 });
-
-if (import.meta.hot) {
-	import.meta.hot.accept((module) => {
-		if (module?.database) {
-			Sequencer.Database.registerEntries('pf2e-graphics', module.database);
-		}
-	});
-}

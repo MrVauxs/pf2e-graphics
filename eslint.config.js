@@ -12,6 +12,8 @@ export default antfu(
 		},
 
 		rules: {
+			'import/order': 'off',
+			'sort-imports': 'off',
 			'unicorn/consistent-function-scoping': 'off',
 			'svelte/html-self-closing': [
 				'error',

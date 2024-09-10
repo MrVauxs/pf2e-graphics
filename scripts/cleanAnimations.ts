@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import p from 'picocolors';
-import { Log, getFilesRecursively } from './helpers.ts';
+import { getFilesRecursively, Log } from './helpers.ts';
 
 const files = getFilesRecursively('animations').filter(filename => path.extname(filename) === '.json');
 

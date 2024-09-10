@@ -1,5 +1,5 @@
+import { devLog, log } from 'src/utils';
 import type { TriggerTypes } from 'src/storage/AnimCore';
-import { devMessage, log } from 'src/utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
@@ -36,8 +36,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
 	const messageTargets = message.target?.token ? [message.target?.token] : Array.from((message.author as UserPF2e).targets);
 
-	const targets = toolbeltTargets ?? messageTargets ?? [message.token];
-	devMessage('Available Targets | Toolbelt - Message Targets - Message Token\n', toolbeltTargets, messageTargets, [message.token]);
+	const targets = toolbeltTargets ?? (messageTargets.length ? messageTargets : null) ?? [message.token];
 
 	if (targets.length === 0) return log('No targets founds in message, aborting.');
 
@@ -70,14 +69,14 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		item: message.item,
 		animationOptions,
 	};
-	devMessage('Chat Message Hook', deliverable);
+	devLog('Chat Message Hook', deliverable);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 
 const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) => {
 	const message = game.messages.get(id);
 	if (message) {
-		devMessage('Dice So Nice Proxy Triggered');
+		devLog('Dice So Nice Proxy Triggered');
 		handleChatMessage(message);
 	};
 });
@@ -105,7 +104,7 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 			const target = canvas.tokens.get(targetId);
 			roll.roll = JSON.parse(roll.roll);
 
-			devMessage('Target Helper saving throw update', { roll, target });
+			devLog('Target Helper saving throw update', { roll, target });
 
 			if (!target) return log('The target token no longer exists?? Aborting.');
 			if (!message.token) return log('The source token no longer exists?? Aborting.');
@@ -123,7 +122,7 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 				animationOptions,
 			};
 
-			devMessage('Target Helper Hook', deliverable);
+			devLog('Target Helper Hook', deliverable);
 			window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 		}
 	}

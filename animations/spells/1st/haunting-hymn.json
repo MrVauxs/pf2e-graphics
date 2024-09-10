@@ -10,7 +10,7 @@
 				},
 				"mask": true,
 				"sound": {
-					"file": "pf2e-graphics.magic.dark.bells"
+					"file": "graphics-sfx.magic.dark.bells"
 				},
 				"randomizeMirrorY": true
 			},

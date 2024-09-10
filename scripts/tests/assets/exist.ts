@@ -35,7 +35,7 @@ function checkOggFiles(directory: string): void {
 }
 
 // Start the recursive check from the assets directory
-checkOggFiles('./assets');
+checkOggFiles('./assets/library/sounds');
 
 if (errors.length) {
 	core.setFailed('The following assets have not been added to the soundDb.ts!');

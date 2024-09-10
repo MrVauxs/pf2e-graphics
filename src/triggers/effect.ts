@@ -1,4 +1,4 @@
-import { devMessage, log, nonNullable } from 'src/utils';
+import { devLog, log, nonNullable } from 'src/utils';
 
 function handleEffect(item: ItemPF2e, delayed = false) {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;
@@ -33,7 +33,7 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 
 	if (diffOrigin) deliverable.rollOptions.push('origin-exists');
 
-	devMessage('Effect Hook Data', deliverable);
+	devLog('Effect Hook Data', deliverable);
 	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
 }
 

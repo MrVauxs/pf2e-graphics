@@ -21,6 +21,7 @@ export default class WorldAnimationsShim extends FormApplication {
 
 Hooks.once('ready', () => {
 	game.settings.registerMenu('pf2e-graphics', 'worldAnimationsMenu', {
+		key: 'worldAnimationsMenu',
 		name: 'pf2e-graphics.settings.worldMenu.name',
 		hint: 'pf2e-graphics.settings.worldMenu.hint',
 		label: 'pf2e-graphics.settings.worldMenu.label',

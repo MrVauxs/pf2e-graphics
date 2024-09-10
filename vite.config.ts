@@ -1,20 +1,20 @@
 /* eslint-env node */
 import fs from 'node:fs';
-import { type Connect, type PluginOption, type ViteDevServer, defineConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { sveltePreprocess } from 'svelte-preprocess';
-import checker from 'vite-plugin-checker';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
+import p from 'picocolors';
+import minify from 'postcss-minify';
+import { sveltePreprocess } from 'svelte-preprocess';
 import tailwindcss from 'tailwindcss';
 import nesting from 'tailwindcss/nesting';
-import minify from 'postcss-minify';
-import p from 'picocolors';
+import { type Connect, defineConfig, type PluginOption, type ViteDevServer } from 'vite';
+import checker from 'vite-plugin-checker';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import moduleJSON from './module.json' with { type: 'json' };
-import { getJSONSchema } from './src/storage/animationsSchema';
+import { type fileValidationResult, Log, pluralise } from './scripts/helpers';
 import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
-import { Log, type fileValidationResult, pluralise } from './scripts/helpers';
+import { getJSONSchema } from './src/storage/animationsSchema';
 
 const packagePath = `modules/${moduleJSON.id}`;
 // const { esmodules, styles } = moduleJSON

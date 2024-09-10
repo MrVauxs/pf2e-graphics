@@ -1,11 +1,11 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
+	// @ts-ignore - TJS-2-TS
+	import { ApplicationShell } from '#runtime/svelte/component/core';
 	import { i18n } from 'src/utils';
 	import { afterUpdate } from 'svelte';
 	import { writable } from 'svelte/store';
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
-	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
 
 	export let elementRoot: HTMLElement | undefined;
 
@@ -36,7 +36,16 @@
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main class='flex flex-col gap-1 grow overflow-y-scroll -mr-2' bind:this={element}>
+	<main
+		class='
+			flex flex-col gap-1 grow
+			overflow-y-scroll
+			-mr-2
+			contain-strict
+		'
+		style:content-visibility='auto'
+		bind:this={element}
+	>
 		{#if $history.length}
 			{#each $history as entry}
 				<div

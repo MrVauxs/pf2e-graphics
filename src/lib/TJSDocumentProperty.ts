@@ -1,9 +1,9 @@
-import type { Subscriber, Unsubscriber } from 'svelte/store';
-import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-
+import { Timing } from '#runtime/util';
 import { safeAccess } from '#runtime/util/object';
 
-import { Timing } from '#runtime/util';
+import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
+
+import type { Subscriber, Unsubscriber } from 'svelte/store';
 
 /**
  * Provides a custom store for accessing a property of a `TJSDocument` instance.

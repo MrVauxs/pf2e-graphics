@@ -1,12 +1,12 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
+	// @ts-ignore - TJS-2-TS
+	import { ApplicationShell } from '#runtime/svelte/component/core';
+	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { i18n } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';
 	import AnimationEditor from '../_components/AnimationEditor.svelte';
-	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
-	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 
 	export let storeDocument: TJSDocument<UserPF2e>;
 	export let document: UserPF2e;

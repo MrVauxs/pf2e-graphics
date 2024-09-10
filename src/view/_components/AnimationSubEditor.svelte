@@ -1,9 +1,9 @@
 <script lang='ts'>
 	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
-	import { ErrorMsg, arrayMove, camelToSpaces, i18n, nonNullable } from 'src/utils';
+	import { arrayMove, camelToSpaces, ErrorMsg, i18n, nonNullable } from 'src/utils';
 	import { flip } from 'svelte/animate';
-	import type { Writable } from 'svelte/store';
 	import { slide } from 'svelte/transition';
+	import type { Writable } from 'svelte/store';
 	import Separator from './Separator.svelte';
 
 	export let key: string;

@@ -20,7 +20,7 @@
 									"file": "jb2a.chain_lightning.primary.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.lightning.impact.burst.01",
+											"file": "graphics-sfx.magic.lightning.impact.burst.01",
 											"delay": 500
 										}
 									},
@@ -55,7 +55,7 @@
 									"file": "jb2a.unarmed_strike.magical.01.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.unarmed.01",
+											"file": "graphics-sfx.unarmed.01",
 											"delay": 250
 										}
 									}
@@ -65,7 +65,7 @@
 									"file": "jb2a.chain_lightning.secondary.blue",
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.lightning.cast.01",
+											"file": "graphics-sfx.magic.lightning.cast.01",
 											"delay": 600
 										},
 										"delay": 600,
@@ -199,7 +199,7 @@
 									"options": {
 										"scaleToObject": 4,
 										"sound": {
-											"file": "pf2e-graphics.magic.air.cast.blade.aero",
+											"file": "graphics-sfx.magic.air.cast.blade.aero",
 											"waitUntilFinished": -2000
 										}
 									},
@@ -211,7 +211,7 @@
 									],
 									"options": {
 										"sound": {
-											"file": "pf2e-graphics.magic.air.gust.02.echoing",
+											"file": "graphics-sfx.magic.air.gust.02.echoing",
 											"delay": 500
 										}
 									},
@@ -235,7 +235,7 @@
 					"options": {
 						"sound": {
 							"delay": 400,
-							"file": "pf2e-graphics.magic.earth.ranged.single.throw.01"
+							"file": "graphics-sfx.magic.earth.ranged.single.throw.01"
 						},
 						"waitUntilFinished": -100
 					}
@@ -286,7 +286,7 @@
 					"file": "jb2a.fire_bolt.orange",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.magic.fire.launch"
+							"file": "graphics-sfx.magic.fire.launch"
 						},
 						"waitUntilFinished": -800
 					}
@@ -299,7 +299,7 @@
 					"preset": "onToken",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.magic.fire.impact.02.small"
+							"file": "graphics-sfx.magic.fire.impact.02.small"
 						},
 						"preset": {
 							"location": "target"
@@ -320,7 +320,7 @@
 					"preset": "ranged",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.sword.melee.miss.{01,02,03}"
+							"file": "graphics-sfx.sword.melee.miss.{01,02,03}"
 						},
 						"waitUntilFinished": -600
 					},
@@ -347,7 +347,7 @@
 					"preset": "onToken",
 					"options": {
 						"sound": {
-							"file": "pf2e-graphics.sword.melee.hit.flesh"
+							"file": "graphics-sfx.sword.melee.hit.flesh"
 						},
 						"preset": {
 							"location": "target"
@@ -373,7 +373,7 @@
 							"preset": "ranged",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.water.launch"
+									"file": "graphics-sfx.magic.water.launch"
 								},
 								"waitUntilFinished": -1800
 							},
@@ -388,7 +388,7 @@
 							"file": "jb2a.ice_spikes.radial.burst.white",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.water.impact"
+									"file": "graphics-sfx.magic.water.impact"
 								},
 								"preset": {
 									"location": "target"
@@ -411,7 +411,7 @@
 							"preset": "ranged",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.water.cast"
+									"file": "graphics-sfx.magic.water.cast"
 								},
 								"waitUntilFinished": -1000
 							},
@@ -448,7 +448,7 @@
 							"options": {
 								"randomRotation": true,
 								"sound": {
-									"file": "pf2e-graphics.magic.water.impact"
+									"file": "graphics-sfx.magic.water.impact"
 								},
 								"preset": {
 									"location": "target"
@@ -476,7 +476,7 @@
 							"file": "jb2a.barrel.toss.wooden.01.01.brown",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.generic.miss"
+									"file": "graphics-sfx.generic.miss"
 								},
 								"waitUntilFinished": -200
 							},
@@ -492,7 +492,7 @@
 							"file": "jb2a.explosion.shrapnel.bomb.01.black",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.bow.hit.solid.01"
+									"file": "graphics-sfx.bow.hit.solid.01"
 								},
 								"preset": {
 									"location": "target"
@@ -511,7 +511,7 @@
 							"file": "jb2a.ranged.03.instant.01.bluegreen",
 							"options": {
 								"sound": {
-									"file": "pf2e-graphics.magic.healing"
+									"file": "graphics-sfx.magic.healing"
 								},
 								"filter": {
 									"type": "ColorMatrix",

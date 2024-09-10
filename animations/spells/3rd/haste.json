@@ -1,0 +1,29 @@
+{
+	"effect:haste": [
+		{
+			"preset": "onToken",
+			"file": "graphics-vfx.rpg.accelerate",
+			"options": {
+				"scaleToObject": 1.2,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": -80
+					}
+				},
+				"fadeOut": 500
+			},
+			"contents": [
+				{
+					"trigger": "effect"
+				},
+				{
+					"trigger": "start-turn",
+					"options": {
+						"delay": 1000
+					}
+				}
+			]
+		}
+	]
+}

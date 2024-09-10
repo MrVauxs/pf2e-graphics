@@ -19,7 +19,7 @@ Hooks.once('ready', () => {
 	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => dev = x);
 });
 
-export function devMessage(...args: any) {
+export function devLog(...args: any) {
 	if (dev) console.log(`[%cPF2e Graphics%c %cDEV%c]`, 'color: yellow', '', 'color: #20C20E;', '', ...args);
 }
 

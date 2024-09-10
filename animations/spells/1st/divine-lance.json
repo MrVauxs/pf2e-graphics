@@ -5,7 +5,7 @@
 			"preset": "ranged",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.holy.attack.blast",
+					"file": "graphics-sfx.magic.holy.attack.blast",
 					"waitUntilFinished": -3200
 				},
 				"preset": {

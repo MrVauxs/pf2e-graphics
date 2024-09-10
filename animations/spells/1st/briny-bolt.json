@@ -5,7 +5,7 @@
 			"preset": "ranged",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.magic.water.launch.01"
+					"file": "graphics-sfx.magic.water.launch.01"
 				}
 			},
 			"contents": [

@@ -1,0 +1,19 @@
+{
+	"item:slashing-gust": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.gust_of_wind.veryfast",
+			"options": {
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
+				},
+				"sound": {
+					"file": "graphics-sfx.magic.air.gust.01"
+				}
+			}
+		}
+	]
+}

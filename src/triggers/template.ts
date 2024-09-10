@@ -1,4 +1,4 @@
-import { devMessage, log } from 'src/utils';
+import { devLog, log } from 'src/utils';
 
 function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
@@ -23,7 +23,7 @@ function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false)
 		item,
 	};
 
-	devMessage('Template Hook Data', deliverable);
+	devLog('Template Hook Data', deliverable);
 	// Timed out because of some bizzare circumstance where coordinates are not delivered on time resulting in a 0,0 position.
 	setTimeout(() => window.pf2eGraphics.AnimCore.findAndAnimate(deliverable), 100);
 }

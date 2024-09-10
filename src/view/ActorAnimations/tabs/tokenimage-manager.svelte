@@ -12,12 +12,12 @@
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-	import { devMessage, i18n } from 'src/utils';
-	import { derived } from 'svelte/store';
 	import { AnimCore } from 'src/storage/AnimCore';
-	import featData from './tokenimage-feat.json';
-	import TokenThumbnail from './elements/TokenThumbnail.svelte';
+	import { devLog, i18n } from 'src/utils';
+	import { derived } from 'svelte/store';
 	import PredicateSection from './elements/PredicateSection.svelte';
+	import TokenThumbnail from './elements/TokenThumbnail.svelte';
+	import featData from './tokenimage-feat.json';
 
 	export let actor: TJSDocument<ActorPF2e>;
 
@@ -32,7 +32,7 @@
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
-	devMessage($actor, $feat, $feat?.system.rules);
+	devLog($actor, $feat, $feat?.system.rules);
 	const FeatPF2e = CONFIG.PF2E.Item.documentClasses.feat;
 	const ActionPF2e = CONFIG.PF2E.Item.documentClasses.action;
 
@@ -100,7 +100,15 @@
 
 <div class='p-2 pb-0 flex flex-col h-full w-full'>
 	{#if $tokenImageID && $feat}
-		<div class='flex-grow flex-shrink overflow-y-scroll mb-2 text-center'>
+		<div
+			class='
+				flex-grow flex-shrink
+				overflow-y-scroll
+				mb-2 text-center
+				contain-strict
+			'
+			style:content-visibility='auto'
+		>
 			{#each $feat.system.rules.filter(isCustomTokenImage) as rule}
 				<div class='p-2 m-1 border border-solid rounded-md bg-gray-400 bg-opacity-20'>
 					<section class='flex items-center mb-1'>

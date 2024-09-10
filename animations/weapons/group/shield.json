@@ -6,7 +6,7 @@
 			"file": "jb2a.melee_attack.06.shield.01",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.generic.hit.blunt"
+					"file": "graphics-sfx.generic.hit.blunt"
 				}
 			}
 		}

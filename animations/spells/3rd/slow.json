@@ -1,0 +1,21 @@
+{
+	"item:slow": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"file": "graphics-vfx.rpg.decelerate",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 1.2,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": -80
+					}
+				}
+			}
+		}
+	]
+}

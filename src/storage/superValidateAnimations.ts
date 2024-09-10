@@ -228,8 +228,8 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 
 		if (
 			(preset !== 'onToken'
-			&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
-			|| (preset !== 'ranged' && typeof options.attachTo === 'boolean')
+				&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
+				|| (preset !== 'ranged' && typeof options.attachTo === 'boolean')
 		) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.invalid_type,
