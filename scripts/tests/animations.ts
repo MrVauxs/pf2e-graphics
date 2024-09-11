@@ -40,13 +40,23 @@ if (targetPath.endsWith('.json')) {
 			level: 'info',
 			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
 			messages: issues.map(
-				result =>
-					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}${result.issues
-						? `\n\t${result.issues.map((issue) => {
+				(result) => {
+					const stringArray = [result.file];
+
+					if (result.message) {
+						stringArray.push(`${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}`);
+					}
+					if (result.issues) {
+						const formattedIssues = result.issues.map((issue) => {
 							const formatted = fromZodIssue(issue);
 							return `${p.redBright(formatted.details[0].path.join('.'))} - ${formatted.details[0].message}`;
-						}).join('\n\t')}`
-						: ''}`,
+						});
+						stringArray.push('\n\t');
+						stringArray.push(formattedIssues.join('\n\t'));
+					}
+
+					return stringArray.join('');
+				},
 			),
 		});
 
