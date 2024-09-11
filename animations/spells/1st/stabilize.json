@@ -19,11 +19,15 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.divine_smite.caster.reversed.greenyellow"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.divine_smite.caster.reversed.blueyellow",
 							"options": {
 								"filter": {
@@ -42,11 +46,15 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.divine_smite.caster.reversed.purplepink"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.divine_smite.caster.reversed.blueyellow",
 							"options": {
 								"filter": {
@@ -99,11 +107,15 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.healing_generic.03.burst.yellow"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.healing_generic.03.burst.bluegreen",
 							"options": {
 								"filter": {
@@ -124,7 +136,9 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.healing_generic.03.burst.green",
 							"options": {
 								"filter": {
@@ -137,7 +151,9 @@
 							}
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.healing_generic.03.burst.bluegreen",
 							"options": {
 								"filter": {
@@ -171,11 +187,15 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.healing_generic.03.burst.bluepurple"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.healing_generic.03.burst.bluegreen",
 							"options": {
 								"filter": {
