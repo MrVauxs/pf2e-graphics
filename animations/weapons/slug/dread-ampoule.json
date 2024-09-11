@@ -16,11 +16,15 @@
 					},
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.throwable.throw.flask.01.purple"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.throwable.throw.flask.01.orange",
 							"options": {
 								"filter": {

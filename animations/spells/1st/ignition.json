@@ -132,16 +132,23 @@
 					"default": true,
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.unarmed_strike.magical.{01,02}.orange"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.unarmed_strike.magical.{01,02}.blue",
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
-									"options": { "saturate": 0.8, "hue": -160 }
+									"options": {
+										"saturate": 0.8,
+										"hue": -160
+									}
 								}
 							}
 						}

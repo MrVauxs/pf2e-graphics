@@ -24,11 +24,15 @@
 					],
 					"contents": [
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.healing_generic.200px.red"
 						},
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"options": {
 								"filter": {
 									"type": "ColorMatrix",
