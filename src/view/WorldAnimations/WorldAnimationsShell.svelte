@@ -1,14 +1,14 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
+	// @ts-ignore - TJS-2-TS
+	import { ApplicationShell } from '#runtime/svelte/component/core';
+	import { AnimCore } from 'src/storage/AnimCore';
 	import { i18n, log } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';
 	import { type Writable, writable } from 'svelte/store';
-	import { AnimCore } from 'src/storage/AnimCore';
 	import AnimationEditor from '../_components/AnimationEditor.svelte';
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
-	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
 
 	export let storeDocument: Writable<{ id: 'settings' }>;
 	export let elementRoot: HTMLElement | undefined;

@@ -1,8 +1,8 @@
-import type { Writable } from 'svelte/store';
-import { Timing } from '@typhonjs-fvtt/runtime/util';
-import type { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 import { writableDerived } from '#runtime/svelte/store/writable-derived';
 import { isObject } from '#runtime/util/object';
+import { Timing } from '@typhonjs-fvtt/runtime/util';
+import type { TJSDocument } from '#runtime/svelte/store/fvtt/document';
+import type { Writable } from 'svelte/store';
 
 function changeValue(data: unknown) {
 	if (isObject(data)) {

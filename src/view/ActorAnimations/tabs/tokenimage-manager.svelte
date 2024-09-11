@@ -12,12 +12,12 @@
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
+	import { AnimCore } from 'src/storage/AnimCore';
 	import { devLog, i18n } from 'src/utils';
 	import { derived } from 'svelte/store';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import featData from './tokenimage-feat.json';
-	import TokenThumbnail from './elements/TokenThumbnail.svelte';
 	import PredicateSection from './elements/PredicateSection.svelte';
+	import TokenThumbnail from './elements/TokenThumbnail.svelte';
+	import featData from './tokenimage-feat.json';
 
 	export let actor: TJSDocument<ActorPF2e>;
 

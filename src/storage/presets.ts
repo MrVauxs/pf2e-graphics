@@ -1,4 +1,4 @@
-import { ErrorMsg, clearEmpties, devLog, log, nonNullable } from 'src/utils';
+import { clearEmpties, devLog, ErrorMsg, log, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
 
 const helpers = {

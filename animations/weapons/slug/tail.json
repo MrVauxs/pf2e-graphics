@@ -8,7 +8,7 @@
 			],
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.generic.miss.01"
+					"file": "graphics-sfx.generic.miss.01"
 				}
 			},
 			"contents": [
