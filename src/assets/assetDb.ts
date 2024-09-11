@@ -1,8 +1,10 @@
+import type { JSONValue } from './flatDbs';
+
 export const DB_PREFIX = 'graphics-vfx';
 
 // Start from 01
 const p = 'modules/pf2e-graphics/assets/library/animations';
-export const database = {
+export const database: JSONValue = {
 	rpg: {
 		accelerate: {
 			file: [
