@@ -4,8 +4,8 @@
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
 	import type { Writable } from 'svelte/store';
-	import Separator from './Separator.svelte';
 	import { DB_PREFIX } from '../../assets/soundDb';
+	import Separator from './Separator.svelte';
 
 	export let key: string;
 	export let value: JSONData[string];
