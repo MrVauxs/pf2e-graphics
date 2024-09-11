@@ -2,6 +2,9 @@
 	"item:slug:trident": [
 		{
 			"trigger": "attack-roll",
+			"overrides": [
+				"item:group:spear"
+			],
 			"options": {
 				"sound": {
 					"file": "graphics-sfx.spear.hit.01",
@@ -12,25 +15,41 @@
 				{
 					"predicate": [
 						{
-							"or": [
-								{
-									"not": "item:thrown"
-								},
-								"jb2a:free"
-							]
+							"not": "thrown"
 						}
 					],
 					"preset": "melee",
-					"file": "jb2a.spear.melee.01.white.2"
+					"file": "jb2a.spear.melee.01.white.2",
+					"options": {
+						"scaleToObject": 5
+					}
 				},
 				{
-
 					"predicate": [
-						"item:thrown",
-						"jb2a:patreon"
+						"thrown"
 					],
 					"preset": "ranged",
-					"file": "jb2a.spear.throw.01"
+					"options": {
+						"preset": {
+							"stretchTo": {
+								"randomOffset": 0.5
+							}
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.spear.throw.01"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.template_line_piercing.generic.01.orange"
+						}
+					]
 				}
 			]
 		}
