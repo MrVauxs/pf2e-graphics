@@ -1,5 +1,5 @@
 // To test and report on all files, use `npm run test:animations`.
-// To validate one specific file with issues listed, use `npm run test:animations -- <path to file>` (e.g. `npm run test:animation -- animations/actions/aid.json`).
+// To validate one specific file/directory, use `npm run test:animations -- <path>` (e.g. `npm run test:animation -- animations/actions/aid.json`).
 
 import * as fs from 'node:fs';
 import p from 'picocolors';
@@ -8,7 +8,7 @@ import { fromZodIssue } from 'zod-validation-error';
 import { validateAnimationData } from '../../src/storage/animationsSchema.ts';
 import { Log, pluralise } from '../helpers.ts';
 
-const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
+const targetPath = process.argv[2] ?? 'animations/';
 
 if (targetPath.endsWith('.json')) {
 	if (!fs.existsSync(targetPath)) throw new Error(`No such file exists at ${targetPath}`);
@@ -28,7 +28,7 @@ if (targetPath.endsWith('.json')) {
 		});
 	}
 } else {
-	const result = testAndMergeAnimations('./animations');
+	const result = testAndMergeAnimations(targetPath);
 
 	if (result.success) {
 		Log.info(p.green('All animation files are valid!'));
@@ -56,11 +56,11 @@ if (targetPath.endsWith('.json')) {
 				`${p.bold(issues.length)} animation ${pluralise('file', issues.length)} failed validation.`,
 			),
 		);
-		Log.newLine();
-		Log.info(
-			p.dim(
-				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${issues[Math.floor(Math.random() * issues.length)].file}`)}`,
-			),
-		);
+		// Log.newLine();
+		// Log.info(
+		// 	p.dim(
+		// 		`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${badFiles[Math.floor(Math.random() * badFiles.length)].file}`)}`,
+		// 	),
+		// );
 	}
 }
