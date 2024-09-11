@@ -1,0 +1,32 @@
+{
+	"item:slug:trident": [
+		{
+			"trigger": "attack-roll",
+			"options": {
+				"sound": {
+					"file": "pf2e-graphics.spear.hit.01",
+					"delay": 600
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "item:thrown"
+						}
+					],
+					"preset": "melee",
+					"file": "jb2a.spear.melee.01.orange"
+				},
+				{
+
+					"predicate": [
+						"item:thrown"
+					],
+					"preset": "ranged",
+					"file": "jb2a.spear.throw.01"
+				}
+			]
+		}
+	]
+}
