@@ -21,7 +21,8 @@
 				{
 					"file": "jb2a.dagger.throw.01.blue",
 					"predicate": [
-						"item:rune:property:frost"
+						"item:rune:property:frost",
+						"jb2a:patreon"
 					]
 				}
 			]
@@ -40,7 +41,8 @@
 				{
 					"file": "jb2a.dagger.melee.fire.blue",
 					"predicate": [
-						"item:rune:property:frost"
+						"item:rune:property:frost",
+						"jb2a:patreon"
 					]
 				}
 			]

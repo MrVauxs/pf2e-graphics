@@ -10,7 +10,10 @@
 				},
 				"belowTokens": true,
 				"scaleToObject": 1.5
-			}
+			},
+			"predicate": [
+				"jb2a:patreon"
+			]
 		}
 	]
 }

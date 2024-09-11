@@ -3,7 +3,20 @@
 		{
 			"trigger": "damage-roll",
 			"preset": "ranged",
-			"file": "jb2a.smoke.puff.side.green"
+			"contents": [
+				{
+					"file": "jb2a.smoke.puff.side.green",
+					"predicate": [
+						"jb2a:patreon"
+					]
+				},
+				{
+					"file": "jb2a.smoke.puff.side.grey",
+					"predicate": [
+						"jb2a:free"
+					]
+				}
+			]
 		}
 	]
 }

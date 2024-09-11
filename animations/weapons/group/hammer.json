@@ -29,7 +29,8 @@
 			"preset": "ranged",
 			"file": "jb2a.hammer.throw",
 			"predicate": [
-				"thrown"
+				"thrown",
+				"jb2a:patreon"
 			],
 			"options": {
 				"preset": {
