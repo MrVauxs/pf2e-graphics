@@ -7,6 +7,7 @@ type LoggingLevels = 'info' | 'warning' | 'error';
 type DetailsMessage =
 	| string
 	| {
+		file: string;
 		line: number | null;
 		message: string;
 	}
@@ -76,7 +77,7 @@ export class Log {
 
 	protected static detailsMessage = (message: DetailsMessage, level: LoggingLevels = 'info'): void => {
 		if (typeof message === 'string') return Log[level](message);
-		if ('line' in message) return Log[level](message.message, { startLine: message.line || undefined });
+		if ('line' in message) return Log[level](message.message, { startLine: message.line || undefined, file: message.file });
 		return this.details({
 			level,
 			title: message.title ?? 'Details',
