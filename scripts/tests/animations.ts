@@ -55,6 +55,7 @@ if (targetPath.endsWith('.json')) {
 						messages: badFile.issues.map((issue) => {
 							const formatted = fromZodIssue(issue).details[0];
 							const annotation = {
+								title: p.bgCyanBright(formatted.message),
 								file: badFile.file,
 							};
 							return {
