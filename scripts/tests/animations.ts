@@ -45,7 +45,7 @@ if (targetPath.endsWith('.json')) {
 		};
 
 		Log.details({
-			level: 'info',
+			level: 'error',
 			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', badFiles.length)}:`))),
 			messages: badFiles.map((badFile) => {
 				if (badFile.issues) {

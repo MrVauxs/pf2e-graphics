@@ -232,18 +232,34 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		if (illegalProperties.length) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.unrecognized_keys,
+				path: [...path, 'options', 'preset'],
 				keys: illegalProperties,
 				message: `Forbidden ${illegalProperties.length === 1 ? 'property' : 'properties'} when \`preset\` is \`"${preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
 			});
 		}
 
-		if (
-			(preset !== 'onToken'
-				&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
-				|| (preset !== 'ranged' && options.attachTo === true)
-		) {
-			return ctx.addIssue({
+		if (preset !== 'onToken') {
+			if (typeof options.rotateTowards === 'boolean') {
+				ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					path: [...path, 'options', 'preset', 'rotateTowards'],
+					received: 'boolean',
+					expected: 'object',
+				});
+			}
+			if (typeof options.atLocation === 'boolean') {
+				ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					path: [...path, 'options', 'preset', 'atLocation'],
+					received: 'boolean',
+					expected: 'object',
+				});
+			}
+		}
+		if (preset !== 'ranged' && typeof options.attachTo === 'boolean') {
+			ctx.addIssue({
 				code: z.ZodIssueCode.invalid_type,
+				path: [...path, 'options', 'preset', 'attachTo'],
 				received: 'boolean',
 				expected: 'object',
 			});
