@@ -41,7 +41,7 @@ if (targetPath.endsWith('.json')) {
 			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
 			messages: issues.map(
 				(result) => {
-					const messageData = { file: result.file, line: 0, message: '' };
+					const messageData = { file: result.file, line: null, message: '' };
 					const stringArray = [result.file];
 
 					if (result.message) {
