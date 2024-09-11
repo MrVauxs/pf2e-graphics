@@ -6,6 +6,7 @@ import type { ZodIssue } from 'zod-validation-error';
 type LoggingLevels = 'info' | 'warning' | 'error';
 type DetailsMessage =
 	| string
+	| { message: string; annotation: core.AnnotationProperties }
 	| {
 		level: 'details';
 		title: string;
@@ -20,8 +21,8 @@ export class Log {
 	 * Log a general message.
 	 * @param message
 	 */
-	static info = (message: string = '') => {
-		if (process.env.GITHUB_ACTIONS) return core.info(message);
+	static info = (message: string = '', annotation: core.AnnotationProperties = {}) => {
+		if (process.env.GITHUB_ACTIONS && annotation.file) return core.notice(message, annotation);
 		return console.log(message);
 	};
 
@@ -29,8 +30,8 @@ export class Log {
 	 * Log a warning.
 	 * @param message
 	 */
-	static warning = (message: string = '') => {
-		if (process.env.GITHUB_ACTIONS) return core.warning(message);
+	static warning = (message: string = '', annotation: core.AnnotationProperties = {}) => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message, annotation);
 		return console.warn(message);
 	};
 
@@ -38,9 +39,9 @@ export class Log {
 	 * Log an error and set the exit code to 1.
 	 * @param message
 	 */
-	static error = (message: string = '') => {
+	static error = (message: string = '', annotation: core.AnnotationProperties = {}) => {
 		process.exitCode = 1;
-		if (process.env.GITHUB_ACTIONS) return core.error(message);
+		if (process.env.GITHUB_ACTIONS) return core.error(message, annotation);
 		return console.error(message);
 	};
 
@@ -72,6 +73,7 @@ export class Log {
 
 	protected static detailsMessage = (message: DetailsMessage, level: LoggingLevels = 'info'): void => {
 		if (typeof message === 'string') return Log[level](message);
+		if ('annotation' in message) return Log[level](message.message, message.annotation);
 		return this.details({
 			level,
 			title: message.title ?? 'Details',
