@@ -28,7 +28,8 @@
 			"predicate": [
 				{
 					"not": "trap-finder"
-				}
+				},
+				"jb2a:patreon"
 			],
 			"options": {
 				"remove": "trap-finder-entry",

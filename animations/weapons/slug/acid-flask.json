@@ -8,6 +8,9 @@
 				"item:group:bomb"
 			],
 			"trigger": "attack-roll",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"contents": [
 				{
 					"preset": "ranged",

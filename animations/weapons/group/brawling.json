@@ -3,7 +3,10 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "melee",
-			"file": "jb2a.unarmed_strike.physical.01.yellow"
+			"file": "jb2a.unarmed_strike.physical.01.yellow",
+			"predicate": [
+				"jb2a:patreon"
+			]
 		}
 	]
 }

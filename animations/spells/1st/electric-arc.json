@@ -16,7 +16,7 @@
 							"bounce": {
 								"file": "jb2a.chain_lightning.secondary.blue",
 								"sound": {
-									"file": "graphics-sfx.magic.shock.impact"
+									"file": "graphics-sfx.magic.lightning.bolt.impact.01"
 								}
 							}
 						}

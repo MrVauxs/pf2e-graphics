@@ -5,6 +5,9 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "melee",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"file": "jb2a.unarmed_strike.physical.01.yellow",
 			"options": {
 				"scaleToObject": {

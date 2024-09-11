@@ -366,7 +366,7 @@
 												{disabled}
 												type='text'
 												class='pr-6'
-												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['pf2e-graphics']).dbPath}
+												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['graphics-sfx']).dbPath}
 												value={ani.options.sound?.file || ''}
 												on:change={(ev) => {
 													ani.options.sound ??= {};

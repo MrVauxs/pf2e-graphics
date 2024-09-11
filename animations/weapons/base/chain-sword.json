@@ -6,7 +6,6 @@
 			],
 			"trigger": "attack-roll",
 			"preset": "melee",
-			"file": "jb2a.melee_generic.slashing.two_handed",
 			"predicate": [
 				"melee"
 			],
@@ -16,6 +15,12 @@
 						"jb2a:free"
 					],
 					"file": "jb2a.melee_attack.03.khybersword"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.melee_generic.slashing.two_handed"
 				}
 			]
 		}
