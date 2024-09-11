@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.9.0] - 2024-09-11
+
 ### Added
 
 - **A separate Persistent Animations setting.** Allows you to play or disable persistent animations regardless of quality settings.
@@ -38,6 +40,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Removed the *Window Location* setting. Its now always on top, matching the original sheet.
 - Tweaked Animations
   - Refactored all Conditions and some Effect animations. Some, primarily those with multiple steps were changed. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Fixed all animations that were exclusive to JB2A Patreon to work on the free pack as well. (huge thanks to [@Spappz](<https://github.com/Spappz>)!)
   - Delayed the Crossbow attack sound ([@MrVauxs](<https://mrvauxs.net/>))
   - Blazing Wave now covers lot more area. ([@MrVauxs](<https://mrvauxs.net/>))
   - Oscillating Wave ignite/produce flame now creates an ice projectile and not a blue fire bolt. ([@MrVauxs](<https://mrvauxs.net/>))
@@ -441,7 +444,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.3...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.3...v0.9.0
 [0.8.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.0...v0.8.1

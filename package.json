@@ -13,7 +13,7 @@
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint . --cache",
 		"lint:fix": "eslint . --fix --cache",
-		"changelog": "changelog --format markdownlint --release --create",
+		"changelog": "changelog --format markdownlint --create --release",
 		"test": "npm run test:assets && npm run test:animations && npm run lint:fix",
 		"test:animations": "tsx ./scripts/tests/animations.ts",
 		"test:assets": "npm run test:assets:exist && npm run test:assets:format",
