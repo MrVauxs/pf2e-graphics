@@ -4,6 +4,9 @@
 			"trigger": "saving-throw",
 			"preset": "onToken",
 			"file": "jb2a.melee_generic.bludgeoning.two_handed",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 3,
@@ -23,7 +26,10 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.explosion.04.dark_purple"
+			"file": "jb2a.explosion.04.dark_purple",
+			"predicate": [
+				"jb2a:patreon"
+			]
 		}
 	]
 }
