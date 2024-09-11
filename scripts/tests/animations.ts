@@ -33,28 +33,50 @@ if (targetPath.endsWith('.json')) {
 	if (result.success) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
-		const issues = result.issues;
-		const columnWidth = Math.min(Math.max(...issues.map(error => error.file.length + 5)), 58);
+		const badFiles = result.issues;
+
+		const padToColumn = (leftString: string, rightString: string): string => {
+			const MIN_COLUMN_WIDTH = 55;
+			const MIN_COLUMN_SEPARATION = 3;
+
+			const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
+
+			return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
+		};
 
 		Log.details({
 			level: 'info',
-			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
-			messages: issues.map(
-				result =>
-					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}${result.issues
-						? `\n\t${result.issues.map((issue) => {
-							const formatted = fromZodIssue(issue);
-							return `${p.redBright(formatted.details[0].path.join('.'))} - ${formatted.details[0].message}`;
-						}).join('\n\t')}`
-						: ''}`,
-			),
+			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', badFiles.length)}:`))),
+			messages: badFiles.map((badFile) => {
+				if (badFile.issues) {
+					return {
+						level: 'details',
+						title: p.red(padToColumn(badFile.file, p.dim(badFile.message ?? ''))),
+						messages: badFile.issues.map((issue) => {
+							const formatted = fromZodIssue(issue).details[0];
+							const annotation = {
+								file: badFile.file,
+							};
+							return {
+								message: padToColumn(formatted.path.join('.'), p.dim(formatted.message)),
+								annotation,
+							};
+						}),
+					};
+				}
+
+				return {
+					message: p.red(padToColumn(badFile.file, p.dim(badFile.message ?? 'Unknown error'))),
+					annotation: {
+						file: badFile.file,
+					},
+				};
+			}),
 		});
 
 		Log.newLine();
 		Log.error(
-			p.red(
-				`${p.bold(issues.length)} animation ${pluralise('file', issues.length)} failed validation.`,
-			),
+			p.red(`${p.bold(badFiles.length)} animation ${pluralise('file', badFiles.length)} failed validation.`),
 		);
 		// Log.newLine();
 		// Log.info(
