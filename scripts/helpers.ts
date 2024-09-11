@@ -156,11 +156,20 @@ export function getFilesRecursively(targetPath: string): string[] {
 	}
 }
 
-export interface fileValidationResult {
+interface FileValidationSuccess {
 	file: string;
-	success: boolean;
+	success: true;
+}
+export interface FileValidationFailure {
+	file: string;
+	success: false;
 	message?: string;
 	issues?: ZodIssue[];
+}
+type FileValidationResult = FileValidationSuccess | FileValidationFailure;
+
+interface TestFilesRecursivelyOptions {
+	ignoreGit?: boolean;
 }
 
 /**
@@ -174,23 +183,37 @@ export interface fileValidationResult {
 export function testFilesRecursively(
 	targetPath: string,
 	tests: {
-		[key: string]: boolean | ((filepath: string) => Omit<fileValidationResult, 'file'>);
+		[key: string]: boolean | ((filepath: string) => FileValidationResult);
 	},
-	options?: { ignoreGit?: boolean },
-): fileValidationResult[] {
+	options: TestFilesRecursivelyOptions = {},
+): FileValidationResult[] {
 	tests.default = tests.default ?? false;
 
-	options = options ?? {};
 	if (options.ignoreGit && tests[''] === undefined) {
-		tests[''] = (filepath) => {
-			const GIT_FILES = ['.gitignore', '.gitattributes', '.mailmap', '.gitmodules', '.gitkeep', '.keep'];
+		tests[''] = (file) => {
+			const GIT_FILES = new Set([
+				'.gitignore',
+				'.gitattributes',
+				'.mailmap',
+				'.gitmodules',
+				'.gitkeep',
+				'.keep',
+			]);
+			if (GIT_FILES.has(path.basename(file))) {
+				return {
+					file,
+					success: true,
+				};
+			}
 			return {
-				success: GIT_FILES.includes(path.basename(filepath)),
+				file,
+				success: false,
+				message: 'Not allowed.',
 			};
 		};
 	}
 
-	const results: fileValidationResult[] = [];
+	const results: FileValidationResult[] = [];
 	for (const file of getFilesRecursively(targetPath)) {
 		const extension = path.extname(file);
 		const test = tests[extension] ?? tests.default;
@@ -201,10 +224,7 @@ export function testFilesRecursively(
 				message: test ? undefined : `Extension ${extension} is not allowed.`,
 			});
 		} else {
-			results.push({
-				file,
-				...test(file),
-			});
+			results.push(test(file));
 		}
 	}
 	return results;
@@ -212,7 +232,6 @@ export function testFilesRecursively(
 
 /**
  * Reasonably accurately pluralises words.
- *
  * @param word The word to possibly pluralise.
  * @param count Triggers pluralisation when not equal to 1.
  * @returns The word pluralised or not accordingly.

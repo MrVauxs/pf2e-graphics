@@ -12,7 +12,7 @@ import { type Connect, defineConfig, type PluginOption, type ViteDevServer } fro
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import moduleJSON from './module.json' with { type: 'json' };
-import { type fileValidationResult, Log, pluralise } from './scripts/helpers';
+import { type FileValidationFailure, Log, pluralise } from './scripts/helpers';
 import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
 import { getJSONSchema } from './src/storage/animationsSchema';
 
@@ -140,7 +140,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 }));
 
 function getAnimationsPlugin(): PluginOption {
-	function reportIssues(errors: fileValidationResult[], server?: ViteDevServer): void {
+	function reportIssues(errors: FileValidationFailure[], server?: ViteDevServer): void {
 		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
 		Log.newLine();
 		Log.details({
