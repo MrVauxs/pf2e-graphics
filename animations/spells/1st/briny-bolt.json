@@ -13,7 +13,7 @@
 					"predicate": [
 						"jb2a:free"
 					],
-					"file": "jb2a.ranged.04.projectile.01.blue",
+					"file": "jb2a.ranged.04.projectile.01.green",
 					"filter": {
 						"type": "ColorMatrix",
 						"options": {
@@ -22,7 +22,7 @@
 					}
 				},
 				{
-					"file": "jb2a.ranged.04.projectile.01.green",
+					"file": "jb2a.ranged.04.projectile.01.blue",
 					"predicate": [
 						"jb2a:patreon"
 					]

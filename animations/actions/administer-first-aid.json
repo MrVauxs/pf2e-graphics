@@ -4,6 +4,9 @@
 			"trigger": "skill-check",
 			"preset": "onToken",
 			"file": "jb2a.healing_generic.200px.red",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"options": {
 				"preset": {
 					"location": "target"

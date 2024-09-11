@@ -3,6 +3,9 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "melee",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"contents": [
 				{
 					"predicate": [
