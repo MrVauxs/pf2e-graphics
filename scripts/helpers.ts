@@ -7,6 +7,10 @@ type LoggingLevels = 'info' | 'warning' | 'error';
 type DetailsMessage =
 	| string
 	| {
+		line: number | null;
+		message: string;
+	}
+	| {
 		level: 'details';
 		title: string;
 		messages: DetailsMessage[];
@@ -29,8 +33,8 @@ export class Log {
 	 * Log a warning.
 	 * @param message
 	 */
-	static warning = (message: string = '') => {
-		if (process.env.GITHUB_ACTIONS) return core.warning(message);
+	static warning = (message: string = '', properties?: core.AnnotationProperties) => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message, properties);
 		return console.warn(message);
 	};
 
@@ -38,9 +42,9 @@ export class Log {
 	 * Log an error and set the exit code to 1.
 	 * @param message
 	 */
-	static error = (message: string = '') => {
+	static error = (message: string = '', properties?: core.AnnotationProperties) => {
 		process.exitCode = 1;
-		if (process.env.GITHUB_ACTIONS) return core.error(message);
+		if (process.env.GITHUB_ACTIONS) return core.error(message, properties);
 		return console.error(message);
 	};
 
@@ -72,6 +76,7 @@ export class Log {
 
 	protected static detailsMessage = (message: DetailsMessage, level: LoggingLevels = 'info'): void => {
 		if (typeof message === 'string') return Log[level](message);
+		if ('line' in message) return Log[level](message.message, { startLine: message.line || undefined });
 		return this.details({
 			level,
 			title: message.title ?? 'Details',
@@ -222,4 +227,82 @@ export function pluralise(word: string, count: number): string {
 	if (word.endsWith('s')) return `${word}es`;
 	// if (word.endsWith('y')) return `${word.slice(0, -1)}ies`;
 	return `${word}s`;
+}
+
+/**
+ * Reads a file and attempts to find the line of a given dot-notated property
+ *
+ * @param jsonFilePath - File Path to check for lines
+ * @param dotNotatedProperty - Dot-notated property value, ex. action:administer-first-aid.0.contents.1.contents.0.file
+ * @returns The line number or null if it could not be found.
+ */
+export function findLineNumber(jsonFilePath: string, dotNotatedProperty: string): number | null {
+	// Read the JSON file and split into lines
+	const jsonContent = fs.readFileSync(jsonFilePath, 'utf8');
+	const lines = jsonContent.split('\n');
+
+	// Parse the JSON content
+	let jsonObject: any;
+	try {
+		jsonObject = JSON.parse(jsonContent);
+	} catch {
+		console.error('Invalid JSON file.');
+		return null;
+	}
+
+	// Helper function to traverse the object recursively and find the line number
+	function recursiveFind(obj: any, keys: string[], lineStart: number): number | null {
+		if (keys.length === 0) return null;
+
+		const currentKey = keys[0];
+		const remainingKeys = keys.slice(1);
+		let keyValue: any;
+
+		// Handle array indices if the key is a number (i.e., an array index in dot notation)
+		if (!Number.isNaN(Number(currentKey))) {
+			const index = Number(currentKey);
+			keyValue = obj[index];
+		} else {
+			keyValue = obj[currentKey];
+		}
+
+		// Find the line where the current key or index is located
+		const objLineStart = lines.findIndex((line, index) => {
+			if (index >= lineStart && (line.includes(`"${currentKey}"`) || !Number.isNaN(Number(currentKey)))) {
+				return true;
+			}
+			return false;
+		});
+
+		if (objLineStart === -1) {
+			return null; // Property not found
+		}
+
+		// If it's the last key, return the line number
+		if (remainingKeys.length === 0) {
+			return objLineStart + 1; // Convert 0-index to 1-index for line number
+		}
+
+		// Traverse into arrays or objects recursively
+		if (Array.isArray(keyValue)) {
+			for (let i = 0; i < keyValue.length; i++) {
+				const lineNum = recursiveFind(keyValue[i], remainingKeys.slice(1), objLineStart + 1);
+				if (lineNum) return lineNum;
+			}
+		} else if (typeof keyValue === 'object') {
+			return recursiveFind(keyValue, remainingKeys, objLineStart + 1);
+		}
+
+		return null;
+	}
+
+	// Split the dot-notated property and start recursive search
+	const keys = dotNotatedProperty.split('.').map(k => (Number.isNaN(Number(k)) ? k : String(Number(k)))); // Normalize number strings
+	const lineNumber = recursiveFind(jsonObject, keys, 0);
+
+	if (lineNumber) {
+		return lineNumber;
+	} else {
+		return null;
+	}
 }

@@ -6,7 +6,7 @@ import p from 'picocolors';
 import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
 import { fromZodIssue } from 'zod-validation-error';
 import { validateAnimationData } from '../../src/storage/animationsSchema.ts';
-import { Log, pluralise } from '../helpers.ts';
+import { findLineNumber, Log, pluralise } from '../helpers.ts';
 
 const targetPath = process.argv[2] && process.argv[2] !== 'fast' ? process.argv[2] : 'animations/';
 
@@ -37,25 +37,33 @@ if (targetPath.endsWith('.json')) {
 		const columnWidth = Math.min(Math.max(...issues.map(error => error.file.length + 5)), 58);
 
 		Log.details({
-			level: 'info',
+			level: 'error',
 			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
 			messages: issues.map(
 				(result) => {
+					const messageData = { line: 0, message: '' };
 					const stringArray = [result.file];
 
 					if (result.message) {
-						stringArray.push(`${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}`);
+						stringArray.push(`${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.inverse(result.message)}`);
 					}
+
 					if (result.issues) {
 						const formattedIssues = result.issues.map((issue) => {
 							const formatted = fromZodIssue(issue);
-							return `${p.redBright(formatted.details[0].path.join('.'))} - ${formatted.details[0].message}`;
+
+							return {
+								line: findLineNumber(result.file, formatted.details[0].path.join('.')), // Grabs the lines
+								message: `${p.yellow(formatted.details[0].path.join('.'))} - ${formatted.details[0].message}`,
+							};
 						});
+
 						stringArray.push('\n\t');
-						stringArray.push(formattedIssues.join('\n\t'));
+						stringArray.push(formattedIssues.map(x => x.message).join('\n\t')); // Now just to log it properly
 					}
 
-					return stringArray.join('');
+					messageData.message = stringArray.join('');
+					return messageData;
 				},
 			),
 		});
