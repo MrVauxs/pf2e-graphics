@@ -12,16 +12,22 @@
 				{
 					"predicate": [
 						{
-							"not": "item:thrown"
+							"or": [
+								{
+									"not": "item:thrown"
+								},
+								"jb2a:free"
+							]
 						}
 					],
 					"preset": "melee",
-					"file": "jb2a.spear.melee.01.orange"
+					"file": "jb2a.spear.melee.01.white.2"
 				},
 				{
 
 					"predicate": [
-						"item:thrown"
+						"item:thrown",
+						"jb2a:patreon"
 					],
 					"preset": "ranged",
 					"file": "jb2a.spear.throw.01"
