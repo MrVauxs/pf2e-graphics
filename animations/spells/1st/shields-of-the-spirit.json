@@ -2,7 +2,6 @@
 	"effect:spell-effect-shields-of-the-spirit-security": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.markers.shield_rampart.complete.03.blue",
 			"options": {
 				"scaleToObject": {
 					"value": 1.5
@@ -52,31 +51,39 @@
 					]
 				},
 				{
+					"file": "jb2a.markers.shield_rampart.complete.03.blue",
 					"predicate": [
+						"jb2a:patreon"
+					],
+					"contents": [
 						{
-							"lte": [
-								"settings:quality",
-								2
+							"predicate": [
+								{
+									"lte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"trigger": [
+								"start-turn",
+								"effect"
 							]
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"trigger": "effect",
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
 						}
-					],
-					"trigger": [
-						"start-turn",
-						"effect"
 					]
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
-					"trigger": "effect",
-					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						}
-					}
 				}
 			]
 		}

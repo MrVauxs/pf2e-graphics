@@ -33,33 +33,43 @@ if (targetPath.endsWith('.json')) {
 	if (result.success) {
 		Log.info(p.green('All animation files are valid!'));
 	} else {
-		const errors = result.errors;
-		const columnWidth = Math.min(Math.max(...errors.map(error => error.file.length + 5)), 58);
+		const issues = result.issues;
+		const columnWidth = Math.min(Math.max(...issues.map(error => error.file.length + 5)), 58);
 
 		Log.details({
 			level: 'info',
-			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', errors.length)}:`))),
-			messages: errors.map(
-				result =>
-					`${result.file}${result.message ? `${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}` : ''}${result.issues
-						? `\n\t${result.issues.map((issue) => {
+			title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', issues.length)}:`))),
+			messages: issues.map(
+				(result) => {
+					const stringArray = [result.file];
+
+					if (result.message) {
+						stringArray.push(`${' '.repeat(Math.max(columnWidth - result.file.length, 3))}${p.dim(result.message)}`);
+					}
+					if (result.issues) {
+						const formattedIssues = result.issues.map((issue) => {
 							const formatted = fromZodIssue(issue);
 							return `${p.redBright(formatted.details[0].path.join('.'))} - ${formatted.details[0].message}`;
-						}).join('\n\t')}`
-						: ''}`,
+						});
+						stringArray.push('\n\t');
+						stringArray.push(formattedIssues.join('\n\t'));
+					}
+
+					return stringArray.join('');
+				},
 			),
 		});
 
 		Log.newLine();
 		Log.error(
 			p.red(
-				`${p.bold(errors.length)} animation ${pluralise('file', errors.length)} failed validation.`,
+				`${p.bold(issues.length)} animation ${pluralise('file', issues.length)} failed validation.`,
 			),
 		);
 		Log.newLine();
 		Log.info(
 			p.dim(
-				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${errors[Math.floor(Math.random() * errors.length)].file}`)}`,
+				`For specific validation issues, try: ${p.bold(`npm run test:animations -- ${issues[Math.floor(Math.random() * issues.length)].file}`)}`,
 			),
 		);
 	}

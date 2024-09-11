@@ -208,7 +208,7 @@ export let AnimCore = class AnimCore {
 		} as const;
 
 		const preparedOptions = this.prepRollOptions(rollOptions);
-		const keys = merge(AnimCore.keys, Object.keys(customAnimations));
+		const keys = dedupeStrings([...AnimCore.keys, ...Object.keys(customAnimations)]);
 
 		obj.animations = keys
 			.filter(key => preparedOptions.includes(key))

@@ -3,7 +3,10 @@
 		{
 			"trigger": "saving-throw",
 			"preset": "ranged",
-			"file": "jb2a.eldritch_blast.dark_red"
+			"file": "jb2a.eldritch_blast.dark_red",
+			"predicate": [
+				"jb2a:patreon"
+			]
 		}
 	]
 }

@@ -4,6 +4,9 @@
 			"trigger": "saving-throw",
 			"preset": "onToken",
 			"file": "jb2a.whirlwind.purple",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"options": {
 				"preset": {
 					"location": "target"
