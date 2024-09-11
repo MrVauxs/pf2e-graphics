@@ -14,7 +14,10 @@
 					"file": "jb2a.throwable.throw.flask.02.blue",
 					"options": {
 						"waitUntilFinished": -50
-					}
+					},
+					"predicate": [
+						"jb2a:patreon"
+					]
 				},
 				{
 					"preset": "onToken",

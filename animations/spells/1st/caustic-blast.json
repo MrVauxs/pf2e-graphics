@@ -2,6 +2,9 @@
 	"origin:item:slug:caustic-blast": [
 		{
 			"trigger": "place-template",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"contents": [
 				{
 					"preset": "ranged",
