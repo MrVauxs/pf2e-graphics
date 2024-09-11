@@ -4,6 +4,9 @@
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.dart.01.throw",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"options": {
 				"preset": {
 					"stretchTo": {

@@ -14,19 +14,28 @@
 					"file": "jb2a.breath_weapons.cold.cone.green",
 					"options": {
 						"rotate": -10
-					}
+					},
+					"predicate": [
+						"jb2a:patreon"
+					]
 				},
 				{
 					"file": "jb2a.breath_weapons.cold.cone.orange",
 					"options": {
 						"rotate": 10
-					}
+					},
+					"predicate": [
+						"jb2a:patreon"
+					]
 				},
 				{
 					"file": "jb2a.breath_weapons.cold.cone.purple",
 					"options": {
 						"rotate": 20
-					}
+					},
+					"predicate": [
+						"jb2a:patreon"
+					]
 				}
 			]
 		}

@@ -1,30 +1,37 @@
 {
 	"item:group:spear": [
 		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"file": "jb2a.spear.throw.01",
 			"predicate": [
-				"thrown"
+				"jb2a:patreon"
 			],
-			"options": {
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.5
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"preset": "ranged",
+					"file": "jb2a.spear.throw.01",
+					"predicate": [
+						"thrown"
+					],
+					"options": {
+						"preset": {
+							"stretchTo": {
+								"randomOffset": 0.5
+							}
+						}
+					}
+				},
+				{
+					"trigger": "attack-roll",
+					"preset": "melee",
+					"file": "jb2a.spear.melee.01.white",
+					"predicate": [
+						"melee"
+					],
+					"options": {
+						"scaleToObject": 5
 					}
 				}
-			}
-		},
-		{
-			"trigger": "attack-roll",
-			"preset": "melee",
-			"file": "jb2a.spear.melee.01.white",
-			"predicate": [
-				"melee"
-			],
-			"options": {
-				"scaleToObject": 5
-			}
+			]
 		}
 	]
 }
