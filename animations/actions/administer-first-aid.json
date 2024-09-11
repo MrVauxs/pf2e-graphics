@@ -2,7 +2,7 @@
 	"action:administer-first-aid": [
 		{
 			"trigger": "skill-check",
-			"preset": "onToken",
+			"preset": "ranged",
 			"file": "jb2a.healing_generic.200px.blue",
 			"options": {
 				"preset": {

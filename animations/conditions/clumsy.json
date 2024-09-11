@@ -31,7 +31,7 @@
 							"predicate": [
 								"jb2a:patreon"
 							],
-							"file": "jb2a.markers.runes.yellow.03"
+							"file": "jb2a.markers.rdfunes.yellow.03"
 						},
 						{
 							"predicate": [
@@ -45,9 +45,8 @@
 					"predicate": [
 						"settings:persistent"
 					],
-					"trigger": "effect",
+					"trigger": "self-effect",
 					"options": {
-						"tieToDocuments": true,
 						"persist": {
 							"value": true,
 							"persistTokenPrototype": true
