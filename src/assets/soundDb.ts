@@ -1,10 +1,8 @@
-import type { JSONValue } from './flatDbs';
-
 export const DB_PREFIX = 'graphics-sfx';
 
 // Start from 01
 const p = 'modules/pf2e-graphics/assets/library/sounds';
-export const database: JSONValue = {
+export const database = {
 	// #region Weapons
 	generic: {
 		miss: {

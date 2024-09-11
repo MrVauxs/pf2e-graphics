@@ -6,8 +6,6 @@ export {
 	databasePathsPatreon as JB2APatreonDatabasePaths,
 } from 'jb2a-databases';
 
-export type JSONValue = boolean | number | string | { [key: string]: JSONValue } | Array<JSONValue> | undefined | null;
-
 const unwantedSequencerMetadata = new Set([
 	'_template',
 	'_templates',
@@ -26,7 +24,7 @@ const unwantedSequencerMetadata = new Set([
  * @param recursionDepth A recursion-tracker that should not be initialised by external use.
  * @returns An array of dot-separated database paths (e.g. "graphics-sfx.generic.miss.01").
  */
-function getObjectPaths(obj: JSONValue, path: string[] = [], recursionDepth = 0) {
+function getObjectPaths(obj: unknown, path: string[] = [], recursionDepth = 0) {
 	if (recursionDepth > 100) throw new Error('Maximum depth exceeded');
 
 	const paths: Set<string> = new Set();
@@ -46,7 +44,7 @@ function getObjectPaths(obj: JSONValue, path: string[] = [], recursionDepth = 0)
 			if (key === 'file') {
 				addPath(paths, [...path, key].join('.'));
 			} else if (!unwantedSequencerMetadata.has(key)) {
-				getObjectPaths(obj[key], [...path, key], recursionDepth + 1).forEach(newPath =>
+				getObjectPaths(obj[key as keyof typeof obj], [...path, key], recursionDepth + 1).forEach(newPath =>
 					addPath(paths, newPath),
 				);
 			}
