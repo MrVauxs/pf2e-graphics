@@ -4,7 +4,7 @@
 			"trigger": "attack-roll",
 			"options": {
 				"sound": {
-					"file": "pf2e-graphics.spear.hit.01",
+					"file": "graphics-sfx.spear.hit.01",
 					"delay": 600
 				}
 			},
