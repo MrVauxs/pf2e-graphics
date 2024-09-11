@@ -1,2 +1,28 @@
-packs/** binary
-*.lockb binary diff=lockb
+# Auto detect text files and perform LF normalization
+*                    text=auto eol=lf
+
+# Specific filetypes
+*.md                 text diff=markdown
+
+# Overrides
+*.lockb              binary diff=lockb
+assets/**/*.gif      binary
+assets/**/*.jpeg     binary
+assets/**/*.jpg      binary
+assets/**/*.mp3      binary
+assets/**/*.mp4      binary
+assets/**/*.ogg      binary
+assets/**/*.opus     binary
+assets/**/*.png      binary
+assets/**/*.webm     binary
+assets/**/*.webp     binary
+packs/**             binary
+
+# Prevent dud-files being bundled into archives
+.gitattributes       export-ignore
+.gitignore           export-ignore
+.gitkeep             export-ignore
+
+# GitHub UI fine-tuning
+.vscode/*.json       linguist-language=JSON-with-Comments
+animations/**/*.json linguist-detectable
