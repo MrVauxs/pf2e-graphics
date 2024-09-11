@@ -5,6 +5,7 @@
 	import { slide } from 'svelte/transition';
 	import type { Writable } from 'svelte/store';
 	import Separator from './Separator.svelte';
+	import { DB_PREFIX } from '../../assets/soundDb';
 
 	export let key: string;
 	export let value: JSONData[string];
@@ -366,7 +367,7 @@
 												{disabled}
 												type='text'
 												class='pr-6'
-												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['graphics-sfx']).dbPath}
+												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries[DB_PREFIX]).dbPath}
 												value={ani.options.sound?.file || ''}
 												on:change={(ev) => {
 													ani.options.sound ??= {};
