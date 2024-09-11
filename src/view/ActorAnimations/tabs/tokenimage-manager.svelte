@@ -105,7 +105,6 @@
 				flex-grow flex-shrink
 				overflow-y-scroll
 				mb-2 text-center
-				contain-strict
 			'
 			style:content-visibility='auto'
 		>

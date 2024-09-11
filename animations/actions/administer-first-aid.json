@@ -3,10 +3,7 @@
 		{
 			"trigger": "skill-check",
 			"preset": "onToken",
-			"file": "jb2a.healing_generic.200px.red",
-			"predicate": [
-				"jb2a:patreon"
-			],
+			"file": "jb2a.healing_generic.200px.blue",
 			"options": {
 				"preset": {
 					"location": "target"
@@ -17,14 +14,6 @@
 			},
 			"contents": [
 				{
-					"options": {
-						"filter": {
-							"type": "ColorMatrix",
-							"options": {
-								"hue": 160
-							}
-						}
-					},
 					"predicate": [
 						"action:administer-first-aid:stabilize"
 					]
@@ -32,6 +21,25 @@
 				{
 					"predicate": [
 						"action:administer-first-aid:stop-bleeding"
+					],
+					"contents": [
+						{
+							"predicate": ["jb2a:patreon"],
+							"file": "jb2a.healing_generic.200px.red"
+						},
+						{
+							"predicate": ["jb2a:free"],
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 0.5,
+										"brightness": 0.9,
+										"hue": 170
+									}
+								}
+							}
+						}
 					]
 				}
 			]
