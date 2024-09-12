@@ -19,9 +19,9 @@ assets/**/*.webp     binary
 packs/**             binary
 
 # Prevent dud-files being bundled into archives
-.gitattributes
-.gitignore
-.gitkeep
+.gitattributes       export-ignore
+.gitignore           export-ignore
+.gitkeep             export-ignore
 
 # GitHub UI fine-tuning
 .vscode/*.json       linguist-language=JSON-with-Comments
