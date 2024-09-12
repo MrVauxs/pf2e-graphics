@@ -42,6 +42,13 @@ jobs:
           files: 'module.json, dist/pf2e-graphics.js'
           fail: true
 
+      - name: Build DEBUG
+        if: failure()
+        env:
+          IGNORE_ESLINT: true
+        run: |
+          npm run build:vite -- --debug
+
       - name: Check
         run: |
           npm run check
