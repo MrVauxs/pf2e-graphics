@@ -1,0 +1,124 @@
+{
+	"item:slug:persistent-damage": [
+		{
+			"trigger": ["damage-taken", "toggle"],
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": 1.5
+			},
+			"contents": [
+				{
+					"predicate": [
+						"item:damage:type:acid"
+					],
+					"file": "jb2a.liquid.splash.green"
+				},
+				{
+					"predicate": [
+						"item:damage:type:bleed"
+					],
+					"file": "jb2a.liquid.splash.red"
+				},
+				{
+					"predicate": [
+						"item:damage:type:bludgeoning"
+					],
+					"file": "jb2a.impact.ground_crack.01.white",
+					"options": {
+						"belowTokens": true
+					}
+				},
+				{
+					"predicate": [
+						"item:damage:type:cold"
+					],
+					"file": "jb2a.impact_themed.ice_shard.blue"
+				},
+				{
+					"predicate": [
+						"item:damage:type:electricity"
+					],
+					"file": "jb2a.static_electricity.01.blue",
+					"options": {
+						"duration": 2400,
+						"fadeIn": 500,
+						"fadeOut": 250
+					}
+				},
+				{
+					"predicate": [
+						"item:damage:type:fire"
+					],
+					"file": "jb2a.shield_themed.below.fire.02.orange",
+					"options": {
+						"duration": 2400,
+						"fadeIn": 500,
+						"fadeOut": 250
+					}
+				},
+				{
+					"predicate": [
+						"item:damage:type:force"
+					],
+					"file": "jb2a.cast_shape.circle.single01.blue"
+				},
+				{
+					"predicate": [
+						"item:damage:type:mental"
+					],
+					"file": "jb2a.magic_signs.rune.enchantment.intro.purple"
+				},
+				{
+					"predicate": [
+						"item:damage:type:piercing"
+					],
+					"file": "jb2a.spike_trap.10x10ft.top.no_base.normal.01",
+					"options": {
+						"belowTokens": true
+					}
+				},
+				{
+					"predicate": [
+						"item:damage:type:poison"
+					],
+					"file": "jb2a.impact_themed.poison.greenyellow"
+				},
+				{
+					"predicate": [
+						"item:damage:type:slashing"
+					],
+					"file": "jb2a.claws.200px.bright_orange"
+				},
+				{
+					"predicate": [
+						"item:damage:type:sonic"
+					],
+					"file": "jb2a.impact.sound.01.pinkteal"
+				},
+				{
+					"predicate": [
+						"item:damage:type:spirit"
+					],
+					"file": "jb2a.spirit_guardians.dark_whiteblue.spirits",
+					"options": {
+						"duration": 2400,
+						"fadeIn": 500,
+						"fadeOut": 250
+					}
+				},
+				{
+					"predicate": [
+						"item:damage:type:vitality"
+					],
+					"file": "jb2a.divine_smite.caster.reversed.yellowwhite"
+				},
+				{
+					"predicate": [
+						"item:damage:type:void"
+					],
+					"file": "jb2a.divine_smite.caster.reversed.dark_purple"
+				}
+			]
+		}
+	]
+}
