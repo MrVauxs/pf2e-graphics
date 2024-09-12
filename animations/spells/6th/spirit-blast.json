@@ -1,0 +1,9 @@
+{
+	"item:slug:spirit-blast": [
+		{
+			"trigger": "damage-roll",
+			"preset": "ranged",
+			"file": "jb2a.ranged.03.instant.01.bluegreen"
+		}
+	]
+}

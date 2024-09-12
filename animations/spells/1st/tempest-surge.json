@@ -1,0 +1,15 @@
+{
+	"item:slug:tempest-surge": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.lightning_orb.01.loop.bluepurple.0",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 2
+			}
+		}
+	]
+}

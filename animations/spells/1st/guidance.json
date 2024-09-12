@@ -1,0 +1,12 @@
+{
+	"effect:guidance": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.bless.400px.intro.yellow",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

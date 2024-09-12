@@ -1,0 +1,74 @@
+{
+	"origin:item:slug:howling-blizzard": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.cone_of_cold.blue",
+			"predicate": [
+				"origin:item:area:type:cone"
+			],
+			"contents": [
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"options": {
+						"rotate": -30
+					}
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"options": {
+						"rotate": 30
+					}
+				}
+			]
+		},
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.sleet_storm.blue",
+			"predicate": [
+				"origin:item:area:type:burst"
+			],
+			"options": {
+				"scaleToObject": 1
+			}
+		}
+	],
+	"item:slug:howling-blizzard": [
+		{
+			"trigger": "damage-taken",
+			"preset": "onToken",
+			"file": "jb2a.impact.ground_crack.frost.01.white",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

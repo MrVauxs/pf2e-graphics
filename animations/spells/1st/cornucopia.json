@@ -1,0 +1,16 @@
+{
+	"spell:cornucopia": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.plant_growth.03.round.2x2.complete.greenyellow",
+			"options": {
+				"scaleToObject": 2,
+				"duration": 2500,
+				"sound": {
+					"file": "graphics-sfx.magic.nature.growth.01"
+				}
+			}
+		}
+	]
+}

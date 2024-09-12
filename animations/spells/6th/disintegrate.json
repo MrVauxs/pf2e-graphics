@@ -1,0 +1,33 @@
+{
+	"item:slug:disintegrate": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.lightning.bolt.impact"
+				},
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": -110
+					}
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.disintegrate.green"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.disintegrate.dark_red"
+				}
+			]
+		}
+	]
+}

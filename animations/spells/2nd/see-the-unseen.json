@@ -1,0 +1,12 @@
+{
+	"effect:see-the-unseen": [
+		{
+			"preset": "onToken",
+			"trigger": "effect",
+			"file": "jb2a.magic_signs.rune.illusion.intro.purple",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}
