@@ -1,0 +1,9 @@
+{
+	"item:slug:magnetic-acceleration": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.ranged.02.instant.01.yellow"
+		}
+	]
+}

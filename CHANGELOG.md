@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Added
+
+- Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation
+
+- **New Animations**
+  - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard, Disintegrate, Spirit Blast. ([@Aziareel](<https://github.com/Aziareel>))
+
+### Fixed
+
+- Vitality Lash should now work again
+
 ## [0.9.1] - 2024-09-12
 
 ### Changed

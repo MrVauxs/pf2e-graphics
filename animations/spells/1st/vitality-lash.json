@@ -1,9 +1,14 @@
 {
 	"item:slug:vitality-lash": [
 		{
-			"trigger": "saving-throw",
+			"trigger": "damage-roll",
 			"preset": "ranged",
-			"presets": [
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.arcane.cast.02"
+				}
+			},
+			"contents": [
 				{
 					"predicate": [
 						"jb2a:free"
