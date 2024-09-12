@@ -28,14 +28,20 @@ jobs:
 
       - name: Install NPM Deps
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Build
         env:
           IGNORE_ESLINT: true
         run: |
           npm run build
+
+      - name: File Existence
+        uses: andstor/file-existence-action@v3.0.0
+        with:
+            files: "dist/pf2e-graphics.js"
+            fail: true
+
 
       - name: Check
         run: |
