@@ -1,7 +1,7 @@
 {
     "id": "pf2e-graphics",
     "title": "PF2e Graphics",
-    "version": "0.4.0",
+    "version": "0.9.1",
     "description": "<i>Provides animations for the PF2e system.</i>",
     "esmodules": [
         "dist/pf2e-graphics.js"
@@ -18,7 +18,7 @@
     ],
     "compatibility": {
         "minimum": "12.324",
-        "verified": "12.330",
+        "verified": "12.331",
         "maximum": "12"
     },
     "flags": {
@@ -35,8 +35,9 @@
             {
                 "id": "sequencer",
                 "type": "module",
+                "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
                 "compatibility": {
-                    "minimum": "3.2.14"
+                    "minimum": "3.2.17"
                 }
             }
         ],
@@ -44,8 +45,9 @@
             {
                 "id": "pf2e",
                 "type": "system",
+                "manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/master/system.json",
                 "compatibility": {
-                    "minimum": "6.2.0"
+                    "minimum": "6.3.1"
                 }
             }
         ]
@@ -66,5 +68,5 @@
     "readme": "https://github.com/MrVauxs/pf2e-graphics/blob/main/README.md",
     "changelog": "https://github.com/MrVauxs/pf2e-graphics/blob/main/CHANGELOG.md",
     "manifest": "https://raw.githubusercontent.com/MrVauxs/pf2e-graphics/next/module.json",
-    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/v0.4.0/module.zip"
+    "download": "https://github.com/MrVauxs/pf2e-graphics/releases/download/v0.9.1/module.zip"
 }
