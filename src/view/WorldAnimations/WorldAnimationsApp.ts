@@ -1,7 +1,7 @@
+import type { CombinedSvelteApplicationOptions } from 'src/extensions';
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 import { kofiButton } from 'src/utils';
 import { writable } from 'svelte/store';
-import type { CombinedSvelteApplicationOptions } from 'src/extensions';
 import BasicAppShell from './WorldAnimationsShell.svelte';
 
 export default class WorldAnimationsApp extends SvelteApplication {
