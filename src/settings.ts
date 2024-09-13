@@ -1,5 +1,5 @@
-import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 import type { JSONData } from './storage/AnimCore';
+import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;

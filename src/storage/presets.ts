@@ -1,5 +1,5 @@
-import { clearEmpties, devLog, ErrorMsg, log, nonNullable } from 'src/utils';
 import type { TokenOrDoc } from 'src/extensions';
+import { clearEmpties, devLog, ErrorMsg, log, nonNullable } from 'src/utils';
 
 const helpers = {
 	measureDistance(token: TokenOrDoc, target: TokenOrDoc) {
