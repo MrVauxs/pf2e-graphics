@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
+import type { Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
@@ -14,21 +15,19 @@ function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderO
 	return (folder as FolderObject).contents !== undefined;
 }
 
+function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
+	return !!Array.isArray(rule);
+}
+
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>;
 interface TokenImageData { name: string; uuid?: ItemUUID; rules: TokenImageDataRule[]; requires?: string }
 type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource);
 type TokenImageShorthand = [string, string, number];
 
-function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
-	return !!Array.isArray(rule);
-}
-
 export let AnimCore = class AnimCore {
+	// #region Data Retrieval
 	/**
-	 * Returns animation data:
-	 * - "reference:to:another:animation"
-	 * - [ { file: "123" } ]
-	 * - [ { reference: "reference:to:another:animation", "predicate": ["gate:air"] } ]
+	 * Returns raw animation data, with contents, references, etc.
 	 */
 	static getAnimations(): JSONData {
 		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
@@ -72,6 +71,90 @@ export let AnimCore = class AnimCore {
 		}));
 	}
 
+	static allAnimations(): { [key: string]: AnimationDataObject[] } {
+		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {});
+	}
+	// #endregion
+
+	// #region Utils
+	/**
+	 * Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked.
+	 * TODO: Possibly change this to return an `strings[]` for Sequencer to do its own file randomization.
+	 */
+	static parseFile(file: string = ''): string {
+		const match = file.match(/\{(.*?)\}/);
+		if (!match)
+			return file;
+
+		const [_, options] = match;
+		const parsedOptions = options.split(',');
+		const randomOption = Sequencer.Helpers.random_array_element(parsedOptions);
+		return file.replace(`{${options}}`, randomOption);
+	}
+
+	static prepRollOptions(array: string[]): string[] {
+		const extras: string[] = [];
+
+		extras.push(`settings:quality:${window.pf2eGraphics.liveSettings.quality}`);
+
+		if (window.pf2eGraphics.liveSettings.persistent) extras.push('settings:persistent');
+
+		if (dev) {
+			extras.push(`jb2a:${window.pf2eGraphics.liveSettings.jb2aMode}`);
+		} else {
+			if (game.modules.get('jb2a_patreon')?.active) extras.push('jb2a:patreon');
+			if (game.modules.get('JB2A_DnD5e')?.active) extras.push('jb2a:free');
+		}
+
+		return dedupeStrings(array.concat(extras));
+	}
+
+	static createHistoryEntry(data: Omit<AnimationHistoryObject, 'timestamp'>) {
+		log('Added a new animation history entry.', data);
+		window.pf2eGraphics.history.update((v) => {
+			v.push({
+				timestamp: Date.now(),
+				...data,
+			});
+			return v;
+		});
+	}
+
+	static CONST = {
+		TEMPLATE_ANIMATION: (): AnimationDataObject => ({
+			trigger: this.CONST.TRIGGERS[0],
+			preset: this.CONST.PRESETS[0],
+			file: '',
+			options: {},
+		}),
+		PRESETS: Object.keys(presets) as PresetKeys[],
+		TRIGGERS: [
+			'attack-roll',
+			'damage-roll',
+			'place-template',
+			'action',
+			'toggle',
+			'effect',
+			'self-effect',
+			'start-turn',
+			'end-turn',
+			'damage-taken',
+			'saving-throw',
+			'check',
+			'skill-check',
+			'flat-check',
+			'initiative',
+			'perception-check',
+			'counteract-check',
+			'modifiers-matter',
+		],
+	} as const;
+
+	static addNewAnimation(data: JSONData, overwrite = true) {
+		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
+	}
+	// #endregion
+
 	static getReferences(data: AnimationDataObject | ReferenceObject): AnimationDataObject[] {
 		if (!hasReference(data)) return [data];
 
@@ -105,39 +188,6 @@ export let AnimCore = class AnimCore {
 		return animationObject
 			.flatMap(x => AnimCore.getReferences(x))
 			.flatMap(x => AnimCore.unfoldAnimations(x, rollOptions));
-	}
-
-	// Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked
-	static parseFile(file: string = ''): string {
-		const match = file.match(/\{(.*?)\}/);
-		if (!match)
-			return file;
-
-		const [_, options] = match;
-		const parsedOptions = options.split(',');
-		const randomOption = Sequencer.Helpers.random_array_element(parsedOptions);
-		return file.replace(`{${options}}`, randomOption);
-	}
-
-	static prepRollOptions(array: string[]) {
-		const extras: string[] = [];
-
-		extras.push(`settings:quality:${window.pf2eGraphics.liveSettings.quality}`);
-
-		if (window.pf2eGraphics.liveSettings.persistent) extras.push('settings:persistent');
-
-		if (dev) {
-			extras.push(`jb2a:${window.pf2eGraphics.liveSettings.jb2aMode}`);
-		} else {
-			if (game.modules.get('jb2a_patreon')?.active) extras.push('jb2a:patreon');
-			if (game.modules.get('JB2A_DnD5e')?.active) extras.push('jb2a:free');
-		}
-
-		return dedupeStrings(array.concat(extras));
-	}
-
-	static allAnimations(): { [key: string]: AnimationDataObject[] } {
-		return this.keys.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key) }), {});
 	}
 
 	/**
@@ -278,7 +328,7 @@ export let AnimCore = class AnimCore {
 	static filterAnimations({ rollOptions: rollOptionsOG, item, trigger, narrow, actor }: {
 		rollOptions: string[];
 		item?: ItemPF2e | null;
-		trigger: TriggerTypes;
+		trigger: Trigger;
 		narrow: (a: AnimationDataObject) => boolean;
 		actor?: ActorPF2e | null;
 	}) {
@@ -320,7 +370,7 @@ export let AnimCore = class AnimCore {
 		actor?: ActorPF2e | null;
 		source?: TokenOrDoc | null;
 		rollOptions: string[];
-		trigger: TriggerTypes;
+		trigger: Trigger;
 		animationOptions?: object;
 	}, narrow: (animation: AnimationDataObject) => boolean = () => true) {
 		if (!actor) return log('No actor found! Aborting.');
@@ -365,49 +415,17 @@ export let AnimCore = class AnimCore {
 		}
 	}
 
-	static createHistoryEntry(data: Omit<AnimationHistoryObject, 'timestamp'>) {
-		window.pf2eGraphics.history.update((v) => {
-			v.push({
-				timestamp: Date.now(),
-				...data,
-			});
-			return v;
-		});
+	// #region Method 0.10
+	static find(): AnimationDataObject[] {
+		return [];
 	}
 
-	static CONST = {
-		TEMPLATE_ANIMATION: (): AnimationDataObject => ({
-			trigger: this.CONST.TRIGGERS[0],
-			preset: this.CONST.PRESETS[0],
-			file: '',
-			options: {},
-		}),
-		PRESETS: Object.keys(presets) as PresetKeys[],
-		TRIGGERS: [
-			'attack-roll',
-			'damage-roll',
-			'place-template',
-			'action',
-			'toggle',
-			'effect',
-			'self-effect',
-			'start-turn',
-			'end-turn',
-			'damage-taken',
-			'saving-throw',
-			'check',
-			'skill-check',
-			'flat-check',
-			'initiative',
-			'perception-check',
-			'counteract-check',
-			'modifiers-matter',
-		],
-	} as const;
+	static play(): Promise<Sequence>[] {
+		const sequences = [new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })];
 
-	static addNewAnimation(data: JSONData, overwrite = true) {
-		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
+		return sequences.map(x => x.play());
 	}
+	// #endregion
 };
 
 Hooks.once('ready', () => {
@@ -415,17 +433,6 @@ Hooks.once('ready', () => {
 		// @ts-expect-error Modifiers Matter Safeguards
 		AnimCore.CONST.TRIGGERS = AnimCore.CONST.TRIGGERS.filter(x => x !== 'modifiers-matter');
 });
-
-if (import.meta.hot) {
-	import.meta.hot.accept((newModule) => {
-		if (newModule) {
-			AnimCore = newModule?.AnimCore;
-			window.pf2eGraphics.AnimCore = newModule?.AnimCore;
-			window.AnimCore = newModule?.AnimCore;
-			ui.notifications.info('AnimCore updated!');
-		}
-	});
-}
 
 // Types Below
 
@@ -435,16 +442,14 @@ export type ReferenceObject = Partial<AnimationDataObject> & { reference: string
 // #endregion
 
 // #region Animation Data Parsing
-export type TriggerTypes = typeof AnimCore['CONST']['TRIGGERS'][number];
-
 export interface AnimationDataObject {
-	overrides?: string[];
-	trigger: TriggerTypes | TriggerTypes[];
+	trigger: Trigger | Trigger[];
 	preset: PresetKeys;
 	file: string;
 	default?: boolean;
 	predicate?: PredicateStatement[];
 	options?: any;
+	overrides?: string[];
 	[key: string]: any;
 }
 
@@ -453,7 +458,7 @@ export interface AnimationDataObject {
 interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
-	trigger: TriggerTypes | TriggerTypes[];
+	trigger: Trigger | Trigger[];
 	animations: AnimationDataObject[];
 	item?: { name: string; uuid: string };
 	actor: { name: string; uuid: string };
@@ -471,4 +476,16 @@ declare global {
 		storeSettings: storeSettingsType;
 		history: Writable<AnimationHistoryObject[]>;
 	}
+}
+
+// HMR
+if (import.meta.hot) {
+	import.meta.hot.accept((newModule) => {
+		if (newModule) {
+			AnimCore = newModule?.AnimCore;
+			window.pf2eGraphics.AnimCore = newModule?.AnimCore;
+			window.AnimCore = newModule?.AnimCore;
+			ui.notifications.info('AnimCore updated!');
+		}
+	});
 }
