@@ -1,0 +1,198 @@
+{
+	"pf2e-graphics": {
+		"support": {
+			"1": "Przekaż darowiznę!",
+			"2": "Wesprzyj mnie!",
+			"3": "Pomóż autorowi"
+		},
+		"source": "źródło: {format}",
+		"history": "Zobacz historię animacji",
+		"modifyItem": "Modyfikacja animacji przedmiotów",
+		"modifyActor": "Zarządzaj animacjami aktora",
+		"modifyUser": "Zarządzaj animacjami użytkownika",
+		"modifyWorld": "Zarządzaj animacjami świata",
+		"jsonEditor": "Edytor JSON",
+		"jsonEditorReadonly": "Przeglądarka JSON (tylko do odczytu)",
+		"hasAnimations": "Posiada animacje",
+		"noAnimations": "Brak animacji",
+		"jsonEditorTooltip": "Edytor JSON (kliknij z wciśniętym klawiszem Shift, aby wyświetlić widok tylko do odczytu)",
+		"confirmConvert": "Czy na pewno chcesz przekonwertować to na odniesienie? Spowoduje to usunięcie wszystkich danych.",
+		"reference": "Ustaw odniesienie do innej animacji",
+		"addAnim": "Dodaj nową animację",
+		"cancel": "Anuluj",
+		"easingTooltip": "Dowiedz się więcej o różnych funkcjach wygładzania tutaj.",
+		"featText": "Ten atut zawiera elementy reguł zarządzane przez grafikę PF2e, głównie odmiany Token Image. Otwarcie karty zasad tego atutu może opóźnić grę, jeśli aktor zawiera wiele postaci (np. Druid).",
+		"areYouSureM8": "Jesteś pewien?",
+		"hasSound": "Posiada efekty dźwiękowe",
+		"animations": "Animacje",
+		"animationsVolume-tooltip": "Kontroluje głośność dźwięków tworzonych przez PF2e Graphics.",
+		"hasSoundWrong": "Posiada efekty dźwiękowe, z których niektóre nie istnieją!",
+		"historyMenu": {
+			"title": "Historia animacji",
+			"animations": "{count} animacji",
+			"animation": "1 animacja",
+			"open": "Otwarte dane JSON"
+		},
+		"settings": {
+			"volume": {
+				"name": "Głośność animacji",
+				"hint": "Mnoży głośność animacji przez określoną wartość. Nie zastępuje własnych ustawień głośności animacji."
+			},
+			"delay": {
+				"name": "Opóźnienie animacji",
+				"hint": "Dodaje opóźnienie w sekundach do każdej przetwarzanej i uruchamianej animacji."
+			},
+			"persistent": {
+				"name": "Trwałe animacje",
+				"hint": "Włącza trwałe (zapętlone) animacje. Należy pamiętać, że może to *ZNACZNIE* zmniejszyć wydajność, im więcej efektów znajduje się na ekranie. Po wyłączeniu, gotowe animacje będą animowane tylko raz i ewentualnie na początku lub na końcu tury."
+			},
+			"quality": {
+				"name": "Ustawienia wydajności",
+				"hint": "Poziom szczegółowości animacji. Niektóre animacje mogą być bardziej wymagające sprzętowo, co wymaga obniżenia tego ustawienia.",
+				"0": "Minimum",
+				"1": "Niskie",
+				"2": "Średnie",
+				"3": "Wysokie"
+			},
+			"buttonPosition": {
+				"name": "Położenie przycisku aktora",
+				"hint": "W tym miejscu powinien znajdować się przycisk do zarządzania grafikami aktorów. Zmień go, jeśli masz zbyt wiele modułów dodających przyciski nagłówka.",
+				"0": "Nagłówek",
+				"1": "Karta",
+				"2": "Nagłówek (zminimalizowany)"
+			},
+			"dev": {
+				"name": "Tryb dewelopera",
+				"hint": "Włącza logi konsoli. Przydatne podczas tworzenia własnych animacji. Dodaje także nowe ustawienia, widoczne przy odświeżaniu."
+			},
+			"userMenu": {
+				"name": "Animacje użytkownika",
+				"hint": "Dostosuj własne animacje lub zobacz inne.",
+				"label": "Otwórz menu"
+			},
+			"worldMenu": {
+				"name": "Animacje świata",
+				"hint": "Dostosuj globalne animacje, które każdy będzie miał domyślnie.",
+				"label": "Otwórz menu"
+			},
+			"jb2aMode": {
+				"name": "[DEV] Tryb JB2A",
+				"hint": "Przełączanie między wersją darmową a patreon dla celów predykatów.",
+				"free": "Darmowy",
+				"patreon": "Patreon"
+			},
+			"suppressWarnings": {
+				"name": "[DEV] Wyłączenie ostrzeżeń o uruchomieniu",
+				"hint": "Włącz to ustawienie, jeśli używasz alternatywnego źródła animacji niż JB2A.",
+				"warnFremium": "Masz JB2A (Free), ale go nie włączyłeś, włącz go, aby PF2e Graphics działał zgodnie z oczekiwaniami.",
+				"warnPremium": "Masz JB2A (Patreon), ale go nie włączyłeś, włącz go, aby PF2e Graphics działało zgodnie z oczekiwaniami.",
+				"warnNone": "Nie masz zainstalowanego JB2A, zainstaluj i włącz go, aby PF2e Graphics działało!"
+			}
+		},
+		"tooltip": {
+			"imported": "Wpisy te są skompilowanymi wersjami animacji zaimportowanych z modułów. <p/>Przedstawione dane JSON mogą różnić się od oryginalnych danych modułu."
+		},
+		"itemAnimation": {
+			"tabs": {
+				"preset-animations": "Wstępnie zdefiniowane animacje",
+				"custom-animations": "Animacje niestandardowe",
+				"options": "Opcje"
+			},
+			"openSheet": "Otwórz kartę"
+		},
+		"worldAnimation": {
+			"shiftJSON": "Przytrzymaj Shift, aby wyświetlić podgląd przetworzonej wersji",
+			"tabs": {
+				"preset-animations": "Wstępnie zdefiniowane animacje",
+				"world-animations": "Animacje świata"
+			}
+		},
+		"userAnimation": {
+			"tabs": {
+				"user-animations": "Animacje użytkownika"
+			}
+		},
+		"actorAnimation": {
+			"openFeat": "Otwórz",
+			"displayFeat": "Wyświetl atut na karcie postaci",
+			"tabs": {
+				"all-animations": "Wszystkie animacje",
+				"actor-animations": "Animacje aktora",
+				"tokenimage-manager": "Menedżer obrazów tokenów"
+			},
+			"toggle": "Włącza i wyłącza predykaty, umożliwiając podgląd zmiany tokena.",
+			"switch": "Zobacz efekt, którego dotyczy reguła, lub same dane predykatu."
+		},
+		"triggers": {
+			"attack-roll": "Rzut na atak",
+			"damage-roll": "Rzut na obrażenia",
+			"damage-taken": "Otrzymane obrażenia",
+			"saving-throw": "Rzut obronny",
+			"place-template": "Umieszczono szablon",
+			"check": "Test",
+			"counteract-check": "Test przeciwdziałania",
+			"flat-check": "Płaski test",
+			"initiative": "Rzut na inicjatywę",
+			"perception-check": "Test Percepcji",
+			"skill-check": "Test umiejętności",
+			"effect": "Przyznano efekt",
+			"toggle": "Przełącznik",
+			"start-turn": "Początek tury",
+			"end-turn": "Koniec tury",
+			"self-effect": "Efekt \"użycia\"",
+			"modifiers-matter": "Modifiers Matter",
+			"action": "Akcja"
+		},
+		"editor": {
+			"tooltip": {
+				"gridUnits": "Użyj jednostek siatki (kwadraty, heksy)",
+				"preset": "Podstawowy szablon, na którym opiera się animacja. Podstawowy pocisk byłby dystansowy, a zaklęcie obszarowe byłoby szablonem. Więcej szczegółów można znaleźć na wiki.",
+				"trigger": "Jaka akcja lub rzut powinny uruchomić animację. Więcej szczegółów można znaleźć na wiki.",
+				"predicate": "Jakie opcje rzutu powinny mieć akcje wyzwalające. Jest to dodatek do klucza głównego. W przeciwnym razie działa tak samo jak zwykłe predykaty PF2e Rule Element. Więcej szczegółów można znaleźć na wiki.",
+				"persistent": "Powoduje, że animacja pozostaje na płótnie i zapętla się, dopóki nie zostanie ręcznie usunięta lub jeśli włączona jest opcja \"Powiąż z dokumentami\".",
+				"tieToDocuments": "Powoduje usunięcie trwałej animacji po usunięciu jej źródła (np. efektu).",
+				"masked": "Powoduje, że efekt jest ograniczony do zakresu tokena, przez co nie jest widoczny poza obrazem tokena.",
+				"belowTokens": "Sprawia, że animacja pojawia się pod tokenami, niezależnie od wysokości.",
+				"randomizeMirrorY": "Losowo odwraca animację na osi Y (wysokości), czyniąc ją odwróconą do góry nogami z szansą 50/50.",
+				"randomizeMirrorX": "Losowo odwraca animację na osi X (szerokości), czyniąc ją obróconą na bok z szansą 50/50.",
+				"mirrorX": "Odwraca animację na osi X (szerokości), czyniąc ją obróconą na bok.",
+				"mirrorY": "Odwraca animację na osi Y (wysokości), czyniąc ją odwróconą do góry nogami.",
+				"scale": "Mnoży rozmiar animacji przez określoną wartość.",
+				"scaleToObject": "Mnoży rozmiar animacji przez podaną wartość, dostosowaną do rozmiaru tokena.",
+				"size": "Zmienia rzeczywisty rozmiar animacji w pikselach lub opcjonalnie w jednostkach siatki.",
+				"fadeOut": "Powoduje wygaszenie animacji po jej zakończeniu, liczone w milisekundach.",
+				"fadeIn": "Powoduje zanikanie animacji w momencie jej rozpoczęcia, liczone w milisekundach.",
+				"waitUntilFinished": "Animacja będzie czekać na zakończenie poprzedniej animacji, a następnie odczeka ustawioną ilość czasu. Wartość ujemna spowoduje, że animacja rozpocznie się wcześniej, podczas gdy poprzednia animacja będzie nadal odtwarzana.",
+				"delay": "Opóźnia rozpoczęcie animacji o określoną liczbę milisekund.",
+				"overrides": "Powoduje, że animacja zastępuje inne animacje danej opcji rzutu. Akceptuje wiele ciągów znaków.<p />Najlepiej używać dla broni, które mają już zdefiniowaną animację <code>item:group</code>."
+			},
+			"preset": "Ustawienie wstępne",
+			"overrides": "Nadpisania",
+			"trigger": "Wyzwalacz",
+			"predicate": "Predykat",
+			"imageFile": "Plik obrazu",
+			"soundFile": "Plik dźwiękowy",
+			"soundDisclaimer": "Ta animacja zawiera wiele dźwięków, które można modyfikować tylko za pomocą edytora JSON.",
+			"triggerDisclaimer": "Wykryto wiele wyzwalaczy. Modyfikacja za pomocą edytora JSON.",
+			"notDb": "Używanie ścieżki pliku nie jest zalecanym sposobem tworzenia animacji. Jeśli to możliwe, należy użyć ścieżki bazy danych sekwencera.",
+			"persistent": "Stały",
+			"tieToDocuments": "Powiąż z dokumentami",
+			"waitUntilFinished": "Poczekaj do zakończenia",
+			"wait": "Czekaj",
+			"delay": "Opóźnienie",
+			"macro": "Makro",
+			"advancedOptions": "Zaawansowane opcje",
+			"randomizeMirrorY": "Losowe odbicie lustrzane Y",
+			"randomizeMirrorX": "Losowe odbicie lustrzane X",
+			"mirrorY": "Odbicie lustrzane Y",
+			"mirrorX": "Odbicie lustrzane X",
+			"scale": "Skala",
+			"scaleToObject": "Skalowanie do obiektu / tokena",
+			"size": "Rozmiar",
+			"fadeOut": "Zanikanie",
+			"fadeIn": "Wzmacnianie",
+			"belowTokens": "Poniżej tokenów",
+			"masked": "Zamaskowany"
+		}
+	}
+}
