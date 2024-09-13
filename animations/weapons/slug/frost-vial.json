@@ -7,6 +7,9 @@
 			"overrides": [
 				"item:group:bomb"
 			],
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"trigger": "attack-roll",
 			"contents": [
 				{

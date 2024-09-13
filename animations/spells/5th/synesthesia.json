@@ -1,0 +1,17 @@
+{
+	"item:slug:synesthesia": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"file": "jb2a.particles.swirl.greenyellow.01.01",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 2,
+				"fadeIn": 250,
+				"fadeOut": 500
+			}
+		}
+	]
+}

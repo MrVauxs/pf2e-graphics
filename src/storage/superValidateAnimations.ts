@@ -1,40 +1,75 @@
-import {
-	databasePathsFree as JB2AFreeDatabasePaths,
-	databasePathsPatreon as JB2APatreonDatabasePaths,
-} from 'jb2a-databases';
 import { z } from 'zod';
-import { flatDatabase as soundDatabasePaths } from '../assets/soundDb';
-import type { AnimationObject, Preset, PresetOptions, Trigger } from './animationsSchema';
+import { DB_PREFIX as assetDatabasePrefix } from '../assets/assetDb';
+import {
+	assetDatabasePaths,
+	JB2AFreeDatabasePaths,
+	JB2APatreonDatabasePaths,
+	soundDatabasePaths,
+} from '../assets/flatDbs';
+import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
+import type { AnimationObject, Predicate, Preset, PresetOptions, Trigger } from './animationsSchema';
 
 type Path = (string | number)[];
 class AnimationContext {
-	constructor() {
-		this.predicates = new Set();
-		this.preset = null;
-		this.triggers = new Set();
-	}
-
 	predicates: Set<string>;
-	preset: Preset | null;
+	preset?: Preset;
 	triggers: Set<Trigger>;
+	removes: Set<string>;
+	id?: string;
+	tieToDocuments: boolean;
+
+	constructor(oldContext?: AnimationContext) {
+		const newContext = structuredClone(oldContext);
+		this.predicates = newContext?.predicates ?? new Set();
+		this.preset = newContext?.preset ?? undefined;
+		this.triggers = newContext?.triggers ?? new Set();
+		this.removes = newContext?.removes ?? new Set();
+		this.id = newContext?.id ?? undefined;
+		this.tieToDocuments = newContext?.tieToDocuments ?? false;
+	}
+}
+
+/**
+ * Adds a predicate's roll options to the animation context if and only if those roll options are capable of triggering an animation (for instance, X in "X or Y").
+ * @param context The current animation context.
+ * @param predicates The array of roll option or predicate objects.
+ */
+function addPredicates(context: AnimationContext, predicates: Predicate[]) {
+	for (const predicate of predicates) {
+		if (typeof predicate === 'string') {
+			context.predicates.add(predicate);
+		} else if ('and' in predicate) {
+			addPredicates(context, predicate.and);
+		} else if ('or' in predicate) {
+			addPredicates(context, predicate.or);
+		} else if ('nand' in predicate) {
+			addPredicates(context, predicate.nand);
+		} else if ('xor' in predicate) {
+			addPredicates(context, predicate.xor);
+		} else if ('then' in predicate) {
+			addPredicates(context, [predicate.then]);
+		} else if ('iff' in predicate) {
+			addPredicates(context, predicate.iff);
+		}
+	}
 }
 
 /**
  * A big terrible mess of higher-order validations that require context-awareness (e.g. predicate-dependency).
- *
  * @param arr The `AnimationObject[]` animation set for a given roll option.
  * @param ctx Zod refinement context.
  */
 export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	/**
 	 * Tests whether a given Sequencer database path is valid.
-	 *
 	 * @param path The property path for issue-reporting.
 	 * @param str The input string.
 	 * @param db The database name to be searched.
 	 */
-	function testDatabasePath(path: Path, str: string, db: 'JB2A_DnD5e' | 'jb2a_patreon' | 'sound') {
-		return null; // TODO: Spappz
+	function testDatabasePath(path: Path, str: string, db: 'asset' | 'sound', context?: AnimationContext) {
+		// Don't bother validating actual filepaths
+		if (path.includes('/')) return;
+
 		const pathPermutations: string[] = [];
 
 		const openBraceStrings = str.split('{');
@@ -66,6 +101,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				const elements = str.substring(openBrace + 1, closeBrace).split(',');
 				return elements
 					.map(element =>
+						// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
 						extractPermutations(
 							`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
 						),
@@ -75,12 +111,20 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			pathPermutations.push(...extractPermutations(str));
 		}
 
-		const database
-			= db === 'sound'
-				? soundDatabasePaths
-				: db === 'jb2a_patreon'
-					? JB2APatreonDatabasePaths
-					: JB2AFreeDatabasePaths;
+		let database;
+		let readableDBName;
+		if (db === 'sound') {
+			database = soundDatabasePaths;
+			readableDBName = soundDatabasePrefix;
+		} else {
+			if (context?.predicates.has('jb2a:patreon')) {
+				database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
+				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+			} else {
+				database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
+				readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
+			}
+		}
 
 		for (const testPath of pathPermutations) {
 			if (!database.some(entry => entry.startsWith(testPath))) {
@@ -89,7 +133,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 					path,
 					received: testPath,
 					options: [],
-					message: `Not found in the ${db} database.`,
+					message: `Not found in the ${readableDBName} database.`,
 				});
 			}
 		}
@@ -101,6 +145,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	 * @param context The animation context.
 	 */
 	function testPersistence(path: Path, context: AnimationContext) {
+		// Require persistence predicate so settings are respected.
 		if (!context.predicates.has('settings:persistent')) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.unrecognized_keys,
@@ -109,25 +154,41 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				message: 'The `settings:persistent` predicate is required for persistence.',
 			});
 		}
-		/**
-		 * Check if the triggers is of an acceptable set, i.e. not a trigger that will repeat constantly.
-		 * Toggle is only acceptable in two scenarios:
-		 * 		1. The toggle is explicitly only when a document is created. Basically same as `effect`.
-		 * 		2. The toggle explicitly removes itself with a combination of `id`, `remove`, and `tieToDocuments`.
-		 * 			(`toggle:delete` is still unsuitable for persistent animations.)
-		 */
-		if (
-			!context.triggers.isSubsetOf(new Set(['effect', 'place-template', 'toggle']))
-			|| (context.triggers.has('toggle') && !context.predicates.has('toggle:create'))
-			// || (context.triggers.has('toggle') && !([context.options.remove].flat().includes(context.options.id)) && context.options.tieToDocuments) && (test for if `toggle:delete` would work. It should not.)
-		) {
+
+		if (!context.tieToDocuments) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: [...path, 'options', 'persist'],
-				message:
-					'Egregiously triggered persistence: either change the `trigger` or remove the animation\'s persistence.',
+				message: 'Persistence requires the `options.tieToDocument` flag.',
 			});
 		}
+
+		context.triggers.forEach((trigger) => {
+			if (trigger === 'effect' || trigger === 'place-template') {
+				// No tests required!
+			} else if (trigger === 'toggle') {
+				if (context.predicates.has('toggle:delete')) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						path: [...path, 'options', 'persist'],
+						message: 'Persistence cannot be predicated on `toggle:delete`.',
+					});
+				}
+				if (context.predicates.has('toggle:update') && (!context.id || !context.removes.has(context.id))) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						path: [...path, 'options', 'persist'],
+						message: 'Persistence predicated on `toggle:update` must `remove` itself.',
+					});
+				}
+			} else {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					path: [...path, 'options', 'persist'],
+					message: 'Persistence can only be triggered by `effect`, `place-template`, and `toggle`.',
+				});
+			}
+		});
 	}
 
 	/**
@@ -136,7 +197,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	 * @param preset The type of preset the animation uses.
 	 * @param options The options for the preset.
 	 */
-	function testPreset(path: Path, preset: Preset | null, options: PresetOptions) {
+	function testPreset(path: Path, preset: Preset | undefined, options: PresetOptions) {
 		if (!preset) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.unrecognized_keys,
@@ -179,7 +240,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		if (
 			(preset !== 'onToken'
 				&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
-				|| (preset !== 'ranged' && typeof options.attachTo === 'boolean')
+				|| (preset !== 'ranged' && options.attachTo === true)
 		) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.invalid_type,
@@ -191,12 +252,19 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 
 	/**
 	 * The primary animation-test function. It steps through the animation-`contents` tree, remembering relevant contextual elements (predominantly predicates). It defers to specific validation functions when relevant.
-	 * Intelligently walks through an `AnimationObject` looking for Sequencer database paths that need validation. The following properties are tested:
-	 * - `file`
-	 * - `options.sound`
-	 * - `options.preset.bounce.file`
-	 * - `options.preset.bounce.sound`
-	 * - `contents.<...>` (recurses for each contained `AnimationObject`)
+	 *
+	 * Tests:
+	 * - Sequencer database paths are tested in the following properties:
+	 *   - `file`
+	 *   - `options.preset.bounce.file`
+	 *   - `options.preset.bounce.sound`
+	 *   - `options.sound`
+	 * - Persistence is appropriate given settings predicates and animation data.
+	 * - Preset options are correct.
+	 *
+	 * @param animation The animation object itself.
+	 * @param path The current property-path to reach the animation in the current object-literal.
+	 * @param [context] The unrolled 'context' of the animation, given the characteristics of its enclosing animations (if any). This context is passed down to contained animations.
 	 */
 	function testAnimation(
 		animation: AnimationObject,
@@ -204,36 +272,58 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		context: AnimationContext = new AnimationContext(),
 	) {
 		// Context begin
-		if (animation.predicate) {
-			animation.predicate.forEach(predicate =>
-				typeof predicate === 'string' ? context.predicates.add(predicate) : null,
-			);
-		}
-		if (animation.trigger) {
-			if (typeof animation.trigger === 'string') {
-				context.triggers.add(animation.trigger);
-			} else {
-				for (const trigger of animation.trigger) {
-					context.triggers.add(trigger);
-				}
-			}
-		}
+		if (animation.predicate) addPredicates(context, animation.predicate);
+		if (animation.trigger) [animation.trigger].flat().forEach(trigger => context.triggers.add(trigger));
 		if (animation.preset) context.preset = animation.preset;
-		// end context
+		// end context (more below though...)
 
 		// Validation begin
 		if (animation.file) {
-			testDatabasePath(
-				[...path, 'file'],
-				animation.file,
-				context.predicates.has('jb2a:patreon') ? 'jb2a_patreon' : 'JB2A_DnD5e',
-			);
+			testDatabasePath([...path, 'file'], animation.file, 'asset', context);
 		}
 
 		if (animation.options) {
+			// Context v2 begin
+			if (animation.options.remove)
+				[animation.options.remove].flat().forEach(slug => context.removes.add(slug));
+			if (animation.options.id) context.id = animation.options.id;
+			if (animation.options.tieToDocuments) context.tieToDocuments = animation.options.tieToDocuments;
+			// end context (for real this time)
+
 			if (animation.options.persist) testPersistence(path, context);
 
-			if (animation.options.preset) testPreset(path, context.preset, animation.options.preset);
+			if (animation.options.preset) {
+				testPreset(path, context.preset, animation.options.preset);
+
+				if (animation.options.preset.bounce) {
+					if (animation.options.preset.bounce.file) {
+						testDatabasePath(
+							[...path, 'options', 'preset', 'bounce', 'file'],
+							animation.options.preset.bounce.file,
+							'asset',
+							context,
+						);
+					}
+
+					if (animation.options.preset.bounce.sound) {
+						if (Array.isArray(animation.options.preset.bounce.sound)) {
+							for (let i = 0; i < animation.options.preset.bounce.sound.length; i++) {
+								testDatabasePath(
+									[...path, 'options', 'preset', 'bounce', 'sound', i, 'file'],
+									animation.options.preset.bounce.sound[i].file,
+									'sound',
+								);
+							}
+						} else {
+							testDatabasePath(
+								[...path, 'options', 'preset', 'bounce', 'sound', 'file'],
+								animation.options.preset.bounce.sound.file,
+								'sound',
+							);
+						}
+					}
+				}
+			}
 
 			if (animation.options.sound) {
 				if (Array.isArray(animation.options.sound)) {
@@ -248,41 +338,13 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 					testDatabasePath([...path, 'options', 'sound', 'file'], animation.options.sound.file, 'sound');
 				}
 			}
-
-			if (animation.options.preset?.bounce) {
-				if (animation.options.preset.bounce.file) {
-					testDatabasePath(
-						[...path, 'options', 'preset', 'bounce', 'file'],
-						animation.options.preset.bounce.file,
-						context.predicates.has('jb2a:patreon') ? 'jb2a_patreon' : 'JB2A_DnD5e',
-					);
-				}
-
-				if (animation.options.preset.bounce.sound) {
-					if (Array.isArray(animation.options.preset.bounce.sound)) {
-						for (let i = 0; i < animation.options.preset.bounce.sound.length; i++) {
-							testDatabasePath(
-								[...path, 'options', 'preset', 'bounce', 'sound', i, 'file'],
-								animation.options.preset.bounce.sound[i].file,
-								'sound',
-							);
-						}
-					} else {
-						testDatabasePath(
-							[...path, 'options', 'preset', 'bounce', 'sound', 'file'],
-							animation.options.preset.bounce.sound.file,
-							'sound',
-						);
-					}
-				}
-			}
 		}
 		// end validation
 
 		// Recursion stuff
 		if (animation.contents) {
 			for (let i = 0; i < animation.contents.length; i++) {
-				testAnimation(animation.contents[i], [...path, 'contents', i], structuredClone(context));
+				testAnimation(animation.contents[i], [...path, 'contents', i], new AnimationContext(context));
 			}
 		}
 	}

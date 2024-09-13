@@ -3,82 +3,84 @@ import * as path from 'node:path';
 import * as core from '@actions/core';
 import type { ZodIssue } from 'zod-validation-error';
 
+type LoggingLevels = 'info' | 'warning' | 'error';
+type DetailsMessage =
+	| string
+	| {
+		level: 'details';
+		title: string;
+		messages: DetailsMessage[];
+	};
+
 /**
  * Helper class to write unified logs to both local terminals and GitHub Actions.
  */
 export class Log {
 	/**
 	 * Log a general message.
-	 *
 	 * @param message
 	 */
-	static info = (message?: string): void => {
-		if (process.env.GITHUB_ACTIONS) return core.info(message ?? '');
+	static info = (message: string = '') => {
+		if (process.env.GITHUB_ACTIONS) return core.info(message);
 		return console.log(message);
 	};
 
 	/**
 	 * Log a warning.
-	 *
 	 * @param message
 	 */
-	static warning = (message?: string): void => {
-		if (process.env.GITHUB_ACTIONS) return core.warning(message ?? '');
+	static warning = (message: string = '') => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message);
 		return console.warn(message);
 	};
 
 	/**
 	 * Log an error and set the exit code to 1.
-	 *
 	 * @param message
 	 */
-	static error = (message?: string): void => {
+	static error = (message: string = '') => {
 		process.exitCode = 1;
-		if (process.env.GITHUB_ACTIONS) return core.error(message ?? '');
+		if (process.env.GITHUB_ACTIONS) return core.error(message);
 		return console.error(message);
 	};
 
 	/**
 	 * Log a block of information. In GitHub Actions' logs, this block is automatically collapsed into the `title`.
-	 *
 	 * @param data
 	 * @param data.level The message type to log at (default = "info").
 	 * @param data.title A short header for the section (default = "Details").
 	 * @param data.messages The list of messages.
 	 */
-	static details = (data: {
-		level?: 'info' | 'warning' | 'error';
-		title?: string;
-		messages: string[];
-	}): void => {
+	static details = (data: { level?: LoggingLevels; title?: string; messages: DetailsMessage[] }) => {
 		data.level = data.level ?? 'info';
 		data.title = data.title ?? 'Details';
-
-		if (data.level === 'error') process.exitCode = 1;
 
 		if (process.env.GITHUB_ACTIONS) {
 			core.startGroup(data.title);
 			for (const message of data.messages) {
-				core[data.level](message);
+				this.detailsMessage(message, data.level);
 			}
 			core.endGroup();
 		} else {
 			console.group(data.title);
-			const core2Node = {
-				info: 'log',
-				warning: 'warn',
-				error: 'error',
-			} as const;
 			for (const message of data.messages) {
-				console[core2Node[data.level]](message);
+				this.detailsMessage(message, data.level);
 			}
 			console.groupEnd();
 		}
 	};
 
+	protected static detailsMessage = (message: DetailsMessage, level: LoggingLevels = 'info'): void => {
+		if (typeof message === 'string') return Log[level](message);
+		return this.details({
+			level,
+			title: message.title ?? 'Details',
+			messages: message.messages,
+		});
+	};
+
 	/**
 	 * Prints new lines to the log.
-	 *
 	 * @param count The number of new lines to print (default = 1).
 	 */
 	static newLine = (count: number = 1): void => {
@@ -117,7 +119,6 @@ export function flatten<T extends object>(obj: T, parentKey: string = ''): Flatt
 
 /**
  * A data-valiation wrapper around `JSON.parse()` for when data is ingested from external sources.
- *
  * @param input The input string.
  * @returns An object with a `success` property indicating the success state. If `input` was parsed successfully, it is included in the `json` property.
  */
@@ -134,7 +135,6 @@ export function safeJSONParse(input: string): { success: true; data: JSONValue }
 
 /**
  * Gets a list of files by walking through the file-tree, starting from a particular path.
- *
  * @param targetPath The initial path.
  * @returns An array of file paths.
  */
@@ -157,15 +157,14 @@ export function getFilesRecursively(targetPath: string): string[] {
 }
 
 export interface fileValidationResult {
-	issues?: ZodIssue[];
 	file: string;
 	success: boolean;
 	message?: string;
+	issues?: ZodIssue[];
 }
 
 /**
  * Walks through the file-tree, starting from a particular path, applying a test to each file.
- *
  * @param targetPath The initial path. If the path is a directory, all files and subdirectories will be tested. If the path is a file, only that file will be tested.
  * @param tests An object mapping extensions (e.g. ".png", with the leading ".") to either a boolean or a test function. The behaviour for extensions without an explicit property is defined by the "default" property.
  * @param options
@@ -175,9 +174,7 @@ export interface fileValidationResult {
 export function testFilesRecursively(
 	targetPath: string,
 	tests: {
-		[key: string]:
-			| boolean
-			| ((filepath: string) => Omit<fileValidationResult, 'file'>);
+		[key: string]: boolean | ((filepath: string) => Omit<fileValidationResult, 'file'>);
 	},
 	options?: { ignoreGit?: boolean },
 ): fileValidationResult[] {

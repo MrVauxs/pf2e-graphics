@@ -110,6 +110,9 @@
 									}
 								},
 								{
+									"predicate": [
+										"jb2a:patreon"
+									],
 									"file": "jb2a.particles.outward.orange.01.03",
 									"options": {
 										"loopProperty": [
@@ -164,6 +167,9 @@
 					"contents": [
 						{
 							"file": "jb2a.token_border.circle.static.orange.012",
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"options": {
 								"fadeIn": 500,
 								"fadeOut": 2000,

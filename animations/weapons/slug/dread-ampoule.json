@@ -11,10 +11,31 @@
 			"contents": [
 				{
 					"preset": "ranged",
-					"file": "jb2a.throwable.throw.flask.01.purple",
 					"options": {
-						"waitUntilFinished": -50
-					}
+						"waitUntilFinished": -250
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.throwable.throw.flask.01.purple"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.throwable.throw.flask.01.orange",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -80
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"preset": "onToken",

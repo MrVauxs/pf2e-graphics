@@ -2,6 +2,9 @@
 	"item:slug:ignition": [
 		{
 			"trigger": "attack-roll",
+			"predicate": [
+				"item:ranged"
+			],
 			"contents": [
 				{
 					"preset": "onToken",
@@ -46,7 +49,6 @@
 				},
 				{
 					"preset": "ranged",
-					"file": "jb2a.fire_bolt.orange",
 					"contents": [
 						{
 							"default": true,
@@ -128,7 +130,29 @@
 			"contents": [
 				{
 					"default": true,
-					"file": "jb2a.unarmed_strike.magical.{01,02}.orange"
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.unarmed_strike.magical.{01,02}.orange"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.unarmed_strike.magical.{01,02}.blue",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 0.8,
+										"hue": -160
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [

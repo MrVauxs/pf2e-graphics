@@ -17,7 +17,9 @@
 							"gte": [
 								"item:damage:die:faces",
 								8
-							],
+							]
+						},
+						{
 							"lt": [
 								"item:damage:die:faces",
 								12
@@ -44,7 +46,8 @@
 			"preset": "ranged",
 			"file": "jb2a.handaxe.throw.01",
 			"predicate": [
-				"thrown"
+				"thrown",
+				"jb2a:patreon"
 			],
 			"options": {
 				"preset": {

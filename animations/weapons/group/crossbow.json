@@ -4,6 +4,9 @@
 			"trigger": "attack-roll",
 			"preset": "ranged",
 			"file": "jb2a.bolt.physical.white02",
+			"predicate": [
+				"jb2a:patreon"
+			],
 			"options": {
 				"sound": {
 					"file": "graphics-sfx.crossbow.shot",

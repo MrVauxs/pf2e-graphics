@@ -10,7 +10,8 @@
 				"randomizeMirrorY": true
 			},
 			"predicate": [
-				"nudge-the-scales:death"
+				"nudge-the-scales:death",
+				"jb2a:patreon"
 			]
 		},
 		{
@@ -23,7 +24,8 @@
 				"randomizeMirrorY": true
 			},
 			"predicate": [
-				"nudge-the-scales:life"
+				"nudge-the-scales:life",
+				"jb2a:patreon"
 			]
 		}
 	]

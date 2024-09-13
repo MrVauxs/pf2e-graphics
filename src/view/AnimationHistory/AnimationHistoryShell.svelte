@@ -41,7 +41,6 @@
 			flex flex-col gap-1 grow
 			overflow-y-scroll
 			-mr-2
-			contain-strict
 		'
 		style:content-visibility='auto'
 		bind:this={element}

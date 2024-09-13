@@ -1,0 +1,12 @@
+{
+	"item:slug:harmonize-self": [
+		{
+			"trigger": "damage-taken",
+			"preset": "onToken",
+			"file": "jb2a.energy_strands.in.green.01.2",
+			"options": {
+				"scaleToObject": 2
+			}
+		}
+	]
+}

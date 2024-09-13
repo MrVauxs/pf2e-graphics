@@ -1,0 +1,24 @@
+{
+	"item:slug:combustion": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.campfire.03.02.loop.orange",
+			"options": {
+				"preset": {
+					"location": "target",
+					"atLocation": {
+						"offset": {
+							"y": -2.1
+						},
+						"gridUnits": true
+					}
+				},
+				"scaleToObject": {
+					"value": 7,
+					"considerTokenScale": true
+				}
+			}
+		}
+	]
+}

@@ -1,3 +1,5 @@
+export const DB_PREFIX = 'graphics-sfx';
+
 // Start from 01
 const p = 'modules/pf2e-graphics/assets/library/sounds';
 export const database = {
@@ -1589,26 +1591,3 @@ export const database = {
 	},
 	// #endregion
 } as const;
-
-/**
- * Converts a nested Sequencer database object into a flat array of database paths.
- *
- * @param db The nested database object.
- * @returns An array of dot-separated database paths prepended with the module name (e.g. "graphics-sfx.generic.miss.01").
- */
-function getSequencerDBPaths(db: typeof database): string[] {
-	const paths: Set<string> = new Set();
-	const followObjectTree = (path: string, value: any): void => {
-		if (typeof value === 'string') {
-			paths.add(path);
-		} else {
-			for (const key in value) {
-				followObjectTree(`${path}.${key}`, value[key]);
-			}
-		}
-	};
-	followObjectTree('pf2e-graphics', db);
-	return Array.from(paths);
-}
-
-export const flatDatabase = getSequencerDBPaths(database);

@@ -3,7 +3,10 @@
 		{
 			"trigger": "attack-roll",
 			"preset": "ranged",
-			"file": "jb2a.slingshot"
+			"file": "jb2a.slingshot",
+			"predicate": [
+				"jb2a:patreon"
+			]
 		}
 	]
 }

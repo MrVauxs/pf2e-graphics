@@ -10,7 +10,7 @@ import { type fileValidationResult, pluralise, safeJSONParse, testFilesRecursive
  */
 export function testAndMergeAnimations(
 	targetPath: string,
-): { success: true; data: Animations } | { success: false; data?: Animations; errors: fileValidationResult[] } {
+): { success: true; data: Animations } | { success: false; data?: Animations; issues: fileValidationResult[] } {
 	const referenceTracker = new (class ReferenceTracker extends Map<string, Set<string>> {
 		constructor() {
 			super();
@@ -53,44 +53,45 @@ export function testAndMergeAnimations(
 
 				// Validate schema
 				const schemaResult = validateAnimationData(file.data);
-				if (!schemaResult.success) {
-					return {
-						success: false,
-						message: `${schemaResult.error.issues.length} schema ${pluralise('issue', schemaResult.error.issues.length)}`,
-						issues: schemaResult.error.issues,
-					};
-				}
 
-				// We know the type of `file.json` because otherwise the schema validation above would have returned early.
-				const animations = file.data as { [key: string]: string | AnimationObject[] };
-				for (const key in animations) {
+				// Test whether the data is an object and is therefore mergeable
+				if (typeof file.data === 'object' && file.data !== null && !Array.isArray(file.data)) {
+					const animations = file.data as { [key: string]: string | AnimationObject[] };
+					for (const key in animations) {
 					// Test for duplicate keys
-					if (mergedAnimations.has(key)) {
-						return {
-							success: false,
-							message: `Animation assigned elsewhere to roll option ${key}`,
-						};
-					}
-					mergedAnimations.set(key, animations[key]);
+						if (mergedAnimations.has(key)) {
+							return {
+								success: false,
+								message: `Animation assigned elsewhere to roll option ${key}`,
+							};
+						} else {
+							mergedAnimations.set(key, animations[key]);
+						}
 
-					// Populate referenced rollOptions for validation afterwards
-					referenceTracker.populate(path, animations[key]);
+						// Populate referenced rollOptions for validation afterwards
+						referenceTracker.populate(path, animations[key]);
+					}
 				}
 
-				return { success: true };
+				if (schemaResult.success) return { success: true };
+				return {
+					success: false,
+					message: `${schemaResult.error.issues.length} schema ${pluralise('issue', schemaResult.error.issues.length)}`,
+					issues: schemaResult.error.issues,
+				};
 			},
 			'default': false,
 		},
 		{ ignoreGit: true },
 	);
 
-	const errors = results.filter(result => !result.success);
+	const issues = results.filter(result => !result.success);
 
 	// Test references
 	referenceTracker.forEach((files, rollOption) => {
 		if (!mergedAnimations.has(rollOption)) {
 			files.forEach(file =>
-				errors.push({
+				issues.push({
 					file,
 					success: false,
 					message: `Could not find referenced roll option ${rollOption}`,
@@ -101,6 +102,6 @@ export function testAndMergeAnimations(
 
 	const data = mergedAnimations.size ? Object.fromEntries(mergedAnimations) : undefined;
 
-	if (errors.length) return { success: false, data, errors };
+	if (issues.length) return { success: false, data, issues };
 	return { success: true, data: data! };
 }

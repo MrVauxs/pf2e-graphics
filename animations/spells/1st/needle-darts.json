@@ -1,0 +1,34 @@
+{
+	"item:slug:needle-darts": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"repeats": {
+					"count": 2,
+					"delayMin": 100,
+					"delayMax": 200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.bolt.physical.orange"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.bolt.physical.white"
+				}
+			]
+		}
+	]
+}

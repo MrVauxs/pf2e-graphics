@@ -1,0 +1,14 @@
+{
+	"item:slug:horn": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.template_line_piercing.generic.01.orange",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.generic.swing.{02,03}"
+				}
+			}
+		}
+	]
+}
