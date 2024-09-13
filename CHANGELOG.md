@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - **New Animations**
   - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard, Disintegrate, Spirit Blast. ([@Aziareel](<https://github.com/Aziareel>))
+  - Persistent Damage (On Apply Damage Effects Only) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
 
 ### Fixed
 

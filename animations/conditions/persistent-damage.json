@@ -1,7 +1,10 @@
 {
 	"item:slug:persistent-damage": [
 		{
-			"trigger": ["damage-taken", "toggle"],
+			"trigger": [
+				"damage-taken",
+				"toggle"
+			],
 			"preset": "onToken",
 			"options": {
 				"scaleToObject": 1.5
@@ -11,46 +14,109 @@
 					"predicate": [
 						"item:damage:type:acid"
 					],
-					"file": "jb2a.liquid.splash.green"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.water.spray"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.liquid.splash.green"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.liquid.splash.blue",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -100
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:bleed"
 					],
-					"file": "jb2a.liquid.splash.red"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.sword.melee.slice"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.liquid.splash.red"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.liquid.splash.blue",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 145
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:bludgeoning"
 					],
-					"file": "jb2a.impact.ground_crack.01.white",
+					"file": "jb2a.impact.ground_crack.orange.01",
 					"options": {
-						"belowTokens": true
+						"belowTokens": true,
+						"sound": {
+							"file": "graphics-sfx.generic.hit.blunt.01"
+						}
 					}
 				},
 				{
 					"predicate": [
 						"item:damage:type:cold"
 					],
-					"file": "jb2a.impact_themed.ice_shard.blue"
+					"file": "jb2a.impact_themed.ice_shard.blue",
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.ice.cast.02"
+						}
+					}
 				},
 				{
 					"predicate": [
 						"item:damage:type:electricity"
 					],
-					"file": "jb2a.static_electricity.01.blue",
+					"file": "jb2a.impact.012.blue",
 					"options": {
-						"duration": 2400,
-						"fadeIn": 500,
-						"fadeOut": 250
+						"sound": {
+							"file": "graphics-sfx.magic.lightning.impact.burst"
+						}
 					}
 				},
 				{
 					"predicate": [
 						"item:damage:type:fire"
 					],
-					"file": "jb2a.shield_themed.below.fire.02.orange",
+					"file": "jb2a.shield_themed.below.fire.01.orange",
 					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.fire.cast.single.04.small"
+						},
 						"duration": 2400,
 						"fadeIn": 500,
 						"fadeOut": 250
@@ -60,63 +126,211 @@
 					"predicate": [
 						"item:damage:type:force"
 					],
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.arcane.cast.03"
+						}
+					},
 					"file": "jb2a.cast_shape.circle.single01.blue"
 				},
 				{
 					"predicate": [
 						"item:damage:type:mental"
 					],
-					"file": "jb2a.magic_signs.rune.enchantment.intro.purple"
+					"file": "jb2a.template_circle.out_pulse.02.burst.bluewhite",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"saturate": 0.8,
+								"hue": 20
+							}
+						},
+						"sound": {
+							"file": "graphics-sfx.magic.dark.curse.02"
+						}
+					}
 				},
 				{
 					"predicate": [
 						"item:damage:type:piercing"
 					],
-					"file": "jb2a.spike_trap.10x10ft.top.no_base.normal.01",
 					"options": {
-						"belowTokens": true
-					}
+						"belowTokens": true,
+						"sound": {
+							"file": "graphics-sfx.sword.melee.impale"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.spike_trap.10x10ft.top.no_base.normal.01"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.spike_trap.10x10ft.top.holes.normal.01.01"
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:poison"
 					],
-					"file": "jb2a.impact_themed.poison.greenyellow"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.air.gust.01"
+						},
+						"duration": 2400,
+						"fadeIn": 500,
+						"fadeOut": 250,
+						"opacity": 0.8
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.sleep.cloud.02.green"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.sleep.cloud.02.pink",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 180
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:slashing"
 					],
-					"file": "jb2a.claws.200px.bright_orange"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.sword.melee.swing"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.claws.400px.bright_orange"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.claws.400px.red"
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:sonic"
 					],
-					"file": "jb2a.impact.sound.01.pinkteal"
+					"file": "jb2a.soundwave.02.blue",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -50
+							}
+						},
+						"delay": 800,
+						"sound": {
+							"file": "graphics-sfx.magic.dark.wave.02"
+						}
+					}
 				},
 				{
 					"predicate": [
 						"item:damage:type:spirit"
 					],
-					"file": "jb2a.spirit_guardians.dark_whiteblue.spirits",
 					"options": {
 						"duration": 2400,
 						"fadeIn": 500,
-						"fadeOut": 250
-					}
+						"fadeOut": 250,
+						"sound": {
+							"file": "graphics-sfx.magic.arcane.buff.01"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.spirit_guardians.blue.no_ring"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.spirit_guardians.blueyellow.ring",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 155
+									}
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
 						"item:damage:type:vitality"
 					],
-					"file": "jb2a.divine_smite.caster.reversed.yellowwhite"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.holy.attack.bell"
+						}
+					},
+					"file": "jb2a.divine_smite.caster.reversed.blueyellow"
 				},
 				{
 					"predicate": [
 						"item:damage:type:void"
 					],
-					"file": "jb2a.divine_smite.caster.reversed.dark_purple"
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.dark.curse.04"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.divine_smite.caster.reversed.dark_purple"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.divine_smite.caster.reversed.blueyellow",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": -165
+									}
+								}
+							}
+						}
+					]
 				}
 			]
 		}
