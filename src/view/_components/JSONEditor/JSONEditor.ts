@@ -1,8 +1,8 @@
-import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
-
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
+
 import { ErrorMsg } from 'src/utils';
 import { get, type Writable, writable } from 'svelte/store';
+import type { CombinedSvelteApplicationOptions, ConstructorApplicationOptions } from 'src/extensions';
 import BasicAppShell from './JSONEditor.svelte';
 
 interface extra { store: Writable<object>; permission?: boolean; readOnly?: true; stasis?: Writable<boolean>; validate: boolean }

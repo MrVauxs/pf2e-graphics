@@ -1,7 +1,7 @@
-import type { ZodIssue } from 'zod-validation-error';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as core from '@actions/core';
+import type { ZodIssue } from 'zod-validation-error';
 
 type LoggingLevels = 'info' | 'warning' | 'error';
 type DetailsMessage =

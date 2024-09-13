@@ -1,4 +1,3 @@
-import type { AnimationObject, Predicate, Preset, PresetOptions, Trigger } from './animationsSchema';
 import { z } from 'zod';
 import { DB_PREFIX as assetDatabasePrefix } from '../assets/assetDb';
 import {
@@ -8,6 +7,7 @@ import {
 	soundDatabasePaths,
 } from '../assets/flatDbs';
 import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
+import type { AnimationObject, Predicate, Preset, PresetOptions, Trigger } from './animationsSchema';
 
 type Path = (string | number)[];
 class AnimationContext {

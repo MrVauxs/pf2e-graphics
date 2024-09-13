@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation. (@Aziareel)
   - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard, Disintegrate, Spirit Blast. (@Aziareel)
   - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
+  - Creature Abilities
+    - Urevian - Diabolic Quill (@ChasarooniZ)
 
 ### Fixed
 
