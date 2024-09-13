@@ -2,27 +2,56 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { Trigger } from './animationsSchema';
+import type { EffectOptions, Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
 
-function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
-	return typeof (reference as ReferenceObject).reference === 'string';
-}
-
-function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderObject {
-	return (folder as FolderObject).contents !== undefined;
-}
-
-function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
-	return !!Array.isArray(rule);
-}
-
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject)[]>;
-interface TokenImageData { name: string; uuid?: ItemUUID; rules: TokenImageDataRule[]; requires?: string }
 type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource);
 type TokenImageShorthand = [string, string, number];
+type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] };
+type ReferenceObject = Partial<AnimationDataObject> & { reference: string };
+
+interface AnimationDataObject {
+	trigger: Trigger | Trigger[];
+	preset: PresetKeys;
+	file: string;
+	default?: true;
+	predicate?: PredicateStatement[];
+	options?: EffectOptions;
+	overrides?: string[];
+}
+
+interface TokenImageData {
+	name: string;
+	uuid?: ItemUUID;
+	rules: TokenImageDataRule[];
+	requires?: string;
+}
+
+interface AnimationHistoryObject {
+	timestamp: number;
+	rollOptions: string[];
+	trigger: Trigger | Trigger[];
+	animations: AnimationDataObject[];
+	item?: { name: string; uuid: string };
+	actor: { name: string; uuid: string };
+};
+
+declare global {
+	interface Window {
+		pf2eGraphics: pf2eGraphics;
+		AnimCore: typeof AnimCore;
+	}
+	interface pf2eGraphics {
+		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>;
+		AnimCore: typeof AnimCore;
+		liveSettings: liveSettings;
+		storeSettings: storeSettingsType;
+		history: Writable<AnimationHistoryObject[]>;
+	}
+}
 
 export let AnimCore = class AnimCore {
 	// #region Data Retrieval
@@ -297,8 +326,10 @@ export let AnimCore = class AnimCore {
 			}
 		}
 
+		// @ts-expect-error Merge shenanigans
 		return (contents || [])
 			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x, rollOptions) : x)
+			// @ts-expect-error Merge shenanigans
 			.map(child => mergeObjectsConcatArrays(parentProps, child));
 	}
 
@@ -379,18 +410,6 @@ export let AnimCore = class AnimCore {
 
 		const validAnimations = this.filterAnimations({ rollOptions, item, trigger, narrow, actor });
 
-		devLog(
-			'Animating the Following',
-			validAnimations,
-			{
-				trigger,
-				rollOptions: this.prepRollOptions(rollOptions),
-				item,
-				actor,
-				source,
-			},
-		);
-
 		this.createHistoryEntry({
 			trigger,
 			rollOptions: this.prepRollOptions(rollOptions),
@@ -416,10 +435,35 @@ export let AnimCore = class AnimCore {
 	}
 
 	// #region Method 0.10
+
+	/**
+	 * Trigger Data in.
+	 * - Run retrieve() to get all the animations proper.
+	 * - Run find() on retrieved animations to get what we are looking for.
+	 * - Run play() on found animations.
+	 * Exit.
+	 */
+	static sequence(): void {
+
+	}
+
+	/**
+	 * Trigger Data in, Animations out.
+	 */
 	static find(): AnimationDataObject[] {
 		return [];
 	}
 
+	/**
+	 * Documents in, Stored Animations out.
+	 */
+	static retrieve(): JSONData {
+		return {};
+	}
+
+	/**
+	 * Animations in, Sequences out.
+	 */
 	static play(): Promise<Sequence>[] {
 		const sequences = [new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })];
 
@@ -428,55 +472,23 @@ export let AnimCore = class AnimCore {
 	// #endregion
 };
 
+function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
+	return typeof (reference as ReferenceObject).reference === 'string';
+}
+
+function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderObject {
+	return (folder as FolderObject).contents !== undefined;
+}
+
+function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
+	return !!Array.isArray(rule);
+}
+
 Hooks.once('ready', () => {
 	if (!game.modules.get('pf2e-modifiers-matter')?.active)
 		// @ts-expect-error Modifiers Matter Safeguards
 		AnimCore.CONST.TRIGGERS = AnimCore.CONST.TRIGGERS.filter(x => x !== 'modifiers-matter');
 });
-
-// Types Below
-
-// #region JSON Data Parsing
-type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] };
-export type ReferenceObject = Partial<AnimationDataObject> & { reference: string };
-// #endregion
-
-// #region Animation Data Parsing
-export interface AnimationDataObject {
-	trigger: Trigger | Trigger[];
-	preset: PresetKeys;
-	file: string;
-	default?: boolean;
-	predicate?: PredicateStatement[];
-	options?: any;
-	overrides?: string[];
-	[key: string]: any;
-}
-
-// #endregion
-
-interface AnimationHistoryObject {
-	timestamp: number;
-	rollOptions: string[];
-	trigger: Trigger | Trigger[];
-	animations: AnimationDataObject[];
-	item?: { name: string; uuid: string };
-	actor: { name: string; uuid: string };
-};
-
-declare global {
-	interface Window {
-		pf2eGraphics: pf2eGraphics;
-		AnimCore: typeof AnimCore;
-	}
-	interface pf2eGraphics {
-		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>;
-		AnimCore: typeof AnimCore;
-		liveSettings: liveSettings;
-		storeSettings: storeSettingsType;
-		history: Writable<AnimationHistoryObject[]>;
-	}
-}
 
 // HMR
 if (import.meta.hot) {

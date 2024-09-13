@@ -532,6 +532,7 @@ const effectOptions = z
 			.optional(),
 		filter: z
 			.object({
+				// TODO: @Spappz Why isnt this a discriminated union? - @MrVauxs
 				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
 				options: z
 					.object({
@@ -757,6 +758,7 @@ const effectOptions = z
 	})
 	.strict()
 	.refine(...nonEmpty);
+export type EffectOptions = z.infer<typeof effectOptions>;
 
 const triggers = z.enum([
 	'attack-roll',
