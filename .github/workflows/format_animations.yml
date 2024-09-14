@@ -17,8 +17,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        # with:
-        #   ref: ${{ github.head_ref }}
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22.6
