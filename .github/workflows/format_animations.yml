@@ -42,3 +42,4 @@ jobs:
         with:
           commit_message: 🎨 Format animation JSONs
           file_pattern: animations/**/*.json
+          disable_globbing: true

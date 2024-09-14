@@ -10,10 +10,11 @@ function cleanFiles(files: string[]): { cleaned: number; failed: Set<string> } {
 	const failed: Set<string> = new Set();
 
 	files.forEach(async (filePath) => {
-		const file = safeJSONParse(fs.readFileSync(filePath, { encoding: 'utf8' }));
-		if (file.success) {
-			const cleanFile = `${JSON.stringify(file.data, undefined, '\t')}\n`;
-			if (cleanFile !== file.data) {
+		const file = fs.readFileSync(filePath, { encoding: 'utf8' });
+		const json = safeJSONParse(file);
+		if (json.success) {
+			const cleanFile = `${JSON.stringify(json.data, undefined, '\t')}\n`;
+			if (cleanFile !== file) {
 				cleaned++;
 				fs.writeFileSync(filePath, cleanFile, { encoding: 'utf8' });
 			}
