@@ -1,0 +1,12 @@
+{
+	"origin:item:slug:powerful-inhalation": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.explosion.04.blue",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

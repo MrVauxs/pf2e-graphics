@@ -1,27 +1,9 @@
 {
-	"effect:shield": [
-		{
-			"trigger": "effect",
-			"preset": "ranged",
-			"file": "jb2a.bullet.03.blue",
-			"predicate": [
-				{
-					"gte": [
-						"settings:quality",
-						1
-					]
-				},
-				"origin-exists"
-			],
-			"options": {
-				"mirrorX": true,
-				"waitUntilFinished": -1000
-			}
-		},
+	"effect:fire-shield": [
 		{
 			"preset": "onToken",
 			"trigger": "effect",
-			"file": "jb2a.shield.01.complete.01.blue",
+			"file": "jb2a.shield_themed.below.fire.01.orange",
 			"predicate": [
 				{
 					"gte": [
@@ -36,7 +18,7 @@
 					"considerTokenScale": true
 				},
 				"sound": {
-					"file": "graphics-sfx.magic.buff.generic.03"
+					"file": "graphics-sfx.magic.fire.armor"
 				}
 			},
 			"contents": [
@@ -53,11 +35,7 @@
 					}
 				},
 				{
-					"default": true,
-					"trigger": [
-						"effect",
-						"start-turn"
-					]
+					"default": true
 				}
 			]
 		}

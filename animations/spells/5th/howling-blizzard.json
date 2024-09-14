@@ -3,59 +3,103 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.cone_of_cold.blue",
-			"predicate": [
-				"origin:item:area:type:cone"
-			],
+			"predicate": ["origin:item:area:type:cone"],
 			"contents": [
 				{
 					"predicate": [
 						{
-							"gte": [
-								"settings:quality",
-								1
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"file": "jb2a.cone_of_cold.blue",
+					"contents": [
+						{
+							"file": "jb2a.cone_of_cold.blue"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -30
+									}
+								},
+								{
+									"options": {
+										"rotate": 30
+									}
+								}
 							]
 						}
 					]
 				},
 				{
-					"predicate": [
+					"predicate": ["conservation-of-energy:fire"],
+					"file": "jb2a.burning_hands.01.orange",
+					"contents": [
 						{
-							"gte": [
-								"settings:quality",
-								2
+							"file": "jb2a.burning_hands.01.orange"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -30
+									}
+								},
+								{
+									"options": {
+										"rotate": 30
+									}
+								}
 							]
 						}
-					],
-					"options": {
-						"rotate": -30
-					}
-				},
-				{
-					"predicate": [
-						{
-							"gte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
-					"options": {
-						"rotate": 30
-					}
+					]
 				}
 			]
 		},
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.sleet_storm.blue",
 			"predicate": [
 				"origin:item:area:type:burst"
 			],
-			"options": {
-				"scaleToObject": 1
-			}
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+
+					],
+					"file": "jb2a.sleet_storm.blue",
+					"options": {
+						"scaleToObject": 1
+					}
+				},
+				{
+					"predicate": ["conservation-of-energy:fire"],
+					"file": "jb2a.fireball.explosion.orange",
+					"options": {
+						"scaleToObject": 1.5
+					}
+				}
+			]
 		}
 	],
 	"item:slug:howling-blizzard": [

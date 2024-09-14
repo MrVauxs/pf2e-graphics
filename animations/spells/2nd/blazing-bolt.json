@@ -1,0 +1,9 @@
+{
+	"item:slug:blazing-bolt": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"file": "jb2a.scorching_ray.01.orange"
+		}
+	]
+}

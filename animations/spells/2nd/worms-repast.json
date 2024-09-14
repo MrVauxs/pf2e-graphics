@@ -1,0 +1,25 @@
+{
+	"item:slug:worms-repast": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 1.5
+			},
+			"contents": [
+				{
+					"predicate": ["jb2a:free"],
+					"file": "jb2a.butterflies.many.orange"
+				},
+				{
+					"predicate": ["jb2a:patreon"],
+					"file": "jb2a.butterflies.complete.01.white"
+				}
+			]
+
+		}
+	]
+}
