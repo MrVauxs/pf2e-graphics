@@ -50,15 +50,24 @@ export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 		return game.users.contents;
 	}
 
-	// If "nobody" owns it, whoever is the primaryUpdater (read: GM) does.
-	if (Object.entries(actor.ownership).filter((([,v]) => v !== 0)).length === 1) {
-		return [actor.primaryUpdater || game.user];
-	}
-
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
-	return Object.keys(actor.ownership).filter(x => x !== 'default').filter(x => actor.hasPlayerOwner
+	const owners = Object.keys(actor.ownership).filter(x => x !== 'default').filter(x => actor.hasPlayerOwner
 		? !game.users.get(x)?.hasRole('GAMEMASTER')
 		: game.users.get(x)?.hasRole('GAMEMASTER')).map(x => game.users.get(x, { strict: true }));
+
+	if (owners.length) {
+		return owners;
+	} else {
+		// If "nobody" owns it, whoever is the primaryUpdater (read: GM) does.
+		// This should handle weirdos like { ownership: { default: 0 } }
+		if (actor.primaryUpdater) {
+			log('Could not determine owner, defaulting to primaryUpdater.');
+			return [actor.primaryUpdater];
+		} else {
+			log('Could not determine owner nor found the primaryUpdater, defaulting to User.');
+			return [game.user];
+		}
+	}
 }
 
 export function camelToSpaces(string: string): string {
