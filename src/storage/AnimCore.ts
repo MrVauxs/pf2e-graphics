@@ -2,7 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { EffectOptions, Trigger } from './animationsSchema';
+import type { Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
@@ -19,8 +19,9 @@ interface AnimationDataObject {
 	file: string;
 	default?: true;
 	predicate?: PredicateStatement[];
-	options?: EffectOptions;
+	options?: any; // EffectOptions
 	overrides?: string[];
+	[x: string]: any;
 }
 
 interface TokenImageData {
@@ -326,10 +327,8 @@ export let AnimCore = class AnimCore {
 			}
 		}
 
-		// @ts-expect-error Merge shenanigans
 		return (contents || [])
 			.flatMap((x: AnimationDataObject | FolderObject) => isFolder(x) ? AnimCore.unfoldAnimations(x, rollOptions) : x)
-			// @ts-expect-error Merge shenanigans
 			.map(child => mergeObjectsConcatArrays(parentProps, child));
 	}
 
