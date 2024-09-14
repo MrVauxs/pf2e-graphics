@@ -1,4 +1,4 @@
-name: Format animations
+name: Format
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   format-animations:
-    name: Format animation JSONs
+    name: Animation JSONs
     runs-on: ubuntu-latest
 
     permissions:
@@ -17,8 +17,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
+        # with:
+        #   ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22.6
