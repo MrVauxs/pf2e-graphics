@@ -1,4 +1,4 @@
-import { devLog, log } from 'src/utils';
+import { log } from 'src/utils';
 
 function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	const result = {

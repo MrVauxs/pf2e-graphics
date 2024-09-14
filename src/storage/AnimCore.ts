@@ -4,7 +4,6 @@ import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
 import type { Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
-import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
 
 export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject | FolderObject)[]>;
