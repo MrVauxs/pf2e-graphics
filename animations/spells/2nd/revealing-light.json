@@ -1,0 +1,36 @@
+{
+	"origin:item:slug:revealing-light": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.markers.circle_of_stars.blue",
+			"options": {
+				"scaleToObject": 1.1
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,28 @@
+{
+	"effect:sure-strike": [
+		{
+			"trigger": [
+				"effect"
+			],
+			"preset": "onToken",
+			"file": "jb2a.glint.yellow.few.2",
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

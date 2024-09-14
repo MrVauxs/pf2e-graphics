@@ -1,0 +1,27 @@
+{
+	"item:slug:vision-of-death": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.toll_the_dead.green.skull_smoke"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.toll_the_dead.purple.skull_smoke"
+				}
+			]
+		}
+	]
+}

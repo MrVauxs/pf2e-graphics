@@ -3,43 +3,74 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.burning_hands.01.orange",
 			"contents": [
 				{
 					"predicate": [
 						{
-							"gte": [
-								"settings:quality",
-								1
+							"not": "conservation-of-energy:cold"
+						}
+					],
+					"file": "jb2a.burning_hands.01.orange",
+					"contents": [
+						{
+							"file": "jb2a.burning_hands.01.orange"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -20
+									}
+								},
+								{
+									"options": {
+										"rotate": 20
+									}
+								}
 							]
 						}
 					]
 				},
 				{
 					"predicate": [
+						"conservation-of-energy:cold"
+					],
+					"file": "jb2a.cone_of_cold.blue",
+					"contents": [
 						{
-							"gte": [
-								"settings:quality",
-								2
+							"file": "jb2a.cone_of_cold.blue"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -20
+									}
+								},
+								{
+									"options": {
+										"rotate": 20
+									}
+								}
 							]
 						}
-					],
-					"options": {
-						"rotate": -20
-					}
-				},
-				{
-					"predicate": [
-						{
-							"gte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
-					"options": {
-						"rotate": 20
-					}
+					]
 				}
 			]
 		}

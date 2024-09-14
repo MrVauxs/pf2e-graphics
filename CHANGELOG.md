@@ -10,6 +10,33 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Spear Group Attacks now work with JB2A Free version
+- Oscillating Wave's Breath Fire/Fireball now have an additional animation
+
+### Added
+
+- Polish translation (thank you @Lioheart!)
+- **New Animations**
+  - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip. (@Aziareel)
+  - Champion's Resistence, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability Module), Healer's Gloves (@Aziareel)
+  - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation. (@Aziareel)
+  - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard (+ Oscillating Wave), Disintegrate, Spirit Blast. (@Aziareel)
+  - Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Powerful Inhalation, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri'S Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave)
+  - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
+  - Creature Abilities; Urevian - Diabolic Quill (@ChasarooniZ)
+
+### Changed
+
+- Significantly rewrote the animation backend to be more efficient and less error-prone.
+  - You can now chain references, ex. `custom-lightning-spell` leading to `chain-lightning` leading to `electric-arc` (up to 10 recursions).
+
+### Fixed
+
+- Vitality Lash should now work again
+- Shield (Cantrip) should now work again(?)
+
 ## [0.9.1] - 2024-09-12
 
 ### Changed
@@ -33,10 +60,10 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - CSS Improvements (added [`content-visiblity`](<https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility>) and [`contain`](<https://developer.mozilla.org/en-US/docs/Web/CSS/contain>)) to list-like menus such as Animation History, Custom Animations, and Token Image Manager.
 - **New Animations**
   - "Accelerate" and "Decelerate" from Dreams Circle (`graphics-vfx`)
-  - Stabilize (Tradition Variants), Haste, Slow, Warp Step, Slashing Gust, Staves, Drain Bonded Item, Unleash Psyche, Produce Flame, Shove, Seek ([@MrVauxs](<https://mrvauxs.net/>))
-  - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) ([@Mystler](<https://github.com/Mystler>))
-  - Flying Flame ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
-  - Tail, Horn, Trident ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - Stabilize (Tradition Variants), Haste, Slow, Warp Step, Slashing Gust, Staves, Drain Bonded Item, Unleash Psyche, Produce Flame, Shove, Seek (@MrVauxs)
+  - Courageous Anthem (using Workbench aura), Haunting Hymn, Heal, Light, Soothe, Telekinetic Rend, Triple Time (using Workbench aura) (@Mystler)
+  - Flying Flame (@MrVauxs, @ChasarooniZ)
+  - Tail, Horn, Trident (@ChasarooniZ)
 
 ### Changed
 
@@ -45,12 +72,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Quality Settings have been changed from `graphics-quality:X` to `settings:quality:X`.
 - Removed the *Window Location* setting. Its now always on top, matching the original sheet.
 - Tweaked Animations
-  - Refactored all Conditions and some Effect animations. Some, primarily those with multiple steps were changed. ([@MrVauxs](<https://mrvauxs.net/>))
-  - Fixed all animations that were exclusive to JB2A Patreon to work on the free pack as well. (huge thanks to [@Spappz](<https://github.com/Spappz>)!)
-  - Delayed the Crossbow attack sound ([@MrVauxs](<https://mrvauxs.net/>))
-  - Blazing Wave now covers lot more area. ([@MrVauxs](<https://mrvauxs.net/>))
-  - Oscillating Wave ignite/produce flame now creates an ice projectile and not a blue fire bolt. ([@MrVauxs](<https://mrvauxs.net/>))
-  - Admonishing Ray (sound), Caustic Blast (sound), Daze, Divine Lance, Phase Bolt, Shield (sound), Void Warp (sound) ([@Mystler](<https://github.com/Mystler>))
+  - Refactored all Conditions and some Effect animations. Some, primarily those with multiple steps were changed. (@MrVauxs)
+  - Fixed all animations that were exclusive to JB2A Patreon to work on the free pack as well. (huge thanks to @Spappz!)
+  - Delayed the Crossbow attack sound (@MrVauxs)
+  - Blazing Wave now covers lot more area. (@MrVauxs)
+  - Oscillating Wave ignite/produce flame now creates an ice projectile and not a blue fire bolt. (@MrVauxs)
+  - Admonishing Ray (sound), Caustic Blast (sound), Daze, Divine Lance, Phase Bolt, Shield (sound), Void Warp (sound) (@Mystler)
 
 ### Fixed
 
@@ -113,14 +140,14 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Warnings for when you dont have JB2A enabled.
 - Conditions triggering `toggle` animations.
 - **New Sounds**
-  - [EminYILDIRIM](<https://freesound.org/people/EminYILDIRIM/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-  - [Tom Music](<https://tommusic.itch.io/>) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-  - Mapped metric ton of sounds to the DB from Ovani Sounds and GameDev Market ([@MrVauxs](<https://mrvauxs.net/>), [@ChasarooniZ](<https://github.com/ChasarooniZ>))
+  - [EminYILDIRIM](<https://freesound.org/people/EminYILDIRIM/>) (@ChasarooniZ)
+  - [Tom Music](<https://tommusic.itch.io/>) (@ChasarooniZ)
+  - Mapped metric ton of sounds to the DB from Ovani Sounds and GameDev Market (@MrVauxs, @ChasarooniZ)
 - **New Animations**
-  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-  - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram ([@Lerosnn](<https://github.com/Lerosnn>))
-  - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile ([@Mystler](<https://github.com/Mystler>)!)
-  - Added Sounds to Ignite. ([@MrVauxs](<https://mrvauxs.net/>))
+  - Remaining Elemental Blasts, Briny Bolt, Divine Wrath, Bleeding Finisher, Confident Finisher, Panache, Nudge the Scales, All of the Conditions (except persistent damage) (@ChasarooniZ)
+  - Boost Eidolon, Detect Magic, Evolution Surge, Force Barrage, Grim Tendrils, Ill Omen, Kinetic Ram (@Lerosnn)
+  - Added Sounds to Divine Lance, Phase Bolt, Rousing Splash, Telekinetic Projectile (@Mystler!)
+  - Added Sounds to Ignite. (@MrVauxs)
 
 ### Changed
 
@@ -131,15 +158,15 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 ### Fixed
 
 - The Animations Menu breaking when JB2A is not enabled ([#88](<https://github.com/MrVauxs/pf2e-graphics/issues/88>))
-- Divine Lance predicates ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
-- Shield Boss Group Fix ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- Divine Lance predicates (@ChasarooniZ)
+- Shield Boss Group Fix (@ChasarooniZ)
 - Raise a Shield using the Shield cantrip animation. It uses the Shield Rampart animation now.
 
 ## [0.7.4] - 2024-08-21
 
 ### Added
 
-- **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! ([@ChasarooniZ](<https://github.com/ChasarooniZ>))
+- **New Sounds** from [LastDayDreaming](<https://lastdaydreaming.itch.io/>)! (@ChasarooniZ)
 - Improvements to Custom Animations Menu:
   - Tooltips explaining options.
   - Delete button for subsidiary animations.
@@ -169,15 +196,15 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - More options to the Custom Animation menu.
 - Drag and Drop ordering of Custom Animations ([#46](<https://github.com/MrVauxs/pf2e-graphics/issues/46>))
 - **New Animations**:
-  - Administer First Aid, Aid, Admonishing Ray (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
-  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you [@Mystler](<https://github.com/Mystler>)!)
+  - Administer First Aid, Aid, Admonishing Ray (thank you @ChasarooniZ!)
+  - Phase Bolt, Rousing Splash, and Telekinetic Projectile (thank you @Mystler!)
 
 ### Fixed
 
 - Dev Mode not working without a refresh.
 - World Animations menu not being able to properly delete animations.
 - **Fixed Animations**:
-  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. ([@7H3LaughingMan](<https://github.com/7H3LaughingMan>))
+  - Breath Fire, Chilling Spray, and Dizzying Colors should now take up the whole cone. (@7H3LaughingMan)
 
 ## [0.7.1] - 2024-08-18
 
@@ -195,9 +222,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Ability to force `attachTo` on line and cone animations instead of standard `stretchTo`.
 - SFX indicators, a Search bar, total tally, and columns config to Preset Animations Menu.
 - **New Animations**:
-  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
-  - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
-  - Pick Weapon Group (free JB2A version) ([@MrVauxs](<https://mrvauxs.net/>))
+  - Acid Splash, Alarm, Blight Bomb, Breathe Fire, Caustic Blast, Charm, Chilling Spray, Command, Daze, Dizzying Colors, Dread Ampoule, Enfeeble, Frostbite, Gale Blast, Gouging Claw, Mystic Armor, Puff of Poison, Scatter Scree, Spout, Void Warp (thank you @7H3LaughingMan!)
+  - Divine Lance, Shield Spikes, Chain Sword, Shield Boss, Ray of Frost (thank you @ChasarooniZ!)
+  - Pick Weapon Group (free JB2A version) (@MrVauxs)
 - **New Sounds** from [SoundFlakes](<https://freesound.org/people/SoundFlakes/>)!
 
 ### Changed
@@ -219,8 +246,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - `origin-exists` roll option to predicate animations based on whether the effect comes from another actor than the recipient.
 - `mirrorY` and `mirrorX` Sequencer options.
 - **New Animations**:
-  - Spell Effect: Shield (giving it to another token) ([@MrVauxs](<https://mrvauxs.net/>))
-  - Raise a Shield, Shields of the Spirit (Security) (thank you [@ChasarooniZ](<https://github.com/ChasarooniZ>)!)
+  - Spell Effect: Shield (giving it to another token) (@MrVauxs)
+  - Raise a Shield, Shields of the Spirit (Security) (thank you @ChasarooniZ!)
 
 ### Changed
 
@@ -242,7 +269,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 ### Added
 
 - `template:typeOfTemplate` roll options for templates.
-- **New Animations**: Acid Flask, Alchemist's Fire, Bottled Lightning, and Frost Vial (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
+- **New Animations**: Acid Flask, Alchemist's Fire, Bottled Lightning, and Frost Vial (thank you @7H3LaughingMan!)
 
 ### Fixed
 
@@ -261,7 +288,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - `jb2a:patreon` and `jb2a:free` roll options for animations.
 - Preset Animations tab in World Animations menu. Allows you to see all pre-made animations and their code.
-- **New Animations**: Club, Dart, Shield, Spear, Axe, Bomb, Brawling, Flail, Hammer, Polearm, and Sling (thank you [@7H3LaughingMan](<https://github.com/7H3LaughingMan>)!)
+- **New Animations**: Club, Dart, Shield, Spear, Axe, Bomb, Brawling, Flail, Hammer, Polearm, and Sling (thank you @7H3LaughingMan!)
 
 ### Changed
 

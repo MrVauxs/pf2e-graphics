@@ -1,4 +1,4 @@
-import { devLog, log, nonNullable } from 'src/utils';
+import { log, nonNullable } from 'src/utils';
 
 function handleEffect(item: ItemPF2e, delayed = false) {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;
@@ -9,6 +9,12 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 		return;
 	}
 
+	const sources = item.actor?.getActiveTokens();
+	if (!sources || !sources.length) {
+		log('No token found for the Effect trigger. Aborting!');
+		return;
+	};
+
 	const diffOrigin = item.origin?.id !== item.actor?.id ? item.origin : false;
 	const rollOptions = item.getRollOptions(item.type).concat(item.getOriginData().rollOptions || []);
 
@@ -17,24 +23,23 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 		const RSRollOptions = entries
 			.map(([k, v]) =>
 				typeof v === 'string' || typeof v === 'number'
-					? `effect:rule-selection:${game.pf2e.system.sluggify(k)}:${JSON.stringify(v)}`
+					? `effect:rule-selection:${game.pf2e.system.sluggify(k)}:${String(v)}`
 					: undefined)
 			.filter(nonNullable);
 
 		rollOptions.push(...RSRollOptions);
 	}
 
-	const deliverable = {
+	if (diffOrigin) rollOptions.push('origin-exists');
+
+	window.pf2eGraphics.AnimCore.animate({
 		rollOptions,
 		trigger: 'effect' as const,
 		item,
+		actor: item.actor,
+		sources,
 		targets: diffOrigin ? item.origin?.getActiveTokens() : undefined,
-	};
-
-	if (diffOrigin) deliverable.rollOptions.push('origin-exists');
-
-	devLog('Effect Hook Data', deliverable);
-	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+	}, 'Effect Animation Data');
 }
 
 const createItem = Hooks.on('createItem', handleEffect);

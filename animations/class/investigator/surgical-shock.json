@@ -1,0 +1,27 @@
+{
+	"action:surgical-shock": [
+		{
+			"trigger": "skill-check",
+			"preset": "melee",
+			"predicate": [
+				{
+					"not": "check:outcome:critical-failure"
+				}
+			],
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.template_line_piercing.generic.01.orange"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.melee_generic.piercing.two_handed"
+				}
+			]
+		}
+	]
+}

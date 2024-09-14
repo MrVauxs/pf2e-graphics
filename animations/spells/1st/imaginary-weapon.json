@@ -1,0 +1,9 @@
+{
+	"item:slug:imaginary-weapon": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"file": "jb2a.melee_attack.02.trail.01.blueyellow"
+		}
+	]
+}

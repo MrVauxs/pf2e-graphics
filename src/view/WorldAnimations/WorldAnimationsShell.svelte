@@ -24,10 +24,10 @@
 		return !!entry;
 	}
 
-	let parsedAnimations = window.pf2eGraphics.AnimCore.allAnimations();
+	let parsedAnimations = window.pf2eGraphics.AnimCore.retrieve().animations;
 
 	import.meta.hot?.on('updateAnims', () => {
-		parsedAnimations = window.pf2eGraphics.AnimCore.allAnimations();
+		parsedAnimations = window.pf2eGraphics.AnimCore.retrieve().animations;
 	});
 </script>
 

@@ -1,0 +1,31 @@
+{
+	"item:slug:lose-the-path": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 1.5,
+				"duration": 3000,
+				"fadeIn": 250,
+				"fadeOut": 500
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.magic_signs.rune.illusion.complete.purple"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.magic_signs.rune.illusion.complete.green"
+				}
+			]
+		}
+	]
+}

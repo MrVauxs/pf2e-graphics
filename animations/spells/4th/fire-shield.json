@@ -1,0 +1,43 @@
+{
+	"effect:fire-shield": [
+		{
+			"preset": "onToken",
+			"trigger": "effect",
+			"file": "jb2a.shield_themed.below.fire.01.orange",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"sound": {
+					"file": "graphics-sfx.magic.fire.armor"
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				},
+				{
+					"default": true
+				}
+			]
+		}
+	]
+}

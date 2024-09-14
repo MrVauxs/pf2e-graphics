@@ -34,18 +34,20 @@ jobs:
         run: npm ci
 
       - name: Vite build
+        id: build
         env:
           IGNORE_ESLINT: true
         run: npm run build:vite
 
       - name: File Existence
+        id: files
         uses: andstor/file-existence-action@v3.0.0
         with:
           files: "module.json, dist/pf2e-graphics.js"
           fail: true
 
       - name: Build DEBUG
-        if: failure()
+        if: failure() && steps.build.outcome == 'success'
         env:
           IGNORE_ESLINT: true
         run: npm run build:vite -- --debug

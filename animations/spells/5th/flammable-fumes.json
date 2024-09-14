@@ -1,0 +1,37 @@
+{
+	"origin:item:slug:flammable-fumes": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.wind_lines.01.01.white",
+			"options": {
+				"scaleToObject": 1,
+				"rotate": 90
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

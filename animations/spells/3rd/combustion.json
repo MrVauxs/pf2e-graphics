@@ -1,0 +1,18 @@
+{
+	"item:slug:combustion": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.flames.orange.03.2x2",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": {
+					"value": 1.8,
+					"considerTokenScale": true
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,25 @@
+{
+	"check:substitution:devise-a-stratagem": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.sneak_attack.dark_green",
+			"options": {
+				"delay": 1500,
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				},
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": -60
+					}
+				}
+			}
+		}
+	]
+}

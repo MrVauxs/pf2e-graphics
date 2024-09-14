@@ -1,0 +1,52 @@
+{
+	"action:treat-wounds": [
+		{
+			"trigger": "skill-check",
+			"preset": "onToken",
+			"file": "jb2a.healing_generic.400px.green",
+			"options": {
+				"scaleToObject": 1.5,
+				"preset": {
+					"location": "target"
+				}
+			},
+			"predicate": [
+				{
+					"not": "check:outcome:failure"
+				}
+			],
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"check:outcome:critical-failure"
+					],
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.liquid.splash.red"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.liquid.splash.blue",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"hue": 145
+									}
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

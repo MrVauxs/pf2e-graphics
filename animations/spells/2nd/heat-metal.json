@@ -1,0 +1,30 @@
+{
+	"item:slug:heat-metal": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 2
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:cold"
+						}
+					],
+					"file": "jb2a.flames.orange.03.2x2"
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:cold"
+					],
+					"file": "jb2a.ice_spikes.radial.burst.white"
+				}
+			]
+		}
+	]
+}

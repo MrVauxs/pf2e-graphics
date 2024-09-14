@@ -1,0 +1,15 @@
+{
+	"spell:slug:cleanse-affliction": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.energy_strands.in.green.01.2",
+			"options": {
+				"scaleToObject": 2,
+				"preset": {
+					"location": "target"
+				}
+			}
+		}
+	]
+}

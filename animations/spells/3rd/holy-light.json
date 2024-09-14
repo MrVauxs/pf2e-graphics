@@ -1,0 +1,22 @@
+{
+	"item:slug:holy-light": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.guiding_bolt.01.blueyellow"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.eldritch_blast.rainbow"
+				}
+			]
+		}
+	]
+}
