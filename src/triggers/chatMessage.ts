@@ -1,5 +1,5 @@
 import type { Trigger } from 'src/storage/animationsSchema';
-import { devLog, log } from 'src/utils';
+import { devLog, log, nonNullable } from 'src/utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
@@ -42,9 +42,9 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	// If there is an origin, get the actors token.
 	// Otherwise just ~~kill~~ use the messenger.
-	const source = message.flags.pf2e.origin?.actor
-		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
-		: message.token;
+	const sources = message.flags.pf2e.origin?.actor
+		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()
+		: [message.token];
 
 	const newOptions = [];
 
@@ -61,16 +61,15 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
-	const deliverable = {
+	window.pf2eGraphics.AnimCore.animate({
 		rollOptions: rollOptions.concat(newOptions),
 		trigger,
-		targets,
-		source,
+		sources,
+		targets: targets.filter(nonNullable),
+		actor: message.actor,
 		item: message.item,
 		animationOptions,
-	};
-	devLog('Chat Message Hook', deliverable);
-	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+	}, 'Message Animation Data');
 }
 
 const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) => {
@@ -113,17 +112,15 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 			const trigger = roll.roll.options.type;
 			const animationOptions = { missed: roll?.success };
 
-			const deliverable = {
+			window.pf2eGraphics.AnimCore.animate({
 				rollOptions,
 				trigger,
 				targets: [target],
-				source: message.token,
+				sources: [message.token],
 				item: message.item,
+				actor: message.actor,
 				animationOptions,
-			};
-
-			devLog('Target Helper Hook', deliverable);
-			window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+			}, 'Target Helper Hook');
 		}
 	}
 });

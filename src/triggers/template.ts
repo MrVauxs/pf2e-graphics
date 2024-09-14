@@ -1,4 +1,4 @@
-import { devLog, log } from 'src/utils';
+import { log, nonNullable } from 'src/utils';
 
 function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
@@ -9,7 +9,14 @@ function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false)
 
 	const { actor, item, message, flags: { pf2e: { origin } } } = template;
 
-	const deliverable = {
+	const sources = message?.token ? [message.token] : actor?.getActiveTokens();
+	if (!sources || !sources.length) {
+		log('No token found for the Effect trigger. Aborting!');
+		return;
+	}
+
+	// Timed out because of some bizzare circumstance where coordinates are not delivered on time resulting in a 0,0 position.
+	setTimeout(() => window.pf2eGraphics.AnimCore.animate({
 		rollOptions: [
 			...(origin?.rollOptions ?? []),
 			...(message?.actor?.getRollOptions() ?? []),
@@ -18,14 +25,10 @@ function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false)
 		] as const),
 		trigger: 'place-template' as const,
 		targets: [template],
-		source: message?.token,
+		sources,
 		actor,
 		item,
-	};
-
-	devLog('Template Hook Data', deliverable);
-	// Timed out because of some bizzare circumstance where coordinates are not delivered on time resulting in a 0,0 position.
-	setTimeout(() => window.pf2eGraphics.AnimCore.findAndAnimate(deliverable), 100);
+	}, 'Template Animation Data'), 100);
 }
 
 const createMeasuredTemplateHook = Hooks.on('createMeasuredTemplate', handleTemplate);

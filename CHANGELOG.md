@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
   - Creature Abilities; Urevian - Diabolic Quill (@ChasarooniZ)
 
+### Changed
+
+- Significantly rewrote the animation backend to be more efficient and less error-prone.
+  - You can now chain references, ex. `custom-lightning-spell` leading to `chain-lightning` leading to `electric-arc` (up to 10 recursions).
+
 ### Fixed
 
 - Vitality Lash should now work again

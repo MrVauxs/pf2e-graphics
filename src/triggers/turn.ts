@@ -1,4 +1,4 @@
-import { devLog, log } from 'src/utils';
+import { log } from 'src/utils';
 
 function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end', delayed = false) {
 	const { actor, token } = combatant;
@@ -9,16 +9,18 @@ function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'sta
 		return;
 	}
 
-	const deliverable = {
+	if (!token) {
+		log(`No token found for the ${type}-turn trigger. Aborting!`);
+		return;
+	}
+
+	window.pf2eGraphics.AnimCore.animate({
 		trigger: `${type}-turn` as const,
-		source: token,
+		sources: [token],
 		rollOptions: (actor?.getRollOptions() || [])
 			.flatMap(x => /self:|origin:/.exec(x) ? [x, x.split(':').slice(1).join(':')] : x),
 		actor,
-	};
-
-	devLog(`${type.toUpperCase()} Turn Hook Data`, deliverable);
-	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+	}, `${type.toUpperCase()} Turn Animation Data`);
 }
 
 const startTurn = Hooks.on('pf2e.startTurn', (a: CombatantPF2e, b: EncounterPF2e) => handler(a, b, 'start'));
