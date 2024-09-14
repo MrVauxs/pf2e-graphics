@@ -1,0 +1,15 @@
+{
+	"spell:slug:translate": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.rune.divination.intro.blue",
+			"options": {
+				"scaleToObject": 1.2,
+				"preset": {
+					"location": "target"
+				}
+			}
+		}
+	]
+}

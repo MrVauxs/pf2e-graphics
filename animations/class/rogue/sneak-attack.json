@@ -1,0 +1,10 @@
+{
+	"feature:sneak-attack": [
+		{
+			"reference": "check:substitution:devise-a-stratagem",
+			"predicate": [
+				"target:condition:off-guard"
+			]
+		}
+	]
+}

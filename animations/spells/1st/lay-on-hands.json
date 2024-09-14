@@ -1,0 +1,15 @@
+{
+	"item:slug:lay-on-hands": [
+		{
+			"trigger": "damage-taken",
+			"preset": "onToken",
+			"file": "jb2a.cure_wounds.400px.blue",
+			"options": {
+				"scaleToObject": 1.5,
+				"preset": {
+					"location": "target"
+				}
+			}
+		}
+	]
+}

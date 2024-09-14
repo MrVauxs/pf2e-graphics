@@ -3,19 +3,13 @@
 		{
 			"trigger": "damage-roll",
 			"preset": "onToken",
-			"file": "jb2a.campfire.03.02.loop.orange",
+			"file": "jb2a.flames.orange.03.2x2",
 			"options": {
 				"preset": {
-					"location": "target",
-					"atLocation": {
-						"offset": {
-							"y": -2.1
-						},
-						"gridUnits": true
-					}
+					"location": "target"
 				},
 				"scaleToObject": {
-					"value": 7,
+					"value": 1.8,
 					"considerTokenScale": true
 				}
 			}
