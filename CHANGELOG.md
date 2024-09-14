@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
   - Champion's Resistence, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability), Healer's Gloves (@Aziareel)
   - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation. (@Aziareel)
   - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard (+ Oscillating Wave), Disintegrate, Spirit Blast. (@Aziareel)
-  - Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri'S Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave)
+  - Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Powerful Inhalation, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri'S Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave)
   - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
   - Creature Abilities; Urevian - Diabolic Quill (@ChasarooniZ)
 
