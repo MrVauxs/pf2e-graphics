@@ -17,7 +17,7 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 		const RSRollOptions = entries
 			.map(([k, v]) =>
 				typeof v === 'string' || typeof v === 'number'
-					? `effect:rule-selection:${game.pf2e.system.sluggify(k)}:${JSON.stringify(v)}`
+					? `effect:rule-selection:${game.pf2e.system.sluggify(k)}:${String(v)}`
 					: undefined)
 			.filter(nonNullable);
 
