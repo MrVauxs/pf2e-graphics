@@ -51,9 +51,13 @@ export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 	}
 
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
-	const owners = Object.keys(actor.ownership).filter(x => x !== 'default').filter(x => actor.hasPlayerOwner
-		? !game.users.get(x)?.hasRole('GAMEMASTER')
-		: game.users.get(x)?.hasRole('GAMEMASTER')).map(x => game.users.get(x, { strict: true }));
+	const owners = Object.keys(actor.ownership)
+		.filter(x => x !== 'default')
+		.filter(x => actor.hasPlayerOwner
+			? !game.users.get(x)?.hasRole('GAMEMASTER')
+			: game.users.get(x)?.hasRole('GAMEMASTER'))
+		.map(x => game.users.get(x))
+		.filter(nonNullable);
 
 	if (owners.length) {
 		return owners;
@@ -64,8 +68,8 @@ export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 			log('Could not determine owner, defaulting to primaryUpdater.');
 			return [actor.primaryUpdater];
 		} else {
-			log('Could not determine owner nor found the primaryUpdater, defaulting to User.');
-			return [game.user];
+			log('Could not determine owner nor found the primaryUpdater, defaulting to all GMs.');
+			return game.users.filter(x => x.isGM);
 		}
 	}
 }
