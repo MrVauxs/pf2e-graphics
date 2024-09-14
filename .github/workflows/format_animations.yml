@@ -1,0 +1,44 @@
+name: Format animations
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - animations/**/*.json
+
+jobs:
+  format-animations:
+    name: Format animation JSONs
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.6
+
+      - name: Cache NPM dependencies
+        id: cache-npm
+        uses: actions/cache@v4
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM dependencies
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+      - name: Format animation JSONs
+        run: npm run build:clean
+
+      # Commit all changed files back to the repository
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 🎨 Format animation JSONs
+          file_pattern: animations/**/*.json
