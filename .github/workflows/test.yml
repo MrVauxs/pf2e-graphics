@@ -112,20 +112,20 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            json:
+            doc:
               - 'animations/**/*.json'
-            db:
+            src:
               - 'src/assets/*Db.ts'
 
       - name: Test animation files
-        if: steps.modified-animations.outputs.json_any_changed == 'true'
+        if: steps.modified-animations.outputs.doc_any_changed == 'true'
         env:
-          MODIFIED_ANIMATIONS: ${{ steps.modified-animations.outputs.json_all_changed_files }}
+          MODIFIED_ANIMATIONS: ${{ steps.modified-animations.outputs.doc_all_changed_files }}
         run: |
           for file in ${MODIFIED_ANIMATIONS}; do
             npm run test -- file
           done
 
       - name: Test sequencer DB
-        if: steps.modified-animations.outputs.db_any_changed == 'true'
+        if: steps.modified-animations.outputs.src_any_changed == 'true'
         run: npm run test:assets
