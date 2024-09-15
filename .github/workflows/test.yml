@@ -103,20 +103,20 @@ jobs:
               - src/assets/*Db.ts
 
       - uses: actions/setup-node@v4
-        if: steps.changed-animations.outputs.json_any_changed == 'true'
+        if: steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true'
         with:
           node-version: 22.6
 
       - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
-        if: steps.changed-animations.outputs.any_changed == 'true'
+        if: steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true'
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: Install NPM dependencies
-        if: ${{ steps.changed-animations.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true' }}
+        if: ${{ (steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true') && steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm ci
 
       - name: Test animation files
