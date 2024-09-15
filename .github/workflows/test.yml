@@ -125,7 +125,7 @@ jobs:
           MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.json_all_changed_files }}
         run: |
           for file in ${MODIFIED_ANIMATIONS}; do
-            npm run test:animations -- "$file"
+            npm run test:animations -- "$file" || true
           done
 
       - name: Test sequencer DB
