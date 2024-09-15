@@ -103,14 +103,14 @@ jobs:
               - src/assets/*Db.ts
 
       - uses: actions/setup-node@v4
-        if: ${{ steps.changed-animations.outputs.any_changed == 'true' }}
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           node-version: 22.6
 
       - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
-        if: ${{ steps.changed-animations.outputs.any_changed == 'true' }}
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
@@ -129,5 +129,5 @@ jobs:
           done
 
       - name: Test sequencer DB
-        if: ${{ steps.changed-animations.outputs.db_any_changed == 'true' }}
+        if: steps.changed-animations.outputs.db_any_changed == 'true'
         run: npm run test:assets
