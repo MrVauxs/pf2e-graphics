@@ -42,9 +42,11 @@ jobs:
       - name: Format animation JSONs
         run: npm run build:clean
 
-      # Commit all changed files back to the repository
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 🎨 Format animation JSONs
-          file_pattern: animations/**/*.json
-          disable_globbing: true
+      - name: Push to PR
+        run: |-
+          git pull
+          git add animations/**/*.json
+          git diff
+          git -c user.name="GitHub Actions" -c user.email="actions@github.com"
+          git commit -m "Cleaned animation JSONs" -a --author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>" || echo "No changes to commit"
+          git push
