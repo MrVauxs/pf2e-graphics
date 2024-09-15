@@ -113,9 +113,9 @@ jobs:
         with:
           files: |
             doc:
-              - 'animations/**/*.json'
+              - animations/**/*.json
             src:
-              - 'src/assets/*Db.ts'
+              - src/assets/*Db.ts
 
       - name: Test animation files
         if: steps.modified-animations.outputs.doc_any_changed == 'true'
