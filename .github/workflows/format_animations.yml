@@ -47,6 +47,5 @@ jobs:
           git pull
           git add animations/**/*.json
           git diff
-          git -c user.name="GitHub Actions" -c user.email="actions@github.com"
-          git commit -m "Cleaned animation JSONs" -a --author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>" || echo "No changes to commit"
+          git -c user.name="GitHub Actions" -c user.email="actions@github.com commit -m "Cleaned animation JSONs" -a --author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>" || echo "No changes to commit"
           git push
