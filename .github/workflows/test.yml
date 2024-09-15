@@ -116,7 +116,7 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: Install NPM dependencies
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        if: ${{ steps.changed-animations.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm ci
 
       - name: Test animation files
@@ -125,7 +125,7 @@ jobs:
           MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.json_all_changed_files }}
         run: |
           for file in ${MODIFIED_ANIMATIONS}; do
-            npm run test:animations -- file
+            npm run test:animations -- "$file"
           done
 
       - name: Test sequencer DB
