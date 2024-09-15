@@ -118,6 +118,14 @@ jobs:
               - src/assets/*Db.ts
 
       - name: Test animation files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.modified-animations.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
+      - name: Test animation files
         if: steps.modified-animations.outputs.doc_any_changed == 'true'
         env:
           MODIFIED_ANIMATIONS: ${{ steps.modified-animations.outputs.doc_all_changed_files }}
