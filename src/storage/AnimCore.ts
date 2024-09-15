@@ -2,25 +2,27 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { Trigger } from './animationsSchema';
+import type { EffectOptions, Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { type PresetKeys, presets } from './presets';
 
-export type JSONData = Record<string, string | (ReferenceObject | AnimationDataObject | FolderObject)[]>;
-type FolderObject = Partial<AnimationDataObject> & { contents?: (AnimationDataObject | FolderObject)[] };
-type ReferenceObject = Partial<AnimationDataObject> & { reference: string };
-type TokenImageDataRule = (TokenImageShorthand | TokenImageRuleSource);
+type JSONData = Record<string, string | JSONDataObject[]>;
+type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number];
 
-interface AnimationDataObject {
+type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
+
+interface JSONDataObject {
 	trigger: Trigger | Trigger[];
 	preset: PresetKeys;
-	file: string;
-	default?: true;
+	file: string | string[];
 	predicate?: PredicateStatement[];
-	options?: any; // EffectOptions
+	options?: EffectOptions;
+	// Removed in search() or made irrelevant
 	overrides?: string[];
-	[x: string]: any;
+	default?: true;
+	reference?: string;
+	contents?: JSONDataObject[];
 }
 
 interface TokenImageData {
@@ -34,7 +36,7 @@ interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
-	animations: AnimationDataObject[];
+	animations: AnimationObject[];
 	item?: { name: string; uuid: string };
 	actor: { name: string; uuid: string };
 };
@@ -45,7 +47,7 @@ declare global {
 		AnimCore: typeof AnimCore;
 	}
 	interface pf2eGraphics {
-		modules: Record<string, Record<string, string | ReferenceObject | AnimationDataObject[]>>;
+		modules: Record<string, JSONData>;
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
@@ -102,19 +104,14 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	/**
-	 * Removes any inline {randomOptions} from the file path and returns the valid file path with one of the options randomly picked.
-	 * TODO: Possibly change this to return an `strings[]` for Sequencer to do its own file randomization.
-	 */
-	static parseFile(file: string = ''): string {
+	static parseFile(file: string = ''): string[] {
 		const match = file.match(/\{(.*?)\}/);
 		if (!match)
-			return file;
+			return [file];
 
 		const [_, options] = match;
 		const parsedOptions = options.split(',');
-		const randomOption = Sequencer.Helpers.random_array_element(parsedOptions);
-		return file.replace(`{${options}}`, randomOption);
+		return parsedOptions.map(x => file.replace(`{${options}}`, x));
 	}
 
 	static prepRollOptions(array: string[]): string[] {
@@ -146,12 +143,6 @@ export let AnimCore = class AnimCore {
 	}
 
 	static CONST = {
-		TEMPLATE_ANIMATION: (): AnimationDataObject => ({
-			trigger: this.CONST.TRIGGERS[0],
-			preset: this.CONST.PRESETS[0],
-			file: '',
-			options: {},
-		}),
 		PRESETS: Object.keys(presets) as PresetKeys[],
 		TRIGGERS: [
 			'attack-roll',
@@ -292,35 +283,26 @@ export let AnimCore = class AnimCore {
 	 * Checks the rollOptions against provided animations and outputs whatever matches.
 	 * Meant to be used in conjunction with retrieve() for the second parameter.
 	 */
-	static search(rollOptions: string[], triggers: string[] = [], animations: JSONData = AnimCore.animations): Record<string, AnimationDataObject[]> {
+	static search(rollOptions: string[], triggers: string[] = [], animations: JSONData = AnimCore.animations): Record<string, AnimationObject[]> {
 		const matchingBranches = Object.entries(animations).filter(([k]) => rollOptions.includes(k));
-		const animationsNoStrings = matchingBranches.map(([k, v]) => [k, parseStrings(v, k)] as const);
-		const animationsNoRefs = animationsNoStrings.map(([k, v]) => [k, parseReferences(v, k)] as const);
-		const filteredAnimations = animationsNoRefs.map(([k, v]) => [k, filterChildren(v)] as const);
-		const unfoldedAnimations = filteredAnimations.map(([k, v]) => [k, unfoldAnimations(v)] as const);
-		// Do not bother if there are no triggers.
-		const notTriggeredAnimations = triggers.length
-			? unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const)
-			: unfoldedAnimations;
+		const animationsNoStrings = matchingBranches.map(([k, v]) => [k, parseStrings(v, k)] as const satisfies [string, object[]]);
+		const animationsNoRefs = animationsNoStrings.map(([k, v]) => [k, parseReferences(v, k)] as const satisfies [string, object[]]);
+		const filteredAnimations = animationsNoRefs.map(([k, v]) => [k, filterChildren(v)] as const satisfies [string, object[]]);
+		const unfoldedAnimations = filteredAnimations.map(([k, v]) => [k, unfoldAnimations(v)] as const satisfies [string, object[]]);
+		// Do not bother if there are no triggers. We dont want to discriminate animations that *can* happen.
+		if (triggers.length) {
+			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
+			const notOverridenAnimations = filterByOverride(notTriggeredAnimations);
 
-		return Object.fromEntries(notTriggeredAnimations);
-
-		function filterByTriggers(
-			v: AnimationDataObject[],
-		) {
-			return v.filter(a => [a.trigger].flat().find(t => triggers.includes(t)));
-		}
-
-		function filterChildren(
-			v: (AnimationDataObject | FolderObject)[],
-		) {
-			return v.filter(x => game.pf2e.Predicate.test(x.predicate, rollOptions));
+			return Object.fromEntries(notOverridenAnimations);
+		} else {
+			return Object.fromEntries(unfoldedAnimations);
 		}
 
 		function parseStrings(
-			v: string | (AnimationDataObject | ReferenceObject | FolderObject)[],
+			v: string | JSONDataObject[],
 			k: string,
-		): (AnimationDataObject | ReferenceObject)[] {
+		): JSONDataObject[] {
 			let recursion = 0;
 			while (typeof v === 'string') {
 				if (recursion < 10) {
@@ -330,15 +312,15 @@ export let AnimCore = class AnimCore {
 					throw new ErrorMsg(`The ${k} animation recurses too many times! Check if the animation isnt perhaps an infinite loop.`);
 				}
 			}
-			return v as (AnimationDataObject | ReferenceObject)[];
+			return v;
 		}
 
 		function parseReferences(
-			v: (AnimationDataObject | ReferenceObject | FolderObject)[],
+			v: JSONDataObject[],
 			k: string,
-		): (AnimationDataObject | FolderObject)[] {
+		): Omit<JSONDataObject, 'reference'>[] {
 			const parsed = v.map((obj) => {
-				if (hasReference(obj)) {
+				if ('reference' in obj && obj.reference) {
 					const ref = parseStrings(animations[obj.reference], k);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
@@ -348,15 +330,15 @@ export let AnimCore = class AnimCore {
 				// This cannot be moved above since its in the context of ReferenceObject where reference is required, not optional.
 				if ('reference' in obj)	delete obj.reference;
 
-				return obj as AnimationDataObject | FolderObject;
+				return obj;
 			});
 			return parsed;
 		}
 
 		function unfoldAnimations(
-			v: (AnimationDataObject | FolderObject)[],
-		): AnimationDataObject[] {
-			function unfoldSingle(folder: FolderObject): AnimationDataObject[] {
+			v: Omit<JSONDataObject, 'reference'>[],
+		): Omit<JSONDataObject, 'reference' | 'contents'>[] {
+			function unfoldSingle(folder: JSONDataObject): AnimationObject[] {
 				let { contents = [], ...parentProps } = folder;
 
 				if (contents.length && contents.some(x => x.default)) {
@@ -372,13 +354,41 @@ export let AnimCore = class AnimCore {
 				delete parentProps.default;
 
 				return contents
-					.flatMap(child => isFolder(child) ? unfoldSingle(child) : child)
-					.map(child => mergeObjectsConcatArrays(parentProps as AnimationDataObject, child));
+					.flatMap(child => child.contents ? unfoldSingle(child) : child)
+					.map(child => mergeObjectsConcatArrays(parentProps, child as any));
 			}
 
-			const completed = v.flatMap(folder => isFolder(folder) ? unfoldSingle(folder) : folder);
+			const completed = v.flatMap(folder => folder.contents ? unfoldSingle(folder) : folder);
 
 			return completed;
+		}
+
+		function filterChildren<T extends { predicate?: PredicateStatement[] }>(
+			v: T[],
+		) {
+			return v.filter(x => game.pf2e.Predicate.test(x.predicate, rollOptions));
+		}
+
+		function filterByTriggers<T extends { trigger: string | string[] }>(
+			v: T[],
+		) {
+			return v.filter(a => [a.trigger].flat().find(t => triggers.includes(t)));
+		}
+
+		function filterByOverride<T extends { overrides?: string[] }>(
+			array: [ k: string, v: T[] ][],
+		): [ k: string, v: Omit<T, 'overrides'>[] ][] {
+			for (const objects of array) {
+				for (const object of objects[1]) {
+					if (!object.overrides || !object.overrides.length) continue;
+
+					for (const override of object.overrides) {
+						array = array.filter(([k]) => !override.includes(k));
+					}
+				}
+			}
+
+			return array;
 		}
 	}
 
@@ -387,7 +397,7 @@ export let AnimCore = class AnimCore {
 	 * TODO:
 	 */
 	static play(
-		animations: AnimationDataObject[],
+		animations: AnimationObject[],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 	): Promise<Sequence>[] {
@@ -397,14 +407,6 @@ export let AnimCore = class AnimCore {
 	}
 	// #endregion
 };
-
-function hasReference(reference: AnimationDataObject | ReferenceObject | FolderObject): reference is ReferenceObject {
-	return typeof (reference as ReferenceObject).reference === 'string';
-}
-
-function isFolder(folder: AnimationDataObject | FolderObject): folder is FolderObject {
-	return (folder as FolderObject).contents !== undefined;
-}
 
 function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
 	return !!Array.isArray(rule);
