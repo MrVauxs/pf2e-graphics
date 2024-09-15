@@ -14,7 +14,9 @@ permissions:
 jobs:
   build:
     name: Vite build
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,11 +56,15 @@ jobs:
 
       - name: Check
         run: npm run check
+
   eslint:
     name: ESLint
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
 
       - name: Cache NPM dependencies
@@ -70,16 +76,22 @@ jobs:
 
       - name: Install NPM dependencies
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Test ESLint
         run: npm run lint
+
   animations:
-    name: Test animations and Sequencer DB validity
+    name: Test animation files
+
+    permissions:
+      pull-requests: read
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22.6
@@ -95,5 +107,25 @@ jobs:
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm ci
 
+      - name: Get modified animations
+        id: modified-animations
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            json:
+              - 'animations/**/*.json'
+            db:
+              - 'src/assets/*Db.ts'
+
       - name: Test animation files
-        run: npm run test
+        if: steps.modified-animations.outputs.json_any_changed == 'true'
+        env:
+          MODIFIED_ANIMATIONS: ${{ steps.modified-animations.outputs.json_all_changed_files }}
+        run: |
+          for file in ${MODIFIED_ANIMATIONS}; do
+            npm run test -- file
+          done
+
+      - name: Test sequencer DB
+        if: steps.modified-animations.outputs.db_any_changed == 'true'
+        run: npm run test:assets
