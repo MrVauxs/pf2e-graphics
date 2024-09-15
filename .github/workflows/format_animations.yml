@@ -1,31 +1,27 @@
-name: Format
+name: Format animations
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    branches:
+      - main
     paths:
       - animations/**/*.json
 
 jobs:
   format-animations:
-    name: Animation JSONs
+    name: Format animation JSONs
+
     runs-on: ubuntu-latest
 
     permissions:
       contents: write
-      pull-requests: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Checkout PR
-        run: gh pr checkout ${{ github.event.pull_request.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/setup-node@v4
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
         with:
           node-version: 22.6
 
@@ -43,11 +39,7 @@ jobs:
       - name: Format animation JSONs
         run: npm run build:clean
 
-      - name: Push to PR
-        run: |
-          git pull
-          git add animations/**/*.json
-          git -c user.name="GitHub Actions" -c user.email="actions@github.com" commit -m "Cleaned animation JSONs" -a --author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 🎨 Format animation JSONs
+          file_pattern: animations/**/*.json
