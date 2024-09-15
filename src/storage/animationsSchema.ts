@@ -785,24 +785,26 @@ export type Trigger = z.infer<typeof triggers>;
 const presets = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
 export type Preset = z.infer<typeof presets>;
 
-const referenceObject = z.object({
-	overrides: z
-		.array(rollOption)
-		.min(1)
-		.refine(...uniqueItems)
-		.optional(),
-	trigger: triggers.or(z.array(triggers).min(1)),
-	preset: presets,
-	file: sequencerDBEntry.or(filePath),
-	default: z.literal(true).optional(),
-	predicate: z
-		.array(predicate)
-		.min(1)
-		.refine(...uniqueItems)
-		.optional(),
-	options: effectOptions.optional(),
-	reference: rollOption.optional(),
-});
+const referenceObject = z
+	.object({
+		overrides: z
+			.array(rollOption)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
+		trigger: triggers.or(z.array(triggers).min(1)),
+		preset: presets,
+		file: sequencerDBEntry.or(filePath).or(z.array(sequencerDBEntry.or(filePath))),
+		default: z.literal(true).optional(),
+		predicate: z
+			.array(predicate)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
+		options: effectOptions.optional(),
+		reference: rollOption.optional(),
+	})
+	.strict();
 
 export type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
 	contents?: AnimationObject[];
@@ -819,6 +821,7 @@ const animationObject: z.ZodType<AnimationObject> = referenceObject
 			)
 			.optional(),
 	})
+	.strict()
 	.refine(...nonEmpty);
 
 const animationObjects = z
