@@ -96,24 +96,6 @@ jobs:
         with:
           node-version: 22.6
 
-      - name: Get changed animations
-        id: changed-animations
-        uses: tj-actions/changed-files@v45
-        # with:
-        #   files_yaml: |
-        #     doc:
-        #       - animations/**/*.json
-        #     src:
-        #       - src/assets/*Db.ts
-
-      - name: did anything change wtf
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-animations.outputs.all_changed_files }}
-        run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
-
       - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
@@ -124,6 +106,24 @@ jobs:
       - name: Install NPM dependencies
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm ci
+
+      - name: Get changed animations
+        id: changed-animations
+        uses: tj-actions/changed-files@v45
+        with:
+          files_yaml: |
+            doc:
+              - animations/**/*.json
+            src:
+              - src/assets/*Db.ts
+
+      - name: did anything change wtf
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-animations.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
 
       - name: Test animation files
         if: ${{ steps.changed-animations.outputs.doc_any_changed == 'true' }}
