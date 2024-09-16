@@ -2,7 +2,7 @@
 // To validate some specific files or directories, use `npm run test:animations -- <...paths> (e.g. `npm run test:animations -- animations/actions/aid.json animations/conditions`).
 
 import * as fs from 'node:fs';
-import { parse } from 'json-source-map';
+import { parse as JSONSourceMapParse } from 'json-source-map';
 import p from 'picocolors';
 import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
 import { fromZodIssue, type ZodIssue } from 'zod-validation-error';
@@ -21,22 +21,13 @@ if (!badFiles.length) {
 } else {
 	const zodIssueToDetailsMessage = (file: string, issue: ZodIssue): DetailsMessage => {
 		const formatted = fromZodIssue(issue).details[0];
-		const message = Log.padToColumn(formatted.path.join('.'), p.dim(formatted.message));
 
-		if (!process.env.GITHUB_ACTIONS) return message;
+		if (!process.env.GITHUB_ACTIONS)
+			return Log.padToColumn(formatted.path.join('.'), p.dim(formatted.message));
 
-		const JSONMap = parse(fs.readFileSync(file, { encoding: 'utf8' }));
-		const key = JSONMap.pointers[`/${issue.path.join('/')}`];
-		console.log({
-			title: formatted.message,
-			file,
-			startLine: key.value.line + 1,
-			endLine: key.valueEnd.line + 1,
-			startColumn: key.value.pos + 1,
-			endColumn: key.valueEnd.pos + 1,
-		});
+		const key = JSONSourceMapParse(fs.readFileSync(file, { encoding: 'utf8' })).pointers[`/${issue.path.join('/')}`];
 		return {
-			message,
+			message: formatted.path.join('.'),
 			annotation: {
 				title: formatted.message,
 				file,
