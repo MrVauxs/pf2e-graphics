@@ -63,80 +63,87 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	/**
 	 * Tests whether a given Sequencer database path is valid.
 	 * @param path The property path for issue-reporting.
-	 * @param str The input string.
+	 * @param dbPath The input database path or paths.
 	 * @param db The database name to be searched.
 	 */
-	function testDatabasePath(path: Path, str: string, db: 'asset' | 'sound', context?: AnimationContext) {
-		// Don't bother validating actual filepaths
-		if (path.includes('/')) return;
+	function testDatabasePath(
+		path: Path,
+		dbPath: string | string[],
+		db: 'asset' | 'sound',
+		context?: AnimationContext,
+	) {
+		[dbPath].flat().forEach((str) => {
+			// Don't bother validating actual filepaths
+			if (path.includes('/')) return;
 
-		const pathPermutations: string[] = [];
+			const pathPermutations: string[] = [];
 
-		const openBraceStrings = str.split('{');
-		if (openBraceStrings.length === 1) {
-			// No moustaches
-			pathPermutations.push(str);
-		} else {
-			// Moustaches present!
-			// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
-			const matchingBraces = openBraceStrings.map(
-				str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
-			);
-			// We expect the first such string to have no close-braces
-			const first = matchingBraces.shift();
-			if (first || !matchingBraces.every(Boolean)) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_string,
-					path,
-					validation: 'regex',
-					message: `Mismatched or empty braces.`,
-				});
-			}
-
-			// Get each permutation of "...{...}..." moustached strings
-			const extractPermutations = (str: string): string[] => {
-				const openBrace = str.indexOf('{');
-				if (openBrace === -1) return [str]; // Necessary due to recursion
-				const closeBrace = str.indexOf('}');
-				const elements = str.substring(openBrace + 1, closeBrace).split(',');
-				return elements
-					.map(element =>
-						// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
-						extractPermutations(
-							`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
-						),
-					)
-					.flat();
-			};
-			pathPermutations.push(...extractPermutations(str));
-		}
-
-		let database;
-		let readableDBName;
-		if (db === 'sound') {
-			database = soundDatabasePaths;
-			readableDBName = soundDatabasePrefix;
-		} else {
-			if (context?.predicates.has('jb2a:patreon')) {
-				database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
-				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+			const openBraceStrings = str.split('{');
+			if (openBraceStrings.length === 1) {
+				// No moustaches
+				pathPermutations.push(str);
 			} else {
-				database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
-				readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
-			}
-		}
+				// Moustaches present!
+				// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
+				const matchingBraces = openBraceStrings.map(
+					str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
+				);
+				// We expect the first such string to have no close-braces
+				const first = matchingBraces.shift();
+				if (first || !matchingBraces.every(Boolean)) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_string,
+						path,
+						validation: 'regex',
+						message: `Mismatched or empty braces.`,
+					});
+				}
 
-		for (const testPath of pathPermutations) {
-			if (!database.some(entry => entry.startsWith(testPath))) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_enum_value,
-					path,
-					received: testPath,
-					options: [],
-					message: `Not found in the ${readableDBName} database.`,
-				});
+				// Get each permutation of "...{...}..." moustached strings
+				const extractPermutations = (str: string): string[] => {
+					const openBrace = str.indexOf('{');
+					if (openBrace === -1) return [str]; // Necessary due to recursion
+					const closeBrace = str.indexOf('}');
+					const elements = str.substring(openBrace + 1, closeBrace).split(',');
+					return elements
+						.map(element =>
+							// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
+							extractPermutations(
+								`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
+							),
+						)
+						.flat();
+				};
+				pathPermutations.push(...extractPermutations(str));
 			}
-		}
+
+			let database;
+			let readableDBName;
+			if (db === 'sound') {
+				database = soundDatabasePaths;
+				readableDBName = soundDatabasePrefix;
+			} else {
+				if (context?.predicates.has('jb2a:patreon')) {
+					database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
+					readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+				} else {
+					database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
+					readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
+				}
+			}
+
+			for (const testPath of pathPermutations) {
+				if (!database.some(entry => entry.startsWith(testPath))) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_enum_value,
+						path,
+						received: testPath,
+						options: [],
+						message: `Not found in the ${readableDBName} database.`,
+					});
+				}
+			}
+		});
 	}
 
 	/**
