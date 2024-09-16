@@ -82,7 +82,7 @@ jobs:
         run: npm run lint
 
   animations:
-    name: Test animation files
+    name: Animation files
 
     permissions:
       pull-requests: read
@@ -123,7 +123,7 @@ jobs:
         run: npm run test:animations -- ${MODIFIED_ANIMATIONS}
 
   sequencer_db:
-    name: Test Sequencer DB
+    name: Sequencer DB
 
     permissions:
       pull-requests: read
@@ -158,6 +158,6 @@ jobs:
         if: steps.changed-assets.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Test sequencer DB
+      - name: Test Sequencer DB
         if: steps.changed-assets.outputs.any_changed == 'true'
         run: npm run test:assets
