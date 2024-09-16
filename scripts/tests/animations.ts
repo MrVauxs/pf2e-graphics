@@ -27,15 +27,23 @@ if (!badFiles.length) {
 
 		const JSONMap = parse(fs.readFileSync(file, { encoding: 'utf8' }));
 		const key = JSONMap.pointers[`/${issue.path.join('/')}`];
+		console.log({
+			title: formatted.message,
+			file,
+			startLine: key.value.line + 1,
+			endLine: key.valueEnd.line + 1,
+			startColumn: key.value.pos + 1,
+			endColumn: key.valueEnd.pos + 1,
+		});
 		return {
 			message,
 			annotation: {
 				title: formatted.message,
 				file,
-				startLine: key.value.line,
-				endLine: key.valueEnd.line,
-				startColumn: key.value.pos,
-				endColumn: key.valueEnd.pos,
+				startLine: key.value.line + 1,
+				endLine: key.valueEnd.line + 1,
+				startColumn: key.value.pos + 1,
+				endColumn: key.valueEnd.pos + 1,
 			},
 		};
 	};
@@ -52,10 +60,12 @@ if (!badFiles.length) {
 				};
 			}
 
+			const message = badFile.message ?? 'Unknown error';
 			return {
-				message: p.red(Log.padToColumn(badFile.file, p.dim(badFile.message ?? 'Unknown error'))),
+				message: p.red(Log.padToColumn(badFile.file, p.dim(message))),
 				annotation: {
 					file: badFile.file,
+					title: message,
 				},
 			};
 		}),
