@@ -39,7 +39,7 @@
 		"eslint": "9.10.0",
 		"eslint-plugin-antfu": "^2.6.0",
 		"eslint-plugin-format": "^0.1.2",
-		"eslint-plugin-svelte": "^2.41.0",
+		"eslint-plugin-svelte": "^2.44.0",
 		"foundry-pf2e": "github:reonZ/foundry-pf2e",
 		"jb2a-databases": "github:Jules-Bens-Aa/jb2a-databases",
 		"keep-a-changelog": "^2.5.3",
