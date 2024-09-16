@@ -1,6 +1,7 @@
 // To test and report on all files, use `npm run test:animations`.
 // To validate some specific files or directories, use `npm run test:animations -- <...paths> (e.g. `npm run test:animations -- animations/actions/aid.json animations/conditions`).
 
+import * as fs from 'node:fs';
 import { parse } from 'json-source-map';
 import p from 'picocolors';
 import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
@@ -24,8 +25,7 @@ if (!badFiles.length) {
 
 		if (!process.env.GITHUB_ACTIONS) return message;
 
-		console.log(file);
-		const JSONMap = parse(file);
+		const JSONMap = parse(fs.readFileSync(file, { encoding: 'utf8' }));
 		const key = JSONMap.pointers[`/${issue.path.join('/')}`];
 		return {
 			message,
