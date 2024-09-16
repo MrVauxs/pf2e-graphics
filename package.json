@@ -45,7 +45,7 @@
 		"keep-a-changelog": "^2.5.3",
 		"lodash": "^4.17.21",
 		"picocolors": "^1.0.1",
-		"postcss": "^8.4.45",
+		"postcss": "^8.4.47",
 		"postcss-minify": "^1.1.0",
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
 		"svelte": "^4.2.19",
