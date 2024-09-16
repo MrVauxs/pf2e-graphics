@@ -123,10 +123,7 @@ jobs:
         if: ${{ steps.changed-animations.outputs.json_any_changed == 'true' }}
         env:
           MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.json_all_changed_files }}
-        run: |
-          for file in ${MODIFIED_ANIMATIONS}; do
-            npm run test:animations -- "$file" || true
-          done
+        run: npm run test:animations -- ${MODIFIED_ANIMATIONS}
 
       - name: Test sequencer DB
         if: steps.changed-animations.outputs.db_any_changed == 'true'

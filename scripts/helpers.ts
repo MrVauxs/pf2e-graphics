@@ -21,8 +21,8 @@ export class Log {
 	 * Log a general message.
 	 * @param message
 	 */
-	static info = (message: string = '', annotation: core.AnnotationProperties = {}) => {
-		if (process.env.GITHUB_ACTIONS && annotation.file) return core.notice(message, annotation);
+	static info = (message: string = '', annotation?: core.AnnotationProperties) => {
+		if (process.env.GITHUB_ACTIONS && annotation) return core.notice(message, annotation);
 		return console.log(message);
 	};
 
@@ -30,7 +30,7 @@ export class Log {
 	 * Log a warning.
 	 * @param message
 	 */
-	static warning = (message: string = '', annotation: core.AnnotationProperties = {}) => {
+	static warning = (message: string = '', annotation?: core.AnnotationProperties) => {
 		if (process.env.GITHUB_ACTIONS) return core.warning(message, annotation);
 		return console.warn(message);
 	};
@@ -39,7 +39,7 @@ export class Log {
 	 * Log an error and set the exit code to 1.
 	 * @param message
 	 */
-	static error = (message: string = '', annotation: core.AnnotationProperties = {}) => {
+	static error = (message: string = '', annotation?: core.AnnotationProperties) => {
 		process.exitCode = 1;
 		if (process.env.GITHUB_ACTIONS) return core.error(message, annotation);
 		return console.error(message);
@@ -86,7 +86,26 @@ export class Log {
 	 * @param count The number of new lines to print (default = 1).
 	 */
 	static newLine = (count: number = 1): void => {
-		Log.info('\n'.repeat(count - 1));
+		console.log('\n'.repeat(count - 1));
+	};
+
+	static methodnameidk = (
+		level: LoggingLevels,
+		path: (string | number)[],
+		message: string,
+		annotation: core.AnnotationProperties,
+	): void => {
+		if (process.env.GITHUB_ACTIONS) return Log[level](message, annotation);
+		return Log[level](this.padToColumn(path.join('.'), message));
+	};
+
+	private static padToColumn = (leftString: string, rightString: string): string => {
+		const MIN_COLUMN_WIDTH = 55;
+		const MIN_COLUMN_SEPARATION = 3;
+
+		const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
+
+		return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
 	};
 }
 
