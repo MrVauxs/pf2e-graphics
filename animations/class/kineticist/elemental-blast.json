@@ -65,7 +65,7 @@
 									"file": "jb2a.chain_lightning.secondary.blue",
 									"options": {
 										"sound": {
-											"file": "graphifdcs-sfx.magic.lightning.cast.01",
+											"file": "graphics-sfx.magic.lightning.cast.01",
 											"delay": 600
 										},
 										"delay": 600,
