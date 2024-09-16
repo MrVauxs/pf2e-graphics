@@ -6,7 +6,7 @@ import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
 import { fromZodIssue } from 'zod-validation-error';
 import { Log, pluralise } from '../helpers.ts';
 
-const testPaths = process.argv.slice(2).length ? [...new Set(process.argv.slice(2))] : ['animations/'];
+const testPaths = process.argv.length > 2 ? [...new Set(process.argv.slice(2))] : ['animations/'];
 
 const badFiles = testPaths
 	.map(path => testAndMergeAnimations(path))

@@ -96,35 +96,68 @@ jobs:
         id: changed-animations
         uses: tj-actions/changed-files@v45
         with:
-          files_yaml: |
-            json:
-              - animations/**/*.json
-            db:
-              - src/assets/*Db.ts
+          files: |
+            animations/**/*.json
 
       - uses: actions/setup-node@v4
-        if: steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true'
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           node-version: 22.6
 
       - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
-        if: steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true'
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: Install NPM dependencies
-        if: ${{ (steps.changed-animations.outputs.json_any_changed == 'true' || steps.changed-animations.outputs.db_any_changed == 'true') && steps.cache-npm.outputs.cache-hit != 'true' }}
+        if: steps.changed-animations.outputs.any_changed == 'true'&& steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Test animation files
-        if: ${{ steps.changed-animations.outputs.json_any_changed == 'true' }}
+        if: steps.changed-animations.outputs.any_changed == 'true'
         env:
-          MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.json_all_changed_files }}
+          MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.all_changed_files }}
         run: npm run test:animations -- ${MODIFIED_ANIMATIONS}
 
+  sequencer_db:
+    name: Test Sequencer DB
+
+    permissions:
+      pull-requests: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed assets
+        id: changed-assets
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            src/assets/*Db.ts
+            assets/library/**
+
+      - uses: actions/setup-node@v4
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        with:
+          node-version: 22.6
+
+      - name: Cache NPM dependencies
+        id: cache-npm
+        uses: actions/cache@v4
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM dependencies
+        if: steps.changed-assets.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
+
       - name: Test sequencer DB
-        if: steps.changed-animations.outputs.db_any_changed == 'true'
+        if: steps.changed-assets.outputs.any_changed == 'true'
         run: npm run test:assets
