@@ -6,23 +6,26 @@ import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
 import { fromZodIssue } from 'zod-validation-error';
 import { Log, pluralise } from '../helpers.ts';
 
-const badResults = (process.argv.slice(2) ?? 'animations/')
+const testPaths = process.argv.slice(2).length ? [...new Set(process.argv.slice(2))] : ['animations/'];
+
+const badFiles = testPaths
 	.map(path => testAndMergeAnimations(path))
-	.filter(result => !result.success);
+	.filter(result => !result.success)
+	.map(result => result.issues)
+	.flat();
 
-if (!badResults.length) Log.info(p.green('All animation files are valid!'));
+if (!badFiles.length) {
+	Log.info(p.green('All animation files are valid!'));
+} else {
+	function padToColumn(leftString: string, rightString: string): string {
+		const MIN_COLUMN_WIDTH = 55;
+		const MIN_COLUMN_SEPARATION = 3;
 
-function padToColumn(leftString: string, rightString: string): string {
-	const MIN_COLUMN_WIDTH = 55;
-	const MIN_COLUMN_SEPARATION = 3;
+		const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
 
-	const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
+		return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
+	}
 
-	return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
-}
-
-for (const result of badResults) {
-	const badFiles = result.issues;
 	Log.details({
 		level: 'error',
 		title: p.red(p.bold(p.underline(`Invalid animation ${pluralise('file', badFiles.length)}:`))),
