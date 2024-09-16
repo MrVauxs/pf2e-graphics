@@ -24,6 +24,7 @@ if (!badFiles.length) {
 
 		if (!process.env.GITHUB_ACTIONS) return message;
 
+		console.log(file);
 		const JSONMap = parse(file);
 		const key = JSONMap.pointers[`/${issue.path.join('/')}`];
 		return {
