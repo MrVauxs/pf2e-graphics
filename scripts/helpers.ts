@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import * as core from '@actions/core';
 
 type LoggingLevels = 'info' | 'warning' | 'error';
-type DetailsMessage =
+export type DetailsMessage =
 	| string
 	| { message: string; annotation: core.AnnotationProperties }
 	| {
@@ -89,17 +89,13 @@ export class Log {
 		console.log('\n'.repeat(count - 1));
 	};
 
-	static methodnameidk = (
-		level: LoggingLevels,
-		path: (string | number)[],
-		message: string,
-		annotation: core.AnnotationProperties,
-	): void => {
-		if (process.env.GITHUB_ACTIONS) return Log[level](message, annotation);
-		return Log[level](this.padToColumn(path.join('.'), message));
-	};
-
-	private static padToColumn = (leftString: string, rightString: string): string => {
+	/**
+	 * Joins two strings together with some whitespace padding to create consistent columns.
+	 * @param leftString The string for the left-hand column.
+	 * @param rightString The string for the right-hand column.
+	 * @returns A single string composed of `leftString` and `rightString`, plus an appropriate amount of whitespace padding.
+	 */
+	static padToColumn = (leftString: string, rightString: string): string => {
 		const MIN_COLUMN_WIDTH = 55;
 		const MIN_COLUMN_SEPARATION = 3;
 
@@ -185,7 +181,7 @@ export interface FileValidationFailure {
 	file: string;
 	success: false;
 	message?: string;
-	issues?: ZodIssue[];
+	issues?: (ZodIssue & { line?: number; column?: number })[];
 }
 type FileValidationResult = FileValidationSuccess | FileValidationFailure;
 

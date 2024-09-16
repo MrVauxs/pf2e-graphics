@@ -1,10 +1,11 @@
 // To test and report on all files, use `npm run test:animations`.
 // To validate some specific files or directories, use `npm run test:animations -- <...paths> (e.g. `npm run test:animations -- animations/actions/aid.json animations/conditions`).
 
+import { parse } from 'json-source-map';
 import p from 'picocolors';
 import { testAndMergeAnimations } from 'scripts/testAndMergeAnimations.ts';
-import { fromZodIssue } from 'zod-validation-error';
-import { Log, pluralise } from '../helpers.ts';
+import { fromZodIssue, type ZodIssue } from 'zod-validation-error';
+import { type DetailsMessage, Log, pluralise } from '../helpers.ts';
 
 const testPaths = process.argv.length > 2 ? [...new Set(process.argv.slice(2))] : ['animations/'];
 
@@ -17,14 +18,26 @@ const badFiles = testPaths
 if (!badFiles.length) {
 	Log.info(p.green('All animation files are valid!'));
 } else {
-	function padToColumn(leftString: string, rightString: string): string {
-		const MIN_COLUMN_WIDTH = 55;
-		const MIN_COLUMN_SEPARATION = 3;
+	const zodIssueToDetailsMessage = (file: string, issue: ZodIssue): DetailsMessage => {
+		const formatted = fromZodIssue(issue).details[0];
+		const message = Log.padToColumn(formatted.path.join('.'), p.dim(formatted.message));
 
-		const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
+		if (!process.env.GITHUB_ACTIONS) return message;
 
-		return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
-	}
+		const JSONMap = parse(file);
+		const key = JSONMap.pointers[`/${issue.path.join('/')}`];
+		return {
+			message,
+			annotation: {
+				title: formatted.message,
+				file,
+				startLine: key.value.line,
+				endLine: key.valueEnd.line,
+				startColumn: key.value.pos,
+				endColumn: key.valueEnd.pos,
+			},
+		};
+	};
 
 	Log.details({
 		level: 'error',
@@ -33,23 +46,13 @@ if (!badFiles.length) {
 			if (badFile.issues) {
 				return {
 					level: 'details',
-					title: p.red(padToColumn(badFile.file, p.dim(badFile.message ?? ''))),
-					messages: badFile.issues.map((issue) => {
-						const formatted = fromZodIssue(issue).details[0];
-						const annotation = {
-							title: p.bgCyanBright(formatted.message),
-							file: badFile.file,
-						};
-						return {
-							message: padToColumn(formatted.path.join('.'), p.dim(formatted.message)),
-							annotation,
-						};
-					}),
+					title: p.red(Log.padToColumn(badFile.file, p.dim(badFile.message ?? ''))),
+					messages: badFile.issues.map(issue => zodIssueToDetailsMessage(badFile.file, issue)),
 				};
 			}
 
 			return {
-				message: p.red(padToColumn(badFile.file, p.dim(badFile.message ?? 'Unknown error'))),
+				message: p.red(Log.padToColumn(badFile.file, p.dim(badFile.message ?? 'Unknown error'))),
 				annotation: {
 					file: badFile.file,
 				},
