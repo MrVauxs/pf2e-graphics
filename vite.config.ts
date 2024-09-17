@@ -128,9 +128,11 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			name: 'create-dist-files',
 			apply: 'serve',
 			buildStart() {
-				fs.mkdir('dist', (err) => {
-					if (err) throw err;
-				});
+				if (!fs.existsSync('dist')) {
+					fs.mkdir('dist', (err) => {
+						if (err) throw err;
+					});
+				}
 
 				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
 				for (const name of files) {
