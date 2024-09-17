@@ -22,28 +22,35 @@
 					"contents": [
 						{
 							"default": true,
-							"options": {
-								"sound": {
+							"contents": [
+								{},
+								{
+									"preset": "sound",
 									"file": "graphics-sfx.magic.fire.launch.02",
-									"delay": 600
+									"options": { "delay": 600 }
 								}
-							}
+							]
 						},
 						{
 							"predicate": [
 								"conservation-of-energy:cold"
 							],
-							"options": {
-								"sound": {
+							"contents": [
+								{
+									"preset": "sound",
 									"file": "graphics-sfx.magic.ice.ranged.strike.cast.snowball.01"
 								},
-								"filter": {
-									"type": "ColorMatrix",
+								{
 									"options": {
-										"hue": 180
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"hue": 180
+											}
+										}
 									}
 								}
-							}
+							]
 						}
 					]
 				},
@@ -79,37 +86,46 @@
 					"contents": [
 						{
 							"default": true,
-							"file": "jb2a.impact.fire.01.orange.0",
-							"options": {
-								"sound": {
+							"contents": [
+								{
+									"preset": "sound",
 									"file": "graphics-sfx.magic.fire.impact.01"
 								},
-								"scaleToObject": 1.5
-							}
+								{
+									"file": "jb2a.impact.fire.01.orange.0",
+									"options": {
+										"scaleToObject": 1.5
+									}
+								}
+							]
 						},
 						{
 							"predicate": [
 								"conservation-of-energy:cold"
 							],
-							"file": "jb2a.side_impact.ice_shard.blue",
-							"options": {
-								"sound": {
+							"contents": [
+								{
 									"file": "graphics-sfx.magic.ice.ranged.strike.impact.snowball.01",
-									"waitUntilFinished": -2100
+									"options": { "waitUntilFinished": -2100 }
 								},
-								"preset": {
-									"atLocation": {
-										"offset": {
-											"x": -1
+								{
+									"file": "jb2a.side_impact.ice_shard.blue",
+									"options": {
+										"preset": {
+											"atLocation": {
+												"offset": {
+													"x": -1
+												},
+												"gridUnits": true,
+												"local": true
+											},
+											"rotateTowards": true
 										},
-										"gridUnits": true,
-										"local": true
-									},
-									"rotateTowards": true
-								},
-								"scaleToObject": 3,
-								"spriteRotation": 180
-							}
+										"scaleToObject": 3,
+										"spriteRotation": 180
+									}
+								}
+							]
 						}
 					]
 				}
@@ -121,13 +137,12 @@
 			"predicate": [
 				"item:melee"
 			],
-			"options": {
-				"sound": {
-					"file": "graphics-sfx.magic.fire.impact.02.small",
-					"delay": 250
-				}
-			},
 			"contents": [
+				{
+					"preset": "sound",
+					"file": "graphics-sfx.magic.fire.impact.02.small",
+					"options": { "delay": 250 }
+				},
 				{
 					"default": true,
 					"contents": [

@@ -4,14 +4,15 @@
 			"trigger": "skill-check",
 			"contents": [
 				{
-					"preset": "melee",
-					"file": "jb2a.unarmed_strike.physical.02.blue",
+					"preset": "sound",
+					"file": "graphics-sfx.movement.landing",
 					"options": {
-						"sound": {
-							"file": "graphics-sfx.movement.landing",
-							"delay": 300
-						}
+						"delay": 300
 					}
+				},
+				{
+					"preset": "melee",
+					"file": "jb2a.unarmed_strike.physical.02.blue"
 				}
 			]
 		}
