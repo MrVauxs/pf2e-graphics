@@ -1,6 +1,7 @@
 /* eslint-env node */
 import fs from 'node:fs';
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
+import * as path from 'node:path';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
 import p from 'picocolors';
@@ -17,7 +18,6 @@ import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
 import { getJSONSchema } from './src/storage/animationsSchema';
 
 const packagePath = `modules/${moduleJSON.id}`;
-// const { esmodules, styles } = moduleJSON
 
 const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
@@ -129,6 +129,10 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			name: 'create-dist-files',
 			apply: 'serve',
 			buildStart() {
+				fs.mkdir('dist', (err) => {
+					if (err) throw err;
+				});
+
 				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
 				for (const name of files) {
 					fs.writeFileSync(name, '', { flag: 'a' });
