@@ -2,16 +2,21 @@ name: Test
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   build:
+    name: Vite build
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,23 +24,22 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Cache NPM Deps
+      - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
 
-      - name: Install NPM Deps
+      - name: Install NPM dependencies
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: Vite build
         id: build
         env:
           IGNORE_ESLINT: true
-        run: |
-          npm run build
+        run: npm run build:vite
 
       - name: File Existence
         id: files
@@ -48,51 +52,112 @@ jobs:
         if: failure() && steps.build.outcome == 'success'
         env:
           IGNORE_ESLINT: true
-        run: |
-          npm run build:vite -- --debug
+        run: npm run build:vite -- --debug
 
       - name: Check
-        run: |
-          npm run check
+        run: npm run check
+
   eslint:
+    name: ESLint
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
 
-      - name: Cache NPM Deps
+      - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
 
-      - name: Install NPM Deps
+      - name: Install NPM dependencies
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm ci
+        run: npm ci
 
-      - name: Test Eslint
+      - name: Test ESLint
         run: npm run lint
+
   animations:
+    name: Animation files
+
+    permissions:
+      pull-requests: read
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Get changed animations
+        id: changed-animations
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            animations/**/*.json
+
       - uses: actions/setup-node@v4
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           node-version: 22.6
 
-      - name: Cache NPM Deps
+      - name: Cache NPM dependencies
         id: cache-npm
         uses: actions/cache@v4
+        if: steps.changed-animations.outputs.any_changed == 'true'
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
 
-      - name: Install NPM Deps
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm ci
+      - name: Install NPM dependencies
+        if: steps.changed-animations.outputs.any_changed == 'true'&& steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Test animation files
-        run: npm run test
+        if: steps.changed-animations.outputs.any_changed == 'true'
+        env:
+          MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.all_changed_files }}
+        run: npm run test:animations -- ${MODIFIED_ANIMATIONS}
+
+  sequencer_db:
+    name: Sequencer DB
+
+    permissions:
+      pull-requests: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get changed assets
+        id: changed-assets
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            src/assets/*Db.ts
+            assets/library/**
+
+      - uses: actions/setup-node@v4
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        with:
+          node-version: 22.6
+
+      - name: Cache NPM dependencies
+        id: cache-npm
+        uses: actions/cache@v4
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM dependencies
+        if: steps.changed-assets.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Test Sequencer DB
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        run: npm run test:assets

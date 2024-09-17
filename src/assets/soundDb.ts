@@ -6,7 +6,7 @@ export const database = {
 	// #region Weapons
 	generic: {
 		miss: {
-			'01': `${p}/soniss/SWSH_Swing 3 Large 03_DDUMAIS_NONE.ogg`,
+			'01': `${p}/soniss/BAD FILEPATH LMAO 3 Large 03_DDUMAIS_NONE.ogg`,
 			'02': `${p}/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh A.ogg`,
 			'03': `${p}/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh B.ogg`,
 			'04': `${p}/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Blunt Whoosh C.ogg`,

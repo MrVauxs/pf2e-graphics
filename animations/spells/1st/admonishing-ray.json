@@ -14,10 +14,12 @@
 					"predicate": [
 						"jb2a:free"
 					],
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": -130
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -130
+							}
 						}
 					}
 				},

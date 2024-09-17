@@ -4,8 +4,9 @@ import * as path from 'node:path';
 import * as core from '@actions/core';
 
 type LoggingLevels = 'info' | 'warning' | 'error';
-type DetailsMessage =
+export type DetailsMessage =
 	| string
+	| { message: string; annotation: core.AnnotationProperties }
 	| {
 		level: 'details';
 		title: string;
@@ -20,8 +21,8 @@ export class Log {
 	 * Log a general message.
 	 * @param message
 	 */
-	static info = (message: string = '') => {
-		if (process.env.GITHUB_ACTIONS) return core.info(message);
+	static info = (message: string = '', annotation?: core.AnnotationProperties) => {
+		if (process.env.GITHUB_ACTIONS && annotation) return core.notice(message, annotation);
 		return console.log(message);
 	};
 
@@ -29,8 +30,8 @@ export class Log {
 	 * Log a warning.
 	 * @param message
 	 */
-	static warning = (message: string = '') => {
-		if (process.env.GITHUB_ACTIONS) return core.warning(message);
+	static warning = (message: string = '', annotation?: core.AnnotationProperties) => {
+		if (process.env.GITHUB_ACTIONS) return core.warning(message, annotation);
 		return console.warn(message);
 	};
 
@@ -38,9 +39,9 @@ export class Log {
 	 * Log an error and set the exit code to 1.
 	 * @param message
 	 */
-	static error = (message: string = '') => {
+	static error = (message: string = '', annotation?: core.AnnotationProperties) => {
 		process.exitCode = 1;
-		if (process.env.GITHUB_ACTIONS) return core.error(message);
+		if (process.env.GITHUB_ACTIONS) return core.error(message, annotation);
 		return console.error(message);
 	};
 
@@ -72,6 +73,7 @@ export class Log {
 
 	protected static detailsMessage = (message: DetailsMessage, level: LoggingLevels = 'info'): void => {
 		if (typeof message === 'string') return Log[level](message);
+		if ('annotation' in message) return Log[level](message.message, message.annotation);
 		return this.details({
 			level,
 			title: message.title ?? 'Details',
@@ -84,7 +86,22 @@ export class Log {
 	 * @param count The number of new lines to print (default = 1).
 	 */
 	static newLine = (count: number = 1): void => {
-		Log.info('\n'.repeat(count - 1));
+		console.log('\n'.repeat(count - 1));
+	};
+
+	/**
+	 * Joins two strings together with some whitespace padding to create consistent columns.
+	 * @param leftString The string for the left-hand column.
+	 * @param rightString The string for the right-hand column.
+	 * @returns A single string composed of `leftString` and `rightString`, plus an appropriate amount of whitespace padding.
+	 */
+	static padToColumn = (leftString: string, rightString: string): string => {
+		const MIN_COLUMN_WIDTH = 55;
+		const MIN_COLUMN_SEPARATION = 3;
+
+		const columnSeparation = Math.max(MIN_COLUMN_WIDTH - leftString.length, MIN_COLUMN_SEPARATION);
+
+		return `${leftString}${' '.repeat(columnSeparation)}${rightString}`;
 	};
 }
 
@@ -156,11 +173,20 @@ export function getFilesRecursively(targetPath: string): string[] {
 	}
 }
 
-export interface fileValidationResult {
+interface FileValidationSuccess {
 	file: string;
-	success: boolean;
+	success: true;
+}
+export interface FileValidationFailure {
+	file: string;
+	success: false;
 	message?: string;
-	issues?: ZodIssue[];
+	issues?: (ZodIssue & { line?: number; column?: number })[];
+}
+type FileValidationResult = FileValidationSuccess | FileValidationFailure;
+
+interface TestFilesRecursivelyOptions {
+	ignoreGit?: boolean;
 }
 
 /**
@@ -174,23 +200,37 @@ export interface fileValidationResult {
 export function testFilesRecursively(
 	targetPath: string,
 	tests: {
-		[key: string]: boolean | ((filepath: string) => Omit<fileValidationResult, 'file'>);
+		[key: string]: boolean | ((filepath: string) => FileValidationResult);
 	},
-	options?: { ignoreGit?: boolean },
-): fileValidationResult[] {
+	options: TestFilesRecursivelyOptions = {},
+): FileValidationResult[] {
 	tests.default = tests.default ?? false;
 
-	options = options ?? {};
 	if (options.ignoreGit && tests[''] === undefined) {
-		tests[''] = (filepath) => {
-			const GIT_FILES = ['.gitignore', '.gitattributes', '.mailmap', '.gitmodules', '.gitkeep', '.keep'];
+		tests[''] = (file) => {
+			const GIT_FILES = new Set([
+				'.gitignore',
+				'.gitattributes',
+				'.mailmap',
+				'.gitmodules',
+				'.gitkeep',
+				'.keep',
+			]);
+			if (GIT_FILES.has(path.basename(file))) {
+				return {
+					file,
+					success: true,
+				};
+			}
 			return {
-				success: GIT_FILES.includes(path.basename(filepath)),
+				file,
+				success: false,
+				message: 'Not allowed.',
 			};
 		};
 	}
 
-	const results: fileValidationResult[] = [];
+	const results: FileValidationResult[] = [];
 	for (const file of getFilesRecursively(targetPath)) {
 		const extension = path.extname(file);
 		const test = tests[extension] ?? tests.default;
@@ -201,10 +241,7 @@ export function testFilesRecursively(
 				message: test ? undefined : `Extension ${extension} is not allowed.`,
 			});
 		} else {
-			results.push({
-				file,
-				...test(file),
-			});
+			results.push(test(file));
 		}
 	}
 	return results;
@@ -212,7 +249,6 @@ export function testFilesRecursively(
 
 /**
  * Reasonably accurately pluralises words.
- *
  * @param word The word to possibly pluralise.
  * @param count Triggers pluralisation when not equal to 1.
  * @returns The word pluralised or not accordingly.
