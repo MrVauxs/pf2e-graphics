@@ -1,10 +1,12 @@
+import { databasePathsFree, databasePathsPatreon } from 'jb2a-databases';
 import { database as assetDb, DB_PREFIX as assetDbPrefix } from './assetDb';
 import { database as soundDb, DB_PREFIX as soundDbPrefix } from './soundDb';
 
-export {
-	databasePathsFree as JB2AFreeDatabasePaths,
-	databasePathsPatreon as JB2APatreonDatabasePaths,
-} from 'jb2a-databases';
+export const JB2AFreeDatabasePaths = databasePathsFree;
+export const JB2APatreonDatabasePaths = databasePathsPatreon;
+export const JB2APatreonExclusiveDatabasePaths = databasePathsPatreon.filter(
+	str => !new Set(databasePathsFree).has(str),
+);
 
 const unwantedSequencerMetadata = new Set([
 	'_template',
@@ -44,8 +46,8 @@ function getObjectPaths(obj: unknown, path: string[] = [], recursionDepth = 0) {
 			if (key === 'file') {
 				addPath(paths, [...path, key].join('.'));
 			} else if (!unwantedSequencerMetadata.has(key)) {
-				getObjectPaths(obj[key as keyof typeof obj], [...path, key], recursionDepth + 1).forEach(newPath =>
-					addPath(paths, newPath),
+				getObjectPaths(obj[key as keyof typeof obj], [...path, key], recursionDepth + 1).forEach(
+					newPath => addPath(paths, newPath),
 				);
 			}
 		}

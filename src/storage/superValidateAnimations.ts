@@ -5,6 +5,7 @@ import {
 	assetDatabasePaths,
 	JB2AFreeDatabasePaths,
 	JB2APatreonDatabasePaths,
+	JB2APatreonExclusiveDatabasePaths,
 	soundDatabasePaths,
 } from '../assets/flatDbs';
 import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
@@ -117,30 +118,53 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 				pathPermutations.push(...extractPermutations(str));
 			}
 
-			let database;
-			let readableDBName;
 			if (db === 'sound') {
-				database = soundDatabasePaths;
-				readableDBName = soundDatabasePrefix;
-			} else {
-				if (context?.predicates.has('jb2a:patreon')) {
-					database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
-					readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
-				} else {
-					database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
-					readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
+				for (const testPath of pathPermutations) {
+					if (!soundDatabasePaths.some(entry => entry.startsWith(testPath))) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in PF2e Graphics' ${soundDatabasePrefix} database.`,
+						});
+					}
 				}
-			}
-
-			for (const testPath of pathPermutations) {
-				if (!database.some(entry => entry.startsWith(testPath))) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.invalid_enum_value,
-						path,
-						received: testPath,
-						options: [],
-						message: `Not found in the ${readableDBName} database.`,
-					});
+			} else if (context?.predicates.has('jb2a:patreon')) {
+				const database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
+				for (const testPath of pathPermutations) {
+					if (!database.some(entry => entry.startsWith(testPath))) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in the JB2A Patreon or PF2e Graphics' ${assetDatabasePrefix} database.`,
+						});
+					}
+				}
+			} else {
+				const database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
+				for (const testPath of pathPermutations) {
+					if (!database.some(entry => entry.startsWith(testPath))) {
+						if (JB2APatreonExclusiveDatabasePaths.some(entry => entry.startsWith(testPath))) {
+							return ctx.addIssue({
+								code: z.ZodIssueCode.invalid_enum_value,
+								path,
+								received: testPath,
+								options: [],
+								message:
+									'JB2A Patreon-exclusive animation: use the `jb2a:patreon` predicate or choose another file.',
+							});
+						}
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in the JB2A Free or PF2e Graphics' ${assetDatabasePrefix} database.`,
+						});
+					}
 				}
 			}
 		});
