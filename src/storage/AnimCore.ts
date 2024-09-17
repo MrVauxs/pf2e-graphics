@@ -2,8 +2,8 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { EffectOptions, Trigger } from './animationsSchema';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
+import { type EffectOptions, presetList, type Trigger, triggersList } from './animationsSchema';
 import { type PresetKeys, presets } from './presets';
 
 type JSONData = Record<string, string | JSONDataObject[]>;
@@ -143,28 +143,9 @@ export let AnimCore = class AnimCore {
 	}
 
 	static CONST = {
-		PRESETS: Object.keys(presets) as PresetKeys[],
-		TRIGGERS: [
-			'attack-roll',
-			'damage-roll',
-			'place-template',
-			'action',
-			'toggle',
-			'effect',
-			'self-effect',
-			'start-turn',
-			'end-turn',
-			'damage-taken',
-			'saving-throw',
-			'check',
-			'skill-check',
-			'flat-check',
-			'initiative',
-			'perception-check',
-			'counteract-check',
-			'modifiers-matter',
-		],
-	} as const;
+		PRESETS: presetList,
+		TRIGGERS: triggersList,
+	};
 
 	static addNewAnimation(data: JSONData, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });

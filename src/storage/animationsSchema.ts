@@ -760,7 +760,7 @@ const effectOptions = z
 	.refine(...nonEmpty);
 export type EffectOptions = z.infer<typeof effectOptions>;
 
-const triggers = z.enum([
+export const triggersList = [
 	'attack-roll',
 	'damage-roll',
 	'place-template',
@@ -779,10 +779,12 @@ const triggers = z.enum([
 	'perception-check',
 	'counteract-check',
 	'modifiers-matter',
-]);
+] as const;
+const triggers = z.enum(triggersList);
 export type Trigger = z.infer<typeof triggers>;
 
-const presets = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
+export const presetList = ['onToken', 'ranged', 'melee', 'template', 'macro'] as const;
+const presets = z.enum(presetList);
 export type Preset = z.infer<typeof presets>;
 
 const referenceObject = z.object({
