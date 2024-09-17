@@ -6,7 +6,7 @@ import { addAnimationToSequence } from 'src/presets';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
-type JSONData = Record<string, string | JSONDataObject[]>;
+export type JSONData = Record<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number];
 

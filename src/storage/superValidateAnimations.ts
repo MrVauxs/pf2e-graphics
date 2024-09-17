@@ -223,6 +223,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			melee: ['attachTo', 'rotateTowards'],
 			ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
 			macro: ['(none)'],
+			sound: ['(none)'],
 		} as const;
 
 		const illegalProperties = Object.keys(options).filter(
