@@ -2,19 +2,19 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { EffectOptions, Trigger } from './animationsSchema';
+import { addAnimationToSequence } from 'src/presets';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
-import { type PresetKeys, presets } from './presets';
+import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
-type JSONData = Record<string, string | JSONDataObject[]>;
+export type JSONData = Record<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number];
 
-type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
+export type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
 
 interface JSONDataObject {
 	trigger: Trigger | Trigger[];
-	preset: PresetKeys;
+	preset: Preset;
 	file: string | string[];
 	predicate?: PredicateStatement[];
 	options?: EffectOptions;
@@ -104,7 +104,11 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	static parseFile(file: string = ''): string[] {
+	static parseFiles(files: string[] | string): string[] {
+		return [files].flat().flatMap(s => this._parseFile(s));
+	}
+
+	static _parseFile(file: string = ''): string[] {
 		const match = file.match(/\{(.*?)\}/);
 		if (!match)
 			return [file];
@@ -143,28 +147,9 @@ export let AnimCore = class AnimCore {
 	}
 
 	static CONST = {
-		PRESETS: Object.keys(presets) as PresetKeys[],
-		TRIGGERS: [
-			'attack-roll',
-			'damage-roll',
-			'place-template',
-			'action',
-			'toggle',
-			'effect',
-			'self-effect',
-			'start-turn',
-			'end-turn',
-			'damage-taken',
-			'saving-throw',
-			'check',
-			'skill-check',
-			'flat-check',
-			'initiative',
-			'perception-check',
-			'counteract-check',
-			'modifiers-matter',
-		],
-	} as const;
+		PRESETS: presetList,
+		TRIGGERS: triggersList,
+	};
 
 	static addNewAnimation(data: JSONData, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
@@ -394,14 +379,21 @@ export let AnimCore = class AnimCore {
 
 	/**
 	 * Animations in, Sequences out.
-	 * TODO:
 	 */
 	static play(
 		animations: AnimationObject[],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 	): Promise<Sequence>[] {
-		const sequences = [new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })];
+		const sequences = [];
+
+		for (const animation of animations) {
+			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+
+			addAnimationToSequence(sequence, animation, { sources, targets });
+
+			sequences.push(sequence);
+		}
 
 		return sequences.map(x => x.play());
 	}
