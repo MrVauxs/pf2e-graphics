@@ -33,6 +33,7 @@ export default function sound(seq: Sequence, animation: AnimationObject, data: G
 				tokens.push(targets);
 				break;
 			case 'source':
+			default:
 				tokens.push(sources);
 				break;
 		}
