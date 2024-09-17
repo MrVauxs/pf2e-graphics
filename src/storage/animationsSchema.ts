@@ -783,7 +783,7 @@ export const triggersList = [
 const triggers = z.enum(triggersList);
 export type Trigger = z.infer<typeof triggers>;
 
-export const presetList = ['onToken', 'ranged', 'melee', 'template', 'macro'] as const;
+export const presetList = ['onToken', 'ranged', 'melee', 'template', 'sound', 'macro'] as const;
 const presets = z.enum(presetList);
 export type Preset = z.infer<typeof presets>;
 

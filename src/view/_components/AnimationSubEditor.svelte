@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import type { Writable } from 'svelte/store';
-	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
+	import { AnimCore } from 'src/storage/animCore';
 	import { arrayMove, camelToSpaces, ErrorMsg, i18n, nonNullable } from 'src/utils';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';

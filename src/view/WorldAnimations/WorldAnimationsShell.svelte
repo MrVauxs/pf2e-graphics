@@ -2,7 +2,7 @@
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
-	import { AnimCore } from 'src/storage/AnimCore';
+	import { AnimCore } from 'src/storage/animCore';
 	import { i18n, log } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';

@@ -1,6 +1,6 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
-import type { JSONData } from './storage/AnimCore';
+import type { JSONData } from './storage/animCore';
 
 declare module '@typhonjs-fvtt/runtime/svelte/application' {
 	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920
