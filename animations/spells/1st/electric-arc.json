@@ -8,20 +8,20 @@
 					"file": "graphics-sfx.magic.lightning.bolt.impact.01",
 					"options": {
 						"delay": 500,
-						"name": "SFX Lightning Bounce"
+						"id": "SFX Lightning Bounce"
 					}
 				},
 				{
 					"preset": "ranged",
 					"file": "jb2a.chain_lightning.primary.blue",
 					"options": {
-						"name": "VFX Lightning Bounce",
+						"id": "VFX Lightning Bounce",
 						"waitUntilFinished": -1000,
 						"preset": {
 							"bounce": {
 								"file": "jb2a.chain_lightning.secondary.blue",
 								"sound": {
-									"name": "SFX Lightning Bounce",
+									"id": "SFX Lightning Bounce",
 									"overrides": {
 										"options": {
 											"delay": false

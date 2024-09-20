@@ -15,7 +15,7 @@ export default function ranged(seq: SequencerTypes, animation: AnimationObject, 
 			const attacker = options?.preset?.bounce && targetIndex > 0 ? targets[targetIndex - 1] : source;
 
 			if (options?.preset?.bounce?.sound && targetIndex > 0) {
-				const found = data.animations.find(a => a.options?.name === options?.preset?.bounce?.sound?.name);
+				const found = data.animations.find(a => a.options?.id === options?.preset?.bounce?.sound?.id);
 				if (found) {
 					const mergedAnimation = { ...found, ...(options?.preset?.bounce?.sound?.overrides ?? {}) };
 					addAnimationToSequence(seq, mergedAnimation, data);
