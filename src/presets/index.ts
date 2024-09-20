@@ -144,7 +144,7 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	}
 
 	if (data.item) {
-		seq.origin(data.item.uuid);
+		seq.origin(data.item);
 		seq.name(data.item.name);
 	}
 	if (isTrueish(options?.id))
