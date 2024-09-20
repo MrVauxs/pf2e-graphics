@@ -426,7 +426,8 @@ export let AnimCore = class AnimCore {
 			});
 		});
 
-		return sequences.map(x => x.play({ local: true, preload: true }));
+		// TODO: Uncomment when https://github.com/fantasycalendar/FoundryVTT-Sequencer/issues/312 is done
+		return sequences.map(x => x.play({ local: true /* , preload: true */ }));
 	}
 	// #endregion
 };

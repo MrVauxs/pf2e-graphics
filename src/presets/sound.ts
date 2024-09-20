@@ -11,7 +11,7 @@ export default function sound(seq: SequencerTypes, animation: AnimationObject, d
 
 	const sound = seq.sound();
 
-	sound.file(animation.file);
+	sound.file(window.AnimCore.parseFiles(animation.file));
 
 	sound.volume(options.volume);
 

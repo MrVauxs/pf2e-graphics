@@ -2,20 +2,31 @@
 	"action:drain-bonded-item": [
 		{
 			"trigger": "action",
-			"preset": "onToken",
-			"file": "jb2a.divine_smite.caster.blueyellow",
-			"options": {
-				"preset": {
-					"location": "source"
-				},
-				"scaleToObject": 1.5,
-				"filter": {
-					"type": "ColorMatrix",
+			"contents": [
+				{
+					"preset": "sound",
+					"file": "graphics-sfx.magic.buff.generic.{01,02,03,04,05}",
 					"options": {
-						"hue": 160
+						"delay": 500
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.divine_smite.caster.blueyellow",
+					"options": {
+						"preset": {
+							"location": "source"
+						},
+						"scaleToObject": 1.5,
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 160
+							}
+						}
 					}
 				}
-			}
+			]
 		}
 	]
 }

@@ -31,9 +31,9 @@ export default function ranged(seq: SequencerTypes, animation: AnimationObject, 
 				.stretchTo(target);
 
 			if (options?.preset?.bounce && targetIndex > 0) {
-				effect.file(options.preset.bounce.file);
+				effect.file(window.AnimCore.parseFiles(options.preset.bounce.file));
 			} else {
-				effect.file(animation.file);
+				effect.file(window.AnimCore.parseFiles(animation.file));
 			}
 
 			if (options?.preset?.attachTo) {
