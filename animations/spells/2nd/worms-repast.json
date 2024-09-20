@@ -11,15 +11,18 @@
 			},
 			"contents": [
 				{
-					"predicate": ["jb2a:free"],
+					"predicate": [
+						"jb2a:free"
+					],
 					"file": "jb2a.butterflies.many.orange"
 				},
 				{
-					"predicate": ["jb2a:patreon"],
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"file": "jb2a.butterflies.complete.01.white"
 				}
 			]
-
 		}
 	]
 }
