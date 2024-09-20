@@ -141,6 +141,8 @@ export let AnimCore = class AnimCore {
 			v.push({
 				timestamp: Date.now(),
 				...data,
+				actor: { name: data.actor.name, uuid: data.actor.uuid },
+				item: nonNullable(data.item) ? { name: data.item.name, uuid: data.item.uuid } : undefined,
 			});
 			return v;
 		});
@@ -193,6 +195,14 @@ export let AnimCore = class AnimCore {
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
 		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
 		const appliedAnimations = Object.values(foundAnimations).flat().map(x => foundry.utils.mergeObject(x, { options: animationOptions }));
+
+		this.createHistoryEntry({
+			rollOptions,
+			actor,
+			animations: appliedAnimations,
+			trigger,
+			item: nonNullable(item) ? item : undefined,
+		});
 
 		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined);
 	}

@@ -6,7 +6,7 @@
 			"3": "Help the Author"
 		},
 		"source": "source: {format}",
-		"history": "See Animation History",
+		"history": "Animation History",
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",

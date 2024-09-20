@@ -53,11 +53,10 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
-		if (options)
-			newOptions.push(...options, 'target');
+		if (options) newOptions.push(...options, 'target');
 	}
 
-	if (trigger === 'action') {
+	if (trigger === 'action' || trigger === 'self-effect') {
 		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
