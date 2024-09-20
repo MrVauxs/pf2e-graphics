@@ -24,8 +24,7 @@
 									"name": "SFX Lightning Bounce",
 									"overrides": {
 										"options": {
-											"delay": 0,
-											"waitUntilFinished": -1000
+											"delay": false
 										}
 									}
 								}

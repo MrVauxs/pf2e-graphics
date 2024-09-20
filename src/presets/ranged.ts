@@ -1,7 +1,7 @@
 import type { AnimationObject } from 'src/storage/animCore';
-import { type GameData, genericEffectOptions } from '.';
+import { addAnimationToSequence, type GameData, genericEffectOptions, type SequencerTypes } from '.';
 
-export default function ranged(seq: Sequence, animation: AnimationObject, data: GameData) {
+export default function ranged(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { options } = animation;
 	let { sources, targets = [] } = data;
 
@@ -13,6 +13,14 @@ export default function ranged(seq: Sequence, animation: AnimationObject, data: 
 			if (options?.preset?.bounce && targetIndex > 0 && sourceIndex !== 0) return;
 
 			const attacker = options?.preset?.bounce && targetIndex > 0 ? targets[targetIndex - 1] : source;
+
+			if (options?.preset?.bounce?.sound && targetIndex > 0) {
+				const found = data.animations.find(a => a.options?.name === options?.preset?.bounce?.sound?.name);
+				if (found) {
+					const mergedAnimation = { ...found, ...(options?.preset?.bounce?.sound?.overrides ?? {}) };
+					addAnimationToSequence(seq, mergedAnimation, data);
+				}
+			}
 
 			const effect = seq
 				.effect()

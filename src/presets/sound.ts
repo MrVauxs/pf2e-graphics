@@ -1,8 +1,8 @@
 import type { AnimationObject } from 'src/storage/animCore';
-import type { GameData } from '.';
+import type { GameData, SequencerTypes } from '.';
 import { isTrueish } from '../utils';
 
-export default function sound(seq: Sequence, animation: AnimationObject, data: GameData) {
+export default function sound(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { options = {} } = animation;
 	const { sources, targets } = data;
 
