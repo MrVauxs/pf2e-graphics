@@ -11,36 +11,58 @@
 			},
 			"contents": [
 				{
-					"predicate": ["self:trait:air", "kinetic-gate:air"],
+					"predicate": [
+						"self:trait:air",
+						"kinetic-gate:air"
+					],
 					"file": "jb2a.template_circle.out_pulse.02.loop.bluewhite"
 				},
 				{
-					"predicate": ["self:trait:earth", "kinetic-gate:earth"],
+					"predicate": [
+						"self:trait:earth",
+						"kinetic-gate:earth"
+					],
 					"contents": [
 						{
-							"predicate": ["jb2a:free"],
+							"predicate": [
+								"jb2a:free"
+							],
 							"file": "jb2a.cast_generic.earth.01.browngreen.0"
 						},
 						{
-							"predicate": ["jb2a:patreon"],
+							"predicate": [
+								"jb2a:patreon"
+							],
 							"file": "jb2a.impact.earth.01.browngreen.0"
 						}
 					]
 				},
 				{
-					"predicate": ["self:trait:fire", "kinetic-gate:fire"],
+					"predicate": [
+						"self:trait:fire",
+						"kinetic-gate:fire"
+					],
 					"file": "jb2a.impact.fire.01.orange.0"
 				},
 				{
-					"predicate": ["self:trait:metal", "kinetic-gate:metal"],
+					"predicate": [
+						"self:trait:metal",
+						"kinetic-gate:metal"
+					],
 					"file": "jb2a.aura_themed.01.outward.complete.metal.01.grey"
 				},
 				{
-					"predicate": ["self:trait:water", "kinetic-gate:water"],
+					"predicate": [
+						"self:trait:water",
+						"kinetic-gate:water"
+					],
 					"file": "jb2a.impact.water.02.blue.0"
 				},
 				{
-					"predicate": ["self:trait:wood", "kinetic-gate:wood"],
+					"predicate": [
+						"self:trait:wood",
+						"kinetic-gate:wood"
+					],
 					"file": "jb2a.aura_themed.01.outward.complete.wood.01.green"
 				}
 			]

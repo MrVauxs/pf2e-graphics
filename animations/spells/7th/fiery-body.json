@@ -51,7 +51,9 @@
 					]
 				},
 				{
-					"predicate": ["conservation-of-energy:cold"],
+					"predicate": [
+						"conservation-of-energy:cold"
+					],
 					"file": "jb2a.markers.on_token_mask.complete.01.orange",
 					"options": {
 						"sound": {
@@ -82,7 +84,6 @@
 						}
 					]
 				}
-
 			]
 		}
 	]

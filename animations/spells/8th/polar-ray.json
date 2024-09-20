@@ -17,7 +17,9 @@
 					]
 				},
 				{
-					"predicate": ["conservation-of-energy:fire"],
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
 					"contents": [
 						{
 							"file": "jb2a.scorching_ray.01.orange"
@@ -30,7 +32,7 @@
 			"trigger": "attack-roll",
 			"preset": "onToken",
 			"options": {
-				"scaleToObject": 3.0,
+				"scaleToObject": 3,
 				"delay": 500
 			},
 			"contents": [
@@ -52,7 +54,9 @@
 					]
 				},
 				{
-					"predicate": ["conservation-of-energy:fire"],
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
 					"contents": [
 						{
 							"file": "jb2a.fireball.explosion.orange",

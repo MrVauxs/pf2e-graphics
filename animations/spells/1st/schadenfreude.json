@@ -4,7 +4,7 @@
 			"trigger": "saving-throw",
 			"preset": "onToken",
 			"options": {
-				"scaleToObject": 1.0,
+				"scaleToObject": 1,
 				"preset": {
 					"location": "target"
 				}
