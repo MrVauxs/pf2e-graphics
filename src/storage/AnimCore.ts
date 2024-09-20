@@ -279,9 +279,9 @@ export let AnimCore = class AnimCore {
 			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
 			const notOverridenAnimations = filterByOverride(notTriggeredAnimations);
 
-			return Object.fromEntries(notOverridenAnimations);
+			return foundry.utils.deepClone(Object.fromEntries(notOverridenAnimations));
 		} else {
-			return Object.fromEntries(unfoldedAnimations);
+			return foundry.utils.deepClone(Object.fromEntries(unfoldedAnimations));
 		}
 
 		function parseStrings(
@@ -395,7 +395,7 @@ export let AnimCore = class AnimCore {
 			sequences.push(sequence);
 		}
 
-		return sequences.map(x => x.play());
+		return sequences.map(x => x.play({ local: true, preload: true }));
 	}
 	// #endregion
 };
