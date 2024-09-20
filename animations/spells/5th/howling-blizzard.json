@@ -3,7 +3,9 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"predicate": ["origin:item:area:type:cone"],
+			"predicate": [
+				"origin:item:area:type:cone"
+			],
 			"contents": [
 				{
 					"predicate": [
@@ -41,7 +43,9 @@
 					]
 				},
 				{
-					"predicate": ["conservation-of-energy:fire"],
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
 					"file": "jb2a.burning_hands.01.orange",
 					"contents": [
 						{
@@ -85,7 +89,6 @@
 						{
 							"not": "conservation-of-energy:fire"
 						}
-
 					],
 					"file": "jb2a.sleet_storm.blue",
 					"options": {
@@ -93,7 +96,9 @@
 					}
 				},
 				{
-					"predicate": ["conservation-of-energy:fire"],
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
 					"file": "jb2a.fireball.explosion.orange",
 					"options": {
 						"scaleToObject": 1.5
@@ -106,13 +111,28 @@
 		{
 			"trigger": "damage-taken",
 			"preset": "onToken",
-			"file": "jb2a.impact.ground_crack.frost.01.white",
 			"options": {
 				"preset": {
 					"location": "target"
 				},
 				"scaleToObject": 1.5
-			}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"file": "jb2a.ice_spikes.radial.burst.white"
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"file": "jb2a.impact.fire.01.orange.0"
+				}
+			]
 		}
 	]
 }

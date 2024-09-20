@@ -1,0 +1,30 @@
+{
+	"origin:item:slug:entwined-roots": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.entangle.brown",
+			"options": {
+				"scaleToObject": 1,
+				"mask": true
+			},
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

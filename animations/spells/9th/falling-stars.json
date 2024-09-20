@@ -1,0 +1,48 @@
+{
+	"origin:item:slug:falling-stars": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"options": {
+				"scaleToObject": 1.2
+			},
+			"contents": [
+				{
+					"default": true,
+					"contents": [
+						{
+							"file": "jb2a.divine_smite.target.blueyellow"
+						}
+					]
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"options": {
+						"randomizeMirrorX": true,
+						"randomRotation": true,
+						"repeats": {
+							"count": 6,
+							"delayMin": 250,
+							"delayMax": 500
+						}
+					},
+					"contents": [
+						{
+							"file": "jb2a.divine_smite.target.blueyellow"
+						},
+						{
+							"file": "jb2a.template_circle.out_pulse.02.burst.bluewhite"
+						}
+					]
+				}
+			]
+		}
+	]
+}

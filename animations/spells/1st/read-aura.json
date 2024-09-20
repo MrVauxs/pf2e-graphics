@@ -1,0 +1,12 @@
+{
+	"spell:slug:read-aura": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.rune.divination.intro.blue",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

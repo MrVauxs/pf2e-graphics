@@ -1,0 +1,12 @@
+{
+	"spell:slug:sigil": [
+		{
+			"trigger": "action",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.rune.transmutation.intro.yellow",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

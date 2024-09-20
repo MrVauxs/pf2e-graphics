@@ -11,11 +11,15 @@
 			},
 			"contents": [
 				{
-					"predicate": ["jb2a:free"],
+					"predicate": [
+						"jb2a:free"
+					],
 					"file": "jb2a.markers.chain.spectral_standard.complete.02.blue"
 				},
 				{
-					"predicate": ["jb2a:patreon"],
+					"predicate": [
+						"jb2a:patreon"
+					],
 					"file": "jb2a.markers.chain.diamond.loop.01.yellow"
 				}
 			]

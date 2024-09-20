@@ -38,7 +38,9 @@
 					]
 				},
 				{
-					"predicate": ["conservation-of-energy:cold"],
+					"predicate": [
+						"conservation-of-energy:cold"
+					],
 					"contents": [
 						{
 							"preset": "ranged",

@@ -1,5 +1,5 @@
 {
-	"effect:fire-shield": [
+	"effect:fiery-body": [
 		{
 			"preset": "onToken",
 			"trigger": "toggle",
@@ -13,6 +13,7 @@
 				}
 			],
 			"options": {
+				"mask": true,
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
@@ -25,7 +26,7 @@
 							"not": "conservation-of-energy:cold"
 						}
 					],
-					"file": "jb2a.shield_themed.below.fire.01.orange",
+					"file": "jb2a.markers.on_token_mask.complete.01.orange",
 					"options": {
 						"sound": {
 							"file": "graphics-sfx.magic.fire.armor"
@@ -51,10 +52,16 @@
 				},
 				{
 					"predicate": ["conservation-of-energy:cold"],
-					"file": "jb2a.shield_themed.below.ice.01.blue",
+					"file": "jb2a.markers.on_token_mask.complete.01.orange",
 					"options": {
 						"sound": {
 							"file": "graphics-sfx.magic.ice.shield"
+						},
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 180
+							}
 						}
 					},
 					"contents": [

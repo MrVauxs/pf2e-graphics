@@ -1,0 +1,38 @@
+{
+	"effect:sand-form": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.markers.on_token_mask.complete.01.orange",
+			"options": {
+				"mask": true,
+				"scaleToObject": 1.5,
+				"rotate": -90,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": 40,
+						"saturate": -0.5
+					}
+				}
+			},
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}
