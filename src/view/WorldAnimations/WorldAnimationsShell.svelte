@@ -2,7 +2,7 @@
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
 	import { ApplicationShell } from '#runtime/svelte/component/core';
-	import { AnimCore } from 'src/storage/AnimCore';
+	import { AnimCore } from 'src/storage/animCore';
 	import { i18n, log } from 'src/utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
 	import { getContext } from 'svelte';
@@ -20,7 +20,8 @@
 	let columns = 4;
 
 	function validateSound(sound: string): true | string {
-		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFile(sound), { softFail: true });
+		// TODO: Inaccurate
+		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFiles(sound)[0], { softFail: true });
 		return !!entry;
 	}
 

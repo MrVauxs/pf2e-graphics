@@ -5,6 +5,7 @@ import {
 	assetDatabasePaths,
 	JB2AFreeDatabasePaths,
 	JB2APatreonDatabasePaths,
+	JB2APatreonExclusiveDatabasePaths,
 	soundDatabasePaths,
 } from '../assets/flatDbs';
 import { DB_PREFIX as soundDatabasePrefix } from '../assets/soundDb';
@@ -63,80 +64,110 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 	/**
 	 * Tests whether a given Sequencer database path is valid.
 	 * @param path The property path for issue-reporting.
-	 * @param str The input string.
+	 * @param dbPath The input database path or paths.
 	 * @param db The database name to be searched.
 	 */
-	function testDatabasePath(path: Path, str: string, db: 'asset' | 'sound', context?: AnimationContext) {
-		// Don't bother validating actual filepaths
-		if (path.includes('/')) return;
+	function testDatabasePath(
+		path: Path,
+		dbPath: string | string[],
+		db: 'asset' | 'sound',
+		context?: AnimationContext,
+	) {
+		[dbPath].flat().forEach((str) => {
+			// Don't bother validating actual filepaths
+			if (path.includes('/')) return;
 
-		const pathPermutations: string[] = [];
+			const pathPermutations: string[] = [];
 
-		const openBraceStrings = str.split('{');
-		if (openBraceStrings.length === 1) {
-			// No moustaches
-			pathPermutations.push(str);
-		} else {
-			// Moustaches present!
-			// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
-			const matchingBraces = openBraceStrings.map(
-				str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
-			);
-			// We expect the first such string to have no close-braces
-			const first = matchingBraces.shift();
-			if (first || !matchingBraces.every(Boolean)) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_string,
-					path,
-					validation: 'regex',
-					message: `Mismatched or empty braces.`,
-				});
-			}
-
-			// Get each permutation of "...{...}..." moustached strings
-			const extractPermutations = (str: string): string[] => {
-				const openBrace = str.indexOf('{');
-				if (openBrace === -1) return [str]; // Necessary due to recursion
-				const closeBrace = str.indexOf('}');
-				const elements = str.substring(openBrace + 1, closeBrace).split(',');
-				return elements
-					.map(element =>
-						// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
-						extractPermutations(
-							`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
-						),
-					)
-					.flat();
-			};
-			pathPermutations.push(...extractPermutations(str));
-		}
-
-		let database;
-		let readableDBName;
-		if (db === 'sound') {
-			database = soundDatabasePaths;
-			readableDBName = soundDatabasePrefix;
-		} else {
-			if (context?.predicates.has('jb2a:patreon')) {
-				database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
-				readableDBName = `${assetDatabasePrefix} or jb2a_patreon`;
+			const openBraceStrings = str.split('{');
+			if (openBraceStrings.length === 1) {
+				// No moustaches
+				pathPermutations.push(str);
 			} else {
-				database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
-				readableDBName = `${assetDatabasePrefix} or JB2A_DnD5e`;
-			}
-		}
+				// Moustaches present!
+				// Check whether each string in `openBraceStrings` has exactly one (1) close-brace which doesn't appear at the start (since that would imply an empty "{}" moustache)
+				const matchingBraces = openBraceStrings.map(
+					str => (str.match(/\}/g) ?? []).length === 1 && !str.startsWith('}'),
+				);
+				// We expect the first such string to have no close-braces
+				const first = matchingBraces.shift();
+				if (first || !matchingBraces.every(Boolean)) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.invalid_string,
+						path,
+						validation: 'regex',
+						message: `Mismatched or empty braces.`,
+					});
+				}
 
-		for (const testPath of pathPermutations) {
-			if (!database.some(entry => entry.startsWith(testPath))) {
-				return ctx.addIssue({
-					code: z.ZodIssueCode.invalid_enum_value,
-					path,
-					received: testPath,
-					options: [],
-					message: `Not found in the ${readableDBName} database.`,
-				});
+				// Get each permutation of "...{...}..." moustached strings
+				const extractPermutations = (str: string): string[] => {
+					const openBrace = str.indexOf('{');
+					if (openBrace === -1) return [str]; // Necessary due to recursion
+					const closeBrace = str.indexOf('}');
+					const elements = str.substring(openBrace + 1, closeBrace).split(',');
+					return elements
+						.map(element =>
+							// Necessary due to the possibility of "...{...}...{...}..." double-moustached paths
+							extractPermutations(
+								`${str.substring(0, openBrace)}${element}${str.substring(closeBrace + 1)}`,
+							),
+						)
+						.flat();
+				};
+				pathPermutations.push(...extractPermutations(str));
 			}
-		}
+
+			if (db === 'sound') {
+				for (const testPath of pathPermutations) {
+					if (!soundDatabasePaths.some(entry => entry.startsWith(testPath))) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in PF2e Graphics' ${soundDatabasePrefix} database.`,
+						});
+					}
+				}
+			} else if (context?.predicates.has('jb2a:patreon')) {
+				const database = [...JB2APatreonDatabasePaths, ...assetDatabasePaths];
+				for (const testPath of pathPermutations) {
+					if (!database.some(entry => entry.startsWith(testPath))) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in the JB2A Patreon or PF2e Graphics' ${assetDatabasePrefix} database.`,
+						});
+					}
+				}
+			} else {
+				const database = [...JB2AFreeDatabasePaths, ...assetDatabasePaths];
+				for (const testPath of pathPermutations) {
+					if (!database.some(entry => entry.startsWith(testPath))) {
+						if (JB2APatreonExclusiveDatabasePaths.some(entry => entry.startsWith(testPath))) {
+							return ctx.addIssue({
+								code: z.ZodIssueCode.invalid_enum_value,
+								path,
+								received: testPath,
+								options: [],
+								message:
+									'JB2A Patreon-exclusive animation: use the `jb2a:patreon` predicate or choose another file.',
+							});
+						}
+						return ctx.addIssue({
+							code: z.ZodIssueCode.invalid_enum_value,
+							path,
+							received: testPath,
+							options: [],
+							message: `Not found in the JB2A Free or PF2e Graphics' ${assetDatabasePrefix} database.`,
+						});
+					}
+				}
+			}
+		});
 	}
 
 	/**
@@ -223,6 +254,7 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 			melee: ['attachTo', 'rotateTowards'],
 			ranged: ['attachTo', 'bounce', 'templateAsOrigin', 'atLocation', 'stretchTo'],
 			macro: ['(none)'],
+			sound: ['(none)'],
 		} as const;
 
 		const illegalProperties = Object.keys(options).filter(
@@ -232,18 +264,34 @@ export function superValidate(arr: AnimationObject[], ctx: z.RefinementCtx) {
 		if (illegalProperties.length) {
 			return ctx.addIssue({
 				code: z.ZodIssueCode.unrecognized_keys,
+				path: [...path, 'options', 'preset'],
 				keys: illegalProperties,
 				message: `Forbidden ${illegalProperties.length === 1 ? 'property' : 'properties'} when \`preset\` is \`"${preset}"\`: \`${illegalProperties.join('`, `')}\`.`,
 			});
 		}
 
-		if (
-			(preset !== 'onToken'
-				&& (typeof options.rotateTowards === 'boolean' || typeof options.atLocation === 'boolean'))
-				|| (preset !== 'ranged' && options.attachTo === true)
-		) {
-			return ctx.addIssue({
+		if (preset !== 'onToken') {
+			if (typeof options.rotateTowards === 'boolean') {
+				ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					path: [...path, 'options', 'preset', 'rotateTowards'],
+					received: 'boolean',
+					expected: 'object',
+				});
+			}
+			if (typeof options.atLocation === 'boolean') {
+				ctx.addIssue({
+					code: z.ZodIssueCode.invalid_type,
+					path: [...path, 'options', 'preset', 'atLocation'],
+					received: 'boolean',
+					expected: 'object',
+				});
+			}
+		}
+		if (preset !== 'ranged' && typeof options.attachTo === 'boolean') {
+			ctx.addIssue({
 				code: z.ZodIssueCode.invalid_type,
+				path: [...path, 'options', 'preset', 'attachTo'],
 				received: 'boolean',
 				expected: 'object',
 			});

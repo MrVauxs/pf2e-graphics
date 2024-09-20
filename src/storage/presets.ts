@@ -200,7 +200,7 @@ const helpers = {
 				options.volume *= window.pf2eGraphics.liveSettings.volume;
 
 				const sound = seq.sound();
-				sound.file(window.pf2eGraphics.AnimCore.parseFile(options?.file));
+				sound.file(window.pf2eGraphics.AnimCore.parseFiles(options?.file));
 				sound.volume(options.volume);
 
 				if (options?.atLocation)
@@ -389,7 +389,7 @@ export const presets = {
 				.stretchTo(target, helpers.parseOffsetEmbedded(options?.preset?.stretchTo, source, target));
 
 			if (options?.preset?.bounce && i > 0) {
-				effect.file(window.pf2eGraphics.AnimCore.parseFile(options?.preset.bounce.file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFiles(options?.preset.bounce.file));
 
 				if (options.preset.attachTo) {
 					effect.attachTo(
@@ -403,7 +403,7 @@ export const presets = {
 					);
 				}
 			} else {
-				effect.file(window.pf2eGraphics.AnimCore.parseFile(file));
+				effect.file(window.pf2eGraphics.AnimCore.parseFiles(file));
 
 				if (options?.preset?.attachTo) {
 					effect.attachTo(
@@ -447,7 +447,7 @@ export const presets = {
 
 			const section = seq
 				.effect()
-				.file(window.pf2eGraphics.AnimCore.parseFile(file))
+				.file(window.pf2eGraphics.AnimCore.parseFiles(file))
 				.attachTo(source, helpers.parseOffsetEmbedded(options?.preset?.attachTo, source, target))
 				.rotateTowards(target, helpers.parseOffsetEmbedded(options?.preset?.rotateTowards, source, target));
 
@@ -489,7 +489,7 @@ export const presets = {
 
 			const result = seq
 				.effect()
-				.file(window.pf2eGraphics.AnimCore.parseFile(file));
+				.file(window.pf2eGraphics.AnimCore.parseFiles(file));
 
 			if (options?.preset?.atLocation) {
 				result.atLocation(token, helpers.parseOffsetEmbedded(options?.preset?.atLocation, token, target || token));
@@ -520,7 +520,7 @@ export const presets = {
 
 			const section = seq
 				.effect()
-				.file(window.pf2eGraphics.AnimCore.parseFile(file))
+				.file(window.pf2eGraphics.AnimCore.parseFiles(file))
 				.attachTo(target, helpers.parseOffsetEmbedded(options?.preset?.attachTo, target, target));
 
 			if (!options?.preset?.attachTo && (target.t === 'ray' || target.t === 'cone'))

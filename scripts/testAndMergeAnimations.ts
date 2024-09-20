@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import { type AnimationObject, type Animations, validateAnimationData } from '../src/storage/animationsSchema.ts';
-import { type fileValidationResult, pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
+import { type FileValidationFailure, pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
 
 /**
  * Tests animation JSONs, and then returns a merged object along with any valiation errors encountered.
@@ -10,7 +10,7 @@ import { type fileValidationResult, pluralise, safeJSONParse, testFilesRecursive
  */
 export function testAndMergeAnimations(
 	targetPath: string,
-): { success: true; data: Animations } | { success: false; data?: Animations; issues: fileValidationResult[] } {
+): { success: true; data: Animations } | { success: false; data?: Animations; issues: FileValidationFailure[] } {
 	const referenceTracker = new (class ReferenceTracker extends Map<string, Set<string>> {
 		constructor() {
 			super();
@@ -42,25 +42,26 @@ export function testAndMergeAnimations(
 	const results = testFilesRecursively(
 		targetPath,
 		{
-			'.json': (path) => {
+			'.json': (file) => {
 				// Test filename
-				if (path.match(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))
-					return { success: false, message: 'Invalid filename.' };
+				if (!file.match(/animations[\\/](([a-z0-9-]+[\\/])+[a-z0-9]+(?:-[a-z0-9]+)*|tokenImages)\.json$/))
+					return { file, success: false, message: 'Invalid filename.' };
 
 				// Test readability
-				const file = safeJSONParse(fs.readFileSync(path, { encoding: 'utf8' }));
-				if (!file.success) return { success: false, message: 'Invalid JSON syntax.' };
+				const json = safeJSONParse(fs.readFileSync(file, { encoding: 'utf8' }));
+				if (!json.success) return { file, success: false, message: 'Invalid JSON syntax.' };
 
 				// Validate schema
-				const schemaResult = validateAnimationData(file.data);
+				const schemaResult = validateAnimationData(json.data);
 
 				// Test whether the data is an object and is therefore mergeable
-				if (typeof file.data === 'object' && file.data !== null && !Array.isArray(file.data)) {
-					const animations = file.data as { [key: string]: string | AnimationObject[] };
+				if (typeof json.data === 'object' && json.data !== null && !Array.isArray(json.data)) {
+					const animations = json.data as { [key: string]: string | AnimationObject[] };
 					for (const key in animations) {
-					// Test for duplicate keys
+						// Test for duplicate keys
 						if (mergedAnimations.has(key)) {
 							return {
+								file,
 								success: false,
 								message: `Animation assigned elsewhere to roll option ${key}`,
 							};
@@ -69,12 +70,13 @@ export function testAndMergeAnimations(
 						}
 
 						// Populate referenced rollOptions for validation afterwards
-						referenceTracker.populate(path, animations[key]);
+						referenceTracker.populate(file, animations[key]);
 					}
 				}
 
-				if (schemaResult.success) return { success: true };
+				if (schemaResult.success) return { file, success: true };
 				return {
+					file,
 					success: false,
 					message: `${schemaResult.error.issues.length} schema ${pluralise('issue', schemaResult.error.issues.length)}`,
 					issues: schemaResult.error.issues,

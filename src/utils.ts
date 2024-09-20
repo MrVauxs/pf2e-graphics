@@ -35,6 +35,13 @@ export function i18n(string: string, format?: any) {
 	return game.i18n.format(string, format);
 }
 
+export function isTrueish<T>(val: T): val is NonNullable<T> {
+	return nonNullable(val)
+		&& Boolean(val)
+		&& JSON.stringify(val) !== '{}'
+		&& JSON.stringify(val) !== '[]';
+}
+
 export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id);
 
 export function dedupeStrings(array: string[]) {

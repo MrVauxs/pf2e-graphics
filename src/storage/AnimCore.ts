@@ -2,19 +2,19 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import type { EffectOptions, Trigger } from './animationsSchema';
+import { addAnimationToSequence, type GameData } from 'src/presets';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
-import { type PresetKeys, presets } from './presets';
+import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
-type JSONData = Record<string, string | JSONDataObject[]>;
+export type JSONData = Record<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number];
 
-type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
+export type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
 
 interface JSONDataObject {
 	trigger: Trigger | Trigger[];
-	preset: PresetKeys;
+	preset: Preset;
 	file: string | string[];
 	predicate?: PredicateStatement[];
 	options?: EffectOptions;
@@ -104,7 +104,11 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	static parseFile(file: string = ''): string[] {
+	static parseFiles(files: string[] | string): string[] {
+		return [files].flat().flatMap(s => this._parseFile(s));
+	}
+
+	static _parseFile(file: string = ''): string[] {
 		const match = file.match(/\{(.*?)\}/);
 		if (!match)
 			return [file];
@@ -137,34 +141,17 @@ export let AnimCore = class AnimCore {
 			v.push({
 				timestamp: Date.now(),
 				...data,
+				actor: { name: data.actor.name, uuid: data.actor.uuid },
+				item: nonNullable(data.item) ? { name: data.item.name, uuid: data.item.uuid } : undefined,
 			});
 			return v;
 		});
 	}
 
 	static CONST = {
-		PRESETS: Object.keys(presets) as PresetKeys[],
-		TRIGGERS: [
-			'attack-roll',
-			'damage-roll',
-			'place-template',
-			'action',
-			'toggle',
-			'effect',
-			'self-effect',
-			'start-turn',
-			'end-turn',
-			'damage-taken',
-			'saving-throw',
-			'check',
-			'skill-check',
-			'flat-check',
-			'initiative',
-			'perception-check',
-			'counteract-check',
-			'modifiers-matter',
-		],
-	} as const;
+		PRESETS: presetList,
+		TRIGGERS: triggersList,
+	};
 
 	static addNewAnimation(data: JSONData, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
@@ -209,7 +196,15 @@ export let AnimCore = class AnimCore {
 		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
 		const appliedAnimations = Object.values(foundAnimations).flat().map(x => foundry.utils.mergeObject(x, { options: animationOptions }));
 
-		return this.play(appliedAnimations, sources, targets);
+		this.createHistoryEntry({
+			rollOptions,
+			actor,
+			animations: appliedAnimations,
+			trigger,
+			item: nonNullable(item) ? item : undefined,
+		});
+
+		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined);
 	}
 
 	/**
@@ -294,9 +289,9 @@ export let AnimCore = class AnimCore {
 			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
 			const notOverridenAnimations = filterByOverride(notTriggeredAnimations);
 
-			return Object.fromEntries(notOverridenAnimations);
+			return foundry.utils.deepClone(Object.fromEntries(notOverridenAnimations));
 		} else {
-			return Object.fromEntries(unfoldedAnimations);
+			return foundry.utils.deepClone(Object.fromEntries(unfoldedAnimations));
 		}
 
 		function parseStrings(
@@ -392,18 +387,46 @@ export let AnimCore = class AnimCore {
 		}
 	}
 
+	static createSequenceInQueue(
+		queue: Sequence[],
+		animation: AnimationObject,
+		data: GameData,
+		index: number = -1,
+	) {
+		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+
+		addAnimationToSequence(
+			sequence,
+			animation,
+			data,
+		);
+
+		queue.splice(index, 0, sequence);
+	}
+
 	/**
 	 * Animations in, Sequences out.
-	 * TODO:
 	 */
 	static play(
 		animations: AnimationObject[],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
+		item?: ItemPF2e<any>,
 	): Promise<Sequence>[] {
-		const sequences = [new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev })];
+		const sequences: Sequence[] = [];
 
-		return sequences.map(x => x.play());
+		animations.forEach((animation, index) => {
+			this.createSequenceInQueue(sequences, animation, {
+				sources,
+				targets,
+				item,
+				queue: sequences,
+				currentIndex: index,
+				animations,
+			});
+		});
+
+		return sequences.map(x => x.play({ local: true, preload: true }));
 	}
 	// #endregion
 };
