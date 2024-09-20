@@ -2,7 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
-import { addAnimationToSequence } from 'src/presets';
+import { addAnimationToSequence, type GameData } from 'src/presets';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
@@ -194,7 +194,7 @@ export let AnimCore = class AnimCore {
 		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
 		const appliedAnimations = Object.values(foundAnimations).flat().map(x => foundry.utils.mergeObject(x, { options: animationOptions }));
 
-		return this.play(appliedAnimations, sources, targets);
+		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined);
 	}
 
 	/**
@@ -377,6 +377,23 @@ export let AnimCore = class AnimCore {
 		}
 	}
 
+	static createSequenceInQueue(
+		queue: Sequence[],
+		animation: AnimationObject,
+		data: GameData,
+		index: number = -1,
+	) {
+		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+
+		addAnimationToSequence(
+			sequence,
+			animation,
+			data,
+		);
+
+		queue.splice(index, 0, sequence);
+	}
+
 	/**
 	 * Animations in, Sequences out.
 	 */
@@ -384,16 +401,20 @@ export let AnimCore = class AnimCore {
 		animations: AnimationObject[],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
+		item?: ItemPF2e<any>,
 	): Promise<Sequence>[] {
-		const sequences = [];
+		const sequences: Sequence[] = [];
 
-		for (const animation of animations) {
-			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
-
-			addAnimationToSequence(sequence, animation, { sources, targets });
-
-			sequences.push(sequence);
-		}
+		animations.forEach((animation, index) => {
+			this.createSequenceInQueue(sequences, animation, {
+				sources,
+				targets,
+				item,
+				queue: sequences,
+				currentIndex: index,
+				animations,
+			});
+		});
 
 		return sequences.map(x => x.play({ local: true, preload: true }));
 	}

@@ -55,5 +55,11 @@ export default function sound(seq: Sequence, animation: AnimationObject, data: G
 			sound.muffledEffect(options.muffledEffect);
 	}
 
+	if (isTrueish(options?.name)) {
+		sound.name(options.name);
+	} else if (data.item) {
+		sound.name(data.item.name);
+	}
+
 	return seq;
 }

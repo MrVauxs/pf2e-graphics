@@ -1,5 +1,5 @@
 import type { AnimationObject } from 'src/storage/animCore';
-import type { GameData } from '.';
+import { type GameData, genericEffectOptions } from '.';
 
 export default function ranged(seq: Sequence, animation: AnimationObject, data: GameData) {
 	const { options } = animation;
@@ -13,6 +13,7 @@ export default function ranged(seq: Sequence, animation: AnimationObject, data: 
 			if (options?.preset?.bounce && targetIndex > 0 && sourceIndex !== 0) return;
 
 			const attacker = options?.preset?.bounce && targetIndex > 0 ? targets[targetIndex - 1] : source;
+
 			const effect = seq
 				.effect()
 				.stretchTo(target);
@@ -28,6 +29,8 @@ export default function ranged(seq: Sequence, animation: AnimationObject, data: 
 			} else {
 				effect.atLocation(attacker);
 			}
+
+			genericEffectOptions(effect, animation, data);
 		});
 	});
 
