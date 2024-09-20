@@ -20,7 +20,8 @@
 	let columns = 4;
 
 	function validateSound(sound: string): true | string {
-		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFile(sound), { softFail: true });
+		// TODO: Inaccurate
+		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFiles(sound)[0], { softFail: true });
 		return !!entry;
 	}
 

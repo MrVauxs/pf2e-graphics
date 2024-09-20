@@ -300,6 +300,7 @@ const presetOptions = z
 			.refine(...nonEmpty)
 			.optional(),
 		templateAsOrigin: z.literal(true).optional(),
+		targets: z.array(z.string()).refine(...nonEmpty).optional(),
 	})
 	.strict()
 	.refine(...nonEmpty);

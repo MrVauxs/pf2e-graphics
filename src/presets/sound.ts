@@ -3,9 +3,10 @@ import type { GameData } from '.';
 import { isTrueish } from '../utils';
 
 export default function sound(seq: Sequence, animation: AnimationObject, data: GameData) {
-	const { options = { volume: 1 } } = animation;
+	const { options = {} } = animation;
 	const { sources, targets } = data;
 
+	if (!Number.isNumeric(options.volume)) options.volume = 1;
 	options.volume *= window.pf2eGraphics.liveSettings.volume;
 
 	const sound = seq.sound();

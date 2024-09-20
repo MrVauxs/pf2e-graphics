@@ -4,13 +4,16 @@
 			"trigger": "damage-roll",
 			"contents": [
 				{
+					"preset": "sound",
+					"file": "graphics-sfx.magic.lightning.bolt.impact.01",
+					"options": {
+						"delay": 500
+					}
+				},
+				{
 					"preset": "ranged",
 					"file": "jb2a.chain_lightning.primary.blue",
 					"options": {
-						"sound": {
-							"delay": 500,
-							"file": "graphics-sfx.magic.lightning.bolt.impact.01"
-						},
 						"waitUntilFinished": -1000,
 						"preset": {
 							"bounce": {
