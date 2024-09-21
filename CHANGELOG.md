@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.9.1] - 2024-09-21
+
+### Fixed
+
+- Changing the volume causing it to be applied multiplicatively with itself over multiple animations (so 1st is 50%, 2nd is 25%, 3rd is 12.5%, etc.)
+
 ## [0.9.0] - 2024-09-11
 
 ### Added
@@ -445,7 +451,8 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.1...HEAD
+[0.9.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.3...v0.9.0
 [0.8.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.1...v0.8.2
