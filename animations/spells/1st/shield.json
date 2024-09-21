@@ -20,7 +20,6 @@
 		},
 		{
 			"preset": "onToken",
-			"trigger": "effect",
 			"file": "jb2a.shield.01.complete.01.blue",
 			"predicate": [
 				{
@@ -41,6 +40,14 @@
 			},
 			"contents": [
 				{
+					"default": true,
+					"trigger": [
+						"effect",
+						"start-turn"
+					]
+				},
+				{
+					"trigger": "effect",
 					"predicate": [
 						"settings:persistent"
 					],
@@ -51,13 +58,6 @@
 						},
 						"tieToDocuments": true
 					}
-				},
-				{
-					"default": true,
-					"trigger": [
-						"effect",
-						"start-turn"
-					]
 				}
 			]
 		}

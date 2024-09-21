@@ -20,23 +20,23 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - Polish translation (thank you @Lioheart!)
 - **New Animations**
-  - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip. (@Aziareel)
+  - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip (@Aziareel)
   - Champion's Resistance, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability Module), Healer's Gloves, Extract Elements (@Aziareel)
-  - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation. (@Aziareel)
+  - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation (@Aziareel)
   - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard/Cone of Cold (+ Oscillating Wave), Disintegrate, Spirit Blast, Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Powerful Inhalation, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri's Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave), Read Aura, Schadenfreude, Sigil, Laughing Fit, Sand Form, Confusion, Fire Shield (+ Oscillating Wave), Entwined Roots, Flames of Ego, Impaling Spike, Pressure Zone, Fiery Body (+ Oscillating Wave), Polar Ray (+ Oscillating Wave), Falling Stars (@Aziareel)
   - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
   - Creature Abilities; Urevian - Diabolic Quill (@ChasarooniZ)
 
 ### Changed
 
-- Significantly rewrote the animation backend to be more efficient and less error-prone.
-  - You can now chain references, ex. `custom-lightning-spell` leading to `chain-lightning` leading to `electric-arc` (up to 10 recursions).
+- Significantly rewrote the animation backend to be more efficient and less error-prone
+  - You can now chain references, ex. `custom-lightning-spell` leading to `chain-lightning` leading to `electric-arc` (up to 10 recursions)
 - Updated validation scripts to provide more meaningful error messages in nicer formatting (@Spappz)
 
 ### Fixed
 
-- Vitality Lash should now work again
-- Shield (Cantrip) should now work again(?)
+- Vitality Lash should now work again (@Aziareel)
+- Shield (Cantrip) should now work again (@Aziareel)
 - Validation error when `preset.options.blur` was used (@Spappz)
 
 ## [0.9.3] - 2024-09-21
