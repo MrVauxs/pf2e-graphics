@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { AnimationObject } from 'src/storage/animCore.ts';
 import { log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
+import onTokenPreset from './onToken.ts';
 import rangedPreset from './ranged.ts';
 import soundPreset from './sound.ts';
 
@@ -24,6 +25,9 @@ export function addAnimationToSequence(seq: SequencerTypes, animation: Animation
 			break;
 		case 'ranged':
 			rangedPreset(seq, animation, data);
+			break;
+		case 'onToken':
+			onTokenPreset(seq, animation, data);
 			break;
 		default:
 			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);
@@ -144,7 +148,7 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	}
 
 	if (data.item) {
-		seq.origin(data.item.uuid);
+		seq.origin(data.item);
 		seq.name(data.item.name);
 	}
 	if (isTrueish(options?.id))
