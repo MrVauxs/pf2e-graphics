@@ -1,0 +1,8 @@
+{
+	"origin:item:slug:cone-of-cold": [
+		{
+			"reference": "origin:item:slug:howling-blizzard"
+		}
+	],
+	"item:slug:cone-of-cold": "item:slug:howling-blizzard"
+}

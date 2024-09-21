@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 ### Changed
 
 - Spear Group Attacks now work with JB2A Free version
-- Oscillating Wave's Breath Fire/Fireball now have an additional animation
+- Oscillating Wave's Breathe Fire/Fireball now have an additional animation
 - Kinetic Aura added for other Gates (@ChasarooniZ)
 
 ### Added
@@ -21,10 +21,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Polish translation (thank you @Lioheart!)
 - **New Animations**
   - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip. (@Aziareel)
-  - Champion's Resistence, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability Module), Healer's Gloves (@Aziareel)
+  - Champion's Resistance, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability Module), Healer's Gloves, Extract Elements (@Aziareel)
   - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation. (@Aziareel)
-  - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard (+ Oscillating Wave), Disintegrate, Spirit Blast. (@Aziareel)
-  - Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Powerful Inhalation, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri's Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave) (@Aziareel)
+  - Cornucopia, Crushing Ground, Guidance, Heal Animal, Lose the Path, Mushroom Patch, Needle Darts, Tempest Surge, Wildfire, Darkvision, Grease, Harmonize Self, Revealing Light, See the Unseen, Combustion, Holy Light, Magnetic Acceleration, Vision of Death, Howling Blizzard/Cone of Cold (+ Oscillating Wave), Disintegrate, Spirit Blast, Faerie Dust, Figment, Imaginary Weapon, Lay on Hands, Blazing Bolt, Blood Vendetta, Bloodspray Curse, Cleanse Affliction, Clear Mind, Sound Body, Darkness, False Vitality, Floating Flame, Heat Metal (+ Oscillating Wave), Paranoia, Powerful Inhalation, Translate, Water Breathing, Worm's Repast, Earthbind, Heroism, Cinder Swarm, Ymeri's Mark, Breath of Life, Flammable Fumes, Toxic Cloud, Flame Vortex (+ Oscillating Wave), Read Aura, Schadenfreude, Sigil, Laughing Fit, Sand Form, Confusion, Fire Shield (+ Oscillating Wave), Entwined Roots, Flames of Ego, Impaling Spike, Pressure Zone, Fiery Body (+ Oscillating Wave), Polar Ray (+ Oscillating Wave), Falling Stars (@Aziareel)
   - Persistent Damage (On Apply Damage Effects Only) (@ChasarooniZ)
   - Creature Abilities; Urevian - Diabolic Quill (@ChasarooniZ)
 

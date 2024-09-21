@@ -1,0 +1,50 @@
+{
+	"item:slug:impaling-spike": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.template_line_piercing.generic.01.orange.15ft",
+			"options": {
+				"scaleToObject": 2,
+				"preset": {
+					"location": "target"
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"options": {
+						"rotate": 90
+					}
+				},
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								2
+							]
+						}
+					],
+					"contents": [
+						{
+							"options": {
+								"rotate": 45
+							}
+						},
+						{
+							"options": {
+								"rotate": 90
+							}
+						},
+						{
+							"options": {
+								"rotate": 135
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

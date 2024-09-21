@@ -1,0 +1,30 @@
+{
+	"origin:item:slug:freezing-rain": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.impact.frost.white.01",
+			"contents": [
+				{
+					"options": {
+						"scaleToObject": 1.2,
+						"waitUntilFinished": -4500
+					}
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"file": "jb2a.sleet_storm.blue",
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

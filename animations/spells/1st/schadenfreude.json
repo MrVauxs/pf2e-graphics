@@ -1,0 +1,15 @@
+{
+	"item:slug:schadenfreude": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": 1,
+				"preset": {
+					"location": "target"
+				}
+			},
+			"file": "jb2a.icon.stun.purple"
+		}
+	]
+}
