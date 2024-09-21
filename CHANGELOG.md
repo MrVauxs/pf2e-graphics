@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+## [0.9.3] - 2024-09-21
+
+### Changed
+
+- Nothing. This release is purely for purposes of syncing the `module.zip` with the Forge. Again.
+
 ## [0.9.2] - 2024-09-21
 
 ### Fixed
