@@ -1,10 +1,10 @@
-import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
+import type { storeSettingsType } from '../settings';
+import { dedupeStrings, dev, devLog, ErrorMsg, findTokenByActor, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { clearEmpties } from '../utils';
 import { type PresetKeys, presets } from './presets';
-import type { storeSettingsType } from '../settings';
 
 function hasReference(reference: AnimationDataObject | ReferenceObject): reference is ReferenceObject {
 	return typeof (reference as ReferenceObject).reference === 'string';
@@ -210,9 +210,11 @@ export let AnimCore = class AnimCore {
 		const preparedOptions = this.prepRollOptions(rollOptions);
 		const keys = dedupeStrings([...AnimCore.keys, ...Object.keys(customAnimations)]);
 
-		obj.animations = keys
-			.filter(key => preparedOptions.includes(key))
-			.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations, rollOptions) }), {});
+		obj.animations = foundry.utils.deepClone(
+			keys
+				.filter(key => preparedOptions.includes(key))
+				.reduce((acc, key) => ({ ...acc, [key]: AnimCore.getAnimationsArray(key, customAnimations, rollOptions) }), {}),
+		);
 
 		obj.sources = clearEmpties(
 			(Object.keys(customSources) as (keyof typeof customSources)[])
