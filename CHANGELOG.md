@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - Spear Group Attacks now work with JB2A Free version
 - Oscillating Wave's Breath Fire/Fireball now have an additional animation
+- Kinetic Aura added for other Gates (@ChasarooniZ)
 
 ### Added
 
