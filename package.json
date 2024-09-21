@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite",
-		"build": "npm run build:vite & npm run build:clean",
+		"build": "npm run build:vite && npm run build:clean",
 		"build:vite": "vite build",
 		"build:clean": "tsx ./scripts/cleanAnimations.ts",
 		"build:schema": "tsx ./scripts/buildJSONSchema.ts",
