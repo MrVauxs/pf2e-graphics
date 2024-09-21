@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - Spear Group Attacks now work with JB2A Free version
 - Oscillating Wave's Breathe Fire/Fireball now have an additional animation
+- Kinetic Aura added for other Gates (@ChasarooniZ)
 
 ### Added
 
@@ -37,6 +38,18 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Vitality Lash should now work again
 - Shield (Cantrip) should now work again(?)
 - Validation error when `preset.options.blur` was used (@Spappz)
+
+## [0.9.3] - 2024-09-21
+
+### Changed
+
+- Nothing. This release is purely for purposes of syncing the `module.zip` with the Forge. Again.
+
+## [0.9.2] - 2024-09-21
+
+### Fixed
+
+- Changing the volume causing it to be applied multiplicatively with itself over multiple animations (so 1st is 50%, 2nd is 25%, 3rd is 12.5%, etc.)
 
 ## [0.9.1] - 2024-09-12
 

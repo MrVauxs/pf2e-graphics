@@ -3,32 +3,168 @@
 		{
 			"trigger": "toggle",
 			"preset": "onToken",
-			"file": "jb2a.aura_themed.01.outward.complete.cold.01.blue",
 			"options": {
 				"size": {
 					"value": 6.5,
 					"gridUnits": true
 				}
 			},
-			"predicate": [
-				"toggle:create",
-				"kinetic-gate:water"
-			],
 			"contents": [
 				{
-					"default": true
+					"predicate": [
+						"toggle:create",
+						"kinetic-gate:air"
+					],
+					"file": "jb2a.extras.tmfx.border.circle.simple.04",
+					"options": {
+						"size": {
+							"value": 5,
+							"gridUnits": true
+						}
+					},
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
 				},
 				{
 					"predicate": [
-						"settings:persistent"
+						"toggle:create",
+						"kinetic-gate:earth"
 					],
-					"options": {
-						"tieToDocuments": true,
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
+					"file": "jb2a.shield_themed.below.molten_earth.01.orange",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
 						}
-					}
+					]
+				},
+				{
+					"predicate": [
+						"toggle:create",
+						"kinetic-gate:fire"
+					],
+					"file": "jb2a.fire_ring.500px.red",
+					"options": {
+						"size": {
+							"value": 5,
+							"gridUnits": true
+						}
+					},
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"toggle:create",
+						"kinetic-gate:metal"
+					],
+					"file": "jb2a.aura_themed.01.inward.complete.metal.01.grey",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"toggle:create",
+						"kinetic-gate:water"
+					],
+					"file": "jb2a.aura_themed.01.outward.complete.cold.01.blue",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"toggle:create",
+						"kinetic-gate:wood"
+					],
+					"file": "jb2a.aura_themed.01.inward.complete.wood.01.green",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"tieToDocuments": true,
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								}
+							}
+						}
+					]
 				}
 			]
 		}
