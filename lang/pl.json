@@ -6,9 +6,9 @@
 			"3": "Pomóż autorowi"
 		},
 		"source": "źródło: {format}",
-		"history": "Historia Animacji",
+		"history": "Historia animacji",
 		"unlink": "Odłącz",
-		"unlinked": "Odcięto atut od Menedżera obrazów tokenów. Proszę ręcznie usunąć dodane elementy zasad!",
+		"unlinked": "Odłączono funkcję z Menedżera obrazów tokenów. Ręcznie usuń dodane elementy reguł!",
 		"modifyItem": "Modyfikacja animacji przedmiotów",
 		"modifyActor": "Zarządzaj animacjami aktora",
 		"modifyUser": "Zarządzaj animacjami użytkownika",
