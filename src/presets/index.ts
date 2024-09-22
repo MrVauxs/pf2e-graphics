@@ -158,3 +158,28 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 
 	return seq;
 }
+
+function checkIfOffset(obj: any): obj is {
+	offset: {
+		x: number | [number, number] | undefined;
+		y: number | [number, number] | undefined;
+	};
+} {
+	return 'offset' in obj;
+}
+
+export function parseOffsets<T>(obj: T) {
+	if (!obj || !(typeof obj === 'object')) return {};
+
+	if (checkIfOffset(obj)) {
+		if (Array.isArray(obj.offset.x)) {
+			obj.offset.x = Sequencer.Helpers.random_float_between(obj.offset.x[0], obj.offset.x[1]);
+		}
+		if (Array.isArray(obj.offset.y)) {
+			obj.offset.y = Sequencer.Helpers.random_float_between(obj.offset.y[0], obj.offset.y[1]);
+		}
+		return obj as { offset: Vector2 };
+	} else {
+		return obj;
+	}
+}

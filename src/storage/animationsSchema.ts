@@ -173,8 +173,6 @@ const offset = z
 					.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
 			)
 			.optional(),
-		flipX: z.literal(true).optional(),
-		flipY: z.literal(true).optional(),
 	})
 	.strict()
 	.refine(...nonEmpty)

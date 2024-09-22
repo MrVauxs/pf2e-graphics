@@ -1,5 +1,5 @@
 import type { AnimationObject } from 'src/storage/animCore';
-import { type GameData, genericEffectOptions, type SequencerTypes } from '.';
+import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
 
 export default function ranged(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { options } = animation;
@@ -53,8 +53,10 @@ export default function ranged(seq: SequencerTypes, animation: AnimationObject, 
 
 		if (options?.preset?.rotateTowards) {
 			effect.rotateTowards(
-				options?.preset?.location === 'target' ? Sequencer.Helpers.random_array_element(sources) : Sequencer.Helpers.random_array_element(targets),
-				options?.preset?.rotateTowards, // TODO: Parse random number arrays
+				options?.preset?.location === 'target'
+					? Sequencer.Helpers.random_array_element(sources)
+					: Sequencer.Helpers.random_array_element(targets),
+				parseOffsets(options?.preset?.rotateTowards),
 			);
 		}
 
