@@ -6,10 +6,11 @@ import meleePreset from './melee.ts';
 import onTokenPreset from './onToken.ts';
 import rangedPreset from './ranged.ts';
 import soundPreset from './sound.ts';
+import templatePreset from './template.ts';
 
 export interface GameData {
 	sources: TokenOrDoc[];
-	targets?: (TokenOrDoc | string | Point)[];
+	targets?: (TokenOrDoc | string | Point | MeasuredTemplateDocumentPF2e)[];
 	animations: AnimationObject[];
 	queue: Sequence[];
 	currentIndex: number;
@@ -24,14 +25,17 @@ export function addAnimationToSequence(seq: SequencerTypes, animation: Animation
 		case 'sound':
 			soundPreset(seq, animation, data);
 			break;
+		case 'melee':
+			meleePreset(seq, animation, data);
+			break;
 		case 'ranged':
 			rangedPreset(seq, animation, data);
 			break;
 		case 'onToken':
 			onTokenPreset(seq, animation, data);
 			break;
-		case 'melee':
-			meleePreset(seq, animation, data);
+		case 'template':
+			templatePreset(seq, animation, data);
 			break;
 		default:
 			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);

@@ -32,8 +32,6 @@ export default function onToken(seq: SequencerTypes, animation: AnimationObject,
 	}
 
 	for (const token of affectedTokens) {
-		if (!token) return;
-
 		const effect = seq
 			.effect()
 			.file(window.AnimCore.parseFiles(animation.file))
