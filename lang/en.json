@@ -7,6 +7,8 @@
 		},
 		"source": "source: {format}",
 		"history": "Animation History",
+		"unlink": "Unlink",
+		"unlinked": "Unlinked the feature from Token Image Manager. Please manually remove the added rule elements!",
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",

@@ -58,7 +58,7 @@ const renderCreatureSheetPF2e = Hooks.on('renderCreatureSheetPF2e', (application
 const renderActorSheetPF2e = Hooks.on('renderActorSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
 	const flag = application.actor.flags['pf2e-graphics']?.tokenImageID;
 	const display = application.actor.flags['pf2e-graphics']?.displayFeat;
-	if (!flag || window.pf2eGraphics.liveSettings.dev || display) return;
+	if (!flag || display || window.pf2eGraphics.liveSettings.dev) return;
 
 	html[0].querySelectorAll(`[data-item-id="${flag}"]`)[0]?.remove();
 });

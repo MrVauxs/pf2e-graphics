@@ -48,7 +48,7 @@
 	}
 
 	async function takethAway() {
-		($actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))?.delete();
+		ui.notifications.warn(i18n('unlinked'));
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
@@ -289,7 +289,7 @@
 				<input type='checkbox' id='displayFeat' bind:checked={display} on:change={invisibility} />
 			</div>
 			<button class='' on:click={takethAway}>
-				<i class='fa fa-trash-can pr-1'></i>{i18n('Delete')}
+				<i class='fa fa-trash-can pr-1'></i>{i18n('unlink')}
 			</button>
 			<button class='' on:click={() => $feat.sheet.render(true)}>
 				<i class='fa fa-folder-open pr-1'></i>{i18n('actorAnimation.openFeat')}
