@@ -12,7 +12,6 @@
 							"options": {
 								"waitUntilFinished": -1000
 							}
-
 						},
 						{
 							"preset": "template",
