@@ -5,9 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](<https://keepachangelog.com/en/1.1.0/>),
 and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.0.html>).
 
-> Dictionary
-> (P) - A premium version of that animation is available.
-
 ## [Unreleased]
 
 ### Changed
@@ -352,7 +349,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 ### Changed
 
 - The Sounds Database to use a two-digit indexes (01, 02, 03, etc.)
-- Inner Radiance Torrent (P) to use `templateAsOrigin`.
+- Inner Radiance Torrent to use `templateAsOrigin`.
 - Updated dependencies.
 
 ### Fixed
@@ -363,7 +360,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Added
 
-- **New Animations**: Inner Radiance Torrent (P)
+- **New Animations**: Inner Radiance Torrent
 
 ### Fixed
 
