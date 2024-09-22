@@ -58,9 +58,15 @@ const renderCreatureSheetPF2e = Hooks.on('renderCreatureSheetPF2e', (application
 const renderActorSheetPF2e = Hooks.on('renderActorSheetPF2e', (application: CharacterSheetPF2e, html: JQuery) => {
 	const flag = application.actor.flags['pf2e-graphics']?.tokenImageID;
 	const display = application.actor.flags['pf2e-graphics']?.displayFeat;
-	if (!flag || display || window.pf2eGraphics.liveSettings.dev) return;
+	if (!flag || display) return;
 
-	html[0].querySelectorAll(`[data-item-id="${flag}"]`)[0]?.remove();
+	const element = html[0].querySelector(`[data-item-id="${flag}"]`) as HTMLElement;
+
+	if (window.pf2eGraphics.liveSettings.dev) {
+		element.style.opacity = '25%';
+	} else {
+		element?.remove();
+	}
 });
 
 if (import.meta.hot) {
