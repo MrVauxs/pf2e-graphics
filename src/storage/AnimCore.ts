@@ -204,12 +204,12 @@ export let AnimCore = class AnimCore {
 
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
 		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
-		const appliedAnimations = Object.values(foundAnimations).flat().map(x => foundry.utils.mergeObject(x, { options: animationOptions }));
+		const appliedAnimations = Object.values(foundAnimations).map(x => x.map(x => foundry.utils.mergeObject(x, { options: animationOptions })));
 
 		this.createHistoryEntry({
 			rollOptions,
 			actor,
-			animations: appliedAnimations,
+			animations: appliedAnimations.flat(),
 			trigger,
 			item: nonNullable(item) ? item : undefined,
 		});
@@ -418,23 +418,33 @@ export let AnimCore = class AnimCore {
 	 * Animations in, Sequences out.
 	 */
 	static play(
-		animations: AnimationObject[],
+		animations: AnimationObject[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 		item?: ItemPF2e<any>,
 	): Promise<Sequence>[] {
 		const sequences: Sequence[] = [];
 
-		animations.forEach((animation, index) => {
-			this.createSequenceInQueue(sequences, animation, {
-				sources,
-				targets,
-				item,
-				queue: sequences,
-				currentIndex: index,
-				animations,
+		for (const animationsSet of animations) {
+			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+
+			animationsSet.forEach((animation, index) => {
+				addAnimationToSequence(
+					sequence,
+					animation,
+					{
+						queue: sequences,
+						currentIndex: index,
+						animations: animationsSet,
+						targets,
+						item,
+						sources,
+					},
+				);
 			});
-		});
+
+			sequences.push(sequence);
+		}
 
 		// TODO: Uncomment when https://github.com/fantasycalendar/FoundryVTT-Sequencer/issues/312 is done
 		return sequences.map(x => x.play({ local: true /* , preload: true */ }));
