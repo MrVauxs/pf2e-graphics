@@ -8,7 +8,7 @@ import { type EffectOptions, type Preset, presetList, type Trigger, triggersList
 
 export type JSONData = Record<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
-type TokenImageShorthand = [string, string, number];
+type TokenImageShorthand = [string, string, number, string, number];
 
 export type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
 
@@ -88,18 +88,28 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return Object.keys(window.pf2eGraphics.modules).flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[]).filter(nonNullable).filter(x => x?.requires ? !!game.modules.get(x.requires) : true).map(x => ({
-			...x,
-			rules: x.rules.map((rule: TokenImageDataRule) => {
-				if (!isShorthand(rule)) return rule;
-				return {
-					key: 'TokenImage',
-					predicate: [`self:effect:${rule[0]}`],
-					value: rule[1],
-					scale: rule[2],
-				} as TokenImageRuleSource;
-			}),
-		}));
+		return Object.keys(window.pf2eGraphics.modules)
+			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
+			.filter(nonNullable)
+			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
+			.map(x => ({
+				...x,
+				rules: x.rules.map((rule: TokenImageDataRule) => {
+					if (!isShorthand(rule)) return rule;
+					return {
+						key: 'TokenImage',
+						predicate: [`self:effect:${rule[0]}`],
+						value: rule[1],
+						scale: rule[2],
+						ring: {
+							subject: {
+								texture: rule[3],
+								scale: rule[4],
+							},
+						},
+					} as TokenImageRuleSource;
+				}),
+			}));
 	}
 	// #endregion
 

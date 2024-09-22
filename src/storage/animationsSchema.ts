@@ -828,7 +828,13 @@ export const tokenImages = z.object({
 					uuid: z.string().regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
-							z.tuple([slug, filePath, z.number().positive()]).or(
+							z.tuple([
+								slug,
+								filePath,
+								z.number().positive(),
+								filePath.optional(),
+								z.number().positive().optional(),
+							]).or(
 								z
 									.object({
 										key: JSONValue.optional(),
@@ -840,7 +846,7 @@ export const tokenImages = z.object({
 										requiresInvestment: JSONValue.optional(),
 										requiresEquipped: JSONValue.optional(),
 										removeUponCreate: JSONValue.optional(),
-										value: z.string(),
+										value: filePath,
 										scale: z.number().optional(),
 										tint: z.string().optional(),
 										alpha: z.number().optional(),
@@ -853,6 +859,27 @@ export const tokenImages = z.object({
 											})
 											.strict()
 											.refine(...nonEmpty),
+										ring: z
+											.object({
+												subject: z
+													.object({
+														texture: filePath,
+														scale: z.number().optional(),
+													})
+													.strict()
+													.refine(...nonEmpty),
+												colors: z
+													.object({
+														background: z.string().optional(),
+														ring: z.string().optional(),
+													})
+													.strict()
+													.refine(...nonEmpty)
+													.optional(),
+											})
+											.strict()
+											.refine(...nonEmpty)
+											.optional(),
 									})
 									.strict(),
 							),

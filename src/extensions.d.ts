@@ -54,11 +54,21 @@ declare global {
 		/** An optional alpha adjustment */
 		alpha?: number;
 		/** Animation options for when the image is applied */
-		animation: {
+		animation?: {
 			duration?: number;
 			transition?: string;
 			easing?: string;
 			name?: string;
+		};
+		ring?: {
+			subject?: {
+				texture: string;
+				scale?: number;
+			};
+			colors?: {
+				background?: string;
+				ring?: string;
+			};
 		};
 	};
 

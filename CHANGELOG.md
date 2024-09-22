@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ### Added
 
+- Dynamic Tokens data for Token Image import packs.
 - Polish translation (thank you @Lioheart!)
 - **New Animations**
   - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip (@Aziareel)
