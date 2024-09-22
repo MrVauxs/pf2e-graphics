@@ -13,7 +13,7 @@
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
 	import { AnimCore } from 'src/storage/animCore';
-	import { devLog, i18n } from 'src/utils';
+	import { devLog, i18n, nonNullable } from 'src/utils';
 	import { derived } from 'svelte/store';
 	import PredicateSection from './elements/PredicateSection.svelte';
 	import TokenThumbnail from './elements/TokenThumbnail.svelte';
@@ -169,6 +169,37 @@
 								})}
 							></button>
 						</section>
+						<!-- #endregion -->
+						<!-- #region Dynamic Token -->
+						{#if nonNullable(rule?.ring?.subject?.texture)}
+							<span>
+								Dynamic Token:
+							</span>
+							<section class='flex gap-1 items-center flex-grow'>
+								<TokenThumbnail
+									img={rule.ring?.subject?.texture}
+									transform={rule.ring.subject.scale ?? $feat.actor.prototypeToken.texture.scaleX}
+								/>
+								<input
+									class='h-6 bg-opacity-50 bg-slate-100'
+									type='text'
+									placeholder='path/to/file.ext'
+									bind:value={rule.ring.subject.texture}
+									on:change={() => updateRules()}
+								/>
+								<button
+									class='fas fa-file-import w-10 bg-button h-6'
+									type='button'
+									data-tooltip={i18n('FILES.BrowseTooltip')}
+									aria-label={i18n('FILES.BrowseTooltip')}
+									tabindex='-1'
+									on:click={() => PickAFile(rule.value).then((x) => {
+										window.foundry.utils.mergeObject(rule, { ring: { subject: { texture: String(x) } } });
+										updateRules();
+									})}
+								></button>
+							</section>
+						{/if}
 						<!-- #endregion -->
 						<!-- #region Transitions -->
 						<span>
