@@ -18,6 +18,7 @@ interface JSONDataObject {
 	file: string | string[];
 	predicate?: PredicateStatement[];
 	options?: EffectOptions;
+	macro?: string;
 	// Removed in search() or made irrelevant
 	overrides?: string[];
 	default?: true;

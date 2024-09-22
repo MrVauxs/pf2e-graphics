@@ -7,6 +7,10 @@ export class ErrorMsg extends Error {
 
 		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
 	}
+
+	static send(message: string) {
+		return new this(message);
+	}
 }
 
 export function nonNullable<T>(value: T): value is NonNullable<T> {

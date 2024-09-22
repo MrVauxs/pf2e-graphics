@@ -1,6 +1,6 @@
 import type { TokenOrDoc } from 'src/extensions';
 import type { AnimationObject } from 'src/storage/animCore.ts';
-import { log } from 'src/utils.ts';
+import { ErrorMsg, log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
 import meleePreset from './melee.ts';
 import onTokenPreset from './onToken.ts';
@@ -36,6 +36,13 @@ export function addAnimationToSequence(seq: SequencerTypes, animation: Animation
 			break;
 		case 'template':
 			templatePreset(seq, animation, data);
+			break;
+		case 'macro':
+			if (animation.macro) {
+				seq.macro(animation.macro, { animation, data });
+			} else {
+				ErrorMsg.send('A macro animation was called without a macro set!');
+			};
 			break;
 		default:
 			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);
