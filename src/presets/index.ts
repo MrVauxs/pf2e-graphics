@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { AnimationObject } from 'src/storage/animCore.ts';
 import { log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
+import meleePreset from './melee.ts';
 import onTokenPreset from './onToken.ts';
 import rangedPreset from './ranged.ts';
 import soundPreset from './sound.ts';
@@ -28,6 +29,9 @@ export function addAnimationToSequence(seq: SequencerTypes, animation: Animation
 			break;
 		case 'onToken':
 			onTokenPreset(seq, animation, data);
+			break;
+		case 'melee':
+			meleePreset(seq, animation, data);
 			break;
 		default:
 			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);

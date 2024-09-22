@@ -1,16 +1,9 @@
 import type { AnimationObject } from 'src/storage/animCore';
 import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
 
-export default function ranged(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
+export default function onToken(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { options } = animation;
 	const { sources, targets = [] } = data;
-
-	foundry.utils.mergeObject({
-		anchor: {
-			x: 0.5,
-			y: 0.5,
-		},
-	}, options);
 
 	const affectedTokens: typeof targets = [];
 
@@ -43,7 +36,8 @@ export default function ranged(seq: SequencerTypes, animation: AnimationObject, 
 
 		const effect = seq
 			.effect()
-			.file(window.AnimCore.parseFiles(animation.file));
+			.file(window.AnimCore.parseFiles(animation.file))
+			.center();
 
 		if (options?.preset?.atLocation) {
 			effect.atLocation(token);
