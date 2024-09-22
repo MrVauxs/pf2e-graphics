@@ -44,8 +44,12 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.zIndex)) seq.zIndex(options.zIndex);
 	if (isTrueish(options?.syncGroup)) seq.syncGroup(options.syncGroup);
 	if (isTrueish(options?.randomRotation)) seq.randomRotation(options.randomRotation);
-	if (isTrueish(options?.spriteOffset)) seq.spriteOffset(options.spriteOffset.offset, options.spriteOffset);
+	if (isTrueish(options?.spriteOffset)) {
+		const parsed = parseOffsets(options.spriteOffset.offset);
+		seq.spriteOffset(parsed.offset, options.spriteOffset);
+	}
 	if (isTrueish(options?.spriteRotation)) seq.spriteRotation(options.spriteRotation);
+	// @ts-expect-error and so what if options dont exist
 	if (isTrueish(options?.filter)) seq.filter(options.filter.type, options.filter.options);
 	if (isTrueish(options?.waitUntilFinished)) seq.waitUntilFinished(options?.waitUntilFinished);
 	if (isTrueish(options?.locally)) seq.locally(options.locally);
@@ -59,6 +63,7 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.mirrorY)) seq.mirrorY(options.mirrorY);
 	if (isTrueish(options?.template)) seq.template(options.template);
 	if (isTrueish(options?.tint)) seq.tint(options.tint);
+	// @ts-expect-error TODO: Fix in Sequencer types
 	if (isTrueish(options?.anchor)) seq.anchor(options.anchor);
 	if (isTrueish(options?.opacity)) seq.opacity(options.opacity);
 	if (isTrueish(options?.mask)) seq.mask();
@@ -114,6 +119,7 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	}
 	if (isTrueish(options?.size)) {
 		if (typeof options.size === 'object') {
+			// @ts-expect-error TODO: Fix in Sequencer types
 			seq.size(options.size.value, options.size);
 		} else {
 			seq.size(options.size);
@@ -125,11 +131,16 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.animateProperty)) options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
 	// Adds new effects
-	if (isTrueish(options?.shape)) [options.shape].flat().forEach(shape => seq.shape(shape.type, shape));
+	if (isTrueish(options?.shape)) {
+		[options.shape]
+			.flat()
+			.forEach(shape => seq.shape(shape.type, parseOffsets(shape)));
+	}
 
 	// Meta Stuff
 	if (isTrueish(options?.persist)) {
 		if (typeof options.persist === 'object') {
+			// @ts-expect-error TODO: Fix in Sequencer types
 			seq.persist(options.persist?.value || false, options.persist);
 		} else {
 			seq.persist(options.persist || false);
@@ -172,8 +183,8 @@ function checkIfOffset(obj: any): obj is {
 	return 'offset' in obj;
 }
 
-export function parseOffsets<T>(obj: T) {
-	if (!obj || !(typeof obj === 'object')) return {};
+export function parseOffsets<T>(obj: T): { offset: Vector2 } {
+	if (!obj || !(typeof obj === 'object')) return { offset: { x: 0, y: 0 } };
 
 	if (checkIfOffset(obj)) {
 		if (Array.isArray(obj.offset.x)) {
@@ -182,8 +193,7 @@ export function parseOffsets<T>(obj: T) {
 		if (Array.isArray(obj.offset.y)) {
 			obj.offset.y = Sequencer.Helpers.random_float_between(obj.offset.y[0], obj.offset.y[1]);
 		}
-		return obj as { offset: Vector2 };
-	} else {
-		return obj;
 	}
+
+	return obj as unknown as { offset: Vector2 };
 }
