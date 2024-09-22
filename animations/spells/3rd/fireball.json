@@ -2,38 +2,26 @@
 	"origin:item:slug:fireball": [
 		{
 			"trigger": "place-template",
-			"default": true,
 			"contents": [
 				{
-					"predicate": [
-						{
-							"not": "conservation-of-energy:cold"
-						}
-					],
+					"default": true,
 					"contents": [
 						{
 							"preset": "ranged",
-							"contents": [
-								{
-									"file": "jb2a.fire_bolt.orange",
-									"options": {
-										"waitUntilFinished": -1000
-									}
-								}
-							]
+							"file": "jb2a.fire_bolt.orange",
+							"options": {
+								"waitUntilFinished": -1000
+							}
+
 						},
 						{
 							"preset": "template",
-							"contents": [
-								{
-									"file": "jb2a.fireball.explosion.orange",
-									"options": {
-										"scaleToObject": {
-											"value": 1.5
-										}
-									}
+							"file": "jb2a.fireball.explosion.orange",
+							"options": {
+								"scaleToObject": {
+									"value": 1.5
 								}
-							]
+							}
 						}
 					]
 				},
