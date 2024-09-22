@@ -3,7 +3,9 @@ import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes 
 
 export default function template(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { options } = animation;
-	const { targets = [] } = data;
+	let { targets = [] } = data;
+
+	if (options?.preset?.targets) targets = options.preset.targets;
 
 	for (const template of targets) {
 		const effect = seq

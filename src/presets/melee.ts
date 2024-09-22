@@ -2,7 +2,9 @@ import type { AnimationObject } from 'src/storage/animCore';
 import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
 
 export default function melee(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
-	const { sources, targets = [] } = data;
+	let { sources, targets = [] } = data;
+
+	if (animation.options?.preset?.targets) targets = animation.options.preset.targets;
 
 	animation.options = foundry.utils.mergeObject({
 		randomizeMirrorY: true,
