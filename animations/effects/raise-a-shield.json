@@ -3,6 +3,14 @@
 		{
 			"preset": "onToken",
 			"file": "jb2a.markers.shield_rampart.complete.01.orange",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
 			"options": {
 				"scaleToObject": {
 					"value": 1.5,
