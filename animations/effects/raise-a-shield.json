@@ -13,8 +13,7 @@
 			],
 			"options": {
 				"scaleToObject": {
-					"value": 1.5,
-					"considerTokenScale": true
+					"value": 1.5
 				}
 			},
 			"contents": [
