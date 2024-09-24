@@ -785,6 +785,7 @@ const referenceObject = z
 			.refine(...uniqueItems)
 			.optional(),
 		options: effectOptions.optional(),
+		macro: z.string().optional(),
 		reference: rollOption.optional(),
 	})
 	.strict();
