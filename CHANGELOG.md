@@ -17,7 +17,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 - Dynamic Tokens data for Token Image import packs.
 - Polish translation (thank you @Lioheart!)
+- Combining Multiple Animations ([#49](<https://github.com/MrVauxs/pf2e-graphics/issues/49>))
+- Wildcard `overrides` ([#202](https://github.com/MrVauxs/pf2e-graphics/issues/202))
+- Usage of `name`d effects as a target through `options.preset.targets` ([#147](https://github.com/MrVauxs/pf2e-graphics/issues/147))
+- Sound Preset ([#146](https://github.com/MrVauxs/pf2e-graphics/issues/146))
 - **New Animations**
+  - Generic Casting Animation, Critical Success and Failure SFX for Strikes and Casting a Spell (@MrVauxs)
   - Treat Wounds/Battle Medicine (using Workbench), Dirty Trick, Grapple, Trip (@Aziareel)
   - Champion's Resistance, Devise a Stratagem, Strategic Strike, Surgical Shock, Cyclonic Ascent, Sneak Attack, Exploit Vulnerability (using  PF2e Exploit Vulnerability Module), Healer's Gloves, Extract Elements (@Aziareel)
   - Dueling Dance, Dueling Parry, Twin Parry & Twin Defense now share the Raise a Shield animation (@Aziareel)
@@ -30,6 +35,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Significantly rewrote the animation backend to be more efficient and less error-prone
   - You can now chain references, ex. `custom-lightning-spell` leading to `chain-lightning` leading to `electric-arc` (up to 10 recursions)
 - Updated validation scripts to provide more meaningful error messages in nicer formatting (@Spappz)
+- `options.filter` now allows arrays ([#201](https://github.com/MrVauxs/pf2e-graphics/issues/201))
+- `options.sound` has been deprecated.
+- Token Image Manager now unlinks the feat its managing instead of deleting it.
 
 ### Fixed
 
