@@ -54,7 +54,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		if (options) newOptions.push(...options, 'target');
 	}
 
-	if (trigger === 'action' || trigger === 'self-effect') {
+	if (trigger === 'action' || trigger === 'self-effect' || trigger === 'damage-roll') {
 		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
@@ -107,7 +107,7 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 
 			const rollOptions = message.flags.pf2e.context?.options ?? [];
 			const trigger = roll.roll.options.type;
-			const animationOptions = { missed: roll?.success };
+			const animationOptions = { missed: roll?.success.includes('ailure') ?? false };
 
 			window.pf2eGraphics.AnimCore.animate({
 				rollOptions,

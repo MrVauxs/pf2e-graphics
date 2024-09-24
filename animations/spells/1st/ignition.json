@@ -10,10 +10,11 @@
 					"preset": "onToken",
 					"file": "jb2a.cast_generic.fire.side01.orange.0",
 					"options": {
+						"id": "casting-animation",
 						"preset": {
 							"rotateTowards": true
 						},
-						"waitUntilFinished": -1200,
+						"waitUntilFinished": -2500,
 						"anchor": {
 							"x": 0.25
 						},
@@ -58,6 +59,9 @@
 				},
 				{
 					"preset": "ranged",
+					"options": {
+						"name": "bolt"
+					},
 					"contents": [
 						{
 							"default": true,
@@ -80,7 +84,11 @@
 				{
 					"preset": "onToken",
 					"options": {
+						"missed": false,
 						"preset": {
+							"targets": [
+								"bolt"
+							],
 							"location": "target",
 							"atLocation": true
 						}
@@ -137,7 +145,7 @@
 		},
 		{
 			"trigger": "attack-roll",
-			"preset": "ranged",
+			"preset": "melee",
 			"predicate": [
 				"item:melee"
 			],

@@ -1,0 +1,54 @@
+{
+	"check:outcome:critical-success": [
+		{
+			"type": "addon",
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"predicate": [
+						"action:strike"
+					],
+					"preset": "sound",
+					"file": "graphics-sfx.critical"
+				},
+				{
+					"trigger": "attack-roll",
+					"predicate": [
+						"action:cast-a-spell"
+					],
+					"preset": "sound",
+					"file": "graphics-sfx.magic.arcane.buff.01",
+					"options": {
+						"delay": 500
+					}
+				}
+			]
+		}
+	],
+	"check:outcome:critical-failure": [
+		{
+			"type": "addon",
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"predicate": [
+						"action:strike"
+					],
+					"preset": "sound",
+					"file": "graphics-sfx.generic.miss"
+				},
+				{
+					"trigger": "attack-roll",
+					"predicate": [
+						"action:cast-a-spell"
+					],
+					"preset": "sound",
+					"file": "graphics-sfx.magic.fail",
+					"options": {
+						"delay": 500
+					}
+				}
+			]
+		}
+	]
+}
