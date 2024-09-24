@@ -19,8 +19,8 @@ export interface GameData {
 
 export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
 
-export function addAnimationToSequence(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
-	animation = foundry.utils.deepClone(animation);
+export function addAnimationToSequence(seq: SequencerTypes, _animation: AnimationObject, data: GameData) {
+	const animation = foundry.utils.deepClone(_animation);
 	switch (animation.preset) {
 		case 'sound':
 			soundPreset(seq, animation, data);
