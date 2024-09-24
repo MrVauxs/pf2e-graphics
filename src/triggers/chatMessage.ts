@@ -107,7 +107,7 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 
 			const rollOptions = message.flags.pf2e.context?.options ?? [];
 			const trigger = roll.roll.options.type;
-			const animationOptions = { missed: roll?.success };
+			const animationOptions = { missed: roll?.success.includes('ailure') ?? false };
 
 			window.pf2eGraphics.AnimCore.animate({
 				rollOptions,

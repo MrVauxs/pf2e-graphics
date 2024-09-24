@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
+import partition from 'lodash/partition';
 import { addAnimationToSequence, type GameData } from 'src/presets';
 import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
 import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
@@ -19,6 +20,7 @@ interface JSONDataObject {
 	predicate?: PredicateStatement[];
 	options?: EffectOptions;
 	macro?: string;
+	type?: 'addon' | 'slot';
 	// Removed in search() or made irrelevant
 	overrides?: string[];
 	default?: true;
@@ -203,9 +205,12 @@ export let AnimCore = class AnimCore {
 		if (!actor) return log('No actor found! Aborting.');
 		if (!sources) return log('No source token found on the active scene! Aborting.');
 
+		rollOptions = this.prepRollOptions(rollOptions);
+
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
 		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
-		const appliedAnimations = Object.values(foundAnimations).map(x => x.map(x => foundry.utils.mergeObject(x, { options: animationOptions })));
+		const appliedAnimations = Object.values(foundAnimations)
+			.map(x => x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)));
 
 		this.createHistoryEntry({
 			rollOptions,
@@ -361,7 +366,8 @@ export let AnimCore = class AnimCore {
 
 				return contents
 					.flatMap(child => child.contents ? unfoldSingle(child) : child)
-					.map(child => mergeObjectsConcatArrays(parentProps, child as any));
+					.map(child => mergeObjectsConcatArrays(parentProps, child as any))
+					.filter(child => game.pf2e.Predicate.test(child.predicate, rollOptions));
 			}
 
 			const completed = v.flatMap(folder => folder.contents ? unfoldSingle(folder) : folder);
@@ -407,6 +413,7 @@ export let AnimCore = class AnimCore {
 		animation: AnimationObject,
 		data: GameData,
 		index: number = -1,
+		replace: boolean = false,
 	) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
@@ -416,7 +423,7 @@ export let AnimCore = class AnimCore {
 			data,
 		);
 
-		queue.splice(index, 0, sequence);
+		queue.splice(index, replace ? 1 : 0, sequence);
 	}
 
 	/**
@@ -429,6 +436,56 @@ export let AnimCore = class AnimCore {
 		item?: ItemPF2e<any>,
 	): Promise<Sequence>[] {
 		const sequences: Sequence[] = [];
+		const addons: AnimationObject[] = [];
+
+		// Move every addon to a separate list
+		animations = animations.map((set) => {
+			const [addon, others] = partition(set, x => x.type === 'addon');
+			addons.push(...addon);
+			return others;
+		}).filter(x => x.length);
+
+		// Apply addons as appropriate
+		animations = animations.map((set) => {
+			// Grab existing IDs for slots or pre-existing animations that should not be added onto.
+			const ids = set.map(x => x.options?.id).filter(nonNullable);
+
+			function pushToSet(addon: AnimationObject) {
+				switch (addon.options?.addon?.order) {
+					case -1:
+					case 'last':
+						set.push(addon);
+						break;
+					case 0:
+					case 'first':
+					default:
+						set.unshift(addon);
+						break;
+				}
+			}
+
+			for (const addon of addons) {
+				// If an animation object with a given ID exists already,
+				// it means the addon has been either overriden or has a slot.
+				if (ids.includes(addon.options?.id || '')) {
+					const slot = set.findIndex(x =>
+						x.options?.id
+						&& x.type === 'slot'
+						&& x.options?.id === addon.options?.id,
+					);
+
+					if (slot !== -1) {
+						set.splice(slot, 1, addon);
+					} else {
+						continue;
+					}
+				};
+
+				pushToSet(addon);
+			}
+
+			return set;
+		});
 
 		for (const animationsSet of animations) {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
