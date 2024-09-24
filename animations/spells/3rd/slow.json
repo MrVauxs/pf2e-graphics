@@ -8,6 +8,7 @@
 				"preset": {
 					"location": "target"
 				},
+				"missed": false,
 				"scaleToObject": 1.2,
 				"filter": {
 					"type": "ColorMatrix",
