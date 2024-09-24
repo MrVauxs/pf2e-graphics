@@ -1,0 +1,21 @@
+{
+	"item:type:spell": [
+		{
+			"trigger": ["attack-roll", "damage-roll", "saving-throw", "place-template"],
+			"type": "addon",
+			"preset": "onToken",
+			"file": "jb2a.cast_generic.01.yellow.0",
+			"options": {
+				"id": "casting-animation",
+				"preset": { "location": "source" },
+				"waitUntilFinished": -250,
+				"scaleToObject": 1.5,
+				"missed": false,
+				"addon": {
+					"order": "first"
+				}
+			}
+		}
+	],
+	"origin:item:type:spell": "item:type:spell"
+}
