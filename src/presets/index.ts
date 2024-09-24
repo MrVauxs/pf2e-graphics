@@ -60,8 +60,6 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 		seq.spriteOffset(parsed.offset, options.spriteOffset);
 	}
 	if (isTrueish(options?.spriteRotation)) seq.spriteRotation(options.spriteRotation);
-	// @ts-expect-error and so what if options dont exist
-	if (isTrueish(options?.filter)) seq.filter(options.filter.type, options.filter.options);
 	if (isTrueish(options?.waitUntilFinished)) seq.waitUntilFinished(options?.waitUntilFinished);
 	if (isTrueish(options?.locally)) seq.locally(options.locally);
 	if (isTrueish(options?.missed)) seq.missed(options.missed);
@@ -141,11 +139,22 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.loopProperty)) options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
 	if (isTrueish(options?.animateProperty)) options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
-	// Adds new effects
+	// Adds or modifies effects
+
 	if (isTrueish(options?.shape)) {
 		[options.shape]
 			.flat()
 			.forEach(shape => seq.shape(shape.type, parseOffsets(shape)));
+	}
+
+	if (isTrueish(options?.filter)) {
+		[options.filter]
+			.flat()
+			.forEach(filter => seq.filter(
+				filter.type,
+				// @ts-expect-error and so what if options dont exist
+				filter.options,
+			));
 	}
 
 	// Meta Stuff
