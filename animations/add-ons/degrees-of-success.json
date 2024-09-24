@@ -5,13 +5,17 @@
 			"contents": [
 				{
 					"trigger": "attack-roll",
-					"predicate": ["action:strike"],
+					"predicate": [
+						"action:strike"
+					],
 					"preset": "sound",
 					"file": "graphics-sfx.critical"
 				},
 				{
 					"trigger": "attack-roll",
-					"predicate": ["action:cast-a-spell"],
+					"predicate": [
+						"action:cast-a-spell"
+					],
 					"preset": "sound",
 					"file": "graphics-sfx.magic.arcane.buff.01",
 					"options": {
@@ -27,13 +31,17 @@
 			"contents": [
 				{
 					"trigger": "attack-roll",
-					"predicate": ["action:strike"],
+					"predicate": [
+						"action:strike"
+					],
 					"preset": "sound",
 					"file": "graphics-sfx.generic.miss"
 				},
 				{
 					"trigger": "attack-roll",
-					"predicate": ["action:cast-a-spell"],
+					"predicate": [
+						"action:cast-a-spell"
+					],
 					"preset": "sound",
 					"file": "graphics-sfx.magic.fail",
 					"options": {
