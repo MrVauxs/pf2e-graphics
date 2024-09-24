@@ -59,7 +59,9 @@
 				},
 				{
 					"preset": "ranged",
-					"options": { "name": "bolt" },
+					"options": {
+						"name": "bolt"
+					},
 					"contents": [
 						{
 							"default": true,
@@ -84,7 +86,9 @@
 					"options": {
 						"missed": false,
 						"preset": {
-							"targets": ["bolt"],
+							"targets": [
+								"bolt"
+							],
 							"location": "target",
 							"atLocation": true
 						}
