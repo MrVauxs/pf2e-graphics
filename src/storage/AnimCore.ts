@@ -475,12 +475,15 @@ export let AnimCore = class AnimCore {
 					);
 
 					if (slot !== -1) {
+						// Replace
 						set.splice(slot, 1, addon);
 					} else {
+						// Skip
 						continue;
 					}
 				};
 
+				// Add to beginning / end
 				pushToSet(addon);
 			}
 
