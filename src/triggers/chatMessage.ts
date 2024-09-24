@@ -54,7 +54,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		if (options) newOptions.push(...options, 'target');
 	}
 
-	if (trigger === 'action' || trigger === 'self-effect') {
+	if (trigger === 'action' || trigger === 'self-effect' || trigger === 'damage-roll') {
 		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
