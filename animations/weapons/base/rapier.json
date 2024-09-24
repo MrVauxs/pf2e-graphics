@@ -2,7 +2,7 @@
 	"item:base:rapier": [
 		{
 			"overrides": [
-				"item:group:sword"
+				"item:group"
 			],
 			"trigger": "attack-roll",
 			"preset": "melee",

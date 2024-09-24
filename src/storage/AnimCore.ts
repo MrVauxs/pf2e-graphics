@@ -389,7 +389,11 @@ export let AnimCore = class AnimCore {
 					if (!object.overrides || !object.overrides.length) continue;
 
 					for (const override of object.overrides) {
-						array = array.filter(([k]) => !override.includes(k));
+						if (override === '*') {
+							array = [objects];
+						} else {
+							array = array.filter(([k]) => !k.includes(override));
+						}
 					}
 				}
 			}
