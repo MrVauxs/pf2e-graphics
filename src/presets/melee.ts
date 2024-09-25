@@ -1,4 +1,4 @@
-import type { AnimationObject } from 'src/storage/animCore';
+import type { AnimationObject } from 'src/storage/AnimCore';
 import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
 
 export default function melee(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
