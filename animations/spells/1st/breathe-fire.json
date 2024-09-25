@@ -60,7 +60,8 @@
 							"preset": "sound",
 							"file": "graphics-sfx.magic.ice.ranged.barrage.03",
 							"options": {
-								"waitUntilFinished": -7200,
+								"duration": 4400,
+								"waitUntilFinished": -3600,
 								"fadeOut": 1000
 							}
 						},
