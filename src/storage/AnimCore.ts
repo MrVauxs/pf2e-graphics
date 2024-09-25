@@ -481,10 +481,10 @@ export let AnimCore = class AnimCore {
 						// Skip
 						continue;
 					}
-				};
-
-				// Add to beginning / end
-				pushToSet(addon);
+				} else {
+					// Add to beginning / end
+					pushToSet(addon);
+				}
 			}
 
 			return set;
