@@ -5,11 +5,7 @@
 			"preset": "template",
 			"contents": [
 				{
-					"predicate": [
-						{
-							"not": "conservation-of-energy:cold"
-						}
-					],
+					"default": true,
 					"contents": [
 						{
 							"preset": "sound",
