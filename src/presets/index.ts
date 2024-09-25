@@ -1,5 +1,5 @@
 import type { TokenOrDoc } from 'src/extensions';
-import type { AnimationObject } from 'src/storage/animCore.ts';
+import type { AnimationObject } from 'src/storage/AnimCore.ts';
 import { ErrorMsg, log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
 import meleePreset from './melee.ts';

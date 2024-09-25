@@ -1,6 +1,6 @@
 import { ErrorMsg } from 'src/utils.ts';
 import { writable } from 'svelte/store';
-import { AnimCore } from './animCore.ts';
+import { AnimCore } from './AnimCore.ts';
 import './presets.ts';
 
 Object.assign(window, {
