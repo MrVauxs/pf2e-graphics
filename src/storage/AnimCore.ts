@@ -237,7 +237,6 @@ export let AnimCore = class AnimCore {
 			animations: {},
 			sources: {},
 		};
-		const merge = foundry.utils.mergeObject;
 		/*
 			From a list of owners, find either the "true" owner (assigned user) or yourself if you are one of them.
 			Otherwise, default to whoever is first.
@@ -248,32 +247,22 @@ export let AnimCore = class AnimCore {
 		const itemOrigin = item?.origin?.items?.get(itemOriginId || '');
 
 		// Get all the flags.
-		const userKeys = owners.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {}).reduce((p, c) => merge(p, c), {});
+		const userKeys = owners.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {}).reduce((p, c) => foundry.utils.mergeObject(p, c), {});
 		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
-		obj.animations = merge(
-			AnimCore.animations,
-			merge(
-				window.pf2eGraphics.liveSettings.worldAnimations,
-				merge(
-					userKeys,
-					merge(
-						actorOriginKeys,
-						merge(
-							itemOriginKeys,
-							merge(
-								actorKeys,
-								itemKeys,
-							),
-						),
-					),
-				),
-			),
-		) as ReturnType<typeof this.getAnimations>;
+		obj.animations = {
+			...AnimCore.animations,
+			...window.pf2eGraphics.liveSettings.worldAnimations,
+			...userKeys,
+			...actorOriginKeys,
+			...itemOriginKeys,
+			...actorKeys,
+			...itemKeys,
+		} as ReturnType<typeof this.getAnimations>;
 
 		obj.sources = {
 			preset: AnimCore.keys,
