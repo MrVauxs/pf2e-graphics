@@ -1,0 +1,8 @@
+{
+	"spell:dimensional-steps": [
+		{
+			"trigger": "action",
+			"preset": "crosshair"
+		}
+	]
+}
