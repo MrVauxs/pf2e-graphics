@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Updated validation scripts to provide more meaningful error messages in nicer formatting (@Spappz)
 - `options.filter` now allows arrays ([#201](https://github.com/MrVauxs/pf2e-graphics/issues/201))
 - `options.sound` has been deprecated.
+- `offset.flipX/Y` has been deprecated.
 - Token Image Manager now unlinks the feat its managing instead of deleting it.
 - Blazing Wave now uses the Breathe Fire animation.
 
