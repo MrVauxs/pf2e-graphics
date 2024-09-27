@@ -8,6 +8,7 @@ import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObject
 import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
 export type JSONData = Record<string, string | JSONDataObject[]>;
+export type JSONMap = Map<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number, string, number];
 
@@ -63,23 +64,27 @@ export let AnimCore = class AnimCore {
 	/**
 	 * Returns raw animation data, with contents, references, etc.
 	 */
-	static getAnimations(): JSONData {
+	static getAnimations(): JSONMap {
 		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
-		return Object.keys(window.pf2eGraphics.modules)
-			.sort((a, b) => a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0)
-			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {});
+		return new Map(
+			Object.keys(window.pf2eGraphics.modules)
+				.sort((a, b) =>
+					a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0,
+				)
+				.flatMap(key => Object.entries(window.pf2eGraphics.modules[key])),
+		);
 	}
 
-	static get animations(): JSONData {
+	static get animations(): JSONMap {
 		if (dev) return this.getAnimations();
 		if (!this._animations) this._animations = this.getAnimations();
 		return this._animations;
 	}
 
-	static _animations: JSONData;
+	static _animations: JSONMap;
 
 	static getKeys(): string[] {
-		return Object.keys(this.animations).filter(x => !x.startsWith('_'));
+		return (Array.from(this.animations.keys())).filter(x => !x.startsWith('_'));
 	}
 
 	static get keys(): string[] {
@@ -91,9 +96,7 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return Object.keys(window.pf2eGraphics.modules)
-			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
-			.filter(nonNullable)
+		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
 			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
 			.map(x => ({
 				...x,
@@ -208,7 +211,7 @@ export let AnimCore = class AnimCore {
 		rollOptions = this.prepRollOptions(rollOptions);
 
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
-		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
+		const foundAnimations = AnimCore.search(rollOptions, [trigger], new Map(Object.entries(allAnimations)));
 		const appliedAnimations = Object.values(foundAnimations)
 			.map(x => x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)));
 
@@ -255,7 +258,7 @@ export let AnimCore = class AnimCore {
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
 		obj.animations = {
-			...AnimCore.animations,
+			...Object.fromEntries(AnimCore.animations.entries()),
 			...window.pf2eGraphics.liveSettings.worldAnimations,
 			...userKeys,
 			...actorOriginKeys,
@@ -283,12 +286,16 @@ export let AnimCore = class AnimCore {
 	 * Checks the rollOptions against provided animations and outputs whatever matches.
 	 * Meant to be used in conjunction with retrieve() for the second parameter.
 	 */
-	static search(rollOptions: string[], triggers: string[] = [], animations: JSONData = AnimCore.animations): Record<string, AnimationObject[]> {
-		const matchingBranches = Object.entries(animations).filter(([k]) => rollOptions.includes(k));
-		const animationsNoStrings = matchingBranches.map(([k, v]) => [k, parseStrings(v, k)] as const satisfies [string, object[]]);
-		const animationsNoRefs = animationsNoStrings.map(([k, v]) => [k, parseReferences(v, k)] as const satisfies [string, object[]]);
-		const filteredAnimations = animationsNoRefs.map(([k, v]) => [k, filterChildren(v)] as const satisfies [string, object[]]);
-		const unfoldedAnimations = filteredAnimations.map(([k, v]) => [k, unfoldAnimations(v)] as const satisfies [string, object[]]);
+	static search(rollOptions: string[], triggers: string[] = [], animations: JSONMap = AnimCore.animations): Record<string, AnimationObject[]> {
+		const unfoldedAnimations: [string, ReturnType<typeof unfoldAnimations>][] = [];
+		for (const [k, v] of animations.entries()) {
+			if (!rollOptions.includes(k)) continue;
+			const animationNoStrings = parseStrings(v, k);
+			const animationNoRefs = parseReferences(animationNoStrings, k);
+			const filteredAnimation = filterChildren(animationNoRefs);
+			const unfoldedAnimation = unfoldAnimations(filteredAnimation);
+			unfoldedAnimations.push([k, unfoldedAnimation]);
+		}
 		// Do not bother if there are no triggers. We dont want to discriminate animations that *can* happen.
 		if (triggers.length) {
 			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
@@ -307,7 +314,7 @@ export let AnimCore = class AnimCore {
 			while (typeof v === 'string') {
 				if (recursion < 10) {
 					recursion++;
-					v = animations[v];
+					v = animations.get(v)!;
 				} else {
 					throw new ErrorMsg(`The ${k} animation recurses too many times! Check if the animation isnt perhaps an infinite loop.`);
 				}
@@ -321,7 +328,7 @@ export let AnimCore = class AnimCore {
 		): Omit<JSONDataObject, 'reference'>[] {
 			const parsed = v.map((obj) => {
 				if ('reference' in obj && obj.reference) {
-					const ref = parseStrings(animations[obj.reference], k);
+					const ref = parseStrings(animations.get(obj.reference)!, k);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
