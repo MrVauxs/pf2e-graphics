@@ -1,5 +1,5 @@
 import type { AnimationObject } from 'src/storage/animCore';
-import { log } from 'src/utils';
+import { ErrorMsg, log } from 'src/utils';
 import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
 
 export default function crosshair(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
@@ -8,7 +8,9 @@ export default function crosshair(seq: SequencerTypes, animation: AnimationObjec
 	return seq;
 }
 
-class ManagedCrosshairs extends Sequencer.BaseSection {
+interface ManagedCrosshairsSection {}
+
+class ManagedCrosshairs extends Sequencer.BaseSection<ManagedCrosshairsSection> {
 	_name: string;
 
 	constructor(inSequence: Sequence) {
@@ -17,7 +19,7 @@ class ManagedCrosshairs extends Sequencer.BaseSection {
 	}
 
 	name(inName: string) {
-		if (typeof inName !== 'string') throw this.sequence._throwError(this, 'name', 'inName must be of type string');
+		if (typeof inName !== 'string') throw new ErrorMsg('.name() - inName must be of type string');
 		this._name = inName;
 		return this;
 	}
