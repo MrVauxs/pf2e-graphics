@@ -18,10 +18,24 @@
 					"options": {
 						"scaleToObject": 2,
 						"belowTokens": true,
-						"scaleIn": { "scale": 0, "duration": 1000, "ease": "easeInOutElastic" },
-						"scaleOut": { "scale": 0, "duration": 1000, "ease": "easeInOutElastic" },
-						"fadeIn": { "value": 2000, "ease": "easeOutElastic" },
-						"fadeOut": { "value": 2000, "ease": "easeInElastic" },
+						"scaleIn": {
+							"scale": 0,
+							"duration": 1000,
+							"ease": "easeInOutElastic"
+						},
+						"scaleOut": {
+							"scale": 0,
+							"duration": 1000,
+							"ease": "easeInOutElastic"
+						},
+						"fadeIn": {
+							"value": 2000,
+							"ease": "easeOutElastic"
+						},
+						"fadeOut": {
+							"value": 2000,
+							"ease": "easeInElastic"
+						},
 						"duration": 5000,
 						"opacity": 0.75,
 						"preset": {
