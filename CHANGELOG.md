@@ -7,14 +7,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
-### Changed
-
-- Spear Group Attacks now work with JB2A Free version
-- Oscillating Wave's Breathe Fire/Fireball now have an additional animation
-- Kinetic Aura added for other Gates (@ChasarooniZ)
-
 ### Added
 
+- **`crosshair` and `animation` presets, allowing for usage of their respective Sequencer sections.**
 - Dynamic Tokens data for Token Image import packs.
 - Polish translation (thank you @Lioheart!)
 - Combining Multiple Animations ([#49](<https://github.com/MrVauxs/pf2e-graphics/issues/49>))
@@ -41,6 +36,9 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - `offset.flipX/Y` has been deprecated.
 - Token Image Manager now unlinks the feat its managing instead of deleting it.
 - Blazing Wave now uses the Breathe Fire animation.
+- Spear Group Attacks now work with JB2A Free version
+- Oscillating Wave's Breathe Fire/Fireball now have an additional animation
+- Kinetic Aura added for other Gates (@ChasarooniZ)
 
 ### Fixed
 
