@@ -37,7 +37,7 @@
 				"type": "module",
 				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
 				"compatibility": {
-					"minimum": "3.3.0"
+					"minimum": "3.3.1"
 				}
 			}
 		],
