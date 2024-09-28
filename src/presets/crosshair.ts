@@ -36,10 +36,18 @@ export default async function crosshair(seq: SequencerTypes, animation: Animatio
 					resolve(found.location);
 					window.pf2eGraphics.locations.update(array => array.filter(x => x.name !== found.name));
 					unsub();
-				} else {
-					log(`Got a crosshair location for the wrong name! Got ${name}, waiting for ${animation.options!.name}`);
-				};
+				}
 			});
+
+			// Timeout after 30 seconds.
+			setTimeout(() => {
+				// @ts-expect-error TODO: Sequencer types
+				if (!seq.status) {
+					// @ts-expect-error TODO: Sequencer types
+					seq._abort();
+					unsub();
+				}
+			}, 30 * 1000);
 		}
 	});
 
