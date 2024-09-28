@@ -64,6 +64,16 @@ export const easingOptions = z
 	.describe('The base options of animation modifier\'s easing.');
 
 /**
+ * Zod schema for an easing/delay object with a `value` property included (typically used for fade-in/-out effects).
+ */
+export const easingOptionsWithValue = easingOptions
+	.extend({ value: z.number().refine(...nonZero) })
+	.strict()
+	.describe(
+		'An easing/delay object with a `value` property included (typically used for fade-in/-out effects).',
+	);
+
+/**
  * Zod schema for a configuration to place an animation/sound at a particular location on the canvas, with an optional offset.
  */
 export const atLocation = z
