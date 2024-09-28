@@ -58,6 +58,7 @@ declare global {
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
 		history: Writable<AnimationHistoryObject[]>;
+		locations: Writable<{ name: string; location: object }[]>;
 	}
 }
 

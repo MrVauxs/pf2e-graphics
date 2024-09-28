@@ -21,6 +21,7 @@
 						"duration": 8000,
 						"opacity": 0.75,
 						"preset": {
+							"atLocation": true,
 							"targets": ["dimensional-step"],
 							"location": "both"
 						}
