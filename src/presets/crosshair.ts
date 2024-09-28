@@ -41,12 +41,9 @@ export default async function crosshair(seq: SequencerTypes, animation: Animatio
 
 			// Timeout after 30 seconds.
 			setTimeout(() => {
+				unsub();
 				// @ts-expect-error TODO: Sequencer types
-				if (!seq.status) {
-					// @ts-expect-error TODO: Sequencer types
-					seq._abort();
-					unsub();
-				}
+				if (!seq.status) seq._abort();
 			}, 30 * 1000);
 		}
 	});
