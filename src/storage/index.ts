@@ -1,7 +1,6 @@
 import { ErrorMsg } from 'src/utils.ts';
 import { writable } from 'svelte/store';
 import { AnimCore } from './AnimCore.ts';
-import './presets.ts';
 
 Object.assign(window, {
 	pf2eGraphics: { modules: {}, AnimCore, history: writable([]), locations: writable([]) },
