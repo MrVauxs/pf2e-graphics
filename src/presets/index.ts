@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { AnimationObject } from 'src/storage/AnimCore.ts';
 import { ErrorMsg, log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
+import crosshairPreset from './crosshair.ts';
 import meleePreset from './melee.ts';
 import onTokenPreset from './onToken.ts';
 import rangedPreset from './ranged.ts';
@@ -15,11 +16,12 @@ export interface GameData {
 	queue: Sequence[];
 	currentIndex: number;
 	item?: ItemPF2e<any>;
+	user?: string;
 };
 
 export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
 
-export function addAnimationToSequence(seq: SequencerTypes, _animation: AnimationObject, data: GameData) {
+export async function addAnimationToSequence(seq: SequencerTypes, _animation: AnimationObject, data: GameData) {
 	const animation = foundry.utils.deepClone(_animation);
 	switch (animation.preset) {
 		case 'sound':
@@ -36,6 +38,9 @@ export function addAnimationToSequence(seq: SequencerTypes, _animation: Animatio
 			break;
 		case 'template':
 			templatePreset(seq, animation, data);
+			break;
+		case 'crosshair':
+			await crosshairPreset(seq, animation, data);
 			break;
 		case 'macro':
 			if (animation.macro) {

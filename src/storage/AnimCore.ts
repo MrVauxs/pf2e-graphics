@@ -41,8 +41,9 @@ interface AnimationHistoryObject {
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
 	animations: AnimationObject[];
-	item?: { name: string; uuid: string };
 	actor: { name: string; uuid: string };
+	item?: { name: string; uuid: string };
+	user?: { name: string; id: string };
 };
 
 declare global {
@@ -51,6 +52,7 @@ declare global {
 		AnimCore: typeof AnimCore;
 	}
 	interface pf2eGraphics {
+		socket: SocketlibSocket;
 		modules: Record<string, JSONData>;
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
@@ -192,6 +194,7 @@ export let AnimCore = class AnimCore {
 			targets,
 			sources,
 			animationOptions = {},
+			user,
 		}: {
 			rollOptions: string[];
 			trigger: Trigger;
@@ -200,6 +203,7 @@ export let AnimCore = class AnimCore {
 			item?: ItemPF2e | null;
 			animationOptions?: object;
 			targets?: (TokenOrDoc | string | Point)[];
+			user?: string;
 		},
 		devName?: string,
 	) {
@@ -221,9 +225,10 @@ export let AnimCore = class AnimCore {
 			animations: appliedAnimations.flat(),
 			trigger,
 			item: nonNullable(item) ? item : undefined,
+			user: user ? { name: game.users.get(user)!.name, id: user } : undefined,
 		});
 
-		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined);
+		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined, user);
 	}
 
 	/**
@@ -404,7 +409,7 @@ export let AnimCore = class AnimCore {
 		}
 	}
 
-	static createSequenceInQueue(
+	static async createSequenceInQueue(
 		queue: Sequence[],
 		animation: AnimationObject,
 		data: GameData,
@@ -413,7 +418,7 @@ export let AnimCore = class AnimCore {
 	) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-		addAnimationToSequence(
+		await addAnimationToSequence(
 			sequence,
 			animation,
 			data,
@@ -425,12 +430,13 @@ export let AnimCore = class AnimCore {
 	/**
 	 * Animations in, Sequences out.
 	 */
-	static play(
+	static async play(
 		animations: AnimationObject[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 		item?: ItemPF2e<any>,
-	): Promise<Sequence>[] {
+		user?: string,
+	) {
 		const sequences: Sequence[] = [];
 		const addons: AnimationObject[] = [];
 
@@ -489,8 +495,8 @@ export let AnimCore = class AnimCore {
 		for (const animationsSet of animations) {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-			animationsSet.forEach((animation, index) => {
-				addAnimationToSequence(
+			for (const [index, animation] of animationsSet.entries()) {
+				await addAnimationToSequence(
 					sequence,
 					animation,
 					{
@@ -500,9 +506,10 @@ export let AnimCore = class AnimCore {
 						targets,
 						item,
 						sources,
+						user,
 					},
 				);
-			});
+			}
 
 			sequences.push(sequence);
 		}

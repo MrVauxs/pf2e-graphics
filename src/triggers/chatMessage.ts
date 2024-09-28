@@ -66,6 +66,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		actor: message.actor,
 		item: message.item,
 		animationOptions,
+		user: message.author.id,
 	}, 'Message Animation Data');
 }
 
