@@ -1,6 +1,6 @@
 import type { AnimationObject } from 'src/storage/AnimCore';
 import type { GameData, SequencerTypes } from '.';
-import { devLog, ErrorMsg, getPlayerOwners, i18n, log } from 'src/utils';
+import { devLog, ErrorMsg, getPlayerOwners, i18n } from 'src/utils';
 
 export default async function crosshair(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { sources, user } = data;
