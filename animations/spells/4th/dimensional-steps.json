@@ -1,0 +1,60 @@
+{
+	"spell:dimensional-steps": [
+		{
+			"trigger": "action",
+			"contents": [
+				{
+					"preset": "crosshair",
+					"options": {
+						"name": "dimensional-step",
+						"location": {
+							"showRange": true
+						}
+					}
+				},
+				{
+					"preset": "onToken",
+					"file": "jb2a.portals.horizontal.ring.blue",
+					"options": {
+						"scaleToObject": 2,
+						"belowTokens": true,
+						"fadeIn": 1000,
+						"fadeOut": 1000,
+						"duration": 8000,
+						"opacity": 0.75,
+						"preset": {
+							"atLocation": true,
+							"targets": [
+								"dimensional-step"
+							],
+							"location": "both"
+						}
+					}
+				},
+				{
+					"preset": "animation",
+					"options": {
+						"delay": 1500,
+						"duration": 2500,
+						"fadeIn": 1000,
+						"fadeOut": 1000
+					}
+				},
+				{
+					"preset": "animation",
+					"options": {
+						"delay": 2500,
+						"preset": {
+							"targets": [
+								"dimensional-step"
+							],
+							"type": "teleport",
+							"closestSquare": true,
+							"snapToGrid": true
+						}
+					}
+				}
+			]
+		}
+	]
+}

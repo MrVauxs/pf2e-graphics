@@ -1,4 +1,4 @@
-import type { AnimationObject } from 'src/storage/animCore';
+import type { AnimationObject } from 'src/storage/AnimCore';
 import type { GameData, SequencerTypes } from '.';
 import { isTrueish } from '../utils';
 
@@ -21,6 +21,20 @@ export default function sound(seq: SequencerTypes, animation: AnimationObject, d
 		sound.duration(options.duration);
 	if (isTrueish(options?.waitUntilFinished))
 		sound.waitUntilFinished(options.waitUntilFinished);
+	if (isTrueish(options?.fadeOut)) {
+		if (typeof options.fadeOut === 'object') {
+			seq.fadeOutAudio(options.fadeOut?.value, options.fadeOut);
+		} else {
+			seq.fadeOutAudio(options.fadeOut);
+		}
+	}
+	if (isTrueish(options?.fadeIn)) {
+		if (typeof options.fadeIn === 'object') {
+			seq.fadeInAudio(options.fadeIn?.value, options.fadeIn);
+		} else {
+			seq.fadeInAudio(options.fadeIn);
+		}
+	}
 
 	if (isTrueish(options?.atLocation)) {
 		const tokens = [];

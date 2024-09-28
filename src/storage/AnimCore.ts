@@ -8,6 +8,7 @@ import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObject
 import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
 
 export type JSONData = Record<string, string | JSONDataObject[]>;
+export type JSONMap = Map<string, string | JSONDataObject[]>;
 type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
 type TokenImageShorthand = [string, string, number, string, number];
 
@@ -40,8 +41,9 @@ interface AnimationHistoryObject {
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
 	animations: AnimationObject[];
-	item?: { name: string; uuid: string };
 	actor: { name: string; uuid: string };
+	item?: { name: string; uuid: string };
+	user?: { name: string; id: string };
 };
 
 declare global {
@@ -50,11 +52,13 @@ declare global {
 		AnimCore: typeof AnimCore;
 	}
 	interface pf2eGraphics {
+		socket: SocketlibSocket;
 		modules: Record<string, JSONData>;
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
 		history: Writable<AnimationHistoryObject[]>;
+		locations: Writable<{ name: string; location: object }[]>;
 	}
 }
 
@@ -63,23 +67,27 @@ export let AnimCore = class AnimCore {
 	/**
 	 * Returns raw animation data, with contents, references, etc.
 	 */
-	static getAnimations(): JSONData {
+	static getAnimations(): JSONMap {
 		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
-		return Object.keys(window.pf2eGraphics.modules)
-			.sort((a, b) => a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0)
-			.reduce((acc, key) => ({ ...acc, ...window.pf2eGraphics.modules[key] }), {});
+		return new Map(
+			Object.keys(window.pf2eGraphics.modules)
+				.sort((a, b) =>
+					a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0,
+				)
+				.flatMap(key => Object.entries(window.pf2eGraphics.modules[key])),
+		);
 	}
 
-	static get animations(): JSONData {
+	static get animations(): JSONMap {
 		if (dev) return this.getAnimations();
 		if (!this._animations) this._animations = this.getAnimations();
 		return this._animations;
 	}
 
-	static _animations: JSONData;
+	static _animations: JSONMap;
 
 	static getKeys(): string[] {
-		return Object.keys(this.animations).filter(x => !x.startsWith('_'));
+		return (Array.from(this.animations.keys())).filter(x => !x.startsWith('_'));
 	}
 
 	static get keys(): string[] {
@@ -91,9 +99,7 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return Object.keys(window.pf2eGraphics.modules)
-			.flatMap(key => window.pf2eGraphics.modules[key]._tokenImages as unknown as TokenImageData[])
-			.filter(nonNullable)
+		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
 			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
 			.map(x => ({
 				...x,
@@ -189,6 +195,7 @@ export let AnimCore = class AnimCore {
 			targets,
 			sources,
 			animationOptions = {},
+			user,
 		}: {
 			rollOptions: string[];
 			trigger: Trigger;
@@ -197,6 +204,7 @@ export let AnimCore = class AnimCore {
 			item?: ItemPF2e | null;
 			animationOptions?: object;
 			targets?: (TokenOrDoc | string | Point)[];
+			user?: string;
 		},
 		devName?: string,
 	) {
@@ -208,7 +216,7 @@ export let AnimCore = class AnimCore {
 		rollOptions = this.prepRollOptions(rollOptions);
 
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
-		const foundAnimations = AnimCore.search(rollOptions, [trigger], allAnimations);
+		const foundAnimations = AnimCore.search(rollOptions, [trigger], new Map(Object.entries(allAnimations)));
 		const appliedAnimations = Object.values(foundAnimations)
 			.map(x => x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)));
 
@@ -218,9 +226,10 @@ export let AnimCore = class AnimCore {
 			animations: appliedAnimations.flat(),
 			trigger,
 			item: nonNullable(item) ? item : undefined,
+			user: user ? { name: game.users.get(user)!.name, id: user } : undefined,
 		});
 
-		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined);
+		return this.play(appliedAnimations, sources, targets, nonNullable(item) ? item : undefined, user);
 	}
 
 	/**
@@ -237,7 +246,6 @@ export let AnimCore = class AnimCore {
 			animations: {},
 			sources: {},
 		};
-		const merge = foundry.utils.mergeObject;
 		/*
 			From a list of owners, find either the "true" owner (assigned user) or yourself if you are one of them.
 			Otherwise, default to whoever is first.
@@ -248,32 +256,22 @@ export let AnimCore = class AnimCore {
 		const itemOrigin = item?.origin?.items?.get(itemOriginId || '');
 
 		// Get all the flags.
-		const userKeys = owners.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {}).reduce((p, c) => merge(p, c), {});
+		const userKeys = owners.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {}).reduce((p, c) => foundry.utils.mergeObject(p, c), {});
 		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
-		obj.animations = merge(
-			AnimCore.animations,
-			merge(
-				window.pf2eGraphics.liveSettings.worldAnimations,
-				merge(
-					userKeys,
-					merge(
-						actorOriginKeys,
-						merge(
-							itemOriginKeys,
-							merge(
-								actorKeys,
-								itemKeys,
-							),
-						),
-					),
-				),
-			),
-		) as ReturnType<typeof this.getAnimations>;
+		obj.animations = {
+			...Object.fromEntries(AnimCore.animations.entries()),
+			...window.pf2eGraphics.liveSettings.worldAnimations,
+			...userKeys,
+			...actorOriginKeys,
+			...itemOriginKeys,
+			...actorKeys,
+			...itemKeys,
+		} as ReturnType<typeof this.getAnimations>;
 
 		obj.sources = {
 			preset: AnimCore.keys,
@@ -294,12 +292,16 @@ export let AnimCore = class AnimCore {
 	 * Checks the rollOptions against provided animations and outputs whatever matches.
 	 * Meant to be used in conjunction with retrieve() for the second parameter.
 	 */
-	static search(rollOptions: string[], triggers: string[] = [], animations: JSONData = AnimCore.animations): Record<string, AnimationObject[]> {
-		const matchingBranches = Object.entries(animations).filter(([k]) => rollOptions.includes(k));
-		const animationsNoStrings = matchingBranches.map(([k, v]) => [k, parseStrings(v, k)] as const satisfies [string, object[]]);
-		const animationsNoRefs = animationsNoStrings.map(([k, v]) => [k, parseReferences(v, k)] as const satisfies [string, object[]]);
-		const filteredAnimations = animationsNoRefs.map(([k, v]) => [k, filterChildren(v)] as const satisfies [string, object[]]);
-		const unfoldedAnimations = filteredAnimations.map(([k, v]) => [k, unfoldAnimations(v)] as const satisfies [string, object[]]);
+	static search(rollOptions: string[], triggers: string[] = [], animations: JSONMap = AnimCore.animations): Record<string, AnimationObject[]> {
+		const unfoldedAnimations: [string, ReturnType<typeof unfoldAnimations>][] = [];
+		for (const [k, v] of animations.entries()) {
+			if (!rollOptions.includes(k)) continue;
+			const animationNoStrings = parseStrings(v, k);
+			const animationNoRefs = parseReferences(animationNoStrings, k);
+			const filteredAnimation = filterChildren(animationNoRefs);
+			const unfoldedAnimation = unfoldAnimations(filteredAnimation);
+			unfoldedAnimations.push([k, unfoldedAnimation]);
+		}
 		// Do not bother if there are no triggers. We dont want to discriminate animations that *can* happen.
 		if (triggers.length) {
 			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
@@ -318,7 +320,7 @@ export let AnimCore = class AnimCore {
 			while (typeof v === 'string') {
 				if (recursion < 10) {
 					recursion++;
-					v = animations[v];
+					v = animations.get(v)!;
 				} else {
 					throw new ErrorMsg(`The ${k} animation recurses too many times! Check if the animation isnt perhaps an infinite loop.`);
 				}
@@ -332,7 +334,7 @@ export let AnimCore = class AnimCore {
 		): Omit<JSONDataObject, 'reference'>[] {
 			const parsed = v.map((obj) => {
 				if ('reference' in obj && obj.reference) {
-					const ref = parseStrings(animations[obj.reference], k);
+					const ref = parseStrings(animations.get(obj.reference)!, k);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
@@ -408,7 +410,7 @@ export let AnimCore = class AnimCore {
 		}
 	}
 
-	static createSequenceInQueue(
+	static async createSequenceInQueue(
 		queue: Sequence[],
 		animation: AnimationObject,
 		data: GameData,
@@ -417,7 +419,7 @@ export let AnimCore = class AnimCore {
 	) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-		addAnimationToSequence(
+		await addAnimationToSequence(
 			sequence,
 			animation,
 			data,
@@ -429,12 +431,13 @@ export let AnimCore = class AnimCore {
 	/**
 	 * Animations in, Sequences out.
 	 */
-	static play(
+	static async play(
 		animations: AnimationObject[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 		item?: ItemPF2e<any>,
-	): Promise<Sequence>[] {
+		user?: string,
+	) {
 		const sequences: Sequence[] = [];
 		const addons: AnimationObject[] = [];
 
@@ -481,10 +484,10 @@ export let AnimCore = class AnimCore {
 						// Skip
 						continue;
 					}
-				};
-
-				// Add to beginning / end
-				pushToSet(addon);
+				} else {
+					// Add to beginning / end
+					pushToSet(addon);
+				}
 			}
 
 			return set;
@@ -493,8 +496,8 @@ export let AnimCore = class AnimCore {
 		for (const animationsSet of animations) {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-			animationsSet.forEach((animation, index) => {
-				addAnimationToSequence(
+			for (const [index, animation] of animationsSet.entries()) {
+				await addAnimationToSequence(
 					sequence,
 					animation,
 					{
@@ -504,9 +507,10 @@ export let AnimCore = class AnimCore {
 						targets,
 						item,
 						sources,
+						user,
 					},
 				);
-			});
+			}
 
 			sequences.push(sequence);
 		}

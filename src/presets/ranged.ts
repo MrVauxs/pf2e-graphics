@@ -1,4 +1,4 @@
-import type { AnimationObject } from 'src/storage/animCore';
+import type { AnimationObject } from 'src/storage/AnimCore';
 import { addAnimationToSequence, type GameData, genericEffectOptions, type SequencerTypes } from '.';
 import { nonNullable } from '../utils';
 

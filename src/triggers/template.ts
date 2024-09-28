@@ -28,6 +28,7 @@ function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false)
 		sources,
 		actor,
 		item,
+		user: template.author.id,
 	}, 'Template Animation Data'), 100);
 }
 

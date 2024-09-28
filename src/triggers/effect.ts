@@ -32,6 +32,8 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 
 	if (diffOrigin) rollOptions.push('origin-exists');
 
+	const grantee = Object.entries(item.ownership).filter(x => x[0] !== 'default' && x[1] === 3).map(x => x[0]);
+
 	window.pf2eGraphics.AnimCore.animate({
 		rollOptions,
 		trigger: 'effect' as const,
@@ -39,6 +41,7 @@ function handleEffect(item: ItemPF2e, delayed = false) {
 		actor: item.actor,
 		sources,
 		targets: diffOrigin ? item.origin?.getActiveTokens() : undefined,
+		user: grantee.length && grantee.length === 1 ? grantee[0] : undefined,
 	}, 'Effect Animation Data');
 }
 

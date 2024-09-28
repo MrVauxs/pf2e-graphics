@@ -29,6 +29,7 @@ function handleModifiersMatter(options: modifiersMatterType, delayed = false) {
 			sources: rollingActor.getActiveTokens(),
 			actor: rollingActor,
 			targets: [targetedToken],
+			user: chatMessage.author.id,
 		}, 'Modifiers Matter Animation Data');
 	}
 }
