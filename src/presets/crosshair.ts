@@ -24,12 +24,14 @@ export default async function crosshair(seq: SequencerTypes, animation: Animatio
 	const position = new Promise((resolve) => {
 		if (users.find(x => x.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
-			// @ts-expect-error TODO: Types for crosshairs when
+			// @ts-expect-error TODO: Types for crosshair.options
 			Sequencer.Crosshair.show(animation.options).then((template) => {
-				window.pf2eGraphics.socket.executeForOthers('remoteLocation', animation.options!.name!, template);
+				// @ts-expect-error TODO: Sequencer Types (add Document class...)
+				window.pf2eGraphics.socket.executeForOthers('remoteLocation', animation.options!.name!, template.getOrientation());
 				resolve(template);
 			});
 		} else {
+			// Writable store that stores the location from above removeLocation socket
 			const unsub = window.pf2eGraphics.locations.subscribe((array) => {
 				const found = array.find(x => x.name === animation.options!.name);
 				if (found) {
