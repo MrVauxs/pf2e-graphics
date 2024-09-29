@@ -2,6 +2,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { AnimationObject } from 'src/storage/AnimCore.ts';
 import { ErrorMsg, log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
+import animationPreset from './animation.ts';
 import crosshairPreset from './crosshair.ts';
 import meleePreset from './melee.ts';
 import onTokenPreset from './onToken.ts';
@@ -42,6 +43,9 @@ export async function addAnimationToSequence(seq: SequencerTypes, _animation: An
 		case 'crosshair':
 			await crosshairPreset(seq, animation, data);
 			break;
+		case 'animation':
+			await animationPreset(seq, animation, data);
+			break;
 		case 'macro':
 			if (animation.macro) {
 				seq.macro(animation.macro, { animation, data });
@@ -76,6 +80,8 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.mirrorX)) seq.mirrorX(options.mirrorX);
 	if (isTrueish(options?.mirrorY)) seq.mirrorY(options.mirrorY);
 	if (isTrueish(options?.template)) seq.template(options.template);
+	if (isTrueish(options?.scaleIn)) seq.scaleIn(options?.scaleIn.scale, options?.scaleIn.duration, options?.scaleIn);
+	if (isTrueish(options?.scaleOut)) seq.scaleOut(options?.scaleOut.scale, options?.scaleOut.duration, options?.scaleOut);
 	if (isTrueish(options?.tint)) seq.tint(options.tint);
 	// @ts-expect-error TODO: Fix in Sequencer types
 	if (isTrueish(options?.anchor)) seq.anchor(options.anchor);
@@ -96,6 +102,13 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 			seq.fadeIn(options.fadeIn);
 		}
 	}
+	if (isTrueish(options?.fadeOut)) {
+		if (typeof options.fadeOut === 'object') {
+			seq.fadeOut(options.fadeOut?.value, options.fadeOut);
+		} else {
+			seq.fadeOut(options.fadeOut);
+		}
+	}
 	if (isTrueish(options?.scale)) {
 		if (typeof options.scale === 'object') {
 			seq.scale(options.scale.min, options.scale.max);
@@ -108,13 +121,6 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 			seq.scaleToObject(options.scaleToObject.value, options.scaleToObject);
 		} else {
 			seq.scaleToObject(options.scaleToObject);
-		}
-	}
-	if (isTrueish(options?.fadeOut)) {
-		if (typeof options.fadeOut === 'object') {
-			seq.fadeOut(options.fadeOut?.value, options.fadeOut);
-		} else {
-			seq.fadeOut(options.fadeOut);
 		}
 	}
 	if (isTrueish(options?.wait)) {

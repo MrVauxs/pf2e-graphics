@@ -1,6 +1,7 @@
 import AnimationHistoryApp from './AnimationHistoryApp';
 
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
+	if (!window.pf2eGraphics.liveSettings.history && !game.user.isGM) return;
 	const history = {
 		icon: 'fa fa-history',
 		name: 'animationhistory',

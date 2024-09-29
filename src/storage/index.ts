@@ -1,7 +1,6 @@
 import { ErrorMsg } from 'src/utils.ts';
 import { writable } from 'svelte/store';
 import { AnimCore } from './AnimCore.ts';
-import './presets.ts';
 
 Object.assign(window, {
 	pf2eGraphics: { modules: {}, AnimCore, history: writable([]), locations: writable([]) },
@@ -27,7 +26,14 @@ Hooks.once('ready', async () => {
 
 	// Register the crosshair.ts sockets.
 	window.pf2eGraphics.socket = socketlib.registerModule('pf2e-graphics');
-	window.pf2eGraphics.socket.register('remoteLocation', (name: string, location: object) => window.pf2eGraphics.locations.update((items) => { items.push({ name, location }); return items; }));
+	window.pf2eGraphics.socket.register(
+		'remoteLocation',
+		(name: string, location: object) =>
+			window.pf2eGraphics.locations.update((items) => {
+				items.push({ name, location });
+				return items;
+			}),
+	);
 });
 
 if (import.meta.hot) {

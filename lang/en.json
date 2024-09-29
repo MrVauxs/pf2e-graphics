@@ -41,6 +41,10 @@
 				"name": "Animation Volume",
 				"hint": "Multiplies the volume of animations by a set amount. Does not override animations own volume settings."
 			},
+			"history": {
+				"name": "Show Animation History to Players",
+				"hint": "Animation History contains sensitive information, primarily about roll options. Enable this if you dont worry about players reading what kind of traits or abilities an NPC might have."
+			},
 			"delay": {
 				"name": "Animation Delay",
 				"hint": "Adds a delay in seconds to every animation being processed and triggered."
