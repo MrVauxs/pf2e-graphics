@@ -13,7 +13,7 @@ const soundEffect = z
 	.describe('A sound effect (i.e. an effect applied to a sound).');
 
 /**
- * Zod schema for the `sound` preset options.
+ * Zod schema for the options specific to a `sound`-preset animation.
  */
 export const soundOptions = z
 	.object({
@@ -25,9 +25,9 @@ export const soundOptions = z
 		baseEffect: soundEffect.optional(),
 	})
 	.strict()
-	.describe('`sound` preset options.');
+	.describe('The options specific to a `sound`-preset animation.');
 
 /**
- * `sound` preset options.
+ * The options specific to a `sound`-preset animation.
  */
 export type SoundPresetOptions = z.infer<typeof soundOptions>;

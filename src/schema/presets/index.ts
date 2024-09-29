@@ -28,9 +28,9 @@ export const presets = z.enum(PRESETS).describe('A preset that PF2e Graphics rec
 export type Preset = z.infer<typeof presets>;
 
 /**
- * Zod schema for the options which are common to all (non-`macro`) animation payloads.
+ * Zod schema for the options which are common to all 'effect' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
  */
-export const commonOptions = z
+export const effectOptions = z
 	.object({
 		name: z
 			.string()
@@ -84,7 +84,7 @@ export const commonOptions = z
 			.optional(),
 	})
 	.strict()
-	.describe('Options which are common to all (non-`macro`) animation payloads.');
+	.describe('Options which are common to all \'effect\' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).');
 
 /**
  * Zod schema for the options which are common to all graphic animations.

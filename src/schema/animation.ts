@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 import {
-	commonOptions,
+	effectOptions,
 	graphicOptions,
 	meleeOptions,
 	onTokenOptions,
@@ -29,26 +29,26 @@ const animationPayload = z
 			.strict(),
 		z
 			.object({ type: z.literal('sound') })
-			.merge(commonOptions)
+			.merge(effectOptions)
 			.merge(soundOptions),
 		z
 			.object({ type: z.literal('melee') })
-			.merge(commonOptions)
+			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(meleeOptions),
 		z
 			.object({ type: z.literal('ranged') })
-			.merge(commonOptions)
+			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(rangedOptions),
 		z
 			.object({ type: z.literal('onToken') })
-			.merge(commonOptions)
+			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(onTokenOptions),
 		z
 			.object({ type: z.literal('template') })
-			.merge(commonOptions)
+			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(templateOptions),
 		// z
