@@ -24,8 +24,9 @@ export default async function crosshair(seq: SequencerTypes, animation: Animatio
 	const position = new Promise((resolve) => {
 		if (users.find(x => x.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
-			// @ts-expect-error TODO: Types for crosshairs when
+			// @ts-expect-error TODO: Types for crosshair.options
 			Sequencer.Crosshair.show(animation.options).then((template) => {
+				// @ts-expect-error TODO: Sequencer Types (add Document class...)
 				window.pf2eGraphics.socket.executeForOthers('remoteLocation', animation.options!.name!, template.getOrientation());
 				resolve(template);
 			});
