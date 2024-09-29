@@ -89,3 +89,65 @@ export const atLocation = z
 	.describe(
 		'A configuration to place an animation/sound at a particular location on the canvas, with an optional offset.',
 	);
+
+/**
+ * Zod schema for a configuration to attach an animation to a particular placeable on the canvas.
+ */
+export const attachTo = z
+	.object({
+		align: z.string().optional(),
+		edge: z.string().optional(),
+		bindVisibility: z.literal(true).optional(),
+		bindAlpha: z.literal(true).optional(),
+		bindScale: z.literal(true).optional(),
+		bindElevation: z.literal(true).optional(),
+		followRotation: z.literal(true).optional(),
+		offset: offset.optional(),
+		randomOffset: z.number().optional(),
+		gridUnits: z.literal(true).optional(),
+		local: z.literal(true).optional(),
+	})
+	.strict()
+	.refine(...nonEmpty)
+	.describe('A configuration to attach an animation to a particular placeable on the canvas.');
+
+/**
+ * Zod schema for a configuration to rotate an animation towards a particular placeable on the canvas, with an optional offset.
+ */
+export const rotateTowards = z
+	.object({
+		rotationOffset: z.number().optional(),
+		cacheLocation: z.literal(true).optional(),
+		attachTo: z.literal(true).optional(),
+		offset: offset.optional(),
+		randomOffset: z.number().optional(),
+		gridUnits: z.literal(true).optional(),
+		local: z.literal(true).optional(),
+	})
+	.strict()
+	.refine(...nonEmpty)
+	.describe(
+		'A configuration to rotate an animation towards a particular placeable on the canvas, with an optional offset.',
+	);
+
+/**
+ * Zod schema for a configuration to stretch an animation towards a particular placeable on the canvas, with an optional offset.
+ */
+export const stretchTo = z
+	.object({
+		cacheLocation: z.literal(true).optional(),
+		attachTo: z.literal(true).optional(),
+		onlyX: z.literal(true).optional(),
+		tiling: z.literal(true).optional(),
+		offset: offset.optional(),
+		randomOffset: z.number().optional(),
+		gridUnits: z.literal(true).optional(),
+		local: z.literal(true).optional(),
+		requiresLineOfSight: z.literal(true).optional(),
+		hideLineOfSight: z.literal(true).optional(),
+	})
+	.strict()
+	.refine(...nonEmpty)
+	.describe(
+		'A configuration to stretch an animation towards a particular placeable on the canvas, with an optional offset.',
+	);

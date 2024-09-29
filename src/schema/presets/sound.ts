@@ -1,7 +1,5 @@
 import { z } from 'zod';
-import { predicate } from '../helpers/atoms';
-import { nonZero, uniqueItems } from '../helpers/refinements';
-import { atLocation, easingOptionsWithValue } from '../helpers/structures';
+import { atLocation } from '../helpers/structures';
 
 /**
  * Zod schema for a sound effect (i.e. an effect applied to a sound).
@@ -19,23 +17,10 @@ const soundEffect = z
  */
 export const soundOptions = z
 	.object({
-		waitUntilFinished: z.number().optional(),
 		atLocation: atLocation.optional(),
 		radius: z.number().positive().optional(),
 		volume: z.number().positive().optional(),
-		duration: z.number().positive().optional(),
-		fadeIn: z.number().min(1).or(easingOptionsWithValue).optional(),
-		fadeOut: z.number().min(1).or(easingOptionsWithValue).optional(),
 		constrainedByWalls: z.literal(true).optional(),
-		predicate: z
-			.array(predicate)
-			.min(1)
-			.refine(...uniqueItems)
-			.optional(),
-		delay: z
-			.number()
-			.refine(...nonZero)
-			.optional(),
 		muffledEffect: soundEffect.optional(),
 		baseEffect: soundEffect.optional(),
 	})
