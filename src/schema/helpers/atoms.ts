@@ -9,6 +9,28 @@ export const JSONValue = z
 	.describe('Any possible value that can be encoded in JSON.');
 
 /**
+ * An animation's 'ID' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others.
+ */
+export const ID = z
+	.string()
+	.regex(
+		/^[a-z0-9][a-z0-9!?&()'.,:;\-_ ]{4,}[a-z0-9]$/,
+		'Animation IDs should be easily readable and reasonably unique.',
+	)
+	.optional()
+	.describe(
+		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others.',
+	);
+
+/**
+ * Zod schema for a Foundry document's UUID.
+ */
+export const UUID = z
+	.string()
+	.regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+[a-z0-9]$/i, 'Must be a valid UUID.')
+	.describe('A Foundry document\'s UUID.');
+
+/**
  * Zod schema for a Foundry item's slug for the pf2e system.
  */
 export const slug = z

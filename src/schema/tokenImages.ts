@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { easing, filePath, JSONValue, slug } from './helpers/atoms';
+import { easing, filePath, JSONValue, slug, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 
 /**
@@ -8,7 +8,7 @@ import { nonEmpty, uniqueItems } from './helpers/refinements';
 const tokenImageData = z
 	.object({
 		name: z.string().min(1),
-		uuid: z.string().regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
+		uuid: UUID,
 		requires: z.string().min(1).optional(),
 		rules: z
 			.array(

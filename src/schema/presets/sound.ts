@@ -32,7 +32,6 @@ export const soundOptions = z
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
-		default: z.literal(true).optional(),
 		delay: z
 			.number()
 			.refine(...nonZero)

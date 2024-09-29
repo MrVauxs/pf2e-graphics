@@ -27,9 +27,9 @@ export const TRIGGERS = [
 /**
  * Zod schema for a trigger that PF2e Graphics recognises.
  */
-export const triggers = z.enum(TRIGGERS).describe('A trigger that PF2e Graphics recognises.');
+export const trigger = z.enum(TRIGGERS).describe('A trigger that PF2e Graphics recognises.');
 
 /**
  * A trigger that PF2e Graphics recognises.
  */
-export type Trigger = z.infer<typeof triggers>;
+export type Trigger = z.infer<typeof trigger>;
