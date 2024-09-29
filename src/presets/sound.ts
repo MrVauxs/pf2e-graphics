@@ -53,7 +53,7 @@ export default function sound(seq: SequencerTypes, animation: AnimationObject, d
 				break;
 		}
 
-		(tokens).forEach(x => sound.atLocation(x, options.atLocation));
+		(tokens).forEach(x => sound.atLocation(x, typeof options.atLocation === 'object' ? options.atLocation : {}));
 
 		if (isTrueish(options?.radius))
 			sound.radius(options.radius);
