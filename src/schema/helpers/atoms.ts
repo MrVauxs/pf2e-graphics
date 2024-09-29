@@ -14,7 +14,7 @@ export const JSONValue = z
 export const ID = z
 	.string()
 	.regex(
-		/^[a-z0-9][a-z0-9!?&()'.,:;\-_ ]{4,}[a-z0-9]$/,
+		/^[a-z0-9][\w!?&()'.,:;\-]{4,}[a-z0-9]$/i,
 		'Animation IDs should be easily readable and reasonably unique.',
 	)
 	.optional()

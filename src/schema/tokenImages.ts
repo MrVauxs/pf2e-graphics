@@ -25,7 +25,7 @@ const tokenImageData = z
 							.object({
 								key: JSONValue.optional(),
 								label: JSONValue.optional(),
-								slug: JSONValue.optional(),
+								slug: slug.optional(),
 								predicate: JSONValue.optional(),
 								priority: JSONValue.optional(),
 								ignored: JSONValue.optional(),
