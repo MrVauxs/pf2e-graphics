@@ -5,6 +5,7 @@
 			"2": "Wesprzyj mnie!",
 			"3": "Pomóż autorowi"
 		},
+		"pick-a-location": "Wybierz lokalizację!",
 		"source": "źródło: {format}",
 		"history": "Historia animacji",
 		"unlink": "Odłącz",
@@ -39,6 +40,10 @@
 			"volume": {
 				"name": "Głośność animacji",
 				"hint": "Mnoży głośność animacji przez określoną wartość. Nie zastępuje własnych ustawień głośności animacji."
+			},
+			"history": {
+				"name": "Wyświetl historię animacji graczom",
+				"hint": "Historia animacji zawiera poufne informacje, głównie o opcjach rzutu. Włącz tę opcję, jeśli nie martwisz się, że gracze odczytają, jakie cechy lub umiejętności może mieć BN."
 			},
 			"delay": {
 				"name": "Opóźnienie animacji",
