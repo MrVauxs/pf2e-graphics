@@ -1,6 +1,6 @@
 import type { AnimationObject } from 'src/storage/AnimCore';
 import type { GameData, SequencerTypes } from '.';
-import { devLog, ErrorMsg, getPlayerOwners, i18n, isTrueish } from 'src/utils';
+import { isTrueish } from 'src/utils';
 
 export default async function animation(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
 	const { sources } = data;
