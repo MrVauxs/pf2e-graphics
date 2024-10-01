@@ -212,9 +212,6 @@ export default class TJSDocumentProperty<T> {
 	#handleDocUpdate(_doc: object, context?: { renderData?: object; renderContext?: string; action?: string }) {
 		this.#log(`[TJSDocumentProperty] #handleDocUpdate - 0 - context:\n`, context);
 
-		// TODO: Note that this is based on the current `0.2.0` internal release and may need to be changed based on TRL
-		//  `0.1.3`.
-
 		switch (context?.action) {
 			case 'delete':
 				// @ts-expect-error Explicit removal
@@ -235,9 +232,6 @@ export default class TJSDocumentProperty<T> {
 				this.#log(`[TJSDocumentProperty] #handleDocUpdate - C - tjs-set-new; value:\n`, this.#value);
 				break;
 		}
-
-		// TODO: Note that this specifically handles Foundry v12. In TRL `0.2.0` `renderContext` will be normalized to
-		// `action`.
 
 		if (context?.renderData && typeof context.renderContext === 'string' && context.renderContext.startsWith('update')) {
 			const newValue = safeAccess(this.#doc?.get(), this.#accessor, this.#symbolNoop);
