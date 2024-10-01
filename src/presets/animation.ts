@@ -8,8 +8,7 @@ export default async function animation(seq: SequencerTypes, animation: Animatio
 
 	for (const source of sources) {
 		if ((source.actor as ActorPF2e)?.primaryUpdater?.id === game.userId) {
-			const ani = seq.animation()
-				.on(source);
+			const ani = seq.animation(source);
 
 			if (isTrueish(options?.preset?.type)) {
 				switch (options?.preset?.type) {
@@ -57,6 +56,7 @@ export default async function animation(seq: SequencerTypes, animation: Animatio
 			}
 		} else {
 			// Do I need to do anything here? I thought of adding some sort of socket in similar vein to crosshairs but... This doesn't seem to be needed?
+			// Edit: What about waitUntilFinished?
 		}
 	}
 

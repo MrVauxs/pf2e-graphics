@@ -78,17 +78,18 @@ const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) =
 	};
 });
 
-const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
-	if (
-		!(
-			game.modules.get('dice-so-nice')?.active
-			&& msg.isRoll
-			&& msg.rolls.some(roll => roll.dice.length > 0)
-			// TODO: replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
-		)
-	) {
-		handleChatMessage(msg);
+Hooks.on('diceSoNiceMessageProcessed', async (messageId: string, willTrigger3DRoll: boolean) => {
+	if (willTrigger3DRoll) {
+		// @ts-expect-error TODO: Dice So Nice types
+		await game.dice3d!.waitFor3DAnimationByMessageID(messageId);
 	}
+
+	handleChatMessage(game.messages.get(messageId)!);
+});
+
+const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
+	if (!game.modules.get('dice-so-nice')?.active)
+		handleChatMessage(msg);
 });
 
 const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
