@@ -1,7 +1,6 @@
 import { z } from 'zod';
-import { angle, filePath, ID } from '../helpers/atoms';
+import { angle, filePath, hexColour, ID } from '../helpers/atoms';
 import { nonEmpty, nonZero } from '../helpers/refinements';
-import { offset } from '../helpers/structures';
 
 /**
  * Zod schema for the options specific to a `crosshair`-preset animation.
@@ -31,7 +30,7 @@ export const crosshairOptions = z
 			),
 		icon: z
 			.object({
-				texture: filePath.optional().describe('The filepath to the icon\'s image.'),
+				texture: filePath.describe('The filepath to the icon\'s image.'),
 				borderVisible: z.literal(true).optional().describe('Draws a border around the icon.'),
 			})
 			.strict()
@@ -172,7 +171,19 @@ export const crosshairOptions = z
 					.describe(
 						'If the crosshair is locked to the placeable\'s edge (`lockToEdge`), then this also forces an attached `CONE` or `RAY` template to be oriented away from that placeable.',
 					),
-				offset: offset
+				offset: z
+					.object({
+						x: z
+							.number()
+							.refine(...nonZero)
+							.optional(),
+						y: z
+							.number()
+							.refine(...nonZero)
+							.optional(),
+					})
+					.strict()
+					.refine(...nonEmpty)
 					.optional()
 					.describe(
 						'Allows you to offset the crosshair\'s recorded position from its placed location (values in pixels).',
@@ -206,6 +217,8 @@ export const crosshairOptions = z
 			.describe(
 				'Configures the permissible area in which the crosshair can be placed, with respect to an anchoring placeable (typically an actor\'s token).',
 			),
+		borderColor: hexColour.optional().describe('Sets the border colour of the crosshair.'),
+		fillColor: hexColour.optional().describe('Sets the fill colour of the crosshair.'),
 	})
 	.strict()
 	// refinements are applied to `animationPayload` in `src/schema/animation.ts` due to a Zod limitation
