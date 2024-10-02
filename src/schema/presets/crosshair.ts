@@ -44,30 +44,35 @@ export const crosshairOptions = z // TODO
 					.enum(['CIRCLE', 'CONE', 'RECTANGLE', 'RAY'])
 					.describe('The shape of the crosshair\'s template.'),
 				size: z
-					.number()
-					.positive()
-					.or(
-						z
-							.object({
-								min: z.number().positive(),
-								max: z.number().positive(),
-							})
-							.strict()
-							.refine(obj => obj.max > obj.min, '`max` must be greater than `min`.'),
-					)
+					.object({
+						default: z.number().positive().describe('The initial size of the template.'),
+						min: z
+							.number()
+							.positive()
+							.optional()
+							.describe('The minimum size of the template, if a range is permitted.'),
+						max: z
+							.number()
+							.positive()
+							.optional()
+							.describe('The maximum size of the template, if a range is permitted.'),
+					})
+					.strict()
+					.refine(obj => obj.max === obj.min, '`max` and `min` must be defined together.')
+					.refine(obj => obj.max! > obj.min!, '`max` must be greater than `min`.')
 					.describe(
-						'Sets the length for `ray` and `rect` templates, or the radius for `circle` and `cone` templates.',
+						'Sets the length for `RAY` and `RECTANGLE` templates, or the radius for `CIRCLE` and `CONE` templates.',
 					),
 				angle: z
 					.number()
 					.positive()
 					.lt(360)
 					.optional()
-					.describe('Sets the angular width of `cone` templates (default: 90°).'),
+					.describe('Sets the angular width of `CONE` templates (default: 90°).'),
 				direction: angle
 					.optional()
 					.describe(
-						'Sets the initial orientation of `cone` and `ray` templates (default: 0°, rightwards).',
+						'Sets the initial orientation of `CONE` and `RAY` templates (default: 0°, rightwards).',
 					),
 				persist: z
 					.literal(true)
@@ -75,10 +80,10 @@ export const crosshairOptions = z // TODO
 					.describe('Causes the placed template to persist (that is, be actually placed on the scene).'),
 			})
 			.strict()
-			.refine(obj => !obj.angle || obj.type === 'CONE', '`angle` can only be used when `type` is `cone`.')
+			.refine(obj => !obj.angle || obj.type === 'CONE', '`angle` can only be used when `type` is `CONE`.')
 			.refine(
 				obj => !obj.direction || obj.type === 'CONE' || obj.type === 'RAY',
-				'`direction` can only be used when `type` is `cone` or `ray`.',
+				'`direction` can only be used when `type` is `CONE` or `RAY`.',
 			)
 			.optional()
 			.describe('Configures a template to attach to the crosshair (default: ephemeral, 1 × 1 square).'),
