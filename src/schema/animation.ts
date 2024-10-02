@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 import {
+	crosshairOptions,
 	effectOptions,
 	graphicOptions,
 	meleeOptions,
@@ -59,7 +60,33 @@ const animationPayload = z
 		// 	.object({ type: z.literal('animation') })
 		// 	.merge(commonOptions)
 		// 	.merge(animationOptions),
+		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
 	])
+	.superRefine(
+		(obj, ctx) => {
+			if (obj.type !== 'crosshair') return;
+			if (obj.snap?.direction) {
+				if (obj.lockManualRotation) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: 'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
+					});
+				}
+				if (obj.location?.lockToEdgeDirection) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: '`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
+					});
+				}
+			}
+			if (obj.snap?.position && (obj.location?.lockToEdge || obj.location?.lockToEdgeDirection)) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message: 'Locking a crosshair to a placeable\'s edge (`locktoEdge`/`lockToEdgeDirection`) makes position-snapping (`snap.position`) redundant.',
+				});
+			}
+		},
+	)
 	.describe('The animation payload that actually gets executed.');
 
 /**

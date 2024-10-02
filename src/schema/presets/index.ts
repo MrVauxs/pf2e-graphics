@@ -156,6 +156,7 @@ export const graphicOptions = z
 	.strict()
 	.describe('Options which are common to all graphic animations.');
 
+export { crosshairOptions } from './crosshair';
 export { meleeOptions } from './melee';
 export { onTokenOptions } from './onToken';
 export { rangedOptions } from './ranged';
