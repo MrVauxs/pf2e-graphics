@@ -78,11 +78,27 @@ const animationPayload = z
 				});
 			}
 		}
-		if (obj.snap?.position && (obj.location?.lockToEdge || obj.location?.lockToEdgeDirection)) {
+		if (obj.location?.lockToEdgeDirection) {
+			if (obj.lockManualRotation) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message:
+						'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
+				});
+			}
+			if (obj.template?.direction) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message:
+						'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
+				});
+			}
+		}
+		if (obj.snap?.position && obj.location?.lockToEdge) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				message:
-					'Locking a crosshair to a placeable\'s edge (`locktoEdge`/`lockToEdgeDirection`) makes position-snapping (`snap.position`) redundant.',
+					'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
 			});
 		}
 	})

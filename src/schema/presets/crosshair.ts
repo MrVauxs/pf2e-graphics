@@ -117,7 +117,7 @@ export const crosshairOptions = z // TODO
 					)
 					.optional()
 					.describe(
-						'Forces the crosshair to snap to specific points on the grid (default: `["CENTER"]`). Leave the array empty (`[]`) to disable grid-snapping.\nFor Pathfinder 2e effects, you\'ll probably want one or more of `CENTER`, `SIDE_MIDPOINT`, and `VERTEX` (for instance, cones are typically `["SIDE_MIDPOINT", "VERTEX"]`).',
+						'Forces the crosshair to snap to specific points on the grid (default: `["CENTER"]`). Leave the array empty (`[]`) to disable grid-snapping.\nFor Pathfinder 2e, you\'ll probably want one or more of `CENTER`, `SIDE_MIDPOINT`, and `VERTEX` (for instance, cones are typically `["SIDE_MIDPOINT", "VERTEX"]`).',
 					),
 				direction: z
 					.number()
@@ -170,14 +170,19 @@ export const crosshairOptions = z // TODO
 					.literal(true)
 					.optional()
 					.describe(
-						'Locks the crosshair to the edge of the placeable, and also forces an attached `CONE` or `RAY` template to be oriented away from that placeable.',
+						'If the crosshair is locked to the placeable\'s edge (`lockToEdge`), then this also forces an attached `CONE` or `RAY` template to be oriented away from that placeable.',
 					),
 				offset: offset
 					.optional()
 					.describe(
 						'Allows you to offset the crosshair\'s recorded position from its placed location (values in pixels).',
 					),
-				wallBehavior: z.enum(['ANYWHERE', 'LINE_OF_SIGHT', 'NO_COLLIDABLES']).optional(),
+				wallBehavior: z
+					.enum(['LINE_OF_SIGHT', 'NO_COLLIDABLES'])
+					.optional()
+					.describe(
+						'Defines how the crosshair should interact with walls (default: `ANYWHERE`, no interaction).\n`LINE_OF_SIGHT`: the crosshair\'s position must be visible from the placeable.\n`NO_COLLIDABLES`: the line between the placeable and the crosshair\'s position must pass through no movement-blocking walls (i.e. line-of-effect).',
+					),
 			})
 			.strict()
 			.refine(...nonEmpty)
@@ -186,16 +191,16 @@ export const crosshairOptions = z // TODO
 				'`limitMinRange` must be smaller than `limitMaxRange`.',
 			)
 			.refine(
-				obj => !obj.lockToEdge || !obj.lockToEdgeDirection,
-				'`lockToEdge` is redundant given that `lockToEdgeDirection` is `true`.',
+				obj => obj.lockToEdge || !obj.lockToEdgeDirection,
+				'`lockToEdgeDirection` requires `lockToEdge`.',
 			)
 			.refine(
-				obj => !(obj.lockToEdge || obj.lockToEdgeDirection) || !(obj.limitMinRange || obj.limitMaxRange),
-				'`limitMinRange` and `limitMaxRange` are incompatible with `lockToEdge` and `lockToEdgeDirection`.',
+				obj => !obj.lockToEdge || !(obj.limitMinRange || obj.limitMaxRange),
+				'`limitMinRange` and `limitMaxRange` are incompatible with `lockToEdge`.',
 			)
 			.refine(
-				obj => !obj.showRange || obj.lockToEdge || obj.lockToEdgeDirection,
-				'`showRange` is redundant if `lockToEdge` or `lockToEdgeDirection` is `true`.',
+				obj => !obj.showRange || obj.lockToEdge,
+				'`showRange` is redundant if `lockToEdge` is `true`.',
 			)
 			.optional()
 			.describe(
