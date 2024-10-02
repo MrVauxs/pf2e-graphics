@@ -54,31 +54,38 @@ const animationPayload = z
 			.merge(templateOptions),
 		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
 	])
-	.superRefine(
-		(obj, ctx) => {
-			if (obj.type !== 'crosshair') return;
-			if (obj.snap?.direction) {
-				if (obj.lockManualRotation) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						message: 'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
-					});
-				}
-				if (obj.location?.lockToEdgeDirection) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						message: '`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
-					});
-				}
-			}
-			if (obj.snap?.position && (obj.location?.lockToEdge || obj.location?.lockToEdgeDirection)) {
+	.superRefine((obj, ctx) => {
+		if (obj.type !== 'crosshair') return;
+		if (obj.snap?.direction) {
+			if (obj.template?.type === 'CIRCLE') {
 				ctx.addIssue({
 					code: z.ZodIssueCode.custom,
-					message: 'Locking a crosshair to a placeable\'s edge (`locktoEdge`/`lockToEdgeDirection`) makes position-snapping (`snap.position`) redundant.',
+					message: '`snap.direction` is redundant when `template.type` is `CIRCLE`.',
 				});
 			}
-		},
-	)
+			if (obj.lockManualRotation) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message:
+						'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
+				});
+			}
+			if (obj.location?.lockToEdgeDirection) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message:
+						'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
+				});
+			}
+		}
+		if (obj.snap?.position && (obj.location?.lockToEdge || obj.location?.lockToEdgeDirection)) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message:
+					'Locking a crosshair to a placeable\'s edge (`locktoEdge`/`lockToEdgeDirection`) makes position-snapping (`snap.position`) redundant.',
+			});
+		}
+	})
 	.describe('The animation payload that actually gets executed.');
 
 /**
