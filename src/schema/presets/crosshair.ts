@@ -59,7 +59,7 @@ export const crosshairOptions = z // TODO
 					})
 					.strict()
 					.refine(obj => obj.max === obj.min, '`max` and `min` must be defined together.')
-					.refine(obj => obj.max! > obj.min!, '`max` must be greater than `min`.')
+					.refine(obj => (obj.max ?? Infinity) > (obj.min ?? 0), '`max` must be greater than `min`.')
 					.describe(
 						'Sets the length for `RAY` and `RECTANGLE` templates, or the radius for `CIRCLE` and `CONE` templates.',
 					),
