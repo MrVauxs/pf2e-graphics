@@ -52,14 +52,6 @@ const animationPayload = z
 			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(templateOptions),
-		// z
-		// 	.object({ type: z.literal('crosshair') })
-		// 	.merge(commonOptions)
-		// 	.merge(crosshairOptions),
-		// z
-		// 	.object({ type: z.literal('animation') })
-		// 	.merge(commonOptions)
-		// 	.merge(animationOptions),
 		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
 	])
 	.superRefine(
