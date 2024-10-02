@@ -6,7 +6,7 @@ import { offset } from '../helpers/structures';
 /**
  * Zod schema for the options specific to a `crosshair`-preset animation.
  */
-export const crosshairOptions = z // TODO
+export const crosshairOptions = z
 	.object({
 		name: ID.describe(
 			'Identifies the crosshair\'s selected position so that it can be used elsewhere (for instance, in the `atLocation` property of another animation).',
