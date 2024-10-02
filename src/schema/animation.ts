@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 import {
+	animationOptions,
 	crosshairOptions,
 	effectOptions,
 	graphicOptions,
@@ -28,6 +29,7 @@ const animationPayload = z
 					.describe('An arbitrary object of options you can pass into the macro as an argument.'),
 			})
 			.strict(),
+		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
 		z
 			.object({ type: z.literal('sound') })
 			.merge(effectOptions)
@@ -52,7 +54,10 @@ const animationPayload = z
 			.merge(effectOptions)
 			.merge(graphicOptions)
 			.merge(templateOptions),
-		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
+		z
+			.object({ type: z.literal('animation') })
+			.merge(graphicOptions)
+			.merge(animationOptions),
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type !== 'crosshair') return;
@@ -103,6 +108,13 @@ const animationPayload = z
 		}
 	})
 	.describe('The animation payload that actually gets executed.');
+
+/**
+ * The animation payload that actually gets executed.
+ *
+ * Consider using as `Extract<AnimationPayload, { type: '...' }>` to select specific members.
+ */
+export type AnimationPayload = z.infer<typeof animationPayload>;
 
 /**
  * Zod schema for the 'flat' form of an animation object, after all `contents` have been unrolled and merged appropriately.
