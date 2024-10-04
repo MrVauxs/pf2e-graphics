@@ -124,22 +124,22 @@ const flatAnimation = z
 		id: ID,
 		generic: z
 			.discriminatedUnion('type', [
+				z.object({ type: z.literal('slot') }).strict(),
 				z
 					.object({
 						type: z.literal('add-on'),
 						order: z
-							.literal('last')
+							.enum(['last'])
 							.optional()
 							.describe(
-								'Should the animation be added onto the start or the end of the animation stack (default: `first`)?',
+								'Determines where the generic animation is placed in the animation stack when it applies (default: `first`).',
 							),
 					})
 					.strict(),
-				z.object({ type: z.literal('slot') }).strict(),
 			])
 			.optional()
 			.describe(
-				'An animation can be marked as \'generic\'. This means that it doesn\'t just describe one unique event, but rather a general occurrence that might occur in many contexts (such as Casting a Spell, or scoring a critical hit on a Strike).\nAn `add-on` animation is \'added onto\' another animation.\nAlternatively, you can set a generic animation to `slot` into a specific animation, if and only if that animation has a step with the same `id` as the generic one. This overrides the specific animation\'s animation with that `id`.',
+				'An animation can be marked as \'generic\'. This means that it doesn\'t just describe one unique event, but rather a general occurrence that might occur in many contexts (such as Casting a Spell, or scoring a critical hit on a Strike).\nThere are two parts to generic animations.\n- First, on the receiving end, we have `type: "slot"` generics. This indicates that this animation is a vacant spot for that general occurrence; it does nothing on its own, but indicates a spot (!) for an `add-on` to fill.\n- Speaking of `add-on` generics, these are the \'templates\' that are actually applied. An `add-on` either fills a `slot` with a matching `id`, or it\'s simply prepended/appended the an animation set whenever it applies if `id` is undefined. You can control the position the `add-on` is placed using `order`.',
 			),
 		triggers: z
 			.array(trigger)
@@ -211,3 +211,15 @@ export const animations = z
 	.min(1)
 	// .superRefine((arr, ctx) => superValidate(arr, ctx))
 	.refine(...uniqueItems);
+
+/**
+ * Zod schema for the animations data object, which maps roll options to animation objects (or other roll options).
+ */
+export const animationsData = z
+	.record(rollOption, rollOption.or(animations))
+	.describe('The animations data object, which maps roll options to animation objects (or other roll options).');
+
+/**
+ * The animations data object, which maps roll options to animation objects (or other roll options).
+ */
+export type AnimationsData = z.infer<typeof animationsData>;

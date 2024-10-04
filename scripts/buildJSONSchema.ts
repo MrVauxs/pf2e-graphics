@@ -3,7 +3,7 @@
 
 import fs from 'node:fs/promises';
 import p from 'picocolors';
-import { animations, tokenImages } from 'src/schema';
+import { animationsData, tokenImages } from 'src/schema';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
 import { Log } from './helpers';
 
@@ -21,7 +21,7 @@ export function getJSONSchema(schemaName: 'animations' | 'tokenImages') {
 		// errorMessages: true, // Would like this enabled, but it seems to cause problems in VSCode
 	};
 
-	if (schemaName === 'animations') return zodToJsonSchema(animations, options);
+	if (schemaName === 'animations') return zodToJsonSchema(animationsData, options);
 	if (schemaName === 'tokenImages') return zodToJsonSchema(tokenImages, options);
 	throw new Error('Unknown schema name');
 }
