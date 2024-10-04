@@ -44,34 +44,6 @@ export type moduleFlags = undefined | {
 };
 
 declare global {
-	type TokenImageRuleSource = RuleElementSource & {
-		/** An image or video path */
-		value: string;
-		/** An optional scale adjustment */
-		scale?: number;
-		/** An optional tint adjustment */
-		tint?: string;
-		/** An optional alpha adjustment */
-		alpha?: number;
-		/** Animation options for when the image is applied */
-		animation: {
-			duration?: number;
-			transition?: string;
-			easing?: string;
-			name?: string;
-		};
-		ring: {
-			subject: {
-				texture: string;
-				scale?: number;
-			};
-			colors: {
-				background?: string;
-				ring?: string;
-			};
-		};
-	};
-
 	class TextureTransitionFilter extends AbstractBaseFilter {
 		/** Transition types for this shader. */
 		static get TYPES(): {

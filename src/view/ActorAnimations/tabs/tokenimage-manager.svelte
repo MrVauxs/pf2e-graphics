@@ -7,7 +7,7 @@
 		animation: {},
 		predicate: [] as (string | object)[],
 	});
-	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource;
+	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRule;
 </script>
 
 <script lang='ts'>
@@ -18,6 +18,7 @@
 	import PredicateSection from './elements/PredicateSection.svelte';
 	import TokenThumbnail from './elements/TokenThumbnail.svelte';
 	import featData from './tokenimage-feat.json';
+	import type { TokenImageRule } from 'src/schema/tokenImages';
 
 	export let actor: TJSDocument<ActorPF2e>;
 
@@ -62,7 +63,7 @@
 		$actor.setFlag('pf2e-graphics', 'displayFeat', display);
 	}
 
-	async function createRule(_event: Event, rules?: TokenImageRuleSource[]) {
+	async function createRule(_event: Event, rules?: TokenImageRule[]) {
 		await $feat?.update({ 'system.rules': $feat.system.rules.concat(rules ?? ruleTemplate($feat)) });
 	}
 
@@ -95,7 +96,7 @@
 	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')));
 
 	let showImagePacks = false;
-	let packToImport: TokenImageRuleSource[] = [];
+	let packToImport: TokenImageRule[] = [];
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full w-full'>

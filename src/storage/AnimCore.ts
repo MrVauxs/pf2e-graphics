@@ -1,4 +1,5 @@
 import type { TokenOrDoc } from 'src/extensions';
+import type { TokenImageData } from 'src/schema/tokenImages';
 import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
 import type { storeSettingsType } from '../settings';
@@ -9,8 +10,6 @@ import { type EffectOptions, type Preset, presetList, type Trigger, triggersList
 
 export type JSONData = Record<string, string | JSONDataObject[]>;
 export type JSONMap = Map<string, string | JSONDataObject[]>;
-type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
-type TokenImageShorthand = [string, string, number, string, number];
 
 export type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
 
@@ -29,12 +28,6 @@ interface JSONDataObject {
 	contents?: JSONDataObject[];
 }
 
-interface TokenImageData {
-	name: string;
-	uuid?: ItemUUID;
-	rules: TokenImageDataRule[];
-	requires?: string;
-}
 
 interface AnimationHistoryObject {
 	timestamp: number;
@@ -99,12 +92,12 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
-			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
+		return ((this.animations.get('_tokenImages') ?? []) as TokenImageData[])
+			.filter(x => (x?.requires ? !!game.modules.get(x.requires) : true))
 			.map(x => ({
 				...x,
-				rules: x.rules.map((rule: TokenImageDataRule) => {
-					if (!isShorthand(rule)) return rule;
+				rules: x.rules.map((rule) => {
+					if (!Array.isArray(rule)) return rule;
 					return {
 						key: 'TokenImage',
 						predicate: [`self:effect:${rule[0]}`],
@@ -116,7 +109,7 @@ export let AnimCore = class AnimCore {
 								scale: rule[4],
 							},
 						},
-					} as TokenImageRuleSource;
+					};
 				}),
 			}));
 	}
@@ -519,10 +512,6 @@ export let AnimCore = class AnimCore {
 	}
 	// #endregion
 };
-
-function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
-	return !!Array.isArray(rule);
-}
 
 Hooks.once('ready', () => {
 	if (!game.modules.get('pf2e-modifiers-matter')?.active)
