@@ -9,7 +9,7 @@ const tokenImageData = z
 	.object({
 		name: z.string().min(1),
 		uuid: UUID,
-		requires: z.string().min(1).optional(),
+		requires: slug.describe('A Foundry module ID which provides the images.'),
 		rules: z
 			.array(
 				z
@@ -17,8 +17,8 @@ const tokenImageData = z
 						slug,
 						filePath,
 						z.number().positive(),
-						filePath.optional(),
-						z.number().positive().optional(),
+						filePath,
+						z.number().positive(),
 					])
 					.or(
 						z
@@ -60,19 +60,16 @@ const tokenImageData = z
 												ring: z.string().optional(),
 											})
 											.strict()
-											.refine(...nonEmpty)
-											.optional(),
+											.refine(...nonEmpty),
 									})
 									.strict()
-									.refine(...nonEmpty)
-									.optional(),
+									.refine(...nonEmpty),
 							})
 							.strict(),
 					),
 			)
 			.min(1)
-			.refine(...uniqueItems)
-			.optional(),
+			.refine(...uniqueItems),
 	})
 	.strict()
 	.describe('A token\'s image data.');
