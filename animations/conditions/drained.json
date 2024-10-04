@@ -15,8 +15,8 @@
 				}
 			],
 			"options": {
-				"id": "doomed-entry",
-				"remove": "doomed-entry",
+				"id": "drained-entry",
+				"remove": "drained-entry",
 				"scaleToObject": {
 					"value": 1.5,
 					"considerTokenScale": true
