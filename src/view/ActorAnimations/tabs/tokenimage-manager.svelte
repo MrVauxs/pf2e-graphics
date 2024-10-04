@@ -1,4 +1,6 @@
 <script lang='ts' context='module'>
+	import type { TokenImageRule } from 'src/schema/tokenImages';
+
 	const ruleTemplate = (feat: ItemPF2e) => ({
 		id: foundry.utils.randomID(),
 		key: 'TokenImage',
@@ -18,7 +20,6 @@
 	import PredicateSection from './elements/PredicateSection.svelte';
 	import TokenThumbnail from './elements/TokenThumbnail.svelte';
 	import featData from './tokenimage-feat.json';
-	import type { TokenImageRule } from 'src/schema/tokenImages';
 
 	export let actor: TJSDocument<ActorPF2e>;
 
