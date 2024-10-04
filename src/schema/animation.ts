@@ -141,6 +141,7 @@ const flatAnimation = z
 			.describe(
 				'An animation can be marked as \'generic\'. This means that it doesn\'t just describe one unique event, but rather a general occurrence that might occur in many contexts (such as Casting a Spell, or scoring a critical hit on a Strike).\nThere are two parts to generic animations.\n- First, on the receiving end, we have `type: "slot"` generics. This indicates that this animation is a vacant spot for that general occurrence; it does nothing on its own, but indicates a spot (!) for an `add-on` to fill.\n- Speaking of `add-on` generics, these are the \'templates\' that are actually applied. An `add-on` either fills a `slot` with a matching `id`, or it\'s simply prepended/appended the an animation set whenever it applies if `id` is undefined. You can control the position the `add-on` is placed using `order`.',
 			),
+		reference: rollOption.optional().describe('Copies another roll option\'s animation(s) wholesale into this animation\'s `contents` array. Note that this will likely overrule most properties you define.\nInfinite loops are unadvised.'),
 		triggers: z
 			.array(trigger)
 			.min(1)

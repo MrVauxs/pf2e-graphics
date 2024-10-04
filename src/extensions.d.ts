@@ -1,6 +1,6 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
-import type { JSONData } from './storage/AnimCore';
+import type { ModuleAnimationData } from 'src/schema/index';
 
 declare module '@typhonjs-fvtt/runtime/svelte/application' {
 	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920
@@ -40,7 +40,7 @@ export type TokenOrDoc = TokenDocument | Token;
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];
 
 export type moduleFlags = undefined | {
-	customAnimations?: JSONData;
+	customAnimations?: ModuleAnimationData;
 };
 
 declare global {

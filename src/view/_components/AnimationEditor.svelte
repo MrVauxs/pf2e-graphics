@@ -6,13 +6,14 @@
 	import { type Writable, writable } from 'svelte/store';
 	import SingleEditor from './AnimationSubEditor.svelte';
 	import JSONEditorApp from './JSONEditor/JSONEditor';
+	import type { ModuleAnimationData } from 'src/schema';
 
 	export let doc: TJSDocument<ActorPF2e | ItemPF2e | UserPF2e> | Writable<{ id: 'settings' }>;
 	export function createAnimation() {}
 	const inStasis = writable(true);
 
 	const flag = $doc.id === 'settings'
-		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<JSONData>
+		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<ModuleAnimationData>
 		// @ts-ignore Above is a type guard
 		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 500);
 

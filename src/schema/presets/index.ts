@@ -36,7 +36,6 @@ export const effectOptions = z
 			.string()
 			.optional()
 			.describe('A human-readable name to display in Sequencer\'s Animations Manager.'),
-		// reference: rollOption.optional().describe('You can `reference` the animation(s) attached to uuuuuuuh idk how to select only one')
 		files: z
 			.array(sequencerDBEntry.or(filePath))
 			.min(1)
