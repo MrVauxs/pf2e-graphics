@@ -138,7 +138,7 @@ export const crosshairOptions = z
 			.literal(true)
 			.optional()
 			.describe('Prevents the crosshair from being manually rotated.'),
-		gridHighlight: z.literal(true).optional().describe('Highlights the grid.'),
+		noGridHighlight: z.literal(true).optional().describe('Disables highlighting of the grid.'),
 		location: z
 			.object({
 				limitMinRange: z
