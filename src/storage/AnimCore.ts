@@ -21,13 +21,21 @@ import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers';
 
 export type JSONMap = Map<string, string | Animation[]>;
 
-export type AnimationObject = Omit<Animation, 'reference' | 'contents' | 'default' | 'overrides'>;
+/**
+ * A validated, verified, applicable, unrolled animation object.
+ *
+ * @remarks An object with this type, strictly, should lack `reference`, `overrides`, `contents`, and `default`. This might not always *actually* always be the case to keep the code simple, so avoid iterating over keys where possible! Additionally, the modifications on `Animation` (especially the requirement of `execute`) are only actually guaranteed if the input data validates against the schema; many aspects aren't verified at runtime.
+ *
+ * @todo `unfoldAnimations()` is the source of the above inexactness.
+ */
+export type ExecutableAnimation = Omit<Animation, 'reference' | 'contents' | 'default' | 'overrides'> &
+	Required<Pick<Animation, 'execute'>>;
 
 interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
-	animations: AnimationObject[];
+	animations: ExecutableAnimation[];
 	actor: { name: string; uuid: string };
 	item?: { name: string; uuid: string };
 	user?: { name: string; id: string };
@@ -108,17 +116,15 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	static parseFiles(files: string[] | string): string[] {
-		return [files].flat().flatMap(s => this._parseFile(s));
-	}
+	static parseFiles(files: string[]): string[] {
+		return files.flatMap((file) => {
+			const match = file.match(/\{(.*?)\}/);
+			if (!match) return file;
 
-	static _parseFile(file: string = ''): string[] {
-		const match = file.match(/\{(.*?)\}/);
-		if (!match) return [file];
-
-		const [_, options] = match;
-		const parsedOptions = options.split(',');
-		return parsedOptions.map(x => file.replace(`{${options}}`, x));
+			const options = match[1];
+			const parsedOptions = options.split(',');
+			return parsedOptions.map(x => file.replace(`{${options}}`, x));
+		});
 	}
 
 	static prepRollOptions(array: string[]): string[] {
@@ -291,48 +297,44 @@ export let AnimCore = class AnimCore {
 	static search(
 		rollOptions: string[],
 		triggers: string[] = [],
-		animations: JSONMap = AnimCore.animations,
-	): Record<string, AnimationObject[]> {
-		const unfoldedAnimations: [string, ReturnType<typeof unfoldAnimations>][] = [];
-		for (const [k, v] of animations.entries()) {
-			if (!rollOptions.includes(k)) continue;
-			const animationNoStrings = parseStrings(v, k);
-			const animationNoRefs = parseReferences(animationNoStrings, k);
-			const filteredAnimation = filterChildren(animationNoRefs);
-			const unfoldedAnimation = unfoldAnimations(filteredAnimation);
-			unfoldedAnimations.push([k, unfoldedAnimation]);
-		}
-		// Do not bother if there are no triggers. We don't want to discriminate animations that *can* happen.
-		if (triggers.length) {
-			const notTriggeredAnimations = unfoldedAnimations.map(
-				([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]],
-			);
-			const notOverridenAnimations = filterByOverride(notTriggeredAnimations);
+		animationData: JSONMap = AnimCore.animations,
+	): Record<string, ExecutableAnimation[]> {
+		const unfoldedAnimationSets: [string, ReturnType<typeof unfoldAnimations>][] = [];
 
-			return foundry.utils.deepClone(Object.fromEntries(notOverridenAnimations));
-		} else {
-			return foundry.utils.deepClone(Object.fromEntries(unfoldedAnimations));
+		for (const [rollOption, animations] of animationData.entries()) {
+			if (!rollOptions.includes(rollOption)) continue;
+			const animationObjects = parseStrings(animations, rollOption);
+			const animationObjectsSansReference = parseReferences(animationObjects, rollOption);
+			const applicableAnimations = filterChildren(animationObjectsSansReference);
+			const unfoldedAnimations = unfoldAnimations(applicableAnimations);
+			unfoldedAnimationSets.push([rollOption, unfoldedAnimations]);
 		}
 
-		function parseStrings(v: string | Animation[], k: string): Animation[] {
-			let recursion = 0;
-			while (typeof v === 'string') {
-				if (recursion < 10) {
-					recursion++;
-					v = animations.get(v)!;
-				} else {
-					throw new ErrorMsg(
-						`The ${k} animation recurses too many times! Do its references form an infinite loop?`,
-					);
-				}
+		// Limit ourselves to the animations that match our triggers.
+		const triggeredAnimations = unfoldedAnimationSets.map(
+			([rollOption, animations]) =>
+				[rollOption, filterByTriggers(animations)] as (typeof unfoldedAnimationSets)[0],
+		);
+
+		const notOverriddenAnimations = filterByOverride(triggeredAnimations);
+
+		return Object.fromEntries(notOverriddenAnimations) as Record<string, ExecutableAnimation[]>;
+
+		// #region Functions
+		function parseStrings(animationSet: string | Animation[], rollOption: string): Animation[] {
+			for (let recursion = 0; recursion < 10; recursion++) {
+				if (typeof animationSet === 'object') return animationSet;
+				animationSet = animationData.get(animationSet)!;
 			}
-			return v;
+			throw new ErrorMsg(
+				`Animation for ${rollOption} recurses too many times! Do its references form an infinite loop?`,
+			);
 		}
 
 		function parseReferences(v: Animation[], k: string): Omit<Animation, 'reference'>[] {
 			return v.map((obj) => {
 				if ('reference' in obj && obj.reference) {
-					const ref = parseStrings(animations.get(obj.reference)!, k);
+					const ref = parseStrings(animationData.get(obj.reference)!, k);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
@@ -345,72 +347,75 @@ export let AnimCore = class AnimCore {
 			});
 		}
 
-		function unfoldAnimations(v: Omit<Animation, 'reference'>[]): Omit<Animation, 'reference' | 'contents'>[] {
-			function unfoldSingle(folder: Animation): AnimationObject[] {
-				let { contents = [], ...parentProps } = folder;
+		function filterChildren<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
+			return animations.filter(x => game.pf2e.Predicate.test(x.predicates, rollOptions));
+		}
 
-				if (contents.length && contents.some(x => x.default)) {
-					const valid = contents.filter(
-						x => x.predicates?.length && game.pf2e.Predicate.test(x.predicates, rollOptions),
-					);
-					if (valid.length) {
-						contents = valid;
-					} else {
-						contents = contents.filter(x => x.default);
+		function unfoldAnimations(
+			animationSet: Omit<Animation, 'reference'>[],
+		): Omit<Animation, 'reference' | 'default' | 'contents'>[] {
+			return animationSet.flatMap((folder) => {
+				// `default` affects the child-selection process (see below), so can be deleted.
+				delete folder.default;
+
+				// Childless animations don't need unfolding.
+				if (!folder.contents) return folder;
+
+				// First get the children with valid predicates. Children with no predicates will match.
+				let validChildren = folder.contents.filter(x =>
+					game.pf2e.Predicate.test(x.predicates, rollOptions),
+				);
+
+				// One child animation can be labelled as `default`, which causes it to be applied if and only if no child animations' predicates match.
+				if (!validChildren.length && folder.contents.some(x => x.default))
+					validChildren = folder.contents.filter(x => x.default);
+
+				// We no longer need this.
+				delete folder.contents;
+
+				// Recurse to unfold the children's children, and then perform a final predicate test.
+				return unfoldAnimations(
+					// Merge children into the parent.
+					validChildren.map(child => mergeObjectsConcatArrays(folder, child)),
+				).filter(child => game.pf2e.Predicate.test(child.predicates, rollOptions));
+			});
+		}
+
+		function filterByTriggers<T extends { triggers?: Trigger[] }>(animations: T[]) {
+			return animations.filter(
+				animation =>
+					!animation.triggers?.length // Undefined or empty `triggers` is interpreted as triggering on everything
+					|| animation.triggers.find(t => triggers.includes(t)),
+			);
+		}
+
+		function filterByOverride(
+			animationSets: [string, ReturnType<typeof unfoldAnimations>][],
+		): [string, ReturnType<typeof unfoldAnimations>][] {
+			for (const animationSet of animationSets) {
+				for (const animation of animationSet[1]) {
+					if (!animation.overrides) continue;
+					for (const override of animation.overrides) {
+						if (override === '*') return [animationSet]; // Overrides everything
+						animationSets = animationSets.filter(([rollOption]) => !rollOption.startsWith(override));
 					}
 				}
-
-				// Remove parent default. Default should only appear on the very last element in the chain.
-				delete parentProps.default;
-
-				return contents
-					.flatMap(child => (child.contents ? unfoldSingle(child) : child))
-					.map(child => mergeObjectsConcatArrays(parentProps, child))
-					.filter(child => game.pf2e.Predicate.test(child.predicates, rollOptions));
 			}
-
-			return v.flatMap(folder => (folder.contents ? unfoldSingle(folder) : folder));
+			return animationSets;
 		}
-
-		function filterChildren<T extends { predicates?: PredicateStatement[] }>(v: T[]) {
-			return v.filter(x => game.pf2e.Predicate.test(x.predicates, rollOptions));
-		}
-
-		function filterByTriggers<T extends { triggers?: Trigger[] }>(v: T[]) {
-			return v.filter(a => a.triggers?.flat().find(t => triggers.includes(t)));
-		}
-
-		function filterByOverride<T extends { overrides?: string[] }>(
-			array: [k: string, v: T[]][],
-		): [k: string, v: Omit<T, 'overrides'>[]][] {
-			for (const objects of array) {
-				for (const object of objects[1]) {
-					if (!object.overrides || !object.overrides.length) continue;
-
-					for (const override of object.overrides) {
-						if (override === '*') {
-							array = [objects];
-						} else {
-							array = array.filter(([k]) => !k.includes(override));
-						}
-					}
-				}
-			}
-
-			return array;
-		}
+		// #endregion
 	}
 
 	static async createSequenceInQueue(
 		queue: Sequence[],
-		animation: AnimationObject,
+		animation: ExecutableAnimation,
 		data: GameData,
 		index: number = -1,
 		replace: boolean = false,
 	) {
 		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-		await addAnimationToSequence(sequence, animation, data);
+		await addAnimationToSequence(sequence, animation.execute, data);
 
 		queue.splice(index, replace ? 1 : 0, sequence);
 	}
@@ -419,7 +424,7 @@ export let AnimCore = class AnimCore {
 	 * Animations in, Sequences out.
 	 */
 	static async play(
-		rawAnimationSets: AnimationObject[][],
+		rawAnimationSets: ExecutableAnimation[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 		item?: ItemPF2e<any>,
@@ -427,7 +432,7 @@ export let AnimCore = class AnimCore {
 	) {
 		const sequences: Sequence[] = [];
 
-		type addOnGenericAnimation = AnimationObject & {
+		type addOnGenericAnimation = ExecutableAnimation & {
 			generic: Extract<Animation['generic'], { type: 'add-on' }>;
 		};
 		const addOns: addOnGenericAnimation[] = [];
@@ -471,7 +476,7 @@ export let AnimCore = class AnimCore {
 			// Time to construct the sequence!
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 			for (const [index, animation] of animationSet.entries()) {
-				await addAnimationToSequence(sequence, animation, {
+				await addAnimationToSequence(sequence, animation.execute, {
 					queue: sequences,
 					currentIndex: index,
 					animations: animationSet,

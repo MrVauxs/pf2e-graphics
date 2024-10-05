@@ -1,5 +1,6 @@
 import type { TokenOrDoc } from 'src/extensions';
-import type { AnimationObject } from 'src/storage/AnimCore.ts';
+import type { AnimationPayload } from 'src/schema/animation.ts';
+import type { ExecutableAnimation } from 'src/storage/AnimCore.ts';
 import { ErrorMsg, log } from 'src/utils.ts';
 import { isTrueish } from '../utils';
 import animationPreset from './animation.ts';
@@ -13,54 +14,29 @@ import templatePreset from './template.ts';
 export interface GameData {
 	sources: TokenOrDoc[];
 	targets?: (TokenOrDoc | string | Point | MeasuredTemplateDocumentPF2e)[];
-	animations: AnimationObject[];
+	animations: ExecutableAnimation[];
 	queue: Sequence[];
 	currentIndex: number;
 	item?: ItemPF2e<any>;
 	user?: string;
-};
+}
 
 export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
 
-export async function addAnimationToSequence(seq: SequencerTypes, _animation: AnimationObject, data: GameData) {
-	const animation = foundry.utils.deepClone(_animation);
-	switch (animation.preset) {
-		case 'sound':
-			soundPreset(seq, animation, data);
-			break;
-		case 'melee':
-			meleePreset(seq, animation, data);
-			break;
-		case 'ranged':
-			rangedPreset(seq, animation, data);
-			break;
-		case 'onToken':
-			onTokenPreset(seq, animation, data);
-			break;
-		case 'template':
-			templatePreset(seq, animation, data);
-			break;
-		case 'crosshair':
-			await crosshairPreset(seq, animation, data);
-			break;
-		case 'animation':
-			await animationPreset(seq, animation, data);
-			break;
-		case 'macro':
-			if (animation.macro) {
-				seq.macro(animation.macro, { animation, data });
-			} else {
-				ErrorMsg.send('A macro animation was called without a macro set!');
-			};
-			break;
-		default:
-			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);
-	}
+export async function addAnimationToSequence(seq: SequencerTypes, payload: AnimationPayload, data: GameData) {
+	if (payload.type === 'sound') return soundPreset(seq, payload, data);
+	if (payload.type === 'melee') return meleePreset(seq, payload, data);
+	if (payload.type === 'ranged') return rangedPreset(seq, payload, data);
+	if (payload.type === 'onToken') return onTokenPreset(seq, payload, data);
+	if (payload.type === 'template') return templatePreset(seq, payload, data);
+	if (payload.type === 'crosshair') return await crosshairPreset(seq, payload, data);
+	if (payload.type === 'animation') return await animationPreset(seq, payload, data);
+	if (payload.type === 'macro') return seq.macro(payload.document, payload.options);
 
-	return seq;
+	log(`An animation was called with a preset of ${payload.type} which does not exist!`);
 }
 
-export function genericEffectOptions(seq: EffectSection, { options }: AnimationObject, data: GameData) {
+export function genericEffectOptions(seq: EffectSection, { options }: ExecutableAnimation, data: GameData) {
 	if (isTrueish(options?.zIndex)) seq.zIndex(options.zIndex);
 	if (isTrueish(options?.syncGroup)) seq.syncGroup(options.syncGroup);
 	if (isTrueish(options?.randomRotation)) seq.randomRotation(options.randomRotation);
@@ -80,8 +56,10 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	if (isTrueish(options?.mirrorX)) seq.mirrorX(options.mirrorX);
 	if (isTrueish(options?.mirrorY)) seq.mirrorY(options.mirrorY);
 	if (isTrueish(options?.template)) seq.template(options.template);
-	if (isTrueish(options?.scaleIn)) seq.scaleIn(options?.scaleIn.scale, options?.scaleIn.duration, options?.scaleIn);
-	if (isTrueish(options?.scaleOut)) seq.scaleOut(options?.scaleOut.scale, options?.scaleOut.duration, options?.scaleOut);
+	if (isTrueish(options?.scaleIn))
+		seq.scaleIn(options?.scaleIn.scale, options?.scaleIn.duration, options?.scaleIn);
+	if (isTrueish(options?.scaleOut))
+		seq.scaleOut(options?.scaleOut.scale, options?.scaleOut.duration, options?.scaleOut);
 	if (isTrueish(options?.tint)) seq.tint(options.tint);
 	// @ts-expect-error TODO: Fix in Sequencer types
 	if (isTrueish(options?.anchor)) seq.anchor(options.anchor);
@@ -147,25 +125,25 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 	}
 
 	// Property Animation
-	if (isTrueish(options?.loopProperty)) options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
-	if (isTrueish(options?.animateProperty)) options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
+	if (isTrueish(options?.loopProperty))
+		options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
+	if (isTrueish(options?.animateProperty))
+		options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
 	// Adds or modifies effects
 
 	if (isTrueish(options?.shape)) {
-		[options.shape]
-			.flat()
-			.forEach(shape => seq.shape(shape.type, parseOffsets(shape)));
+		[options.shape].flat().forEach(shape => seq.shape(shape.type, parseOffsets(shape)));
 	}
 
 	if (isTrueish(options?.filter)) {
-		[options.filter]
-			.flat()
-			.forEach(filter => seq.filter(
+		[options.filter].flat().forEach(filter =>
+			seq.filter(
 				filter.type,
 				// @ts-expect-error and so what if options dont exist
 				filter.options,
-			));
+			),
+		);
 	}
 
 	// Meta Stuff
@@ -197,10 +175,8 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 		seq.origin(data.item);
 		seq.name(data.item.name);
 	}
-	if (isTrueish(options?.id))
-		seq.origin(options.id);
-	if (isTrueish(options?.name))
-		seq.name(options.name);
+	if (isTrueish(options?.id)) seq.origin(options.id);
+	if (isTrueish(options?.name)) seq.name(options.name);
 
 	return seq;
 }
