@@ -4,59 +4,79 @@ import { devLog, ErrorMsg, getPlayerOwners, i18n } from 'src/utils';
 
 export default async function crosshair(
 	seq: SequencerTypes,
-	execute: Extract<AnimationPayload, { type: 'crosshair' }>,
+	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
 	data: GameData,
 ) {
 	const { sources, user } = data;
 
-	if (!execute.name) throw ErrorMsg.send('A crosshair preset was called but no names were provided for it!');
+	if (!payload.name) throw ErrorMsg.send('A crosshair preset was called but no names were provided for it!');
 	if (!sources[0].actor) throw ErrorMsg.send('Could not find the token\'s actor?!');
 
-	// Transform `execute` into Sequencer's `CrosshairData`
-	const crosshair = new Sequence().crosshair().name(execute.name);
-	if (execute.label) crosshair.label(execute.label.text, execute.label);
-	if (execute.icon) crosshair.icon(execute.icon.texture, execute.icon);
-	if (execute.template) {
-		crosshair.type(CONST.MEASURED_TEMPLATE_TYPES[execute.template.type]);
-		crosshair.distance(execute.template.size.default, execute.template.size);
-		crosshair.angle(execute.template.angle ?? 90); // Does nothing if `type !== 'CONE'`
-		if (execute.template.direction) crosshair.direction(execute.template.direction);
-		if (execute.template.persist) crosshair.persist(true);
+	// #region Transform `payload` into Sequencer's `CrosshairData`
+	const crosshair: NonNullable<Parameters<typeof Sequencer.Crosshair.show>[0]> = {
+		gridHighlight: !payload.noGridHighlight,
+		lockDrag: payload.lockDrag,
+		lockManualRotation: payload.lockManualRotation,
+		borderColor: payload.borderColor,
+		fillColor: payload.fillColor,
+	};
+	if (payload.label) {
+		crosshair.label = {
+			text: payload.label.text,
+			dx: payload.label.dx ?? 0,
+			dy: payload.label.dy ?? 0,
+		};
 	}
-	if (execute.snap) {
-		if (execute.snap.position)
-			crosshair.snapPosition(execute.snap.position.reduce((s, v) => s | CONST.GRID_SNAPPING_MODES[v], 0));
-		if (execute.snap.direction) crosshair.snapDirection(execute.snap.direction);
+	if (payload.icon) {
+		crosshair.icon = {
+			texture: payload.icon.texture,
+			borderVisible: payload.icon.borderVisible ?? false,
+		};
 	}
-	if (execute.lockDrag) crosshair.lockDrag(true);
-	if (execute.lockManualRotation) crosshair.lockManualRotation(true);
-	if (execute.gridHighlight) crosshair.gridHighlight(true);
-	if (execute.location) {
-		crosshair.location(sources[0], {
-			limitMinRange: execute.location.limitMinRange,
-			limitMaxRange: execute.location.limitMaxRange,
-			showRange: execute.location.showRange,
-			lockToEdge: execute.location.lockToEdge,
-			lockToEdgeDirection: execute.location.lockToEdgeDirection,
-			offset: execute.location.offset,
-			// TODO: import CONSTANTS from Sequencer
-			// wallBehavior: CONSTANTS.PLACEMENT_RESTRICTIONS[execute.location.wallBehavior ?? 'ANYWHERE'],
-		});
+	if (payload.template) {
+		crosshair.t = CONST.MEASURED_TEMPLATE_TYPES[payload.template.type];
+		crosshair.distance = payload.template.size.default;
+		crosshair.distanceMin = payload.template.size.min; // Can be nullish
+		crosshair.distanceMax = payload.template.size.max; // Can be nullish
+		crosshair.angle = payload.template.angle ?? 90; // Is ignored if `type !== 'CONE'`
+		crosshair.direction = payload.template.direction;
+		// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
+		// if (execute.template.persist) crosshair.persist = true;
 	}
-	if (execute.borderColor) crosshair.borderColor(execute.borderColor as `#${string}`); // Guaranteed by Zod schema
-	if (execute.fillColor) crosshair.fillColor(execute.fillColor as `#${string}`); // Guaranteed by Zod schema
-	// end
+	if (payload.snap) {
+		const gridSnappingMode = (payload.snap.position ?? ['CENTER']).reduce(
+			(s, v) => s | CONST.GRID_SNAPPING_MODES[v],
+			0,
+		);
+		crosshair.snap = {
+			position: gridSnappingMode,
+			size: gridSnappingMode,
+			direction: payload.snap.direction ?? 0,
+		};
+	}
+	if (payload.location) {
+		crosshair.location = {
+			obj: sources[0],
+			limitMinRange: payload.location.limitMinRange ?? 0,
+			limitMaxRange: payload.location.limitMaxRange ?? Infinity,
+			showRange: payload.location.showRange ?? false,
+			lockToEdge: payload.location.lockToEdge ?? false,
+			lockToEdgeDirection: payload.location.lockToEdgeDirection ?? false,
+			offset: { x: payload.location.offset?.x ?? 0, y: payload.location.offset?.y ?? 0 },
+			wallBehavior: Sequencer.Crosshair.PLACEMENT_RESTRICTIONS[payload.location.wallBehavior ?? 'ANYWHERE'],
+		};
+	}
+	// #endregion
 
 	const users = user ? [game.users.get(user)!] : getPlayerOwners(sources[0].actor as ActorPF2e);
 
 	const position = new Promise((resolve) => {
 		if (users.find(x => x.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
-			// @ts-expect-error TODO: Expose `CrosshairSection._config`
-			Sequencer.Crosshair.show(crosshair._config).then((template) => {
+			Sequencer.Crosshair.show(crosshair).then((template) => {
 				window.pf2eGraphics.socket.executeForOthers(
 					'remoteLocation',
-					execute.name,
+					payload.name,
 					// @ts-expect-error TODO: Sequencer Types (add Document class...)
 					template.getOrientation(),
 				);
@@ -65,7 +85,7 @@ export default async function crosshair(
 		} else {
 			// Writable store that stores the location from above removeLocation socket
 			const unsub = window.pf2eGraphics.locations.subscribe((array) => {
-				const found = array.find(x => x.name === execute.name);
+				const found = array.find(x => x.name === payload.name);
 				if (found) {
 					resolve(found.location);
 					window.pf2eGraphics.locations.update(array => array.filter(x => x.name !== found.name));
@@ -83,10 +103,10 @@ export default async function crosshair(
 	});
 
 	const resolvedLocation = await position;
-	devLog('Retrieved Crosshair Location', execute.name, resolvedLocation);
+	devLog('Retrieved Crosshair Location', payload.name, resolvedLocation);
 
 	if (resolvedLocation) {
-		seq.addNamedLocation(execute.name, resolvedLocation);
+		seq.addNamedLocation(payload.name, resolvedLocation);
 	} else {
 		// @ts-expect-error TODO: Sequencer types
 		seq._abort();
