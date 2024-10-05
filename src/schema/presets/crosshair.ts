@@ -73,10 +73,11 @@ export const crosshairOptions = z
 					.describe(
 						'Sets the initial orientation of `CONE` and `RAY` templates (default: 0°, rightwards).',
 					),
-				persist: z
-					.literal(true)
-					.optional()
-					.describe('Causes the placed template to persist (that is, be actually placed on the scene).'),
+				// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
+				// persist: z
+				// 	.literal(true)
+				// 	.optional()
+				// 	.describe('Causes the placed template to persist (that is, be actually placed on the scene).'),
 			})
 			.strict()
 			.refine(obj => !obj.angle || obj.type === 'CONE', '`angle` can only be used when `type` is `CONE`.')
