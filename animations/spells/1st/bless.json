@@ -1,5 +1,5 @@
 {
-	"effect:slug:aura-bless": [
+	"effect:aura-bless": [
 		{
 			"preset": "onToken",
 			"trigger": "effect",
@@ -36,7 +36,7 @@
 			]
 		}
 	],
-	"effect:slug:spell-effect-bless": [
+	"effect:bless": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
