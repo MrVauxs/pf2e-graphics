@@ -49,6 +49,10 @@ export const soundOptions = z
 		muffledEffect: soundEffect
 			.optional()
 			.describe('An effect to be applied when the sound is heard through a wall.'),
+		audioChannel: z
+			.enum(['music', 'environment'])
+			.optional()
+			.describe('Sets the sound\'s output channel (default: `interface`).'),
 	})
 	.strict()
 	// refinements are applied to `animationPayload` in `src/schema/animation.ts` due to a Zod limitation

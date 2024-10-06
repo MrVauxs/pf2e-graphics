@@ -21,8 +21,11 @@ export default function sound(
 			? seq.delay(payload.delay)
 			: seq.delay(payload.delay.min, payload.delay.max);
 	}
+
 	if (isTrueish(payload?.duration)) seq.duration(payload.duration);
+
 	if (isTrueish(payload?.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
+
 	if (isTrueish(payload?.fadeOut)) {
 		if (typeof payload.fadeOut === 'object') {
 			seq.fadeOutAudio(payload.fadeOut?.value, payload.fadeOut);
@@ -30,6 +33,7 @@ export default function sound(
 			seq.fadeOutAudio(payload.fadeOut);
 		}
 	}
+
 	if (isTrueish(payload?.fadeIn)) {
 		if (typeof payload.fadeIn === 'object') {
 			seq.fadeInAudio(payload.fadeIn?.value, payload.fadeIn);
@@ -66,6 +70,8 @@ export default function sound(
 		if (isTrueish(payload?.baseEffect)) seq.baseEffect(payload.baseEffect);
 		if (isTrueish(payload?.muffledEffect)) seq.muffledEffect(payload.muffledEffect);
 	}
+
+	if (isTrueish(payload.audioChannel)) seq.audioChannel(payload.audioChannel);
 
 	if (isTrueish(payload?.name)) {
 		seq.name(payload.name);
