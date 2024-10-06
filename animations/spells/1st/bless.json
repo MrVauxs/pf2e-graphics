@@ -1,0 +1,64 @@
+{
+	"effect:slug:aura-bless": [
+		{
+			"preset": "onToken",
+			"trigger": "effect",
+			"options": {
+				"scaleToObject": {
+					"value": 2
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"file": "jb2a.bless.400px.intro.yellow",
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.buff.generic"
+						},
+						"fadeOut": 1000
+					}
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"file": "jb2a.bless.400px.loop.yellow",
+					"options": {
+					"persist": {
+						"value": true,
+						"persistTokenPrototype": true
+					},
+						"tieToDocuments": true,
+						"fadeIn": 1000
+					}
+				}
+			]
+		}
+	],
+	"effect:slug:spell-effect-bless": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": {
+					"value": 1
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.cast_shape.circle.single01.yellow"
+				},
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.cast_generic.01.yellow.0"
+				}
+			]
+		}
+	]
+}
