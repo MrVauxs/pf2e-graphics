@@ -60,51 +60,71 @@ const animationPayload = z
 			.merge(animationOptions),
 	])
 	.superRefine((obj, ctx) => {
-		if (obj.type !== 'crosshair') return;
-		if (obj.snap?.direction) {
-			if (obj.template?.type === 'CIRCLE') {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message: '`snap.direction` is redundant when `template.type` is `CIRCLE`.',
-				});
+		if (obj.type === 'sound') {
+			if (!obj.atLocation) {
+				const REQUIRES_LOCATION = [
+					'radius',
+					'constrainedByWalls',
+					'noDistanceEasing',
+					'alwaysForGMs',
+					'baseEffect',
+					'muffledEffect',
+				] as const;
+				for (const property in REQUIRES_LOCATION) {
+					if (property in obj) {
+						ctx.addIssue({
+							code: z.ZodIssueCode.custom,
+							message: `\`${property}\` is redundant without \`atLocation\`.`,
+						});
+					}
+				}
 			}
-			if (obj.lockManualRotation) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message:
-						'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
-				});
+		} else if (obj.type === 'crosshair') {
+			if (obj.snap?.direction) {
+				if (obj.template?.type === 'CIRCLE') {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: '`snap.direction` is redundant when `template.type` is `CIRCLE`.',
+					});
+				}
+				if (obj.lockManualRotation) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message:
+							'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
+					});
+				}
+				if (obj.location?.lockToEdgeDirection) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message:
+							'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
+					});
+				}
 			}
 			if (obj.location?.lockToEdgeDirection) {
+				if (obj.lockManualRotation) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message:
+							'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
+					});
+				}
+				if (obj.template?.direction) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message:
+							'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
+					});
+				}
+			}
+			if (obj.snap?.position && obj.location?.lockToEdge) {
 				ctx.addIssue({
 					code: z.ZodIssueCode.custom,
 					message:
-						'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
+						'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
 				});
 			}
-		}
-		if (obj.location?.lockToEdgeDirection) {
-			if (obj.lockManualRotation) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message:
-						'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
-				});
-			}
-			if (obj.template?.direction) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message:
-						'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
-				});
-			}
-		}
-		if (obj.snap?.position && obj.location?.lockToEdge) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
-				message:
-					'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
-			});
 		}
 	})
 	.describe('The animation payload that actually gets executed.');
