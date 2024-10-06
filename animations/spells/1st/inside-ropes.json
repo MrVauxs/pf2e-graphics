@@ -1,0 +1,73 @@
+{
+	"spell:inside-ropes": [
+		{
+			"preset": "onToken",
+			"trigger": [
+				"effect",
+				"toggle",
+				"action"
+			],
+			"options": {
+				"scaleToObject": {
+					"value": 1
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.vine.complete.void.single.03.dark_pinkpurple.2"
+				},
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.vine.complete.nature.single.03.green.2"
+				}
+			]
+		}
+	],
+	"effect:inside-ropes-3rd-rank": [
+		{
+			"preset": "onToken",
+			"trigger": "effect",
+			"options": {
+				"scaleToObject": {
+					"value": 0.75
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"settings:persistent"
+					],
+					"file": "jb2a.vine.complete.void.single.03.dark_pinkpurple.2",
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+							"tieToDocuments": true
+					}
+				},
+				{
+					"predicate": [
+						"jb2a:free",
+						"settings:persistent"
+					],
+					"file": "jb2a.vine.complete.nature.single.03.green.2",
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+							"tieToDocuments": true
+					}
+				}
+
+			]
+		}
+	]
+}
