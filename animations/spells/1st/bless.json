@@ -1,42 +1,5 @@
 {
-	"effect:aura-bless": [
-		{
-			"preset": "onToken",
-			"trigger": "effect",
-			"options": {
-				"scaleToObject": {
-					"value": 2
-				}
-			},
-			"contents": [
-				{
-					"default": true,
-					"file": "jb2a.bless.400px.intro.yellow",
-					"options": {
-						"sound": {
-							"file": "graphics-sfx.magic.buff.generic"
-						},
-						"fadeOut": 1000
-					}
-				},
-				{
-					"predicate": [
-						"settings:persistent"
-					],
-					"file": "jb2a.bless.400px.loop.yellow",
-					"options": {
-					"persist": {
-						"value": true,
-						"persistTokenPrototype": true
-					},
-						"tieToDocuments": true,
-						"fadeIn": 1000
-					}
-				}
-			]
-		}
-	],
-	"effect:bless": [
+	"effect:slug:spell-effect-bless": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
