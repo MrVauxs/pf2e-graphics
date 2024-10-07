@@ -1,5 +1,5 @@
 {
-	"effect:slug:spell-effect-bless": [
+	"effect:bless": [
 		{
 			"trigger": "effect",
 			"preset": "onToken",
