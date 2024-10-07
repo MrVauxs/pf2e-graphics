@@ -13,7 +13,7 @@
 	doc.subscribe(() => $animData = getAnimations());
 
 	function findSource(key: string) {
-		return Object.entries($animData.sources).findLast((([,v]) => v.includes(key)))?.[0];
+		return Object.entries($animData.sources).findLast(([,v]) => v.includes(key))?.[0];
 	}
 </script>
 
