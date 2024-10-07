@@ -17,6 +17,7 @@ export const ID = z
 		/^[a-z0-9][\w!?&()'.,:;\-]{4,}[a-z0-9]$/i,
 		'Animation IDs should be easily readable and reasonably unique.',
 	)
+	.refine(str => str !== 'SOURCE' && str !== 'TARGET' && str !== 'ABSOLUTE', 'This name is reserved.') // Used by `atLocation`
 	.describe(
 		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others.',
 	);

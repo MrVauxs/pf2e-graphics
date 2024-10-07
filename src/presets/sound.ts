@@ -43,25 +43,26 @@ export default function sound(
 	}
 
 	if (isTrueish(payload?.atLocation)) {
-		const tokens = [];
+		payload.atLocation.forEach((atLocation) => {
+			if (atLocation.position === 'ABSOLUTE') return seq.atLocation(atLocation);
 
-		switch (payload.preset?.location) {
-			case 'both':
-				tokens.push(targets);
-				tokens.push(sources);
-				break;
-			case 'target':
-				tokens.push(targets);
-				break;
-			case 'source':
-			default:
-				tokens.push(sources);
-				break;
-		}
+			// Need to do this or TS is sad :(
+			const location = atLocation as Extract<NonNullable<typeof atLocation>, { local?: true }>;
 
-		tokens.forEach(x =>
-			seq.atLocation(x, payload.atLocation ?? {}),
-		);
+			const options: Parameters<(typeof seq)['atLocation']>[1] = {
+				cacheLocation: location.cacheLocation,
+				offset: { x: location.offset?.x ?? 0, y: location.offset?.y ?? 0 },
+				randomOffset: location.randomOffset,
+				gridUnits: location.gridUnits,
+				local: location.local,
+			};
+
+			if (atLocation.position === 'SOURCES')
+				return sources.forEach(source => seq.atLocation(source, options));
+			if (atLocation.position === 'TARGETS')
+				return (targets ?? []).forEach(target => seq.atLocation(target, options));
+			return seq.atLocation(atLocation.position, options);
+		});
 
 		if (isTrueish(payload?.radius)) seq.radius(payload.radius);
 		if (isTrueish(payload?.constrainedByWalls)) seq.constrainedByWalls(payload.constrainedByWalls);
