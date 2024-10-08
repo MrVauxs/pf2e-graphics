@@ -28,6 +28,11 @@ export const presets = z.enum(PRESETS).describe('A preset that PF2e Graphics rec
 export type Preset = z.infer<typeof presets>;
 
 /**
+ * Zod schema for a file that can be played.
+ */
+const playableFile = sequencerDBEntry.or(filePath); // .describe('A file that can be played.');
+
+/**
  * Zod schema for the options which are common to all 'effect' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
  */
 export const effectOptions = z
@@ -36,12 +41,17 @@ export const effectOptions = z
 			.string()
 			.optional()
 			.describe('A human-readable name to display in Sequencer\'s Animations Manager.'),
-		files: z
-			.array(sequencerDBEntry.or(filePath))
-			.min(1)
-			.refine(...uniqueItems)
-			.describe('The actual files to be played!'),
-		syncGroup: ID.describe(
+		file: playableFile
+			.or(
+				z
+					.array(playableFile)
+					.min(2)
+					.refine(...uniqueItems),
+			)
+			.describe(
+				'The actual file to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!).\nYou can provide multiple files and have PF2e Graphics select one at random each time the effect is executed using one of the following methods.\n- You can use handlebar notation—a comma-separated list inside braces—to indicate \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n- Instead of a string, you can use an array of strings as the value.\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. That means that, for example, `["path.{fire,ice}.1", "path.fire.1"]` would select from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
+			),
+		syncGroup: ID.optional().describe(
 			'Assigns the animation to a particular group. Animations in a given group all start at the same time, which can be useful if you\'ve got duplicated effects.',
 		),
 		locally: z
@@ -438,6 +448,7 @@ export const graphicOptions = z
 	.strict()
 	.describe('Options which are common to all graphic animations.');
 
+export { animationOptions } from './animation';
 export { crosshairOptions } from './crosshair';
 export { meleeOptions } from './melee';
 export { onTokenOptions } from './onToken';

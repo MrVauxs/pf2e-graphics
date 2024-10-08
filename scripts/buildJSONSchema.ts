@@ -3,8 +3,8 @@
 
 import fs from 'node:fs/promises';
 import p from 'picocolors';
-import { animationsData, tokenImages } from 'src/schema';
 import { zodToJsonSchema, type Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
+import { animationsData, tokenImages } from '../src/schema';
 import { Log } from './helpers';
 
 /**

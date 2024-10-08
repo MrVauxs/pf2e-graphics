@@ -85,8 +85,8 @@ export const filePath = z
  */
 export const sequencerDBEntry = z
 	.string()
-	.regex(/^\w[\w-]+(?:\.(?:[\w-]+|\{\w+(?:,[^{},]+)+\}))+$/, 'String must be a valid Sequencer database entry.')
-	.describe('A Sequencer database entry.');
+	.regex(/^\w[\w-]+(?:\.(?:[\w-]+|\{\w+(?:,[^{},]+)+\}))+$/, 'String must be a valid Sequencer database entry.');
+// .describe('A Sequencer database entry.');
 
 /**
  * Zod schema for an easing function (c.f. easings.net).

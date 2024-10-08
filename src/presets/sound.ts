@@ -1,5 +1,5 @@
-import type { AnimationPayload } from 'src/schema/animation';
 import type { GameData, SequencerTypes } from '.';
+import type { AnimationPayload } from '../schema/animation';
 import { isTrueish } from '../utils';
 
 export default function sound(
@@ -11,7 +11,7 @@ export default function sound(
 
 	const seq = _seq.sound();
 
-	seq.file(window.AnimCore.parseFiles(payload.files));
+	seq.file(window.AnimCore.parseFiles(payload.file));
 
 	// The JSON data is scaled such that 100 is the default.
 	seq.volume(((payload.volume ?? 100) / 100) * window.pf2eGraphics.liveSettings.volume);
@@ -26,19 +26,19 @@ export default function sound(
 
 	if (isTrueish(payload?.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
 
-	if (isTrueish(payload?.fadeOut)) {
-		if (typeof payload.fadeOut === 'object') {
-			seq.fadeOutAudio(payload.fadeOut?.value, payload.fadeOut);
-		} else {
-			seq.fadeOutAudio(payload.fadeOut);
-		}
-	}
-
 	if (isTrueish(payload?.fadeIn)) {
 		if (typeof payload.fadeIn === 'object') {
 			seq.fadeInAudio(payload.fadeIn?.value, payload.fadeIn);
 		} else {
 			seq.fadeInAudio(payload.fadeIn);
+		}
+	}
+
+	if (isTrueish(payload?.fadeOut)) {
+		if (typeof payload.fadeOut === 'object') {
+			seq.fadeOutAudio(payload.fadeOut?.value, payload.fadeOut);
+		} else {
+			seq.fadeOutAudio(payload.fadeOut);
 		}
 	}
 

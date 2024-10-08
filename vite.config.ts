@@ -21,7 +21,7 @@ const packagePath = `modules/${moduleJSON.id}`;
 const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
 export default defineConfig(({ command: _buildOrServe }) => ({
-	root: 'src',
+	root: './src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
 	publicDir: '../assets',

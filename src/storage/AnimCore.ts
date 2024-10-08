@@ -1,11 +1,12 @@
-import type { TokenOrDoc } from 'src/extensions';
-import type { ModuleAnimationData } from 'src/schema';
-import type { Animation, AnimationsData } from 'src/schema/animation';
-import type { TokenImageData } from 'src/schema/tokenImages';
-import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
-import type { storeSettingsType } from '../settings';
-import { addAnimationToSequence, type GameData } from 'src/presets';
+import type { TokenOrDoc } from '../extensions';
+import type { Animation, AnimationsData } from '../schema/animation.ts';
+import type { ModuleAnimationData } from '../schema/index.ts';
+import type { TokenImageData } from '../schema/tokenImages.ts';
+import type { liveSettings, storeSettingsType } from '../settings.ts';
+import { addAnimationToSequence, type GameData } from '../presets/index.ts';
+import { PRESETS as presetList } from '../schema/presets/index.ts';
+import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
 import {
 	dedupeStrings,
 	dev,
@@ -15,9 +16,7 @@ import {
 	log,
 	mergeObjectsConcatArrays,
 	nonNullable,
-} from 'src/utils.ts';
-import { PRESETS as presetList } from '../schema/presets';
-import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers';
+} from '../utils.ts';
 
 export type JSONMap = Map<string, string | Animation[]>;
 
@@ -116,14 +115,14 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	static parseFiles(files: string[]): string[] {
-		return files.flatMap((file) => {
+	static parseFiles(file: string | string[]): string[] {
+		return (typeof file === 'string' ? [file] : file).flatMap((file) => {
 			const match = file.match(/\{(.*?)\}/);
 			if (!match) return file;
 
 			const options = match[1];
 			const parsedOptions = options.split(',');
-			return parsedOptions.map(x => file.replace(`{${options}}`, x));
+			return this.parseFiles(parsedOptions.map(x => file.replace(`{${options}}`, x)));
 		});
 	}
 

@@ -195,7 +195,7 @@ const flatAnimation = z
 			.describe(
 				'An array of predicates as per the pf2e system. The animation will only be executed if the predicates apply.\nFor more information, see: https://github.com/foundryvtt/pf2e/wiki/Quickstart-guide-for-rule-elements#predicates',
 			),
-		execute: animationPayload.describe('The actual animation to be executed.'),
+		execute: animationPayload.describe('The actual animation to be executed!'),
 	})
 	.strict()
 	.describe(
