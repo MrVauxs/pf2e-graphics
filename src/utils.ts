@@ -1,4 +1,7 @@
 /* eslint-disable no-prototype-builtins */
+
+import { nonEmpty } from './schema/helpers/refinements';
+
 /* eslint-disable no-console */
 export class ErrorMsg extends Error {
 	constructor(message: string) {
@@ -40,7 +43,12 @@ export function i18n(string: string, format?: any) {
 }
 
 export function isTrueish<T>(val: T): val is NonNullable<T> {
-	return nonNullable(val) && Boolean(val) && JSON.stringify(val) !== '{}' && JSON.stringify(val) !== '[]';
+	return (
+		nonNullable(val)
+		&& Boolean(val)
+		&& (typeof val === 'object' ? nonEmpty[0](val) : true)
+		&& (Array.isArray(val) ? val.length !== 0 : true)
+	);
 }
 
 export function findTokenByActor(actor?: ActorPF2e | null) {
