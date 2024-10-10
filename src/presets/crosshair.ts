@@ -1,38 +1,91 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
+import type { AnimationPayload } from 'src/schema/animation';
 import type { GameData, SequencerTypes } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from 'src/utils';
 
-export default async function crosshair(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
+export default async function crosshair(
+	seq: SequencerTypes,
+	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
+	data: GameData,
+) {
 	const { sources, user } = data;
 
-	if (!animation.options?.name) {
-		throw ErrorMsg.send('A crosshair preset was called but no names were provided for it!');
-	}
+	if (!payload.name) throw ErrorMsg.send('A crosshair preset was called but no names were provided for it!');
+	if (!sources[0].actor) throw ErrorMsg.send('Could not find the token\'s actor?!');
 
-	if (!sources[0].actor) {
-		throw ErrorMsg.send('Could not find the tokens actor??');
+	// #region Transform `payload` into Sequencer's `CrosshairData`
+	const crosshair: NonNullable<Parameters<typeof Sequencer.Crosshair.show>[0]> = {
+		gridHighlight: !payload.noGridHighlight,
+		lockDrag: payload.lockDrag,
+		lockManualRotation: payload.lockManualRotation,
+		borderColor: payload.borderColor,
+		fillColor: payload.fillColor,
+	};
+	if (payload.label) {
+		crosshair.label = {
+			text: payload.label.text,
+			dx: payload.label.dx ?? 0,
+			dy: payload.label.dy ?? 0,
+		};
 	}
-
-	animation.options = foundry.utils.mergeObject({
-		location: {
+	if (payload.icon) {
+		crosshair.icon = {
+			texture: payload.icon.texture,
+			borderVisible: payload.icon.borderVisible ?? false,
+		};
+	}
+	if (payload.template) {
+		crosshair.t = CONST.MEASURED_TEMPLATE_TYPES[payload.template.type];
+		crosshair.distance = payload.template.size.default;
+		crosshair.distanceMin = payload.template.size.min; // Can be nullish
+		crosshair.distanceMax = payload.template.size.max; // Can be nullish
+		crosshair.angle = payload.template.angle ?? 90; // Is ignored if `type !== 'CONE'`
+		crosshair.direction = payload.template.direction;
+		// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
+		// if (execute.template.persist) crosshair.persist = true;
+	}
+	if (payload.snap) {
+		const gridSnappingMode = (payload.snap.position ?? ['CENTER']).reduce(
+			(s, v) => s | CONST.GRID_SNAPPING_MODES[v],
+			0,
+		);
+		crosshair.snap = {
+			position: gridSnappingMode,
+			size: gridSnappingMode,
+			direction: payload.snap.direction ?? 0,
+		};
+	}
+	if (payload.location) {
+		crosshair.location = {
 			obj: sources[0],
-		},
-	}, animation.options);
+			limitMinRange: payload.location.limitMinRange ?? 0,
+			limitMaxRange: payload.location.limitMaxRange ?? Infinity,
+			showRange: payload.location.showRange ?? false,
+			lockToEdge: payload.location.lockToEdge ?? false,
+			lockToEdgeDirection: payload.location.lockToEdgeDirection ?? false,
+			offset: { x: payload.location.offset?.x ?? 0, y: payload.location.offset?.y ?? 0 },
+			wallBehavior: Sequencer.Crosshair.PLACEMENT_RESTRICTIONS[payload.location.wallBehavior ?? 'ANYWHERE'],
+		};
+	}
+	// #endregion
 
-	const users = user ? [game.users.get(user)!] : (getPlayerOwners(sources[0].actor as ActorPF2e));
+	const users = user ? [game.users.get(user)!] : getPlayerOwners(sources[0].actor as ActorPF2e);
 
 	const position = new Promise((resolve) => {
 		if (users.find(x => x.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
-			Sequencer.Crosshair.show(animation.options).then((template) => {
-				// @ts-expect-error TODO: Sequencer Types (add Document class...)
-				window.pf2eGraphics.socket.executeForOthers('remoteLocation', animation.options!.name!, template.getOrientation());
+			Sequencer.Crosshair.show(crosshair).then((template) => {
+				window.pf2eGraphics.socket.executeForOthers(
+					'remoteLocation',
+					payload.name,
+					// @ts-expect-error TODO: Sequencer Types (add Document class...)
+					template.getOrientation(),
+				);
 				resolve(template);
 			});
 		} else {
 			// Writable store that stores the location from above removeLocation socket
 			const unsub = window.pf2eGraphics.locations.subscribe((array) => {
-				const found = array.find(x => x.name === animation.options!.name);
+				const found = array.find(x => x.name === payload.name);
 				if (found) {
 					resolve(found.location);
 					window.pf2eGraphics.locations.update(array => array.filter(x => x.name !== found.name));
@@ -50,14 +103,14 @@ export default async function crosshair(seq: SequencerTypes, animation: Animatio
 	});
 
 	const resolvedLocation = await position;
-	devLog('Retrieved Crosshair Location', animation.options!.name!, resolvedLocation);
+	devLog('Retrieved Crosshair Location', payload.name, resolvedLocation);
 
 	if (resolvedLocation) {
-		seq.addNamedLocation(animation.options!.name!, resolvedLocation);
+		seq.addNamedLocation(payload.name, resolvedLocation);
 	} else {
 		// @ts-expect-error TODO: Sequencer types
 		seq._abort();
-	};
+	}
 
 	return seq;
 }

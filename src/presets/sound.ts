@@ -1,78 +1,83 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
 import type { GameData, SequencerTypes } from '.';
+import type { AnimationPayload } from '../schema/animation';
 import { isTrueish } from '../utils';
 
-export default function sound(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
-	const { options = {} } = animation;
-	const { sources, targets } = data;
+export default function sound(
+	_seq: SequencerTypes,
+	payload: Extract<AnimationPayload, { type: 'sound' }>,
+	data: GameData,
+) {
+	const { sources, targets = [] } = data;
 
-	if (!Number.isNumeric(options.volume)) options.volume = 1;
-	options.volume *= window.pf2eGraphics.liveSettings.volume;
+	const seq = _seq.sound();
 
-	const sound = seq.sound();
+	seq.file(window.AnimCore.parseFiles(payload.file));
 
-	sound.file(window.AnimCore.parseFiles(animation.file));
+	// The JSON data is scaled such that 100 is the default.
+	seq.volume(((payload.volume ?? 100) / 100) * window.pf2eGraphics.liveSettings.volume);
 
-	sound.volume(options.volume);
+	if (isTrueish(payload?.delay)) {
+		typeof payload.delay === 'number'
+			? seq.delay(payload.delay)
+			: seq.delay(payload.delay.min, payload.delay.max);
+	}
 
-	if (isTrueish(options?.delay))
-		sound.delay(options.delay);
-	if (isTrueish(options?.duration))
-		sound.duration(options.duration);
-	if (isTrueish(options?.waitUntilFinished))
-		sound.waitUntilFinished(options.waitUntilFinished);
-	if (isTrueish(options?.fadeOut)) {
-		if (typeof options.fadeOut === 'object') {
-			seq.fadeOutAudio(options.fadeOut?.value, options.fadeOut);
+	if (isTrueish(payload?.duration)) seq.duration(payload.duration);
+
+	if (isTrueish(payload?.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
+
+	if (isTrueish(payload?.fadeIn)) {
+		if (typeof payload.fadeIn === 'object') {
+			seq.fadeInAudio(payload.fadeIn?.value, payload.fadeIn);
 		} else {
-			seq.fadeOutAudio(options.fadeOut);
+			seq.fadeInAudio(payload.fadeIn);
 		}
 	}
-	if (isTrueish(options?.fadeIn)) {
-		if (typeof options.fadeIn === 'object') {
-			seq.fadeInAudio(options.fadeIn?.value, options.fadeIn);
+
+	if (isTrueish(payload?.fadeOut)) {
+		if (typeof payload.fadeOut === 'object') {
+			seq.fadeOutAudio(payload.fadeOut?.value, payload.fadeOut);
 		} else {
-			seq.fadeInAudio(options.fadeIn);
+			seq.fadeOutAudio(payload.fadeOut);
 		}
 	}
 
-	if (isTrueish(options?.atLocation)) {
-		const tokens = [];
+	if (isTrueish(payload?.atLocation)) {
+		payload.atLocation.forEach((atLocation) => {
+			if (atLocation.position === 'ABSOLUTE') return seq.atLocation(atLocation);
 
-		switch (options.preset?.location) {
-			case 'both':
-				tokens.push(targets);
-				tokens.push(sources);
-				break;
-			case 'target':
-				tokens.push(targets);
-				break;
-			case 'source':
-			default:
-				tokens.push(sources);
-				break;
-		}
+			// Need to do this or TS is sad :(
+			const location = atLocation as Extract<NonNullable<typeof atLocation>, { local?: true }>;
 
-		(tokens).forEach(x => sound.atLocation(x, typeof options.atLocation === 'object' ? options.atLocation : {}));
+			const options: Parameters<(typeof seq)['atLocation']>[1] = {
+				cacheLocation: location.cacheLocation,
+				offset: { x: location.offset?.x ?? 0, y: location.offset?.y ?? 0 },
+				randomOffset: location.randomOffset,
+				gridUnits: location.gridUnits,
+				local: location.local,
+			};
 
-		if (isTrueish(options?.radius))
-			sound.radius(options.radius);
-		if (isTrueish(options?.constrainedByWalls))
-			sound.constrainedByWalls(options.constrainedByWalls);
-		if (isTrueish(options?.distanceEasing))
-			sound.distanceEasing(options.distanceEasing);
-		if (isTrueish(options?.alwaysForGMs))
-			sound.alwaysForGMs(options.alwaysForGMs);
-		if (isTrueish(options?.baseEffect))
-			sound.baseEffect(options.baseEffect);
-		if (isTrueish(options?.muffledEffect))
-			sound.muffledEffect(options.muffledEffect);
+			if (atLocation.position === 'SOURCES')
+				return sources.forEach(source => seq.atLocation(source, options));
+			if (atLocation.position === 'TARGETS')
+				return targets.forEach(target => seq.atLocation(target, options));
+			return seq.atLocation(atLocation.position, options);
+		});
+
+		if (isTrueish(payload?.radius)) seq.radius(payload.radius);
+		if (isTrueish(payload?.constrainedByWalls)) seq.constrainedByWalls(payload.constrainedByWalls);
+		if (isTrueish(payload?.noDistanceEasing)) seq.distanceEasing(!payload.noDistanceEasing);
+		if (isTrueish(payload?.alwaysForGMs)) seq.alwaysForGMs(payload.alwaysForGMs);
+		if (isTrueish(payload?.baseEffect)) seq.baseEffect(payload.baseEffect);
+		if (isTrueish(payload?.muffledEffect)) seq.muffledEffect(payload.muffledEffect);
 	}
 
-	if (isTrueish(options?.name)) {
-		sound.name(options.name);
+	if (isTrueish(payload.audioChannel)) seq.audioChannel(payload.audioChannel);
+
+	if (isTrueish(payload?.name)) {
+		seq.name(payload.name);
 	} else if (data.item) {
-		sound.name(data.item.name);
+		seq.name(data.item.name);
 	}
 
 	return seq;

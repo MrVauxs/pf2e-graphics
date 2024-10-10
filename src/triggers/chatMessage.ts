@@ -1,4 +1,4 @@
-import type { Trigger } from 'src/storage/animationsSchema';
+import type { Trigger } from 'src/schema/triggers';
 import { devLog, log, nonNullable } from 'src/utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
