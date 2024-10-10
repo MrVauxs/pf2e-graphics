@@ -7,7 +7,7 @@ export default function sound(
 	payload: Extract<AnimationPayload, { type: 'sound' }>,
 	data: GameData,
 ) {
-	const { sources, targets } = data;
+	const { sources, targets = [] } = data;
 
 	const seq = _seq.sound();
 
@@ -60,7 +60,7 @@ export default function sound(
 			if (atLocation.position === 'SOURCES')
 				return sources.forEach(source => seq.atLocation(source, options));
 			if (atLocation.position === 'TARGETS')
-				return (targets ?? []).forEach(target => seq.atLocation(target, options));
+				return targets.forEach(target => seq.atLocation(target, options));
 			return seq.atLocation(atLocation.position, options);
 		});
 

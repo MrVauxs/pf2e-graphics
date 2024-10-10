@@ -3,6 +3,14 @@ import { angle, easing, filePath, hexColour, ID, sequencerDBEntry } from '../hel
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
 import { easingOptions, easingOptionsWithValue, offset, vector2 } from '../helpers/structures';
 
+export { animationOptions } from './animation';
+export { crosshairOptions } from './crosshair';
+export { meleeOptions } from './melee';
+export { onTokenOptions } from './onToken';
+export { rangedOptions } from './ranged';
+export { soundOptions } from './sound';
+export { templateOptions } from './template';
+
 /**
  * An array of all presets that PF2e Graphics recognises.
  */
@@ -96,6 +104,11 @@ export const effectOptions = z
 	.describe(
 		'Options which are common to all \'effect\' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).',
 	);
+
+/**
+ * Options which are common to all \'effect\' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
+ */
+export type EffectOptions = z.infer<typeof effectOptions>;
 
 /**
  * Zod schema for the options which are common to all graphic animations.
@@ -448,10 +461,7 @@ export const graphicOptions = z
 	.strict()
 	.describe('Options which are common to all graphic animations.');
 
-export { animationOptions } from './animation';
-export { crosshairOptions } from './crosshair';
-export { meleeOptions } from './melee';
-export { onTokenOptions } from './onToken';
-export { rangedOptions } from './ranged';
-export { soundOptions } from './sound';
-export { templateOptions } from './template';
+/**
+ * Options which are common to all graphic animations.
+ */
+export type GraphicOptions = z.infer<typeof graphicOptions>;
