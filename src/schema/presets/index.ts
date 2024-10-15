@@ -41,43 +41,6 @@ export type Preset = z.infer<typeof presets>;
 const playableFile = sequencerDBEntry.or(filePath); // .describe('A file that can be played.');
 
 /**
- * Zod schema for shape object's common options.
- */
-const shapeOptions = z
-	.object({
-		gridUnits: z
-			.literal(true)
-			.optional()
-			.describe('Indicates that the shape\'s dimensions are maesured in grid units.'),
-		name: ID.optional().describe(
-			'A name to identify the shape, so that it can be referenced in other properties.',
-		),
-		alpha: z.number().positive().optional().describe('The transparency of the entire shape.'),
-		fillColor: hexColour.optional().describe('The shape\'s fill colour.'),
-		fillAlpha: z.number().positive().optional().describe('The transparency of the shape\'s fill colour.'),
-		lineSize: z.number().positive().optional().describe('The width of the shape\'s outline, in pixels.'),
-		lineColor: hexColour.optional().describe('The colour of the shape\'s outline.'),
-		offset: z
-			.object({
-				x: offsetValue.optional(),
-				y: offsetValue.optional(),
-				gridUnits: z
-					.literal(true)
-					.optional()
-					.describe('Indicates that the offset\'s `x` and `y` values are measured in grid units.'),
-			})
-			.strict()
-			.optional()
-			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
-		isMask: z
-			.literal(true)
-			.optional()
-			.describe('Sets the shape as a mask, hiding it and any graphic intersecting it.'),
-	})
-	.strict();
-// .describe('A shape object's common options.');
-
-/**
  * Zod schema for the options which are common to all 'effect' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
  */
 export const effectOptions = z
@@ -146,6 +109,43 @@ export const effectOptions = z
  * Options which are common to all \'effect\' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
  */
 export type EffectOptions = z.infer<typeof effectOptions>;
+
+/**
+ * Zod schema for shape object's common options.
+ */
+const shapeOptions = z
+	.object({
+		gridUnits: z
+			.literal(true)
+			.optional()
+			.describe('Indicates that the shape\'s dimensions are maesured in grid units.'),
+		name: ID.optional().describe(
+			'A name to identify the shape, so that it can be referenced in other properties.',
+		),
+		alpha: z.number().positive().optional().describe('The transparency of the entire shape.'),
+		fillColor: hexColour.optional().describe('The shape\'s fill colour.'),
+		fillAlpha: z.number().positive().optional().describe('The transparency of the shape\'s fill colour.'),
+		lineSize: z.number().positive().optional().describe('The width of the shape\'s outline, in pixels.'),
+		lineColor: hexColour.optional().describe('The colour of the shape\'s outline.'),
+		offset: z
+			.object({
+				x: offsetValue.optional(),
+				y: offsetValue.optional(),
+				gridUnits: z
+					.literal(true)
+					.optional()
+					.describe('Indicates that the offset\'s `x` and `y` values are measured in grid units.'),
+			})
+			.strict()
+			.optional()
+			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
+		isMask: z
+			.literal(true)
+			.optional()
+			.describe('Sets the shape as a mask, hiding it and any graphic intersecting it.'),
+	})
+	.strict();
+// .describe('A shape object's common options.');
 
 /**
  * Zod schema for the options which are common to all graphic animations.
@@ -384,142 +384,159 @@ export const graphicOptions = z
 			.refine(...uniqueItems)
 			.optional()
 			.describe('A set of shapes to draw on top of the graphic.'),
-		filter: z
-			.discriminatedUnion('type', [
-				z
-					.object({
-						type: z.literal('ColorMatrix'),
-						options: z
-							.object({
-								hue: angle
-									.refine(...nonZero)
-									.describe('The hue, in degrees.')
-									.optional(),
-								brightness: z
-									.number()
-									.describe('The value of the brightness (0 to 1, where 0 is black).')
-									.optional(),
-								contrast: z.number().describe('The value of the contrast (0 to 1).').optional(),
-								saturate: z
-									.number()
-									.describe(
-										'The value of the saturation amount. Negative numbers cause it to become desaturated (−1 to 1)',
-									)
-									.optional(),
-							})
-							.strict()
-							.refine(...nonEmpty),
-					})
-					.strict(),
-				z
-					.object({
-						type: z.literal('Glow'),
-						options: z
-							.object({
-								distance: z
-									.number()
-									.positive()
-									.describe('The distance of the glow, in pixels.')
-									.optional(),
-								outerStrength: z
-									.number()
-									.positive()
-									.describe('The strength of the glow outward from the edge of the sprite.')
-									.optional(),
-								innerStrength: z
-									.number()
-									.positive()
-									.describe('The strength of the glow inward from the edge of the sprite.')
-									.optional(),
-								color: hexColour.describe('The color of the glow').optional(),
-								quality: z
-									.number()
-									.gte(0)
-									.lte(1)
-									.describe(
-										'Describes the quality of the glow (0 to 1). A higher number is less performant.',
-									)
-									.optional(),
-								knockout: z
-									.literal(true)
-									.describe(
-										'Toggle to hide the contents and only show the glow (effectively hides the sprite).',
-									)
-									.optional(),
-							})
-							.strict()
-							.refine(...nonEmpty),
-					})
-					.strict(),
-				z
-					.object({
-						type: z.literal('Blur'),
-						options: z
-							.object({
-								strength: z.number().positive().describe('The strength of the filter.').optional(),
-								blur: z
-									.number()
-									.positive()
-									.describe(
-										'Sets the strength of the blur in both the horizontal and vertical axes simultaneously.',
-									)
-									.optional(),
-								blurX: z
-									.number()
-									.positive()
-									.describe('The strength of the blur on the horizontal axis.')
-									.optional(),
-								blurY: z
-									.number()
-									.positive()
-									.describe('The strength of the blur on the vertical axis.')
-									.optional(),
-								quality: z.number().int().positive().describe('Quality of the filter.').optional(),
-								resolution: z
-									.number()
-									.positive()
-									.describe('Sets the resolution of the blur filter.')
-									.optional(),
-								kernelSize: z
-									.number()
-									.positive()
-									.int()
-									.describe('Effectively how many passes the blur goes through.')
-									.optional(),
-							})
-							.strict()
-							.refine(...nonEmpty)
-							.refine(options => !options.blur || (!options.blurX && !options.blurY), {
-								path: ['blur'],
-								message: '`blur` cannot be used at the same time as `blurX` or `blurY`.',
-							}),
-					})
-					.strict(),
-				z
-					.object({
-						type: z.literal('Noise'),
-						options: z
-							.object({
-								noise: z.number().gt(0).lte(1).describe('The noise intensity.').optional(),
-								seed: z
-									.number()
-									.describe(
-										'A random seed for the noise generation (default is `Math.random()`).',
-									)
-									.optional(),
-							})
-							.strict()
-							.refine(...nonEmpty)
-							.optional(),
-					})
-					.strict(),
-				z
-					.object({
-						type: z.literal('Clip'),
-					})
-					.strict(),
-			])
-			.optional(),
+		filters: z
+			.array(
+				z.discriminatedUnion('type', [
+					z
+						.object({
+							type: z.literal('ColorMatrix'),
+							options: z
+								.object({
+									hue: angle
+										.refine(...nonZero)
+										.describe('The hue, in degrees.')
+										.optional(),
+									brightness: z
+										.number()
+										.describe('The value of the brightness (0 to 1, where 0 is black).')
+										.optional(),
+									contrast: z
+										.number()
+										.describe('The value of the contrast (0 to 1).')
+										.optional(),
+									saturate: z
+										.number()
+										.describe(
+											'The value of the saturation amount. Negative numbers cause it to become desaturated (−1 to 1)',
+										)
+										.optional(),
+								})
+								.strict()
+								.refine(...nonEmpty),
+						})
+						.strict(),
+					z
+						.object({
+							type: z.literal('Glow'),
+							options: z
+								.object({
+									distance: z
+										.number()
+										.positive()
+										.describe('The distance of the glow, in pixels.')
+										.optional(),
+									outerStrength: z
+										.number()
+										.positive()
+										.describe('The strength of the glow outward from the edge of the sprite.')
+										.optional(),
+									innerStrength: z
+										.number()
+										.positive()
+										.describe('The strength of the glow inward from the edge of the sprite.')
+										.optional(),
+									color: hexColour.describe('The color of the glow').optional(),
+									quality: z
+										.number()
+										.gte(0)
+										.lte(1)
+										.describe(
+											'Describes the quality of the glow (0 to 1). A higher number is less performant.',
+										)
+										.optional(),
+									knockout: z
+										.literal(true)
+										.describe(
+											'Toggle to hide the contents and only show the glow (effectively hides the sprite).',
+										)
+										.optional(),
+								})
+								.strict()
+								.refine(...nonEmpty),
+						})
+						.strict(),
+					z
+						.object({
+							type: z.literal('Blur'),
+							options: z
+								.object({
+									strength: z
+										.number()
+										.positive()
+										.describe('The strength of the filter.')
+										.optional(),
+									blur: z
+										.number()
+										.positive()
+										.describe(
+											'Sets the strength of the blur in both the horizontal and vertical axes simultaneously.',
+										)
+										.optional(),
+									blurX: z
+										.number()
+										.positive()
+										.describe('The strength of the blur on the horizontal axis.')
+										.optional(),
+									blurY: z
+										.number()
+										.positive()
+										.describe('The strength of the blur on the vertical axis.')
+										.optional(),
+									quality: z
+										.number()
+										.int()
+										.positive()
+										.describe('Quality of the filter.')
+										.optional(),
+									resolution: z
+										.number()
+										.positive()
+										.describe('Sets the resolution of the blur filter.')
+										.optional(),
+									kernelSize: z
+										.number()
+										.positive()
+										.int()
+										.describe('Effectively how many passes the blur goes through.')
+										.optional(),
+								})
+								.strict()
+								.refine(...nonEmpty)
+								.refine(options => !options.blur || (!options.blurX && !options.blurY), {
+									path: ['blur'],
+									message: '`blur` cannot be used at the same time as `blurX` or `blurY`.',
+								}),
+						})
+						.strict(),
+					z
+						.object({
+							type: z.literal('Noise'),
+							options: z
+								.object({
+									noise: z.number().gt(0).lte(1).describe('The noise intensity.').optional(),
+									seed: z
+										.number()
+										.describe(
+											'A random seed for the noise generation (default is `Math.random()`).',
+										)
+										.optional(),
+								})
+								.strict()
+								.refine(...nonEmpty)
+								.optional(),
+						})
+						.strict(),
+					z
+						.object({
+							type: z.literal('Clip'),
+						})
+						.strict(),
+				]),
+			)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional()
+			.describe('A set of visual filters to apply to the graphic.\nSee [PixiJS](https://pixijs.io/filters/docs/) for more information.'),
 	})
 	.strict()
 	.describe('Options which are common to all graphic animations.');

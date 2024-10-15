@@ -43,8 +43,8 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 	if (isTrueish(payload.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
 	if (isTrueish(payload.locally)) seq.locally(payload.locally);
 	if (isTrueish(payload.missed)) seq.missed(payload.missed);
-	if (isTrueish(payload.rotate)) seq.rotate(payload.rotate ?? 0);
-	if (isTrueish(payload.belowTokens)) seq.belowTokens(payload.belowTokens ?? false);
+	if (isTrueish(payload.rotate)) seq.rotate(payload.rotate);
+	if (isTrueish(payload.belowTokens)) seq.belowTokens(payload.belowTokens);
 	if (isTrueish(payload.duration)) seq.duration(payload.duration);
 	if (isTrueish(payload.randomizeMirrorX)) seq.randomizeMirrorX(payload.randomizeMirrorX);
 	if (isTrueish(payload.randomizeMirrorY)) seq.randomizeMirrorY(payload.randomizeMirrorY);
@@ -54,12 +54,11 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 	if (isTrueish(payload.scaleIn)) seq.scaleIn(payload.scaleIn.scale, payload.scaleIn.duration, payload.scaleIn);
 	if (isTrueish(payload.scaleOut))
 		seq.scaleOut(payload.scaleOut.scale, payload.scaleOut.duration, payload.scaleOut);
-	if (isTrueish(payload.tint)) seq.tint(payload.tint);
+	if (isTrueish(payload.tint)) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 	// @ts-expect-error TODO: Fix in Sequencer types
 	if (isTrueish(payload.anchor)) seq.anchor(payload.anchor);
 	if (isTrueish(payload.opacity)) seq.opacity(payload.opacity);
 	if (isTrueish(payload.mask)) seq.mask();
-
 	if (isTrueish(payload.repeats)) {
 		if (typeof payload.repeats === 'object') {
 			seq.repeats(payload.repeats.count, payload.repeats.delayMin, payload.repeats.delayMax);
@@ -125,7 +124,6 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 		payload.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
 	// Adds or modifies effects
-
 	if (isTrueish(payload.shapes)) {
 		payload.shapes.forEach((shape) => {
 			const offset = {
@@ -136,12 +134,11 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 			seq.shape(shape.type, offset);
 		});
 	}
-
-	if (isTrueish(payload.filter)) {
-		[payload.filter].flat().forEach(filter =>
+	if (isTrueish(payload.filters)) {
+		payload.filters.forEach(filter =>
 			seq.filter(
 				filter.type,
-				// @ts-expect-error and so what if options dont exist
+				// @ts-expect-error and so what if options don't exist
 				filter.options,
 			),
 		);
