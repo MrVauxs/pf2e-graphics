@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { angle, easing, filePath, hexColour, ID, sequencerDBEntry } from '../helpers/atoms';
+import { angle, easing, filePath, hexColour, ID, sequencerDBEntry, UUID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
-import { easingOptions, easingOptionsWithValue, offset, vector2 } from '../helpers/structures';
+import { easingOptions, easingOptionsWithValue, offset, offsetValue, vector2 } from '../helpers/structures';
 
 export { animationOptions } from './animation';
 export { crosshairOptions } from './crosshair';
@@ -39,6 +39,43 @@ export type Preset = z.infer<typeof presets>;
  * Zod schema for a file that can be played.
  */
 const playableFile = sequencerDBEntry.or(filePath); // .describe('A file that can be played.');
+
+/**
+ * Zod schema for shape object's common options.
+ */
+const shapeOptions = z
+	.object({
+		gridUnits: z
+			.literal(true)
+			.optional()
+			.describe('Indicates that the shape\'s dimensions are maesured in grid units.'),
+		name: ID.optional().describe(
+			'A name to identify the shape, so that it can be referenced in other properties.',
+		),
+		alpha: z.number().positive().optional().describe('The transparency of the entire shape.'),
+		fillColor: hexColour.optional().describe('The shape\'s fill colour.'),
+		fillAlpha: z.number().positive().optional().describe('The transparency of the shape\'s fill colour.'),
+		lineSize: z.number().positive().optional().describe('The width of the shape\'s outline, in pixels.'),
+		lineColor: hexColour.optional().describe('The colour of the shape\'s outline.'),
+		offset: z
+			.object({
+				x: offsetValue.optional(),
+				y: offsetValue.optional(),
+				gridUnits: z
+					.literal(true)
+					.optional()
+					.describe('Indicates that the offset\'s `x` and `y` values are measured in grid units.'),
+			})
+			.strict()
+			.optional()
+			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
+		isMask: z
+			.literal(true)
+			.optional()
+			.describe('Sets the shape as a mask, hiding it and any graphic intersecting it.'),
+	})
+	.strict();
+// .describe('A shape object's common options.');
 
 /**
  * Zod schema for the options which are common to all 'effect' animation payloads (i.e. `sound`, `melee`, `ranged`, `onToken`, and `template`).
@@ -115,6 +152,13 @@ export type EffectOptions = z.infer<typeof effectOptions>;
  */
 export const graphicOptions = z
 	.object({
+		targets: z
+			.array(UUID)
+			.min(1)
+			.optional()
+			.describe(
+				'A list of UUID strings representing one or more targets for the effect. These targets are always used, in addition to any targetted placeables when the effect is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis shouldn\'t be used very much outside custom animations for specific scenes.',
+			),
 		randomRotation: z.literal(true).optional(),
 		randomizeMirrorX: z.literal(true).optional(),
 		randomizeMirrorY: z.literal(true).optional(),
@@ -175,7 +219,6 @@ export const graphicOptions = z
 			})
 			.strict()
 			.optional(),
-		targets: z.array(z.string()).min(1).optional(),
 		missed: z.literal(true).optional(),
 		anchor: vector2.optional(),
 		template: z
@@ -285,42 +328,62 @@ export const graphicOptions = z
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
-		shape: z
+		shapes: z
 			.array(
 				z
-					.object({
-						type: z.enum(['polygon', 'rectangle', 'circle', 'ellipse', 'roundedRect']),
-						radius: z.number().positive().optional(),
-						width: z.number().positive().optional(),
-						height: z.number().positive().optional(),
-						points: z
-							.array(z.tuple([z.number(), z.number()]).or(vector2))
-							.min(1)
-							.refine(...uniqueItems)
-							.optional(),
-						gridUnits: z.literal(true).optional(),
-						name: z.string().optional(),
-						fillColor: hexColour.or(z.number()).optional(),
-						fillAlpha: z.number().positive().optional(),
-						alpha: z.number().positive().optional(),
-						lineSize: z.number().positive().optional(),
-						lineColor: hexColour.or(z.number()).optional(),
-						offset: z
+					.discriminatedUnion('type', [
+						z
 							.object({
-								x: z.number().optional(),
-								y: z.number().optional(),
-								gridUnits: z.literal(true).optional(),
+								type: z.literal('circle'),
+								radius: z.number().positive().describe('The circle\'s radius, in pixels.'),
 							})
-							.strict()
-							.optional(),
-						isMask: z.literal(true).optional(),
-					})
-					.strict()
-					.refine(...nonEmpty),
+							.merge(shapeOptions)
+							.strict(),
+						z
+							.object({
+								type: z.enum(['ellipse', 'rectangle']),
+								width: z.number().positive().describe('The shape\'s width, in pixels.'),
+								height: z.number().positive().describe('The shape\'s in pixels.'),
+							})
+							.merge(shapeOptions)
+							.strict(),
+						z
+							.object({
+								type: z.literal('roundedRect'),
+								width: z.number().positive().describe('The shape\'s width, in pixels.'),
+								height: z.number().positive().describe('The shape\'s in pixels.'),
+								radius: z
+									.number()
+									.positive()
+									.describe('The corners\' radius of curvature, in pixels.'),
+							})
+							.merge(shapeOptions)
+							.strict(),
+						z
+							.object({
+								type: z.literal('polygon'),
+								points: z
+									.array(z.object({ x: z.number(), y: z.number() }))
+									.min(3)
+									.refine(...uniqueItems)
+									.describe(
+										'The polygon\'s vertices. The final shape is made by joining each point up in order.',
+									),
+							})
+							.merge(shapeOptions)
+							.strict(),
+					])
+					.refine(...nonEmpty)
+					.refine(
+						obj => obj.isMask || !obj.name,
+						'`name` and `isMask` can\'t be used simultaneously due to a Sequencer limitation.',
+					)
+					.describe('An object representing a shape. There are multiple `type`s.'),
 			)
 			.min(1)
 			.refine(...uniqueItems)
-			.optional(),
+			.optional()
+			.describe('A set of shapes to draw on top of the graphic.'),
 		filter: z
 			.discriminatedUnion('type', [
 				z

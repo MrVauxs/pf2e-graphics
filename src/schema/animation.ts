@@ -29,35 +29,44 @@ const animationPayload = z
 					.describe('An arbitrary object of options you can pass into the macro as an argument.'),
 			})
 			.strict(),
-		z.object({ type: z.literal('crosshair') }).merge(crosshairOptions),
+		z
+			.object({ type: z.literal('crosshair') })
+			.merge(crosshairOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('sound') })
 			.merge(effectOptions)
-			.merge(soundOptions),
+			.merge(soundOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('melee') })
 			.merge(effectOptions)
 			.merge(graphicOptions)
-			.merge(meleeOptions),
+			.merge(meleeOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('ranged') })
 			.merge(effectOptions)
 			.merge(graphicOptions)
-			.merge(rangedOptions),
+			.merge(rangedOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('onToken') })
 			.merge(effectOptions)
 			.merge(graphicOptions)
-			.merge(onTokenOptions),
+			.merge(onTokenOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('template') })
 			.merge(effectOptions)
 			.merge(graphicOptions)
-			.merge(templateOptions),
+			.merge(templateOptions)
+			.strict(),
 		z
 			.object({ type: z.literal('animation') })
 			.merge(graphicOptions)
-			.merge(animationOptions),
+			.merge(animationOptions)
+			.strict(),
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'sound') {

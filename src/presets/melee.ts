@@ -1,31 +1,34 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
-import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
+import type { AnimationPayload } from '../schema/animation';
+import { type GameData, graphicOptions, parseOffset, type SequencerTypes } from '.';
+import { AnimCore } from '../storage/AnimCore';
 
-export default function melee(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
-	let { sources, targets = [] } = data;
+export default function meleePreset(
+	seq: SequencerTypes,
+	payload: Extract<AnimationPayload, { type: 'melee' }>,
+	data: GameData,
+) {
+	const { sources, targets = [] } = data;
 
-	if (animation.options?.preset?.targets) targets = animation.options.preset.targets;
-
-	animation.options = foundry.utils.mergeObject({
-		randomizeMirrorY: true,
-		anchor: {
-			x: 0.4,
-			y: 0.5 * Sequencer.Helpers.random_float_between(0.8, 1.2),
+	payload = foundry.utils.mergeObject(
+		{
+			randomizeMirrorY: true,
+			anchor: {
+				x: 0.4,
+				y: 0.5 * Sequencer.Helpers.random_float_between(0.8, 1.2),
+			},
+			scaleToObject: {
+				value: 4,
+			},
 		},
-		scaleToObject: {
-			value: 4,
-		},
-	}, animation.options);
+		payload,
+	);
 
 	for (const source of sources) {
-		for (const target of targets) {
-			const effect = seq
-				.effect()
-				.file(window.AnimCore.parseFiles(animation.file))
-				.attachTo(source, parseOffsets(animation.options?.preset?.attachTo))
-				.rotateTowards(target, parseOffsets(animation.options?.preset?.rotateTowards));
-
-			genericEffectOptions(effect, animation, data);
+		for (const target of targets.concat(payload.targets ?? [])) {
+			seq = graphicOptions(seq.effect(), payload, data)
+				.file(AnimCore.parseFiles(payload.file))
+				.attachTo(source, parseOffset(payload.attachTo ?? {}))
+				.rotateTowards(target, parseOffset(payload.rotateTowards ?? {}));
 		}
 	}
 

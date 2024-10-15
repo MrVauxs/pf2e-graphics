@@ -1,30 +1,28 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
-import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
+import type { AnimationPayload } from '../schema/animation';
+import { type GameData, graphicOptions, parseOffset, type SequencerTypes } from '.';
+import { AnimCore } from '../storage/AnimCore';
 
-export default function template(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
-	const { options } = animation;
-	let { targets = [] } = data;
+export default function template(
+	seq: SequencerTypes,
+	payload: Extract<AnimationPayload, { type: 'template' }>,
+	data: GameData,
+) {
+	const { targets = [] } = data;
 
-	if (options?.preset?.targets) targets = options.preset.targets;
-
-	for (const template of targets) {
-		const effect = seq
-			.effect()
-			.file(window.AnimCore.parseFiles(animation.file))
-			.attachTo(template, parseOffsets(options?.preset?.attachTo));
+	for (const template of targets.concat(payload.targets ?? [])) {
+		seq = graphicOptions(seq.effect(), payload, data)
+			.file(AnimCore.parseFiles(payload.file))
+			.attachTo(template, parseOffset(payload.attachTo ?? {}));
 
 		if (
-			options?.preset?.stretchTo
-			|| (
-				typeof template === 'object'
+			payload.stretchTo
+			|| (typeof template === 'object'
 				&& 't' in template
-				&& (template.t === 'ray' || template.t === 'cone')
-			)
+				&& (template.t === CONST.MEASURED_TEMPLATE_TYPES.RAY
+					|| template.t === CONST.MEASURED_TEMPLATE_TYPES.CONE))
 		) {
-			effect.stretchTo(template, parseOffsets({ ...options?.preset?.stretchTo, attachTo: true }));
+			seq.stretchTo(template, parseOffset({ ...payload.stretchTo, attachTo: true }));
 		}
-
-		genericEffectOptions(effect, animation, data);
 	}
 
 	return seq;

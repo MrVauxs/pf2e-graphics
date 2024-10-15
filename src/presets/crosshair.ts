@@ -1,6 +1,6 @@
-import type { AnimationPayload } from 'src/schema/animation';
 import type { GameData, SequencerTypes } from '.';
-import { devLog, ErrorMsg, getPlayerOwners, i18n } from 'src/utils';
+import type { AnimationPayload } from '../schema/animation';
+import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export default async function crosshair(
 	seq: SequencerTypes,

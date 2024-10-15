@@ -21,12 +21,12 @@ export const vector2 = z
 	.describe('A 2D vector.');
 
 /**
- * Zod schema for an offset value, in pixels.
+ * Zod schema for an offset value, in pixels. Positive values shift downward or rightward as appropriate.
  */
-const offsetValue = z
+export const offsetValue = z
 	.number()
 	.refine(...nonZero)
-	.describe('An offset value, in pixels.');
+	.describe('An offset value, in pixels. Positive values shift downward or rightward as appropriate.');
 
 // TODO: Is this needed? Can use `randomOffset: number` in `atLocation()`'s options
 // /**
