@@ -1,10 +1,10 @@
 <script lang='ts'>
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-	import type { ModuleAnimationData } from 'src/schema';
-	import derivedFlag from 'src/lib/docFlagDerived';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import { ErrorMsg, nonNullable } from 'src/utils';
+	import type { ModuleAnimationData } from '../../schema';
 	import { type Writable, writable } from 'svelte/store';
+	import derivedFlag from '../../lib/docFlagDerived';
+	import { AnimCore } from '../../storage/AnimCore';
+	import { ErrorMsg, nonNullable } from '../../utils';
 	import SingleEditor from './AnimationSubEditor.svelte';
 	import JSONEditorApp from './JSONEditor/JSONEditor';
 

@@ -1,5 +1,5 @@
-import type { Trigger } from 'src/schema/triggers';
-import { devLog, log, nonNullable } from 'src/utils';
+import type { Trigger } from '../schema/triggers';
+import { devLog, log, nonNullable } from '../utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {

@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import type { CustomTokenImage } from '../tokenimage-manager.svelte';
-	import { ErrorMsg } from 'src/utils';
+	import { ErrorMsg } from '../../../../utils';
 
 	export let rule: CustomTokenImage;
 	export let updateRules: (rule1?: CustomTokenImage, rule2?: Partial<CustomTokenImage>) => void;

@@ -1,10 +1,11 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
 import type { GameData, SequencerTypes } from '.';
-import { isTrueish } from 'src/utils';
+import type { ExecutableAnimation } from '../storage/AnimCore';
+import { isTrueish } from '../utils';
 
-export default async function animation(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
+export default async function animation(seq: SequencerTypes, animation: ExecutableAnimation, data: GameData) {
 	const { sources } = data;
-	const { options = {} } = animation;
+	// const { options = {} } = animation;
+	const options: any = animation;
 
 	for (const source of sources) {
 		if ((source.actor as ActorPF2e)?.primaryUpdater?.id === game.userId) {

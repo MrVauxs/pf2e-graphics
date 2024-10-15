@@ -1,6 +1,6 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
-import type { ModuleAnimationData } from 'src/schema/index';
+import type { ModuleAnimationData } from './schema/index';
 
 declare module '@typhonjs-fvtt/runtime/svelte/application' {
 	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920

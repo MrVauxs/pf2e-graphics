@@ -1,4 +1,4 @@
-import type { ModuleAnimationData } from 'src/schema';
+import type { ModuleAnimationData } from './schema';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
