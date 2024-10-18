@@ -2,22 +2,17 @@
 	"item:slug:spiritual-armament": [
 		{
 			"trigger": "attack-roll",
-			"preset": "melee",
+			"preset": "ranged",
 			"options": {
 				"sound": {
 					"file": "graphics-sfx.magic.holy.attack.blast",
 					"waitUntilFinished": -3200
-				},
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.4
-					}
 				}
 			},
 			"predicate": [
 				"jb2a:free"
 			],
-			"file": "jb2a.melee_attack.03.magical_greatsword.01.orange.3"
+			"file": "jb2a.dagger.throw.01.white.90ft"
 		},
 		{
 			"trigger": "attack-roll",
