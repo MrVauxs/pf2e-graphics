@@ -1,0 +1,33 @@
+{
+	"effect:infuse-vitality": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.bless.400px.loop.yellow",
+			"predicate": [
+				"settings:persistent"
+			],
+			"options": {
+				"persist": true,
+				"tieToDocuments": true,
+				"scaleToObject": 1
+			}
+		}
+	],
+	"spell:infuse-vitality": [
+		{
+			"trigger": "action",
+			"preset": "ranged",
+			"file": "jb2a.bullet.03.green",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				},
+				"jb2a:patreon"
+			]
+		}
+	]
+}

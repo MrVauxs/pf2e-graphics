@@ -1,0 +1,103 @@
+{
+	"item:slug:spiritual-armament": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
+				}
+			},
+			"predicate": [
+				"jb2a:free"
+			],
+			"file": "jb2a.melee_attack.03.magical_greatsword.01.orange.3"
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
+				}
+			},
+			"predicate": [
+				"jb2a:patreon",
+				"item:damage:slashing"
+			],
+			"file": "jb2a.greataxe.throw.yellow"
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
+				}
+			},
+			"predicate": [
+				"jb2a:patreon",
+				"item:damage:piercing"
+			],
+			"file": "jb2a.dagger.throw.01.blue"
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
+				}
+			},
+			"predicate": [
+				"jb2a:patreon",
+				"item:damage:bludgeoning"
+			],
+			"file": "jb2a.shield_attack.ranged.throw.04.white.02"
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.4
+					}
+				}
+			},
+			"predicate": [
+				"jb2a:patreon",
+				"item:damage:spirit"
+			],
+			"file": "jb2a.sword.throw.blue"
+		}
+	]
+}
