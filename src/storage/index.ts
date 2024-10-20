@@ -1,5 +1,5 @@
-import { ErrorMsg } from 'src/utils.ts';
 import { writable } from 'svelte/store';
+import { ErrorMsg } from '../utils.ts';
 import { AnimCore } from './AnimCore.ts';
 
 Object.assign(window, {

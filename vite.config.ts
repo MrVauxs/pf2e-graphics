@@ -12,16 +12,16 @@ import { type Connect, defineConfig, type PluginOption, type ViteDevServer } fro
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import moduleJSON from './module.json' with { type: 'json' };
+import { getJSONSchema } from './scripts/buildJSONSchema';
 import { type FileValidationFailure, Log, pluralise } from './scripts/helpers';
 import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
-import { getJSONSchema } from './src/storage/animationsSchema';
 
 const packagePath = `modules/${moduleJSON.id}`;
 
 const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
 export default defineConfig(({ command: _buildOrServe }) => ({
-	root: 'src',
+	root: './src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
 	publicDir: '../assets',

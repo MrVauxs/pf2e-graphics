@@ -1,191 +1,176 @@
-import type { TokenOrDoc } from 'src/extensions';
-import type { AnimationObject } from 'src/storage/AnimCore.ts';
-import { ErrorMsg, log } from 'src/utils.ts';
-import { isTrueish } from '../utils';
-import animationPreset from './animation.ts';
+import type { TokenOrDoc } from '../extensions';
+import type { AnimationPayload } from '../schema/animation.ts';
+import type { EffectOptions, GraphicOptions } from '../schema/presets/index.ts';
+import type { ExecutableAnimation } from '../storage/AnimCore.ts';
+import { isTrueish, log } from '../utils.ts';
 import crosshairPreset from './crosshair.ts';
 import meleePreset from './melee.ts';
-import onTokenPreset from './onToken.ts';
-import rangedPreset from './ranged.ts';
 import soundPreset from './sound.ts';
-import templatePreset from './template.ts';
 
 export interface GameData {
 	sources: TokenOrDoc[];
 	targets?: (TokenOrDoc | string | Point | MeasuredTemplateDocumentPF2e)[];
-	animations: AnimationObject[];
+	animations: ExecutableAnimation[];
 	queue: Sequence[];
 	currentIndex: number;
 	item?: ItemPF2e<any>;
 	user?: string;
-};
+}
 
 export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
 
-export async function addAnimationToSequence(seq: SequencerTypes, _animation: AnimationObject, data: GameData) {
-	const animation = foundry.utils.deepClone(_animation);
-	switch (animation.preset) {
-		case 'sound':
-			soundPreset(seq, animation, data);
-			break;
-		case 'melee':
-			meleePreset(seq, animation, data);
-			break;
-		case 'ranged':
-			rangedPreset(seq, animation, data);
-			break;
-		case 'onToken':
-			onTokenPreset(seq, animation, data);
-			break;
-		case 'template':
-			templatePreset(seq, animation, data);
-			break;
-		case 'crosshair':
-			await crosshairPreset(seq, animation, data);
-			break;
-		case 'animation':
-			await animationPreset(seq, animation, data);
-			break;
-		case 'macro':
-			if (animation.macro) {
-				seq.macro(animation.macro, { animation, data });
-			} else {
-				ErrorMsg.send('A macro animation was called without a macro set!');
-			};
-			break;
-		default:
-			log(`An animation was called with a preset of ${animation.preset} which does not exist!`);
-	}
+export async function addAnimationToSequence(seq: SequencerTypes, payload: AnimationPayload, data: GameData) {
+	if (payload.type === 'sound') return soundPreset(seq, payload, data);
+	if (payload.type === 'melee') return meleePreset(seq, payload, data);
+	// if (payload.type === 'ranged') return rangedPreset(seq, payload, data);
+	// if (payload.type === 'onToken') return onTokenPreset(seq, payload, data);
+	// if (payload.type === 'template') return templatePreset(seq, payload, data);
+	if (payload.type === 'crosshair') return await crosshairPreset(seq, payload, data);
+	// if (payload.type === 'animation') return await animationPreset(seq, payload, data);
+	if (payload.type === 'macro') return seq.macro(payload.document, payload.options);
 
-	return seq;
+	return log(`Failed to execute effect with preset type \`${payload.type}\`: type does not exist`);
 }
 
-export function genericEffectOptions(seq: EffectSection, { options }: AnimationObject, data: GameData) {
-	if (isTrueish(options?.zIndex)) seq.zIndex(options.zIndex);
-	if (isTrueish(options?.syncGroup)) seq.syncGroup(options.syncGroup);
-	if (isTrueish(options?.randomRotation)) seq.randomRotation(options.randomRotation);
-	if (isTrueish(options?.spriteOffset)) {
-		const parsed = parseOffsets(options.spriteOffset.offset);
-		seq.spriteOffset(parsed.offset, options.spriteOffset);
-	}
-	if (isTrueish(options?.spriteRotation)) seq.spriteRotation(options.spriteRotation);
-	if (isTrueish(options?.waitUntilFinished)) seq.waitUntilFinished(options?.waitUntilFinished);
-	if (isTrueish(options?.locally)) seq.locally(options.locally);
-	if (isTrueish(options?.missed)) seq.missed(options.missed);
-	if (isTrueish(options?.rotate)) seq.rotate(options.rotate ?? 0);
-	if (isTrueish(options?.belowTokens)) seq.belowTokens(options.belowTokens ?? false);
-	if (isTrueish(options?.duration)) seq.duration(options.duration);
-	if (isTrueish(options?.randomizeMirrorX)) seq.randomizeMirrorX(options.randomizeMirrorX);
-	if (isTrueish(options?.randomizeMirrorY)) seq.randomizeMirrorY(options.randomizeMirrorY);
-	if (isTrueish(options?.mirrorX)) seq.mirrorX(options.mirrorX);
-	if (isTrueish(options?.mirrorY)) seq.mirrorY(options.mirrorY);
-	if (isTrueish(options?.template)) seq.template(options.template);
-	if (isTrueish(options?.scaleIn)) seq.scaleIn(options?.scaleIn.scale, options?.scaleIn.duration, options?.scaleIn);
-	if (isTrueish(options?.scaleOut)) seq.scaleOut(options?.scaleOut.scale, options?.scaleOut.duration, options?.scaleOut);
-	if (isTrueish(options?.tint)) seq.tint(options.tint);
+export function graphicOptions(seq: EffectSection, payload: EffectOptions & GraphicOptions, data: GameData) {
+	if (isTrueish(payload.zIndex)) seq.zIndex(payload.zIndex);
+	if (isTrueish(payload.syncGroup)) seq.syncGroup(payload.syncGroup);
+	if (isTrueish(payload.randomRotation)) seq.randomRotation(payload.randomRotation);
+	if (isTrueish(payload.spriteOffset))
+		seq.spriteOffset(offsetToVector2(payload.spriteOffset.offset), payload.spriteOffset);
+	if (isTrueish(payload.spriteRotation)) seq.spriteRotation(payload.spriteRotation);
+	if (isTrueish(payload.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
+	if (isTrueish(payload.locally)) seq.locally(payload.locally);
+	if (isTrueish(payload.missed)) seq.missed(payload.missed);
+	if (isTrueish(payload.rotate)) seq.rotate(payload.rotate);
+	if (isTrueish(payload.belowTokens)) seq.belowTokens(payload.belowTokens);
+	if (isTrueish(payload.duration)) seq.duration(payload.duration);
+	if (isTrueish(payload.randomizeMirrorX)) seq.randomizeMirrorX(payload.randomizeMirrorX);
+	if (isTrueish(payload.randomizeMirrorY)) seq.randomizeMirrorY(payload.randomizeMirrorY);
+	if (isTrueish(payload.mirrorX)) seq.mirrorX(payload.mirrorX);
+	if (isTrueish(payload.mirrorY)) seq.mirrorY(payload.mirrorY);
+	if (isTrueish(payload.template)) seq.template(payload.template);
+	if (isTrueish(payload.scaleIn)) seq.scaleIn(payload.scaleIn.scale, payload.scaleIn.duration, payload.scaleIn);
+	if (isTrueish(payload.scaleOut))
+		seq.scaleOut(payload.scaleOut.scale, payload.scaleOut.duration, payload.scaleOut);
+	if (isTrueish(payload.tint)) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 	// @ts-expect-error TODO: Fix in Sequencer types
-	if (isTrueish(options?.anchor)) seq.anchor(options.anchor);
-	if (isTrueish(options?.opacity)) seq.opacity(options.opacity);
-	if (isTrueish(options?.mask)) seq.mask();
-
-	if (isTrueish(options?.repeats)) {
-		if (typeof options.repeats === 'object') {
-			seq.repeats(options.repeats.count, options.repeats.delayMin, options.repeats.delayMax);
+	if (isTrueish(payload.anchor)) seq.anchor(payload.anchor);
+	if (isTrueish(payload.opacity)) seq.opacity(payload.opacity);
+	if (isTrueish(payload.mask)) seq.mask();
+	if (isTrueish(payload.repeats)) {
+		if (typeof payload.repeats === 'object') {
+			seq.repeats(payload.repeats.count, payload.repeats.delayMin, payload.repeats.delayMax);
 		} else {
-			seq.repeats(options.repeats);
+			seq.repeats(payload.repeats);
 		}
 	}
-	if (isTrueish(options?.fadeIn)) {
-		if (typeof options.fadeIn === 'object') {
-			seq.fadeIn(options.fadeIn?.value, options.fadeIn);
+	if (isTrueish(payload.fadeIn)) {
+		if (typeof payload.fadeIn === 'object') {
+			seq.fadeIn(payload.fadeIn?.value, payload.fadeIn);
 		} else {
-			seq.fadeIn(options.fadeIn);
+			seq.fadeIn(payload.fadeIn);
 		}
 	}
-	if (isTrueish(options?.fadeOut)) {
-		if (typeof options.fadeOut === 'object') {
-			seq.fadeOut(options.fadeOut?.value, options.fadeOut);
+	if (isTrueish(payload.fadeOut)) {
+		if (typeof payload.fadeOut === 'object') {
+			seq.fadeOut(payload.fadeOut?.value, payload.fadeOut);
 		} else {
-			seq.fadeOut(options.fadeOut);
+			seq.fadeOut(payload.fadeOut);
 		}
 	}
-	if (isTrueish(options?.scale)) {
-		if (typeof options.scale === 'object') {
-			seq.scale(options.scale.min, options.scale.max);
+	if (isTrueish(payload.scale)) {
+		if (typeof payload.scale === 'object') {
+			seq.scale(payload.scale.min, payload.scale.max);
 		} else {
-			seq.scale(options.scale);
+			seq.scale(payload.scale);
 		}
 	}
-	if (isTrueish(options?.scaleToObject)) {
-		if (typeof options.scaleToObject === 'object') {
-			seq.scaleToObject(options.scaleToObject.value, options.scaleToObject);
+	if (isTrueish(payload.scaleToObject)) {
+		if (typeof payload.scaleToObject === 'object') {
+			seq.scaleToObject(payload.scaleToObject.value, payload.scaleToObject);
 		} else {
-			seq.scaleToObject(options.scaleToObject);
+			seq.scaleToObject(payload.scaleToObject);
 		}
 	}
-	if (isTrueish(options?.wait)) {
-		if (typeof options.wait === 'object') {
-			seq.wait(options.wait.min, options.wait?.max);
+	if (isTrueish(payload.wait)) {
+		if (typeof payload.wait === 'object') {
+			seq.wait(payload.wait.min, payload.wait?.max);
 		} else {
-			seq.wait(options.wait);
+			seq.wait(payload.wait);
 		}
 	}
-	if (isTrueish(options?.delay)) {
-		if (typeof options.delay === 'object') {
-			seq.delay(options.delay.min, options.delay?.max);
+	if (isTrueish(payload.delay)) {
+		if (typeof payload.delay === 'object') {
+			seq.delay(payload.delay.min, payload.delay?.max);
 		} else {
-			seq.delay(options.delay);
+			seq.delay(payload.delay);
 		}
 	}
-	if (isTrueish(options?.size)) {
-		if (typeof options.size === 'object') {
+	if (isTrueish(payload.size)) {
+		if (typeof payload.size === 'object') {
 			// @ts-expect-error TODO: Fix in Sequencer types
-			seq.size(options.size.value, options.size);
+			seq.size(payload.size.value, payload.size);
 		} else {
-			seq.size(options.size);
+			seq.size(payload.size);
 		}
 	}
 
 	// Property Animation
-	if (isTrueish(options?.loopProperty)) options?.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
-	if (isTrueish(options?.animateProperty)) options?.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
+	if (isTrueish(payload.loopProperty))
+		payload.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
+	if (isTrueish(payload.animateProperty))
+		payload.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
 	// Adds or modifies effects
-
-	if (isTrueish(options?.shape)) {
-		[options.shape]
-			.flat()
-			.forEach(shape => seq.shape(shape.type, parseOffsets(shape)));
+	if (isTrueish(payload.text)) payload.text.forEach(text => seq.text(text.entry, text.options ?? {}));
+	if (isTrueish(payload.shapes)) {
+		payload.shapes.forEach((shape) => {
+			const offset = {
+				...parseOffsetInSitu(shape),
+				fillColor: shape.fillColor as `#${string}`, // Required due to Sequencer typings
+				lineColor: shape.lineColor as `#${string}`, // Required due to Sequencer typings
+			};
+			seq.shape(shape.type, offset);
+		});
 	}
-
-	if (isTrueish(options?.filter)) {
-		[options.filter]
-			.flat()
-			.forEach(filter => seq.filter(
+	if (isTrueish(payload.filters)) {
+		payload.filters.forEach(filter =>
+			seq.filter(
 				filter.type,
-				// @ts-expect-error and so what if options dont exist
+				// @ts-expect-error and so what if options don't exist
 				filter.options,
-			));
+			),
+		);
+	}
+	if (isTrueish(payload.screenSpace)) {
+		seq.screenSpace();
+		if (typeof payload.screenSpace === 'object') {
+			if (payload.screenSpace.aboveUI) seq.screenSpaceAboveUI();
+			if (payload.screenSpace.anchor) seq.screenSpaceAnchor(payload.screenSpace.anchor);
+			if (payload.screenSpace.offset) seq.screenSpacePosition(offsetToVector2(payload.screenSpace.offset));
+			if (payload.screenSpace.scale) seq.screenSpaceScale(payload.screenSpace.scale);
+		}
 	}
 
 	// Meta Stuff
-	if (isTrueish(options?.persist)) {
-		if (typeof options.persist === 'object') {
+	if (isTrueish(payload.persist)) {
+		if (typeof payload.persist === 'object') {
 			// @ts-expect-error TODO: Fix in Sequencer types
-			seq.persist(options.persist?.value || false, options.persist);
+			seq.persist(payload.persist?.value || false, payload.persist);
 		} else {
-			seq.persist(options.persist || false);
+			seq.persist(payload.persist || false);
 		}
 	}
-	if (isTrueish(options?.tieToDocuments)) {
+	if (isTrueish(payload.tieToDocuments)) {
 		if (!data.item) {
 			log('tieToDocuments was called with no item present!');
 		} else {
 			seq.tieToDocuments([data.item]);
 		}
 	}
-	if (isTrueish(options?.remove)) {
-		[options.remove].flat().forEach((origin) => {
+	if (isTrueish(payload.remove)) {
+		[payload.remove].flat().forEach((origin) => {
 			if (origin === 'all') {
 				Sequencer.EffectManager.endEffects({ object: data.targets });
 			}
@@ -197,34 +182,33 @@ export function genericEffectOptions(seq: EffectSection, { options }: AnimationO
 		seq.origin(data.item);
 		seq.name(data.item.name);
 	}
-	if (isTrueish(options?.id))
-		seq.origin(options.id);
-	if (isTrueish(options?.name))
-		seq.name(options.name);
+	if (isTrueish(payload.id)) seq.origin(payload.id);
+	if (isTrueish(payload.name)) seq.name(payload.name);
 
 	return seq;
 }
 
-function checkIfOffset(obj: any): obj is {
-	offset: {
-		x: number | [number, number] | undefined;
-		y: number | [number, number] | undefined;
+function offsetToVector2(offset: Partial<Vector2>): Vector2 {
+	return {
+		x: offset.x ?? 0,
+		y: offset.y ?? 0,
 	};
-} {
-	return 'offset' in obj;
 }
 
-export function parseOffsets<T>(obj: T): { offset: Vector2 } {
-	if (!obj || !(typeof obj === 'object')) return { offset: { x: 0, y: 0 } };
+export function parseOffsetInSitu<T extends { offset?: Partial<Vector2>; gridUnits?: boolean }>(
+	obj: T,
+): T & { offset: Vector2 & { gridUnits?: boolean } } {
+	return {
+		...obj,
+		offset: {
+			...obj.offset,
+			x: obj?.offset?.x ?? 0,
+			y: obj?.offset?.y ?? 0,
+		},
+	};
+}
 
-	if (checkIfOffset(obj)) {
-		if (Array.isArray(obj.offset.x)) {
-			obj.offset.x = Sequencer.Helpers.random_float_between(obj.offset.x[0], obj.offset.x[1]);
-		}
-		if (Array.isArray(obj.offset.y)) {
-			obj.offset.y = Sequencer.Helpers.random_float_between(obj.offset.y[0], obj.offset.y[1]);
-		}
-	}
-
-	return obj as unknown as { offset: Vector2 };
+function parseMinMaxObject(value: number | { min: number; max: number }): [number] | [number, number] {
+	if (typeof value === 'number') return [value];
+	return [value.min, value.max];
 }

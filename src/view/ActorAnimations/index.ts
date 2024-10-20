@@ -1,4 +1,4 @@
-import { i18n } from 'src/utils';
+import { i18n } from '../../utils';
 import ActorAnimationsApp from './ActorAnimationsApp';
 
 function spawn(application: CharacterSheetPF2e) {

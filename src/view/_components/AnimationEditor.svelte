@@ -1,9 +1,10 @@
 <script lang='ts'>
 	import type { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-	import derivedFlag from 'src/lib/docFlagDerived';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import { ErrorMsg, nonNullable } from 'src/utils';
+	import type { ModuleAnimationData } from '../../schema';
 	import { type Writable, writable } from 'svelte/store';
+	import derivedFlag from '../../lib/docFlagDerived';
+	import { AnimCore } from '../../storage/AnimCore';
+	import { ErrorMsg, nonNullable } from '../../utils';
 	import SingleEditor from './AnimationSubEditor.svelte';
 	import JSONEditorApp from './JSONEditor/JSONEditor';
 
@@ -12,7 +13,7 @@
 	const inStasis = writable(true);
 
 	const flag = $doc.id === 'settings'
-		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<JSONData>
+		? writable(window.pf2eGraphics.liveSettings.worldAnimations) as Writable<ModuleAnimationData>
 		// @ts-ignore Above is a type guard
 		: derivedFlag(doc, 'pf2e-graphics', 'customAnimations', {} as JSONData, 500);
 
