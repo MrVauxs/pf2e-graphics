@@ -89,7 +89,7 @@ export const sequencerDBEntry = z
 // .describe('A Sequencer database entry.');
 
 /**
- * Zod schema for an easing function (c.f. easings.net).
+ * Zod schema for an easing function (c.f. [easings.net](https://easings.net)).
  */
 export const easing = z
 	.enum([
@@ -124,7 +124,7 @@ export const easing = z
 		'easeOutQuint',
 		'easeOutSine',
 	])
-	.describe('An easing function (c.f. easings.net).');
+	.describe('An easing function (c.f. [easings.net](https://easings.net)).');
 
 /**
  * A single predicate (recursive) for the pf2e system.
