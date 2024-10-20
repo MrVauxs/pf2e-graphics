@@ -1,0 +1,17 @@
+{
+	"spell:cloak-of-shadow": [
+		{
+			"preset": "onToken",
+			"trigger": [
+				"toggle",
+				"action"
+			],
+			"options": {
+				"scaleToObject": {
+					"value": 1
+				}
+			},
+			"file": "jb2a.magic_signs.rune.illusion.complete.purple"
+		}
+	]
+}
