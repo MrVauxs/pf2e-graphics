@@ -71,7 +71,10 @@
 									}
 								},
 								{
-									"file": "jb2a.wind_stream.white",
+									"predicate": [
+										"jb2a:patreon"
+									],
+									"file": "jb2a.wind_stream.400.white",
 									"options": {
 										"preset": {
 											"atLocation": {
@@ -212,9 +215,10 @@
 										"settings:quality",
 										2
 									]
-								}
+								},
+								"jb2a:patreon"
 							],
-							"file": "jb2a.wind_stream.white",
+							"file": "jb2a.wind_stream.200.white",
 							"options": {
 								"scaleToObject": {
 									"value": 1
