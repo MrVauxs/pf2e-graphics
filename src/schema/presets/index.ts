@@ -111,6 +111,74 @@ export const effectOptions = z
 export type EffectOptions = z.infer<typeof effectOptions>;
 
 /**
+ * Zod schema for the shared options of `animateProperty` and `loopProperty`.
+ */
+const animateAndLoopPropertyBaseOptions = z
+	.object({
+		duration: z.number().positive(),
+		from: z.number(),
+		to: z.number(),
+		delay: z.number().positive().optional(),
+		ease: easing.optional(),
+		gridUnits: z
+			.literal(true)
+			.optional()
+			.describe('Indicates that the `to` and `from` values are measured in grid units.'),
+	})
+	.strict();
+
+/**
+ * Zod schema for the options of `animateProperty`.
+ */
+const animatePropertyOptions = animateAndLoopPropertyBaseOptions
+	.extend({
+		absolute: z
+			.literal(true)
+			.optional()
+			.describe(
+				'Normally, `from` and `to` values are interpreted relatively, as multipliers on the initial value. This option instead makes them absolute: animating the width `to: 200` will make the final width 200 pixels, not 200 times the initial value.',
+			),
+		fromEnd: z
+			.literal(true)
+			.optional()
+			.describe(
+				'Indicates that this animation\'s `duration` should be anchored to the graphic\'s end, and counted backwards.',
+			),
+	})
+	.strict();
+
+/**
+ * Zod schema for the options of `animateProperty`.
+ */
+const loopPropertyOptions = animateAndLoopPropertyBaseOptions
+	.partial({
+		to: true,
+		from: true,
+	})
+	.extend({
+		loops: z
+			.number()
+			.int()
+			.positive()
+			.optional()
+			.describe('The number of loops to execute (default: infinite).'),
+		values: z
+			.array(z.number())
+			.refine(
+				arr => new Set(arr.map(e => JSON.stringify(e))).size > 1,
+				'Provide at least 2 unique values.',
+			)
+			.optional(),
+		pingPong: z.literal(true).optional(),
+	})
+	.strict()
+	.refine(
+		obj => (obj.to && obj.from) || obj.values,
+		'You must define either a range of values to loop over via `to` and `from`, or provide those values directly via `values`.',
+	)
+	.refine(obj => (obj.to ?? Number.NaN) !== (obj.from ?? Number.NaN), '`to` and `from` can\'t be identical.');
+
+/**
  * Zod schema for shape object's common options.
  */
 const shapeOptions = z
@@ -118,7 +186,7 @@ const shapeOptions = z
 		gridUnits: z
 			.literal(true)
 			.optional()
-			.describe('Indicates that the shape\'s dimensions are maesured in grid units.'),
+			.describe('Indicates that the shape\'s dimensions are measured in grid units.'),
 		name: ID.optional().describe(
 			'A name to identify the shape, so that it can be referenced in other properties.',
 		),
@@ -277,57 +345,99 @@ export const graphicOptions = z
 			.optional(),
 		loopProperty: z
 			.array(
-				z
-					.object({
-						target: z.string(),
-						property: z.string(),
-						options: z
-							.object({
-								duration: z.number(),
-								from: z.number().optional(),
-								to: z.number().optional(),
-								values: z
-									.array(z.number())
-									.min(1)
-									.refine(...uniqueItems)
-									.optional(),
-								loops: z.number().int().positive().optional(),
-								pingPong: z.literal(true).optional(),
-								delay: z.number().positive().optional(),
-								ease: easing.optional(),
-								fromEnd: z.literal(true).optional(),
-								gridUnits: z.literal(true).optional(),
-							})
-							.strict(),
-					})
-					.strict(),
+				z.discriminatedUnion('target', [
+					z
+						.object({
+							target: z.literal('sprite'),
+							property: z.enum([
+								'alpha',
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+								'width',
+								'height',
+							]),
+							options: loopPropertyOptions,
+						})
+						.strict(),
+					z
+						.object({
+							target: z.literal('alphaFilter'),
+							property: z.literal('alpha'),
+							options: loopPropertyOptions,
+						})
+						.strict(),
+					z
+						.object({
+							target: z.literal('spriteContainer'),
+							property: z.enum([
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+							]),
+							options: loopPropertyOptions,
+						})
+						.strict(),
+				]),
 			)
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
 		animateProperty: z
 			.array(
-				z
-					.object({
-						target: z.string(),
-						property: z.string(),
-						options: z
-							.object({
-								duration: z.number(),
-								from: z.number(),
-								to: z.number(),
-								delay: z.number().optional(),
-								ease: easing.optional(),
-								fromEnd: z.literal(true).optional(),
-								gridUnits: z.literal(true).optional(),
-							})
-							.strict(),
-					})
-					.strict(),
+				z.discriminatedUnion('target', [
+					z
+						.object({
+							target: z.literal('sprite'),
+							property: z.enum([
+								'alpha',
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+								'width',
+								'height',
+							]),
+							options: animatePropertyOptions,
+						})
+						.strict(),
+					z
+						.object({
+							target: z.literal('alphaFilter'),
+							property: z.literal('alpha'),
+							options: animatePropertyOptions,
+						})
+						.strict(),
+					z
+						.object({
+							target: z.literal('spriteContainer'),
+							property: z.enum([
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+							]),
+							options: animatePropertyOptions,
+						})
+						.strict(),
+				]),
 			)
 			.min(1)
 			.refine(...uniqueItems)
 			.optional(),
+		screenSpace: z.object({
+			aboveUI: z.literal(true).optional(),
+		}),
 		shapes: z
 			.array(
 				z
@@ -536,7 +646,9 @@ export const graphicOptions = z
 			.min(1)
 			.refine(...uniqueItems)
 			.optional()
-			.describe('A set of visual filters to apply to the graphic.\nSee [PixiJS](https://pixijs.io/filters/docs/) for more information.'),
+			.describe(
+				'A set of visual filters to apply to the graphic.\nSee [PixiJS](https://pixijs.io/filters/docs/) for more information.',
+			),
 	})
 	.strict()
 	.describe('Options which are common to all graphic animations.');
