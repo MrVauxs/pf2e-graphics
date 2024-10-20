@@ -38,7 +38,7 @@ export const offsetValue = z
 // 	.describe('An offset range, in pixels, from which to randomly select a value.');
 
 /**
- * Zod schema for a 2D offset, accepting either single- or range-values for either axis.
+ * Zod schema for a 2D offset.
  */
 export const offset = z
 	.object({
@@ -47,7 +47,7 @@ export const offset = z
 	})
 	.strict()
 	.refine(...nonEmpty)
-	.describe('A 2D offset, accepting either single- or range-values for either axis.');
+	.describe('A 2D offset.');
 
 /**
  * Zod schema for the base options of animation modifier's easing.

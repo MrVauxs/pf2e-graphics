@@ -36,9 +36,8 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 	if (isTrueish(payload.zIndex)) seq.zIndex(payload.zIndex);
 	if (isTrueish(payload.syncGroup)) seq.syncGroup(payload.syncGroup);
 	if (isTrueish(payload.randomRotation)) seq.randomRotation(payload.randomRotation);
-	if (isTrueish(payload.spriteOffset)) {
-		seq.spriteOffset(parseOffset(payload.spriteOffset).offset, payload.spriteOffset);
-	}
+	if (isTrueish(payload.spriteOffset))
+		seq.spriteOffset(offsetToVector2(payload.spriteOffset.offset), payload.spriteOffset);
 	if (isTrueish(payload.spriteRotation)) seq.spriteRotation(payload.spriteRotation);
 	if (isTrueish(payload.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
 	if (isTrueish(payload.locally)) seq.locally(payload.locally);
@@ -124,10 +123,11 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 		payload.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
 
 	// Adds or modifies effects
+	if (isTrueish(payload.text)) payload.text.forEach(text => seq.text(text.entry, text.options ?? {}));
 	if (isTrueish(payload.shapes)) {
 		payload.shapes.forEach((shape) => {
 			const offset = {
-				...parseOffset(shape),
+				...parseOffsetInSitu(shape),
 				fillColor: shape.fillColor as `#${string}`, // Required due to Sequencer typings
 				lineColor: shape.lineColor as `#${string}`, // Required due to Sequencer typings
 			};
@@ -142,6 +142,15 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 				filter.options,
 			),
 		);
+	}
+	if (isTrueish(payload.screenSpace)) {
+		seq.screenSpace();
+		if (typeof payload.screenSpace === 'object') {
+			if (payload.screenSpace.aboveUI) seq.screenSpaceAboveUI();
+			if (payload.screenSpace.anchor) seq.screenSpaceAnchor(payload.screenSpace.anchor);
+			if (payload.screenSpace.offset) seq.screenSpacePosition(offsetToVector2(payload.screenSpace.offset));
+			if (payload.screenSpace.scale) seq.screenSpaceScale(payload.screenSpace.scale);
+		}
 	}
 
 	// Meta Stuff
@@ -179,9 +188,16 @@ export function graphicOptions(seq: EffectSection, payload: EffectOptions & Grap
 	return seq;
 }
 
-export function parseOffset<T extends { offset?: Partial<Vector2>; gridUnits?: boolean }>(
+function offsetToVector2(offset: Partial<Vector2>): Vector2 {
+	return {
+		x: offset.x ?? 0,
+		y: offset.y ?? 0,
+	};
+}
+
+export function parseOffsetInSitu<T extends { offset?: Partial<Vector2>; gridUnits?: boolean }>(
 	obj: T,
-): T & { offset?: Vector2 & { gridUnits?: boolean } } {
+): T & { offset: Vector2 & { gridUnits?: boolean } } {
 	return {
 		...obj,
 		offset: {
@@ -190,4 +206,9 @@ export function parseOffset<T extends { offset?: Partial<Vector2>; gridUnits?: b
 			y: obj?.offset?.y ?? 0,
 		},
 	};
+}
+
+function parseMinMaxObject(value: number | { min: number; max: number }): [number] | [number, number] {
+	if (typeof value === 'number') return [value];
+	return [value.min, value.max];
 }

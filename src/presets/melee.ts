@@ -1,5 +1,5 @@
 import type { AnimationPayload } from '../schema/animation';
-import { type GameData, graphicOptions, parseOffset, type SequencerTypes } from '.';
+import { type GameData, graphicOptions, parseOffsetInSitu, type SequencerTypes } from '.';
 import { AnimCore } from '../storage/AnimCore';
 
 export default function meleePreset(
@@ -27,8 +27,8 @@ export default function meleePreset(
 		for (const target of targets.concat(payload.targets ?? [])) {
 			seq = graphicOptions(seq.effect(), payload, data)
 				.file(AnimCore.parseFiles(payload.file))
-				.attachTo(source, parseOffset(payload.attachTo ?? {}))
-				.rotateTowards(target, parseOffset(payload.rotateTowards ?? {}));
+				.attachTo(source, parseOffsetInSitu(payload.attachTo ?? {}))
+				.rotateTowards(target, parseOffsetInSitu(payload.rotateTowards ?? {}));
 		}
 	}
 
