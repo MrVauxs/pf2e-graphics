@@ -2,14 +2,15 @@
 	"effect:warp-step": [
 		{
 			"preset": "onToken",
-			"file": "jb2a.wind_stream.white",
+			"file": "jb2a.wind_stream.200.white",
 			"predicate": [
 				{
 					"gte": [
 						"settings:quality",
 						1
 					]
-				}
+				},
+				"jb2a:patreon"
 			],
 			"options": {
 				"scaleToObject": {
