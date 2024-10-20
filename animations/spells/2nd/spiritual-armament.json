@@ -9,90 +9,42 @@
 					"waitUntilFinished": -3200
 				}
 			},
-			"predicate": [
-				"jb2a:free"
-			],
-			"file": "jb2a.dagger.throw.01.white.90ft"
-		},
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"options": {
-				"sound": {
-					"file": "graphics-sfx.magic.holy.attack.blast",
-					"waitUntilFinished": -3200
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.dagger.throw.01.white.90ft"
 				},
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.4
-					}
-				}
-			},
-			"predicate": [
-				"jb2a:patreon",
-				"item:damage:slashing"
-			],
-			"file": "jb2a.greataxe.throw.yellow"
-		},
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"options": {
-				"sound": {
-					"file": "graphics-sfx.magic.holy.attack.blast",
-					"waitUntilFinished": -3200
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:slashing"
+					],
+					"file": "jb2a.greataxe.throw.yellow"
 				},
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.4
-					}
-				}
-			},
-			"predicate": [
-				"jb2a:patreon",
-				"item:damage:piercing"
-			],
-			"file": "jb2a.dagger.throw.01.blue"
-		},
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"options": {
-				"sound": {
-					"file": "graphics-sfx.magic.holy.attack.blast",
-					"waitUntilFinished": -3200
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:piercing"
+					],
+					"file": "jb2a.dagger.throw.01.blue"
 				},
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.4
-					}
-				}
-			},
-			"predicate": [
-				"jb2a:patreon",
-				"item:damage:bludgeoning"
-			],
-			"file": "jb2a.shield_attack.ranged.throw.04.white.02"
-		},
-		{
-			"trigger": "attack-roll",
-			"preset": "ranged",
-			"options": {
-				"sound": {
-					"file": "graphics-sfx.magic.holy.attack.blast",
-					"waitUntilFinished": -3200
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:bludgeoning"
+					],
+					"file": "jb2a.shield_attack.ranged.throw.04.white.02"
 				},
-				"preset": {
-					"stretchTo": {
-						"randomOffset": 0.4
-					}
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:spirit"
+					],
+					"file": "jb2a.sword.throw.blue"
 				}
-			},
-			"predicate": [
-				"jb2a:patreon",
-				"item:damage:spirit"
-			],
-			"file": "jb2a.sword.throw.blue"
+			]
 		}
 	]
 }
