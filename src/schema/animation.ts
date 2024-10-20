@@ -90,12 +90,6 @@ const animationPayload = z
 			}
 		} else if (obj.type === 'crosshair') {
 			if (obj.snap?.direction) {
-				if (obj.template?.type === 'CIRCLE') {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						message: '`snap.direction` is redundant when `template.type` is `CIRCLE`.',
-					});
-				}
 				if (obj.lockManualRotation) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
@@ -119,7 +113,7 @@ const animationPayload = z
 							'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
 					});
 				}
-				if (obj.template?.direction) {
+				if (obj.template && 'direction' in obj.template) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
 						message:

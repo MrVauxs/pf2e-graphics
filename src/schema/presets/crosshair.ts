@@ -3,6 +3,39 @@ import { angle, filePath, hexColour, ID } from '../helpers/atoms';
 import { nonEmpty, nonZero } from '../helpers/refinements';
 
 /**
+ * Zod schema for the shared template properties.
+ */
+const baseTemplate = z
+	.object({
+		size: z
+			.object({
+				default: z.number().positive().describe('The initial size of the template.'),
+				min: z
+					.number()
+					.positive()
+					.optional()
+					.describe('The minimum size of the template, if a range is permitted.'),
+				max: z
+					.number()
+					.positive()
+					.optional()
+					.describe('The maximum size of the template, if a range is permitted.'),
+			})
+			.strict()
+			.refine(obj => obj.max === obj.min, '`max` and `min` must be defined together.')
+			.refine(obj => (obj.max ?? Infinity) > (obj.min ?? 0), '`max` must be greater than `min`.')
+			.describe(
+				'Sets the length for `RAY` and `RECTANGLE` templates, or the radius for `CIRCLE` and `CONE` templates.',
+			),
+		// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
+		// persist: z
+		// 	.literal(true)
+		// 	.optional()
+		// 	.describe('Causes the placed template to persist (that is, be actually placed on the scene).'),
+	})
+	.strict();
+
+/**
  * Zod schema for the options specific to a `crosshair`-preset animation.
  */
 export const crosshairOptions = z
@@ -38,53 +71,46 @@ export const crosshairOptions = z
 			.optional()
 			.describe('Sets a custom icon the crosshair.'),
 		template: z
-			.object({
-				type: z
-					.enum(['CIRCLE', 'CONE', 'RECTANGLE', 'RAY'])
-					.describe('The shape of the crosshair\'s template.'),
-				size: z
+			.discriminatedUnion('type', [
+				z
 					.object({
-						default: z.number().positive().describe('The initial size of the template.'),
-						min: z
-							.number()
-							.positive()
-							.optional()
-							.describe('The minimum size of the template, if a range is permitted.'),
-						max: z
-							.number()
-							.positive()
-							.optional()
-							.describe('The maximum size of the template, if a range is permitted.'),
+						type: z.enum(['CIRCLE', 'RECTANGLE']).describe('The shape of the crosshair\'s template.'),
 					})
-					.strict()
-					.refine(obj => obj.max === obj.min, '`max` and `min` must be defined together.')
-					.refine(obj => (obj.max ?? Infinity) > (obj.min ?? 0), '`max` must be greater than `min`.')
-					.describe(
-						'Sets the length for `RAY` and `RECTANGLE` templates, or the radius for `CIRCLE` and `CONE` templates.',
-					),
-				angle: z
-					.number()
-					.positive()
-					.lt(360)
-					.optional()
-					.describe('Sets the angular width of `CONE` templates (default: 90°).'),
-				direction: angle
-					.optional()
-					.describe(
-						'Sets the initial orientation of `CONE` and `RAY` templates (default: 0°, rightwards).',
-					),
-				// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
-				// persist: z
-				// 	.literal(true)
-				// 	.optional()
-				// 	.describe('Causes the placed template to persist (that is, be actually placed on the scene).'),
-			})
-			.strict()
-			.refine(obj => !obj.angle || obj.type === 'CONE', '`angle` can only be used when `type` is `CONE`.')
-			.refine(
-				obj => !obj.direction || obj.type === 'CONE' || obj.type === 'RAY',
-				'`direction` can only be used when `type` is `CONE` or `RAY`.',
-			)
+					.merge(baseTemplate)
+					.strict(),
+				z
+					.object({
+						type: z.literal('CONE').describe('The shape of the crosshair\'s template.'),
+						angle: z
+							.number()
+							.positive()
+							.lt(360)
+							.optional()
+							.describe('Sets the template\'s angular width (default: 90°).'),
+						direction: angle
+							.optional()
+							.describe('Sets the template\'s initial orientation (default: 0°, rightwards).'),
+					})
+					.merge(baseTemplate)
+					.strict(),
+				z
+					.object({
+						type: z.literal('RAY').describe('The shape of the crosshair\'s template.'),
+						width: z
+							.number()
+							.positive()
+							.multipleOf(5)
+							.optional()
+							.describe(
+								'Sets the template\'s width, in grid units (default: the scene\'s grid distance—typically 5 feet).',
+							),
+						direction: angle
+							.optional()
+							.describe('Sets the template\'s initial orientation (default: 0°, rightwards).'),
+					})
+					.merge(baseTemplate)
+					.strict(),
+			])
 			.optional()
 			.describe('Configures a template to attach to the crosshair (default: ephemeral, 1 × 1 square).'),
 		snap: z

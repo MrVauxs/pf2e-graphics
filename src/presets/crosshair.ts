@@ -38,10 +38,11 @@ export default async function crosshair(
 		crosshair.distance = payload.template.size.default;
 		crosshair.distanceMin = payload.template.size.min; // Can be nullish
 		crosshair.distanceMax = payload.template.size.max; // Can be nullish
-		crosshair.angle = payload.template.angle ?? 90; // Is ignored if `type !== 'CONE'`
-		crosshair.direction = payload.template.direction;
+		if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90;
+		if (payload.template.type === 'RAY') crosshair.width = payload.template.width ?? 90; // Sequencer default doesn't align with PF2e
+		if ('direction' in payload.template) crosshair.direction = payload.template.direction;
 		// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
-		// if (execute.template.persist) crosshair.persist = true;
+		// if (payload.template.persist) crosshair.persist = true;
 	}
 	if (payload.snap) {
 		const gridSnappingMode = (payload.snap.position ?? ['CENTER']).reduce(
