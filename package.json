@@ -32,7 +32,7 @@
 		"@actions/core": "^1.11.1",
 		"@antfu/eslint-config": "^3.7.3",
 		"@rollup/plugin-node-resolve": "^15.3.0",
-		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tsconfig/svelte": "^5.0.4",
 		"@typed-foundry/socketlib": "^1.0.12",
 		"@types/lodash": "^4.17.10",
