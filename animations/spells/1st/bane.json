@@ -3,10 +3,6 @@
 		{
 			"trigger": "effect",
 			"preset": "onToken",
-			"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple",
-			"predicate": [
-				"jb2a:patreon"
-			],
 			"options": {
 				"size": {
 					"value": 5,
@@ -15,63 +11,61 @@
 				"belowTokens": true
 			},
 			"contents": [
+			{
+				"predicate": [
+					"settings:persistent"
+				],
+				"options": {
+					"persist": {
+						"value": true,
+						"persistTokenPrototype": true
+					},
+					"tieToDocuments": true
+				},
+				"contents": [
 				{
-					"default": true,
 					"predicate": [
-						"settings:persistent"
+						"jb2a:patreon"
 					],
-					"options": {
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						},
-						"tieToDocuments": true,
-						"belowTokens": true
-					}
+					"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
 				},
 				{
-					"default": true,
-					"options": {
-						"belowTokens": true
-					}
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
 				}
-			]
-		},
-		{
-			"trigger": "effect",
-			"preset": "onToken",
-			"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink",
-			"predicate": [
-				"jb2a:free"
-			],
-			"options": {
-				"size": {
-					"value": 5,
-					"gridUnits": true
-				},
-				"belowTokens": true
+				]
 			},
-			"contents": [
+			{
+				"predicate": [
 				{
-					"default": true,
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+				],
+				"default": true,
+				"trigger":[
+					"effect",
+					"start-turn"
+				],
+				"contents": [
+				{
 					"predicate": [
-						"settings:persistent"
+						"jb2a:patreon"
 					],
-					"options": {
-						"persist": {
-							"value": true,
-							"persistTokenPrototype": true
-						},
-						"tieToDocuments": true,
-						"belowTokens": true
-					}
+					"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
 				},
 				{
-					"default": true,
-					"options": {
-						"belowTokens": true
-					}
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
 				}
+				]
+			}
 			]
 		}
 	]

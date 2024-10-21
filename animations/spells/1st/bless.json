@@ -13,29 +13,33 @@
 			},
 			"contents": [
 				{
+					"predicate": [
+					{
+						"gte": [
+							"settings:quality",
+							1
+						]
+					}
+					],
 					"default": true,
+					"trigger":[
+						"effect",
+						"start-turn"
+					]
+				},
+				{
 					"predicate": [
 						"settings:persistent"
 					],
 					"options": {
 						"persist": {
-								"value": true,
-								"persistTokenPrototype": true
-							},
-						"tieToDocuments": true,
-						"belowTokens": true
-						}
-				},
-				{
-					"default": true,
-					"options": {
-						"belowTokens": true
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
 					}
 				}
 			]
 		}
 	]
 }
-
-		
-	
