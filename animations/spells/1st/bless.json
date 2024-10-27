@@ -14,15 +14,15 @@
 			"contents": [
 				{
 					"predicate": [
-					{
-						"gte": [
-							"settings:quality",
-							1
-						]
-					}
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
 					],
 					"default": true,
-					"trigger":[
+					"trigger": [
 						"effect",
 						"start-turn"
 					]

@@ -11,61 +11,61 @@
 				"belowTokens": true
 			},
 			"contents": [
-			{
-				"predicate": [
-					"settings:persistent"
-				],
-				"options": {
-					"persist": {
-						"value": true,
-						"persistTokenPrototype": true
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
 					},
-					"tieToDocuments": true
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
+						}
+					]
 				},
-				"contents": [
 				{
 					"predicate": [
-						"jb2a:patreon"
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
 					],
-					"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
-				},
-				{
-					"predicate": [
-						"jb2a:free"
+					"default": true,
+					"trigger":[
+						"effect",
+						"start-turn"
 					],
-					"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
-				}
-				]
-			},
-			{
-				"predicate": [
-				{
-					"gte": [
-						"settings:quality",
-						1
+					"contents": [
+						{
+							"predicate": [
+								"jb2a:patreon"
+							],
+							"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
+						},
+						{
+							"predicate": [
+								"jb2a:free"
+							],
+							"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
+						}
 					]
 				}
-				],
-				"default": true,
-				"trigger":[
-					"effect",
-					"start-turn"
-				],
-				"contents": [
-				{
-					"predicate": [
-						"jb2a:patreon"
-					],
-					"file": "jb2a.magic_signs.circle.02.necromancy.complete.purple"
-				},
-				{
-					"predicate": [
-						"jb2a:free"
-					],
-					"file": "jb2a.magic_signs.circle.02.enchantment.complete.dark_pink"
-				}
-				]
-			}
 			]
 		}
 	]

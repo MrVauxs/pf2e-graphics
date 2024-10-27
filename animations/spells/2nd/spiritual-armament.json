@@ -10,12 +10,13 @@
 				}
 			},
 			"predicate": [
-			{
-				"gte": [
-					"settings:quality",
-					1
-				]
-			},
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			]
 			"contents": [
 				{
 					"predicate": [
