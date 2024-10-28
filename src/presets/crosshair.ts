@@ -58,13 +58,22 @@ export default async function crosshair(
 	if (payload.location) {
 		crosshair.location = {
 			obj: sources[0],
-			limitMinRange: payload.location.limitMinRange ?? 0,
-			limitMaxRange: payload.location.limitMaxRange ?? Infinity,
-			showRange: payload.location.showRange ?? false,
+			limitMinRange: payload.location.limitRange?.min ?? null,
+			limitMaxRange: payload.location.limitRange?.max ?? null,
+			showRange: payload.location.lockToEdge ? false : !payload.location.hideRangeTooltip,
 			lockToEdge: payload.location.lockToEdge ?? false,
 			lockToEdgeDirection: payload.location.lockToEdgeDirection ?? false,
 			offset: { x: payload.location.offset?.x ?? 0, y: payload.location.offset?.y ?? 0 },
 			wallBehavior: Sequencer.Crosshair.PLACEMENT_RESTRICTIONS[payload.location.wallBehavior ?? 'ANYWHERE'],
+			displayRangePoly: !!payload.location.limitRange?.invisible,
+			rangePolyFillColor: Number(
+				`0x${(payload.location.limitRange?.fill?.color ?? '#66AA66').substring(1)}`,
+			),
+			rangePolyFillAlpha: payload.location.limitRange?.fill?.alpha ?? 0.25,
+			rangePolyLineColor: Number(
+				`0x${(payload.location.limitRange?.line?.color ?? '#228822').substring(1)}`,
+			),
+			rangePolyLineAlpha: payload.location.limitRange?.line?.alpha ?? 0.5,
 		};
 	}
 	// #endregion

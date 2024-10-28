@@ -165,32 +165,91 @@ export const crosshairOptions = z
 			.literal(true)
 			.optional()
 			.describe('Prevents the crosshair from being manually rotated.'),
-		noGridHighlight: z.literal(true).optional().describe('Disables highlighting of the grid.'),
+		noGridHighlight: z
+			.literal(true)
+			.optional()
+			.describe('Prevents the crosshair\'s template from highlighting of the grid.'),
 		location: z
 			.object({
-				limitMinRange: z
-					.number()
-					.positive()
+				limitRange: z
+					.object({
+						min: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'The minimum distance to the placeable, in grid units (typically feet), that the crosshair can be placed.',
+							),
+						max: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'The maximum distance to the placeable, in grid units (typically feet), that the crosshair can be placed.',
+							),
+						fill: z
+							.object({
+								color: hexColour.optional().describe('The fill colour (default: #66aa66).'),
+								alpha: z
+									.number()
+									.gt(0)
+									.lt(1)
+									.optional()
+									.describe('The transparency of the \'s fill colour (default: 0.25).'),
+							})
+							.strict()
+							.refine(...nonEmpty)
+							.optional()
+							.describe(
+								'Fills the valid crosshair-placement area with a particular colour (default: #66aa66, 25% opacity).',
+							),
+						line: z
+							.object({
+								color: hexColour.optional().describe('The colour of the line (default: #228822).'),
+								alpha: z
+									.number()
+									.gt(0)
+									.lt(1)
+									.optional()
+									.describe('The transparency of the \'s fill colour (default: 0.5).'),
+							})
+							.strict()
+							.refine(...nonEmpty)
+							.optional()
+							.describe(
+								'Draws an outline around the valid crosshair-placement area (default: #228822, 50% opacity).',
+							),
+						invisible: z
+							.literal(true)
+							.describe('Prevents the range limits from being visible.')
+							.optional(),
+					})
+					.strict()
+					.refine(
+						obj => obj.min || obj.max,
+						'`limitRange` requires at least one of the `limitRange.min` and `limitRange.max` properties.',
+					)
+					.refine(
+						obj => (obj.min ?? 0) <= (obj.max ?? Infinity),
+						'`min` must be smaller than `max`, or equal to it.',
+					)
+					.refine(
+						obj => obj.invisible || !(obj.fill || obj.line),
+						'`fill` and `line` are redundant when `invisible` is enabled.',
+					)
 					.optional()
-					.describe(
-						'The minimum distance to the placeable, in grid units (typically feet), that the crosshair can be placed.',
-					),
-				limitMaxRange: z
-					.number()
-					.positive()
-					.optional()
-					.describe(
-						'The maximum distance to the placeable, in grid units (typically feet), that the crosshair can be placed.',
-					),
-				showRange: z
+					.describe('Impose limits on where the crosshair may be placed.'),
+				hideRangeTooltip: z
 					.literal(true)
 					.optional()
-					.describe('Displays the range between the placeable and the crosshair during placement.'),
+					.describe(
+						'During the crosshair\'s placement, its current range is shown by default next to the cursor. You can disable that with this option.\nThis option is automatically disabled if `lockToEdge` is enabled.',
+					),
 				lockToEdge: z
 					.literal(true)
 					.optional()
 					.describe(
-						'Locks the crosshair to the edge of the placeable (useful for cones without a range, such as *cone of cold*).',
+						'Locks the crosshair to the edge of the placeable (useful for lines and cones without a range, such as *lightning bolt* and *cone of cold*).',
 					),
 				lockToEdgeDirection: z
 					.literal(true)
@@ -225,20 +284,13 @@ export const crosshairOptions = z
 			.strict()
 			.refine(...nonEmpty)
 			.refine(
-				obj => (obj.limitMinRange ?? 0) <= (obj.limitMaxRange ?? Infinity),
-				'`limitMinRange` must be smaller than `limitMaxRange`.',
-			)
-			.refine(
 				obj => obj.lockToEdge || !obj.lockToEdgeDirection,
 				'`lockToEdgeDirection` requires `lockToEdge`.',
 			)
+			.refine(obj => !obj.lockToEdge || !obj.limitRange, '`limitRange` is incompatible with `lockToEdge`.')
 			.refine(
-				obj => !obj.lockToEdge || !(obj.limitMinRange || obj.limitMaxRange),
-				'`limitMinRange` and `limitMaxRange` are incompatible with `lockToEdge`.',
-			)
-			.refine(
-				obj => !obj.showRange || obj.lockToEdge,
-				'`showRange` is redundant if `lockToEdge` is `true`.',
+				obj => !obj.hideRangeTooltip || !obj.lockToEdge,
+				'`hideRangeTooltip` is redundant if `lockToEdge` is enabled.',
 			)
 			.optional()
 			.describe(
