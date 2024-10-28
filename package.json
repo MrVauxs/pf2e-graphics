@@ -52,7 +52,7 @@
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
 		"svelte": "^4.2.19",
 		"svelte-check": "^4.0.5",
-		"svelte-jsoneditor": "^1.1.1",
+		"svelte-jsoneditor": "^1.1.2",
 		"svelte-preprocess": "^6.0.3",
 		"tailwindcss": "^3.4.14",
 		"tslib": "^2.8.0",
