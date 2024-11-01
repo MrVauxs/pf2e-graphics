@@ -10,6 +10,26 @@
 	"styles": [
 		"dist/pf2e-graphics.css"
 	],
+	"packFolders": [
+		{
+			"name": "PF2e Graphics",
+			"sorting": "m",
+			"color": "#6f1c17",
+			"packs": [
+				"macros"
+			]
+		}
+	],
+	"packs": [
+		{
+			"label": "Macros",
+			"name": "macros",
+			"path": "dist/packs/macros",
+			"system": "pf2e",
+			"type": "Macro",
+			"flags": {}
+		}
+	],
 	"languages": [
 		{
 			"lang": "en",

@@ -1,5 +1,6 @@
 /* eslint-env node */
 import fs from 'node:fs';
+import path from 'node:path';
 import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
@@ -40,7 +41,12 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		},
 	},
 
-	resolve: { conditions: ['import', 'browser'] },
+	resolve: {
+		conditions: ['import', 'browser'],
+		alias: {
+			$lib: path.resolve(__dirname, './src/lib'),
+		},
+	},
 
 	server: {
 		open: '/join',
@@ -97,10 +103,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 				typescript: true,
 				eslint: process.env.IGNORE_ESLINT
 					? undefined
-					: {
-							useFlatConfig: true,
-							lintCommand: 'eslint',
-						},
+					: { useFlatConfig: true, lintCommand: 'eslint' },
 			}),
 		tsconfigPaths(),
 		svelte({
@@ -141,6 +144,40 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			},
 		},
 		getAnimationsPlugin(),
+		{
+			name: 'foundryvtt-compendium-sync',
+			configureServer(server) {
+				server.ws.on('foundryvtt-compendium-sync:update', (data, client) => {
+					console.log(
+						'Update to one of the compendiums received:',
+						data,
+					);
+
+					try {
+						fs.writeFileSync(
+							path.resolve(
+								__dirname,
+								`../../${data.path.replace('dist/', '')}/${data.json.name}.json`,
+							),
+							JSON.stringify(data.json, null, '\t'),
+						);
+
+						client.send(
+							'foundryvtt-compendium-sync:update:response',
+							{
+								data,
+							},
+						);
+					} catch (err) {
+						console.error(err);
+						client.send(
+							'foundryvtt-compendium-sync:update:error',
+							{ data, err },
+						);
+					}
+				});
+			},
+		},
 	],
 }));
 

@@ -4,6 +4,7 @@ import './app.postcss';
 import './view';
 import './storage';
 import './assets';
+import '$lib/devCompendiumSync';
 
 Hooks.once('pf2e.systemReady', () => {
 	import('./triggers');

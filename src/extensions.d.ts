@@ -1,6 +1,14 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
 import type { JSONData } from './storage/AnimCore';
+import 'vite/types/customEvent.d.ts';
+
+declare module 'vite/types/customEvent.d.ts' {
+	interface CustomEventMap {
+		'custom:foo': { msg: string };
+		// 'event-key': payload
+	}
+}
 
 declare module '@typhonjs-fvtt/runtime/svelte/application' {
 	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920
