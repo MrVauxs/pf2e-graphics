@@ -47,7 +47,7 @@
 						}
 					],
 					"default": true,
-					"trigger":[
+					"trigger": [
 						"effect",
 						"start-turn"
 					],
