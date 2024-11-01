@@ -1,3 +1,4 @@
+// TODO: (Fall Cleaning) Move to storage or $lib or elsewhere
 import type { JSONData } from './storage/AnimCore';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 

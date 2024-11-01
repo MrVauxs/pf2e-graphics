@@ -91,6 +91,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 	},
 
 	plugins: [
+		// TODO: (Fall cleaning) Move all these custom plugins to its own folder, this is getting cluttered
 		process.env.IGNORE_CHECKER
 			? undefined
 			: checker({

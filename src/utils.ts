@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-console */
+// TODO: (Fall Cleaning) Move to $lib
 export class ErrorMsg extends Error {
 	constructor(message: string) {
 		super(message);
