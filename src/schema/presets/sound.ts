@@ -19,10 +19,11 @@ export const soundOptions = z
 	.object({
 		volume: z
 			.number()
-			.positive()
-			.refine(num => num !== 100, '100 is the default and doesn\'t need to be configured.')
+			.gt(0)
+			.lte(1)
+			.refine(num => num !== 0.8, '0.8 is the default and doesn\'t need to be configured.')
 			.optional()
-			.describe('The sound\'s volume (default: 100).'),
+			.describe('The sound\'s volume (default: 0.8).'),
 		atLocation: atLocation.optional(),
 		radius: z
 			.number()

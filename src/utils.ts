@@ -42,6 +42,9 @@ export function i18n(string: string, format?: any) {
 	return game.i18n.format(string, format);
 }
 
+/**
+ * Returns `true` if the `val` is: `true`, a number, or a non-empty string, object, or array. Returns `false` otherwise (i.e. `null`, `undefined`, and empty strings, objects, or arrays).
+ */
 export function isTrueish<T>(val: T): val is NonNullable<T> {
 	return (
 		nonNullable(val)

@@ -13,20 +13,33 @@ export default function sound(
 
 	seq.file(window.AnimCore.parseFiles(payload.file));
 
-	// The JSON data is scaled such that 100 is the default.
-	seq.volume(((payload.volume ?? 100) / 100) * window.pf2eGraphics.liveSettings.volume);
+	seq.volume((payload.volume ?? 0.8) * window.pf2eGraphics.liveSettings.volume);
 
-	if (isTrueish(payload?.delay)) {
+	if (isTrueish(payload.delay)) {
 		typeof payload.delay === 'number'
 			? seq.delay(payload.delay)
 			: seq.delay(payload.delay.min, payload.delay.max);
 	}
 
-	if (isTrueish(payload?.duration)) seq.duration(payload.duration);
+	if (isTrueish(payload.waitUntilFinished)) {
+		if (typeof payload.waitUntilFinished === 'object') {
+			seq.waitUntilFinished(payload.waitUntilFinished.min, payload.waitUntilFinished.max);
+		} else {
+			seq.waitUntilFinished(payload.waitUntilFinished);
+		}
+	}
 
-	if (isTrueish(payload?.waitUntilFinished)) seq.waitUntilFinished(payload.waitUntilFinished);
+	if (payload.async) seq.async();
 
-	if (isTrueish(payload?.fadeIn)) {
+	if (isTrueish(payload.repeats)) {
+		if (typeof payload.repeats.delay === 'object') {
+			seq.repeats(payload.repeats.count, payload.repeats.delay.min, payload.repeats.delay.max);
+		} else {
+			seq.repeats(payload.repeats.count, payload.repeats.delay);
+		}
+	}
+
+	if (isTrueish(payload.fadeIn)) {
 		if (typeof payload.fadeIn === 'object') {
 			seq.fadeInAudio(payload.fadeIn?.value, payload.fadeIn);
 		} else {
@@ -34,7 +47,7 @@ export default function sound(
 		}
 	}
 
-	if (isTrueish(payload?.fadeOut)) {
+	if (isTrueish(payload.fadeOut)) {
 		if (typeof payload.fadeOut === 'object') {
 			seq.fadeOutAudio(payload.fadeOut?.value, payload.fadeOut);
 		} else {
@@ -42,7 +55,9 @@ export default function sound(
 		}
 	}
 
-	if (isTrueish(payload?.atLocation)) {
+	if (isTrueish(payload.duration)) seq.duration(payload.duration);
+
+	if (isTrueish(payload.atLocation)) {
 		payload.atLocation.forEach((atLocation) => {
 			if (atLocation.position === 'ABSOLUTE') return seq.atLocation(atLocation);
 
@@ -64,21 +79,23 @@ export default function sound(
 			return seq.atLocation(atLocation.position, options);
 		});
 
-		if (isTrueish(payload?.radius)) seq.radius(payload.radius);
-		if (isTrueish(payload?.constrainedByWalls)) seq.constrainedByWalls(payload.constrainedByWalls);
-		if (isTrueish(payload?.noDistanceEasing)) seq.distanceEasing(!payload.noDistanceEasing);
-		if (isTrueish(payload?.alwaysForGMs)) seq.alwaysForGMs(payload.alwaysForGMs);
-		if (isTrueish(payload?.baseEffect)) seq.baseEffect(payload.baseEffect);
-		if (isTrueish(payload?.muffledEffect)) seq.muffledEffect(payload.muffledEffect);
+		if (isTrueish(payload.radius)) seq.radius(payload.radius);
+		if (isTrueish(payload.constrainedByWalls)) seq.constrainedByWalls(payload.constrainedByWalls);
+		if (isTrueish(payload.noDistanceEasing)) seq.distanceEasing(!payload.noDistanceEasing);
+		if (isTrueish(payload.alwaysForGMs)) seq.alwaysForGMs(payload.alwaysForGMs);
+		if (isTrueish(payload.baseEffect)) seq.baseEffect(payload.baseEffect);
+		if (isTrueish(payload.muffledEffect)) seq.muffledEffect(payload.muffledEffect);
 	}
 
 	if (isTrueish(payload.audioChannel)) seq.audioChannel(payload.audioChannel);
 
-	if (isTrueish(payload?.name)) {
+	if (isTrueish(payload.name)) {
 		seq.name(payload.name);
 	} else if (data.item) {
 		seq.name(data.item.name);
 	}
+
+	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
 
 	return seq;
 }

@@ -57,7 +57,7 @@ export const effectOptions = z
 					.refine(...uniqueItems),
 			)
 			.describe(
-				'The actual file to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!).\nYou can provide multiple files and have PF2e Graphics select one at random each time the effect is executed using one of the following methods.\n- You can use handlebar notation—a comma-separated list inside braces—to indicate \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n- Instead of a string, you can use an array of strings as the value.\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. That means that, for example, `["path.{fire,ice}.1", "path.fire.1"]` would select from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
+				'The actual file to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!).\nYou can provide multiple files and have PF2e Graphics select one at random each time the effect is executed using one of the following methods.\n- You can use handlebar notation—a comma-separated list inside braces—to indicate \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n- Instead of a single string, you can use an array of strings as the value.\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. For example, `["path.{fire,ice}.1", "path.fire.1"]` selects from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
 			),
 		syncGroup: ID.optional().describe(
 			'Assigns the animation to a particular group. Animations in a given group all start at the same time, which can be useful if you\'ve got duplicated effects.',
@@ -87,18 +87,79 @@ export const effectOptions = z
 			.or(
 				z
 					.object({
-						min: z.number().min(0),
-						max: z.number().min(0),
+						min: z.number().positive(),
+						max: z.number().positive(),
 					})
 					.strict()
 					.refine(obj => obj.max > obj.min, '`max` must be greater than `min`.'),
 			)
-			.optional(),
-		duration: z.number().describe('The duration of the animation, in milliseconds.').positive().optional(),
+			.optional()
+			.describe(
+				'A duration, in milliseconds, for which to delay executing the effect. Instead of a single number, you can alternatively define an object; a random value is chosen between `min` and `max` on each execution.',
+			),
+		duration: z
+			.number()
+			.positive()
+			.optional()
+			.describe(
+				'The maximum duration of the effect, in milliseconds. If the provided duration is longer than the effect\'s source duration, it will loop for the given duration.',
+			),
 		waitUntilFinished: z
 			.number()
-			.refine(...nonZero)
+			.or(
+				z
+					.object({
+						min: z.number(),
+						max: z.number(),
+					})
+					.strict()
+					.refine(
+						obj => obj.min !== obj.max,
+						'The range is zero. Define `waitUntilFinished` as a number instead of an object if this is intentional.',
+					),
+			)
+			.optional()
+			.describe(
+				'After the `contents` of an effect are unrolled, each one is executed simultaneously by default. By marking an effect with `waitUntilFinished`, *subsequent* effects are not executed until this effect completes.\nThe value is a number, in milliseconds, that the following effect should wait after this effect\'s completion. Zero can be used to perform seamless, sequential playback; negative numbers can be used to cause the subsequent effect to begin earlier (without interrupting this effect).\nInstead of a single number, you can alternatively define an object; a random value is chosen between `min` and `max` on each execution.',
+			),
+		async: z // TODO superrefine this for repeats/waituntilfinished
+			.literal(true)
+			.optional()
+			.describe(
+				'If `repeats` is defined, this causes `waitUntilFinished` to instead apply to each repetition, rather than for the entire effect.',
+			),
+		repeats: z
+			.object({
+				count: z.number().min(1).int(),
+				delay: z
+					.number()
+					.refine(...nonZero)
+					.or(
+						z
+							.object({
+								min: z
+									.number()
+									.describe('The minimum delay between repetitions, in milliseconds.'),
+								max: z
+									.number()
+									.describe('The maximum delay between repetitions, in milliseconds.'),
+							})
+							.strict()
+							.refine(obj => obj.max > obj.min, '`max` must be greater than `min`.'),
+					)
+					.optional()
+					.describe(
+						'Set a duration to delay between each repetition. The value can either be a number, in milliseconds, or an object with `min` and `max` durations, from which a random value is chosen.',
+					),
+			})
+			.strict()
 			.optional(),
+		probability: z
+			.number()
+			.gt(0)
+			.lt(1)
+			.optional()
+			.describe('Sets the probability that this effect is executed each time it\'s triggered.'),
 	})
 	.strict()
 	.describe(
@@ -111,71 +172,69 @@ export const effectOptions = z
 export type EffectOptions = z.infer<typeof effectOptions>;
 
 /**
- * Zod schema for the shared options of `animateProperty` and `loopProperty`.
+ * Zod schema for the shared properties of a `varyProperties` object, which unifies the Sequencer `animateProperty` and `loopProperty` methods.
  */
-const animateAndLoopPropertyBaseOptions = z
-	.object({
-		duration: z.number().positive(),
-		from: z.number(),
-		to: z.number(),
-		delay: z.number().positive().optional(),
-		ease: easing.optional(),
-		gridUnits: z
-			.literal(true)
-			.optional()
-			.describe('Indicates that the `to` and `from` values are measured in grid units.'),
-	})
-	.strict();
+const varyPropertiesBaseObject = z.object({
+	property: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
+	target: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
+	duration: z.number().positive(),
+	from: z.number(),
+	to: z.number(),
+	delay: z.number().positive().optional(),
+	ease: easing.optional(),
+	gridUnits: z
+		.literal(true)
+		.optional()
+		.describe('Indicates that the `to` and `from` values are measured in grid units.'),
+});
 
 /**
- * Zod schema for the options of `animateProperty`.
+ * Zod schema for a `varyProperties` object, which unifies the Sequencer `animateProperty` and `loopProperty` methods.
  */
-const animatePropertyOptions = animateAndLoopPropertyBaseOptions
-	.extend({
-		absolute: z
-			.literal(true)
-			.optional()
-			.describe(
-				'Normally, `from` and `to` values are interpreted relatively, as multipliers on the initial value. This option instead makes them absolute: animating the width `to: 200` will make the final width 200 pixels, not 200 times the initial value.',
-			),
-		fromEnd: z
-			.literal(true)
-			.optional()
-			.describe(
-				'Indicates that this animation\'s `duration` should be anchored to the graphic\'s end, and counted backwards.',
-			),
-	})
-	.strict();
-
-/**
- * Zod schema for the options of `animateProperty`.
- */
-const loopPropertyOptions = animateAndLoopPropertyBaseOptions
-	.partial({
-		to: true,
-		from: true,
-	})
-	.extend({
-		loops: z
-			.number()
-			.int()
-			.positive()
-			.optional()
-			.describe('The number of loops to execute (default: infinite).'),
-		values: z
-			.array(z.number())
+const varyPropertiesObject = z
+	.union([
+		varyPropertiesBaseObject.extend({
+			type: z.literal('animate'),
+			absolute: z
+				.literal(true)
+				.optional()
+				.describe(
+					'Normally, `from` and `to` values are interpreted relatively, as multipliers on the initial value. This option instead makes them absolute: animating the width `to: 200` will make the final width 200 pixels, not 200 times the initial value.',
+				),
+			fromEnd: z
+				.literal(true)
+				.optional()
+				.describe(
+					'Indicates that this animation\'s `duration` should be anchored to the graphic\'s end, and counted backwards.',
+				),
+		}),
+		varyPropertiesBaseObject
+			.partial({
+				to: true,
+				from: true,
+			})
+			.extend({
+				type: z.literal('loop'),
+				loops: z
+					.number()
+					.int()
+					.positive()
+					.optional()
+					.describe('The number of loops to execute (default: infinite).'),
+				values: z
+					.array(z.number())
+					.refine(
+						arr => new Set(arr.map(e => JSON.stringify(e))).size > 1,
+						'Provide at least 2 unique values.',
+					)
+					.optional(),
+				pingPong: z.literal(true).optional(),
+			})
 			.refine(
-				arr => new Set(arr.map(e => JSON.stringify(e))).size > 1,
-				'Provide at least 2 unique values.',
-			)
-			.optional(),
-		pingPong: z.literal(true).optional(),
-	})
-	.strict()
-	.refine(
-		obj => (obj.to && obj.from) || obj.values,
-		'You must define either a range of values to loop over via `to` and `from`, or provide those values directly via `values`.',
-	)
+				obj => Boolean(obj.to && obj.from) !== 'values' in obj,
+				'You must define either a range of values to loop over via `to` and `from`, or provide those values directly via `values`.',
+			),
+	])
 	.refine(obj => (obj.to ?? Number.NaN) !== (obj.from ?? Number.NaN), '`to` and `from` can\'t be identical.');
 
 /**
@@ -190,11 +249,33 @@ const shapeOptions = z
 		name: ID.optional().describe(
 			'A name to identify the shape, so that it can be referenced in other properties.',
 		),
-		alpha: z.number().positive().optional().describe('The transparency of the entire shape.'),
-		fillColor: hexColour.optional().describe('The shape\'s fill colour.'),
-		fillAlpha: z.number().positive().optional().describe('The transparency of the shape\'s fill colour.'),
-		lineSize: z.number().positive().optional().describe('The width of the shape\'s outline, in pixels.'),
-		lineColor: hexColour.optional().describe('The colour of the shape\'s outline.'),
+		alpha: z
+			.number()
+			.gt(0)
+			.lt(1)
+			.optional()
+			.describe('The transparency of the entire shape (default: 1, fully opaque).'),
+		fill: z
+			.object({
+				color: hexColour.describe('The shape\'s fill colour.'),
+				alpha: z
+					.number()
+					.gt(0)
+					.lt(1)
+					.optional()
+					.describe('The transparency of the shape\'s fill colour (default: 1, fully opaque).'),
+			})
+			.strict()
+			.optional()
+			.describe('Fills the shape with a particular colour.'),
+		line: z
+			.object({
+				size: z.number().positive().describe('The stroke-width of the shape\'s outline, in pixels.'),
+				color: hexColour.describe('The colour of the shape\'s outline.'),
+			})
+			.strict()
+			.optional()
+			.describe('Defines an outline for the shape.'),
 		offset: z
 			.object({
 				x: offsetValue.optional(),
@@ -213,7 +294,6 @@ const shapeOptions = z
 			.describe('Sets the shape as a mask, hiding it and any graphic intersecting it.'),
 	})
 	.strict();
-// .describe('A shape object's common options.');
 
 /**
  * Zod schema for the options which are common to all graphic animations.
@@ -227,20 +307,58 @@ export const graphicOptions = z
 			.describe(
 				'A list of UUID strings representing one or more targets for the effect. These targets are always used, in addition to any targetted placeables when the effect is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis shouldn\'t be used very much outside custom animations for specific scenes.',
 			),
-		randomRotation: z.literal(true).optional(),
-		randomizeMirrorX: z.literal(true).optional(),
-		randomizeMirrorY: z.literal(true).optional(),
-		mirrorX: z.literal(true).optional(),
-		mirrorY: z.literal(true).optional(),
-		belowTokens: z.literal(true).optional(),
-		zIndex: z.number().optional(),
+		mirror: z
+			.object({
+				x: z
+					.enum(['always', 'random'])
+					.optional()
+					.describe(
+						'`true`: reflects the graphic across the x-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
+					),
+				y: z
+					.enum(['always', 'random'])
+					.optional()
+					.describe(
+						'`true`: reflects the graphic across the y-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
+					),
+			})
+			.strict()
+			.refine(...nonEmpty)
+			.optional()
+			.describe('Reflects the graphic along some axis.'),
+		elevation: z
+			.object({
+				zIndex: z
+					.number()
+					.optional()
+					.describe(
+						'A entity\'s \'z-index\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher z-index are rendered over the top of those with lower z-indices.\nZ-index differs from `sortLayer` in that it *only* determines the ordering of entities in the same sort layer. Therefore, unless you\'ve manually overriden a graphic\'s `sortLayer`, you should use `zIndex` to control the layering of the graphic among other graphics.',
+					),
+				sortLayer: z
+					.enum(['BELOW_TILES', 'BELOW_TOKENS', 'ABOVE_LIGHTING', 'ABOVE_INTERFACE'])
+					.or(z.number())
+					.optional()
+					.describe(
+						'An entity\'s \'sort layer\' is effectively just a number that describes that entity\'s \'type\', within the context of layered rendering. For instance, tokens, tiles, and weather all have different sort-layer values. For entities with the same elevation, the one with the higher sort-layer value is placed on top; this creates a kind of \'layering\' system for each type of entity (e.g. one layer for the scene, one for tiles, one for tokens, one for weather, etc.).\nThe default canvas ordering is scene, tiles, drawings, tokens, weather; above that still is lighting, then UI. The default sort-layer value for Sequencer effects is 800, which is above tokens but below weather effects. You can use one of the listed string values to modify this.\nYou can also choose to set a numeric value manually for more fine-tuned control. Note Foundry\'s [documentation](https://foundryvtt.com/api/classes/client.PrimaryCanvasGroup.html#SORT_LAYERS) for a guideline.',
+					),
+			})
+			.strict()
+			.optional()
+			.describe('Sets the elevation at which to execute the graphic.'),
+		rotate: angle
+			.or(z.literal('random'))
+			.optional()
+			.describe(
+				'An angle in degrees (°) to rotate the animation. Alternatively, use the value `"random"` to set a random rotation on each execution.',
+			),
+		// TODO everything below
 		tint: hexColour.describe('A hexadecimal colour code to give the animation a certain tint.').optional(),
-		rotate: angle.describe('An angle in degrees (°) to rotate the animation.').optional(),
-		opacity: z.number().describe('An opacity scaler from 0 to 1 (exclusive).').positive().lt(1).optional(),
+		opacity: z.number().positive().lt(1).optional().describe('An opacity scaler from 0 to 1 (exclusive).'),
 		mask: z.literal(true).optional(),
-		size: z
-			.number()
+		size: z // PLANS
+			.number() // Merge `size`, `scale`, and `scaleToObject` into one property
 			.or(
+				// Stop this madness!! 😤
 				z
 					.object({
 						value: z.number().positive(),
@@ -260,18 +378,21 @@ export const graphicOptions = z
 					.strict(),
 			)
 			.optional(),
-		spriteRotation: angle.optional(),
+		scaleIn: z.object({
+			// duration:
+		}),
 		scaleToObject: z
-			.number()
-			.or(
-				z
+			.object({
+				scale: z.number().positive(),
+				options: z
 					.object({
-						value: z.number().positive(),
 						uniform: z.literal(true).optional(),
 						considerTokenScale: z.literal(true).optional(),
 					})
-					.strict(),
-			)
+					.strict()
+					.optional(),
+			})
+			.strict()
 			.optional(),
 		spriteOffset: z
 			.object({
@@ -281,160 +402,88 @@ export const graphicOptions = z
 			})
 			.strict()
 			.optional(),
+		spriteRotation: angle.optional(),
 		moveTowards: easingOptions
 			.extend({
 				target: vector2.or(z.string()), // Also allows VisibleFoundryTypes but those aren't encodable in JSON
 			})
 			.strict()
 			.optional(),
-		missed: z.literal(true).optional(),
-		anchor: vector2.optional(),
-		template: z
-			.object({
-				gridSize: z.number().positive(),
-				startPoint: z.number(),
-				endPoint: z.number(),
-			})
-			.strict()
-			.optional(),
-		wait: z
-			.number()
-			.or(
-				z
-					.object({
-						min: z.number(),
-						max: z.number(),
-					})
-					.strict()
-					.refine(obj => obj.max > obj.min, '`max` must be greater than `min`.'),
-			)
-			.optional(),
-		persist: z
+		anchor: vector2.optional().describe(''),
+		// TODO everything above
+		persist: z // TODO: superrefine `TOKEN_PROTOTYPE` to require a token target
+			.enum(['CANVAS', 'TOKEN_PROTOTYPE'])
+			.optional()
+			.describe(
+				'Causes the graphic to become permanent. A persistent graphic can only be removed manually via the Sequence Manager.\n`"CANVAS"`: persists the graphic on the canvas.\n`"TOKEN_PROTOTYPE"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
+			),
+		missed: z // TODO: superrefine to require `anchor`, `atLocation`, `stretchTo`, or `rotateTowards`.
 			.literal(true)
-			.or(
+			.optional()
+			.describe(
+				'Causes the graphic to be localised near the target/anchor, but not actually centred directly on it.',
+			),
+		varyProperties: z
+			.array(
 				z
-					.object({
-						value: z.literal(true).optional(),
-						persistTokenPrototype: z.literal(true).optional(),
+					.discriminatedUnion('target', [
+						z.object({
+							target: z.literal('sprite'),
+							property: z.enum([
+								'alpha',
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+								'width',
+								'height',
+							]),
+						}),
+						z.object({
+							target: z.literal('alphaFilter'),
+							property: z.literal('alpha'),
+						}),
+						z.object({
+							target: z.literal('spriteContainer'),
+							property: z.enum([
+								'position.x',
+								'position.y',
+								'rotation',
+								'angle',
+								'scale.x',
+								'scale.y',
+							]),
+						}),
+					])
+					.and(varyPropertiesObject)
+					// Required due to Zod limitation (can't set `strict()` on above objects due to intersection)
+					.superRefine((obj, ctx) => {
+						const unrecognisedKeys = [];
+						for (const key in obj) {
+							const recognised
+								= key in varyPropertiesBaseObject.shape
+								|| ['type', 'absolute', 'fromEnd', 'loops', 'values', 'pingPong'].includes(key);
+							if (recognised) unrecognisedKeys.push(key);
+						}
+						if (unrecognisedKeys.length) {
+							ctx.addIssue({
+								code: z.ZodIssueCode.unrecognized_keys,
+								keys: unrecognisedKeys,
+							});
+						}
 					})
-					.strict()
-					.refine(...nonEmpty),
-			)
-			.optional(),
-		repeats: z
-			.number()
-			.min(1)
-			.int()
-			.or(
-				z
-					.object({
-						count: z.number().min(1),
-						delayMin: z.number().optional(),
-						delayMax: z.number().positive().optional(),
-					})
-					.strict()
-					.refine(
-						obj => (obj.delayMax ? obj.delayMin || obj.delayMin === 0 : true),
-						'`delayMin` is required if `delayMax` is defined.',
-					)
-					.refine(
-						obj => (obj.delayMax ? obj.delayMax > obj.delayMin! : true),
-						'`delayMax` must be greater than `delayMin`.',
+					.describe(
+						'A property-variation configuration object.\nFirst, set the `target` and `property` of said target to vary, then choose the `type` of variation you want (either `"animate"` or `"loop"`).\nSee [Sequencer\'s documentation](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) for more information.',
 					),
 			)
-			.optional(),
-		loopProperty: z
-			.array(
-				z.discriminatedUnion('target', [
-					z
-						.object({
-							target: z.literal('sprite'),
-							property: z.enum([
-								'alpha',
-								'position.x',
-								'position.y',
-								'rotation',
-								'angle',
-								'scale.x',
-								'scale.y',
-								'width',
-								'height',
-							]),
-							options: loopPropertyOptions,
-						})
-						.strict(),
-					z
-						.object({
-							target: z.literal('alphaFilter'),
-							property: z.literal('alpha'),
-							options: loopPropertyOptions,
-						})
-						.strict(),
-					z
-						.object({
-							target: z.literal('spriteContainer'),
-							property: z.enum([
-								'position.x',
-								'position.y',
-								'rotation',
-								'angle',
-								'scale.x',
-								'scale.y',
-							]),
-							options: loopPropertyOptions,
-						})
-						.strict(),
-				]),
-			)
 			.min(1)
 			.refine(...uniqueItems)
-			.optional(),
-		animateProperty: z
-			.array(
-				z.discriminatedUnion('target', [
-					z
-						.object({
-							target: z.literal('sprite'),
-							property: z.enum([
-								'alpha',
-								'position.x',
-								'position.y',
-								'rotation',
-								'angle',
-								'scale.x',
-								'scale.y',
-								'width',
-								'height',
-							]),
-							options: animatePropertyOptions,
-						})
-						.strict(),
-					z
-						.object({
-							target: z.literal('alphaFilter'),
-							property: z.literal('alpha'),
-							options: animatePropertyOptions,
-						})
-						.strict(),
-					z
-						.object({
-							target: z.literal('spriteContainer'),
-							property: z.enum([
-								'position.x',
-								'position.y',
-								'rotation',
-								'angle',
-								'scale.x',
-								'scale.y',
-							]),
-							options: animatePropertyOptions,
-						})
-						.strict(),
-				]),
-			)
-			.min(1)
-			.refine(...uniqueItems)
-			.optional(),
+			.optional()
+			.describe(
+				'An array of objects, where each object represents a configuration to vary a specific property during the course of the graphic\'s execution.\nThis is a combined interface for Sequencer\'s [`animateProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) and [`loopProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=loop-property) methods.',
+			),
 		screenSpace: z
 			.literal(true)
 			.or(
@@ -570,7 +619,7 @@ export const graphicOptions = z
 					.object({
 						entry: z.string().min(1),
 						options: z
-							.object({}) // TODO https://pixijs.io/pixi-text-style
+							.object({}) // TODO: https://pixijs.io/pixi-text-style
 							.refine(...nonEmpty)
 							.optional(),
 					})
@@ -788,7 +837,7 @@ export const graphicOptions = z
 			.refine(...uniqueItems)
 			.optional()
 			.describe(
-				'A set of visual filters to apply to the graphic.\nSee [PixiJS](https://pixijs.io/filters/docs/) for more information.',
+				'An array of visual filters to apply to the graphic.\nSee [PixiJS](https://pixijs.io/filters/docs/) for more information.',
 			),
 	})
 	.strict()

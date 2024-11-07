@@ -64,7 +64,6 @@ const animationPayload = z
 			.strict(),
 		z
 			.object({ type: z.literal('animation') })
-			.merge(graphicOptions)
 			.merge(animationOptions)
 			.strict(),
 	])

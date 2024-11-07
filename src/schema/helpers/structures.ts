@@ -17,8 +17,8 @@ export const vector2 = z
 			.optional(),
 	})
 	.strict()
-	.refine(...nonEmpty)
-	.describe('A 2D vector.');
+	.refine(...nonEmpty);
+	// .describe('A 2D vector.');
 
 /**
  * Zod schema for an offset value, in pixels. Positive values shift downward or rightward as appropriate.
@@ -68,7 +68,12 @@ export const easingOptions = z
  * Zod schema for an easing/delay object with a `value` property included (typically used for fade-in/-out effects).
  */
 export const easingOptionsWithValue = easingOptions
-	.extend({ value: z.number().refine(...nonZero) })
+	.extend({
+		value: z
+			.number()
+			.refine(...nonZero)
+			.describe('The duration over which the fade occurs.'),
+	})
 	.strict()
 	.describe(
 		'An easing/delay object with a `value` property included (typically used for fade-in/-out effects).',
