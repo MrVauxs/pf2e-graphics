@@ -15,6 +15,11 @@
 			"lang": "en",
 			"name": "English",
 			"path": "lang/en.json"
+		},		
+		{
+			"lang": "pl",
+			"name": "Polski",
+			"path": "lang/pl.json"
 		}
 	],
 	"compatibility": {
@@ -65,6 +70,12 @@
 			"twitter": "@ThatVauxs",
 			"email": "mrvauxs@gmail.com",
 			"ko-fi": "MrVauxs",
+			"flags": {}
+		},
+		{
+			"name": "Spappz",
+			"discord": "spap",
+			"ko-fi": "spappz",
 			"flags": {}
 		}
 	],

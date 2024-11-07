@@ -3,6 +3,7 @@
 import { nonEmpty } from './schema/helpers/refinements';
 
 /* eslint-disable no-console */
+// TODO: (Fall Cleaning) Move to $lib
 export class ErrorMsg extends Error {
 	constructor(message: string) {
 		super(message);
