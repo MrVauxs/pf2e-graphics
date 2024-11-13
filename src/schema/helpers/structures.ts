@@ -38,6 +38,16 @@ export const vector2WithOffset = vector2Base
 	.refine(obj => obj.x || obj.y, 'At least one of `x` and `y` must be defined.');
 
 /**
+ * Zod schema for a 2D scaling.
+ */
+export const scaling2 = z
+	.object({
+		x: z.number().positive().optional().describe('The scale factor along the horizontal axis.'),
+		y: z.number().positive().optional().describe('The scale factor along the vertical axis.'),
+	})
+	.strict();
+
+/**
  * Zod schema for the base options of animation modifier's easing.
  */
 export const easingOptions = z
@@ -51,21 +61,6 @@ export const easingOptions = z
 	})
 	.strict()
 	.describe('The base options of animation modifier\'s easing.');
-
-/**
- * Zod schema for an easing/delay object with a `value` property included (typically used for fade-in/-out effects).
- */
-export const easingOptionsWithValue = easingOptions
-	.extend({
-		value: z
-			.number()
-			.refine(...nonZero)
-			.describe('The duration over which the fade occurs.'),
-	})
-	.strict()
-	.describe(
-		'An easing/delay object with a `value` property included (typically used for fade-in/-out effects).',
-	);
 
 /**
  * Zod schema for a configuration to stretch an animation towards a particular placeable on the canvas, with an optional offset.

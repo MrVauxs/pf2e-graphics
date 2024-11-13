@@ -34,7 +34,7 @@ export const ID = z
 		'This name is reserved.',
 	)
 	.describe(
-		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others.',
+		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others. It should be unique across all animations that might be executed in your world, so make sure it\'s reasonably distinguished!',
 	);
 
 /**
