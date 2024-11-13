@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import { pluralise } from '../../../scripts/helpers';
 import { angle, easing, filePath, hexColour, ID, sequencerDBEntry, UUID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
-import { easingOptions, easingOptionsWithValue, offset, offsetValue, vector2 } from '../helpers/structures';
+import { easingOptions, easingOptionsWithValue, vector2, vector2WithOffset } from '../helpers/structures';
 
 export { animationOptions } from './animation';
 export { crosshairOptions } from './crosshair';
@@ -66,6 +67,13 @@ export const effectOptions = z
 			.literal(true)
 			.optional()
 			.describe('Causes the animation to executed locally only (i.e. only for the triggering user).'),
+		users: z
+			.array(z.string())
+			.min(1)
+			.optional()
+			.describe(
+				'An array of user IDs or usernames which can observe the effect.\nThis shouldn\'t be used very much outside custom animations.',
+			),
 		tieToDocuments: z
 			.literal(true)
 			.optional()
@@ -172,6 +180,67 @@ export const effectOptions = z
 export type EffectOptions = z.infer<typeof effectOptions>;
 
 /**
+ * Zod schema for the shared properties of a `rotation` object.
+ */
+const rotationBaseObject = z.object({
+	spinIn: easingOptions
+		.partial()
+		.extend({
+			initialAngle: angle.or(z.literal(0)).describe('The angle from which to start the rotation.'),
+			duration: z
+				.number()
+				.positive()
+				.describe('The duration of the rotation before it reaches its final value, in milliseconds.'),
+		})
+		.strict()
+		.optional()
+		.describe('Causes the graphic to spin from an initial angle to its defined angle when it is executed.'),
+	spinOut: easingOptions
+		.partial()
+		.extend({
+			finalAngle: angle.or(z.literal(0)).describe('The angle at which to end the rotation.'),
+			duration: z
+				.number()
+				.positive()
+				.describe('How long the rotation takes to reach its final value, in milliseconds.'),
+		})
+		.strict()
+		.optional()
+		.describe(
+			'Causes the graphic to spin from its defined angle to a final one when it is about to finish executing.',
+		),
+});
+
+const positionBaseObject = z.object({
+	offset: vector2.optional().describe('Offsets the graphic\'s anchor.'),
+	spriteOffset: vector2WithOffset
+		.optional()
+		.describe(
+			'Offsets the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `offset` anyway.',
+		),
+	randomOffset: z
+		.number()
+		.optional()
+		.describe(
+			'Causes the effect to be offset by a random amount. The value is a multiplier applied to `offset`.',
+		),
+	gridUnits: z
+		.literal(true)
+		.optional()
+		.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
+	local: z
+		.literal(true)
+		.optional()
+		.describe('Causes the `offset` to be local (that is, applied before the effect\'s rotation).'),
+	missed: z // TODO: superrefine to require `anchor`, `atLocation`, `stretchTo`, or `rotateTowards`.
+		.literal(true)
+		.optional()
+		.describe(
+			'Causes the graphic to be localised near the target/anchor, but not actually centred directly on it.',
+		),
+});
+
+/**
  * Zod schema for the shared properties of a `varyProperties` object, which unifies the Sequencer `animateProperty` and `loopProperty` methods.
  */
 const varyPropertiesBaseObject = z.object({
@@ -276,16 +345,7 @@ const shapeOptions = z
 			.strict()
 			.optional()
 			.describe('Defines an outline for the shape.'),
-		offset: z
-			.object({
-				x: offsetValue.optional(),
-				y: offsetValue.optional(),
-				gridUnits: z
-					.literal(true)
-					.optional()
-					.describe('Indicates that the offset\'s `x` and `y` values are measured in grid units.'),
-			})
-			.strict()
+		offset: vector2WithOffset
 			.optional()
 			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
 		isMask: z
@@ -307,19 +367,19 @@ export const graphicOptions = z
 			.describe(
 				'A list of UUID strings representing one or more targets for the effect. These targets are always used, in addition to any targetted placeables when the effect is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis shouldn\'t be used very much outside custom animations for specific scenes.',
 			),
-		mirror: z
+		reflection: z
 			.object({
 				x: z
-					.enum(['always', 'random'])
+					.enum(['ALWAYS', 'RANDOM'])
 					.optional()
 					.describe(
-						'`true`: reflects the graphic across the x-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
+						'`"ALWAYS"`: reflects the graphic across the x-axis.\n`"RANDOM"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
 					),
 				y: z
-					.enum(['always', 'random'])
+					.enum(['ALWAYS', 'RANDOM'])
 					.optional()
 					.describe(
-						'`true`: reflects the graphic across the y-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
+						'`"ALWAYS"`: reflects the graphic across the y-axis.\n`"RANDOM"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
 					),
 			})
 			.strict()
@@ -345,16 +405,95 @@ export const graphicOptions = z
 			.strict()
 			.optional()
 			.describe('Sets the elevation at which to execute the graphic.'),
-		rotate: angle
-			.or(z.literal('random'))
+		rotation: z
+			.discriminatedUnion('type', [
+				z
+					.object({
+						type: z.literal('ABSOLUTE'),
+						angle: angle
+							.or(z.literal('RANDOM'))
+							.optional()
+							.describe(
+								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
+							),
+
+						spriteAngle: angle
+							.or(z.enum(['RANDOM', 'NONE']))
+							.optional()
+							.describe(
+								'An angle in degrees (°) to rotate the graphic within its container/bounding box. Alternatively, use the value `"RANDOM"` to set a random sprite rotation on each execution. The value `"NONE"`, lastly, prevents the graphic from rotating, even if its container does (see `varyProperties`).\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `angle` anyway.',
+							),
+					})
+					.merge(rotationBaseObject)
+					.strict(),
+				z
+					.object({
+						type: z.literal('DIRECTED'),
+						target: vector2
+							.or(z.enum(['SOURCE', 'TARGET']))
+							.or(ID)
+							.describe(
+								'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"TARGET"`. In the latter case, rotation is only applied if a target is provided on execution (the exact behaviour depends on the preset `type`).',
+							),
+						offset: vector2.optional().describe('Offsets the target by a fixed amount.'),
+						randomOffset: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'Causes the effective target to be offset by a random amount. The value is a multiplier applied to the target\'s placeable size, or 1 grid space if it doesn\'t have a size.',
+							),
+						local: z.literal(true).optional(),
+						gridUnits: z
+							.literal(true)
+							.optional()
+							.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
+						rotationOffset: angle
+							.optional()
+							.describe(
+								'A fixed rotation to apply after the graphic is oriented towards the target.',
+							),
+					})
+					.merge(rotationBaseObject)
+					.strict(),
+			])
+			.refine(...nonEmpty)
+			.superRefine((obj, ctx) => {
+				if (obj.type !== 'DIRECTED' || obj.offset) return true;
+				const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(key => key in obj);
+				if (keysNeedingOffset.length) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.unrecognized_keys,
+						keys: keysNeedingOffset,
+						message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
+					});
+				}
+			})
 			.optional()
 			.describe(
-				'An angle in degrees (°) to rotate the animation. Alternatively, use the value `"random"` to set a random rotation on each execution.',
+				'Controls the rotation of the graphic. You can either define an independent rotation (`"type": "ABSOLUTE"`), or rotate relative to another point or object (`"type": "DIRECTED"`).',
 			),
-		// TODO everything below
+		visibility: z
+			.object({
+				opacity: z.number().gt(0).lt(1).optional().describe('An opacity scaler from 0 to 1 (exclusive).'),
+				mask: z
+					.array(z.enum(['SOURCES', 'TARGETS']))
+					.min(1)
+					.refine(...uniqueItems)
+					.optional()
+					.describe('Causes the graphic to act as a mask for the effect\'s `SOURCES` and/or `TARGETS`.'),
+				xray: z
+					.literal(true)
+					.optional()
+					.describe(
+						'Causes the graphic to be visible even if it would normally be hidden due to token vision.',
+					),
+			})
+			.strict()
+			.refine(...nonEmpty)
+			.optional(),
 		tint: hexColour.describe('A hexadecimal colour code to give the animation a certain tint.').optional(),
-		opacity: z.number().positive().lt(1).optional().describe('An opacity scaler from 0 to 1 (exclusive).'),
-		mask: z.literal(true).optional(),
+		// TODO everything below
 		size: z // PLANS
 			.number() // Merge `size`, `scale`, and `scaleToObject` into one property
 			.or(
@@ -394,34 +533,126 @@ export const graphicOptions = z
 			})
 			.strict()
 			.optional(),
-		spriteOffset: z
-			.object({
-				offset,
-				gridUnits: z.literal(true).optional(),
-				local: z.literal(true).optional(),
-			})
-			.strict()
-			.optional(),
-		spriteRotation: angle.optional(),
-		moveTowards: easingOptions
-			.extend({
-				target: vector2.or(z.string()), // Also allows VisibleFoundryTypes but those aren't encodable in JSON
-			})
-			.strict()
-			.optional(),
-		anchor: vector2.optional().describe(''),
 		// TODO everything above
+		position: z
+			.array(
+				z
+					.discriminatedUnion('type', [
+						z
+							.object({
+								type: z.literal('STATIC'),
+								target: vector2
+									.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATE']))
+									.or(ID)
+									.describe(
+										'Where the graphic should be placed. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"`, `"TARGETS"`, or `"TEMPLATE"` (if it exits).\n- Another ongoing effect\'s or crosshair\'s `name`.',
+									),
+								moveTowards: easingOptions
+									.extend({
+										target: vector2
+											.or(z.enum(['SOURCES', 'TARGETS']))
+											.or(ID)
+											.describe(
+												'Where the graphic should move towards. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"` or `"TARGETS"` (if they exist).\n- Another ongoing effect\'s or crosshair\'s `name`.',
+											),
+										speed: z
+											.number()
+											.positive()
+											.optional()
+											.describe(
+												'Sets the speed at which the graphic moves towards the target',
+											),
+									})
+									.strict()
+									.optional(),
+							})
+							.merge(positionBaseObject)
+							.strict(),
+						z
+							.object({
+								type: z.literal('DYNAMIC'),
+								target: z
+									.enum(['SOURCES', 'TARGETS', 'TEMPLATE'])
+									.describe('What the graphic should be attached to.'),
+								align: z
+									.enum([
+										'top-left',
+										'top',
+										'top-right',
+										'left',
+										'right',
+										'bottom-left',
+										'bottom',
+										'bottom-right',
+									])
+									.optional()
+									.describe(
+										'Snaps the effect to a particular point on the `target` (default: centre).',
+									),
+								edge: z.enum(['inner', 'outer']).optional(),
+								unbindVisibility: z
+									.literal(true)
+									.optional()
+									.describe(
+										'Causes the graphic to not follow the attached placeable\'s visibility, and instead remain constant.',
+									),
+								unbindAlpha: z
+									.literal(true)
+									.optional()
+									.describe(
+										'Causes the graphic to not follow the attached placeable\'s alpha, and instead remain constant.',
+									),
+								ignoreRotation: z
+									.literal(true)
+									.optional()
+									.describe(
+										'Causes the graphic to not follow the attached placeable\'s rotation, and instead remain constant.',
+									),
+								unbindScale: z
+									.literal(true)
+									.optional()
+									.describe(
+										'Causes the graphic to not follow the attached placeable\'s scale, and instead remain constant.',
+									),
+								unbindElevation: z
+									.literal(true)
+									.optional()
+									.describe(
+										'Causes the graphic to not follow the attached placeable\'s elevation, and instead remain constant.',
+									),
+							})
+							.merge(positionBaseObject)
+							.strict(),
+					])
+					.superRefine((obj, ctx) => {
+						if (obj.type === 'DYNAMIC' && obj.edge && !obj.offset) {
+							ctx.addIssue({
+								code: z.ZodIssueCode.custom,
+								message: '`edge` requires `offset`.',
+							});
+						}
+						const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(
+							key => key in obj,
+						);
+						if (keysNeedingOffset.length) {
+							return ctx.addIssue({
+								code: z.ZodIssueCode.unrecognized_keys,
+								keys: keysNeedingOffset,
+								message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
+							});
+						}
+					})
+					.describe(
+						'Configures where and how the graphic should be placed.\n`"type": "STATIC"`: sets a constant position for the graphic.\n`"type": "DYNAMIC"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.',
+					),
+			)
+			.min(1)
+			.describe('An array of positions at which to execute the graphic.'),
 		persist: z // TODO: superrefine `TOKEN_PROTOTYPE` to require a token target
 			.enum(['CANVAS', 'TOKEN_PROTOTYPE'])
 			.optional()
 			.describe(
 				'Causes the graphic to become permanent. A persistent graphic can only be removed manually via the Sequence Manager.\n`"CANVAS"`: persists the graphic on the canvas.\n`"TOKEN_PROTOTYPE"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
-			),
-		missed: z // TODO: superrefine to require `anchor`, `atLocation`, `stretchTo`, or `rotateTowards`.
-			.literal(true)
-			.optional()
-			.describe(
-				'Causes the graphic to be localised near the target/anchor, but not actually centred directly on it.',
 			),
 		varyProperties: z
 			.array(
@@ -493,7 +724,7 @@ export const graphicOptions = z
 							.literal(true)
 							.optional()
 							.describe('Renders the graphic above Foundry\'s UI elements.'),
-						offset: offset.optional().describe('Offsets the graphic from its `anchor`.'),
+						offset: vector2.optional().describe('Offsets the graphic from its `anchor`.'),
 						anchor: z
 							.object({
 								x: z
