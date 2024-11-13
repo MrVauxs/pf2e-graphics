@@ -492,7 +492,7 @@ export const graphicOptions = z
 			.strict()
 			.refine(...nonEmpty)
 			.optional(),
-		tint: hexColour.describe('A hexadecimal colour code to give the animation a certain tint.').optional(),
+		tint: hexColour.describe('A hexadecimal colour-code to give the animation a certain tint.').optional(),
 		// TODO everything below
 		size: z // PLANS
 			.number() // Merge `size`, `scale`, and `scaleToObject` into one property
@@ -623,27 +623,155 @@ export const graphicOptions = z
 							})
 							.merge(positionBaseObject)
 							.strict(),
+						z
+							.object({
+								type: z.literal('SCREEN_SPACE'),
+								aboveUI: z
+									.literal(true)
+									.optional()
+									.describe('Renders the graphic above Foundry\'s UI elements.'),
+								anchor: z
+									.object({
+										x: z
+											.number()
+											.describe(
+												'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
+											),
+										y: z
+											.number()
+											.describe(
+												'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
+											),
+									})
+									.strict()
+									.refine(
+										obj => obj.x !== 0.5 || obj.y !== 0.5,
+										'The default `anchor` is the centre of the screen (`{ x: 0.5, y: 0.5 }`) and doesn\'t need to be configured.',
+									)
+									.optional()
+									.describe('Locks the graphic to some point on the screen (default: centre).'),
+								offset: vector2.optional().describe('Offsets the graphic from its `anchor`.'),
+								scale: z
+									.object({
+										x: z
+											.number()
+											.positive()
+											.refine(
+												num => num !== 1,
+												'The default `x` scale is `1` and doesn\'t need to be configured.',
+											)
+											.optional()
+											.describe('Scales the graphic in the `x` direction.'),
+										y: z
+											.number()
+											.positive()
+											.refine(
+												num => num !== 1,
+												'The default `y` scale is `1` and doesn\'t need to be configured.',
+											)
+											.optional()
+											.describe('Scales the graphic in the `y` direction.'),
+										fitX: z
+											.literal(true)
+											.optional()
+											.describe(
+												'Fits the graphic\'s `x` dimension to the width of the screen.',
+											),
+										fitY: z
+											.literal(true)
+											.optional()
+											.describe(
+												'Fits the graphic\'s `y` dimension to the height of the screen.',
+											),
+										ratioX: z
+											.literal(true)
+											.optional()
+											.describe(
+												'Forces the graphic\'s `x` dimension to be scaled proportionally to the `y` dimension, if the latter is scaled.',
+											),
+										ratioY: z
+											.literal(true)
+											.optional()
+											.describe(
+												'Forces the graphic\'s `y` dimension to be scaled proportionally to the `x` dimension, if the latter is scaled.',
+											),
+									})
+									.strict()
+									.refine(...nonEmpty)
+									.superRefine((obj, ctx) => {
+										if (obj.x && obj.fitX) {
+											return ctx.addIssue({
+												code: z.ZodIssueCode.custom,
+												message: '`x` conflicts with `fitX`. Choose one or the other.',
+											});
+										}
+										if (obj.y && obj.fitY) {
+											return ctx.addIssue({
+												code: z.ZodIssueCode.custom,
+												message: '`y` conflicts with `fitY`. Choose one or the other.',
+											});
+										}
+										if (obj.ratioX) {
+											if (obj.x || obj.fitX) {
+												return ctx.addIssue({
+													code: z.ZodIssueCode.custom,
+													message:
+														'`ratioX` conflicts with `x` and `fitX`. Choose one or the other.',
+												});
+											}
+											if (!obj.y && !obj.fitY) {
+												return ctx.addIssue({
+													code: z.ZodIssueCode.custom,
+													message:
+														'No point locking `ratioX` if neither `y` nor `fitY` are used!',
+												});
+											}
+										}
+										if (obj.ratioY) {
+											if (obj.y || obj.fitY) {
+												return ctx.addIssue({
+													code: z.ZodIssueCode.custom,
+													message:
+														'`ratioY` conflicts with `y` and `fitY`. Choose one or the other.',
+												});
+											}
+											if (!obj.x && !obj.fitX) {
+												return ctx.addIssue({
+													code: z.ZodIssueCode.custom,
+													message:
+														'No point locking `ratioY` if neither `x` nor `fitX` are used!',
+												});
+											}
+										}
+									})
+									.optional()
+									.describe('Allows you to adjust the graphic\'s scale.'),
+							})
+							.strict(),
 					])
 					.superRefine((obj, ctx) => {
-						if (obj.type === 'DYNAMIC' && obj.edge && !obj.offset) {
-							ctx.addIssue({
-								code: z.ZodIssueCode.custom,
-								message: '`edge` requires `offset`.',
-							});
-						}
-						const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(
-							key => key in obj,
-						);
-						if (keysNeedingOffset.length) {
-							return ctx.addIssue({
-								code: z.ZodIssueCode.unrecognized_keys,
-								keys: keysNeedingOffset,
-								message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
-							});
+						if (obj.type === 'SCREEN_SPACE') return;
+						if (!obj.offset) {
+							if (obj.type === 'DYNAMIC' && obj.edge) {
+								ctx.addIssue({
+									code: z.ZodIssueCode.custom,
+									message: '`edge` requires `offset`.',
+								});
+							}
+							const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(
+								key => key in obj,
+							);
+							if (keysNeedingOffset.length) {
+								return ctx.addIssue({
+									code: z.ZodIssueCode.unrecognized_keys,
+									keys: keysNeedingOffset,
+									message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
+								});
+							}
 						}
 					})
 					.describe(
-						'Configures where and how the graphic should be placed.\n`"type": "STATIC"`: sets a constant position for the graphic.\n`"type": "DYNAMIC"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.',
+						'Configures where and how the graphic should be placed.\n`"type": "STATIC"`: sets a constant position for the graphic.\n`"type": "DYNAMIC"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.\n`"type": "SCREEN_SPACE": Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.',
 					),
 			)
 			.min(1)
@@ -714,135 +842,6 @@ export const graphicOptions = z
 			.optional()
 			.describe(
 				'An array of objects, where each object represents a configuration to vary a specific property during the course of the graphic\'s execution.\nThis is a combined interface for Sequencer\'s [`animateProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) and [`loopProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=loop-property) methods.',
-			),
-		screenSpace: z
-			.literal(true)
-			.or(
-				z
-					.object({
-						aboveUI: z
-							.literal(true)
-							.optional()
-							.describe('Renders the graphic above Foundry\'s UI elements.'),
-						offset: vector2.optional().describe('Offsets the graphic from its `anchor`.'),
-						anchor: z
-							.object({
-								x: z
-									.number()
-									.describe(
-										'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
-									),
-								y: z
-									.number()
-									.describe(
-										'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
-									),
-							})
-							.strict()
-							.refine(
-								obj => obj.x !== 0.5 || obj.y !== 0.5,
-								'The default `anchor` is the centre of the screen (`{ x: 0.5, y: 0.5 }`) and doesn\'t need to be configured.',
-							)
-							.optional()
-							.describe('Locks the graphic to some point on the screen (default: centre).'),
-						scale: z
-							.object({
-								x: z
-									.number()
-									.positive()
-									.refine(
-										num => num !== 1,
-										'The default `x` scale is `1` and doesn\'t need to be configured.',
-									)
-									.optional()
-									.describe('Scales the graphic in the `x` direction.'),
-								y: z
-									.number()
-									.positive()
-									.refine(
-										num => num !== 1,
-										'The default `y` scale is `1` and doesn\'t need to be configured.',
-									)
-									.optional()
-									.describe('Scales the graphic in the `y` direction.'),
-								fitX: z
-									.literal(true)
-									.optional()
-									.describe('Fits the graphic\'s `x` dimension to the width of the screen.'),
-								fitY: z
-									.literal(true)
-									.optional()
-									.describe('Fits the graphic\'s `y` dimension to the height of the screen.'),
-								ratioX: z
-									.literal(true)
-									.optional()
-									.describe(
-										'Forces the graphic\'s `x` dimension to be scaled proportionally to the `y` dimension, if the latter is scaled.',
-									),
-								ratioY: z
-									.literal(true)
-									.optional()
-									.describe(
-										'Forces the graphic\'s `y` dimension to be scaled proportionally to the `x` dimension, if the latter is scaled.',
-									),
-							})
-							.strict()
-							.refine(...nonEmpty)
-							.superRefine((obj, ctx) => {
-								if (obj.x && obj.fitX) {
-									return ctx.addIssue({
-										code: z.ZodIssueCode.custom,
-										message: '`x` conflicts with `fitX`. Choose one or the other.',
-									});
-								}
-								if (obj.y && obj.fitY) {
-									return ctx.addIssue({
-										code: z.ZodIssueCode.custom,
-										message: '`y` conflicts with `fitY`. Choose one or the other.',
-									});
-								}
-								if (obj.ratioX) {
-									if (obj.x || obj.fitX) {
-										return ctx.addIssue({
-											code: z.ZodIssueCode.custom,
-											message:
-												'`ratioX` conflicts with `x` and `fitX`. Choose one or the other.',
-										});
-									}
-									if (!obj.y && !obj.fitY) {
-										return ctx.addIssue({
-											code: z.ZodIssueCode.custom,
-											message:
-												'No point locking `ratioX` if neither `y` nor `fitY` are used!',
-										});
-									}
-								}
-								if (obj.ratioY) {
-									if (obj.y || obj.fitY) {
-										return ctx.addIssue({
-											code: z.ZodIssueCode.custom,
-											message:
-												'`ratioY` conflicts with `y` and `fitY`. Choose one or the other.',
-										});
-									}
-									if (!obj.x && !obj.fitX) {
-										return ctx.addIssue({
-											code: z.ZodIssueCode.custom,
-											message:
-												'No point locking `ratioY` if neither `x` nor `fitX` are used!',
-										});
-									}
-								}
-							})
-							.optional()
-							.describe('Allows you to adjust the graphic\'s scale.'),
-					})
-					.strict()
-					.refine(...nonEmpty),
-			)
-			.optional()
-			.describe(
-				'Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.\nUse `true` to use the defaults (centre of the screen, to scale). Alternatively, provide an object for more granular control.',
 			),
 		text: z
 			.array(
