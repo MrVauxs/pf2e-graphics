@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { playableFile, positionBaseObject } from '.';
 import { uniqueItems } from '../helpers/refinements';
-import { vector2 } from '../helpers/structures';
+import { playableFile, vector2 } from '../helpers/structures';
+import { positionBaseObject } from './index';
 
 /**
  * Zod schema for a sound effect (i.e. an effect applied to a sound).
@@ -19,15 +19,12 @@ const soundEffect = z
  */
 export const soundOptions = z
 	.object({
-		sound: playableFile
-			.or(
-				z
-					.array(playableFile)
-					.min(2)
-					.refine(...uniqueItems),
-			)
+		sound: z
+			.array(playableFile)
+			.min(1)
+			.refine(...uniqueItems)
 			.describe(
-				'The actual file to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!).\nYou can provide multiple files and have PF2e Graphics select one at random each time the effect is executed using one of the following methods.\n- You can use handlebar notation—a comma-separated list inside braces—to indicate \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n- Instead of a single string, you can use an array of strings as the value.\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. For example, `["path.{fire,ice}.1", "path.fire.1"]` selects from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
+				'The sound to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!).\nIf you provide more than one sound, PF2e Graphics will select one at random each time the effect is executed. You can also use the following Sequencer shorthands:\n- Handlebar notation (a comma-separated list inside braces) indicates \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. For example, `["path.{fire,ice}.1", "path.fire.1"]` selects from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
 			),
 		volume: z
 			.number()

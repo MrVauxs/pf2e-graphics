@@ -1,17 +1,8 @@
 import { z } from 'zod';
+import { pluralise } from '../../scripts/helpers';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
-import {
-	animationOptions,
-	crosshairOptions,
-	effectOptions,
-	graphicOptions,
-	meleeOptions,
-	onTokenOptions,
-	rangedOptions,
-	soundOptions,
-	templateOptions,
-} from './presets';
+import { animationOptions, crosshairOptions, effectOptions, graphicOptions, soundOptions } from './presets';
 import { trigger } from './triggers';
 
 /**
@@ -39,28 +30,9 @@ const animationPayload = z
 			.merge(soundOptions)
 			.strict(),
 		z
-			.object({ type: z.literal('melee') })
+			.object({ type: z.literal('graphic') })
 			.merge(effectOptions)
 			.merge(graphicOptions)
-			.merge(meleeOptions)
-			.strict(),
-		z
-			.object({ type: z.literal('ranged') })
-			.merge(effectOptions)
-			.merge(graphicOptions)
-			.merge(rangedOptions)
-			.strict(),
-		z
-			.object({ type: z.literal('onToken') })
-			.merge(effectOptions)
-			.merge(graphicOptions)
-			.merge(onTokenOptions)
-			.strict(),
-		z
-			.object({ type: z.literal('template') })
-			.merge(effectOptions)
-			.merge(graphicOptions)
-			.merge(templateOptions)
 			.strict(),
 		z
 			.object({ type: z.literal('animation') })
@@ -69,22 +41,23 @@ const animationPayload = z
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'sound') {
-			if (!obj.atLocation) {
-				const REQUIRES_LOCATION = [
-					'radius',
-					'constrainedByWalls',
-					'noDistanceEasing',
-					'alwaysForGMs',
-					'baseEffect',
-					'muffledEffect',
-				] as const;
-				for (const property in REQUIRES_LOCATION) {
-					if (property in obj) {
-						ctx.addIssue({
-							code: z.ZodIssueCode.custom,
-							message: `\`${property}\` is redundant without \`atLocation\`.`,
-						});
-					}
+			if (!obj.position) {
+				const keysNeedingPosition = (
+					[
+						'radius',
+						'constrainedByWalls',
+						'noDistanceEasing',
+						'alwaysForGMs',
+						'baseEffect',
+						'muffledEffect',
+					] as const
+				).filter(key => key in obj);
+				if (keysNeedingPosition.length) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.unrecognized_keys,
+						keys: keysNeedingPosition,
+						message: `\`offset\` is required for the following ${pluralise('key', keysNeedingPosition.length)}: \`${keysNeedingPosition.join('`, `')}\``,
+					});
 				}
 			}
 		} else if (obj.type === 'crosshair') {

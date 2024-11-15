@@ -18,20 +18,23 @@ export const ID = z
 		'Animation IDs should be easily readable and reasonably unique.',
 	)
 	.refine(
+		//
 		str =>
 			![
-				'SOURCE',
+				'SOURCE', // *
 				'SOURCES',
-				'TARGET',
+				'TARGET', // *
 				'TARGETS',
-				'TEMPLATE',
+				'TEMPLATE', // *
 				'TEMPLATES',
-				'ABSOLUTE',
-				'DIRECTED',
-				'STATIC',
-				'DYNAMIC',
+				'ABSOLUTE', // *
+				'RELATIVE', // *
+				'DIRECTED', // *
+				'STATIC', // *
+				'DYNAMIC', // *
 			].includes(str),
 		'This name is reserved.',
+		// * Technically not NECESSARILY reserved, but better safe than sorry imo
 	)
 	.describe(
 		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others. It should be unique across all animations that might be executed in your world, so make sure it\'s reasonably distinguished!',

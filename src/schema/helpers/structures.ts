@@ -1,6 +1,11 @@
 import { z } from 'zod';
-import { easing } from './atoms';
+import { easing, filePath, sequencerDBEntry } from './atoms';
 import { nonEmpty, nonZero } from './refinements';
+
+/**
+ * Zod schema for a file that can be played.
+ */
+export const playableFile = sequencerDBEntry.or(filePath);
 
 /**
  * Zod schema for an unrefined 2D vector.
@@ -61,25 +66,3 @@ export const easingOptions = z
 	})
 	.strict()
 	.describe('The base options of animation modifier\'s easing.');
-
-/**
- * Zod schema for a configuration to stretch an animation towards a particular placeable on the canvas, with an optional offset.
- */
-export const stretchTo = z
-	.object({
-		cacheLocation: z.literal(true).optional(),
-		attachTo: z.literal(true).optional(),
-		onlyX: z.literal(true).optional(),
-		tiling: z.literal(true).optional(),
-		offset: vector2.optional(),
-		randomOffset: z.number().optional(),
-		gridUnits: z.literal(true).optional(),
-		local: z.literal(true).optional(),
-		requiresLineOfSight: z.literal(true).optional(),
-		hideLineOfSight: z.literal(true).optional(),
-	})
-	.strict()
-	.refine(...nonEmpty)
-	.describe(
-		'A configuration to stretch an animation towards a particular placeable on the canvas, with an optional offset.',
-	);
