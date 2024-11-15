@@ -2,8 +2,7 @@ import { z } from 'zod';
 import { pluralise } from '../../../scripts/helpers';
 import { angle, easing, hexColour, ID, UUID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
-import { easingOptions, playableFile, scaling2, vector2, vector2WithOffset } from '../helpers/structures';
-import { positionBaseObject } from './index';
+import { easingOptions, playableFile, positionBaseObject, scaling2, vector2, vector2WithOffset } from '../helpers/structures';
 
 /**
  * Zod schema for the shared properties of a `rotation` object.

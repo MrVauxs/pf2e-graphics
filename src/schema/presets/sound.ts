@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { uniqueItems } from '../helpers/refinements';
-import { playableFile, vector2 } from '../helpers/structures';
-import { positionBaseObject } from './index';
+import { playableFile, positionBaseObject, vector2 } from '../helpers/structures';
 
 /**
  * Zod schema for a sound effect (i.e. an effect applied to a sound).

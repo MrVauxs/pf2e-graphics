@@ -66,3 +66,35 @@ export const easingOptions = z
 	})
 	.strict()
 	.describe('The base options of animation modifier\'s easing.');
+
+/**
+ * Zod schema for the shared properties of a `position` object (except for `SCREEN_SPACE`).
+ */
+export const positionBaseObject = z.object({
+	offset: vector2.optional().describe('Offsets the graphic\'s anchor.'),
+	spriteOffset: vector2WithOffset
+		.optional()
+		.describe(
+			'Offsets the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `offset` anyway.',
+		),
+	randomOffset: z
+		.number()
+		.optional()
+		.describe(
+			'Causes the effect to be offset by a random amount. The value is a multiplier applied to `offset`.',
+		),
+	gridUnits: z
+		.literal(true)
+		.optional()
+		.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
+	local: z
+		.literal(true)
+		.optional()
+		.describe('Causes the `offset` to be local (that is, applied before the effect\'s rotation).'),
+	missed: z // TODO: superrefine to require `anchor`, `atLocation`, `stretchTo`, or `rotateTowards`.
+		.literal(true)
+		.optional()
+		.describe(
+			'Causes the graphic to be localised near the target/anchor, but not actually centred directly on it.',
+		),
+});
