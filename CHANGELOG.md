@@ -47,6 +47,12 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Validation error when `preset.options.blur` was used (@Spappz)
 - NPCs with no owners breaking animations. ([#258](<https://github.com/MrVauxs/pf2e-graphics/issues/258>))
 
+## [0.9.4] - 2024-11-22
+
+### Fixed
+
+- Worked around user ownership being buggy for imported adventure characters.
+
 ## [0.9.3] - 2024-09-21
 
 ### Changed
@@ -500,7 +506,10 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 - Moved internal structure
 - Pre-release versions to be semver compliant
 
-[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.1...HEAD
+[Unreleased]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.4...HEAD
+[0.9.4]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.3...v0.9.4
+[0.9.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.2...v0.9.3
+[0.9.2]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.3...v0.9.0
 [0.8.3]: https://github.com/MrVauxs/pf2e-graphics/compare/v0.8.2...v0.8.3
