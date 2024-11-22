@@ -1,0 +1,11 @@
+{
+	"origin:item:slug:floating-flame": [
+		{
+			"reference": "origin:item:slug:wildfire",
+			"file": "jb2a.flaming_sphere.200px.orange.02",
+			"options": {
+				"scaleToObject": 1.5
+			}
+		}
+	]
+}

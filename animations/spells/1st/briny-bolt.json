@@ -14,10 +14,12 @@
 						"jb2a:free"
 					],
 					"file": "jb2a.ranged.04.projectile.01.green",
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": 135
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 135
+							}
 						}
 					}
 				},

@@ -1,4 +1,4 @@
-import { devLog, log } from 'src/utils';
+import { log } from 'src/utils';
 
 function check(i: ItemPF2e, o: { _id: string; system: any }) {
 	const result = {
@@ -43,15 +43,13 @@ function trifectaFunc(
 	const { bool, options: newOptions } = check(item, _options);
 	if (!item.actor || !bool) return;
 
-	const deliverable = {
+	window.pf2eGraphics.AnimCore.animate({
 		rollOptions: [...item.actor.getRollOptions(), ...newOptions, `toggle:${action}`],
 		trigger: 'toggle' as const,
 		actor: item.actor,
+		sources: item.actor.getActiveTokens(),
 		item,
-	};
-
-	devLog('Toggle Hook Data', deliverable, _options);
-	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+	}, 'Toggle Animation Data');
 }
 
 const updateItem = Hooks.on('updateItem', (a: ItemPF2e, b: any) => trifectaFunc(a, b, 'update'));

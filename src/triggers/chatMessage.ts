@@ -1,5 +1,5 @@
-import { devLog, log } from 'src/utils';
-import type { TriggerTypes } from 'src/storage/AnimCore';
+import type { Trigger } from 'src/storage/animationsSchema';
+import { devLog, log, nonNullable } from 'src/utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {
@@ -9,7 +9,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	}
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
-	let trigger = message.flags.pf2e.context?.type as (CheckType | TriggerTypes | 'spell-cast') | undefined;
+	let trigger = message.flags.pf2e.context?.type as (CheckType | Trigger | 'spell-cast') | undefined;
 	if (!message.token) {
 		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
@@ -36,15 +36,13 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(t => fromUuidSync(t)) as (TokenDocumentPF2e | null)[] | undefined;
 	const messageTargets = message.target?.token ? [message.target?.token] : Array.from((message.author as UserPF2e).targets);
 
-	const targets = toolbeltTargets ?? (messageTargets.length ? messageTargets : null) ?? [message.token];
-
-	if (targets.length === 0) return log('No targets founds in message, aborting.');
+	const targets = toolbeltTargets ?? (messageTargets.length ? messageTargets : []);
 
 	// If there is an origin, get the actors token.
 	// Otherwise just ~~kill~~ use the messenger.
-	const source = message.flags.pf2e.origin?.actor
-		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()[0]
-		: message.token;
+	const sources = message.flags.pf2e.origin?.actor
+		? (fromUuidSync(message.flags.pf2e.origin?.actor) as ActorPF2e).getActiveTokens()
+		: [message.token];
 
 	const newOptions = [];
 
@@ -53,24 +51,23 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 	if (trigger === 'saving-throw' || trigger === 'damage-taken') {
 		const options = message.token.actor?.getRollOptions().map(x => `target:${x}`);
-		if (options)
-			newOptions.push(...options, 'target');
+		if (options) newOptions.push(...options, 'target');
 	}
 
-	if (trigger === 'action') {
+	if (trigger === 'action' || trigger === 'self-effect' || trigger === 'damage-roll') {
 		newOptions.push(...message.item?.getRollOptions() ?? []);
 	}
 
-	const deliverable = {
+	window.pf2eGraphics.AnimCore.animate({
 		rollOptions: rollOptions.concat(newOptions),
 		trigger,
-		targets,
-		source,
+		sources,
+		targets: targets.filter(nonNullable),
+		actor: message.actor,
 		item: message.item,
 		animationOptions,
-	};
-	devLog('Chat Message Hook', deliverable);
-	window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+		user: message.author.id,
+	}, 'Message Animation Data');
 }
 
 const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) => {
@@ -81,17 +78,18 @@ const diceSoNiceRollComplete = Hooks.on('diceSoNiceRollComplete', (id: string) =
 	};
 });
 
-const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
-	if (
-		!(
-			game.modules.get('dice-so-nice')?.active
-			&& msg.isRoll
-			&& msg.rolls.some(roll => roll.dice.length > 0)
-			// TODO: replace above with https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/issues/450
-		)
-	) {
-		handleChatMessage(msg);
+Hooks.on('diceSoNiceMessageProcessed', async (messageId: string, willTrigger3DRoll: boolean) => {
+	if (willTrigger3DRoll) {
+		// @ts-expect-error TODO: Dice So Nice types
+		await game.dice3d!.waitFor3DAnimationByMessageID(messageId);
 	}
+
+	handleChatMessage(game.messages.get(messageId)!);
+});
+
+const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) => {
+	if (!game.modules.get('dice-so-nice')?.active)
+		handleChatMessage(msg);
 });
 
 const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
@@ -111,19 +109,17 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 
 			const rollOptions = message.flags.pf2e.context?.options ?? [];
 			const trigger = roll.roll.options.type;
-			const animationOptions = { missed: roll?.success };
+			const animationOptions = { missed: roll?.success.includes('ailure') ?? false };
 
-			const deliverable = {
+			window.pf2eGraphics.AnimCore.animate({
 				rollOptions,
 				trigger,
 				targets: [target],
-				source: message.token,
+				sources: [message.token],
 				item: message.item,
+				actor: message.actor,
 				animationOptions,
-			};
-
-			devLog('Target Helper Hook', deliverable);
-			window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+			}, 'Target Helper Hook');
 		}
 	}
 });

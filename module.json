@@ -3,6 +3,7 @@
 	"title": "PF2e Graphics",
 	"version": "0.0.0",
 	"description": "<i>Provides animations for the PF2e system.</i>",
+	"socket": true,
 	"esmodules": [
 		"dist/pf2e-graphics.js"
 	],
@@ -14,6 +15,11 @@
 			"lang": "en",
 			"name": "English",
 			"path": "lang/en.json"
+		},		
+		{
+			"lang": "pl",
+			"name": "Polski",
+			"path": "lang/pl.json"
 		}
 	],
 	"compatibility": {
@@ -37,8 +43,12 @@
 				"type": "module",
 				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
 				"compatibility": {
-					"minimum": "3.2.17"
+					"minimum": "3.3.2"
 				}
+			},
+			{
+				"id": "socketlib",
+				"type": "module"
 			}
 		],
 		"systems": [
@@ -47,7 +57,7 @@
 				"type": "system",
 				"manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/master/system.json",
 				"compatibility": {
-					"minimum": "6.3.1"
+					"minimum": "6.4.1"
 				}
 			}
 		]
@@ -60,6 +70,12 @@
 			"twitter": "@ThatVauxs",
 			"email": "mrvauxs@gmail.com",
 			"ko-fi": "MrVauxs",
+			"flags": {}
+		},
+		{
+			"name": "Spappz",
+			"discord": "spap",
+			"ko-fi": "spappz",
 			"flags": {}
 		}
 	],

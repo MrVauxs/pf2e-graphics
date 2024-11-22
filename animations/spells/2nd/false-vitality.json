@@ -1,0 +1,18 @@
+{
+	"effect:false-vitality": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.icon.heart.pink",
+			"options": {
+				"scaleToObject": 1.2,
+				"filter": {
+					"type": "ColorMatrix",
+					"options": {
+						"hue": -40
+					}
+				}
+			}
+		}
+	]
+}

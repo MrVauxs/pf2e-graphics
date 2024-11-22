@@ -8,6 +8,7 @@ import './assets';
 Hooks.once('pf2e.systemReady', () => {
 	import('./triggers');
 });
+
 Hooks.once('ready', () => {
 	const premium =	game.modules.get('jb2a_patreon');
 	const fremium =	game.modules.get('JB2A_DnD5e');

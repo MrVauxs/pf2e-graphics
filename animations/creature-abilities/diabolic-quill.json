@@ -1,0 +1,36 @@
+{
+	"item:slug:diabolic-quill": [
+		{
+			"trigger": "attack-roll",
+			"preset": "melee",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.bow.hit.flesh",
+					"delay": 100
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.template_line_piercing.void.01.purple"
+				},
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.template_line_piercing.generic.01.orange",
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": -110
+							}
+						}
+					}
+				}
+			]
+		}
+	]
+}

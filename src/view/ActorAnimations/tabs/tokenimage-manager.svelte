@@ -13,7 +13,7 @@
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
 	import { AnimCore } from 'src/storage/AnimCore';
-	import { devLog, i18n } from 'src/utils';
+	import { devLog, i18n, nonNullable } from 'src/utils';
 	import { derived } from 'svelte/store';
 	import PredicateSection from './elements/PredicateSection.svelte';
 	import TokenThumbnail from './elements/TokenThumbnail.svelte';
@@ -48,7 +48,7 @@
 	}
 
 	async function takethAway() {
-		($actor.items.find(x => x.id === $actor.flags['pf2e-graphics']?.tokenImageID))?.delete();
+		ui.notifications.warn(i18n('unlinked'));
 		$actor.unsetFlag('pf2e-graphics', 'tokenImageID');
 	}
 
@@ -170,6 +170,37 @@
 							></button>
 						</section>
 						<!-- #endregion -->
+						<!-- #region Dynamic Token -->
+						{#if nonNullable(rule?.ring?.subject?.texture)}
+							<span>
+								Dynamic Token:
+							</span>
+							<section class='flex gap-1 items-center flex-grow'>
+								<TokenThumbnail
+									img={rule.ring?.subject?.texture}
+									transform={rule.ring.subject.scale ?? $feat.actor.prototypeToken.texture.scaleX}
+								/>
+								<input
+									class='h-6 bg-opacity-50 bg-slate-100'
+									type='text'
+									placeholder='path/to/file.ext'
+									bind:value={rule.ring.subject.texture}
+									on:change={() => updateRules()}
+								/>
+								<button
+									class='fas fa-file-import w-10 bg-button h-6'
+									type='button'
+									data-tooltip={i18n('FILES.BrowseTooltip')}
+									aria-label={i18n('FILES.BrowseTooltip')}
+									tabindex='-1'
+									on:click={() => PickAFile(rule.value).then((x) => {
+										window.foundry.utils.mergeObject(rule, { ring: { subject: { texture: String(x) } } });
+										updateRules();
+									})}
+								></button>
+							</section>
+						{/if}
+						<!-- #endregion -->
 						<!-- #region Transitions -->
 						<span>
 							Animation:
@@ -289,7 +320,7 @@
 				<input type='checkbox' id='displayFeat' bind:checked={display} on:change={invisibility} />
 			</div>
 			<button class='' on:click={takethAway}>
-				<i class='fa fa-trash-can pr-1'></i>{i18n('Delete')}
+				<i class='fa fa-trash-can pr-1'></i>{i18n('unlink')}
 			</button>
 			<button class='' on:click={() => $feat.sheet.render(true)}>
 				<i class='fa fa-folder-open pr-1'></i>{i18n('actorAnimation.openFeat')}

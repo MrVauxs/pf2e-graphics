@@ -1,0 +1,248 @@
+{
+	"item:slug:needle-darts": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"repeats": {
+					"count": 2,
+					"delayMin": 100,
+					"delayMax": 200
+				},
+				"preset": {
+					"stretchTo": {
+						"randomOffset": 0.5
+					}
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.bolt.physical.orange",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"predicate": [
+										"item:rank:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 4
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:4"
+									],
+									"options": {
+										"repeats": {
+											"count": 5
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:5"
+									],
+									"options": {
+										"repeats": {
+											"count": 6
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:6"
+									],
+									"options": {
+										"repeats": {
+											"count": 7
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:7"
+									],
+									"options": {
+										"repeats": {
+											"count": 8
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:8"
+									],
+									"options": {
+										"repeats": {
+											"count": 9
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:9"
+									],
+									"options": {
+										"repeats": {
+											"count": 10
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:10"
+									],
+									"options": {
+										"repeats": {
+											"count": 11
+										}
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.bolt.physical.white",
+					"contents": [
+						{
+							"default": true
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"predicate": [
+										"item:rank:2"
+									],
+									"options": {
+										"repeats": {
+											"count": 3
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:3"
+									],
+									"options": {
+										"repeats": {
+											"count": 4
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:4"
+									],
+									"options": {
+										"repeats": {
+											"count": 5
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:5"
+									],
+									"options": {
+										"repeats": {
+											"count": 6
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:6"
+									],
+									"options": {
+										"repeats": {
+											"count": 7
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:7"
+									],
+									"options": {
+										"repeats": {
+											"count": 8
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:8"
+									],
+									"options": {
+										"repeats": {
+											"count": 9
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:9"
+									],
+									"options": {
+										"repeats": {
+											"count": 10
+										}
+									}
+								},
+								{
+									"predicate": [
+										"item:rank:10"
+									],
+									"options": {
+										"repeats": {
+											"count": 11
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

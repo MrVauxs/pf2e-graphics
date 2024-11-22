@@ -1,0 +1,135 @@
+{
+	"origin:item:slug:flame-vortex": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"options": {
+				"scaleToObject": 1.5
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"contents": [
+						{
+							"default": true,
+							"file": "jb2a.template_circle.vortex.intro.blue",
+							"options": {
+								"filter": {
+									"type": "ColorMatrix",
+									"options": {
+										"saturate": 0.8,
+										"hue": -160
+									}
+								}
+							},
+							"contents": [
+								{
+									"default": true
+								},
+								{
+									"predicate": [
+										"settings:persistent"
+									],
+									"options": {
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										},
+										"tieToDocuments": true,
+										"filter": {
+											"type": "ColorMatrix",
+											"options": {
+												"saturate": 0.8,
+												"hue": -160
+											}
+										}
+									},
+									"file": "jb2a.template_circle.vortex.loop.blue"
+								}
+							]
+						},
+						{
+							"predicate": [
+								"conservation-of-energy:cold"
+							],
+							"file": "jb2a.template_circle.vortex.intro.blue",
+							"contents": [
+								{
+									"default": true
+								},
+								{
+									"predicate": [
+										"settings:persistent"
+									],
+									"options": {
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										},
+										"tieToDocuments": true
+									},
+									"file": "jb2a.template_circle.vortex.loop.blue"
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"contents": [
+						{
+							"default": true,
+							"file": "jb2a.template_circle.vortex.intro.orange",
+							"contents": [
+								{
+									"default": true
+								},
+								{
+									"predicate": [
+										"settings:persistent"
+									],
+									"options": {
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										},
+										"tieToDocuments": true
+									},
+									"file": "jb2a.template_circle.vortex.loop.orange"
+								}
+							]
+						},
+						{
+							"predicate": [
+								"conservation-of-energy:cold"
+							],
+							"file": "jb2a.template_circle.vortex.intro.blue",
+							"contents": [
+								{
+									"default": true
+								},
+								{
+									"predicate": [
+										"settings:persistent"
+									],
+									"options": {
+										"persist": {
+											"value": true,
+											"persistTokenPrototype": true
+										},
+										"tieToDocuments": true
+									},
+									"file": "jb2a.template_circle.vortex.loop.blue"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

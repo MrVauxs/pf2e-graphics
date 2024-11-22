@@ -1,0 +1,29 @@
+{
+	"origin:item:slug:cinder-swarm": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"file": "jb2a.fire_ring.500px.red",
+			"options": {
+				"scaleToObject": 1
+			},
+			"contents": [
+				{
+					"default": true
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

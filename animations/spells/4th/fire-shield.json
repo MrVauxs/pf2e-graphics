@@ -1,0 +1,83 @@
+{
+	"effect:fire-shield": [
+		{
+			"preset": "onToken",
+			"trigger": "toggle",
+			"predicate": [
+				"toggle:create",
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"options": {
+				"scaleToObject": {
+					"value": 1.5,
+					"considerTokenScale": true
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:cold"
+						}
+					],
+					"file": "jb2a.shield_themed.below.fire.01.orange",
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.fire.armor"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								},
+								"tieToDocuments": true
+							}
+						},
+						{
+							"default": true
+						}
+					]
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:cold"
+					],
+					"file": "jb2a.shield_themed.below.ice.01.blue",
+					"options": {
+						"sound": {
+							"file": "graphics-sfx.magic.ice.shield"
+						}
+					},
+					"contents": [
+						{
+							"predicate": [
+								"settings:persistent"
+							],
+							"options": {
+								"persist": {
+									"value": true,
+									"persistTokenPrototype": true
+								},
+								"tieToDocuments": true
+							}
+						},
+						{
+							"default": true
+						}
+					]
+				}
+			]
+		}
+	]
+}

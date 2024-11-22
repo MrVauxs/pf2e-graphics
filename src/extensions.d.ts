@@ -60,6 +60,16 @@ declare global {
 			easing?: string;
 			name?: string;
 		};
+		ring: {
+			subject: {
+				texture: string;
+				scale?: number;
+			};
+			colors: {
+				background?: string;
+				ring?: string;
+			};
+		};
 	};
 
 	class TextureTransitionFilter extends AbstractBaseFilter {

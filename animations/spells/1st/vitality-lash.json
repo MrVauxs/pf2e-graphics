@@ -1,18 +1,25 @@
 {
 	"item:slug:vitality-lash": [
 		{
-			"trigger": "saving-throw",
+			"trigger": "damage-roll",
 			"preset": "ranged",
-			"presets": [
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.arcane.cast.02"
+				}
+			},
+			"contents": [
 				{
 					"predicate": [
 						"jb2a:free"
 					],
 					"file": "jb2a.energy_strands.range.standard.purple.04",
-					"filter": {
-						"type": "ColorMatrix",
-						"options": {
-							"hue": 165
+					"options": {
+						"filter": {
+							"type": "ColorMatrix",
+							"options": {
+								"hue": 165
+							}
 						}
 					}
 				},

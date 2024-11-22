@@ -40,6 +40,14 @@
 			},
 			"contents": [
 				{
+					"default": true,
+					"trigger": [
+						"effect",
+						"start-turn"
+					]
+				},
+				{
+					"trigger": "effect",
 					"predicate": [
 						"settings:persistent"
 					],
@@ -50,13 +58,6 @@
 						},
 						"tieToDocuments": true
 					}
-				},
-				{
-					"default": true,
-					"trigger": [
-						"effect",
-						"start-turn"
-					]
 				}
 			]
 		}

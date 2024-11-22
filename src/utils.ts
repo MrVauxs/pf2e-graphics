@@ -1,11 +1,16 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-console */
+// TODO: (Fall Cleaning) Move to $lib
 export class ErrorMsg extends Error {
 	constructor(message: string) {
 		super(message);
 		this.name = 'PF2e Graphics Error';
 
 		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
+	}
+
+	static send(message: string) {
+		return new this(message);
 	}
 }
 
@@ -33,6 +38,13 @@ export function i18n(string: string, format?: any) {
 		if (game.i18n.format(test, format) !== test) string = `pf2e-graphics.${string}`;
 	}
 	return game.i18n.format(string, format);
+}
+
+export function isTrueish<T>(val: T): val is NonNullable<T> {
+	return nonNullable(val)
+		&& Boolean(val)
+		&& JSON.stringify(val) !== '{}'
+		&& JSON.stringify(val) !== '[]';
 }
 
 export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id);

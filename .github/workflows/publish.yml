@@ -13,6 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
 
       # get part of the tag after the `v`
       - name: Extract tag version number

@@ -32,6 +32,39 @@
 					}
 				}
 			]
+		},
+		{
+			"predicate": [
+				"jb2a:free"
+			],
+			"contents": [
+				{
+					"trigger": "attack-roll",
+					"preset": "ranged",
+					"file": "jb2a.bolt.physical.orange",
+					"predicate": [
+						"thrown"
+					],
+					"options": {
+						"preset": {
+							"stretchTo": {
+								"randomOffset": 0.5
+							}
+						}
+					}
+				},
+				{
+					"trigger": "attack-roll",
+					"preset": "melee",
+					"file": "jb2a.spear.melee.01.white",
+					"predicate": [
+						"melee"
+					],
+					"options": {
+						"scaleToObject": 5
+					}
+				}
+			]
 		}
 	]
 }

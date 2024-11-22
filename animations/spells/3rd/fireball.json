@@ -2,29 +2,56 @@
 	"origin:item:slug:fireball": [
 		{
 			"trigger": "place-template",
-			"default": true,
 			"contents": [
 				{
-					"preset": "ranged",
+					"default": true,
 					"contents": [
 						{
+							"preset": "ranged",
 							"file": "jb2a.fire_bolt.orange",
 							"options": {
 								"waitUntilFinished": -1000
 							}
-						}
-					]
-				},
-				{
-					"preset": "template",
-					"contents": [
+						},
 						{
+							"preset": "template",
 							"file": "jb2a.fireball.explosion.orange",
 							"options": {
 								"scaleToObject": {
 									"value": 1.5
 								}
 							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:cold"
+					],
+					"contents": [
+						{
+							"preset": "ranged",
+							"contents": [
+								{
+									"file": "jb2a.spell_projectile.ice_shard.blue",
+									"options": {
+										"waitUntilFinished": -1500
+									}
+								}
+							]
+						},
+						{
+							"preset": "template",
+							"contents": [
+								{
+									"file": "jb2a.ice_spikes.radial.burst.white",
+									"options": {
+										"scaleToObject": {
+											"value": 1.5
+										}
+									}
+								}
+							]
 						}
 					]
 				}

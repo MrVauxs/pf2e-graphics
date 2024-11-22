@@ -21,14 +21,16 @@ function handleModifiersMatter(options: modifiersMatterType, delayed = false) {
 
 	for (const modifier of significantModifiers) {
 		const rollOptions = chatMessage.flags.pf2e.context?.options ?? [];
-		const deliverable = {
+
+		window.pf2eGraphics.AnimCore.animate({
 			rollOptions: rollOptions.concat(`significance:${modifier.significance.toLowerCase()}`),
 			trigger: 'modifiers-matter' as const,
 			item: chatMessage.item,
+			sources: rollingActor.getActiveTokens(),
+			actor: rollingActor,
 			targets: [targetedToken],
-		};
-
-		window.pf2eGraphics.AnimCore.findAndAnimate(deliverable);
+			user: chatMessage.author.id,
+		}, 'Modifiers Matter Animation Data');
 	}
 }
 const modifiersMatter = Hooks.on('modifiersMatter', handleModifiersMatter);

@@ -1,0 +1,74 @@
+{
+	"item:slug:polar-ray": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"contents": [
+						{
+							"file": "jb2a.ray_of_frost.blue"
+						}
+					]
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"contents": [
+						{
+							"file": "jb2a.scorching_ray.01.orange"
+						}
+					]
+				}
+			]
+		},
+		{
+			"trigger": "attack-roll",
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": 3,
+				"delay": 500
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"contents": [
+						{
+							"file": "jb2a.ice_spikes.radial.burst.white",
+							"options": {
+								"preset": {
+									"location": "target"
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"contents": [
+						{
+							"file": "jb2a.fireball.explosion.orange",
+							"options": {
+								"preset": {
+									"location": "target"
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

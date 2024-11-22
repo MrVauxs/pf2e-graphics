@@ -1,0 +1,28 @@
+{
+	"item:slug:ymeris-mark": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				}
+			},
+			"contents": [
+				{
+					"file": "jb2a.magic_signs.rune.transmutation.intro.yellow",
+					"options": {
+						"waitUntilFinished": 250,
+						"scaleToObject": 1.2
+					}
+				},
+				{
+					"file": "jb2a.explosion.01.orange",
+					"options": {
+						"scaleToObject": 7
+					}
+				}
+			]
+		}
+	]
+}

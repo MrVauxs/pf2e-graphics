@@ -1,0 +1,28 @@
+{
+	"item:slug:earthbind": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": 1.5,
+				"preset": {
+					"location": "target"
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.markers.chain.spectral_standard.complete.02.blue"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.markers.chain.diamond.loop.01.yellow"
+				}
+			]
+		}
+	]
+}

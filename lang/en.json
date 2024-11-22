@@ -5,8 +5,11 @@
 			"2": "Support Me!",
 			"3": "Help the Author"
 		},
+		"pick-a-location": "Pick a location!",
 		"source": "source: {format}",
-		"history": "See Animation History",
+		"history": "Animation History",
+		"unlink": "Unlink",
+		"unlinked": "Unlinked the feature from Token Image Manager. Please manually remove the added rule elements!",
 		"modifyItem": "Modify Item Animations",
 		"modifyActor": "Manage Actor Animations",
 		"modifyUser": "Manage User Animations",
@@ -37,6 +40,10 @@
 			"volume": {
 				"name": "Animation Volume",
 				"hint": "Multiplies the volume of animations by a set amount. Does not override animations own volume settings."
+			},
+			"history": {
+				"name": "Show Animation History to Players",
+				"hint": "Animation History contains sensitive information, primarily about roll options. Enable this if you dont worry about players reading what kind of traits or abilities an NPC might have."
 			},
 			"delay": {
 				"name": "Animation Delay",

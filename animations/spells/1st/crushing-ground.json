@@ -1,0 +1,17 @@
+{
+	"item:slug:crushing-ground": [
+		{
+			"trigger": "damage-roll",
+			"preset": "onToken",
+			"file": "jb2a.impact.ground_crack.02.orange",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": {
+					"value": 1.5
+				}
+			}
+		}
+	]
+}

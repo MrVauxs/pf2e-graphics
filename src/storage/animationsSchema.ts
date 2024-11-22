@@ -173,8 +173,6 @@ const offset = z
 					.refine(arr => arr[0] !== arr[1], 'Offset range cannot be zero.'),
 			)
 			.optional(),
-		flipX: z.literal(true).optional(),
-		flipY: z.literal(true).optional(),
 	})
 	.strict()
 	.refine(...nonEmpty)
@@ -300,6 +298,7 @@ const presetOptions = z
 			.refine(...nonEmpty)
 			.optional(),
 		templateAsOrigin: z.literal(true).optional(),
+		targets: z.array(z.string()).refine(...nonEmpty).optional(),
 	})
 	.strict()
 	.refine(...nonEmpty);
@@ -531,157 +530,140 @@ const effectOptions = z
 			.strict()
 			.optional(),
 		filter: z
-			.object({
-				type: z.enum(['ColorMatrix', 'Glow', 'Blur']),
-				options: z
+			.discriminatedUnion('type', [
+				z
 					.object({
-						hue: angle
-							.refine(...nonZero)
-							.describe('The hue, in degrees.')
-							.optional(),
-						brightness: z
-							.number()
-							.describe('The value of the brightness (0 to 1, where 0 is black)')
-							.optional(),
-						contrast: z.number().describe('The value of the contrast (0 to 1).').optional(),
-						saturate: z
-							.number()
-							.describe(
-								'The value of the saturation amount. Negative numbers cause it to become desaturated (-1 to 1)',
-							)
-							.optional(),
-						distance: z
-							.number()
-							.positive()
-							.describe('The distance of the glow, in pixels.')
-							.optional(),
-						outerStrength: z
-							.number()
-							.positive()
-							.describe('The strength of the glow outward from the edge of the sprite.')
-							.optional(),
-						innerStrength: z
-							.number()
-							.positive()
-							.describe('The strength of the glow inward from the edge of the sprite.')
-							.optional(),
-						color: hexColour.describe('The color of the glow').optional(),
-						quality: z
-							.number()
-							.describe(
-								'Glow: describes the quality of the glow (0 to 1); the higher the number the less performant.\nBlur: quality of the filter.',
-							)
-							.optional(),
-						knockout: z
-							.literal(true)
-							.describe(
-								'Toggle to hide the contents and only show the glow (effectively hides the sprite).',
-							)
-							.optional(),
-						strength: z.number().positive().describe('The strength of the filter.').optional(),
-						blur: z
-							.number()
-							.positive()
-							.describe('sets the strength of both the blurX and blurY properties simultaneously')
-							.optional(),
-						blurX: z
-							.number()
-							.positive()
-							.describe('The strength of the blur on the horizontal axis.')
-							.optional(),
-						blurY: z
-							.number()
-							.positive()
-							.describe('The strength of the blur on the vertical axis.')
-							.optional(),
-						resolution: z
-							.number()
-							.positive()
-							.describe('Sets the resolution of the blur filter.')
-							.optional(),
-						kernelSize: z
-							.number()
-							.positive()
-							.int()
-							.describe('Effectively how many passes the blur goes through.')
+						type: z.literal('ColorMatrix'),
+						options: z
+							.object({
+								hue: angle
+									.refine(...nonZero)
+									.describe('The hue, in degrees.')
+									.optional(),
+								brightness: z
+									.number()
+									.describe('The value of the brightness (0 to 1, where 0 is black).')
+									.optional(),
+								contrast: z.number().describe('The value of the contrast (0 to 1).').optional(),
+								saturate: z
+									.number()
+									.describe(
+										'The value of the saturation amount. Negative numbers cause it to become desaturated (−1 to 1)',
+									)
+									.optional(),
+							})
+							.strict()
+							.refine(...nonEmpty),
+					})
+					.strict(),
+				z
+					.object({
+						type: z.literal('Glow'),
+						options: z
+							.object({
+								distance: z
+									.number()
+									.positive()
+									.describe('The distance of the glow, in pixels.')
+									.optional(),
+								outerStrength: z
+									.number()
+									.positive()
+									.describe('The strength of the glow outward from the edge of the sprite.')
+									.optional(),
+								innerStrength: z
+									.number()
+									.positive()
+									.describe('The strength of the glow inward from the edge of the sprite.')
+									.optional(),
+								color: hexColour.describe('The color of the glow').optional(),
+								quality: z
+									.number()
+									.gte(0)
+									.lte(1)
+									.describe(
+										'Describes the quality of the glow (0 to 1). A higher number is less performant.',
+									)
+									.optional(),
+								knockout: z
+									.literal(true)
+									.describe(
+										'Toggle to hide the contents and only show the glow (effectively hides the sprite).',
+									)
+									.optional(),
+							})
+							.strict()
+							.refine(...nonEmpty),
+					})
+					.strict(),
+				z
+					.object({
+						type: z.literal('Blur'),
+						options: z
+							.object({
+								strength: z.number().positive().describe('The strength of the filter.').optional(),
+								blur: z
+									.number()
+									.positive()
+									.describe(
+										'Sets the strength of the blur in both the horizontal and vertical axes simultaneously.',
+									)
+									.optional(),
+								blurX: z
+									.number()
+									.positive()
+									.describe('The strength of the blur on the horizontal axis.')
+									.optional(),
+								blurY: z
+									.number()
+									.positive()
+									.describe('The strength of the blur on the vertical axis.')
+									.optional(),
+								quality: z.number().int().positive().describe('Quality of the filter.').optional(),
+								resolution: z
+									.number()
+									.positive()
+									.describe('Sets the resolution of the blur filter.')
+									.optional(),
+								kernelSize: z
+									.number()
+									.positive()
+									.int()
+									.describe('Effectively how many passes the blur goes through.')
+									.optional(),
+							})
+							.strict()
+							.refine(...nonEmpty)
+							.refine(options => !options.blur || (!options.blurX && !options.blurY), {
+								path: ['blur'],
+								message: '`blur` cannot be used at the same time as `blurX` or `blurY`.',
+							}),
+					})
+					.strict(),
+				z
+					.object({
+						type: z.literal('Noise'),
+						options: z
+							.object({
+								noise: z.number().gt(0).lte(1).describe('The noise intensity.').optional(),
+								seed: z
+									.number()
+									.describe(
+										'A random seed for the noise generation (default is `Math.random()`).',
+									)
+									.optional(),
+							})
+							.strict()
+							.refine(...nonEmpty)
 							.optional(),
 					})
 					.strict(),
-			})
-			.strict()
-			.refine(...nonEmpty)
-			.superRefine(
-				// Test that `filter.options` matches `filter.type`
-				(filter, ctx) => {
-					const filterOptionsProperties = {
-						ColorMatrix: ['hue', 'brightness', 'contrast', 'saturate'],
-						Glow: ['distance', 'outerStrength', 'innerStrength', 'color', 'quality', 'knockout'],
-						Blur: ['strength', 'blur', 'blurX', 'blurY', 'quality', 'resolution', 'kernelSize'],
-					};
-
-					const illegalProperties = Object.keys(filter.options).filter(
-						prop => !filterOptionsProperties[filter.type].includes(prop),
-					);
-
-					if (illegalProperties.length) {
-						return ctx.addIssue({
-							code: z.ZodIssueCode.unrecognized_keys,
-							keys: illegalProperties,
-							message: `The following properties aren't allowed when \`type\` is \`"${filter.type}"\`: \`${illegalProperties.join('`, `')}\`.`,
-						});
-					}
-
-					if (filter.options.blur && (filter.options.blurX || filter.options.blurY)) {
-						return ctx.addIssue({
-							code: z.ZodIssueCode.unrecognized_keys,
-							keys: Object.keys(filter).filter(key => key === 'blurX' || key === 'blurY'),
-							message:
-								'`blur` is used to set both `blurX` and `blurY` simultaneously and cannot be mixed.',
-						});
-					}
-
-					if (filter.options.quality) {
-						if (filter.type === 'Blur') {
-							if (Number.isInteger(filter.options.quality)) {
-								return ctx.addIssue({
-									code: z.ZodIssueCode.invalid_type,
-									expected: 'integer',
-									received: 'float',
-									message: 'Expected integer, received float.',
-								});
-							}
-							if (filter.options.quality < 0) {
-								return ctx.addIssue({
-									code: z.ZodIssueCode.too_small,
-									minimum: 0,
-									type: 'number',
-									inclusive: true,
-									message: 'Number must be greater than or equal to 0.',
-								});
-							}
-						} else if (filter.type === 'Glow') {
-							if (filter.options.quality > 1) {
-								return ctx.addIssue({
-									code: z.ZodIssueCode.too_big,
-									maximum: 1,
-									type: 'number',
-									inclusive: true,
-									message: 'Number must be less than or equal to 1.',
-								});
-							}
-							if (filter.options.quality < 0) {
-								return ctx.addIssue({
-									code: z.ZodIssueCode.too_small,
-									minimum: 0,
-									type: 'number',
-									inclusive: true,
-									message: 'Number must be greater than or equal to 0.',
-								});
-							}
-						}
-					}
-				},
-			)
+				z
+					.object({
+						type: z.literal('Clip'),
+					})
+					.strict(),
+			])
 			.optional(),
 		missed: z.literal(true).optional(),
 		anchor: vector2.optional(),
@@ -757,8 +739,9 @@ const effectOptions = z
 	})
 	.strict()
 	.refine(...nonEmpty);
+export type EffectOptions = z.infer<typeof effectOptions>;
 
-const triggers = z.enum([
+export const triggersList = [
 	'attack-roll',
 	'damage-roll',
 	'place-template',
@@ -777,30 +760,34 @@ const triggers = z.enum([
 	'perception-check',
 	'counteract-check',
 	'modifiers-matter',
-]);
+] as const;
+const triggers = z.enum(triggersList);
 export type Trigger = z.infer<typeof triggers>;
 
-const presets = z.enum(['onToken', 'ranged', 'melee', 'template', 'macro']);
+export const presetList = ['onToken', 'ranged', 'melee', 'template', 'sound', 'macro'] as const;
+const presets = z.enum(presetList);
 export type Preset = z.infer<typeof presets>;
 
-const referenceObject = z.object({
-	overrides: z
-		.array(rollOption)
-		.min(1)
-		.refine(...uniqueItems)
-		.optional(),
-	trigger: triggers.or(z.array(triggers).min(1)),
-	preset: presets,
-	file: sequencerDBEntry.or(filePath),
-	default: z.literal(true).optional(),
-	predicate: z
-		.array(predicate)
-		.min(1)
-		.refine(...uniqueItems)
-		.optional(),
-	options: effectOptions.optional(),
-	reference: rollOption.optional(),
-});
+const referenceObject = z
+	.object({
+		overrides: z
+			.array(rollOption)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
+		trigger: triggers.or(z.array(triggers).min(1)),
+		preset: presets,
+		file: sequencerDBEntry.or(filePath).or(z.array(sequencerDBEntry.or(filePath))),
+		default: z.literal(true).optional(),
+		predicate: z
+			.array(predicate)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional(),
+		options: effectOptions.optional(),
+		reference: rollOption.optional(),
+	})
+	.strict();
 
 export type AnimationObject = Partial<z.infer<typeof referenceObject>> & {
 	contents?: AnimationObject[];
@@ -817,6 +804,7 @@ const animationObject: z.ZodType<AnimationObject> = referenceObject
 			)
 			.optional(),
 	})
+	.strict()
 	.refine(...nonEmpty);
 
 const animationObjects = z
@@ -838,7 +826,13 @@ export const tokenImages = z.object({
 					uuid: z.string().regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+$/i, 'Must be a valid UUID.'),
 					rules: z
 						.array(
-							z.tuple([slug, filePath, z.number().positive()]).or(
+							z.tuple([
+								slug,
+								filePath,
+								z.number().positive(),
+								filePath.optional(),
+								z.number().positive().optional(),
+							]).or(
 								z
 									.object({
 										key: JSONValue.optional(),
@@ -850,7 +844,7 @@ export const tokenImages = z.object({
 										requiresInvestment: JSONValue.optional(),
 										requiresEquipped: JSONValue.optional(),
 										removeUponCreate: JSONValue.optional(),
-										value: z.string(),
+										value: filePath,
 										scale: z.number().optional(),
 										tint: z.string().optional(),
 										alpha: z.number().optional(),
@@ -863,6 +857,27 @@ export const tokenImages = z.object({
 											})
 											.strict()
 											.refine(...nonEmpty),
+										ring: z
+											.object({
+												subject: z
+													.object({
+														texture: filePath,
+														scale: z.number().optional(),
+													})
+													.strict()
+													.refine(...nonEmpty),
+												colors: z
+													.object({
+														background: z.string().optional(),
+														ring: z.string().optional(),
+													})
+													.strict()
+													.refine(...nonEmpty)
+													.optional(),
+											})
+											.strict()
+											.refine(...nonEmpty)
+											.optional(),
 									})
 									.strict(),
 							),

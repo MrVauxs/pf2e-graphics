@@ -1,9 +1,10 @@
 <script lang='ts'>
-	import { AnimCore, type JSONData } from 'src/storage/AnimCore';
+	import type { Writable } from 'svelte/store';
+	import { AnimCore } from 'src/storage/AnimCore';
 	import { arrayMove, camelToSpaces, ErrorMsg, i18n, nonNullable } from 'src/utils';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
-	import type { Writable } from 'svelte/store';
+	import { DB_PREFIX as soundDbPrefix } from '../../assets/soundDb';
 	import Separator from './Separator.svelte';
 
 	export let key: string;
@@ -366,7 +367,7 @@
 												{disabled}
 												type='text'
 												class='pr-6'
-												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries['graphics-sfx']).dbPath}
+												placeholder={window.Sequencer.Helpers.random_array_element(dbEntries[soundDbPrefix]).dbPath}
 												value={ani.options.sound?.file || ''}
 												on:change={(ev) => {
 													ani.options.sound ??= {};

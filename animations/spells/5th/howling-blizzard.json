@@ -1,0 +1,138 @@
+{
+	"origin:item:slug:howling-blizzard": [
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"predicate": [
+				"origin:item:area:type:cone"
+			],
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"file": "jb2a.cone_of_cold.blue",
+					"contents": [
+						{
+							"file": "jb2a.cone_of_cold.blue"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -30
+									}
+								},
+								{
+									"options": {
+										"rotate": 30
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"file": "jb2a.burning_hands.01.orange",
+					"contents": [
+						{
+							"file": "jb2a.burning_hands.01.orange"
+						},
+						{
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -30
+									}
+								},
+								{
+									"options": {
+										"rotate": 30
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"trigger": "place-template",
+			"preset": "template",
+			"predicate": [
+				"origin:item:area:type:burst"
+			],
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"file": "jb2a.sleet_storm.blue",
+					"options": {
+						"scaleToObject": 1
+					}
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"file": "jb2a.fireball.explosion.orange",
+					"options": {
+						"scaleToObject": 1.5
+					}
+				}
+			]
+		}
+	],
+	"item:slug:howling-blizzard": [
+		{
+			"trigger": "damage-taken",
+			"preset": "onToken",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"scaleToObject": 1.5
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"not": "conservation-of-energy:fire"
+						}
+					],
+					"file": "jb2a.ice_spikes.radial.burst.white"
+				},
+				{
+					"predicate": [
+						"conservation-of-energy:fire"
+					],
+					"file": "jb2a.impact.fire.01.orange.0"
+				}
+			]
+		}
+	]
+}

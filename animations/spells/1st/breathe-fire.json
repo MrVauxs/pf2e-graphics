@@ -3,43 +3,95 @@
 		{
 			"trigger": "place-template",
 			"preset": "template",
-			"file": "jb2a.burning_hands.01.orange",
 			"contents": [
 				{
-					"predicate": [
+					"default": true,
+					"contents": [
 						{
-							"gte": [
-								"settings:quality",
-								1
+							"preset": "sound",
+							"file": "graphics-sfx.magic.fire.spray",
+							"options": {
+								"fadeOut": 1000
+							}
+						},
+						{
+							"preset": "sound",
+							"file": "graphics-sfx.magic.fire.hold",
+							"options": {
+								"duration": 4500,
+								"fadeIn": 1000,
+								"fadeOut": 500
+							}
+						},
+						{
+							"file": "jb2a.burning_hands.01.orange"
+						},
+						{
+							"file": "jb2a.burning_hands.01.orange",
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -20
+									}
+								},
+								{
+									"options": {
+										"rotate": 20
+									}
+								}
 							]
 						}
 					]
 				},
 				{
 					"predicate": [
+						"conservation-of-energy:cold"
+					],
+					"contents": [
 						{
-							"gte": [
-								"settings:quality",
-								2
+							"preset": "sound",
+							"file": "graphics-sfx.magic.ice.ranged.barrage.03",
+							"options": {
+								"duration": 4400,
+								"waitUntilFinished": -3600,
+								"fadeOut": 1000
+							}
+						},
+						{
+							"file": "jb2a.cone_of_cold.blue"
+						},
+						{
+							"file": "jb2a.cone_of_cold.blue",
+							"predicate": [
+								{
+									"gte": [
+										"settings:quality",
+										2
+									]
+								}
+							],
+							"contents": [
+								{
+									"options": {
+										"rotate": -20
+									}
+								},
+								{
+									"options": {
+										"rotate": 20
+									}
+								}
 							]
 						}
-					],
-					"options": {
-						"rotate": -20
-					}
-				},
-				{
-					"predicate": [
-						{
-							"gte": [
-								"settings:quality",
-								2
-							]
-						}
-					],
-					"options": {
-						"rotate": 20
-					}
+					]
 				}
 			]
 		}

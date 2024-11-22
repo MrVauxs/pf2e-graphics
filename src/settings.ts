@@ -1,5 +1,6 @@
-import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
+// TODO: (Fall Cleaning) Move to storage or $lib or elsewhere
 import type { JSONData } from './storage/AnimCore';
+import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;
@@ -14,6 +15,7 @@ let settings: TJSLiveGameSettings & {
 	volume: number;
 	delay: number;
 	jb2aMode: 'patreon' | 'free';
+	history: boolean;
 };
 export type liveSettings = typeof settings;
 
@@ -29,6 +31,19 @@ const settingsData = [
 			config: false,
 			type: Object,
 			default: {},
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'history',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.history.name',
+			hint: 'pf2e-graphics.settings.history.hint',
+			scope: 'world',
+			config: true,
+			type: Boolean,
+			default: false,
 		},
 	},
 	{

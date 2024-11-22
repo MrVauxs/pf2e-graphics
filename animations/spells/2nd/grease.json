@@ -1,0 +1,18 @@
+{
+	"item:slug:grease": [
+		{
+			"trigger": "saving-throw",
+			"preset": "onToken",
+			"file": "jb2a.grease.dark_brown.loop",
+			"options": {
+				"preset": {
+					"location": "target"
+				},
+				"duration": 3000,
+				"scaleToObject": 1.1,
+				"fadeIn": 250,
+				"fadeOut": 500
+			}
+		}
+	]
+}

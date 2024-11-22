@@ -10,7 +10,8 @@
 		"types": [
 			"vite/client",
 			"foundry-pf2e",
-			"sequencer"
+			"sequencer",
+			"@typed-foundry/socketlib"
 		],
 		"allowImportingTsExtensions": true,
 		/**
