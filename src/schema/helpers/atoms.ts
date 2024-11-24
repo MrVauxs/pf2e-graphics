@@ -142,7 +142,9 @@ export const easing = z
 		'easeOutQuint',
 		'easeOutSine',
 	])
-	.describe('An easing function (c.f. [easings.net](https://easings.net)).');
+	.describe(
+		'An easing function for non-linear transitions.\nSee [easings.net](https://easings.net) for more information.',
+	);
 
 /**
  * A single predicate (recursive) for the pf2e system.

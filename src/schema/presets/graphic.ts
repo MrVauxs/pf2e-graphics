@@ -2,7 +2,14 @@ import { z } from 'zod';
 import { pluralise } from '../../../scripts/helpers';
 import { angle, easing, hexColour, ID, UUID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
-import { easingOptions, playableFile, positionBaseObject, scaling2, vector2, vector2WithOffset } from '../helpers/structures';
+import {
+	easingOptions,
+	playableFile,
+	positionBaseObject,
+	scaling2,
+	vector2,
+	vector2WithOffset,
+} from '../helpers/structures';
 
 /**
  * Zod schema for the shared properties of a `rotation` object.
@@ -33,6 +40,12 @@ const rotationBaseObject = z.object({
 		.optional()
 		.describe(
 			'Causes the graphic to spin from its defined angle to a final one when it is about to finish executing.',
+		),
+	spriteAngle: angle
+		.or(z.enum(['RANDOM', 'NONE']))
+		.optional()
+		.describe(
+			'An angle in degrees (°) to rotate the graphic within its container/bounding box. Alternatively, use the value `"RANDOM"` to set a random sprite rotation on each execution. The value `"NONE"`, lastly, prevents the graphic from rotating, even if its container does (see `varyProperties`).\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need a regular rotation anyway.',
 		),
 });
 
@@ -214,14 +227,15 @@ export const graphicOptions = z
 									.describe(
 										'Where the graphic should be placed. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` (if it exits).\n- Another ongoing effect\'s or crosshair\'s `name`.',
 									),
-								moveTowards: easingOptions
-									.extend({
+								moveTowards: z
+									.object({
 										target: vector2
-											.or(z.enum(['SOURCES', 'TARGETS']))
+											.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 											.or(ID)
 											.describe(
-												'Where the graphic should move towards. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"` or `"TARGETS"` (if they exist).\n- Another ongoing effect\'s or crosshair\'s `name`.',
+												'Where the graphic should move towards. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` (if it exist).\n- Another ongoing effect\'s or crosshair\'s `name`.',
 											),
+										ease: easing.optional(),
 										speed: z
 											.number()
 											.positive()
@@ -571,13 +585,6 @@ export const graphicOptions = z
 							.describe(
 								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
 							),
-
-						spriteAngle: angle
-							.or(z.enum(['RANDOM', 'NONE']))
-							.optional()
-							.describe(
-								'An angle in degrees (°) to rotate the graphic within its container/bounding box. Alternatively, use the value `"RANDOM"` to set a random sprite rotation on each execution. The value `"NONE"`, lastly, prevents the graphic from rotating, even if its container does (see `varyProperties`).\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `angle` anyway.',
-							),
 					})
 					.merge(rotationBaseObject)
 					.strict(),
@@ -634,16 +641,22 @@ export const graphicOptions = z
 					})
 					.strict(),
 			])
-			.refine(...nonEmpty)
 			.superRefine((obj, ctx) => {
-				if (obj.type !== 'RELATIVE' || obj.offset) return true;
-				const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(key => key in obj);
-				if (keysNeedingOffset.length) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.unrecognized_keys,
-						keys: keysNeedingOffset,
-						message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
+				if (Object.keys(obj).length <= 1) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: 'Object must have `type` and at least one other property.',
 					});
+				}
+				if (obj.type === 'RELATIVE' && obj.offset) {
+					const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(key => key in obj);
+					if (keysNeedingOffset.length) {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.unrecognized_keys,
+							keys: keysNeedingOffset,
+							message: `\`offset\` is required for the following ${pluralise('key', keysNeedingOffset.length)}: \`${keysNeedingOffset.join('`, `')}\``,
+						});
+					}
 				}
 			})
 			.optional()
@@ -658,7 +671,7 @@ export const graphicOptions = z
 					.min(1)
 					.refine(...uniqueItems)
 					.optional()
-					.describe('Causes the graphic to act as a mask for the effect\'s `SOURCES` and/or `TARGETS`.'),
+					.describe('Causes the graphic to act as a mask for the effect\'s `"SOURCES"` and/or `"TARGETS"`.'),
 				xray: z
 					.literal(true)
 					.optional()
@@ -675,7 +688,7 @@ export const graphicOptions = z
 					.number()
 					.optional()
 					.describe(
-						'A entity\'s \'z-index\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher z-index are rendered over the top of those with lower z-indices.\nZ-index differs from `sortLayer` in that it *only* determines the ordering of entities in the same sort layer. Therefore, unless you\'ve manually overriden a graphic\'s `sortLayer`, you should use `zIndex` to control the layering of the graphic among other graphics.',
+						'A entity\'s \'z-index\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher z-index are rendered over the top of those with lower z-indices.\nZ-index differs from `sortLayer` in that it *only* determines the ordering of entities in the same sort layer. Therefore, unless you\'ve manually overridden a graphic\'s `sortLayer`, you should use `zIndex` to control the layering of the graphic among other graphics.',
 					),
 				sortLayer: z
 					.enum(['BELOW_TILES', 'BELOW_TOKENS', 'ABOVE_LIGHTING', 'ABOVE_INTERFACE'])

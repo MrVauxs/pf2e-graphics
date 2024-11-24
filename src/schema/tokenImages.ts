@@ -17,8 +17,8 @@ const tokenImageRule = z
 		requiresEquipped: JSONValue.optional(),
 		removeUponCreate: JSONValue.optional(),
 		value: filePath.describe('An image or video path.'),
-		scale: z.number().positive().optional().describe('An optional scale adjustment.'),
-		tint: hexColour.optional().describe('An optional tint adjustment.'),
+		scale: z.number().positive().optional().describe('A scale adjustment.'),
+		tint: hexColour.optional().describe('A tint adjustment.'),
 		alpha: z.number().gt(0).lt(1).optional().describe('An alpha adjustment.'),
 		animation: z
 			.object({

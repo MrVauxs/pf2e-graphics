@@ -143,7 +143,7 @@ export const effectOptions = z
 					.describe(
 						'Sets a duration to delay between each repetition. The value can either be a number, in milliseconds, or an object with `min` and `max` durations, from which a random value is chosen.',
 					),
-				async: z // TODO superrefine this for repeats/waituntilfinished
+				async: z // TODO superrefine this for repeats/waitUntilFinished
 					.literal(true)
 					.optional()
 					.describe(
