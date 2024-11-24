@@ -20,23 +20,15 @@ const animationPayload = z
 					.describe('An arbitrary object of options you can pass into the macro as an argument.'),
 			})
 			.strict(),
-		z
-			.object({ type: z.literal('crosshair') })
-			.merge(crosshairOptions)
+		crosshairOptions.extend({ type: z.literal('crosshair') })
 			.strict(),
-		z
-			.object({ type: z.literal('sound') })
-			.merge(effectOptions)
+		effectOptions.extend({ type: z.literal('sound') })
 			.merge(soundOptions)
 			.strict(),
-		z
-			.object({ type: z.literal('graphic') })
-			.merge(effectOptions)
+		effectOptions.extend({ type: z.literal('graphic') })
 			.merge(graphicOptions)
 			.strict(),
-		z
-			.object({ type: z.literal('animation') })
-			.merge(animationOptions)
+		animationOptions.extend({ type: z.literal('animation') })
 			.strict(),
 	])
 	.superRefine((obj, ctx) => {

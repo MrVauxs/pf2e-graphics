@@ -18,7 +18,9 @@ const rotationBaseObject = z.object({
 	spinIn: easingOptions
 		.partial()
 		.extend({
-			initialAngle: angle.or(z.literal(0)).describe('The angle from which to start the rotation, in degrees (°).'),
+			initialAngle: angle
+				.or(z.literal(0))
+				.describe('The angle from which to start the rotation, in degrees (°).'),
 			duration: z
 				.number()
 				.positive()
@@ -218,8 +220,8 @@ export const graphicOptions = z
 			.array(
 				z
 					.discriminatedUnion('type', [
-						z
-							.object({
+						positionBaseObject
+							.extend({
 								type: z.literal('STATIC'),
 								target: vector2
 									.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
@@ -247,10 +249,9 @@ export const graphicOptions = z
 									.strict()
 									.optional(),
 							})
-							.merge(positionBaseObject)
 							.strict(),
-						z
-							.object({
+						positionBaseObject
+							.extend({
 								type: z.literal('DYNAMIC'),
 								target: z
 									.enum(['SOURCES', 'TARGETS', 'TEMPLATES'])
@@ -302,7 +303,6 @@ export const graphicOptions = z
 										'Causes the graphic to not follow the attached placeable\'s elevation, and instead remain constant.',
 									),
 							})
-							.merge(positionBaseObject)
 							.strict(),
 						z
 							.object({
@@ -364,8 +364,8 @@ export const graphicOptions = z
 			.describe('An array of positions at which to execute the graphic.'),
 		size: z
 			.discriminatedUnion('type', [
-				z
-					.object({
+				sizeBaseObject
+					.extend({
 						type: z.literal('ABSOLUTE'),
 						width: z.number().positive().optional().describe('The graphic\'s width, in pixels.'),
 						height: z.number().positive().optional().describe('The graphic\'s height, in pixels.'),
@@ -397,10 +397,9 @@ export const graphicOptions = z
 								'A uniform scaling factor to apply to the graphic. Instead of a single number, you can provide object with `min` and `max` properties; PF2e Graphics will randomly choose a scale factor within those bounds on each execution.',
 							),
 					})
-					.merge(sizeBaseObject)
 					.strict(),
-				z
-					.object({
+				sizeBaseObject
+					.extend({
 						// TODO: superrefine this with `position.type === 'DYNAMIC'`
 						type: z.literal('RELATIVE'),
 						scaling: z
@@ -419,7 +418,6 @@ export const graphicOptions = z
 							.optional()
 							.describe('Causes the scaling to also take the token\'s scale into account.'),
 					})
-					.merge(sizeBaseObject)
 					.strict(),
 				z
 					.object({
@@ -455,8 +453,8 @@ export const graphicOptions = z
 							),
 					})
 					.strict(),
-				z
-					.object({
+				sizeBaseObject
+					.extend({
 						type: z.literal('SCREEN_SPACE'), // TODO: superrefine this only if position type === SCREEN_SPACE
 						x: z
 							.number()
@@ -497,7 +495,6 @@ export const graphicOptions = z
 								'Forces the graphic\'s `y` dimension to be scaled proportionally to the `x` dimension, if the latter is scaled.',
 							),
 					})
-					.merge(sizeBaseObject)
 					.strict(),
 			])
 			.superRefine((obj, ctx) => {
@@ -576,51 +573,47 @@ export const graphicOptions = z
 			.describe('Reflects the graphic along some axis.'),
 		rotation: z
 			.discriminatedUnion('type', [
-				z
-					.object({
-						type: z.literal('ABSOLUTE'),
-						angle: angle
-							.or(z.literal('RANDOM'))
-							.optional()
-							.describe(
-								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
-							),
-					})
-					.merge(rotationBaseObject)
+				rotationBaseObject.extend({
+					type: z.literal('ABSOLUTE'),
+					angle: angle
+						.or(z.literal('RANDOM'))
+						.optional()
+						.describe(
+							'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
+						),
+				})
 					.strict(),
-				z
-					.object({
-						type: z.literal('RELATIVE'),
-						target: vector2
-							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
-							.or(ID)
-							.describe(
-								'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` to select that respective placeable (if one exists).',
-							),
-						attach: z
-							.literal(true)
-							.optional()
-							.describe('Attaches the rotation to dynamically update as the `target` moves.'),
-						offset: vector2.optional().describe('Offsets the `target` by a fixed amount.'),
-						randomOffset: z
-							.number()
-							.positive()
-							.optional()
-							.describe(
-								'Causes the `target` to be offset by a random amount. The value is a multiplier applied to the target\'s placeable size, or 1 grid space if it doesn\'t have a size.',
-							),
-						local: z.literal(true).optional(),
-						gridUnits: z
-							.literal(true)
-							.optional()
-							.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
-						rotationOffset: angle
-							.optional()
-							.describe(
-								'A fixed rotation to apply after the graphic is oriented towards the target, in degrees (°).',
-							),
-					})
-					.merge(rotationBaseObject)
+				rotationBaseObject.extend({
+					type: z.literal('RELATIVE'),
+					target: vector2
+						.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
+						.or(ID)
+						.describe(
+							'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` to select that respective placeable (if one exists).',
+						),
+					attach: z
+						.literal(true)
+						.optional()
+						.describe('Attaches the rotation to dynamically update as the `target` moves.'),
+					offset: vector2.optional().describe('Offsets the `target` by a fixed amount.'),
+					randomOffset: z
+						.number()
+						.positive()
+						.optional()
+						.describe(
+							'Causes the `target` to be offset by a random amount. The value is a multiplier applied to the target\'s placeable size, or 1 grid space if it doesn\'t have a size.',
+						),
+					local: z.literal(true).optional(),
+					gridUnits: z
+						.literal(true)
+						.optional()
+						.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
+					rotationOffset: angle
+						.optional()
+						.describe(
+							'A fixed rotation to apply after the graphic is oriented towards the target, in degrees (°).',
+						),
+				})
 					.strict(),
 				z
 					.object({
@@ -671,7 +664,9 @@ export const graphicOptions = z
 					.min(1)
 					.refine(...uniqueItems)
 					.optional()
-					.describe('Causes the graphic to act as a mask for the effect\'s `"SOURCES"` and/or `"TARGETS"`.'),
+					.describe(
+						'Causes the graphic to act as a mask for the effect\'s `"SOURCES"` and/or `"TARGETS"`.',
+					),
 				xray: z
 					.literal(true)
 					.optional()
@@ -770,59 +765,50 @@ export const graphicOptions = z
 			),
 		shapes: z
 			.array(
-				z
-					.discriminatedUnion('type', [
-						z
-							.object({
-								type: z.literal('circle'),
-								radius: z.number().positive().describe('The circle\'s radius, in pixels.'),
-							})
-							.merge(shapeOptions)
-							.strict(),
-						z
-							.object({
-								type: z.enum(['ellipse', 'rectangle']),
-								width: z.number().positive().describe('The shape\'s width, in pixels.'),
-								height: z.number().positive().describe('The shape\'s in pixels.'),
-							})
-							.merge(shapeOptions)
-							.strict(),
-						z
-							.object({
-								type: z.literal('roundedRect'),
-								width: z.number().positive().describe('The shape\'s width, in pixels.'),
-								height: z.number().positive().describe('The shape\'s in pixels.'),
-								radius: z
-									.number()
-									.positive()
-									.describe('The corners\' radius of curvature, in pixels.'),
-							})
-							.merge(shapeOptions)
-							.strict(),
-						z
-							.object({
-								type: z.literal('polygon'),
-								points: z
-									.array(z.object({ x: z.number(), y: z.number() }))
-									.min(3)
-									.refine(...uniqueItems)
-									.describe(
-										'The polygon\'s vertices. The final shape is made by joining each point up in order.',
-									),
-							})
-							.merge(shapeOptions)
-							.strict(),
-						z
-							.object({
-								type: z.literal('TEXT'),
-								entry: z.string().min(1),
-								options: z
-									.object({}) // TODO: https://pixijs.io/pixi-text-style
-									.refine(...nonEmpty)
-									.optional(),
-							})
-							.strict(),
-					])
+				z.discriminatedUnion('type', [
+					shapeOptions.extend({
+						type: z.literal('circle'),
+						radius: z.number().positive().describe('The circle\'s radius, in pixels.'),
+					})
+						.strict(),
+					shapeOptions.extend({
+						type: z.enum(['ellipse', 'rectangle']),
+						width: z.number().positive().describe('The shape\'s width, in pixels.'),
+						height: z.number().positive().describe('The shape\'s in pixels.'),
+					})
+						.strict(),
+					shapeOptions.extend({
+						type: z.literal('roundedRect'),
+						width: z.number().positive().describe('The shape\'s width, in pixels.'),
+						height: z.number().positive().describe('The shape\'s in pixels.'),
+						radius: z
+							.number()
+							.positive()
+							.describe('The corners\' radius of curvature, in pixels.'),
+					})
+						.strict(),
+					shapeOptions.extend({
+						type: z.literal('polygon'),
+						points: z
+							.array(z.object({ x: z.number(), y: z.number() }))
+							.min(3)
+							.refine(...uniqueItems)
+							.describe(
+								'The polygon\'s vertices. The final shape is made by joining each point up in order.',
+							),
+					})
+						.strict(),
+					z
+						.object({
+							type: z.literal('TEXT'),
+							entry: z.string().min(1),
+							options: z
+								.object({}) // TODO: https://pixijs.io/pixi-text-style
+								.refine(...nonEmpty)
+								.optional(),
+						})
+						.strict(),
+				])
 					.refine(...nonEmpty)
 					.refine(
 						obj => obj.type === 'TEXT' || obj.isMask || !obj.name,

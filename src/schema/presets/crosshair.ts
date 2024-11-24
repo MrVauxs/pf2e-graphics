@@ -72,14 +72,13 @@ export const crosshairOptions = z
 			.describe('Sets a custom icon the crosshair.'),
 		template: z
 			.discriminatedUnion('type', [
-				z
-					.object({
+				baseTemplate
+					.extend({
 						type: z.enum(['CIRCLE', 'RECTANGLE']).describe('The shape of the crosshair\'s template.'),
 					})
-					.merge(baseTemplate)
 					.strict(),
-				z
-					.object({
+				baseTemplate
+					.extend({
 						type: z.literal('CONE').describe('The shape of the crosshair\'s template.'),
 						angle: z
 							.number()
@@ -91,10 +90,9 @@ export const crosshairOptions = z
 							.optional()
 							.describe('Sets the template\'s initial orientation (default: 0°, rightwards).'),
 					})
-					.merge(baseTemplate)
 					.strict(),
-				z
-					.object({
+				baseTemplate
+					.extend({
 						type: z.literal('RAY').describe('The shape of the crosshair\'s template.'),
 						width: z
 							.number()
@@ -108,7 +106,6 @@ export const crosshairOptions = z
 							.optional()
 							.describe('Sets the template\'s initial orientation (default: 0°, rightwards).'),
 					})
-					.merge(baseTemplate)
 					.strict(),
 			])
 			.optional()
