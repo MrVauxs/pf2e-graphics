@@ -18,7 +18,7 @@ const rotationBaseObject = z.object({
 	spinIn: easingOptions
 		.partial()
 		.extend({
-			initialAngle: angle.or(z.literal(0)).describe('The angle from which to start the rotation.'),
+			initialAngle: angle.or(z.literal(0)).describe('The angle from which to start the rotation, in degrees (°).'),
 			duration: z
 				.number()
 				.positive()
@@ -30,7 +30,7 @@ const rotationBaseObject = z.object({
 	spinOut: easingOptions
 		.partial()
 		.extend({
-			finalAngle: angle.or(z.literal(0)).describe('The angle at which to end the rotation.'),
+			finalAngle: angle.or(z.literal(0)).describe('The angle at which to end the rotation, in degrees (°).'),
 			duration: z
 				.number()
 				.positive()
@@ -233,7 +233,7 @@ export const graphicOptions = z
 											.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 											.or(ID)
 											.describe(
-												'Where the graphic should move towards. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` (if it exist).\n- Another ongoing effect\'s or crosshair\'s `name`.',
+												'Where the graphic should go after it has been placed and begun execution. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` (if it exist).\n- Another ongoing effect\'s or crosshair\'s `name`.',
 											),
 										ease: easing.optional(),
 										speed: z
@@ -617,7 +617,7 @@ export const graphicOptions = z
 						rotationOffset: angle
 							.optional()
 							.describe(
-								'A fixed rotation to apply after the graphic is oriented towards the target.',
+								'A fixed rotation to apply after the graphic is oriented towards the target, in degrees (°).',
 							),
 					})
 					.merge(rotationBaseObject)

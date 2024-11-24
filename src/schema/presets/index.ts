@@ -12,14 +12,11 @@ export { soundOptions } from './sound';
  * An array of all presets that PF2e Graphics recognises.
  */
 export const PRESETS = [
-	'onToken',
-	'ranged',
-	'melee',
-	'template',
-	'sound',
-	'macro',
-	'crosshair',
 	'animation',
+	'crosshair',
+	'graphic',
+	'macro',
+	'sound',
 ] as const;
 
 /**

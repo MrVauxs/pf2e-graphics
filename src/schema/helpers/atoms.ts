@@ -18,23 +18,23 @@ export const ID = z
 		'Animation IDs should be easily readable and reasonably unique.',
 	)
 	.refine(
-		//
 		str =>
 			![
-				'SOURCE', // *
-				'SOURCES',
-				'TARGET', // *
-				'TARGETS',
-				'TEMPLATE', // *
-				'TEMPLATES',
-				'ABSOLUTE', // *
-				'RELATIVE', // *
-				'DIRECTED', // *
-				'STATIC', // *
-				'DYNAMIC', // *
+				'SOURCE',
+				'SOURCES', // *
+				'TARGET',
+				'TARGETS', // *
+				'TEMPLATE',
+				'TEMPLATES', // *
+				'ABSOLUTE',
+				'ADDITIVE',
+				'RELATIVE',
+				'DIRECTED',
+				'STATIC',
+				'DYNAMIC',
 			].includes(str),
 		'This name is reserved.',
-		// * Technically not NECESSARILY reserved, but better safe than sorry imo
+		// * Technically only these NEED to be reserved, but better safe than sorry when it comes to internally meaningful strings imo
 	)
 	.describe(
 		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others. It should be unique across all animations that might be executed in your world, so make sure it\'s reasonably distinguished!',
@@ -104,7 +104,6 @@ export const filePath = z
 export const sequencerDBEntry = z
 	.string()
 	.regex(/^\w[\w-]+(?:\.(?:[\w-]+|\{\w+(?:,[^{},]+)+\}))+$/, 'String must be a valid Sequencer database entry.');
-// .describe('A Sequencer database entry.');
 
 /**
  * Zod schema for an easing function (c.f. [easings.net](https://easings.net)).
