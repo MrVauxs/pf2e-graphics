@@ -190,6 +190,7 @@ const shapeOptions = z
 		offset: vector2WithGridUnits
 			.optional()
 			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
+		// anchor: vector2.optional().describe(''), TODO: does this actually do anything different from `offset`?
 		isMask: z
 			.literal(true)
 			.optional()
@@ -723,10 +724,6 @@ export const graphicOptions = z
 							]),
 						}),
 						z.object({
-							target: z.literal('alphaFilter'),
-							property: z.literal('alpha'),
-						}),
-						z.object({
 							target: z.literal('spriteContainer'),
 							property: z.enum([
 								'position.x',
@@ -735,6 +732,16 @@ export const graphicOptions = z
 								'angle',
 								'scale.x',
 								'scale.y',
+							]),
+						}),
+						z.object({
+							target: z.literal('effect'),
+							property: z.enum([
+								'effectAlpha',
+								'sourceOffset.x',
+								'sourceOffset.y',
+								'targetOffset.x',
+								'targetOffset.y',
 							]),
 						}),
 					])
