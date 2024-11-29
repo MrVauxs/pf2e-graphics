@@ -33,7 +33,7 @@ export const vector2 = vector2Base.refine(...nonEmpty);
 /**
  * Zod schema for a 2D vector with a `gridUnits` flag.
  */
-export const vector2WithOffset = vector2Base
+export const vector2WithGridUnits = vector2Base
 	.extend({
 		gridUnits: z
 			.literal(true)
@@ -72,7 +72,7 @@ export const easingOptions = z
  */
 export const positionBaseObject = z.object({
 	offset: vector2.optional().describe('Offsets the graphic\'s anchor.'),
-	spriteOffset: vector2WithOffset
+	spriteOffset: vector2WithGridUnits
 		.optional()
 		.describe(
 			'Offsets the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `offset` anyway.',

@@ -8,7 +8,7 @@ import {
 	positionBaseObject,
 	scaling2,
 	vector2,
-	vector2WithOffset,
+	vector2WithGridUnits,
 } from '../helpers/structures';
 
 /**
@@ -158,7 +158,7 @@ const shapeOptions = z
 			.optional()
 			.describe('Indicates that the shape\'s dimensions are measured in grid units.'),
 		name: ID.optional().describe(
-			'A name to identify the shape, so that it can be referenced in other properties.',
+			'A name to identify the shape, so that it can be referenced elsewhere (namely `varyProperties`).',
 		),
 		alpha: z
 			.number()
@@ -187,7 +187,7 @@ const shapeOptions = z
 			.strict()
 			.optional()
 			.describe('Defines an outline for the shape.'),
-		offset: vector2WithOffset
+		offset: vector2WithGridUnits
 			.optional()
 			.describe('A 2D offset, accepting either single- or range-values for either axis.'),
 		isMask: z
@@ -573,47 +573,49 @@ export const graphicOptions = z
 			.describe('Reflects the graphic along some axis.'),
 		rotation: z
 			.discriminatedUnion('type', [
-				rotationBaseObject.extend({
-					type: z.literal('ABSOLUTE'),
-					angle: angle
-						.or(z.literal('RANDOM'))
-						.optional()
-						.describe(
-							'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
-						),
-				})
+				rotationBaseObject
+					.extend({
+						type: z.literal('ABSOLUTE'),
+						angle: angle
+							.or(z.literal('RANDOM'))
+							.optional()
+							.describe(
+								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
+							),
+					})
 					.strict(),
-				rotationBaseObject.extend({
-					type: z.literal('RELATIVE'),
-					target: vector2
-						.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
-						.or(ID)
-						.describe(
-							'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` to select that respective placeable (if one exists).',
-						),
-					attach: z
-						.literal(true)
-						.optional()
-						.describe('Attaches the rotation to dynamically update as the `target` moves.'),
-					offset: vector2.optional().describe('Offsets the `target` by a fixed amount.'),
-					randomOffset: z
-						.number()
-						.positive()
-						.optional()
-						.describe(
-							'Causes the `target` to be offset by a random amount. The value is a multiplier applied to the target\'s placeable size, or 1 grid space if it doesn\'t have a size.',
-						),
-					local: z.literal(true).optional(),
-					gridUnits: z
-						.literal(true)
-						.optional()
-						.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
-					rotationOffset: angle
-						.optional()
-						.describe(
-							'A fixed rotation to apply after the graphic is oriented towards the target, in degrees (°).',
-						),
-				})
+				rotationBaseObject
+					.extend({
+						type: z.literal('RELATIVE'),
+						target: vector2
+							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
+							.or(ID)
+							.describe(
+								'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"` to select that respective placeable (if one exists).',
+							),
+						attach: z
+							.literal(true)
+							.optional()
+							.describe('Attaches the rotation to dynamically update as the `target` moves.'),
+						offset: vector2.optional().describe('Offsets the `target` by a fixed amount.'),
+						randomOffset: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'Causes the `target` to be offset by a random amount. The value is a multiplier applied to the target\'s placeable size, or 1 grid space if it doesn\'t have a size.',
+							),
+						local: z.literal(true).optional(),
+						gridUnits: z
+							.literal(true)
+							.optional()
+							.describe('Causes the `offset` to be measured in the scene\'s grid units.'),
+						rotationOffset: angle
+							.optional()
+							.describe(
+								'A fixed rotation to apply after the graphic is oriented towards the target, in degrees (°).',
+							),
+					})
 					.strict(),
 				z
 					.object({
@@ -765,50 +767,55 @@ export const graphicOptions = z
 			),
 		shapes: z
 			.array(
-				z.discriminatedUnion('type', [
-					shapeOptions.extend({
-						type: z.literal('circle'),
-						radius: z.number().positive().describe('The circle\'s radius, in pixels.'),
-					})
-						.strict(),
-					shapeOptions.extend({
-						type: z.enum(['ellipse', 'rectangle']),
-						width: z.number().positive().describe('The shape\'s width, in pixels.'),
-						height: z.number().positive().describe('The shape\'s in pixels.'),
-					})
-						.strict(),
-					shapeOptions.extend({
-						type: z.literal('roundedRect'),
-						width: z.number().positive().describe('The shape\'s width, in pixels.'),
-						height: z.number().positive().describe('The shape\'s in pixels.'),
-						radius: z
-							.number()
-							.positive()
-							.describe('The corners\' radius of curvature, in pixels.'),
-					})
-						.strict(),
-					shapeOptions.extend({
-						type: z.literal('polygon'),
-						points: z
-							.array(z.object({ x: z.number(), y: z.number() }))
-							.min(3)
-							.refine(...uniqueItems)
-							.describe(
-								'The polygon\'s vertices. The final shape is made by joining each point up in order.',
-							),
-					})
-						.strict(),
-					z
-						.object({
-							type: z.literal('TEXT'),
-							entry: z.string().min(1),
-							options: z
-								.object({}) // TODO: https://pixijs.io/pixi-text-style
-								.refine(...nonEmpty)
-								.optional(),
-						})
-						.strict(),
-				])
+				z
+					.discriminatedUnion('type', [
+						shapeOptions
+							.extend({
+								type: z.literal('circle'),
+								radius: z.number().positive().describe('The circle\'s radius, in pixels.'),
+							})
+							.strict(),
+						shapeOptions
+							.extend({
+								type: z.enum(['ellipse', 'rectangle']),
+								width: z.number().positive().describe('The shape\'s width, in pixels.'),
+								height: z.number().positive().describe('The shape\'s in pixels.'),
+							})
+							.strict(),
+						shapeOptions
+							.extend({
+								type: z.literal('roundedRect'),
+								width: z.number().positive().describe('The shape\'s width, in pixels.'),
+								height: z.number().positive().describe('The shape\'s in pixels.'),
+								radius: z
+									.number()
+									.positive()
+									.describe('The corners\' radius of curvature, in pixels.'),
+							})
+							.strict(),
+						shapeOptions
+							.extend({
+								type: z.literal('polygon'),
+								points: z
+									.array(z.object({ x: z.number(), y: z.number() }))
+									.min(3)
+									.refine(...uniqueItems)
+									.describe(
+										'The polygon\'s vertices. The final shape is made by joining each point up in order.',
+									),
+							})
+							.strict(),
+						z
+							.object({
+								type: z.literal('TEXT'),
+								entry: z.string().min(1),
+								options: z
+									.object({}) // TODO: https://pixijs.io/pixi-text-style
+									.refine(...nonEmpty)
+									.optional(),
+							})
+							.strict(),
+					])
 					.refine(...nonEmpty)
 					.refine(
 						obj => obj.type === 'TEXT' || obj.isMask || !obj.name,
