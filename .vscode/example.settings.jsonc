@@ -1,8 +1,5 @@
 {
 	"terminal.integrated.wordSeparators": "()[]{}',\"`─‘’|",
-	// Enable the ESlint flat config support
-	// (remove this if your ESLint extension above v3.0.5)
-	"eslint.useFlatConfig": true,
 	"files.autoSave": "afterDelay",
 	"files.autoSaveDelay": 3000,
 	"files.autoSaveWhenNoErrors": true,
@@ -14,6 +11,8 @@
 		"source.fixAll.eslint": "always",
 		"source.organizeImports": "never"
 	},
+	// Use relative imports for Vite compatibility
+	"typescript.preferences.importModuleSpecifier": "relative",
 	// Add JSON Validation - remember to either build with Vite or run `npm run build:schema` first!
 	"json.schemas": [
 		{

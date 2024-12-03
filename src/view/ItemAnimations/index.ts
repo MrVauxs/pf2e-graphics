@@ -1,4 +1,4 @@
-import { i18n } from 'src/utils.ts';
+import { i18n } from '../../utils.ts';
 import ItemAnimationsApp from './ItemAnimationsApp.ts';
 
 function spawn(application: ItemSheetPF2e<any>) {

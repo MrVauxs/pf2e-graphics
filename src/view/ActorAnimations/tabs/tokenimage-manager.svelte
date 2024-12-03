@@ -1,4 +1,6 @@
 <script lang='ts' context='module'>
+	import type { TokenImageRule } from '../../../schema/tokenImages';
+
 	const ruleTemplate = (feat: ItemPF2e) => ({
 		id: foundry.utils.randomID(),
 		key: 'TokenImage',
@@ -7,14 +9,14 @@
 		animation: {},
 		predicate: [] as (string | object)[],
 	});
-	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRuleSource;
+	export type CustomTokenImage = ReturnType<typeof ruleTemplate> & TokenImageRule;
 </script>
 
 <script lang='ts'>
 	import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import { devLog, i18n, nonNullable } from 'src/utils';
 	import { derived } from 'svelte/store';
+	import { AnimCore } from '../../../storage/AnimCore';
+	import { devLog, i18n, nonNullable } from '../../../utils';
 	import PredicateSection from './elements/PredicateSection.svelte';
 	import TokenThumbnail from './elements/TokenThumbnail.svelte';
 	import featData from './tokenimage-feat.json';
@@ -62,7 +64,7 @@
 		$actor.setFlag('pf2e-graphics', 'displayFeat', display);
 	}
 
-	async function createRule(_event: Event, rules?: TokenImageRuleSource[]) {
+	async function createRule(_event: Event, rules?: TokenImageRule[]) {
 		await $feat?.update({ 'system.rules': $feat.system.rules.concat(rules ?? ruleTemplate($feat)) });
 	}
 
@@ -95,7 +97,7 @@
 	const EaseNames = Object.values(Object.keys(CanvasAnimation).filter(x => x.includes('ease')));
 
 	let showImagePacks = false;
-	let packToImport: TokenImageRuleSource[] = [];
+	let packToImport: TokenImageRule[] = [];
 </script>
 
 <div class='p-2 pb-0 flex flex-col h-full w-full'>

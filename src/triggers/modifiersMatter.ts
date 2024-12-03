@@ -1,4 +1,4 @@
-import { devLog, log } from 'src/utils';
+import { devLog, log } from '../utils';
 
 interface modifiersMatterType {
 	actorWithDc: ActorPF2e;

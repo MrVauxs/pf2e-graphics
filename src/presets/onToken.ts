@@ -1,7 +1,7 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
-import { type GameData, genericEffectOptions, parseOffsets, type SequencerTypes } from '.';
+import type { ExecutableAnimation } from '../storage/AnimCore';
+import { type GameData, graphicOptions, parseOffsets, type SequencerTypes } from '.';
 
-export default function onToken(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
+export default function onToken(seq: SequencerTypes, animation: ExecutableAnimation, data: GameData) {
 	const { options } = animation;
 	const { sources, targets = [] } = data;
 
@@ -52,7 +52,7 @@ export default function onToken(seq: SequencerTypes, animation: AnimationObject,
 			);
 		}
 
-		genericEffectOptions(effect, animation, data);
+		graphicOptions(effect, animation, data);
 	}
 
 	return seq;
