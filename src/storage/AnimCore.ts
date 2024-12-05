@@ -320,6 +320,26 @@ export let AnimCore = class AnimCore {
 		return Object.fromEntries(notOverriddenAnimations) as Record<string, ExecutableAnimation[]>;
 
 		// #region Functions
+
+		/**
+		 * De-references a `ModuleAnimationData` roll option of shorthand string references, returning a strict collection of `Animation` objects.
+		 *
+		 * For example, if the module has the following animation data
+		 * ```json
+		 * {
+		 * 	"roll-option-1": "roll-option-2",
+		 * 	"roll-option-2": [ { "props": "etc." } ],
+		 * 	"unrelated-roll-option": [ { "something": "else" } ],
+		 * }
+		 * ```
+		 * the triggering roll data matches predicate `roll-option-1`, then this function returns with
+		 * ```ts
+		 * [ { props: "etc." } ]
+		 * ```
+		 * @param animationSet The payload attached to `rollOption`.
+		 * @param rollOption The triggering roll option (for error-reporting only).
+		 * @returns An array of (folded-up) `Animation` objects.
+		 */
 		function parseStrings(animationSet: string | Animation[], rollOption: string): Animation[] {
 			for (let recursion = 0; recursion < 10; recursion++) {
 				if (typeof animationSet === 'object') return animationSet;
@@ -330,26 +350,43 @@ export let AnimCore = class AnimCore {
 			);
 		}
 
-		function parseReferences(v: Animation[], k: string): Omit<Animation, 'reference'>[] {
-			return v.map((obj) => {
-				if ('reference' in obj && obj.reference) {
-					const ref = parseStrings(animationData.get(obj.reference)!, k);
+		/**
+		 * Transforms `Animation` objects by copying its `reference` into its `contents` (overwriting any `contents` already included).
+		 * @param animations An array of `Animation` objects that potentially contain the `reference` property.
+		 * @param rollOption The triggering roll option (for error-reporting only)
+		 * @returns An array of `Animation` objects with no `reference` property.
+		 */
+		function parseReferences(animations: Animation[], rollOption: string): Omit<Animation, 'reference'>[] {
+			return animations.map((obj) => {
+				if ('reference' in obj) {
+					const ref = parseStrings(animationData.get(obj.reference!)!, rollOption);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
-				}
-				// Remove reference.
-				// This cannot be moved above since its in the context of ReferenceObject where reference is required, not optional.
-				if ('reference' in obj) delete obj.reference;
 
+					// Remove reference.
+					delete obj.reference;
+				}
 				return obj;
 			});
 		}
 
+		/**
+		 * Filters `Animation` objects based on its topmost `predicates` property.
+		 * @remarks Unfolding animations is costly, and most payloads will be filtered out anyway, so predicates are checked early.
+		 * @remarks Inputs with `predicates` left undefined or empty are never filtered out.
+		 * @param animations An array of `Animation` objects.
+		 * @returns An array of `Animation` objects with matching topmost `predicates`.
+		 */
 		function filterChildren<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
-			return animations.filter(x => game.pf2e.Predicate.test(x.predicates, rollOptions));
+			return animations.filter(animation => game.pf2e.Predicate.test(animation.predicates, rollOptions));
 		}
 
+		/**
+		 * 'Unfolds' `Animation`s into their 'executable' form. This removes all remaining references, shorthands, and nested structures. Unfolded `Animation`s are tested against the triggering roll data and only returned if they match.
+		 * @param animationSet An array of `Animation` objects without any `reference` properties.
+		 * @returns An array of `Animation` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `Animation`s).
+		 */
 		function unfoldAnimations(
 			animationSet: Omit<Animation, 'reference'>[],
 		): Omit<Animation, 'reference' | 'default' | 'contents'>[] {
@@ -380,6 +417,12 @@ export let AnimCore = class AnimCore {
 			});
 		}
 
+		/**
+		 * Filters `Animation` objects based on its topmost `triggers` property.
+		 * @remarks Inputs with `triggers` left undefined or empty are never filtered out.
+		 * @param animations An array of `Animation` objects.
+		 * @returns An array of `Animation` objects with matching `triggers`.
+		 */
 		function filterByTriggers<T extends { triggers?: Trigger[] }>(animations: T[]) {
 			return animations.filter(
 				animation =>
@@ -402,6 +445,7 @@ export let AnimCore = class AnimCore {
 			}
 			return animationSets;
 		}
+
 		// #endregion
 	}
 
