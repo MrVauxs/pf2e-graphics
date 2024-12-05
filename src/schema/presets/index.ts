@@ -3,11 +3,6 @@ import { ID } from '../helpers/atoms';
 import { nonZero, uniqueItems } from '../helpers/refinements';
 import { easingOptions } from '../helpers/structures';
 
-export { animationOptions } from './animation';
-export { crosshairOptions } from './crosshair';
-export { graphicOptions } from './graphic';
-export { soundOptions } from './sound';
-
 /**
  * An array of all presets that PF2e Graphics recognises.
  */

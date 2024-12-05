@@ -2,7 +2,11 @@ import { z } from 'zod';
 import { pluralise } from '../../scripts/helpers';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
-import { animationOptions, crosshairOptions, effectOptions, graphicOptions, soundOptions } from './presets';
+import { effectOptions } from './presets';
+import { animationOptions } from './presets/animation';
+import { crosshairOptions } from './presets/crosshair';
+import { graphicOptions } from './presets/graphic';
+import { soundOptions } from './presets/sound';
 import { trigger } from './triggers';
 
 /**
@@ -20,16 +24,16 @@ const animationPayload = z
 					.describe('An arbitrary object of options you can pass into the macro as an argument.'),
 			})
 			.strict(),
-		crosshairOptions.extend({ type: z.literal('crosshair') })
-			.strict(),
-		effectOptions.extend({ type: z.literal('sound') })
+		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),
+		effectOptions
+			.extend({ type: z.literal('sound') })
 			.merge(soundOptions)
 			.strict(),
-		effectOptions.extend({ type: z.literal('graphic') })
+		effectOptions
+			.extend({ type: z.literal('graphic') })
 			.merge(graphicOptions)
 			.strict(),
-		animationOptions.extend({ type: z.literal('animation') })
-			.strict(),
+		animationOptions.extend({ type: z.literal('animation') }).strict(),
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'sound') {

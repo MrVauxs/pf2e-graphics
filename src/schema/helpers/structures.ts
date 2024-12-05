@@ -64,8 +64,7 @@ export const easingOptions = z
 			.optional()
 			.describe('The delay before the effect starts or ends, as appropriate, in milliseconds.'),
 	})
-	.strict()
-	.describe('The base options of animation modifier\'s easing.');
+	.strict();
 
 /**
  * Zod schema for the shared properties of a `position` object (except for `SCREEN_SPACE`).

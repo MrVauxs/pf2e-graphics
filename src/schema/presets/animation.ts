@@ -63,7 +63,7 @@ export const animationOptions = effectOptions
 		fadeOut: true,
 	})
 	.extend({
-		target: z // TODO: superrefine `target` against `position.target` and `rotation.target` (no moving tokens nowhere or rotating them towards themselves!)
+		targets: z // TODO: superrefine `target` against `position.target` and `rotation.target` (no moving tokens nowhere or rotating them towards themselves!)
 			.array(z.enum(['SOURCES', 'TARGETS']))
 			.describe(
 				'Which tokens does the animation act upon? You can choose either the effect\'s `"SOURCES"` or `"TARGETS"` (if they exist).',
@@ -161,6 +161,6 @@ export const animationOptions = effectOptions
 			})
 			.strict()
 			.optional()
-			.describe(''),
+			.describe('By default, the token\'s visibility is left unmodified, and serves as the final value for `fadeIn` and the initial value for `fadeOut`.'),
 		tint: hexColour.describe('A hexadecimal colour-code to give the token a certain tint.').optional(),
 	});

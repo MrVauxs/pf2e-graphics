@@ -153,7 +153,8 @@ export const crosshairOptions = z
 					),
 			})
 			.refine(...nonEmpty)
-			.optional(),
+			.optional()
+			.describe('Configures custom snapping behaviour. By default, the crosshair snaps to spaces\' centres.'),
 		lockDrag: z
 			.literal(true)
 			.optional()

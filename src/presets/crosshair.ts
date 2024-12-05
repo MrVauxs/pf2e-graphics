@@ -2,15 +2,16 @@ import type { GameData, SequencerTypes } from '.';
 import type { AnimationPayload } from '../schema/animation';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
-export default async function crosshair(
+export async function executeCrosshair(
 	seq: SequencerTypes,
 	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
 	data: GameData,
 ) {
 	const { sources, user } = data;
 
-	if (!payload.name) throw ErrorMsg.send('A crosshair preset was called but no names were provided for it!');
-	if (!sources[0].actor) throw ErrorMsg.send('Could not find the token\'s actor?!');
+	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
+	if (!sources[0].actor)
+		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');
 
 	// #region Transform `payload` into Sequencer's `CrosshairData`
 	const crosshair: NonNullable<Parameters<typeof Sequencer.Crosshair.show>[0]> = {
@@ -108,7 +109,7 @@ export default async function crosshair(
 				unsub();
 				// @ts-expect-error TODO: Sequencer types
 				if (!seq.status) seq._abort();
-			}, 30 * 1000);
+			}, 30_000);
 		}
 	});
 

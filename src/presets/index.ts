@@ -1,11 +1,10 @@
 import type { TokenOrDoc } from '../extensions';
 import type { AnimationPayload } from '../schema/animation.ts';
-import type { EffectOptions, GraphicOptions } from '../schema/presets/index.ts';
+// import type { EffectOptions, GraphicOptions } from '../schema/presets/index.ts';
 import type { ExecutableAnimation } from '../storage/AnimCore.ts';
-import { isTrueish, log } from '../utils.ts';
-import crosshairPreset from './crosshair.ts';
-import meleePreset from './melee.ts';
-import soundPreset from './sound.ts';
+import { log } from '../utils.ts';
+import { executeAnimation } from './animation.ts';
+import { executeCrosshair } from './crosshair.ts';
 
 export interface GameData {
 	sources: TokenOrDoc[];
@@ -20,16 +19,13 @@ export interface GameData {
 export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
 
 export async function addAnimationToSequence(seq: SequencerTypes, payload: AnimationPayload, data: GameData) {
-	if (payload.type === 'sound') return soundPreset(seq, payload, data);
-	if (payload.type === 'melee') return meleePreset(seq, payload, data);
-	// if (payload.type === 'ranged') return rangedPreset(seq, payload, data);
-	// if (payload.type === 'onToken') return onTokenPreset(seq, payload, data);
-	// if (payload.type === 'template') return templatePreset(seq, payload, data);
-	if (payload.type === 'crosshair') return await crosshairPreset(seq, payload, data);
-	// if (payload.type === 'animation') return await animationPreset(seq, payload, data);
+	// if (payload.type === 'graphic') return executeGraphic(seq, payload, data);
+	// if (payload.type === 'sound') return executeSound(seq, payload, data);
+	if (payload.type === 'crosshair') return await executeCrosshair(seq, payload, data);
+	if (payload.type === 'animation') return await executeAnimation(seq, payload, data);
 	if (payload.type === 'macro') return seq.macro(payload.document, payload.options);
 
-	return log(`Failed to execute effect with preset type \`${payload.type}\`: type does not exist`);
+	return log(`Failed to execute payload with unrecognised type \`${(payload as any).type}\`!`);
 }
 
 export function graphicOptions(seq: EffectSection, payload: EffectOptions & GraphicOptions, data: GameData) {
