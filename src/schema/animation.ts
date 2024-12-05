@@ -186,7 +186,7 @@ const animation: z.ZodType<Animation> = flatAnimation
 			.lazy(() =>
 				z
 					.array(animation)
-					.min(1)
+					.min(2)
 					.refine(...uniqueItems),
 			)
 			.optional(),
