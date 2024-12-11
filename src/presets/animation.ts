@@ -1,65 +1,150 @@
-import type { GameData, SequencerTypes } from '.';
-import type { ExecutableAnimation } from '../storage/AnimCore';
-import { isTrueish } from '../utils';
+import type { AnimationPayload } from '../schema/animation';
+import { type ExecutionContext, offsetToVector2, type SequencerTypes, targetToArgument, verifyPermissions } from '.';
+import { log } from '../utils';
 
-export default async function animation(seq: SequencerTypes, animation: ExecutableAnimation, data: GameData) {
-	const { sources } = data;
-	// const { options = {} } = animation;
-	const options: any = animation;
+export async function executeAnimation(
+	_seq: SequencerTypes,
+	payload: Extract<AnimationPayload, { type: 'animation' }>,
+	data: ExecutionContext,
+) {
+	let seq = _seq;
 
-	for (const source of sources) {
-		if ((source.actor as ActorPF2e)?.primaryUpdater?.id === game.userId) {
-			const ani = seq.animation(source);
-
-			if (isTrueish(options?.preset?.type)) {
-				switch (options?.preset?.type) {
-					case 'teleport':
-						ani.teleportTo(options?.preset?.target);
-						break;
-					case 'move':
-					default:
-						ani.moveTowards(options?.preset?.target);
-						break;
-				}
+	for (const subject of payload.subjects) {
+		if (subject === 'SOURCES') {
+			for (const source of data.sources) {
+				seq = processAnimation(seq, source, payload, data);
 			}
-
-			if (isTrueish(options?.duration)) ani.duration(options.duration);
-			if (isTrueish(options?.closestSquare)) ani.closestSquare(options.closestSquare);
-			if (isTrueish(options?.snapToGrid)) ani.snapToGrid(options.snapToGrid);
-
-			if (isTrueish(options?.repeats)) {
-				if (typeof options.repeats === 'object') {
-					ani.repeats(options.repeats.count, options.repeats.delayMin, options.repeats.delayMax);
-				} else {
-					ani.repeats(options.repeats);
-				}
-			}
-			if (isTrueish(options?.delay)) {
-				if (typeof options.delay === 'object') {
-					ani.delay(options.delay.min, options.delay?.max);
-				} else {
-					ani.delay(options.delay);
-				}
-			}
-			if (isTrueish(options?.fadeIn)) {
-				if (typeof options.fadeIn === 'object') {
-					ani.fadeIn(options.fadeIn?.value, options.fadeIn);
-				} else {
-					ani.fadeIn(options.fadeIn);
-				}
-			}
-			if (isTrueish(options?.fadeOut)) {
-				if (typeof options.fadeOut === 'object') {
-					ani.fadeOut(options.fadeOut?.value, options.fadeOut);
-				} else {
-					ani.fadeOut(options.fadeOut);
-				}
+		} else if (subject === 'TARGETS') {
+			for (const target of data.targets) {
+				seq = processAnimation(seq, target, payload, data);
 			}
 		} else {
-			// Do I need to do anything here? I thought of adding some sort of socket in similar vein to crosshairs but... This doesn't seem to be needed?
-			// Edit: What about waitUntilFinished?
+			log('Failed to execute `animation` payload (unknown `targets`).');
 		}
 	}
+
+	return _seq;
+}
+
+function processAnimation(
+	_seq: SequencerTypes,
+	token: TokenPF2e,
+	payload: Parameters<typeof executeAnimation>[1],
+	data: ExecutionContext,
+): SequencerTypes {
+	if (!token.actor) {
+		log(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
+		return _seq;
+	}
+	if (!verifyPermissions(token.actor)) {
+		log(`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`);
+		return _seq;
+	}
+
+	const seq = _seq.animation(token);
+
+	// #region Common effect stuff
+	if (payload.repeats) {
+		if (typeof payload.repeats.delay === 'object') {
+			seq.repeats(payload.repeats.count, payload.repeats.delay.min, payload.repeats.delay.max);
+		} else {
+			seq.repeats(payload.repeats.count, payload.repeats.delay ?? 0);
+		}
+		if (payload.repeats.async) seq.async();
+	}
+	if (payload.waitUntilFinished) {
+		if (typeof payload.waitUntilFinished === 'object') {
+			seq.waitUntilFinished(payload.waitUntilFinished.min, payload.waitUntilFinished.max);
+		} else {
+			seq.waitUntilFinished(payload.waitUntilFinished);
+		}
+	}
+	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
+	if (payload.delay) {
+		if (typeof payload.delay === 'object') {
+			seq.delay(payload.delay.min, payload.delay.max);
+		} else {
+			seq.delay(payload.delay);
+		}
+	}
+	if (payload.fadeIn) seq.fadeIn(payload.fadeIn.duration, payload.fadeIn);
+	if (payload.fadeOut) seq.fadeIn(payload.fadeOut.duration, payload.fadeOut);
+	// #endregion
+
+	// #region Animation-specific stuff
+	if (payload.position) {
+		if (payload.position.type === 'MOVE') {
+			// TODO: Sequencer types make this partial
+			const options = {
+				// `delay` is redundant here due to top-level `delay` (see above)
+				ease: payload.position.ease,
+				relativeToCenter: !payload.position.placeCorner,
+			};
+			/* @ts-expect-error TODO: fix Sequencer type */
+			seq.moveTowards(targetToArgument(payload.position.target, data), options);
+			if (payload.position.duration) seq.duration(payload.position.duration);
+			if (payload.position.speed) seq.moveSpeed(payload.position.speed);
+		} else if (payload.position.type === 'TELEPORT') {
+			seq.teleportTo(payload.position.target, {
+				delay: 0, // TODO: make optional on Sequencer type
+				relativeToCenter: !payload.position.placeCorner,
+			});
+		} else {
+			log(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`);
+			return _seq;
+		}
+		if (payload.position.offset) seq.offset(offsetToVector2(payload.position.offset));
+		if (payload.position.noCollision) seq.closestSquare();
+		if (!payload.position.noSnap) seq.snapToGrid();
+	}
+	if (payload.rotation) {
+		if (payload.rotation.type === 'DIRECTED') {
+			seq.rotateTowards(targetToArgument(payload.rotation.target, data), {
+				duration: payload.rotation.spin?.duration ?? 0,
+				ease: payload.rotation.spin?.ease ?? 'linear',
+				delay: payload.rotation.spin?.delay ?? 0,
+				rotationOffset: payload.rotation.rotationOffset ?? 0,
+				// TODO: Sequencer types to make this partial
+				towardsCenter: true,
+				cacheLocation: false,
+			});
+		} else if (payload.rotation.type === 'ABSOLUTE') {
+			seq.rotateIn(
+				payload.rotation.angle,
+				payload.rotation.spin?.duration ?? 0,
+				payload.rotation.spin ?? {},
+			);
+			if (payload.rotation.spin?.initialAngle) seq.rotate(payload.rotation.spin.initialAngle);
+		} else if (payload.rotation.type === 'ADDITIVE') {
+			seq.rotateIn(
+				token.mesh.angle + payload.rotation.angle,
+				payload.rotation.spin?.duration ?? 0,
+				payload.rotation.spin ?? {},
+			);
+			if (payload.rotation.spin?.initialAngle)
+				seq.rotate(token.mesh.angle + payload.rotation.spin.initialAngle);
+		} else {
+			log(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`);
+			return _seq;
+		}
+	}
+	if (payload.visibility) {
+		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
+		if (payload.visibility.state) {
+			if (payload.visibility.state === 'HIDE') {
+				seq.hide();
+			} else if (payload.visibility.state === 'SHOW') {
+				seq.show();
+			} else {
+				log(
+					`Failed to execute \`animation\` payload on token ${token.name} (unknown \`visibility.state\`).`,
+				);
+				return _seq;
+			}
+		}
+	}
+	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
+	// #endregion
 
 	return seq;
 }

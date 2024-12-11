@@ -1,16 +1,14 @@
-import type { GameData, SequencerTypes } from '.';
 import type { AnimationPayload } from '../schema/animation';
+import { type ExecutionContext, offsetToVector2, type SequencerTypes } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
 	seq: SequencerTypes,
 	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
-	data: GameData,
+	data: ExecutionContext,
 ) {
-	const { sources, user } = data;
-
 	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
-	if (!sources[0].actor)
+	if (!data.sources[0].actor)
 		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');
 
 	// #region Transform `payload` into Sequencer's `CrosshairData`
@@ -58,13 +56,13 @@ export async function executeCrosshair(
 	}
 	if (payload.location) {
 		crosshair.location = {
-			obj: sources[0],
+			obj: data.sources[0],
 			limitMinRange: payload.location.limitRange?.min ?? null,
 			limitMaxRange: payload.location.limitRange?.max ?? null,
 			showRange: payload.location.lockToEdge ? false : !payload.location.hideRangeTooltip,
 			lockToEdge: payload.location.lockToEdge ?? false,
 			lockToEdgeDirection: payload.location.lockToEdgeDirection ?? false,
-			offset: { x: payload.location.offset?.x ?? 0, y: payload.location.offset?.y ?? 0 },
+			offset: offsetToVector2(payload.location.offset),
 			wallBehavior: Sequencer.Crosshair.PLACEMENT_RESTRICTIONS[payload.location.wallBehavior ?? 'ANYWHERE'],
 			displayRangePoly: !!payload.location.limitRange?.invisible,
 			rangePolyFillColor: Number(
@@ -79,7 +77,7 @@ export async function executeCrosshair(
 	}
 	// #endregion
 
-	const users = user ? [game.users.get(user)!] : getPlayerOwners(sources[0].actor as ActorPF2e);
+	const users = data.user ? [game.users.get(data.user)!] : getPlayerOwners(data.sources[0].actor as ActorPF2e);
 
 	const position = new Promise((resolve) => {
 		if (users.find(x => x.id === game.userId)) {

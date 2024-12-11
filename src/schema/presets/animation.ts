@@ -47,7 +47,6 @@ const spinOptions = easingOptions
 			),
 		duration: z.number().positive().describe('How long the transition should take, in milliseconds.'),
 	})
-	.optional()
 	.describe('Causes the token to spin towards the `finalAngle`.');
 
 /**
@@ -63,7 +62,7 @@ export const animationOptions = effectOptions
 		fadeOut: true,
 	})
 	.extend({
-		targets: z // TODO: superrefine `target` against `position.target` and `rotation.target` (no moving tokens nowhere or rotating them towards themselves!)
+		subjects: z // TODO: superrefine `target` against `position.target` and `rotation.target` (no moving tokens nowhere or rotating them towards themselves!)
 			.array(z.enum(['SOURCES', 'TARGETS']))
 			.describe(
 				'Which tokens does the animation act upon? You can choose either the effect\'s `"SOURCES"` or `"TARGETS"` (if they exist).',
@@ -122,7 +121,7 @@ export const animationOptions = effectOptions
 					.object({
 						type: z.enum(['ABSOLUTE', 'ADDITIVE']),
 						angle: angle.describe(
-							'The angle the token should face at the end of the animation, in degrees (°).',
+							'The angle the token should face at the end of the animation, in degrees (°) clockwise from the vertical.',
 						),
 						spin: spinOptions.optional(),
 					})
@@ -134,14 +133,15 @@ export const animationOptions = effectOptions
 							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 							.or(ID)
 							.describe(
-								'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"TARGETS"` or `"TEMPLATES"` to select that respective placeable (if one exists).',
+								'The thing to rotate towards. You can provide either an object with `x` and `y` coordinates, a string representing a stored name (e.g. of a crosshair), or the literal value `"SOURCES"`, `"TARGETS"` or `"TEMPLATES"` to select that respective placeable (if one exists).',
 							),
 						rotationOffset: angle
 							.optional()
 							.describe(
 								'A fixed rotation to apply after the token is oriented towards the target, in degrees (°).',
 							),
-						spin: spinOptions.optional(),
+						// TODO: fix bug in Sequencer preventing `.rotateTowards()` with `.rotate()`
+						spin: spinOptions.omit({ initialAngle: true }).optional(),
 					})
 					.strict(),
 			])
