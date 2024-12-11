@@ -1,12 +1,16 @@
 /* eslint-disable no-prototype-builtins */
+
+import { nonEmpty } from './schema/helpers/refinements';
+
 /* eslint-disable no-console */
 // TODO: (Fall Cleaning) Move to $lib
 export class ErrorMsg extends Error {
 	constructor(message: string) {
 		super(message);
-		this.name = 'PF2e Graphics Error';
+		this.name = 'PF2e Graphics error';
 
-		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
+		// TODO: does this actually run if you `throw new ErrorMsg()`?
+		ui.notifications.error(`PF2e Graphics | ${i18n(message) ?? message}`);
 	}
 
 	static send(message: string) {
@@ -21,7 +25,7 @@ export function nonNullable<T>(value: T): value is NonNullable<T> {
 export let dev = import.meta.env.DEV;
 Hooks.once('ready', () => {
 	if (!dev) dev = game.settings.get('pf2e-graphics', 'dev') as boolean;
-	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => dev = x);
+	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => (dev = x));
 });
 
 export function devLog(...args: any) {
@@ -40,14 +44,21 @@ export function i18n(string: string, format?: any) {
 	return game.i18n.format(string, format);
 }
 
+/**
+ * Returns `true` if the `val` is: `true`, a number, or a non-empty string, object, or array. Returns `false` otherwise (i.e. `null`, `undefined`, and empty strings, objects, or arrays).
+ */
 export function isTrueish<T>(val: T): val is NonNullable<T> {
-	return nonNullable(val)
+	return (
+		nonNullable(val)
 		&& Boolean(val)
-		&& JSON.stringify(val) !== '{}'
-		&& JSON.stringify(val) !== '[]';
+		&& (typeof val === 'object' ? nonEmpty[0](val) : true)
+		&& (Array.isArray(val) ? val.length !== 0 : true)
+	);
 }
 
-export const findTokenByActor = (actor?: ActorPF2e | null) => canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id);
+export function findTokenByActor(actor?: ActorPF2e | null) {
+	return canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id);
+}
 
 export function dedupeStrings(array: string[]) {
 	return Array.from(new Set(array));
@@ -65,9 +76,11 @@ export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 	// Check the ownership IDs, check if there is a player owner, yes, ignore GMs, no, count only GMs.
 	const owners = Object.keys(actor.ownership)
 		.filter(x => x !== 'default')
-		.filter(x => actor.hasPlayerOwner
-			? !game.users.get(x)?.hasRole('GAMEMASTER')
-			: game.users.get(x)?.hasRole('GAMEMASTER'))
+		.filter(x =>
+			actor.hasPlayerOwner
+				? !game.users.get(x)?.hasRole('GAMEMASTER')
+				: game.users.get(x)?.hasRole('GAMEMASTER'),
+		)
 		.map(x => game.users.get(x))
 		.filter(nonNullable);
 
@@ -112,7 +125,10 @@ interface MergeableObject {
 	[key: string]: Mergeable;
 }
 
-export function mergeObjectsConcatArrays<T extends MergeableObject, U extends MergeableObject>(obj1: T, obj2: U): T & U {
+export function mergeObjectsConcatArrays<T extends MergeableObject, U extends MergeableObject>(
+	obj1: T,
+	obj2: U,
+): T & U {
 	const result: any = {};
 
 	for (const key in obj1) {
@@ -123,7 +139,12 @@ export function mergeObjectsConcatArrays<T extends MergeableObject, U extends Me
 
 				if (Array.isArray(value1) && Array.isArray(value2)) {
 					result[key] = value1.concat(value2);
-				} else if (typeof value1 === 'object' && typeof value2 === 'object' && value1 !== null && value2 !== null) {
+				} else if (
+					typeof value1 === 'object'
+					&& typeof value2 === 'object'
+					&& value1 !== null
+					&& value2 !== null
+				) {
 					result[key] = mergeObjectsConcatArrays(value1 as MergeableObject, value2 as MergeableObject);
 				} else {
 					result[key] = value2;
@@ -170,4 +191,4 @@ export function arrayMove<T>(arr: T[], old_index: number, new_index: number): T[
 	}
 	arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 	return arr; // for testing
-};
+}

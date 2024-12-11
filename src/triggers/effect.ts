@@ -1,4 +1,4 @@
-import { log, nonNullable } from 'src/utils';
+import { log, nonNullable } from '../utils';
 
 function handleEffect(item: ItemPF2e, delayed = false) {
 	if (!(item.isOfType('effect') || item.isOfType('condition'))) return;

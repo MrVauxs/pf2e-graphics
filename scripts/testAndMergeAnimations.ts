@@ -1,6 +1,10 @@
+import type { Animation, AnimationsData } from '../src/schema/animation.ts';
+import type { ModuleAnimationData } from '../src/schema/index.ts';
+import type { JSONMap } from '../src/storage/AnimCore.ts';
+import type { FileValidationFailure } from './helpers.ts';
 import * as fs from 'node:fs';
-import { type AnimationObject, type Animations, validateAnimationData } from '../src/storage/animationsSchema.ts';
-import { type FileValidationFailure, pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
+import { validateAnimationData } from '../src/schema/validation/index.ts';
+import { pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
 
 /**
  * Tests animation JSONs, and then returns a merged object along with any valiation errors encountered.
@@ -10,7 +14,9 @@ import { type FileValidationFailure, pluralise, safeJSONParse, testFilesRecursiv
  */
 export function testAndMergeAnimations(
 	targetPath: string,
-): { success: true; data: Animations } | { success: false; data?: Animations; issues: FileValidationFailure[] } {
+):
+	| { success: true; data: ModuleAnimationData }
+	| { success: false; data?: ModuleAnimationData; issues: FileValidationFailure[] } {
 	const referenceTracker = new (class ReferenceTracker extends Map<string, Set<string>> {
 		constructor() {
 			super();
@@ -24,7 +30,7 @@ export function testAndMergeAnimations(
 			}
 		}
 
-		populate(file: string, value: string | AnimationObject[]): void {
+		populate(file: string, value: string | Animation[]): void {
 			if (typeof value === 'string') {
 				this.addPending(value, file);
 			} else {
@@ -37,7 +43,7 @@ export function testAndMergeAnimations(
 			}
 		}
 	})();
-	const mergedAnimations: Map<string, string | AnimationObject[]> = new Map();
+	const mergedAnimations: JSONMap = new Map();
 
 	const results = testFilesRecursively(
 		targetPath,
@@ -56,7 +62,7 @@ export function testAndMergeAnimations(
 
 				// Test whether the data is an object and is therefore mergeable
 				if (typeof json.data === 'object' && json.data !== null && !Array.isArray(json.data)) {
-					const animations = json.data as { [key: string]: string | AnimationObject[] };
+					const animations = json.data as AnimationsData;
 					for (const key in animations) {
 						// Test for duplicate keys
 						if (mergedAnimations.has(key)) {

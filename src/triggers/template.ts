@@ -1,4 +1,4 @@
-import { log } from 'src/utils';
+import { log } from '../utils';
 
 function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false) {
 	if (window.pf2eGraphics.liveSettings.delay && !delayed) {

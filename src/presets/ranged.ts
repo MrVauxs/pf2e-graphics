@@ -1,8 +1,8 @@
-import type { AnimationObject } from 'src/storage/AnimCore';
-import { addAnimationToSequence, type GameData, genericEffectOptions, type SequencerTypes } from '.';
+import type { ExecutableAnimation } from '../storage/AnimCore';
+import { addAnimationToSequence, type GameData, graphicOptions, type SequencerTypes } from '.';
 import { nonNullable } from '../utils';
 
-export default function ranged(seq: SequencerTypes, animation: AnimationObject, data: GameData) {
+export default function ranged(seq: SequencerTypes, animation: ExecutableAnimation, data: GameData) {
 	const { options } = animation;
 	let { sources, targets = [] } = data;
 
@@ -42,7 +42,7 @@ export default function ranged(seq: SequencerTypes, animation: AnimationObject, 
 				effect.atLocation(attacker);
 			}
 
-			genericEffectOptions(effect, animation, data);
+			graphicOptions(effect, animation, data);
 		});
 	});
 
