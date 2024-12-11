@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import type { Writable } from 'svelte/store';
+	import type { ModuleAnimationData } from '../../schema';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
 	import { DB_PREFIX as soundDbPrefix } from '../../assets/soundDb';

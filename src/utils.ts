@@ -7,9 +7,10 @@ import { nonEmpty } from './schema/helpers/refinements';
 export class ErrorMsg extends Error {
 	constructor(message: string) {
 		super(message);
-		this.name = 'PF2e Graphics Error';
+		this.name = 'PF2e Graphics error';
 
-		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
+		// TODO: does this actually run if you `throw new ErrorMsg()`?
+		ui.notifications.error(`PF2e Graphics | ${i18n(message) ?? message}`);
 	}
 
 	static send(message: string) {

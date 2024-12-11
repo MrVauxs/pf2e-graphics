@@ -17,7 +17,7 @@
 	const tabs = ['world-animations', 'preset-animations'] as const;
 	const activeTab = getContext('#external').sessionStorage.getStore(
 		'settings',
-		tabs[0] as (typeof tabs)[number],
+		tabs[0] as (typeof tabs[number]),
 	);
 
 	let search = '';
@@ -137,7 +137,7 @@
 									if (ev.shiftKey) {
 										obj = { [key]: parsedAnimations[key] };
 									} else {
-										obj = { [key]: window.pf2eGraphics.AnimCore.animations[key] };
+										obj = { [key]: window.pf2eGraphics.AnimCore.animations.get(key) };
 									}
 									new JSONEditorApp({
 										store: writable(obj),
