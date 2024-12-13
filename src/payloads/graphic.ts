@@ -1,5 +1,5 @@
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, parseMinMaxObject, targetToArgument } from '.';
+import { type ExecutionContext, offsetToVector2, parseMinMaxObject, positionToArgument } from '.';
 import { AnimCore } from '../storage/AnimCore';
 import { type ArrayElement, ErrorMsg } from '../utils';
 
@@ -24,10 +24,10 @@ function processGraphicPosition(
 	position: ArrayElement<Parameters<typeof executeGraphic>[1]['position']>,
 ): EffectSection {
 	if (position.type === 'STATIC') {
-		seq.atLocation(targetToArgument(position.target, data));
+		seq.atLocation(positionToArgument(position.target, data));
 		// TODO:
 	} else if (position.type === 'DYNAMIC') {
-		seq.attachTo(targetToArgument(position.target, data));
+		seq.attachTo(positionToArgument(position.target, data));
 		// TODO:
 	} else if (position.type === 'SCREEN_SPACE') {
 		seq.screenSpace();

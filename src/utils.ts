@@ -17,6 +17,11 @@ export class ErrorMsg extends Error {
 	}
 }
 
+/**
+ * Converts type `T[]` to `T`.
+ */
+export type ArrayElement<T extends readonly any[]> = T extends readonly (infer U)[] ? U : never;
+
 export function nonNullable<T>(value: T): value is NonNullable<T> {
 	return value !== null && value !== undefined;
 }

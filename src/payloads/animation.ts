@@ -1,6 +1,6 @@
 import type { TokenOrDoc } from '../extensions';
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, targetToArgument, verifyPermissions } from '.';
+import { type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
 import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
@@ -80,7 +80,7 @@ async function processAnimation(
 				relativeToCenter: !payload.position.placeCorner,
 			};
 			/* @ts-expect-error TODO: fix Sequencer type */
-			seq.moveTowards(targetToArgument(payload.position.target, data), options);
+			seq.moveTowards(positionToArgument(payload.position.target, data), options);
 			if (payload.position.duration) seq.duration(payload.position.duration);
 			if (payload.position.speed) seq.moveSpeed(payload.position.speed);
 		} else if (payload.position.type === 'TELEPORT') {
@@ -99,7 +99,7 @@ async function processAnimation(
 	}
 	if (payload.rotation) {
 		if (payload.rotation.type === 'DIRECTED') {
-			seq.rotateTowards(targetToArgument(payload.rotation.target, data), {
+			seq.rotateTowards(positionToArgument(payload.rotation.target, data), {
 				duration: payload.rotation.spin?.duration ?? 0,
 				ease: payload.rotation.spin?.ease ?? 'linear',
 				delay: payload.rotation.spin?.delay ?? 0,
