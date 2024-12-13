@@ -1,5 +1,5 @@
 import { ZodError, type ZodIssue, ZodIssueCode } from 'zod';
-import { animations } from '../animation';
+import { animations } from '../payload';
 import { rollOption } from '../helpers/atoms';
 import { tokenImages } from '../tokenImages';
 

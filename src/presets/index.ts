@@ -1,8 +1,7 @@
 import type { TokenOrDoc } from '../extensions';
-import type { AnimationPayload } from '../schema/animation.ts';
-// import type { EffectOptions, GraphicOptions } from '../schema/presets/index.ts';
+import type { AnimationPayload } from '../schema/payload.ts';
 import type { ExecutableAnimation } from '../storage/AnimCore.ts';
-import { log } from '../utils.ts';
+import { ErrorMsg } from '../utils.ts';
 import { executeAnimation } from './animation.ts';
 import { executeCrosshair } from './crosshair.ts';
 
@@ -16,29 +15,37 @@ export interface GameData {
 	user?: string;
 }
 
-export type SequencerTypes = Sequence | EffectSection | SoundSection | AnimationSection;
+export type SequenceType = Sequence;
 
-export async function addAnimationToSequence(seq: SequencerTypes, payload: AnimationPayload, data: GameData) {
-	// if (payload.type === 'graphic') return executeGraphic(seq, payload, data);
-	// if (payload.type === 'sound') return executeSound(seq, payload, data);
-	if (payload.type === 'crosshair') return await executeCrosshair(seq, payload, prepareExecutionContext(data));
-	if (payload.type === 'animation') return await executeAnimation(seq, payload, prepareExecutionContext(data));
-	if (payload.type === 'macro') return seq.macro(payload.document, payload.options);
+export async function addAnimationToSequence(
+	seq: Sequence,
+	payload: AnimationPayload,
+	data: GameData,
+): Promise<Sequence> {
+	if (!payload) throw ErrorMsg.send(`Payload missing—your data may be corrupted.`);
+	const context = prepareExecutionContext(data);
+	if (payload.type === 'graphic') return seq; // executeGraphic(seq, payload, data);
+	// if (payload.type \=== 'sound') return executeSound(seq, payload, data);
+	if (payload.type === 'crosshair') return await executeCrosshair(seq, payload, context);
+	if (payload.type === 'animation') return await executeAnimation(seq, payload, context);
+	if (payload.type === 'macro') return seq.macro(payload.document, { ...context, ...payload.options });
 
-	return log(`Failed to execute payload with unrecognised type \`${(payload as any).type}\`!`);
+	throw ErrorMsg.send(
+		`Failed to execute payload with unrecognised type \`${(payload as any).type.toString()}\`!`,
+	);
 }
 
 export interface ExecutionContext {
-	sources: TokenPF2e[];
-	targets: TokenPF2e[];
+	sources: TokenOrDoc[];
+	targets: TokenOrDoc[];
 	templates: MeasuredTemplateDocumentPF2e[];
 	user?: string;
 }
 
 function prepareExecutionContext(data: GameData): ExecutionContext {
 	return {
-		sources: (data.sources ?? []) as TokenPF2e[],
-		targets: (data.targets ?? []).filter(target => target instanceof TokenPF2e) as TokenPF2e[],
+		sources: data.sources ?? [],
+		targets: (data.targets ?? []).filter(target => target instanceof TokenPF2e),
 		templates: (data.targets ?? []).filter(target => target instanceof MeasuredTemplateDocumentPF2e),
 		user: data.user,
 	};
@@ -57,8 +64,8 @@ export function targetToArgument(
 }
 
 // TODO: convert this to a prompt for the GM to accept when permissions fail
-export function verifyPermissions(actor: ActorPF2e): boolean {
-	return actor.primaryUpdater?.id === game.userId;
+export function verifyPermissions(actor: Actor): boolean {
+	return actor.permission === 3;
 }
 
 export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {

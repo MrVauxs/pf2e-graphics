@@ -1,9 +1,9 @@
-import type { AnimationPayload } from '../schema/animation';
-import { type ExecutionContext, offsetToVector2, type SequencerTypes } from '.';
+import type { AnimationPayload } from '../schema/payload';
+import { type ExecutionContext, offsetToVector2, type SequenceType } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
-	seq: SequencerTypes,
+	seq: SequenceType,
 	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
 	data: ExecutionContext,
 ) {
@@ -40,7 +40,7 @@ export async function executeCrosshair(
 		if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90;
 		if (payload.template.type === 'RAY') crosshair.width = payload.template.width ?? 90; // Sequencer default doesn't align with PF2e
 		if ('direction' in payload.template) crosshair.direction = payload.template.direction;
-		// TODO: is there a way to cause persistance with `Sequencer.Crosshair.show()`?
+		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
 		// if (payload.template.persist) crosshair.persist = true;
 	}
 	if (payload.snap) {
@@ -110,6 +110,7 @@ export async function executeCrosshair(
 			}, 30_000);
 		}
 	});
+	devLog(location);
 
 	const resolvedLocation = await position;
 	devLog('Retrieved Crosshair Location', payload.name, resolvedLocation);

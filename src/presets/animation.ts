@@ -1,9 +1,10 @@
-import type { AnimationPayload } from '../schema/animation';
-import { type ExecutionContext, offsetToVector2, type SequencerTypes, targetToArgument, verifyPermissions } from '.';
-import { log } from '../utils';
+import type { TokenOrDoc } from '../extensions';
+import type { AnimationPayload } from '../schema/payload';
+import { type ExecutionContext, offsetToVector2, type SequenceType, targetToArgument, verifyPermissions } from '.';
+import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
-	_seq: SequencerTypes,
+	_seq: SequenceType,
 	payload: Extract<AnimationPayload, { type: 'animation' }>,
 	data: ExecutionContext,
 ) {
@@ -19,7 +20,7 @@ export async function executeAnimation(
 				seq = processAnimation(seq, target, payload, data);
 			}
 		} else {
-			log('Failed to execute `animation` payload (unknown `targets`).');
+			throw ErrorMsg.send('Failed to execute `animation` payload (unknown `targets`).');
 		}
 	}
 
@@ -27,18 +28,16 @@ export async function executeAnimation(
 }
 
 function processAnimation(
-	_seq: SequencerTypes,
-	token: TokenPF2e,
+	_seq: SequenceType,
+	token: TokenOrDoc,
 	payload: Parameters<typeof executeAnimation>[1],
 	data: ExecutionContext,
-): SequencerTypes {
+): SequenceType {
 	if (!token.actor) {
-		log(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
-		return _seq;
+		throw ErrorMsg.send(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
 	}
 	if (!verifyPermissions(token.actor)) {
-		log(`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`);
-		return _seq;
+		throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`);
 	}
 
 	const seq = _seq.animation(token);
@@ -68,7 +67,7 @@ function processAnimation(
 		}
 	}
 	if (payload.fadeIn) seq.fadeIn(payload.fadeIn.duration, payload.fadeIn);
-	if (payload.fadeOut) seq.fadeIn(payload.fadeOut.duration, payload.fadeOut);
+	if (payload.fadeOut) seq.fadeOut(payload.fadeOut.duration, payload.fadeOut);
 	// #endregion
 
 	// #region Animation-specific stuff
@@ -87,11 +86,10 @@ function processAnimation(
 		} else if (payload.position.type === 'TELEPORT') {
 			seq.teleportTo(payload.position.target, {
 				delay: 0, // TODO: make optional on Sequencer type
-				relativeToCenter: !payload.position.placeCorner,
+				relativeToCenter: !!payload.position.placeCorner,
 			});
 		} else {
-			log(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`);
-			return _seq;
+			throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`);
 		}
 		if (payload.position.offset) seq.offset(offsetToVector2(payload.position.offset));
 		if (payload.position.noCollision) seq.closestSquare();
@@ -117,15 +115,14 @@ function processAnimation(
 			if (payload.rotation.spin?.initialAngle) seq.rotate(payload.rotation.spin.initialAngle);
 		} else if (payload.rotation.type === 'ADDITIVE') {
 			seq.rotateIn(
-				token.mesh.angle + payload.rotation.angle,
+				token.rotation + payload.rotation.angle,
 				payload.rotation.spin?.duration ?? 0,
 				payload.rotation.spin ?? {},
 			);
 			if (payload.rotation.spin?.initialAngle)
-				seq.rotate(token.mesh.angle + payload.rotation.spin.initialAngle);
+				seq.rotate(token.rotation + payload.rotation.spin.initialAngle);
 		} else {
-			log(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`);
-			return _seq;
+			throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`);
 		}
 	}
 	if (payload.visibility) {
@@ -136,15 +133,15 @@ function processAnimation(
 			} else if (payload.visibility.state === 'SHOW') {
 				seq.show();
 			} else {
-				log(
+				throw ErrorMsg.send(
 					`Failed to execute \`animation\` payload on token ${token.name} (unknown \`visibility.state\`).`,
 				);
-				return _seq;
 			}
 		}
 	}
 	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 	// #endregion
 
+	/* @ts-expect-error TODO: Sequencer being weird? */
 	return seq;
 }

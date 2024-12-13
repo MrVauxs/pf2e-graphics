@@ -1,11 +1,11 @@
 import type { Writable } from 'svelte/store';
 import type { TokenOrDoc } from '../extensions';
-import type { Animation, AnimationsData } from '../schema/animation.ts';
+import type { Animation, AnimationsData } from '../schema/payload.ts';
 import type { ModuleAnimationData } from '../schema/index.ts';
 import type { TokenImageData } from '../schema/tokenImages.ts';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
-import { addAnimationToSequence, type GameData } from '../presets/index.ts';
-import { PRESETS as presetList } from '../schema/presets/index.ts';
+import { addAnimationToSequence } from '../presets/index.ts';
+import { PRESETS as presetList } from '../schema/payloads/index.ts';
 import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
 import {
 	dedupeStrings,
@@ -215,7 +215,6 @@ export let AnimCore = class AnimCore {
 		const appliedAnimations = Object.values(foundAnimations).map(x =>
 			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
 		);
-
 		this.createHistoryEntry({
 			rollOptions,
 			actor,
@@ -338,16 +337,23 @@ export let AnimCore = class AnimCore {
 		 * ```
 		 * @param animationSet The payload attached to `rollOption`.
 		 * @param rollOption The triggering roll option (for error-reporting only).
+		 * @param recursionDepth How many look-ups were needed to reach this point. (Internal use only; defaults to 0.)
 		 * @returns An array of (folded-up) `Animation` objects.
 		 */
-		function parseStrings(animationSet: string | Animation[], rollOption: string): Animation[] {
-			for (let recursion = 0; recursion < 10; recursion++) {
-				if (typeof animationSet === 'object') return animationSet;
-				animationSet = animationData.get(animationSet)!;
+		function parseStrings(
+			animationSet: string | Animation[] | undefined,
+			rollOption: string,
+			recursionDepth: number = 0,
+		): Animation[] {
+			if (recursionDepth > 30) {
+				throw new ErrorMsg(
+					`Animation for \`${rollOption}\` recurses too many times! Do its references form an infinite loop?`,
+				);
 			}
-			throw new ErrorMsg(
-				`Animation for ${rollOption} recurses too many times! Do its references form an infinite loop?`,
-			);
+			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet);
+			if (typeof animationSet !== 'string')
+				throw new ErrorMsg('Could not find referenced payload in ${}—run validation scripts to verify.');
+			return parseStrings(animationData.get(animationSet), rollOption, recursionDepth + 1);
 		}
 
 		/**
@@ -449,19 +455,20 @@ export let AnimCore = class AnimCore {
 		// #endregion
 	}
 
-	static async createSequenceInQueue(
-		queue: Sequence[],
-		animation: ExecutableAnimation,
-		data: GameData,
-		index: number = -1,
-		replace: boolean = false,
-	) {
-		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+	// TODO: unused; delete?
+	// static async createSequenceInQueue(
+	// 	queue: Sequence[],
+	// 	animation: ExecutableAnimation,
+	// 	data: GameData,
+	// 	index: number = -1,
+	// 	replace: boolean = false,
+	// ) {
+	// 	const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-		await addAnimationToSequence(sequence, animation.execute, data);
+	// 	await addAnimationToSequence(sequence, animation.execute, data);
 
-		queue.splice(index, replace ? 1 : 0, sequence);
-	}
+	// 	queue.splice(index, replace ? 1 : 0, sequence);
+	// }
 
 	/**
 	 * Animations in, Sequences out.
@@ -517,9 +524,9 @@ export let AnimCore = class AnimCore {
 			}
 
 			// Time to construct the sequence!
-			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+			let sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 			for (const [index, animation] of animationSet.entries()) {
-				await addAnimationToSequence(sequence, animation.execute, {
+				sequence = await addAnimationToSequence(sequence, animation.execute, {
 					queue: sequences,
 					currentIndex: index,
 					animations: animationSet,
@@ -533,7 +540,7 @@ export let AnimCore = class AnimCore {
 			sequences.push(sequence);
 		}
 
-		return sequences.map(x => x.play({ local: true, preload: true }));
+		return sequences.map(seq => seq.play({ local: true, preload: true }));
 	}
 	// #endregion
 };

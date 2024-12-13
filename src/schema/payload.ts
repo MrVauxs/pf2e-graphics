@@ -2,11 +2,11 @@ import { z } from 'zod';
 import { pluralise } from '../../scripts/helpers';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
-import { effectOptions } from './presets';
-import { animationOptions } from './presets/animation';
-import { crosshairOptions } from './presets/crosshair';
-import { graphicOptions } from './presets/graphic';
-import { soundOptions } from './presets/sound';
+import { effectOptions } from './payloads';
+import { animationOptions } from './payloads/animation';
+import { crosshairOptions } from './payloads/crosshair';
+import { graphicOptions } from './payloads/graphic';
+import { soundOptions } from './payloads/sound';
 import { trigger } from './triggers';
 
 /**
@@ -21,7 +21,7 @@ const animationPayload = z
 				options: z
 					.object({})
 					.optional()
-					.describe('An arbitrary object of options you can pass into the macro as an argument.'),
+					.describe('An arbitrary object of options you can pass into the macro as an argument. The following properties are always available unless overwritten:\n- `sources`: an array of token objects that triggered the payload.\n- `targets`: an array of token objects targetted by the triggering `sources`.\n- `templates`: an array of template objects associated with the trigger.\n- `user`: the user ID (string) for the triggering user.'),
 			})
 			.strict(),
 		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),

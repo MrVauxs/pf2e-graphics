@@ -1,7 +1,7 @@
-import type { AnimationsData } from './animation';
+import type { AnimationsData } from './payload';
 import type { TokenImages } from './tokenImages';
 
-export { animationsData } from './animation';
+export { animationsData } from './payload';
 export { tokenImages } from './tokenImages';
 
 /**
