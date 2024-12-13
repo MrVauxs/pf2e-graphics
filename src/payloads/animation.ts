@@ -1,43 +1,43 @@
 import type { TokenOrDoc } from '../extensions';
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, type SequenceType, targetToArgument, verifyPermissions } from '.';
+import { type ExecutionContext, offsetToVector2, targetToArgument, verifyPermissions } from '.';
 import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
-	_seq: SequenceType,
+	seq: Sequence,
 	payload: Extract<AnimationPayload, { type: 'animation' }>,
 	data: ExecutionContext,
-) {
-	let seq = _seq;
-
+): Promise<Sequence> {
 	for (const subject of payload.subjects) {
 		if (subject === 'SOURCES') {
 			for (const source of data.sources) {
-				seq = processAnimation(seq, source, payload, data);
+				seq = await processAnimation(seq, source, payload, data);
 			}
 		} else if (subject === 'TARGETS') {
 			for (const target of data.targets) {
-				seq = processAnimation(seq, target, payload, data);
+				seq = await processAnimation(seq, target, payload, data);
 			}
 		} else {
 			throw ErrorMsg.send('Failed to execute `animation` payload (unknown `targets`).');
 		}
 	}
 
-	return _seq;
+	return seq;
 }
 
-function processAnimation(
-	_seq: SequenceType,
+async function processAnimation(
+	_seq: Sequence,
 	token: TokenOrDoc,
 	payload: Parameters<typeof executeAnimation>[1],
 	data: ExecutionContext,
-): SequenceType {
+): Promise<Sequence> {
 	if (!token.actor) {
 		throw ErrorMsg.send(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
 	}
-	if (!verifyPermissions(token.actor)) {
-		throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`);
+	if (!(await verifyPermissions(token.actor))) {
+		throw ErrorMsg.send(
+			`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`,
+		);
 	}
 
 	const seq = _seq.animation(token);
@@ -89,7 +89,9 @@ function processAnimation(
 				relativeToCenter: !!payload.position.placeCorner,
 			});
 		} else {
-			throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`);
+			throw ErrorMsg.send(
+				`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`,
+			);
 		}
 		if (payload.position.offset) seq.offset(offsetToVector2(payload.position.offset));
 		if (payload.position.noCollision) seq.closestSquare();
@@ -122,7 +124,9 @@ function processAnimation(
 			if (payload.rotation.spin?.initialAngle)
 				seq.rotate(token.rotation + payload.rotation.spin.initialAngle);
 		} else {
-			throw ErrorMsg.send(`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`);
+			throw ErrorMsg.send(
+				`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`,
+			);
 		}
 	}
 	if (payload.visibility) {
@@ -142,6 +146,6 @@ function processAnimation(
 	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 	// #endregion
 
-	/* @ts-expect-error TODO: Sequencer being weird? */
+	/* @ts-expect-error TODO: Sequencer being weird? Think it occurs due to `seq.animation()` returning the wrong type above. */
 	return seq;
 }

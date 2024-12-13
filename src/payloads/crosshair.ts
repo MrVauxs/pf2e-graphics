@@ -1,12 +1,12 @@
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, type SequenceType } from '.';
+import { type ExecutionContext, offsetToVector2 } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
-	seq: SequenceType,
+	seq: Sequence,
 	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
 	data: ExecutionContext,
-) {
+): Promise<Sequence> {
 	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
 	if (!data.sources[0].actor)
 		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');

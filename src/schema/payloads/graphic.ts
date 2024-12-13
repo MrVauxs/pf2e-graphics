@@ -87,6 +87,10 @@ const sizeBaseObject = z.object({
  */
 const varyPropertiesBaseObject = z.object({
 	property: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
+	name: z
+		.string()
+		.regex(/^\w+$/)
+		.describe('*(`"target": "shapes"` only)* The name of the shape you\'re targetting.'),
 	target: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
 	duration: z.number().positive(),
 	from: z.number(),
@@ -157,9 +161,13 @@ const shapeOptions = z
 			.literal(true)
 			.optional()
 			.describe('Indicates that the shape\'s dimensions are measured in grid units.'),
-		name: ID.optional().describe(
-			'A name to identify the shape, so that it can be referenced elsewhere (namely `varyProperties`).',
-		),
+		name: z
+			.string() // not ID because of restrictions placed by `.varyProperties()`
+			.regex(/^\w+$/)
+			.optional()
+			.describe(
+				'A name to identify the shape, so that it can be referenced elsewhere (namely `varyProperties`).',
+			),
 		alpha: z
 			.number()
 			.gt(0)
@@ -744,6 +752,16 @@ export const graphicOptions = z
 								'targetOffset.y',
 							]),
 						}),
+						z.object({
+							target: z.literal('shapes'),
+							name: z
+								.string()
+								.regex(/^\w+$/)
+								.describe(
+									'*(`"target": "shapes"` only)* The name of the shape you\'re targetting.',
+								),
+							property: z.enum(['scale.x', 'scale.y']),
+						}),
 					])
 					.and(varyPropertiesObject)
 					// Required due to Zod limitation (can't set `strict()` on above objects due to intersection)
@@ -772,7 +790,7 @@ export const graphicOptions = z
 			.describe(
 				'An array of objects, where each object represents a configuration to vary a specific property during the course of the graphic\'s execution.\nThis is a combined interface for Sequencer\'s [`animateProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) and [`loopProperty()`](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=loop-property) methods.',
 			),
-		shapes: z
+		drawings: z
 			.array(
 				z
 					.discriminatedUnion('type', [
@@ -814,7 +832,7 @@ export const graphicOptions = z
 							.strict(),
 						z
 							.object({
-								type: z.literal('TEXT'),
+								type: z.literal('text'),
 								entry: z.string().min(1),
 								options: z
 									.object({}) // TODO: https://pixijs.io/pixi-text-style
@@ -825,7 +843,7 @@ export const graphicOptions = z
 					])
 					.refine(...nonEmpty)
 					.refine(
-						obj => obj.type === 'TEXT' || obj.isMask || !obj.name,
+						obj => obj.type === 'text' || obj.isMask || !obj.name,
 						'`name` and `isMask` can\'t be used simultaneously due to a Sequencer limitation.',
 					)
 					.describe('An object representing a shape. There are multiple `type`s.'),

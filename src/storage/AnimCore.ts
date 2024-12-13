@@ -1,10 +1,10 @@
 import type { Writable } from 'svelte/store';
 import type { TokenOrDoc } from '../extensions';
-import type { Animation, AnimationsData } from '../schema/payload.ts';
 import type { ModuleAnimationData } from '../schema/index.ts';
+import type { Animation, AnimationsData } from '../schema/payload.ts';
 import type { TokenImageData } from '../schema/tokenImages.ts';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
-import { addAnimationToSequence } from '../presets/index.ts';
+import { addAnimationToSequence } from '../payloads/index.ts';
 import { PRESETS as presetList } from '../schema/payloads/index.ts';
 import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
 import {
@@ -115,15 +115,16 @@ export let AnimCore = class AnimCore {
 	// #endregion
 
 	// #region Utils
-	static parseFiles(file: string | string[]): string[] {
-		return (typeof file === 'string' ? [file] : file).flatMap((file) => {
+	static parseFiles(files: string[]): string {
+		const noHandlebars = files.flatMap((file) => {
 			const match = file.match(/\{(.*?)\}/);
 			if (!match) return file;
 
 			const options = match[1];
 			const parsedOptions = options.split(',');
-			return this.parseFiles(parsedOptions.map(x => file.replace(`{${options}}`, x)));
+			return parsedOptions.map(x => file.replace(`{${options}}`, x));
 		});
+		return Sequencer.Helpers.random_array_element(noHandlebars);
 	}
 
 	static prepRollOptions(array: string[]): string[] {

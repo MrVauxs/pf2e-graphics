@@ -9,7 +9,6 @@ export class ErrorMsg extends Error {
 		super(message);
 		this.name = 'PF2e Graphics error';
 
-		// TODO: does this actually run if you `throw new ErrorMsg()`?
 		ui.notifications.error(`PF2e Graphics | ${i18n(message) ?? message}`);
 	}
 

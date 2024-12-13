@@ -25,7 +25,7 @@
 
 	function validateSound(sound: string): true | string {
 		// TODO: Inaccurate
-		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFiles([sound])[0], { softFail: true });
+		const entry = window.Sequencer.Database.getEntry(AnimCore.parseFiles([sound]), { softFail: true });
 		return !!entry;
 	}
 

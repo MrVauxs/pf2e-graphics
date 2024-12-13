@@ -4,6 +4,7 @@ import type { ExecutableAnimation } from '../storage/AnimCore.ts';
 import { ErrorMsg } from '../utils.ts';
 import { executeAnimation } from './animation.ts';
 import { executeCrosshair } from './crosshair.ts';
+import { executeGraphic } from './graphic.ts';
 
 export interface GameData {
 	sources: TokenOrDoc[];
@@ -15,8 +16,6 @@ export interface GameData {
 	user?: string;
 }
 
-export type SequenceType = Sequence;
-
 export async function addAnimationToSequence(
 	seq: Sequence,
 	payload: AnimationPayload,
@@ -24,8 +23,8 @@ export async function addAnimationToSequence(
 ): Promise<Sequence> {
 	if (!payload) throw ErrorMsg.send(`Payload missing—your data may be corrupted.`);
 	const context = prepareExecutionContext(data);
-	if (payload.type === 'graphic') return seq; // executeGraphic(seq, payload, data);
-	// if (payload.type \=== 'sound') return executeSound(seq, payload, data);
+	if (payload.type === 'graphic') return executeGraphic(seq, payload, context);
+	// if (payload.type \=== 'sound') return executeSound(seq, payload, context);
 	if (payload.type === 'crosshair') return await executeCrosshair(seq, payload, context);
 	if (payload.type === 'animation') return await executeAnimation(seq, payload, context);
 	if (payload.type === 'macro') return seq.macro(payload.document, { ...context, ...payload.options });
@@ -64,10 +63,15 @@ export function targetToArgument(
 }
 
 // TODO: convert this to a prompt for the GM to accept when permissions fail
-export function verifyPermissions(actor: Actor): boolean {
+export async function verifyPermissions(actor: Actor): Promise<boolean> {
 	return actor.permission === 3;
 }
 
+/**
+ * Converts the ubiquitous `offset` schema (`{x?: number, y?: number}` with default values of 0) into the Sequencer-desired full form, where both properties are necessarily defined.
+ * @param offset The object as permitted by the schema
+ * @returns A `Vector2` object satisfying `{x: number, y: number}`.
+ */
 export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 	return {
 		x: offset?.x ?? 0,
@@ -77,7 +81,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 
 // export function graphicOptions(seq: EffectSection, payload: EffectOptions & GraphicOptions, data: GameData) {
 // 	if (isTrueish(payload.zIndex)) seq.zIndex(payload.zIndex);
-// 	if (isTrueish(payload.syncGroup)) seq.syncGroup(payload.syncGroup);
 // 	if (isTrueish(payload.randomRotation)) seq.randomRotation(payload.randomRotation);
 // 	if (isTrueish(payload.spriteOffset))
 // 		seq.spriteOffset(offsetToVector2(payload.spriteOffset.offset), payload.spriteOffset);
@@ -96,7 +99,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 	if (isTrueish(payload.scaleIn)) seq.scaleIn(payload.scaleIn.scale, payload.scaleIn.duration, payload.scaleIn);
 // 	if (isTrueish(payload.scaleOut))
 // 		seq.scaleOut(payload.scaleOut.scale, payload.scaleOut.duration, payload.scaleOut);
-// 	if (isTrueish(payload.tint)) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 // 	if (isTrueish(payload.anchor)) seq.anchor(payload.anchor);
 // 	if (isTrueish(payload.opacity)) seq.opacity(payload.opacity);
 // 	if (isTrueish(payload.mask)) seq.mask();
@@ -145,33 +147,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 		}
 // 	}
 
-// 	// Property Animation
-// 	if (isTrueish(payload.loopProperty))
-// 		payload.loopProperty.forEach(opt => seq.loopProperty(opt.target, opt.property, opt.options));
-// 	if (isTrueish(payload.animateProperty))
-// 		payload.animateProperty.forEach(opt => seq.animateProperty(opt.target, opt.property, opt.options));
-
-// 	// Adds or modifies effects
-// 	if (isTrueish(payload.text)) payload.text.forEach(text => seq.text(text.entry, text.options ?? {}));
-// 	if (isTrueish(payload.shapes)) {
-// 		payload.shapes.forEach((shape) => {
-// 			const offset = {
-// 				...parseOffsetInSitu(shape),
-// 				fillColor: shape.fillColor as `#${string}`, // Required due to Sequencer typings
-// 				lineColor: shape.lineColor as `#${string}`, // Required due to Sequencer typings
-// 			};
-// 			seq.shape(shape.type, offset);
-// 		});
-// 	}
-// 	if (isTrueish(payload.filters)) {
-// 		payload.filters.forEach(filter =>
-// 			seq.filter(
-// 				filter.type,
-// 				// @ts-expect-error and so what if options don't exist
-// 				filter.options,
-// 			),
-// 		);
-// 	}
 // 	if (isTrueish(payload.screenSpace)) {
 // 		seq.screenSpace();
 // 		if (typeof payload.screenSpace === 'object') {
@@ -182,7 +157,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 		}
 // 	}
 
-// 	// Meta Stuff
 // 	if (isTrueish(payload.persist)) {
 // 		if (typeof payload.persist === 'object') {
 // 			// @ts-expect-error TODO: Fix in Sequencer types
@@ -219,13 +193,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 	return seq;
 // }
 
-// function offsetToVector2(offset: Partial<Vector2>): Vector2 {
-// 	return {
-// 		x: offset.x ?? 0,
-// 		y: offset.y ?? 0,
-// 	};
-// }
-
 // export function parseOffsetInSitu<T extends { offset?: Partial<Vector2>; gridUnits?: boolean }>(
 // 	obj: T,
 // ): T & { offset: Vector2 & { gridUnits?: boolean } } {
@@ -239,7 +206,12 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 	};
 // }
 
-// function parseMinMaxObject(value: number | { min: number; max: number }): [number] | [number, number] {
-// 	if (typeof value === 'number') return [value];
-// 	return [value.min, value.max];
-// }
+/**
+ * Converts schema values that can be either a single number or a range of numbers into something Sequencer can read (with a spread operator).
+ *
+ * For instance, Sequencer's `.delay()` effect method takes either a single number or two arguments (the former being the minimum and the latter the maximum).
+ */
+export function parseMinMaxObject(value: number | { min: number; max: number }): [number, number?] {
+	if (typeof value === 'number') return [value];
+	return [value.min, value.max];
+}
