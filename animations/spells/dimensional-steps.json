@@ -8,7 +8,7 @@
 				{
 					"execute": {
 						"type": "crosshair",
-						"name": "dimensional-step"
+						"name": "spell-dimensional-steps"
 					}
 				},
 				{
@@ -19,19 +19,19 @@
 						],
 						"position": [
 							{
-								"type": "STATIC",
-								"target": "SOURCES"
+								"type": "static",
+								"location": "SOURCES"
 							},
 							{
-								"type": "STATIC",
-								"target": "dimensional-step"
+								"type": "static",
+								"location": "spell-dimensional-steps"
 							}
 						],
 						"elevation": {
 							"sortLayer": "BELOW_TOKENS"
 						},
 						"size": {
-							"type": "RELATIVE",
+							"type": "relative",
 							"scaling": 2,
 							"scaleIn": {
 								"duration": 1000,
@@ -78,8 +78,8 @@
 						],
 						"delay": 2500,
 						"position": {
-							"type": "TELEPORT",
-							"target": "dimensional-step"
+							"type": "teleport",
+							"location": "spell-dimensional-steps"
 						}
 					}
 				},
