@@ -1,50 +1,44 @@
-import type { TokenOrDoc } from 'src/extensions';
-import type { liveSettings } from 'src/settings';
 import type { Writable } from 'svelte/store';
-import type { storeSettingsType } from '../settings';
-import partition from 'lodash/partition';
-import { addAnimationToSequence, type GameData } from 'src/presets';
-import { dedupeStrings, dev, devLog, ErrorMsg, getPlayerOwners, log, mergeObjectsConcatArrays, nonNullable } from 'src/utils.ts';
-import { type EffectOptions, type Preset, presetList, type Trigger, triggersList } from './animationsSchema';
+import type { TokenOrDoc } from '../extensions';
+import type { ModuleAnimationData } from '../schema/index.ts';
+import type { AnimationSetData, AnimationSetItem } from '../schema/payload.ts';
+import type { TokenImageData } from '../schema/tokenImages.ts';
+import type { liveSettings, storeSettingsType } from '../settings.ts';
+import { decodePayload } from '../payloads/index.ts';
+import { PRESETS as presetList } from '../schema/payloads/index.ts';
+import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
+import {
+	dedupeStrings,
+	dev,
+	devLog,
+	ErrorMsg,
+	getPlayerOwners,
+	log,
+	mergeObjectsConcatArrays,
+	nonNullable,
+} from '../utils.ts';
 
-export type JSONData = Record<string, string | JSONDataObject[]>;
-export type JSONMap = Map<string, string | JSONDataObject[]>;
-type TokenImageDataRule = TokenImageShorthand | TokenImageRuleSource;
-type TokenImageShorthand = [string, string, number, string, number];
+export type JSONMap = Map<string, string | AnimationSetItem[]>;
 
-export type AnimationObject = Omit<JSONDataObject, 'reference' | 'contents' | 'default' | 'overrides'>;
-
-interface JSONDataObject {
-	trigger: Trigger | Trigger[];
-	preset: Preset;
-	file: string | string[];
-	predicate?: PredicateStatement[];
-	options?: EffectOptions;
-	macro?: string;
-	type?: 'addon' | 'slot';
-	// Removed in search() or made irrelevant
-	overrides?: string[];
-	default?: true;
-	reference?: string;
-	contents?: JSONDataObject[];
-}
-
-interface TokenImageData {
-	name: string;
-	uuid?: ItemUUID;
-	rules: TokenImageDataRule[];
-	requires?: string;
-}
+/**
+ * A validated, verified, applicable, unrolled animation object.
+ *
+ * @remarks An object with this type, strictly, should lack `reference`, `overrides`, `contents`, and `default`. This might not always *actually* always be the case to keep the code simple, so avoid iterating over keys where possible! Additionally, the modifications on `Animation` (especially the requirement of `execute`) are only actually guaranteed if the input data validates against the schema; many aspects aren't verified at runtime.
+ *
+ * @todo `unfoldAnimations()` is the source of the above inexactness.
+ */
+export type ExecutableAnimation = Omit<AnimationSetItem, 'reference' | 'contents' | 'default' | 'overrides'> &
+	Required<Pick<AnimationSetItem, 'execute'>>;
 
 interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
-	animations: AnimationObject[];
+	animations: ExecutableAnimation[];
 	actor: { name: string; uuid: string };
 	item?: { name: string; uuid: string };
 	user?: { name: string; id: string };
-};
+}
 
 declare global {
 	interface Window {
@@ -53,7 +47,7 @@ declare global {
 	}
 	interface pf2eGraphics {
 		socket: SocketlibSocket;
-		modules: Record<string, JSONData>;
+		modules: ModuleAnimationData;
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
@@ -71,9 +65,7 @@ export let AnimCore = class AnimCore {
 		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
 		return new Map(
 			Object.keys(window.pf2eGraphics.modules)
-				.sort((a, b) =>
-					a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0,
-				)
+				.sort((a, b) => (a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0))
 				.flatMap(key => Object.entries(window.pf2eGraphics.modules[key])),
 		);
 	}
@@ -87,7 +79,7 @@ export let AnimCore = class AnimCore {
 	static _animations: JSONMap;
 
 	static getKeys(): string[] {
-		return (Array.from(this.animations.keys())).filter(x => !x.startsWith('_'));
+		return Array.from(this.animations.keys()).filter(x => !x.startsWith('_'));
 	}
 
 	static get keys(): string[] {
@@ -99,12 +91,12 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
-			.filter(x => x?.requires ? !!game.modules.get(x.requires) : true)
+		return ((this.animations.get('_tokenImages') ?? []) as TokenImageData[])
+			.filter(x => (x?.requires ? !!game.modules.get(x.requires) : true))
 			.map(x => ({
 				...x,
-				rules: x.rules.map((rule: TokenImageDataRule) => {
-					if (!isShorthand(rule)) return rule;
+				rules: x.rules.map((rule) => {
+					if (!Array.isArray(rule)) return rule;
 					return {
 						key: 'TokenImage',
 						predicate: [`self:effect:${rule[0]}`],
@@ -116,25 +108,23 @@ export let AnimCore = class AnimCore {
 								scale: rule[4],
 							},
 						},
-					} as TokenImageRuleSource;
+					};
 				}),
 			}));
 	}
 	// #endregion
 
 	// #region Utils
-	static parseFiles(files: string[] | string): string[] {
-		return [files].flat().flatMap(s => this._parseFile(s));
-	}
+	static parseFiles(files: string[]): string {
+		const noHandlebars = files.flatMap((file) => {
+			const match = file.match(/\{(.*?)\}/);
+			if (!match) return file;
 
-	static _parseFile(file: string = ''): string[] {
-		const match = file.match(/\{(.*?)\}/);
-		if (!match)
-			return [file];
-
-		const [_, options] = match;
-		const parsedOptions = options.split(',');
-		return parsedOptions.map(x => file.replace(`{${options}}`, x));
+			const options = match[1];
+			const parsedOptions = options.split(',');
+			return parsedOptions.map(x => file.replace(`{${options}}`, x));
+		});
+		return Sequencer.Helpers.random_array_element(noHandlebars);
 	}
 
 	static prepRollOptions(array: string[]): string[] {
@@ -172,7 +162,7 @@ export let AnimCore = class AnimCore {
 		TRIGGERS: triggersList,
 	};
 
-	static addNewAnimation(data: JSONData, overwrite = true) {
+	static addNewAnimation(data: AnimationSetData, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
 	}
 	// #endregion
@@ -181,9 +171,11 @@ export let AnimCore = class AnimCore {
 
 	/**
 	 * Trigger Data in.
-	 * - Run retrieve() to get all the animations proper.
-	 * - Run search() on retrieved animations to get what we are looking for.
-	 * - Run play() on found animations.
+	 *
+	 * 1. Run `retrieve()` to get all the animations proper.
+	 * 2. Run `search()` on retrieved animations to get what we are looking for.
+	 * 3. Run `play()` on found animations.
+	 *
 	 * Exit.
 	 */
 	static animate(
@@ -216,10 +208,14 @@ export let AnimCore = class AnimCore {
 		rollOptions = this.prepRollOptions(rollOptions);
 
 		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
-		const foundAnimations = AnimCore.search(rollOptions, [trigger], new Map(Object.entries(allAnimations)));
-		const appliedAnimations = Object.values(foundAnimations)
-			.map(x => x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)));
-
+		const foundAnimations = AnimCore.search(
+			rollOptions,
+			[trigger],
+			new Map(Object.entries(allAnimations as AnimationSetData)), // Technically false, but we can ignore `_tokenImages` here
+		);
+		const appliedAnimations = Object.values(foundAnimations).map(x =>
+			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
+		);
 		this.createHistoryEntry({
 			rollOptions,
 			actor,
@@ -241,7 +237,7 @@ export let AnimCore = class AnimCore {
 		rollOptions: string[] = [],
 		item?: ItemPF2e<any> | null,
 		actor: ActorPF2e<any> | null | undefined = item?.actor,
-	): { animations: JSONData; sources: Record<string, string[]> } {
+	): { animations: ModuleAnimationData; sources: Record<string, string[]> } {
 		const obj = {
 			animations: {},
 			sources: {},
@@ -252,11 +248,16 @@ export let AnimCore = class AnimCore {
 		*/
 		const owners = actor ? getPlayerOwners(actor) : [game.user];
 
-		const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1);
+		const itemOriginId = rollOptions
+			.find(x => x.includes('origin:item:id:'))
+			?.split(':')
+			.at(-1);
 		const itemOrigin = item?.origin?.items?.get(itemOriginId || '');
 
 		// Get all the flags.
-		const userKeys = owners.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {}).reduce((p, c) => foundry.utils.mergeObject(p, c), {});
+		const userKeys = owners
+			.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
+			.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
 		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
@@ -292,237 +293,270 @@ export let AnimCore = class AnimCore {
 	 * Checks the rollOptions against provided animations and outputs whatever matches.
 	 * Meant to be used in conjunction with retrieve() for the second parameter.
 	 */
-	static search(rollOptions: string[], triggers: string[] = [], animations: JSONMap = AnimCore.animations): Record<string, AnimationObject[]> {
-		const unfoldedAnimations: [string, ReturnType<typeof unfoldAnimations>][] = [];
-		for (const [k, v] of animations.entries()) {
-			if (!rollOptions.includes(k)) continue;
-			const animationNoStrings = parseStrings(v, k);
-			const animationNoRefs = parseReferences(animationNoStrings, k);
-			const filteredAnimation = filterChildren(animationNoRefs);
-			const unfoldedAnimation = unfoldAnimations(filteredAnimation);
-			unfoldedAnimations.push([k, unfoldedAnimation]);
-		}
-		// Do not bother if there are no triggers. We dont want to discriminate animations that *can* happen.
-		if (triggers.length) {
-			const notTriggeredAnimations = unfoldedAnimations.map(([k, v]) => [k, filterByTriggers(v)] as const satisfies [string, object[]]);
-			const notOverridenAnimations = filterByOverride(notTriggeredAnimations);
+	static search(
+		rollOptions: string[],
+		triggers: string[] = [],
+		animationData: JSONMap = AnimCore.animations,
+	): Record<string, ExecutableAnimation[]> {
+		const unfoldedAnimationSets: [string, ReturnType<typeof unfoldAnimations>][] = [];
 
-			return foundry.utils.deepClone(Object.fromEntries(notOverridenAnimations));
-		} else {
-			return foundry.utils.deepClone(Object.fromEntries(unfoldedAnimations));
+		for (const [rollOption, animations] of animationData.entries()) {
+			if (!rollOptions.includes(rollOption)) continue;
+			const animationObjects = parseStrings(animations, rollOption);
+			const animationObjectsSansReference = parseReferences(animationObjects, rollOption);
+			const applicableAnimations = filterChildren(animationObjectsSansReference);
+			const unfoldedAnimations = unfoldAnimations(applicableAnimations);
+			unfoldedAnimationSets.push([rollOption, unfoldedAnimations]);
 		}
 
+		// Limit ourselves to the animations that match our triggers.
+		const triggeredAnimations = unfoldedAnimationSets.map(
+			([rollOption, animations]) =>
+				[rollOption, filterByTriggers(animations)] as (typeof unfoldedAnimationSets)[0],
+		);
+
+		const notOverriddenAnimations = filterByOverride(triggeredAnimations);
+
+		return Object.fromEntries(notOverriddenAnimations) as Record<string, ExecutableAnimation[]>;
+
+		// #region Functions
+
+		/**
+		 * De-references a `ModuleAnimationData` roll option of shorthand string references, returning a strict collection of `Animation` objects.
+		 *
+		 * For example, if the module has the following animation data
+		 * ```json
+		 * {
+		 * 	"roll-option-1": "roll-option-2",
+		 * 	"roll-option-2": [ { "props": "etc." } ],
+		 * 	"unrelated-roll-option": [ { "something": "else" } ],
+		 * }
+		 * ```
+		 * the triggering roll data matches predicate `roll-option-1`, then this function returns with
+		 * ```ts
+		 * [ { props: "etc." } ]
+		 * ```
+		 * @param animationSet The payload attached to `rollOption`.
+		 * @param rollOption The triggering roll option (for error-reporting only).
+		 * @param recursionDepth How many look-ups were needed to reach this point. (Internal use only; defaults to 0.)
+		 * @returns An array of (folded-up) `Animation` objects.
+		 */
 		function parseStrings(
-			v: string | JSONDataObject[],
-			k: string,
-		): JSONDataObject[] {
-			let recursion = 0;
-			while (typeof v === 'string') {
-				if (recursion < 10) {
-					recursion++;
-					v = animations.get(v)!;
-				} else {
-					throw new ErrorMsg(`The ${k} animation recurses too many times! Check if the animation isnt perhaps an infinite loop.`);
-				}
+			animationSet: string | AnimationSetItem[] | undefined,
+			rollOption: string,
+			recursionDepth: number = 0,
+		): AnimationSetItem[] {
+			if (recursionDepth > 30) {
+				throw new ErrorMsg(
+					`Animation for \`${rollOption}\` recurses too many times! Do its references form an infinite loop?`,
+				);
 			}
-			return v;
+			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet);
+			if (typeof animationSet !== 'string')
+				throw new ErrorMsg('Could not find referenced payload in ${}—run validation scripts to verify.');
+			return parseStrings(animationData.get(animationSet), rollOption, recursionDepth + 1);
 		}
 
+		/**
+		 * Transforms `Animation` objects by copying its `reference` into its `contents` (overwriting any `contents` already included).
+		 * @param animations An array of `Animation` objects that potentially contain the `reference` property.
+		 * @param rollOption The triggering roll option (for error-reporting only)
+		 * @returns An array of `Animation` objects with no `reference` property.
+		 */
 		function parseReferences(
-			v: JSONDataObject[],
-			k: string,
-		): Omit<JSONDataObject, 'reference'>[] {
-			const parsed = v.map((obj) => {
-				if ('reference' in obj && obj.reference) {
-					const ref = parseStrings(animations.get(obj.reference)!, k);
+			animations: AnimationSetItem[],
+			rollOption: string,
+		): Omit<AnimationSetItem, 'reference'>[] {
+			return animations.map((obj) => {
+				if ('reference' in obj) {
+					const ref = parseStrings(animationData.get(obj.reference!)!, rollOption);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
-				}
-				// Remove reference.
-				// This cannot be moved above since its in the context of ReferenceObject where reference is required, not optional.
-				if ('reference' in obj)	delete obj.reference;
 
+					// Remove reference.
+					delete obj.reference;
+				}
 				return obj;
 			});
-			return parsed;
 		}
 
+		/**
+		 * Filters `Animation` objects based on its topmost `predicates` property.
+		 * @remarks Unfolding animations is costly, and most payloads will be filtered out anyway, so predicates are checked early.
+		 * @remarks Inputs with `predicates` left undefined or empty are never filtered out.
+		 * @param animations An array of `Animation` objects.
+		 * @returns An array of `Animation` objects with matching topmost `predicates`.
+		 */
+		function filterChildren<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
+			return animations.filter(animation => game.pf2e.Predicate.test(animation.predicates, rollOptions));
+		}
+
+		/**
+		 * 'Unfolds' `Animation`s into their 'executable' form. This removes all remaining references, shorthands, and nested structures. Unfolded `Animation`s are tested against the triggering roll data and only returned if they match.
+		 * @param animationSet An array of `Animation` objects without any `reference` properties.
+		 * @returns An array of `Animation` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `Animation`s).
+		 */
 		function unfoldAnimations(
-			v: Omit<JSONDataObject, 'reference'>[],
-		): Omit<JSONDataObject, 'reference' | 'contents'>[] {
-			function unfoldSingle(folder: JSONDataObject): AnimationObject[] {
-				let { contents = [], ...parentProps } = folder;
+			animationSet: Omit<AnimationSetItem, 'reference'>[],
+		): Omit<AnimationSetItem, 'reference' | 'default' | 'contents'>[] {
+			return animationSet.flatMap((folder) => {
+				// `default` affects the child-selection process (see below), so can be deleted.
+				delete folder.default;
 
-				if (contents.length && contents.some(x => x.default)) {
-					const valid = contents.filter(x => x.predicate?.length && game.pf2e.Predicate.test(x.predicate, rollOptions));
-					if (valid.length) {
-						contents = valid;
-					} else {
-						contents = contents.filter(x => x.default);
+				// Childless animations don't need unfolding.
+				if (!folder.contents) return folder;
+
+				// First get the children with valid predicates. Children with no predicates will match.
+				let validChildren = folder.contents.filter(x =>
+					game.pf2e.Predicate.test(x.predicates, rollOptions),
+				);
+
+				// One child animation can be labelled as `default`, which causes it to be applied if and only if no child animations' predicates match.
+				if (!validChildren.length && folder.contents.some(x => x.default))
+					validChildren = folder.contents.filter(x => x.default);
+
+				// We no longer need this.
+				delete folder.contents;
+
+				// Recurse to unfold the children's children, and then perform a final predicate test.
+				return unfoldAnimations(
+					// Merge children into the parent.
+					validChildren.map(child => mergeObjectsConcatArrays(folder, child)),
+				).filter(child => game.pf2e.Predicate.test(child.predicates, rollOptions));
+			});
+		}
+
+		/**
+		 * Filters `Animation` objects based on its topmost `triggers` property.
+		 * @remarks Inputs with `triggers` left undefined or empty are never filtered out.
+		 * @param animations An array of `Animation` objects.
+		 * @returns An array of `Animation` objects with matching `triggers`.
+		 */
+		function filterByTriggers<T extends { triggers?: Trigger[] }>(animations: T[]) {
+			return animations.filter(
+				animation =>
+					!animation.triggers?.length // Undefined or empty `triggers` is interpreted as triggering on everything
+					|| animation.triggers.find(t => triggers.includes(t)),
+			);
+		}
+
+		function filterByOverride(
+			animationSets: [string, ReturnType<typeof unfoldAnimations>][],
+		): [string, ReturnType<typeof unfoldAnimations>][] {
+			for (const animationSet of animationSets) {
+				for (const animation of animationSet[1]) {
+					if (!animation.overrides) continue;
+					for (const override of animation.overrides) {
+						if (override === '*') return [animationSet]; // Overrides everything
+						animationSets = animationSets.filter(([rollOption]) => !rollOption.startsWith(override));
 					}
 				}
-
-				// Remove parent default. Default should only appear on the very last element in the chain.
-				delete parentProps.default;
-
-				return contents
-					.flatMap(child => child.contents ? unfoldSingle(child) : child)
-					.map(child => mergeObjectsConcatArrays(parentProps, child as any))
-					.filter(child => game.pf2e.Predicate.test(child.predicate, rollOptions));
 			}
-
-			const completed = v.flatMap(folder => folder.contents ? unfoldSingle(folder) : folder);
-
-			return completed;
+			return animationSets;
 		}
 
-		function filterChildren<T extends { predicate?: PredicateStatement[] }>(
-			v: T[],
-		) {
-			return v.filter(x => game.pf2e.Predicate.test(x.predicate, rollOptions));
-		}
-
-		function filterByTriggers<T extends { trigger: string | string[] }>(
-			v: T[],
-		) {
-			return v.filter(a => [a.trigger].flat().find(t => triggers.includes(t)));
-		}
-
-		function filterByOverride<T extends { overrides?: string[] }>(
-			array: [ k: string, v: T[] ][],
-		): [ k: string, v: Omit<T, 'overrides'>[] ][] {
-			for (const objects of array) {
-				for (const object of objects[1]) {
-					if (!object.overrides || !object.overrides.length) continue;
-
-					for (const override of object.overrides) {
-						if (override === '*') {
-							array = [objects];
-						} else {
-							array = array.filter(([k]) => !k.includes(override));
-						}
-					}
-				}
-			}
-
-			return array;
-		}
+		// #endregion
 	}
 
-	static async createSequenceInQueue(
-		queue: Sequence[],
-		animation: AnimationObject,
-		data: GameData,
-		index: number = -1,
-		replace: boolean = false,
-	) {
-		const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+	// TODO: unused; delete?
+	// static async createSequenceInQueue(
+	// 	queue: Sequence[],
+	// 	animation: ExecutableAnimation,
+	// 	data: GameData,
+	// 	index: number = -1,
+	// 	replace: boolean = false,
+	// ) {
+	// 	const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 
-		await addAnimationToSequence(
-			sequence,
-			animation,
-			data,
-		);
+	// 	await addAnimationToSequence(sequence, animation.execute, data);
 
-		queue.splice(index, replace ? 1 : 0, sequence);
-	}
+	// 	queue.splice(index, replace ? 1 : 0, sequence);
+	// }
 
 	/**
 	 * Animations in, Sequences out.
 	 */
 	static async play(
-		animations: AnimationObject[][],
+		rawAnimationSets: ExecutableAnimation[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
 		item?: ItemPF2e<any>,
 		user?: string,
 	) {
 		const sequences: Sequence[] = [];
-		const addons: AnimationObject[] = [];
 
-		// Move every addon to a separate list
-		animations = animations.map((set) => {
-			const [addon, others] = partition(set, x => x.type === 'addon');
-			addons.push(...addon);
-			return others;
-		}).filter(x => x.length);
+		type addOnGenericAnimation = ExecutableAnimation & {
+			generic: Extract<AnimationSetItem['generic'], { type: 'add-on' }>;
+		};
+		const addOns: addOnGenericAnimation[] = [];
 
-		// Apply addons as appropriate
-		animations = animations.map((set) => {
-			// Grab existing IDs for slots or pre-existing animations that should not be added onto.
-			const ids = set.map(x => x.options?.id).filter(nonNullable);
+		// Move every add-on to `addOns`
+		const animationSets = rawAnimationSets
+			.map(set =>
+				set.filter((animation) => {
+					if (animation.generic?.type !== 'add-on') return true;
+					addOns.push(animation as addOnGenericAnimation);
+					return false;
+				}),
+			)
+			.filter(set => set.length);
 
-			function pushToSet(addon: AnimationObject) {
-				switch (addon.options?.addon?.order) {
-					case -1:
-					case 'last':
-						set.push(addon);
-						break;
-					case 0:
-					case 'first':
-					default:
-						set.unshift(addon);
-						break;
-				}
-			}
-
-			for (const addon of addons) {
-				// If an animation object with a given ID exists already,
-				// it means the addon has been either overriden or has a slot.
-				if (ids.includes(addon.options?.id || '')) {
-					const slot = set.findIndex(x =>
-						x.options?.id
-						&& x.type === 'slot'
-						&& x.options?.id === addon.options?.id,
+		for (const animationSet of animationSets) {
+			// Generic animations need to be merged into their 'templates'.
+			for (const addOn of addOns) {
+				if (addOn.name) {
+					// If the add-on has a name ID, then look for a matching `slot` to fill.
+					const slotPosition = animationSet.findIndex(
+						animation => animation.generic?.type === 'slot' && animation.name === addOn.name,
 					);
 
-					if (slot !== -1) {
-						// Replace
-						set.splice(slot, 1, addon);
-					} else {
-						// Skip
-						continue;
-					}
+					// If slot can't be found (either it doesn't exist or it's been overridden), then just skip the add-on.
+					if (slotPosition === -1) continue;
+
+					// Slot has been found! Replace it with the add-on.
+					animationSet.splice(slotPosition, 1, addOn);
 				} else {
-					// Add to beginning / end
-					pushToSet(addon);
+					// If the add-on has no name ID, or the name ID isn't found in the animation set, simply prepend/append the add-on as determined by `generic.order`.
+					// Note that `addOn.generic.order === 'first'` is the default.
+					if (addOn.generic.order === 'last') {
+						animationSet.push(addOn);
+					} else {
+						animationSet.unshift(addOn);
+					}
 				}
 			}
 
-			return set;
-		});
-
-		for (const animationsSet of animations) {
+			// Time to construct the sequence!
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
-
-			for (const [index, animation] of animationsSet.entries()) {
-				await addAnimationToSequence(
-					sequence,
-					animation,
-					{
-						queue: sequences,
-						currentIndex: index,
-						animations: animationsSet,
-						targets,
-						item,
-						sources,
-						user,
-					},
-				);
+			for (const [index, animation] of animationSet.entries()) {
+				const decodedPayload = await decodePayload(animation.execute, {
+					// queue: sequences,
+					currentIndex: index,
+					// animations: animationSet,
+					targets,
+					item,
+					sources,
+					user,
+				});
+				if (decodedPayload.type === 'sequence') {
+					sequence.addSequence(decodedPayload.data);
+				} else if (decodedPayload.type === 'namedLocation') {
+					sequence.addNamedLocation(decodedPayload.data.name, decodedPayload.data.position);
+				} else if (decodedPayload.type === 'null') {
+					// do nothing
+				} else {
+					throw new ErrorMsg('Execution failed (fatal error in `decodePayload()`!).');
+				}
 			}
 
 			sequences.push(sequence);
 		}
 
-		return sequences.map(x => x.play({ local: true, preload: true }));
+		return sequences.map(seq => seq.play({ local: true, preload: true }));
 	}
 	// #endregion
 };
-
-function isShorthand(rule: TokenImageDataRule): rule is TokenImageShorthand {
-	return !!Array.isArray(rule);
-}
 
 Hooks.once('ready', () => {
 	if (!game.modules.get('pf2e-modifiers-matter')?.active)

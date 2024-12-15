@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { i18n } from 'src/utils';
+	import { i18n } from '../../utils';
 
 	const volume = window.pf2eGraphics.storeSettings.getStore('volume');
 

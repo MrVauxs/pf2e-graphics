@@ -1,5 +1,5 @@
+import type { ModuleAnimationData } from './schema';
 // TODO: (Fall Cleaning) Move to storage or $lib or elsewhere
-import type { JSONData } from './storage/AnimCore';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
@@ -10,7 +10,7 @@ let settings: TJSLiveGameSettings & {
 	persistent: boolean;
 	buttonPosition: 0 | 1 | 2;
 	dev: boolean;
-	worldAnimations: JSONData;
+	worldAnimations: ModuleAnimationData;
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;
