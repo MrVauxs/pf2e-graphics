@@ -67,14 +67,14 @@ export const easingOptions = z
 	.strict();
 
 /**
- * Zod schema for the shared properties of a `position` object (except for `SCREEN_SPACE`).
+ * Zod schema for the shared properties of a `position` object (except for `screenSpace`).
  */
 export const positionBaseObject = z.object({
 	offset: vector2.optional().describe('Offsets the graphic\'s anchor.'),
 	spriteOffset: vector2WithGridUnits
 		.optional()
 		.describe(
-			'Offsets the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need `offset` anyway.',
+			'Offsets the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Effect Manager, and often you\'ll only need `offset` anyway.',
 		),
 	randomOffset: z
 		.number()

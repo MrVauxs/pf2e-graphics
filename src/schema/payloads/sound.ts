@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ID } from '../helpers/atoms';
 import { uniqueItems } from '../helpers/refinements';
 import { playableFile, positionBaseObject, vector2 } from '../helpers/structures';
 
@@ -32,19 +33,26 @@ export const soundOptions = z
 			.refine(num => num !== 0.8, '0.8 is the default and doesn\'t need to be configured.')
 			.optional()
 			.describe('The sound\'s volume (default: 0.8).'),
-		position: positionBaseObject
-			.pick({
-				offset: true,
-				randomOffset: true,
-				gridUnits: true,
-			})
-			.extend({
-				target: vector2
-					.or(z.enum(['SOURCES', 'TARGETS']))
-					.describe(
-						'Where the sound should be placed. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"` or `"TARGETS"`.',
-					),
-			}),
+		position: z
+			.array(
+				positionBaseObject
+					.pick({
+						offset: true,
+						randomOffset: true,
+						gridUnits: true,
+					})
+					.extend({
+						location: vector2
+							.or(z.enum(['SOURCES', 'TARGETS']))
+							.or(ID)
+							.describe(
+								'Where the sound should be placed. Accepts one of the following:\n- A pair of pixel-coordinates on the canvas, in the form of `{ x: number, y: number }`.\n- A reference of either the effect\'s `"SOURCES"` or `"TARGETS"`.\n- Another ongoing effect\'s or crosshair\'s `name`.',
+							),
+					}),
+			)
+			.min(1)
+			.describe('An array of positions at which to execute the graphic.'),
+
 		radius: z
 			.number()
 			.positive()

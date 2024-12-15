@@ -1,4 +1,4 @@
-import type { Animation, AnimationsData } from '../src/schema/animation.ts';
+import type { AnimationSetItem, AnimationSetData } from '../src/schema/payload.ts';
 import type { ModuleAnimationData } from '../src/schema/index.ts';
 import type { JSONMap } from '../src/storage/AnimCore.ts';
 import type { FileValidationFailure } from './helpers.ts';
@@ -30,7 +30,7 @@ export function testAndMergeAnimations(
 			}
 		}
 
-		populate(file: string, value: string | Animation[]): void {
+		populate(file: string, value: string | AnimationSetItem[]): void {
 			if (typeof value === 'string') {
 				this.addPending(value, file);
 			} else {
@@ -62,7 +62,7 @@ export function testAndMergeAnimations(
 
 				// Test whether the data is an object and is therefore mergeable
 				if (typeof json.data === 'object' && json.data !== null && !Array.isArray(json.data)) {
-					const animations = json.data as AnimationsData;
+					const animations = json.data as AnimationSetData;
 					for (const key in animations) {
 						// Test for duplicate keys
 						if (mergedAnimations.has(key)) {

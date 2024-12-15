@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ID } from '../helpers/atoms';
+import { ID, UUID } from '../helpers/atoms';
 import { nonZero, uniqueItems } from '../helpers/refinements';
 import { easingOptions } from '../helpers/structures';
 
@@ -36,16 +36,31 @@ export const effectOptions = z
 		syncGroup: ID.optional().describe(
 			'Assigns the animation to a particular group. Animations in a given group all start at the same time, which can be useful if you\'ve got duplicated effects.',
 		),
-		locally: z
-			.literal(true)
-			.optional()
-			.describe('Causes the animation to executed locally only (i.e. only for the triggering user).'),
+		// TODO: can this be done in the module?
+		// locally: z
+		// 	.literal(true)
+		// 	.optional()
+		// 	.describe('Causes the animation to executed locally only (i.e. only for the triggering user).'),
 		users: z
 			.array(z.string())
 			.min(1)
 			.optional()
 			.describe(
 				'An array of user IDs or usernames which can observe the effect.\nThis shouldn\'t be used very much outside custom animations.',
+			),
+		sources: z
+			.array(UUID)
+			.min(1)
+			.optional()
+			.describe(
+				'A list of UUID strings representing one or more targets for the payload. These targets are always used, in addition to any targetted placeables when the payload is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis should not be used outside custom animations for specific scenes.',
+			),
+		targets: z
+			.array(UUID)
+			.min(1)
+			.optional()
+			.describe(
+				'A list of UUID strings representing one or more targets for the payload. These targets are always used, in addition to any targetted placeables when the payload is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis should not be used outside custom animations for specific scenes.',
 			),
 		tieToDocuments: z
 			.literal(true)

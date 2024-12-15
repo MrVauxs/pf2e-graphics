@@ -1,35 +1,42 @@
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, parseMinMaxObject, positionToArgument } from '.';
+import {
+	addCustomExecutionContext,
+	type ExecutionContext,
+	offsetToVector2,
+	parseMinMaxObject,
+	positionToArgument,
+} from '.';
 import { AnimCore } from '../storage/AnimCore';
 import { type ArrayElement, ErrorMsg } from '../utils';
 
 export function executeGraphic(
-	_seq: Sequence,
 	payload: Extract<AnimationPayload, { type: 'graphic' }>,
 	data: ExecutionContext,
 ): Sequence {
+	const seq = new Sequence();
+
+	data = addCustomExecutionContext(payload.sources, payload.targets, data);
+
 	for (const position of payload.position) {
-		const seq = _seq.effect().file(AnimCore.parseFiles(payload.graphic));
-		/* @ts-expect-error TODO: Sequencer being weird? Think it occurs due to `seq.effect()` returning the wrong type above. */
-		_seq = processGraphicPosition(seq, payload, data, position);
+		seq.addSequence(processGraphic(payload, data, position));
 	}
 
-	return _seq;
+	return seq;
 }
 
-function processGraphicPosition(
-	seq: EffectSection,
-	payload: Parameters<typeof executeGraphic>[1],
+function processGraphic(
+	payload: Parameters<typeof executeGraphic>[0],
 	data: ExecutionContext,
-	position: ArrayElement<Parameters<typeof executeGraphic>[1]['position']>,
+	position: ArrayElement<Parameters<typeof executeGraphic>[0]['position']>,
 ): EffectSection {
-	if (position.type === 'STATIC') {
-		seq.atLocation(positionToArgument(position.target, data));
+	const seq = new Sequence().effect().file(AnimCore.parseFiles(payload.graphic));
+	if (position.type === 'static') {
+		seq.atLocation(positionToArgument(position.location, data));
 		// TODO:
-	} else if (position.type === 'DYNAMIC') {
-		seq.attachTo(positionToArgument(position.target, data));
+	} else if (position.type === 'dynamic') {
+		seq.attachTo(positionToArgument(position.location, data));
 		// TODO:
-	} else if (position.type === 'SCREEN_SPACE') {
+	} else if (position.type === 'screenSpace') {
 		seq.screenSpace();
 		if (position.aboveUI) seq.screenSpaceAboveUI();
 		if (position.anchor) seq.screenSpaceAnchor(offsetToVector2(position.anchor));
@@ -38,28 +45,19 @@ function processGraphicPosition(
 		throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`position[].type\`).`);
 	}
 
-	return processGraphicOptions(seq, payload, data);
-}
-
-function processGraphicOptions(
-	seq: EffectSection,
-	payload: Parameters<typeof executeGraphic>[1],
-	data: ExecutionContext,
-): EffectSection {
 	if (payload.name) seq.name(payload.name);
 	if (payload.syncGroup) seq.syncGroup(payload.syncGroup);
-	if (payload.locally) seq.locally(payload.locally);
+	// if (payload.locally) seq.locally(payload.locally);
+	if (payload.users) seq.forUsers(payload.users);
 	if (payload.duration) seq.duration(payload.duration);
 	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
 	if (payload.delay) seq.delay(...parseMinMaxObject(payload.delay));
 
 	// if (payload.persistent) seq.persist(payload.persistent);
 	// if (payload.tieToDocuments) seq.tieToDocuments(payload.tieToDocuments);
-	// users
 	// remove
 	// waitUntilFinished
 	// repeats
-	// targets
 	// position
 	// size
 	// reflection
@@ -74,7 +72,7 @@ function processGraphicOptions(
 		payload.filters.forEach(filter =>
 			seq.filter(
 				filter.type,
-				// @ts-expect-error and so what if options don't exist
+				// @ts-expect-error Nothing bad can happen if `filter.options` is `undefined` because it doesn't exist.
 				filter.options,
 			),
 		);

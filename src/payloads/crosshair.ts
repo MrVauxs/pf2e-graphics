@@ -3,10 +3,9 @@ import { type ExecutionContext, offsetToVector2 } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
-	seq: Sequence,
 	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
 	data: ExecutionContext,
-): Promise<Sequence> {
+): Promise<{ name: string; position: Vector2 }> {
 	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
 	if (!data.sources[0].actor)
 		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');
@@ -37,8 +36,8 @@ export async function executeCrosshair(
 		crosshair.distance = payload.template.size.default;
 		crosshair.distanceMin = payload.template.size.min; // Can be nullish
 		crosshair.distanceMax = payload.template.size.max; // Can be nullish
-		if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90;
-		if (payload.template.type === 'RAY') crosshair.width = payload.template.width ?? 90; // Sequencer default doesn't align with PF2e
+		if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90; // Sequencer default doesn't align with PF2e
+		if (payload.template.type === 'RAY' && crosshair.width) crosshair.width = payload.template.width;
 		if ('direction' in payload.template) crosshair.direction = payload.template.direction;
 		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
 		// if (payload.template.persist) crosshair.persist = true;
@@ -79,10 +78,17 @@ export async function executeCrosshair(
 
 	const users = data.user ? [game.users.get(data.user)!] : getPlayerOwners(data.sources[0].actor as ActorPF2e);
 
-	const position = new Promise((resolve) => {
-		if (users.find(x => x.id === game.userId)) {
+	const seq = new Sequence();
+
+	const position = await new Promise((resolve) => {
+		if (users.find(user => user.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
 			Sequencer.Crosshair.show(crosshair).then((template) => {
+				if (!template) {
+					throw new ErrorMsg(
+						'Payload interrupted due to cancelled crosshair. Use the Effect Manager to remove any remaining graphics/sounds.',
+					);
+				}
 				window.pf2eGraphics.socket.executeForOthers(
 					'remoteLocation',
 					payload.name,
@@ -102,25 +108,20 @@ export async function executeCrosshair(
 				}
 			});
 
-			// Timeout after 30 seconds.
+			// Timeout after 60 seconds.
 			setTimeout(() => {
 				unsub();
 				// @ts-expect-error TODO: Sequencer types
 				if (!seq.status) seq._abort();
-			}, 30_000);
+			}, 60_000);
 		}
 	});
-	devLog(location);
 
-	const resolvedLocation = await position;
-	devLog('Retrieved Crosshair Location', payload.name, resolvedLocation);
+	if (!position) throw new ErrorMsg('Payload failed (could not resolve crosshair position).');
+	devLog('Crosshair position', payload.name, position);
 
-	if (resolvedLocation) {
-		seq.addNamedLocation(payload.name, resolvedLocation);
-	} else {
-		// @ts-expect-error TODO: Sequencer types
-		seq._abort();
-	}
-
-	return seq;
+	return {
+		name: payload.name,
+		position: position as Vector2,
+	};
 }

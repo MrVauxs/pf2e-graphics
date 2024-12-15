@@ -8,7 +8,7 @@ import { easingOptions, vector2 } from '../helpers/structures';
  * Zod schema for the shared properties in a `position` object.
  */
 const positionBaseObject = z.object({
-	target: vector2
+	location: vector2
 		.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 		.or(ID)
 		.describe(
@@ -54,6 +54,8 @@ const spinOptions = easingOptions
  */
 export const animationOptions = effectOptions
 	.pick({
+		sources: true,
+		targets: true,
 		repeats: true,
 		waitUntilFinished: true,
 		probability: true,
@@ -71,7 +73,7 @@ export const animationOptions = effectOptions
 			.discriminatedUnion('type', [
 				positionBaseObject
 					.extend({
-						type: z.literal('MOVE'),
+						type: z.literal('move'),
 						duration: z
 							.number()
 							.positive()
@@ -90,7 +92,7 @@ export const animationOptions = effectOptions
 					.strict(),
 				positionBaseObject
 					.extend({
-						type: z.literal('TELEPORT'),
+						type: z.literal('teleport'),
 					})
 					.strict(),
 			])
@@ -98,9 +100,9 @@ export const animationOptions = effectOptions
 			.refine(
 				obj =>
 					!obj.noCollision
-					|| obj.target === 'SOURCES'
-					|| obj.target === 'TARGETS'
-					|| obj.target === 'TEMPLATES',
+					|| obj.location === 'SOURCES'
+					|| obj.location === 'TARGETS'
+					|| obj.location === 'TEMPLATES',
 				'You can only use `noCollision` when the `target` is a placeable with a size (e.g. `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"`).',
 			)
 			.refine(
@@ -108,18 +110,18 @@ export const animationOptions = effectOptions
 				'`noSnap` is redundant when `noCollision` is enabled.',
 			)
 			.refine(
-				obj => obj.type !== 'MOVE' || !obj.duration || !obj.speed,
+				obj => obj.type !== 'move' || !obj.duration || !obj.speed,
 				'`duration` cannot be used at the same time as `speed`.',
 			)
 			.optional()
 			.describe(
-				'Controls the token\'s position. You can cause the token to either `"MOVE"` or `"TELEPORT"` to its new position.',
+				'Controls the token\'s position. You can cause the token to either `"move"` or `"teleport"` to its new position.',
 			),
 		rotation: z
 			.discriminatedUnion('type', [
 				z
 					.object({
-						type: z.enum(['ABSOLUTE', 'ADDITIVE']),
+						type: z.enum(['absolute', 'additive']),
 						angle: angle.describe(
 							'The angle the token should face at the end of the animation, in degrees (°) clockwise from the vertical.',
 						),
@@ -128,7 +130,7 @@ export const animationOptions = effectOptions
 					.strict(),
 				z
 					.object({
-						type: z.literal('DIRECTED'),
+						type: z.literal('directed'),
 						target: vector2
 							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 							.or(ID)
@@ -147,16 +149,16 @@ export const animationOptions = effectOptions
 			])
 			.optional()
 			.describe(
-				'Controls the token\'s rotation. You can either define a rotation with respect to the canvas (`"type": "ABSOLUTE"`), a rotation added onto the token\'s current orientation (`"type": "ADDITIVE"`), or a rotation relative to a point or another placeable (`"type": "RELATIVE"`).',
+				'Controls the token\'s rotation. You can either define a rotation with respect to the canvas (`"type": "absolute"`), a rotation added onto the token\'s current orientation (`"type": "additive"`), or a rotation relative to a point or another placeable (`"type": "relative"`).',
 			),
 		visibility: z
 			.object({
 				opacity: z.number().gte(0).lte(1).optional().describe('An opacity scaler from 0 to 1.'),
 				state: z
-					.enum(['SHOW', 'HIDE'])
+					.enum(['show', 'hide'])
 					.optional()
 					.describe(
-						'Controls Foundry\'s own visibility state: `"HIDE"` sets the token to be only visible to the GM, regardless of `opacity`; `"SHOW"` reverses this.',
+						'Controls Foundry\'s own visibility state: `"hide"` sets the token to be only visible to the GM, regardless of `opacity`; `"show"` reverses this.',
 					),
 			})
 			.strict()

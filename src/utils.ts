@@ -9,7 +9,7 @@ export class ErrorMsg extends Error {
 		super(message);
 		this.name = 'PF2e Graphics error';
 
-		ui.notifications.error(`PF2e Graphics | ${i18n(message) ?? message}`);
+		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
 	}
 
 	static send(message: string) {
@@ -32,20 +32,34 @@ Hooks.once('ready', () => {
 	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => (dev = x));
 });
 
+/** Fires `console.log()` with some extra formatting sugar if and only if `dev` mode is enabled. */
 export function devLog(...args: any) {
 	if (dev) console.log(`[%cPF2e Graphics%c %cDEV%c]`, 'color: yellow', '', 'color: #20C20E;', '', ...args);
 }
 
+/** Fires `console.log()` with some formatting sugar if and only if `dev` mode is enabled. */
 export function log(...args: any) {
 	if (dev) console.log(`[%cPF2e Graphics%c]`, 'color: yellow', '', ...args);
 }
 
+/** Fires `ui.notifications.notify()` but with the module name prepended. */
+export function notify(message: string) {
+	ui.notifications.notify(`PF2e Graphics | ${i18n(message)}`);
+}
+
+/** Fires `ui.notifications.warn()` but with the module name prepended. */
+export function warn(message: string) {
+	ui.notifications.warn(`PF2e Graphics | ${i18n(message)}`);
+}
+
 export function i18n(string: string, format?: any) {
-	if (!string.includes('pf2e-graphics')) {
-		const test = `pf2e-graphics.${string}`;
-		if (game.i18n.format(test, format) !== test) string = `pf2e-graphics.${string}`;
-	}
-	return game.i18n.format(string, format);
+	if (string.startsWith('pf2e-graphics')) return game.i18n.format(string, format);
+
+	const test = `pf2e-graphics.${string}`;
+	if (game.i18n.format(test, format) !== test) return game.i18n.format(test, format);
+
+	console.error(`[%cPF2e Graphics%c]`, 'color: yellow', '', 'Failed to run i18n on:', string);
+	return string;
 }
 
 /**

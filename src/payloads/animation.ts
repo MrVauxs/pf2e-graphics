@@ -1,21 +1,24 @@
 import type { TokenOrDoc } from '../extensions';
 import type { AnimationPayload } from '../schema/payload';
-import { type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
+import { addCustomExecutionContext, type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
 import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
-	seq: Sequence,
 	payload: Extract<AnimationPayload, { type: 'animation' }>,
 	data: ExecutionContext,
 ): Promise<Sequence> {
+	const seq = new Sequence();
+
+	data = addCustomExecutionContext(payload.sources, payload.targets, data);
+
 	for (const subject of payload.subjects) {
 		if (subject === 'SOURCES') {
 			for (const source of data.sources) {
-				seq = await processAnimation(seq, source, payload, data);
+				seq.addSequence(await processAnimation(source, payload, data));
 			}
 		} else if (subject === 'TARGETS') {
 			for (const target of data.targets) {
-				seq = await processAnimation(seq, target, payload, data);
+				seq.addSequence(await processAnimation(target, payload, data));
 			}
 		} else {
 			throw ErrorMsg.send('Failed to execute `animation` payload (unknown `targets`).');
@@ -26,21 +29,21 @@ export async function executeAnimation(
 }
 
 async function processAnimation(
-	_seq: Sequence,
 	token: TokenOrDoc,
-	payload: Parameters<typeof executeAnimation>[1],
+	payload: Parameters<typeof executeAnimation>[0],
 	data: ExecutionContext,
-): Promise<Sequence> {
+): Promise<AnimationSection> {
 	if (!token.actor) {
 		throw ErrorMsg.send(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
 	}
+	// TODO: Only actually run an animation if the user is the triggering user!
 	if (!(await verifyPermissions(token.actor))) {
 		throw ErrorMsg.send(
 			`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`,
 		);
 	}
 
-	const seq = _seq.animation(token);
+	const seq = new Sequence().animation(token);
 
 	// #region Common effect stuff
 	if (payload.repeats) {
@@ -72,19 +75,19 @@ async function processAnimation(
 
 	// #region Animation-specific stuff
 	if (payload.position) {
-		if (payload.position.type === 'MOVE') {
+		if (payload.position.type === 'move') {
 			// TODO: Sequencer types make this partial
 			const options = {
 				// `delay` is redundant here due to top-level `delay` (see above)
 				ease: payload.position.ease,
 				relativeToCenter: !payload.position.placeCorner,
 			};
-			/* @ts-expect-error TODO: fix Sequencer type */
-			seq.moveTowards(positionToArgument(payload.position.target, data), options);
+			// @ts-expect-error TODO: fix Sequencer type
+			seq.moveTowards(positionToArgument(payload.position.location, data), options);
 			if (payload.position.duration) seq.duration(payload.position.duration);
 			if (payload.position.speed) seq.moveSpeed(payload.position.speed);
-		} else if (payload.position.type === 'TELEPORT') {
-			seq.teleportTo(payload.position.target, {
+		} else if (payload.position.type === 'teleport') {
+			seq.teleportTo(payload.position.location, {
 				delay: 0, // TODO: make optional on Sequencer type
 				relativeToCenter: !!payload.position.placeCorner,
 			});
@@ -98,7 +101,7 @@ async function processAnimation(
 		if (!payload.position.noSnap) seq.snapToGrid();
 	}
 	if (payload.rotation) {
-		if (payload.rotation.type === 'DIRECTED') {
+		if (payload.rotation.type === 'directed') {
 			seq.rotateTowards(positionToArgument(payload.rotation.target, data), {
 				duration: payload.rotation.spin?.duration ?? 0,
 				ease: payload.rotation.spin?.ease ?? 'linear',
@@ -108,14 +111,14 @@ async function processAnimation(
 				towardsCenter: true,
 				cacheLocation: false,
 			});
-		} else if (payload.rotation.type === 'ABSOLUTE') {
+		} else if (payload.rotation.type === 'absolute') {
 			seq.rotateIn(
 				payload.rotation.angle,
 				payload.rotation.spin?.duration ?? 0,
 				payload.rotation.spin ?? {},
 			);
 			if (payload.rotation.spin?.initialAngle) seq.rotate(payload.rotation.spin.initialAngle);
-		} else if (payload.rotation.type === 'ADDITIVE') {
+		} else if (payload.rotation.type === 'additive') {
 			seq.rotateIn(
 				token.rotation + payload.rotation.angle,
 				payload.rotation.spin?.duration ?? 0,
@@ -132,9 +135,9 @@ async function processAnimation(
 	if (payload.visibility) {
 		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
 		if (payload.visibility.state) {
-			if (payload.visibility.state === 'HIDE') {
+			if (payload.visibility.state === 'hide') {
 				seq.hide();
-			} else if (payload.visibility.state === 'SHOW') {
+			} else if (payload.visibility.state === 'show') {
 				seq.show();
 			} else {
 				throw ErrorMsg.send(
@@ -146,6 +149,5 @@ async function processAnimation(
 	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
 	// #endregion
 
-	/* @ts-expect-error TODO: Sequencer being weird? Think it occurs due to `seq.animation()` returning the wrong type above. */
 	return seq;
 }

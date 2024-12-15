@@ -21,7 +21,9 @@ const animationPayload = z
 				options: z
 					.object({})
 					.optional()
-					.describe('An arbitrary object of options you can pass into the macro as an argument. The following properties are always available unless overwritten:\n- `sources`: an array of token objects that triggered the payload.\n- `targets`: an array of token objects targetted by the triggering `sources`.\n- `templates`: an array of template objects associated with the trigger.\n- `user`: the user ID (string) for the triggering user.'),
+					.describe(
+						'An arbitrary object of options you can pass into the macro as an argument. The following properties are always available unless overwritten:\n- `sources`: an array of token objects that triggered the payload.\n- `targets`: an array of token objects targetted by the triggering `sources`.\n- `templates`: an array of template objects associated with the trigger.\n- `user`: the user ID (string) for the triggering user.',
+					),
 			})
 			.strict(),
 		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),
@@ -112,7 +114,7 @@ export type AnimationPayload = z.infer<typeof animationPayload>;
  */
 const flatAnimation = z
 	.object({
-		id: ID,
+		name: ID,
 		generic: z
 			.discriminatedUnion('type', [
 				z.object({ type: z.literal('slot') }).strict(),
@@ -152,6 +154,12 @@ const flatAnimation = z
 			.describe(
 				'An array of strings, where each element is a roll option which PF2e Graphics should ignore when this animation plays. Partial roll options are permitted to override entire groups (e.g. the `item:base:rapier` animation overriding `item:group` to prevent a generic sword animation from being played).',
 			),
+		removes: z
+			.array(ID)
+			.min(1)
+			.refine(...uniqueItems)
+			.optional()
+			.describe('An array of strings, where each element is:\n- Another animation set\'s `id`\n- A particular payload\'s `name`.'),
 		default: z
 			.literal(true)
 			.optional()
@@ -176,20 +184,20 @@ const flatAnimation = z
 /**
  * The complete animation object, as is encoded in JSON.
  */
-export type Animation = Partial<z.infer<typeof flatAnimation>> & {
-	contents?: Animation[];
+export type AnimationSetItem = Partial<z.infer<typeof flatAnimation>> & {
+	contents?: AnimationSetItem[];
 };
 
 /**
  * Zod schema for the complete animation object, as is encoded in JSON.
  */
-const animation: z.ZodType<Animation> = flatAnimation
+const animationSetItem: z.ZodType<AnimationSetItem> = flatAnimation
 	.partial()
 	.extend({
 		contents: z
 			.lazy(() =>
 				z
-					.array(animation)
+					.array(animationSetItem)
 					.min(2)
 					.refine(...uniqueItems),
 			)
@@ -200,22 +208,22 @@ const animation: z.ZodType<Animation> = flatAnimation
 	.describe('The complete animation object, as is encoded in JSON.');
 
 /**
- * Zod schema of a set of animations, as applied to a single roll option.
+ * Zod schema of an animation set, as applied to a single roll option.
  */
-export const animations = z
-	.array(animation)
+export const animationSet = z
+	.array(animationSetItem)
 	.min(1)
 	// .superRefine((arr, ctx) => superValidate(arr, ctx))
 	.refine(...uniqueItems);
 
 /**
- * Zod schema for the animations data object, which maps roll options to animation objects (or other roll options).
+ * Zod schema for the animation-set data object, which maps roll options to animation objects (or other roll options).
  */
-export const animationsData = z
-	.record(rollOption, rollOption.or(animations))
+export const animationsSet = z
+	.record(rollOption, rollOption.or(animationSet))
 	.describe('The animations data object, which maps roll options to animation objects (or other roll options).');
 
 /**
- * The animations data object, which maps roll options to animation objects (or other roll options).
+ * The animation-set data object, which maps roll options to animation objects (or other roll options).
  */
-export type AnimationsData = z.infer<typeof animationsData>;
+export type AnimationSetData = z.infer<typeof animationsSet>;

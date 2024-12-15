@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { pluralise } from '../../../scripts/helpers';
-import { angle, easing, hexColour, ID, UUID } from '../helpers/atoms';
+import { angle, easing, hexColour, ID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
 import {
 	easingOptions,
@@ -44,10 +44,10 @@ const rotationBaseObject = z.object({
 			'Causes the graphic to spin from its defined angle to a final one when it is about to finish executing.',
 		),
 	spriteAngle: angle
-		.or(z.enum(['RANDOM', 'NONE']))
+		.or(z.enum(['random', 'NONE']))
 		.optional()
 		.describe(
-			'An angle in degrees (°) to rotate the graphic within its container/bounding box. Alternatively, use the value `"RANDOM"` to set a random sprite rotation on each execution. The value `"NONE"`, lastly, prevents the graphic from rotating, even if its container does (see `varyProperties`).\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need a regular rotation anyway.',
+			'An angle in degrees (°) to rotate the graphic within its container/bounding box. Alternatively, use the value `"random"` to set a random sprite rotation on each execution. The value `"NONE"`, lastly, prevents the graphic from rotating, even if its container does (see `varyProperties`).\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Effect Manager, and often you\'ll only need a regular rotation anyway.',
 		),
 });
 
@@ -58,7 +58,7 @@ const sizeBaseObject = z.object({
 	spriteScale: scaling2
 		.optional()
 		.describe(
-			'Scales the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Sequence Manager, and often you\'ll only need regular scaling anyway.',
+			'Scales the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Effect Manager, and often you\'ll only need regular scaling anyway.',
 		),
 	scaleIn: easingOptions
 		.extend({
@@ -163,7 +163,7 @@ const shapeOptions = z
 			.describe('Indicates that the shape\'s dimensions are measured in grid units.'),
 		name: z
 			.string() // not ID because of restrictions placed by `.varyProperties()`
-			.regex(/^\w+$/)
+			.regex(/^\w+$/) // it's more stringent instead!
 			.optional()
 			.describe(
 				'A name to identify the shape, so that it can be referenced elsewhere (namely `varyProperties`).',
@@ -218,21 +218,14 @@ export const graphicOptions = z
 			.describe(
 				'The graphic to be played! Use either a Sequencer database path (recommended), or a filepath relative to your Foundry `Data` directory (not a URL!). You can alternatively use the strings `"SOURCES"` or `"TARGETS"` to instead copy the source or target tokens respectively.\nIf you provide more than one graphic, PF2e Graphics will select one at random each time the effect is executed. You can also use the following Sequencer shorthands:\n- Handlebar notation (a comma-separated list inside braces) indicates \'any one of this list\'. For instance, `path.{fire,ice}.1` chooses one of `path.fire.1` and `path.ice.1`.\n- **(Sequencer only)** To pick from all paths with a particular prefix, just don\'t include the variable portion of the path. For instance, if you have the database paths `path.fire.1` and `path.fire.2`, you can just write `path.fire`.\n- **(Filepath only)** You can use `*` as a wildcard (e.g. `assets/audio/*.ogg`).\n**Note:** although you can mix and match the above methods, all possibilities are generated *before* any are chosen. For example, `["path.{fire,ice}.1", "path.fire.1"]` selects from `path.fire.1`, `path.ice.1`, and `path.fire.1` again—a set of three options, so `path.fire.1` has a 67% (not 75%!) chance to occur.',
 			),
-		targets: z
-			.array(UUID)
-			.min(1)
-			.optional()
-			.describe(
-				'A list of UUID strings representing one or more targets for the effect. These targets are always used, in addition to any targetted placeables when the effect is executed. The UUIDs should be for some sort of placeable—tokens, templates, etc.\nThis shouldn\'t be used very much outside custom animations for specific scenes.',
-			),
 		position: z
 			.array(
 				z
 					.discriminatedUnion('type', [
 						positionBaseObject
 							.extend({
-								type: z.literal('STATIC'),
-								target: vector2
+								type: z.literal('static'),
+								location: vector2
 									.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 									.or(ID)
 									.describe(
@@ -261,8 +254,8 @@ export const graphicOptions = z
 							.strict(),
 						positionBaseObject
 							.extend({
-								type: z.literal('DYNAMIC'),
-								target: z
+								type: z.literal('dynamic'),
+								location: z
 									.enum(['SOURCES', 'TARGETS', 'TEMPLATES'])
 									.describe('What the graphic should be attached to.'),
 								align: z
@@ -315,7 +308,7 @@ export const graphicOptions = z
 							.strict(),
 						z
 							.object({
-								type: z.literal('SCREEN_SPACE'),
+								type: z.literal('screenSpace'),
 								aboveUI: z
 									.literal(true)
 									.optional()
@@ -345,9 +338,9 @@ export const graphicOptions = z
 							.strict(),
 					])
 					.superRefine((obj, ctx) => {
-						if (obj.type === 'SCREEN_SPACE') return;
+						if (obj.type === 'screenSpace') return;
 						if (!obj.offset) {
-							if (obj.type === 'DYNAMIC' && obj.edge) {
+							if (obj.type === 'dynamic' && obj.edge) {
 								ctx.addIssue({
 									code: z.ZodIssueCode.custom,
 									message: '`edge` requires `offset`.',
@@ -366,7 +359,7 @@ export const graphicOptions = z
 						}
 					})
 					.describe(
-						'Configures where and how the graphic should be placed.\n`"type": "STATIC"`: sets a constant position for the graphic.\n`"type": "DYNAMIC"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.\n`"type": "SCREEN_SPACE": Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.',
+						'Configures where and how the graphic should be placed.\n`"type": "static"`: sets a constant position for the graphic.\n`"type": "dynamic"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.\n`"type": "screenSpace": Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.',
 					),
 			)
 			.min(1)
@@ -375,7 +368,7 @@ export const graphicOptions = z
 			.discriminatedUnion('type', [
 				sizeBaseObject
 					.extend({
-						type: z.literal('ABSOLUTE'),
+						type: z.literal('absolute'),
 						width: z.number().positive().optional().describe('The graphic\'s width, in pixels.'),
 						height: z.number().positive().optional().describe('The graphic\'s height, in pixels.'),
 						gridUnits: z
@@ -409,8 +402,8 @@ export const graphicOptions = z
 					.strict(),
 				sizeBaseObject
 					.extend({
-						// TODO: superrefine this with `position.type === 'DYNAMIC'`
-						type: z.literal('RELATIVE'),
+						// TODO: superrefine this with `position.type === 'dynamic'`
+						type: z.literal('relative'),
 						scaling: z
 							.number()
 							.positive()
@@ -430,8 +423,8 @@ export const graphicOptions = z
 					.strict(),
 				z
 					.object({
-						// TODO: superrefine this for either no `rotation`, or `rotation.type === 'DIRECTED'`.
-						type: z.literal('DIRECTED'),
+						// TODO: superrefine this for either no `rotation`, or `rotation.type === 'directed'`.
+						type: z.literal('directed'),
 						target: vector2
 							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 							.or(ID)
@@ -455,16 +448,16 @@ export const graphicOptions = z
 								'This causes the graphic to not scale at all, but rather tile to span the gap between the `position` and `target`. This is particularly useful for graphics with a realistic texture (for instance, a rope should get longer, not expand or stretch).',
 							),
 						requiresLineOfSight: z
-							.enum(['HIDE', 'TERMINATE'])
+							.enum(['hide', 'TERMINATE'])
 							.optional()
 							.describe(
-								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `target` moves behind a wall mid-execution. You can set this property to `"HIDE"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `target`, or to `"TERMINATE"` to cancel the graphic as soon as line-of-sight is broken.',
+								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `target` moves behind a wall mid-execution. You can set this property to `"hide"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `target`, or to `"TERMINATE"` to cancel the graphic as soon as line-of-sight is broken.',
 							),
 					})
 					.strict(),
 				sizeBaseObject
 					.extend({
-						type: z.literal('SCREEN_SPACE'), // TODO: superrefine this only if position type === SCREEN_SPACE
+						type: z.literal('screenSpace'), // TODO: superrefine this only if position type === screenSpace
 						x: z
 							.number()
 							.positive()
@@ -507,14 +500,14 @@ export const graphicOptions = z
 					.strict(),
 			])
 			.superRefine((obj, ctx) => {
-				if (obj.type === 'DIRECTED') {
+				if (obj.type === 'directed') {
 					if (obj.stretch && obj.tile) {
 						ctx.addIssue({
 							code: z.ZodIssueCode.custom,
 							message: '`stretch` and `tile` are incompatible.',
 						});
 					}
-				} else if (obj.type === 'SCREEN_SPACE') {
+				} else if (obj.type === 'screenSpace') {
 					if (obj.x && obj.fitX) {
 						return ctx.addIssue({
 							code: z.ZodIssueCode.custom,
@@ -559,21 +552,21 @@ export const graphicOptions = z
 			})
 			.optional()
 			.describe(
-				'Controls how large the graphic should be.\n`"type": "ABSOLUTE"`: scales the graphic to a fixed size.\n`"type": "RELATIVE"`: scales the graphic relative to a particular placeable (in particular, the one determining its `position`).\n`"type": "DIRECTED"`: scales or stretches the graphic so that it spans from its `position` to the `target`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "SCREEN_SPACE"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
+				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable (in particular, the one determining its `position`).\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `target`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
 			),
 		reflection: z
 			.object({
 				x: z
-					.enum(['ALWAYS', 'RANDOM'])
+					.enum(['always', 'random'])
 					.optional()
 					.describe(
-						'`"ALWAYS"`: reflects the graphic across the x-axis.\n`"RANDOM"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
+						'`"always"`: reflects the graphic across the x-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
 					),
 				y: z
-					.enum(['ALWAYS', 'RANDOM'])
+					.enum(['always', 'random'])
 					.optional()
 					.describe(
-						'`"ALWAYS"`: reflects the graphic across the y-axis.\n`"RANDOM"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
+						'`"always"`: reflects the graphic across the y-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
 					),
 			})
 			.strict()
@@ -584,18 +577,18 @@ export const graphicOptions = z
 			.discriminatedUnion('type', [
 				rotationBaseObject
 					.extend({
-						type: z.literal('ABSOLUTE'),
+						type: z.literal('absolute'),
 						angle: angle
-							.or(z.literal('RANDOM'))
+							.or(z.literal('random'))
 							.optional()
 							.describe(
-								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"RANDOM"` to set a random rotation on each execution.',
+								'An angle in degrees (°) to rotate the graphic. Alternatively, use the value `"random"` to set a random rotation on each execution.',
 							),
 					})
 					.strict(),
 				rotationBaseObject
 					.extend({
-						type: z.literal('RELATIVE'),
+						type: z.literal('relative'),
 						target: vector2
 							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 							.or(ID)
@@ -628,7 +621,7 @@ export const graphicOptions = z
 					.strict(),
 				z
 					.object({
-						type: z.literal('DIRECTED'),
+						type: z.literal('directed'),
 						offset: vector2.optional().describe('Offsets the `target` by a fixed amount.'),
 						randomOffset: z
 							.number()
@@ -652,7 +645,7 @@ export const graphicOptions = z
 						message: 'Object must have `type` and at least one other property.',
 					});
 				}
-				if (obj.type === 'RELATIVE' && obj.offset) {
+				if (obj.type === 'relative' && obj.offset) {
 					const keysNeedingOffset = ['randomOffset', 'local', 'gridUnits'].filter(key => key in obj);
 					if (keysNeedingOffset.length) {
 						return ctx.addIssue({
@@ -665,7 +658,7 @@ export const graphicOptions = z
 			})
 			.optional()
 			.describe(
-				'Controls the rotation of the graphic. You can either define an independent rotation (`"type": "ABSOLUTE"`), or rotate relative to another point or object (`"type": "RELATIVE"`). If you\'ve set `"type": "DIRECTED"` in `size`, you can fine-tune the rotation here.',
+				'Controls the rotation of the graphic. You can either define an independent rotation (`"type": "absolute"`), or rotate relative to another point or object (`"type": "relative"`). If you\'ve set `"type": "directed"` in `size`, you can fine-tune the rotation here.',
 			),
 		visibility: z
 			.object({
@@ -707,11 +700,11 @@ export const graphicOptions = z
 			.strict()
 			.optional()
 			.describe('Sets the elevation at which to execute the graphic.'),
-		persistent: z // TODO: superrefine `TOKEN_PROTOTYPE` to require a token target
-			.enum(['CANVAS', 'TOKEN_PROTOTYPE'])
+		persistent: z // TODO: superrefine `tokenPrototype` to require a token target
+			.enum(['canvas', 'tokenPrototype'])
 			.optional()
 			.describe(
-				'Causes the graphic to become permanent. Unless the graphic uses either `name` (so another effect can `remove` it) or `tieToDocuments`, a persistent graphic can only be removed manually via the Sequence Manager.\n`"CANVAS"`: persists the graphic on the canvas.\n`"TOKEN_PROTOTYPE"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
+				'Causes the graphic to become permanent. Unless the graphic uses either `name` (so another effect can `remove` it) or `tieToDocuments`, a persistent graphic can only be removed manually via the Effect Manager.\n`"canvas"`: persists the graphic on the canvas.\n`"tokenPrototype"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
 			),
 		varyProperties: z
 			.array(

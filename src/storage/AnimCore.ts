@@ -1,10 +1,10 @@
 import type { Writable } from 'svelte/store';
 import type { TokenOrDoc } from '../extensions';
 import type { ModuleAnimationData } from '../schema/index.ts';
-import type { Animation, AnimationsData } from '../schema/payload.ts';
+import type { AnimationSetData, AnimationSetItem } from '../schema/payload.ts';
 import type { TokenImageData } from '../schema/tokenImages.ts';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
-import { addAnimationToSequence } from '../payloads/index.ts';
+import { decodePayload } from '../payloads/index.ts';
 import { PRESETS as presetList } from '../schema/payloads/index.ts';
 import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
 import {
@@ -18,7 +18,7 @@ import {
 	nonNullable,
 } from '../utils.ts';
 
-export type JSONMap = Map<string, string | Animation[]>;
+export type JSONMap = Map<string, string | AnimationSetItem[]>;
 
 /**
  * A validated, verified, applicable, unrolled animation object.
@@ -27,8 +27,8 @@ export type JSONMap = Map<string, string | Animation[]>;
  *
  * @todo `unfoldAnimations()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<Animation, 'reference' | 'contents' | 'default' | 'overrides'> &
-	Required<Pick<Animation, 'execute'>>;
+export type ExecutableAnimation = Omit<AnimationSetItem, 'reference' | 'contents' | 'default' | 'overrides'> &
+	Required<Pick<AnimationSetItem, 'execute'>>;
 
 interface AnimationHistoryObject {
 	timestamp: number;
@@ -162,7 +162,7 @@ export let AnimCore = class AnimCore {
 		TRIGGERS: triggersList,
 	};
 
-	static addNewAnimation(data: AnimationsData, overwrite = true) {
+	static addNewAnimation(data: AnimationSetData, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
 	}
 	// #endregion
@@ -211,7 +211,7 @@ export let AnimCore = class AnimCore {
 		const foundAnimations = AnimCore.search(
 			rollOptions,
 			[trigger],
-			new Map(Object.entries(allAnimations as AnimationsData)), // Technically false, but we can ignore `_tokenImages` here
+			new Map(Object.entries(allAnimations as AnimationSetData)), // Technically false, but we can ignore `_tokenImages` here
 		);
 		const appliedAnimations = Object.values(foundAnimations).map(x =>
 			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
@@ -342,10 +342,10 @@ export let AnimCore = class AnimCore {
 		 * @returns An array of (folded-up) `Animation` objects.
 		 */
 		function parseStrings(
-			animationSet: string | Animation[] | undefined,
+			animationSet: string | AnimationSetItem[] | undefined,
 			rollOption: string,
 			recursionDepth: number = 0,
-		): Animation[] {
+		): AnimationSetItem[] {
 			if (recursionDepth > 30) {
 				throw new ErrorMsg(
 					`Animation for \`${rollOption}\` recurses too many times! Do its references form an infinite loop?`,
@@ -363,7 +363,10 @@ export let AnimCore = class AnimCore {
 		 * @param rollOption The triggering roll option (for error-reporting only)
 		 * @returns An array of `Animation` objects with no `reference` property.
 		 */
-		function parseReferences(animations: Animation[], rollOption: string): Omit<Animation, 'reference'>[] {
+		function parseReferences(
+			animations: AnimationSetItem[],
+			rollOption: string,
+		): Omit<AnimationSetItem, 'reference'>[] {
 			return animations.map((obj) => {
 				if ('reference' in obj) {
 					const ref = parseStrings(animationData.get(obj.reference!)!, rollOption);
@@ -395,8 +398,8 @@ export let AnimCore = class AnimCore {
 		 * @returns An array of `Animation` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `Animation`s).
 		 */
 		function unfoldAnimations(
-			animationSet: Omit<Animation, 'reference'>[],
-		): Omit<Animation, 'reference' | 'default' | 'contents'>[] {
+			animationSet: Omit<AnimationSetItem, 'reference'>[],
+		): Omit<AnimationSetItem, 'reference' | 'default' | 'contents'>[] {
 			return animationSet.flatMap((folder) => {
 				// `default` affects the child-selection process (see below), so can be deleted.
 				delete folder.default;
@@ -484,7 +487,7 @@ export let AnimCore = class AnimCore {
 		const sequences: Sequence[] = [];
 
 		type addOnGenericAnimation = ExecutableAnimation & {
-			generic: Extract<Animation['generic'], { type: 'add-on' }>;
+			generic: Extract<AnimationSetItem['generic'], { type: 'add-on' }>;
 		};
 		const addOns: addOnGenericAnimation[] = [];
 
@@ -502,10 +505,10 @@ export let AnimCore = class AnimCore {
 		for (const animationSet of animationSets) {
 			// Generic animations need to be merged into their 'templates'.
 			for (const addOn of addOns) {
-				if (addOn.id) {
-					// If the add-on has an ID, then look for a matching `slot` to fill.
+				if (addOn.name) {
+					// If the add-on has a name ID, then look for a matching `slot` to fill.
 					const slotPosition = animationSet.findIndex(
-						animation => animation.generic?.type === 'slot' && animation.id === addOn.id,
+						animation => animation.generic?.type === 'slot' && animation.name === addOn.name,
 					);
 
 					// If slot can't be found (either it doesn't exist or it's been overridden), then just skip the add-on.
@@ -514,7 +517,7 @@ export let AnimCore = class AnimCore {
 					// Slot has been found! Replace it with the add-on.
 					animationSet.splice(slotPosition, 1, addOn);
 				} else {
-					// If the add-on has no ID, or the ID isn't found in the animation set, simply prepend/append the add-on as determined by `generic.order`.
+					// If the add-on has no name ID, or the name ID isn't found in the animation set, simply prepend/append the add-on as determined by `generic.order`.
 					// Note that `addOn.generic.order === 'first'` is the default.
 					if (addOn.generic.order === 'last') {
 						animationSet.push(addOn);
@@ -525,17 +528,26 @@ export let AnimCore = class AnimCore {
 			}
 
 			// Time to construct the sequence!
-			let sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
+			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 			for (const [index, animation] of animationSet.entries()) {
-				sequence = await addAnimationToSequence(sequence, animation.execute, {
-					queue: sequences,
+				const decodedPayload = await decodePayload(animation.execute, {
+					// queue: sequences,
 					currentIndex: index,
-					animations: animationSet,
+					// animations: animationSet,
 					targets,
 					item,
 					sources,
 					user,
 				});
+				if (decodedPayload.type === 'sequence') {
+					sequence.addSequence(decodedPayload.data);
+				} else if (decodedPayload.type === 'namedLocation') {
+					sequence.addNamedLocation(decodedPayload.data.name, decodedPayload.data.position);
+				} else if (decodedPayload.type === 'null') {
+					// do nothing
+				} else {
+					throw new ErrorMsg('Execution failed (fatal error in `decodePayload()`!).');
+				}
 			}
 
 			sequences.push(sequence);

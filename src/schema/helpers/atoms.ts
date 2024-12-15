@@ -26,18 +26,12 @@ export const ID = z
 				'TARGETS', // *
 				'TEMPLATE',
 				'TEMPLATES', // *
-				'ABSOLUTE',
-				'ADDITIVE',
-				'RELATIVE',
-				'DIRECTED',
-				'STATIC',
-				'DYNAMIC',
 			].includes(str),
 		'This name is reserved.',
 		// * Technically only these NEED to be reserved, but better safe than sorry when it comes to internally meaningful strings imo
 	)
 	.describe(
-		'An animation\'s \'ID\' is an almost-unique string to allow other options to reference it. This is notably important for `generic` animations, as well as animations that `remove` others. It should be unique across all animations that might be executed in your world, so make sure it\'s reasonably distinguished!',
+		'An animation\'s name serves as its \'ID\': an almost-unique, case-sensitive string to allow other options to reference it. This is notably important for named locations (set by crosshairs), `generic` animations, and payloads that `remove` others. It must unique across *all* named animations that might be executed in your world, so make sure it\'s reasonably distinguished!',
 	);
 
 /**
@@ -45,7 +39,10 @@ export const ID = z
  */
 export const UUID = z
 	.string()
-	.regex(/^[a-z0-9]+(?:\.[a-z0-9-]+)+[a-z0-9]$/i, 'Must be a valid UUID.')
+	.regex(
+		/^(?:Scene\.[a-zA-Z0-9]{16}\.|Compendium\.[\w-]+\.[\w-]+\.)?(?:Token|Actor|Item|MeasuredTemplate|AmbientLight|ActiveEffect)\.[a-zA-Z0-9]{16}$/,
+		'Must be a valid UUID.',
+	)
 	.describe('A Foundry document\'s UUID.');
 
 /**
