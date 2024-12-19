@@ -1,5 +1,5 @@
-import type { AnimationSetItem, AnimationSetData } from '../src/schema/payload.ts';
 import type { ModuleAnimationData } from '../src/schema/index.ts';
+import type { AnimationSetData, AnimationSetItem } from '../src/schema/payload.ts';
 import type { JSONMap } from '../src/storage/AnimCore.ts';
 import type { FileValidationFailure } from './helpers.ts';
 import * as fs from 'node:fs';
