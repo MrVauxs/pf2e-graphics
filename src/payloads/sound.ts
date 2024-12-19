@@ -20,8 +20,8 @@ export function executeSound(
 
 function processSound(
 	payload: Parameters<typeof executeSound>[0],
-	data: ExecutionContext,
-	position: ArrayElement<Parameters<typeof executeSound>[0]['position']>,
+	_data: ExecutionContext,
+	_position: ArrayElement<Parameters<typeof executeSound>[0]['position']>,
 ): SoundSection {
 	const seq = new Sequence().sound().file(AnimCore.parseFiles(payload.sound));
 
