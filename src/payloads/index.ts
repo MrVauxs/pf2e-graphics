@@ -87,7 +87,7 @@ function prepareExecutionContext(data: GameData): ExecutionContext {
 	return {
 		sources: data.sources ?? [],
 		targets: (data.targets ?? []).filter(target => target instanceof TokenDocument),
-		templates: (data.targets ?? []).filter(target => target instanceof MeasuredTemplateDocumentPF2e),
+		templates: (data.targets ?? []).filter(target => target instanceof MeasuredTemplateDocument),
 		user: data.user,
 		currentIndex: data.currentIndex,
 		item: data.item,
