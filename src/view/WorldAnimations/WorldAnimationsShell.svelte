@@ -2,7 +2,8 @@
 
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
+
+	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { AnimCore } from '../../storage/AnimCore';
 	import { i18n, log } from '../../utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
@@ -12,7 +13,7 @@
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 
 	export let storeDocument: Writable<{ id: 'settings' }>;
-	export let elementRoot: HTMLElement | undefined;
+	export let elementRoot: HTMLElement;
 
 	const tabs = ['world-animations', 'preset-animations'] as const;
 	const activeTab = getContext('#external').sessionStorage.getStore(

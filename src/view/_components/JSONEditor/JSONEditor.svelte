@@ -3,13 +3,14 @@
 <script lang='ts'>
 	import type { Unsubscriber, Writable } from 'svelte/store';
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
+
+	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { onDestroy, onMount } from 'svelte';
 	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
 	import { fromZodIssue } from 'zod-validation-error';
 	import { validateAnimationData } from '../../../schema/validation/index';
 
-	export let elementRoot: HTMLElement | undefined;
+	export let elementRoot: HTMLElement;
 	export let store: Writable<object>;
 	export let readOnly: boolean;
 	export let validate: boolean;

@@ -1,13 +1,14 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
+
+	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { afterUpdate } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { i18n } from '../../utils';
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 
-	export let elementRoot: HTMLElement | undefined;
+	export let elementRoot: HTMLElement;
 
 	const history = window.pf2eGraphics.history;
 

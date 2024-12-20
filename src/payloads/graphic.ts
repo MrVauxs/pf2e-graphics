@@ -53,17 +53,99 @@ function processGraphic(
 	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
 	if (payload.delay) seq.delay(...parseMinMaxObject(payload.delay));
 
-	// if (payload.persistent) seq.persist(payload.persistent);
+	if (payload.persistent) seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
 	// if (payload.tieToDocuments) seq.tieToDocuments(payload.tieToDocuments);
-	// remove
-	// waitUntilFinished
-	// repeats
-	// position
-	// size
-	// reflection
-	// rotation
-	// visibility
-	// elevation
+	// if (payload.remove)
+	// if (payload.waitUntilFinished)
+	// if (payload.repeats)
+	// if (payload.position)
+	// if (payload.reflection)
+	// if (payload.rotation)
+	if (payload.visibility) {
+		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
+		if (payload.visibility.mask) seq.mask(payload.visibility.mask);
+		if (payload.visibility.xray) seq.xray(payload.visibility.xray);
+	}
+	if (payload.size) {
+		// "screenSpace" | "absolute" | "relative" | "directed"
+		switch (payload.size.type) {
+			case 'screenSpace':
+				seq.screenSpace();
+				// TODO: Implement
+				break;
+			case 'directed':
+				// TODO: Implement
+				throw new ErrorMsg(`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`);
+				break;
+			case 'absolute': {
+				if (payload.size.width && payload.size.height) {
+					const size = {
+						width: payload.size.width,
+						height: payload.size.height,
+					};
+
+					seq.size(size, { gridUnits: !!payload.size.gridUnits });
+				}
+				if (payload.size.scaling) {
+					if (typeof payload.size.scaling === 'number') {
+						seq.scale(payload.size.scaling);
+					} else {
+						seq.scale(...parseMinMaxObject(payload.size.scaling));
+					}
+				}
+				break;
+			}
+			case 'relative': {
+				seq.scaleToObject(payload.size.scaling, { uniform: !!payload.size.uniform, considerTokenScale: !!payload.size.considerTokenScale });
+				break;
+			}
+			default:
+				throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`size.type\`).`);
+		}
+
+		if (payload.size.spriteScale) {
+			if (typeof payload.size.spriteScale === 'number') {
+				seq.spriteScale(payload.size.spriteScale);
+			} else {
+				seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
+			}
+		};
+
+		if (payload.size.scaleIn) {
+			seq.scaleIn(payload.size.scaleIn.initialScale, payload.size.scaleIn.duration, { ease: payload.size.scaleIn.ease, delay: payload.size.scaleIn.delay || 0 });
+		}
+
+		if (payload.size.scaleOut) {
+			seq.scaleOut(payload.size.scaleOut.finalScale, payload.size.scaleOut.duration, { ease: payload.size.scaleOut.ease, delay: payload.size.scaleOut.delay || 0 });
+		}
+	}
+
+	if (payload.elevation) {
+		if (payload.elevation.zIndex) seq.zIndex(payload.elevation.zIndex);
+		if (payload.elevation.height) seq.elevation(payload.elevation.height);
+		if (payload.elevation.sortLayer) {
+			switch (payload.elevation.sortLayer) {
+				case 'BELOW_TOKENS':
+					seq.sortLayer(600);
+					break;
+				case 'BELOW_TILES':
+					seq.sortLayer(300);
+					break;
+				case 'ABOVE_LIGHTING':
+					seq.sortLayer(1200);
+					break;
+				case 'ABOVE_INTERFACE':
+					seq.aboveInterface(true);
+					break;
+				default:
+					if (typeof payload.elevation.sortLayer === 'number') {
+						seq.sortLayer(payload.elevation.sortLayer);
+					} else {
+						throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`);
+					}
+			}
+		}
+	}
 
 	if (payload.fadeIn) seq.fadeIn(payload.fadeIn.duration, payload.fadeIn);
 	if (payload.fadeOut) seq.fadeOut(payload.fadeOut.duration, payload.fadeOut);

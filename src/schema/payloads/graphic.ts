@@ -55,7 +55,25 @@ const rotationBaseObject = z.object({
  * Zod schema for the shared properties of a `size` object.
  */
 const sizeBaseObject = z.object({
-	spriteScale: scaling2
+	spriteScale: z
+		.number()
+		.positive()
+		.refine(...nonZero)
+		.or(
+			z
+				.object({
+					min: z
+						.number()
+						.positive()
+						.refine(...nonZero),
+					max: z
+						.number()
+						.positive()
+						.refine(...nonZero),
+				})
+				.strict()
+				.refine(obj => obj.min < obj.max, '`min` must be less than `max`.'),
+		)
 		.optional()
 		.describe(
 			'Scales the graphic within its container/bounding box.\nOnly use this if you know what you\'re doing; it can make the graphic hard to select in the Effect Manager, and often you\'ll only need regular scaling anyway.',
@@ -683,11 +701,11 @@ export const graphicOptions = z
 			.optional(),
 		elevation: z
 			.object({
-				zIndex: z
+				height: z
 					.number()
 					.optional()
 					.describe(
-						'A entity\'s \'z-index\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher z-index are rendered over the top of those with lower z-indices.\nZ-index differs from `sortLayer` in that it *only* determines the ordering of entities in the same sort layer. Therefore, unless you\'ve manually overridden a graphic\'s `sortLayer`, you should use `zIndex` to control the layering of the graphic among other graphics.',
+						'A entity\'s \'height\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher height are rendered over the top of those with lower height.\nZ-index differs from `sortLayer` in that it *only* determines the ordering of entities in the same sort layer. The \'height\' corresponds to the entity\'s elevation in the scene and behaves the same as a flying or underground token.',
 					),
 				sortLayer: z
 					.enum(['BELOW_TILES', 'BELOW_TOKENS', 'ABOVE_LIGHTING', 'ABOVE_INTERFACE'])
@@ -695,6 +713,12 @@ export const graphicOptions = z
 					.optional()
 					.describe(
 						'An entity\'s \'sort layer\' is effectively just a number that describes that entity\'s \'type\', within the context of layered rendering. For instance, tokens, tiles, and weather all have different sort-layer values. For entities with the same elevation, the one with the higher sort-layer value is placed on top; this creates a kind of \'layering\' system for each type of entity (e.g. one layer for the scene, one for tiles, one for tokens, one for weather, etc.).\nThe default canvas ordering is scene, tiles, drawings, tokens, weather; above that still is lighting, then UI. The default sort-layer value for Sequencer effects is 800, which is above tokens but below weather effects. You can use one of the listed string values to modify this.\nYou can also choose to set a numeric value manually for more fine-tuned control. Note Foundry\'s [documentation](https://foundryvtt.com/api/classes/client.PrimaryCanvasGroup.html#SORT_LAYERS) for a guideline.',
+					),
+				zIndex: z
+					.number()
+					.optional()
+					.describe(
+						'A entity\'s \'z-index\' is a number that describes how \'high up\' that entity should be rendered—entities with a higher z-index are rendered over the top of those with lower z-indices.\nZ-index differs from `height` in that it *only* determines the ordering of entities in the same sort layer and elevation. This is mainly useful for controlling the layering of the graphic among other graphics.',
 					),
 			})
 			.strict()

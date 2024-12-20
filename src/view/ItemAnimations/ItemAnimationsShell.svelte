@@ -1,7 +1,8 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
 	// @ts-ignore - TJS-2-TS
-	import { ApplicationShell } from '#runtime/svelte/component/core';
+
+	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { i18n } from '../../utils';
 	// import PresetAnimations from './tabs/preset-animations.svelte'
@@ -12,7 +13,7 @@
 
 	export let storeDocument: TJSDocument<ItemPF2e>;
 	export let document: ItemPF2e;
-	export let elementRoot: HTMLElement | undefined;
+	export let elementRoot: HTMLElement;
 
 	const doc = storeDocument;
 
