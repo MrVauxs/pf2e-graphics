@@ -40,12 +40,15 @@ export async function decodePayload(payload: AnimationPayload, data: GameData): 
 
 	const context = prepareExecutionContext(data);
 
-	if (payload.type === 'graphic') return { type: 'sequence', data: executeGraphic(payload, context) };
-	if (payload.type === 'sound') return { type: 'sequence', data: executeSound(payload, context) };
+	if (payload.type === 'graphic')
+		return { type: 'sequence', data: executeGraphic(payload, context) };
+	if (payload.type === 'sound')
+		return { type: 'sequence', data: executeSound(payload, context) };
 	if (payload.type === 'crosshair')
 		return { type: 'namedLocation', data: await executeCrosshair(payload, context) };
 	if (payload.type === 'animation') {
-		if (game.userId === data.user) return { type: 'sequence', data: await executeAnimation(payload, context) };
+		if (game.userId === data.user)
+			return { type: 'sequence', data: await executeAnimation(payload, context) };
 		return { type: 'null' };
 	}
 	if (payload.type === 'macro') {
