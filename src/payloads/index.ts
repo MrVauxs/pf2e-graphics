@@ -74,6 +74,7 @@ export interface ExecutionContext {
 	templates: MeasuredTemplateDocumentPF2e[];
 	user?: string;
 	currentIndex: number;
+	item?: ItemPF2e<any>;
 }
 
 /**
@@ -86,6 +87,7 @@ function prepareExecutionContext(data: GameData): ExecutionContext {
 		templates: (data.targets ?? []).filter(target => target instanceof MeasuredTemplateDocumentPF2e),
 		user: data.user,
 		currentIndex: data.currentIndex,
+		item: data.item,
 	};
 }
 

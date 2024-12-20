@@ -1,0 +1,61 @@
+{
+	"effect:mage-armor": "effect:mystic-armor",
+	"effect:mystic-armor": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						2
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_field.01.blue"
+				],
+				"tieToDocuments": true,
+				"position": [
+					{
+						"type": "dynamic",
+						"location": "SOURCES"
+					}
+				],
+				"size": {
+					"type": "relative",
+					"scaling": 1.5,
+					"considerTokenScale": true,
+					"scaleIn": {
+						"duration": 1000,
+						"initialScale": 0,
+						"ease": "easeInOutElastic"
+					},
+					"scaleOut": {
+						"duration": 1500,
+						"finalScale": 0,
+						"ease": "easeInOutElastic"
+					}
+				},
+				"visibility": {
+					"mask": ["SOURCES"]
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": ["start-turn", "effect"]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": ["effect"],
+					"execute": {
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	]
+}

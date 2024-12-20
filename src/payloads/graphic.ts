@@ -55,7 +55,7 @@ function processGraphic(
 	if (payload.delay) seq.delay(...parseMinMaxObject(payload.delay));
 
 	if (payload.persistent) seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
-	// if (payload.tieToDocuments) seq.tieToDocuments(payload.tieToDocuments);
+	if (payload.tieToDocuments && data.item) seq.tieToDocuments(data.item);
 	// if (payload.remove)
 	// if (payload.waitUntilFinished)
 	// if (payload.repeats)
@@ -64,8 +64,15 @@ function processGraphic(
 	// if (payload.rotation)
 	if (payload.visibility) {
 		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
-		if (payload.visibility.mask) seq.mask(payload.visibility.mask);
 		if (payload.visibility.xray) seq.xray(payload.visibility.xray);
+		if (payload.visibility.mask) {
+			const masking = payload.visibility.mask.map((x) => {
+				if (x === 'SOURCES') return data.sources;
+				if (x === 'TARGETS') return data.targets;
+				return x;
+			});
+			seq.mask(masking);
+		}
 	}
 	if (payload.size) {
 		switch (payload.size.type) {
