@@ -43,7 +43,7 @@
 		"eslint-plugin-svelte": "^2.45.1",
 		"foundry-pf2e": "github:reonZ/foundry-pf2e",
 		"jb2a-databases": "github:Jules-Bens-Aa/jb2a-databases",
-		"json-source-map": "^0.6.1",
+		"json-source-map": "github:MrVauxs/json-source-map",
 		"keep-a-changelog": "^2.5.3",
 		"lodash": "^4.17.21",
 		"picocolors": "^1.1.1",

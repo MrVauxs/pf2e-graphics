@@ -1,6 +1,5 @@
 /* eslint-env node */
 import fs from 'node:fs';
-import resolve from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
 import p from 'picocolors';
@@ -56,7 +55,7 @@ export default defineConfig(({ mode }) => ({
 	root: './src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
-	publicDir: '../assets',
+	publicDir: false,
 
 	clearScreen: true,
 
