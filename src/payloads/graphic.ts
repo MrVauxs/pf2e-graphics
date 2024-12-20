@@ -29,7 +29,7 @@ function processGraphic(
 	data: ExecutionContext,
 	position: ArrayElement<Parameters<typeof executeGraphic>[0]['position']>,
 ): EffectSection {
-	// TODO: Handling of `.copySprite()`
+	// TODO: Handling of `.copySprite()` and antialiasing
 	const seq = new Sequence().effect().file(AnimCore.parseFiles(payload.graphic));
 	if (position.type === 'static') {
 		seq.atLocation(positionToArgument(position.location, data));
