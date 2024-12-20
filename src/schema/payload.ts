@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { pluralise } from '../../scripts/helpers';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
+import { pluralise } from './helpers/utils';
 import { effectOptions } from './payloads';
 import { animationOptions } from './payloads/animation';
 import { crosshairOptions } from './payloads/crosshair';

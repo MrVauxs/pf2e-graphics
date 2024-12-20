@@ -115,11 +115,6 @@ export default defineConfig(({ mode }) => ({
 			fileName: moduleJSON.id,
 		},
 		rollupOptions: {
-			external: [
-				'node:fs',
-				'node:path',
-				'@actions/core',
-			],
 			output: {
 				assetFileNames: assetInfo =>
 					assetInfo.name === 'style.css'

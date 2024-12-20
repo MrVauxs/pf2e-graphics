@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { pluralise } from '../../../scripts/helpers';
 import { angle, easing, hexColour, ID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
 import {
@@ -10,6 +9,7 @@ import {
 	vector2,
 	vector2WithGridUnits,
 } from '../helpers/structures';
+import { pluralise } from '../helpers/utils';
 
 /**
  * Zod schema for the shared properties of a `rotation` object.
