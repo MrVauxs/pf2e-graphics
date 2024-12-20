@@ -1,7 +1,5 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
-	// @ts-ignore - TJS-2-TS
-
 	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { i18n } from '../../utils';

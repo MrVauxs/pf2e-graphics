@@ -4,6 +4,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
 import p from 'picocolors';
 import minify from 'postcss-minify';
+import PrefixWrap from 'postcss-prefixwrap';
 import { sveltePreprocess } from 'svelte-preprocess';
 import tailwindcss from 'tailwindcss';
 import nesting from 'tailwindcss/nesting';
@@ -16,16 +17,17 @@ import { type FileValidationFailure, Log, pluralise } from './scripts/helpers';
 import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
 
 const packagePath = `modules/${moduleJSON.id}`;
+const cssId = 'pf2e-g';
 
 const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
 function plugins(mode: string): PluginOption[] {
 	const compilerOptions = mode === 'production'
-		? { cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}` }
+		? { cssHash: ({ hash, css }) => `svelte-${cssId}-${hash(css)}` }
 		: {};
 
 	return [
-		checker({ typescript: true }),
+		checker({ typescript: true, enableBuild: false }),
 		tsconfigPaths(),
 		svelte({
 			compilerOptions,
@@ -67,7 +69,13 @@ export default defineConfig(({ mode }) => ({
 		postcss: {
 			inject: false,
 			sourceMap: true,
-			plugins: [nesting, tailwindcss, autoprefixer, minify],
+			plugins: [
+				nesting,
+				tailwindcss,
+				autoprefixer,
+				PrefixWrap(`.${cssId}`, { ignoredSelectors: [`.${cssId}`] }),
+				minify,
+			],
 		},
 	},
 

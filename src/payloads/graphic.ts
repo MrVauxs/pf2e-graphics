@@ -126,20 +126,20 @@ function processGraphic(
 		if (payload.elevation.sortLayer) {
 			switch (payload.elevation.sortLayer) {
 				case 'BELOW_TOKENS':
-					seq.sortLayer(600);
+					// seq.sortLayer(600);
 					break;
 				case 'BELOW_TILES':
-					seq.sortLayer(300);
+					// seq.sortLayer(300);
 					break;
 				case 'ABOVE_LIGHTING':
-					seq.sortLayer(1200);
+					// seq.sortLayer(1200);
 					break;
 				case 'ABOVE_INTERFACE':
-					seq.aboveInterface(true);
+					seq.screenSpaceAboveUI(true);
 					break;
 				default:
 					if (typeof payload.elevation.sortLayer === 'number') {
-						seq.sortLayer(payload.elevation.sortLayer);
+						// seq.sortLayer(payload.elevation.sortLayer);
 					} else {
 						throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`);
 					}

@@ -38,7 +38,7 @@ export default class TJSDocumentProperty<T> {
 	 *
 	 * @type {TJSDocument}
 	 */
-	#doc: TJSDocument;
+	#doc: TJSDocument<any>;
 
 	/**
 	 * The property accessor for document lookups.

@@ -2,8 +2,6 @@
 
 <script lang='ts'>
 	import type { Unsubscriber, Writable } from 'svelte/store';
-	// @ts-ignore - TJS-2-TS
-
 	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { onDestroy, onMount } from 'svelte';
 	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';

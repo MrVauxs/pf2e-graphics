@@ -10,7 +10,6 @@ interface ActorAnimationsOptions {
 
 export default class ActorAnimationsApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & ActorAnimationsOptions) {
-		// @ts-expect-error TJS-2-TS
 		super(_options);
 	}
 

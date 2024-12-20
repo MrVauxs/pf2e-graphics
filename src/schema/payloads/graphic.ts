@@ -5,7 +5,6 @@ import {
 	easingOptions,
 	playableFile,
 	positionBaseObject,
-	scaling2,
 	vector2,
 	vector2WithGridUnits,
 } from '../helpers/structures';

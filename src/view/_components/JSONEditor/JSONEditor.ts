@@ -8,7 +8,6 @@ import BasicAppShell from './JSONEditor.svelte';
 interface extra { store: Writable<object>; permission?: boolean; readOnly?: true; stasis?: Writable<boolean>; validate: boolean }
 export default class JSONEditorApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & extra) {
-		// @ts-expect-error TJS-2-TS
 		super(_options);
 
 		// @ts-expect-error TJS-2-TS

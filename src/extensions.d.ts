@@ -2,17 +2,6 @@ import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/app
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
 import type { ModuleAnimationData } from './schema/index';
 
-declare module '@typhonjs-fvtt/runtime/svelte/application' {
-	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920
-	// eslint-disable-next-line ts/no-unsafe-declaration-merging
-	export interface SvelteApplication extends Application { }
-	// eslint-disable-next-line ts/no-unsafe-declaration-merging
-	export class SvelteApplication implements Application {
-		options: CombinedSvelteApplicationOptions;
-		static defaultOptions: CombinedSvelteApplicationOptions;
-	}
-}
-
 export type CombinedSvelteApplicationOptions = ApplicationOptions & SvelteApplicationOptions;
 
 export type ConstructorApplicationOptions = Partial<CombinedSvelteApplicationOptions>;

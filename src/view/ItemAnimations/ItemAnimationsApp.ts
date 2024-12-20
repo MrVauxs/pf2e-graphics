@@ -10,7 +10,6 @@ interface ItemAnimationsOptions {
 
 export default class ItemAnimationsApp extends SvelteApplication {
 	constructor(_options: ConstructorApplicationOptions & ItemAnimationsOptions) {
-		// @ts-expect-error TJS-2-TS
 		super(_options);
 	}
 

@@ -1,8 +1,6 @@
 <svelte:options accessors={true} />
 
 <script lang='ts'>
-	// @ts-ignore - TJS-2-TS
-
 	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { AnimCore } from '../../storage/AnimCore';
 	import { i18n, log } from '../../utils';
