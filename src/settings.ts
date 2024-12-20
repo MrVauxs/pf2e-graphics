@@ -2,6 +2,14 @@ import type { ModuleAnimationData } from './schema';
 // TODO: (Fall Cleaning) Move to storage or $lib or elsewhere
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
+import { writable } from 'svelte/store';
+import { AnimCore } from './storage/AnimCore';
+
+Object.assign(window, {
+	pf2eGraphics: { modules: {}, AnimCore, history: writable([]), locations: writable([]) },
+	AnimCore,
+});
+
 const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;
 

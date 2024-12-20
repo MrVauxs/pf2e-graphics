@@ -32,10 +32,6 @@ function plugins(mode: string): PluginOption[] {
 			compilerOptions,
 			preprocess: sveltePreprocess(),
 		}),
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-		}),
 		{
 			name: 'create-dist-files',
 			apply: 'serve',
