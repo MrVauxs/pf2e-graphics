@@ -1,83 +1,107 @@
 <svelte:options accessors={true} />
 <script lang='ts'>
+	import type { AnimationHistoryObject } from 'src/storage/AnimCore';
 	import { ApplicationShell } from '#runtime/svelte/component/application';
-	import { afterUpdate } from 'svelte';
-	import { writable } from 'svelte/store';
 	import { i18n } from '../../utils';
-	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 
 	export let elementRoot: HTMLElement;
+	let sidebarElement: HTMLElement;
 
 	const history = window.pf2eGraphics.history;
+	let selected: undefined | AnimationHistoryObject;
 
 	function clearHistory() {
 		history.set([]);
 	}
 
-	let element: HTMLElement;
-	const scrollToBottom = async (node: HTMLElement) => {
-		node.scroll({ top: node.scrollHeight, behavior: 'smooth' });
-	};
-
-	afterUpdate(() => {
-		if ($history) scrollToBottom(element);
+	history.subscribe(async () => {
+		selected = $history.at(-1);
+		sidebarElement.scroll({ top: sidebarElement.scrollHeight, behavior: 'smooth' });
 	});
 
-	function openEditor(entry: object) {
-		new JSONEditorApp({
-			store: writable(entry),
-			permission: false,
-			validate: false,
-		}).render(true, {
-			focus: true,
-		});
-	}
+	let search = '';
 </script>
 
 <ApplicationShell bind:elementRoot>
-	<main
-		class='
-			flex flex-col gap-1 grow
-			overflow-y-scroll
-			-mr-2
-		'
-		style:content-visibility='auto'
-		bind:this={element}
-	>
-		{#if $history.length}
-			{#each $history as entry}
-				<div
-					class='
-						flex p-1
-						border border-solid border-gray-500 rounded-sm
-						bg-gray-400/25
-						hover:shadow-inner
-						hover:bg-gray-500/25
-					'
-					role='button'
-					tabindex='0'
-					on:click={() => openEditor(entry)}
-					on:keydown={() => openEditor(entry)}
-					data-tooltip='pf2e-graphics.historyMenu.open'
-				>
-					<header class='text-nowrap truncate'>
-						{entry.trigger} | {entry.actor.name} | {entry.item?.name ? entry.item?.name : '???'}
-					</header>
-					<div class='ml-auto text-nowrap'>
-						<i
-							data-tooltip={entry.animations.length > 1 || !entry.animations.length
-								? i18n('pf2e-graphics.historyMenu.animations', { count: entry.animations.length })
-								: i18n('pf2e-graphics.historyMenu.animation')}
-							class='fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}'></i>
-						{window.foundry.utils.timeSince(new Date(entry.timestamp))}
+	<div class='flex flex-row gap-1 h-[calc(100%-2rem)]'>
+		<aside
+			class='
+				flex flex-col gap-1
+				w-1/3 pr-1
+				overflow-y-scroll overflow-x-hidden
+			'
+			style:content-visibility='auto'
+			bind:this={sidebarElement}
+		>
+			{#if $history.length}
+				{#each $history as entry}
+					<section
+						class='
+							flex p-1
+							border border-solid border-gray-500 rounded-sm
+							bg-gray-400/25
+							hover:shadow-inner
+							hover:bg-gray-500/25
+						'
+						role='button'
+						tabindex='0'
+						on:click={() => selected = entry}
+						on:keydown={() => selected = entry}
+					>
+						<header class='[&>p]:m-0 w-full'>
+							<p class='text-lg text-nowrap truncate'>{entry.item?.name ? entry.item?.name : '???'}</p>
+							<p class='text-xs align-right'>
+								"{entry.trigger}" triggered by {entry.actor.name}
+								<span class='float-right'>
+									<i
+										data-tooltip={entry.animations.length > 1 || !entry.animations.length
+											? i18n('pf2e-graphics.historyMenu.animations', { count: entry.animations.length })
+											: i18n('pf2e-graphics.historyMenu.animation')}
+										class='fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}'>
+									</i>
+									{window.foundry.utils.timeSince(new Date(entry.timestamp))}
+								</span>
+							</p>
+						</header>
+					</section>
+				{/each}
+			{:else}
+				<i class='text-gray-500 opacity-50 text-center my-auto'>No animations.</i>
+			{/if}
+		</aside>
+		<main class='w-2/3 flex overflow-hidden'>
+			{#if selected}
+				<div class='basis-2/3'>
+					<div class='flex flex-row gap-1 border border-solid rounded-md'>
+						<div class='self-center text-lg leading-3 pl-1'>Search</div>
+						<input type='text' bind:value={search} />
 					</div>
+					<ul class='overflow-y-scroll px-1 list-none text-ellipsis overflow-x-hidden leading-5 h-full text-nowrap'>
+						{#each selected.rollOptions.filter(option => option.toLowerCase().includes(search.toLowerCase())) as option}
+							<li class='even:bg-black/10 px-2 -mx-2 select-text'>
+								{option}
+							</li>
+						{/each}
+					</ul>
 				</div>
-			{/each}
-		{:else}
-			<i class='text-gray-500 opacity-50 text-center my-auto'>No animations.</i>
-		{/if}
-	</main>
-	<footer class='grow-0 pt-2'>
+				<div class='grow p-2 [&>section]:pb-2'>
+					<section>
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>Actor</h4>
+						{selected.actor.name}
+					</section>
+					<section>
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>Trigger</h4>
+						{selected.trigger}
+					</section>
+					<section>
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>User</h4>
+						{selected.user?.name || 'Unknown'}
+					</section>
+				</div>
+			{/if}
+		</main>
+	</div>
+	<footer class='grow-0 py-1 h-8'>
 		<button type='button' on:click={clearHistory}>
 			<i class='fa fa-trash'></i>
 			Clear

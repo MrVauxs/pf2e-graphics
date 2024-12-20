@@ -32,7 +32,7 @@ export type ExecutableAnimation = Omit<
 	'reference' | 'contents' | 'default' | 'overrides'
 > & Required<Pick<AnimationSetItem, 'execute'>>;
 
-interface AnimationHistoryObject {
+export interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
 	trigger: Trigger | Trigger[];
