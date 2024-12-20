@@ -1,6 +1,6 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
-import type { JSONData } from './storage/AnimCore';
+import type { ModuleAnimationData } from './schema/index';
 
 declare module '@typhonjs-fvtt/runtime/svelte/application' {
 	// @ts-expect-error https://github.com/microsoft/TypeScript/issues/20920
@@ -40,38 +40,10 @@ export type TokenOrDoc = TokenDocument | Token;
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];
 
 export type moduleFlags = undefined | {
-	customAnimations?: JSONData;
+	customAnimations?: ModuleAnimationData;
 };
 
 declare global {
-	type TokenImageRuleSource = RuleElementSource & {
-		/** An image or video path */
-		value: string;
-		/** An optional scale adjustment */
-		scale?: number;
-		/** An optional tint adjustment */
-		tint?: string;
-		/** An optional alpha adjustment */
-		alpha?: number;
-		/** Animation options for when the image is applied */
-		animation: {
-			duration?: number;
-			transition?: string;
-			easing?: string;
-			name?: string;
-		};
-		ring: {
-			subject: {
-				texture: string;
-				scale?: number;
-			};
-			colors: {
-				background?: string;
-				ring?: string;
-			};
-		};
-	};
-
 	class TextureTransitionFilter extends AbstractBaseFilter {
 		/** Transition types for this shader. */
 		static get TYPES(): {

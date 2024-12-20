@@ -185,10 +185,6 @@ export interface FileValidationFailure {
 }
 type FileValidationResult = FileValidationSuccess | FileValidationFailure;
 
-interface TestFilesRecursivelyOptions {
-	ignoreGit?: boolean;
-}
-
 /**
  * Walks through the file-tree, starting from a particular path, applying a test to each file.
  * @param targetPath The initial path. If the path is a directory, all files and subdirectories will be tested. If the path is a file, only that file will be tested.
@@ -202,7 +198,9 @@ export function testFilesRecursively(
 	tests: {
 		[key: string]: boolean | ((filepath: string) => FileValidationResult);
 	},
-	options: TestFilesRecursivelyOptions = {},
+	options: {
+		ignoreGit?: boolean;
+	} = {},
 ): FileValidationResult[] {
 	tests.default = tests.default ?? false;
 

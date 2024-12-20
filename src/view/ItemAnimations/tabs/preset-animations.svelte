@@ -1,7 +1,7 @@
 <script lang='ts'>
-	import { clearEmpties, i18n } from 'src/utils';
-	import JSONEditorApp from 'src/view/_components/JSONEditor/JSONEditor';
 	import { writable } from 'svelte/store';
+	import { clearEmpties, i18n } from '../../../utils';
+	import JSONEditorApp from '../../../view/_components/JSONEditor/JSONEditor';
 
 	export let doc;
 
@@ -13,7 +13,7 @@
 	doc.subscribe(() => $animData = getAnimations());
 
 	function findSource(key: string) {
-		return Object.entries($animData.sources).findLast((([,v]) => v.includes(key)))?.[0];
+		return Object.entries($animData.sources).findLast(([,v]) => v.includes(key))?.[0];
 	}
 </script>
 

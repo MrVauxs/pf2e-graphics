@@ -1,15 +1,16 @@
 <script lang='ts'>
 	import type { Writable } from 'svelte/store';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import { arrayMove, camelToSpaces, ErrorMsg, i18n, nonNullable } from 'src/utils';
+	import type { ModuleAnimationData } from '../../schema';
 	import { flip } from 'svelte/animate';
 	import { slide } from 'svelte/transition';
 	import { DB_PREFIX as soundDbPrefix } from '../../assets/soundDb';
+	import { AnimCore } from '../../storage/AnimCore';
+	import { arrayMove, camelToSpaces, ErrorMsg, i18n, nonNullable } from '../../utils';
 	import Separator from './Separator.svelte';
 
 	export let key: string;
-	export let value: JSONData[string];
-	export let flag: Writable<JSONData>;
+	export let value: ModuleAnimationData[string];
+	export let flag: Writable<ModuleAnimationData>;
 	export let disabled: boolean = false;
 
 	let isReference = typeof value === 'string';

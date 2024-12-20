@@ -1,12 +1,12 @@
 import { i18n } from './utils.ts';
 import './settings.ts';
 import './app.postcss';
-import './view';
-import './storage';
-import './assets';
+import './view/index.ts';
+import './storage/index.ts';
+import './assets/index.ts';
 
 Hooks.once('pf2e.systemReady', () => {
-	import('./triggers');
+	import('./triggers/index.ts');
 });
 
 Hooks.once('ready', () => {
