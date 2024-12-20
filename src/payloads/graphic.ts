@@ -29,6 +29,7 @@ function processGraphic(
 	data: ExecutionContext,
 	position: ArrayElement<Parameters<typeof executeGraphic>[0]['position']>,
 ): EffectSection {
+	// TODO: Handling of `.copySprite()`
 	const seq = new Sequence().effect().file(AnimCore.parseFiles(payload.graphic));
 	if (position.type === 'static') {
 		seq.atLocation(positionToArgument(position.location, data));
@@ -67,7 +68,6 @@ function processGraphic(
 		if (payload.visibility.xray) seq.xray(payload.visibility.xray);
 	}
 	if (payload.size) {
-		// "screenSpace" | "absolute" | "relative" | "directed"
 		switch (payload.size.type) {
 			case 'screenSpace':
 				seq.screenSpace();
