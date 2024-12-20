@@ -436,6 +436,10 @@ export const graphicOptions = z
 							.literal(true)
 							.optional()
 							.describe('Causes the scaling to also take the token\'s scale into account.'),
+						considerActorScale: z
+							.literal(true)
+							.optional()
+							.describe('Causes the scaling to also take the actor\'s scale into account, primarily used for keeping animations fit Small tokens (x0.8) without relying on the token scale as it may not be representative of the desired size.'),
 					})
 					.strict(),
 				z

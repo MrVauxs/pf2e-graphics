@@ -77,8 +77,8 @@ function processGraphic(
 	if (payload.size) {
 		switch (payload.size.type) {
 			case 'screenSpace':
-				seq.screenSpace();
 				// TODO: Implement
+				throw new ErrorMsg(`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`);
 				break;
 			case 'directed':
 				// TODO: Implement
@@ -103,7 +103,16 @@ function processGraphic(
 				break;
 			}
 			case 'relative': {
-				seq.scaleToObject(payload.size.scaling, { uniform: !!payload.size.uniform, considerTokenScale: !!payload.size.considerTokenScale });
+				if (position.type === 'screenSpace') throw new ErrorMsg('Failed to execute `graphic` payload (relative size with screenSpace position). Its either absolute screenSpace or relative on the scene, make up your mind!');
+
+				const maybeToken = positionToArgument(position.location, data);
+				// @ts-expect-error Idiotic TypeScript can't figure out that "sm" is a const Size
+				const scale = payload.size.scaling * (maybeToken instanceof Token ? (maybeToken.actor?.size === 'sm' ? 0.8 : 1) : 1);
+
+				seq.scaleToObject(scale, {
+					uniform: !!payload.size.uniform,
+					considerTokenScale: !!payload.size.considerTokenScale,
+				});
 				break;
 			}
 			default:

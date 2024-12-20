@@ -16,7 +16,7 @@
 
 	history.subscribe(async () => {
 		selected = $history.at(-1);
-		sidebarElement.scroll({ top: sidebarElement.scrollHeight, behavior: 'smooth' });
+		sidebarElement?.scroll({ top: sidebarElement.scrollHeight, behavior: 'smooth' });
 	});
 
 	let search = '';
