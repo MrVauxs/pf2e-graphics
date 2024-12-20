@@ -37,9 +37,10 @@
 		"skipLibCheck": true
 	},
 	"include": [
-		"scripts/**/*.ts",
-		"src/**/*.ts",
-		"src/**/*.js",
-		"src/**/*.svelte"
+		"src/**/*",
+		"scripts/**/*"
+	],
+	"exclude": [
+		"node_modules/*"
 	]
 }
