@@ -37,8 +37,6 @@ jobs:
 
       - name: Vite build
         id: build
-        env:
-          IGNORE_ESLINT: true
         run: npm run build:vite
 
       - name: File Existence
@@ -50,8 +48,6 @@ jobs:
 
       - name: Build DEBUG
         if: failure() && steps.build.outcome == 'success'
-        env:
-          IGNORE_ESLINT: true
         run: npm run build:vite -- --debug
 
       - name: Check

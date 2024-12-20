@@ -20,7 +20,43 @@ const packagePath = `modules/${moduleJSON.id}`;
 
 const skippedFiles = [`${moduleJSON.id}.css`].map(f => `dist/${f}`).join('|');
 
-export default defineConfig(({ command: _buildOrServe }) => ({
+function plugins(mode: string): PluginOption[] {
+	const compilerOptions = mode === 'production'
+		? { cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}` }
+		: {};
+
+	return [
+		checker({ typescript: true }),
+		tsconfigPaths(),
+		svelte({
+			compilerOptions,
+			preprocess: sveltePreprocess(),
+		}),
+		resolve({
+			browser: true,
+			dedupe: ['svelte'],
+		}),
+		{
+			name: 'create-dist-files',
+			apply: 'serve',
+			buildStart() {
+				if (!fs.existsSync('dist')) {
+					fs.mkdir('dist', (err) => {
+						if (err) throw err;
+					});
+				}
+
+				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
+				for (const name of files) {
+					fs.writeFileSync(name, '', { flag: 'a' });
+				}
+			},
+		},
+		getAnimationsPlugin(),
+	];
+}
+
+export default defineConfig(({ mode }) => ({
 	root: './src',
 	base: `/${packagePath}/dist`,
 	cacheDir: '../.vite-cache',
@@ -52,6 +88,12 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			// All other paths besides package ID path are served from main Foundry server.
 			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
 
+			// Rewrite incoming `module-id.js` request from Foundry to the dev server `index.ts`.
+			[`/${packagePath}/dist/${moduleJSON.id}.js`]: {
+				target: `http://localhost:30001/${packagePath}/dist`,
+				rewrite: () => '/index.ts',
+			},
+
 			// Enable socket.io from main Foundry server.
 			'/socket.io': { target: 'ws://localhost:30000', ws: true },
 		},
@@ -72,7 +114,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			module: true,
 		},
 		lib: {
-			entry: 'index.js',
+			entry: 'index.ts',
 			formats: ['es'],
 			fileName: moduleJSON.id,
 		},
@@ -84,7 +126,9 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 			],
 			output: {
 				assetFileNames: assetInfo =>
-					assetInfo.name === 'style.css' ? `${moduleJSON.id}.css` : (assetInfo.name as string),
+					assetInfo.name === 'style.css'
+						? `${moduleJSON.id}.css`
+						: (assetInfo.name as string),
 			},
 		},
 	},
@@ -95,59 +139,7 @@ export default defineConfig(({ command: _buildOrServe }) => ({
 		},
 	},
 
-	plugins: [
-		// TODO: (Fall cleaning) Move all these custom plugins to its own folder, this is getting cluttered
-		process.env.IGNORE_CHECKER
-			? undefined
-			: checker({
-				typescript: true,
-				eslint: process.env.IGNORE_ESLINT
-					? undefined
-					: {
-							useFlatConfig: true,
-							lintCommand: 'eslint',
-						},
-			}),
-		tsconfigPaths(),
-		svelte({
-			compilerOptions: {
-				cssHash: ({ hash, css }) => `svelte-pf2e-g-${hash(css)}`,
-			},
-			preprocess: sveltePreprocess(),
-		}),
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-		}),
-		{
-			name: 'change-names',
-			configureServer(server) {
-				server.middlewares.use((req: Connect.IncomingMessage & { url?: string }, res, next) => {
-					if (req.originalUrl === `/${packagePath}/dist/${moduleJSON.id}.js`) {
-						req.url = `/${packagePath}/dist/index.js`;
-					}
-					next();
-				});
-			},
-		},
-		{
-			name: 'create-dist-files',
-			apply: 'serve',
-			buildStart() {
-				if (!fs.existsSync('dist')) {
-					fs.mkdir('dist', (err) => {
-						if (err) throw err;
-					});
-				}
-
-				const files = [...moduleJSON.esmodules, ...moduleJSON.styles];
-				for (const name of files) {
-					fs.writeFileSync(name, '', { flag: 'a' });
-				}
-			},
-		},
-		getAnimationsPlugin(),
-	],
+	plugins: plugins(mode),
 }));
 
 function getAnimationsPlugin(): PluginOption {

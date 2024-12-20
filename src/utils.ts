@@ -26,11 +26,7 @@ export function nonNullable<T>(value: T): value is NonNullable<T> {
 	return value !== null && value !== undefined;
 }
 
-export let dev = import.meta.env.DEV;
-Hooks.once('ready', () => {
-	if (!dev) dev = game.settings.get('pf2e-graphics', 'dev') as boolean;
-	window.pf2eGraphics.storeSettings.getReadableStore('dev')?.subscribe(x => (dev = x));
-});
+export const dev = import.meta.env.DEV;
 
 /** Fires `console.log()` with some extra formatting sugar if and only if `dev` mode is enabled. */
 export function devLog(...args: any) {

@@ -52,8 +52,6 @@ jobs:
           manifest: https://raw.githubusercontent.com/${{ github.repository }}/next/module.json
 
       - name: Build
-        env:
-          IGNORE_CHECKER: ${{ github.event.release.prerelease }}
         run: |
           npm ci
           npm run build
