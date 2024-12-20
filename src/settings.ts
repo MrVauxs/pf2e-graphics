@@ -1,5 +1,4 @@
 import type { ModuleAnimationData } from './schema';
-// TODO: (Fall Cleaning) Move to storage or $lib or elsewhere
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 import { writable } from 'svelte/store';
@@ -24,6 +23,7 @@ let settings: TJSLiveGameSettings & {
 	delay: number;
 	jb2aMode: 'patreon' | 'free';
 	history: boolean;
+	cardsGone: true;
 };
 export type liveSettings = typeof settings;
 
@@ -147,6 +147,19 @@ const settingsData = [
 		options: {
 			name: 'pf2e-graphics.settings.dev.name',
 			hint: 'pf2e-graphics.settings.dev.hint',
+			scope: 'client',
+			config: true,
+			type: Boolean,
+			default: false,
+		},
+	},
+	{
+		namespace: 'pf2e-graphics',
+		key: 'cardsGone',
+		folder: 'PF2e Graphics',
+		options: {
+			name: 'pf2e-graphics.settings.cardsGone.name',
+			hint: 'pf2e-graphics.settings.cardsGone.hint',
 			scope: 'client',
 			config: true,
 			type: Boolean,

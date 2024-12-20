@@ -4,3 +4,4 @@
 // import './ItemAnimations';
 import './VolumeControls';
 import './AnimationHistory';
+import './Sidebar';
