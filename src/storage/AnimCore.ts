@@ -27,8 +27,10 @@ export type JSONMap = Map<string, string | AnimationSetItem[]>;
  *
  * @todo `unfoldAnimations()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<AnimationSetItem, 'reference' | 'contents' | 'default' | 'overrides'> &
-	Required<Pick<AnimationSetItem, 'execute'>>;
+export type ExecutableAnimation = Omit<
+	AnimationSetItem,
+	'reference' | 'contents' | 'default' | 'overrides'
+> & Required<Pick<AnimationSetItem, 'execute'>>;
 
 interface AnimationHistoryObject {
 	timestamp: number;
@@ -255,6 +257,7 @@ export let AnimCore = class AnimCore {
 		const itemOrigin = item?.origin?.items?.get(itemOriginId || '');
 
 		// Get all the flags.
+		// TODO: Convert flags to arrays, and then from those arrays to objects here.
 		const userKeys = owners
 			.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
 			.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
