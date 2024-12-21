@@ -21,7 +21,7 @@ const payload = z
 					.object({})
 					.optional()
 					.describe(
-						'An arbitrary object of options you can pass into the macro as an argument. The following properties are always available unless overwritten:\n- `sources`: an array of token objects that triggered the payload.\n- `targets`: an array of token objects targetted by the triggering `sources`.\n- `templates`: an array of template objects associated with the trigger.\n- `user`: the user ID (string) for the triggering user.',
+						'An arbitrary object of options you can pass into the macro as an argument. The following properties are always available unless overwritten:\n- `sources`: an array of token objects that triggered the payload.\n- `targets`: an array of token objects targetted by the triggering `sources`.\n- `templates`: an array of template objects associated with the trigger.\n- `user`: the user ID (string) for the triggering user.\n- `item`: the item object containing the triggered roll option (if any).\n- `currentIndex`: in a set with multiple payloads, this is the number of the currently executing payload (starting from 0)',
 					),
 			})
 			.strict(),

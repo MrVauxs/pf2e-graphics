@@ -18,6 +18,9 @@ import {
 	nonNullable,
 } from '../utils.ts';
 
+/**
+ * A reduced copy of `ModuleAnimationData`—the complete, merged JSON data available to *PF2e Graphics*—written as a JavaScript `Map`. `_tokenImages` is excluded for simplicity.
+ */
 export type JSONMap = Map<string, string | AnimationSetItem[]>;
 
 /**
@@ -93,7 +96,8 @@ export let AnimCore = class AnimCore {
 	static _keys: string[];
 
 	static getTokenImages() {
-		return ((this.animations.get('_tokenImages') ?? []) as TokenImageData[])
+		// We can just handily assume that this is real :)
+		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
 			.filter(x => (x?.requires ? !!game.modules.get(x.requires) : true))
 			.map(x => ({
 				...x,

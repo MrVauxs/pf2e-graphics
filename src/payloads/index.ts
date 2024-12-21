@@ -70,6 +70,7 @@ export async function decodePayload(payload: Payload, data: GameData): Promise<D
  * - `templates`: any attached templates
  * - `user`: the triggering user
  * - `currentIndex`: in a set of multiple payloads, this is the currently decoding index (starting from zero)
+ * - `item`: the item containing the roll option (if any)
  */
 export interface ExecutionContext {
 	sources: TokenOrDoc[];

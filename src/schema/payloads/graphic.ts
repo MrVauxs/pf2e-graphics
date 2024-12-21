@@ -440,7 +440,9 @@ export const graphicOptions = effectOptions
 						considerActorScale: z
 							.literal(true)
 							.optional()
-							.describe('Causes the scaling to also take the actor\'s scale into account, primarily used for keeping animations fit Small tokens (x0.8) without relying on the token scale as it may not be representative of the desired size.'),
+							.describe(
+								'Causes the scaling to also take the actor\'s scale into account.\nThis is most primarily used to account for Small actors, whose tokens are typically scaled by 0.8. without relying on the token scale as it may not be representative of the desired size.',
+							),
 					})
 					.strict(),
 				z
