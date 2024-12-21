@@ -462,7 +462,6 @@ export const graphicOptions = effectOptions
 						stretch: z
 							.literal(true)
 							.optional()
-							// What is this even meant to imply??? `stretchTo` always stretches the graphic unless tiling is on, so what is this even a variable for?
 							.describe(
 								'By default, the entire graphic is scaled uniformly to span the gap between the `position` and `target`. If you only want scaling in one dimension—a stretch—set this to `true`. This is particularly useful for ray- or beam-like graphics.',
 							),
