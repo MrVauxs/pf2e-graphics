@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { effectOptions } from '.';
 import { angle, easing, hexColour, ID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
 import {
@@ -226,8 +227,8 @@ const shapeOptions = z
 /**
  * Zod schema for the options which are specific to `graphic`-type animations.
  */
-export const graphicOptions = z
-	.object({
+export const graphicOptions = effectOptions
+	.extend({
 		graphic: z
 			.array(playableFile.or(z.enum(['SOURCES', 'TARGETS'])))
 			.min(1)

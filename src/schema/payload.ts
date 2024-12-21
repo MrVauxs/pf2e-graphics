@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 import { pluralise } from './helpers/utils';
-import { effectOptions } from './payloads';
 import { animationOptions } from './payloads/animation';
 import { crosshairOptions } from './payloads/crosshair';
 import { graphicOptions } from './payloads/graphic';
@@ -26,16 +25,10 @@ const animationPayload = z
 					),
 			})
 			.strict(),
-		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),
-		effectOptions
-			.extend({ type: z.literal('sound') })
-			.merge(soundOptions)
-			.strict(),
-		effectOptions
-			.extend({ type: z.literal('graphic') })
-			.merge(graphicOptions)
-			.strict(),
 		animationOptions.extend({ type: z.literal('animation') }).strict(),
+		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),
+		graphicOptions.extend({ type: z.literal('graphic') }).strict(),
+		soundOptions.extend({ type: z.literal('sound') }).strict(),
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'sound') {
@@ -114,7 +107,7 @@ export type AnimationPayload = z.infer<typeof animationPayload>;
  */
 const flatAnimation = z
 	.object({
-		name: ID,
+		name: ID.optional(),
 		generic: z
 			.discriminatedUnion('type', [
 				z.object({ type: z.literal('slot') }).strict(),
@@ -143,6 +136,7 @@ const flatAnimation = z
 			.array(trigger)
 			.min(1)
 			.refine(...uniqueItems)
+			.optional()
 			.describe(
 				'An array of strings, where each element is a trigger on which to consider playing the animation.',
 			),
@@ -184,34 +178,65 @@ const flatAnimation = z
 /**
  * The complete animation object, as is encoded in JSON.
  */
-export type AnimationSetItem = Partial<z.infer<typeof flatAnimation>> & {
-	contents?: AnimationSetItem[];
+export type AnimationSetItem = z.infer<typeof flatAnimation> & {
+	contents?: AnimationSetItemPartial[];
 };
 
 /**
- * Zod schema for the complete animation object, as is encoded in JSON.
+ * The complete animation object, as is encoded in JSON, but with everything optional so it can appear in `contents`.
  */
-const animationSetItem: z.ZodType<AnimationSetItem> = flatAnimation
+export type AnimationSetItemPartial = Partial<Omit<z.infer<typeof flatAnimation>, 'execute'>> & {
+	execute?: Partial<Payload>;
+	contents?: AnimationSetItemPartial[];
+};
+
+/**
+ * Zod schema for the complete animation object, as is encoded in JSON, but with everything optional so it can appear in `contents`.
+ */
+const animationSetItemPartial: z.ZodType<AnimationSetItemPartial> = flatAnimation
+	.omit({ execute: true })
 	.partial()
 	.extend({
+		execute: animationOptions
+			.partial()
+			.or(crosshairOptions.partial())
+			.or(graphicOptions.partial())
+			.or(soundOptions.partial())
+			.optional(),
 		contents: z
 			.lazy(() =>
 				z
-					.array(animationSetItem)
+					.array(animationSetItemPartial)
 					.min(2)
 					.refine(...uniqueItems),
 			)
 			.optional(),
 	})
 	.strict()
-	.refine(...nonEmpty)
-	.describe('The complete animation object, as is encoded in JSON.');
+	.refine(...nonEmpty);
+
+/**
+ * Zod schema for the complete animation object, as is encoded in JSON.
+ */
+const animationSetItemFull: z.ZodType<AnimationSetItem> = flatAnimation
+	.extend({
+		contents: z
+			.lazy(() =>
+				z
+					.array(animationSetItemPartial)
+					.min(2)
+					.refine(...uniqueItems),
+			)
+			.optional(),
+	})
+	.strict()
+	.refine(...nonEmpty);
 
 /**
  * Zod schema of an animation set, as applied to a single roll option.
  */
 export const animationSet = z
-	.array(animationSetItem)
+	.array(animationSetItemFull)
 	.min(1)
 	// .superRefine((arr, ctx) => superValidate(arr, ctx))
 	.refine(...uniqueItems);

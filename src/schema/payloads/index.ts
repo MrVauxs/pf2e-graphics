@@ -66,15 +66,7 @@ export const effectOptions = z
 			.literal(true)
 			.optional()
 			.describe(
-				'Links the animation to the document that created it. If the document is deleted, the animation is interrupted and deleted as well.',
-			),
-		remove: z
-			.array(ID)
-			.min(1)
-			.refine(...uniqueItems)
-			.optional()
-			.describe(
-				'An array of strings, where each element is another animation\'s `id`. When this animation starts, any animation with a matching `id` is interrupted and removed.',
+				'Links the payload to the document that created it. If the document is deleted, the payload is interrupted and deleted as well.',
 			),
 		fadeIn: easingOptions
 			.extend({

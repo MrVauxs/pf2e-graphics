@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { effectOptions } from '.';
 import { ID } from '../helpers/atoms';
 import { uniqueItems } from '../helpers/refinements';
 import { playableFile, positionBaseObject, vector2 } from '../helpers/structures';
@@ -17,8 +18,8 @@ const soundEffect = z
 /**
  * Zod schema for the options specific to a `sound`-preset animation.
  */
-export const soundOptions = z
-	.object({
+export const soundOptions = effectOptions
+	.extend({
 		sound: z
 			.array(playableFile)
 			.min(1)
