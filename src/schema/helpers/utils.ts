@@ -1,6 +1,6 @@
 /**
  * Reasonably accurately pluralises words.
- * @privateRemarks Duplicated from `scripts/` to avoid circular dependencies, since this is also being run in a browser, Spappz.
+ * @privateRemarks Duplicated from `scripts/` to avoid node-based dependencies, since this is also being run in a browser, Spappz.
  * @privateRemarks Spappz doesn't like this wasteful code inefficiency; please picture him folding his arms and harrumphing.
  * @param word The word to possibly pluralise.
  * @param count Triggers pluralisation when not equal to 1.
