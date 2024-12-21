@@ -138,7 +138,7 @@ function processGraphic(
 
 	if (payload.elevation) {
 		if (payload.elevation.zIndex) seq.zIndex(payload.elevation.zIndex);
-		if (payload.elevation.height) seq.elevation(payload.elevation.height);
+		if (payload.elevation.altitude) seq.elevation(payload.elevation.altitude);
 		if (payload.elevation.sortLayer) {
 			switch (payload.elevation.sortLayer) {
 				case 'BELOW_TOKENS':
