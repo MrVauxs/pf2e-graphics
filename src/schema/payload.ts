@@ -11,7 +11,7 @@ import { trigger } from './triggers';
 /**
  * Zod schema for the animation payload that actually gets executed.
  */
-const animationPayload = z
+const payload = z
 	.discriminatedUnion('type', [
 		z
 			.object({
@@ -100,7 +100,7 @@ const animationPayload = z
  *
  * Consider using as `Extract<AnimationPayload, { type: '...' }>` to select specific members.
  */
-export type AnimationPayload = z.infer<typeof animationPayload>;
+export type Payload = z.infer<typeof payload>;
 
 /**
  * Zod schema for the 'flat' form of an animation object, after all `contents` have been unrolled and merged appropriately.
@@ -153,7 +153,9 @@ const flatAnimation = z
 			.min(1)
 			.refine(...uniqueItems)
 			.optional()
-			.describe('An array of strings, where each element is:\n- Another animation set\'s `id`\n- A particular payload\'s `name`.'),
+			.describe(
+				'An array of strings, where each element is the `name` of another animation set or payload. When this set is executed, each of the named payloads are interrupted and removed.',
+			),
 		default: z
 			.literal(true)
 			.optional()
@@ -168,7 +170,7 @@ const flatAnimation = z
 			.describe(
 				'An array of predicates as per the pf2e system. The animation will only be executed if the predicates apply.\nFor more information, see: https://github.com/foundryvtt/pf2e/wiki/Quickstart-guide-for-rule-elements#predicates',
 			),
-		execute: animationPayload.describe('The actual animation to be executed!'),
+		execute: payload.describe('The actual animation to be executed!'),
 	})
 	.strict()
 	.describe(

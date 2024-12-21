@@ -1,4 +1,4 @@
-import type { AnimationPayload } from '../schema/payload';
+import type { Payload } from '../schema/payload';
 import {
 	addCustomExecutionContext,
 	type ExecutionContext,
@@ -10,7 +10,7 @@ import { AnimCore } from '../storage/AnimCore';
 import { type ArrayElement, ErrorMsg } from '../utils';
 
 export function executeGraphic(
-	payload: Extract<AnimationPayload, { type: 'graphic' }>,
+	payload: Extract<Payload, { type: 'graphic' }>,
 	data: ExecutionContext,
 ): Sequence {
 	const seq = new Sequence();

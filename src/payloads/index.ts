@@ -1,5 +1,5 @@
 import type { TokenOrDoc } from '../extensions';
-import type { AnimationPayload } from '../schema/payload.ts';
+import type { Payload } from '../schema/payload.ts';
 // import type { ExecutableAnimation } from '../storage/AnimCore.ts';
 import { ErrorMsg, warn } from '../utils.ts';
 import { executeAnimation } from './animation.ts';
@@ -35,7 +35,7 @@ type DecodedPayload =
  *
  * This should probably either be `.play()`ed immediately or merged with another sequence using `.addSequence()`. Named locations must be directly registered with `.addNamedLocation()`, since you cannot `.addSequence()` a named location.
  */
-export async function decodePayload(payload: AnimationPayload, data: GameData): Promise<DecodedPayload> {
+export async function decodePayload(payload: Payload, data: GameData): Promise<DecodedPayload> {
 	if (!payload) throw ErrorMsg.send(`Payload missing—your data may be corrupted.`);
 
 	const context = prepareExecutionContext(data);

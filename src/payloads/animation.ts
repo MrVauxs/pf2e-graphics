@@ -1,10 +1,10 @@
 import type { TokenOrDoc } from '../extensions';
-import type { AnimationPayload } from '../schema/payload';
+import type { Payload } from '../schema/payload';
 import { addCustomExecutionContext, type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
 import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
-	payload: Extract<AnimationPayload, { type: 'animation' }>,
+	payload: Extract<Payload, { type: 'animation' }>,
 	data: ExecutionContext,
 ): Promise<Sequence> {
 	const seq = new Sequence();

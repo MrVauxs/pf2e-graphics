@@ -1,10 +1,10 @@
-import type { AnimationPayload } from '../schema/payload';
+import type { Payload } from '../schema/payload';
 import type { ArrayElement } from '../utils';
 import { addCustomExecutionContext, type ExecutionContext } from '.';
 import { AnimCore } from '../storage/AnimCore';
 
 export function executeSound(
-	payload: Extract<AnimationPayload, { type: 'sound' }>,
+	payload: Extract<Payload, { type: 'sound' }>,
 	data: ExecutionContext,
 ): Sequence {
 	const seq = new Sequence();

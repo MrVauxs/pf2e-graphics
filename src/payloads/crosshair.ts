@@ -1,9 +1,9 @@
-import type { AnimationPayload } from '../schema/payload';
+import type { Payload } from '../schema/payload';
 import { type ExecutionContext, offsetToVector2 } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
-	payload: Extract<AnimationPayload, { type: 'crosshair' }>,
+	payload: Extract<Payload, { type: 'crosshair' }>,
 	data: ExecutionContext,
 ): Promise<{ name: string; position: Vector2 }> {
 	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
