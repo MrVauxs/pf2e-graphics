@@ -3,14 +3,19 @@ import AnimationSidebar from './Sidebar.svelte';
 
 Hooks.on('init', () => {
 	FVTTSidebarControl.add({
-		id: 'pf2e-graphics',
+		id: 'graphics',
 		beforeId: 'cards',
 		icon: 'fas fa-films',
 		tooltip: 'pf2e-graphics.sidebar',
 		title: 'pf2e-graphics.sidebar',
+		classes: ['flexcol directory pf2e-g'],
 		svelte: {
 			class: AnimationSidebar,
 		},
+	});
+
+	FVTTSidebarControl.wait().then(() => {
+		$('.graphics-sidebar').addClass('flexcol directory pf2e-g');
 	});
 });
 
