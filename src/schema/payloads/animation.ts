@@ -52,7 +52,7 @@ const spinOptions = easingOptions
 /**
  * Zod schema for the options specific to a `animation`-preset animation.
  */
-export const animationOptions = effectOptions
+export const animationPayload = effectOptions
 	.pick({
 		sources: true,
 		targets: true,
@@ -64,6 +64,7 @@ export const animationOptions = effectOptions
 		fadeOut: true,
 	})
 	.extend({
+		type: z.literal('animation'),
 		subjects: z // TODO: superrefine `target` against `position.target` and `rotation.target` (no moving tokens nowhere or rotating them towards themselves!)
 			.array(z.enum(['SOURCES', 'TARGETS']))
 			.describe(

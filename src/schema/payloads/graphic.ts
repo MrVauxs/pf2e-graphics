@@ -227,8 +227,9 @@ const shapeOptions = z
 /**
  * Zod schema for the options which are specific to `graphic`-type animations.
  */
-export const graphicOptions = effectOptions
+export const graphicPayload = effectOptions
 	.extend({
+		type: z.literal('graphic'),
 		graphic: z
 			.array(playableFile.or(z.enum(['SOURCES', 'TARGETS'])))
 			.min(1)
@@ -1041,4 +1042,4 @@ export const graphicOptions = effectOptions
 /**
  * Options which are specific to `graphic`-type animations.
  */
-export type GraphicOptions = z.infer<typeof graphicOptions>;
+export type GraphicOptions = z.infer<typeof graphicPayload>;

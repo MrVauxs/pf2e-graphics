@@ -2,10 +2,10 @@ import { z } from 'zod';
 import { ID, predicate, rollOption, UUID } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
 import { pluralise } from './helpers/utils';
-import { animationOptions } from './payloads/animation';
-import { crosshairOptions } from './payloads/crosshair';
-import { graphicOptions } from './payloads/graphic';
-import { soundOptions } from './payloads/sound';
+import { animationPayload } from './payloads/animation';
+import { crosshairPayload } from './payloads/crosshair';
+import { graphicPayload } from './payloads/graphic';
+import { soundPayload } from './payloads/sound';
 import { trigger } from './triggers';
 
 /**
@@ -25,10 +25,10 @@ const payload = z
 					),
 			})
 			.strict(),
-		animationOptions.extend({ type: z.literal('animation') }).strict(),
-		crosshairOptions.extend({ type: z.literal('crosshair') }).strict(),
-		graphicOptions.extend({ type: z.literal('graphic') }).strict(),
-		soundOptions.extend({ type: z.literal('sound') }).strict(),
+		animationPayload.strict(),
+		crosshairPayload.strict(),
+		graphicPayload.strict(),
+		soundPayload.strict(),
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'sound') {
@@ -170,12 +170,9 @@ const flatAnimation = z
 			.describe(
 				'An array of predicates as per the pf2e system. The animation will only be executed if the predicates apply.\nFor more information, see: https://github.com/foundryvtt/pf2e/wiki/Quickstart-guide-for-rule-elements#predicates',
 			),
-		execute: payload.describe('The actual animation to be executed!'),
+		execute: payload.optional().describe('The actual animation to be executed!'),
 	})
-	.strict()
-	.describe(
-		'The \'flat\' form of an animation object, after all `contents` have been unrolled and merged appropriately.',
-	);
+	.strict();
 
 /**
  * The complete animation object, as is encoded in JSON.
@@ -199,11 +196,13 @@ const animationSetItemPartial: z.ZodType<AnimationSetItemPartial> = flatAnimatio
 	.omit({ execute: true })
 	.partial()
 	.extend({
-		execute: animationOptions
-			.partial()
-			.or(crosshairOptions.partial())
-			.or(graphicOptions.partial())
-			.or(soundOptions.partial())
+		execute: z
+			.union([
+				animationPayload.partial(),
+				crosshairPayload.partial(),
+				graphicPayload.partial(),
+				soundPayload.partial(),
+			])
 			.optional(),
 		contents: z
 			.lazy(() =>

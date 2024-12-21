@@ -18,8 +18,9 @@ const soundEffect = z
 /**
  * Zod schema for the options specific to a `sound`-preset animation.
  */
-export const soundOptions = effectOptions
+export const soundPayload = effectOptions
 	.extend({
+		type: z.literal('sound'),
 		sound: z
 			.array(playableFile)
 			.min(1)
@@ -91,4 +92,4 @@ export const soundOptions = effectOptions
 /**
  * The options specific to a `sound`-preset animation.
  */
-export type SoundPresetOptions = z.infer<typeof soundOptions>;
+export type SoundPresetOptions = z.infer<typeof soundPayload>;
