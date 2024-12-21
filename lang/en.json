@@ -38,6 +38,10 @@
 			"open": "Open JSON Data"
 		},
 		"settings": {
+			"cardsGone": {
+				"name": "Disable Cards",
+				"hint": "Hides the cards tab, effectively making the animations tab replace it."
+			},
 			"volume": {
 				"name": "Animation Volume",
 				"hint": "Multiplies the volume of animations by a set amount. Does not override animations own volume settings."
@@ -72,16 +76,6 @@
 			"dev": {
 				"name": "Developer Mode",
 				"hint": "Enables console logs. Helpful when you are trying to make your own animations. Also adds new settings, visible on refresh."
-			},
-			"userMenu": {
-				"name": "User Animations",
-				"hint": "Customize your own personal animations or see others.",
-				"label": "Open Menu"
-			},
-			"worldMenu": {
-				"name": "World Animations",
-				"hint": "Customize global animations everyone will have by default.",
-				"label": "Open Menu"
 			},
 			"jb2aMode": {
 				"name": "[DEV] JB2A Mode",
