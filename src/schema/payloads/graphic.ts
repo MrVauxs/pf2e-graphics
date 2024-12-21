@@ -472,10 +472,10 @@ export const graphicOptions = effectOptions
 								'This causes the graphic to not scale at all, but rather tile to span the gap between the `position` and `target`. This is particularly useful for graphics with a realistic texture (for instance, a rope should get longer, not expand or stretch).',
 							),
 						requiresLineOfSight: z
-							.enum(['hide', 'TERMINATE'])
+							.enum(['hide', 'terminate'])
 							.optional()
 							.describe(
-								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `target` moves behind a wall mid-execution. You can set this property to `"hide"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `target`, or to `"TERMINATE"` to cancel the graphic as soon as line-of-sight is broken.',
+								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `target` moves behind a wall mid-execution. You can set this property to `"hide"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `target`, or to `"terminate"` to cancel the graphic as soon as line-of-sight is broken.',
 							),
 					})
 					.strict(),
