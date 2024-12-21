@@ -29,7 +29,7 @@
 <ol class='directory-list'>
 	{#each list as item}
 		<li class='directory-item flexrow px-2 hover:bg-slate-400/10'>
-			{deslugify(item)}
+			{deslugify(String(item))}
 		</li>
 	{/each}
 
