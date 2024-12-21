@@ -157,26 +157,30 @@ function processGraphic(
 		if (payload.elevation.zIndex) seq.zIndex(payload.elevation.zIndex);
 		if (payload.elevation.altitude) seq.elevation(payload.elevation.altitude);
 		if (payload.elevation.sortLayer) {
-			switch (payload.elevation.sortLayer) {
-				case 'BELOW_TOKENS':
-					seq.sortLayer(600);
-					break;
-				case 'BELOW_TILES':
-					seq.sortLayer(300);
-					break;
-				case 'ABOVE_LIGHTING':
-					seq.sortLayer(1200);
-					break;
-				case 'ABOVE_INTERFACE':
-					seq.screenSpaceAboveUI(true);
-					break;
-				default:
-					if (typeof payload.elevation.sortLayer !== 'number') {
-						throw new ErrorMsg(
-							`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`,
-						);
-					}
-					seq.sortLayer(payload.elevation.sortLayer);
+			if (payload.elevation.sortLayer === 'belowTiles') {
+				// @ts-expect-error PrimaryCanvasGroup.SORT_LAYERS isn't in types, but also... TODO: Sequencer add `.sortLayer()`
+				seq.sortLayer(PrimaryCanvasGroup.SORT_LAYERS.TILES - 100);
+			} else if (payload.elevation.sortLayer === 'belowDrawings') {
+				// @ts-expect-error PrimaryCanvasGroup.SORT_LAYERS isn't in types, but also... TODO: Sequencer add `.sortLayer()`
+				seq.sortLayer(PrimaryCanvasGroup.SORT_LAYERS.DRAWINGS - 100);
+			} else if (payload.elevation.sortLayer === 'belowTokens') {
+				// @ts-expect-error PrimaryCanvasGroup.SORT_LAYERS isn't in types, but also... TODO: Sequencer add `.sortLayer()`
+				seq.sortLayer(PrimaryCanvasGroup.SORT_LAYERS.TOKENS - 100);
+			} else if (payload.elevation.sortLayer === 'aboveWeather') {
+				// @ts-expect-error PrimaryCanvasGroup.SORT_LAYERS isn't in types, but also... TODO: Sequencer add `.sortLayer()`
+				seq.sortLayer(PrimaryCanvasGroup.SORT_LAYERS.WEATHER + 100);
+			} else if (payload.elevation.sortLayer === 'aboveLighting') {
+				seq.aboveLighting();
+			} else if (payload.elevation.sortLayer === 'aboveInterface') {
+				seq.screenSpaceAboveUI();
+			} else {
+				if (typeof payload.elevation.sortLayer !== 'number') {
+					throw new ErrorMsg(
+						`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`,
+					);
+				}
+				// @ts-expect-error TODO: Sequencer add `.sortLayer()`
+				seq.sortLayer(payload.elevation.sortLayer);
 			}
 		}
 	}

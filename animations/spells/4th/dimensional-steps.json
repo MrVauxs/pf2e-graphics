@@ -28,7 +28,7 @@
 							}
 						],
 						"elevation": {
-							"sortLayer": "BELOW_TOKENS"
+							"sortLayer": "belowTokens"
 						},
 						"size": {
 							"type": "relative",

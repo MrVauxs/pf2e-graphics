@@ -714,7 +714,7 @@ export const graphicOptions = effectOptions
 						'A entity\'s \'altitude\' is a number that describes how \'high up\' that entity should be rendered (in grid units). Entities with a higher altitude are rendered over the top of those with lower altitude.\nAn effect\'s elevation altitude differs from its `sortLayer` in that the former *only* determines the ordering of entities in the same sort layer. The \'altitude\' corresponds to the entity\'s elevation in the scene and behaves the same as a flying or underground token.',
 					),
 				sortLayer: z
-					.enum(['BELOW_TILES', 'BELOW_TOKENS', 'ABOVE_LIGHTING', 'ABOVE_INTERFACE'])
+					.enum(['belowTiles', 'belowDrawings', 'belowTokens', 'aboveWeather', 'aboveLighting', 'aboveInterface'])
 					.or(
 						z
 							.number()
