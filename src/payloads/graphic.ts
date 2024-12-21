@@ -54,7 +54,8 @@ function processGraphic(
 	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
 	if (payload.delay) seq.delay(...parseMinMaxObject(payload.delay));
 
-	if (payload.persistent) seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
+	if (payload.persistent)
+		seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
 	if (payload.tieToDocuments && data.item) seq.tieToDocuments(data.item);
 	// if (payload.remove)
 	// if (payload.waitUntilFinished)
@@ -78,11 +79,15 @@ function processGraphic(
 		switch (payload.size.type) {
 			case 'screenSpace':
 				// TODO: Implement
-				throw new ErrorMsg(`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`);
+				throw new ErrorMsg(
+					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`,
+				);
 				break;
 			case 'directed':
 				// TODO: Implement
-				throw new ErrorMsg(`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`);
+				throw new ErrorMsg(
+					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`,
+				);
 				break;
 			case 'absolute': {
 				if (payload.size.width && payload.size.height) {
@@ -103,11 +108,17 @@ function processGraphic(
 				break;
 			}
 			case 'relative': {
-				if (position.type === 'screenSpace') throw new ErrorMsg('Failed to execute `graphic` payload (relative size with screenSpace position). Its either absolute screenSpace or relative on the scene, make up your mind!');
+				if (position.type === 'screenSpace') {
+					throw new ErrorMsg(
+						'Failed to execute `graphic` payload (relative size with screenSpace position). Its either absolute screenSpace or relative on the scene, make up your mind!',
+					);
+				}
 
 				const maybeToken = positionToArgument(position.location, data);
-				// @ts-expect-error Idiotic TypeScript can't figure out that "sm" is a const Size
-				const scale = payload.size.scaling * (maybeToken instanceof Token ? (maybeToken.actor?.size === 'sm' ? 0.8 : 1) : 1);
+				const scale
+					= payload.size.scaling
+					// @ts-expect-error Idiotic TypeScript can't figure out that "sm" is a const Size
+					* (maybeToken instanceof Token ? (maybeToken.actor?.size === 'sm' ? 0.8 : 1) : 1);
 
 				seq.scaleToObject(scale, {
 					uniform: !!payload.size.uniform,
@@ -125,14 +136,20 @@ function processGraphic(
 			} else {
 				seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
 			}
-		};
+		}
 
 		if (payload.size.scaleIn) {
-			seq.scaleIn(payload.size.scaleIn.initialScale, payload.size.scaleIn.duration, { ease: payload.size.scaleIn.ease, delay: payload.size.scaleIn.delay || 0 });
+			seq.scaleIn(payload.size.scaleIn.initialScale, payload.size.scaleIn.duration, {
+				ease: payload.size.scaleIn.ease,
+				delay: payload.size.scaleIn.delay || 0,
+			});
 		}
 
 		if (payload.size.scaleOut) {
-			seq.scaleOut(payload.size.scaleOut.finalScale, payload.size.scaleOut.duration, { ease: payload.size.scaleOut.ease, delay: payload.size.scaleOut.delay || 0 });
+			seq.scaleOut(payload.size.scaleOut.finalScale, payload.size.scaleOut.duration, {
+				ease: payload.size.scaleOut.ease,
+				delay: payload.size.scaleOut.delay || 0,
+			});
 		}
 	}
 
@@ -154,11 +171,12 @@ function processGraphic(
 					seq.screenSpaceAboveUI(true);
 					break;
 				default:
-					if (typeof payload.elevation.sortLayer === 'number') {
-						seq.sortLayer(payload.elevation.sortLayer);
-					} else {
-						throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`);
+					if (typeof payload.elevation.sortLayer !== 'number') {
+						throw new ErrorMsg(
+							`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`,
+						);
 					}
+					seq.sortLayer(payload.elevation.sortLayer);
 			}
 		}
 	}
