@@ -206,3 +206,7 @@ export function arrayMove<T>(arr: T[], old_index: number, new_index: number): T[
 	arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
 	return arr; // for testing
 }
+
+export function deslugify(string: string) {
+	return string.replaceAll(/-/g, ' ').replaceAll(/:(\w)/g, ': $1').split(' ').map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
+}
