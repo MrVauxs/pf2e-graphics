@@ -9,10 +9,7 @@ import {
 import { AnimCore } from '../storage/AnimCore';
 import { type ArrayElement, ErrorMsg } from '../utils';
 
-export function executeGraphic(
-	payload: Extract<Payload, { type: 'graphic' }>,
-	data: ExecutionContext,
-): Sequence {
+export function executeGraphic(payload: Extract<Payload, { type: 'graphic' }>, data: ExecutionContext): Sequence {
 	const seq = new Sequence();
 
 	data = addCustomExecutionContext(payload.sources, payload.targets, data);
@@ -57,10 +54,8 @@ function processGraphic(
 	if (payload.persistent)
 		seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
 	if (payload.tieToDocuments && data.item) seq.tieToDocuments(data.item);
-	// if (payload.remove)
 	// if (payload.waitUntilFinished)
 	// if (payload.repeats)
-	// if (payload.position)
 	// if (payload.reflection)
 	// if (payload.rotation)
 	if (payload.visibility) {
@@ -70,7 +65,8 @@ function processGraphic(
 			const masking = payload.visibility.mask.map((x) => {
 				if (x === 'SOURCES') return data.sources;
 				if (x === 'TARGETS') return data.targets;
-				return x;
+				if (typeof x === 'string') return x;
+				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `visibility.mask` element).');
 			});
 			seq.mask(masking);
 		}
@@ -175,9 +171,7 @@ function processGraphic(
 				seq.screenSpaceAboveUI();
 			} else {
 				if (typeof payload.elevation.sortLayer !== 'number') {
-					throw new ErrorMsg(
-						`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`,
-					);
+					throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`);
 				}
 				// @ts-expect-error TODO: Sequencer add `.sortLayer()`
 				seq.sortLayer(payload.elevation.sortLayer);

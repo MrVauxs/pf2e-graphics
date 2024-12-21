@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { effectOptions } from '.';
-import { angle, easing, hexColour, ID } from '../helpers/atoms';
+import { angle, easing, hexColour, ID, UUID } from '../helpers/atoms';
 import { nonEmpty, nonZero, uniqueItems } from '../helpers/refinements';
 import {
 	easingOptions,
@@ -689,12 +689,12 @@ export const graphicPayload = effectOptions
 			.object({
 				opacity: z.number().gt(0).lt(1).optional().describe('An opacity scaler from 0 to 1 (exclusive).'),
 				mask: z
-					.array(z.enum(['SOURCES', 'TARGETS']))
+					.array(z.enum(['SOURCES', 'TARGETS']).or(UUID))
 					.min(1)
 					.refine(...uniqueItems)
 					.optional()
 					.describe(
-						'Causes the graphic to act as a mask for the effect\'s `"SOURCES"` and/or `"TARGETS"`.',
+						'An array of placeables for the graphic to mask over. You can use `"SOURCES"` and/or `"TARGETS"` to select those tokens, or provide a UUID for any placeable on the canvas. The latter should not be used outside of custom payloads for specific scenes.',
 					),
 				xray: z
 					.literal(true)
@@ -715,7 +715,14 @@ export const graphicPayload = effectOptions
 						'A entity\'s \'altitude\' is a number that describes how \'high up\' that entity should be rendered (in grid units). Entities with a higher altitude are rendered over the top of those with lower altitude.\nAn effect\'s elevation altitude differs from its `sortLayer` in that the former *only* determines the ordering of entities in the same sort layer. The \'altitude\' corresponds to the entity\'s elevation in the scene and behaves the same as a flying or underground token.',
 					),
 				sortLayer: z
-					.enum(['belowTiles', 'belowDrawings', 'belowTokens', 'aboveWeather', 'aboveLighting', 'aboveInterface'])
+					.enum([
+						'belowTiles',
+						'belowDrawings',
+						'belowTokens',
+						'aboveWeather',
+						'aboveLighting',
+						'aboveInterface',
+					])
 					.or(
 						z
 							.number()
