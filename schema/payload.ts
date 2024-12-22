@@ -31,27 +31,7 @@ const payload = z
 		soundPayload.strict(),
 	])
 	.superRefine((obj, ctx) => {
-		if (obj.type === 'sound') {
-			if (!obj.position) {
-				const keysNeedingPosition = (
-					[
-						'radius',
-						'constrainedByWalls',
-						'noDistanceEasing',
-						'alwaysForGMs',
-						'baseEffect',
-						'muffledEffect',
-					] as const
-				).filter(key => key in obj);
-				if (keysNeedingPosition.length) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.unrecognized_keys,
-						keys: keysNeedingPosition,
-						message: `\`offset\` is required for the following ${pluralise('key', keysNeedingPosition.length)}: \`${keysNeedingPosition.join('`, `')}\``,
-					});
-				}
-			}
-		} else if (obj.type === 'crosshair') {
+		if (obj.type === 'crosshair') {
 			if (obj.snap?.direction) {
 				if (obj.lockManualRotation) {
 					ctx.addIssue({
@@ -90,6 +70,38 @@ const payload = z
 					message:
 						'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
 				});
+			}
+		} else if (obj.type === 'graphic') {
+			if (obj.size?.type === 'relative' && (obj.size.considerTokenScale || obj.size.considerActorScale)) {
+				obj.position.forEach((position, index) => {
+					if (position.type === 'screenSpace' || position.location === 'TEMPLATES') {
+						return ctx.addIssue({
+							code: z.ZodIssueCode.custom,
+							path: [...ctx.path, 'position', index],
+							message: `\`size.considerTokenScale\` and \`size.considerActorScale\` require you to position the graphic relative a token.`,
+						});
+					}
+				});
+			}
+		} else if (obj.type === 'sound') {
+			if (!obj.position) {
+				const keysNeedingPosition = (
+					[
+						'radius',
+						'constrainedByWalls',
+						'noDistanceEasing',
+						'alwaysForGMs',
+						'baseEffect',
+						'muffledEffect',
+					] as const
+				).filter(key => key in obj);
+				if (keysNeedingPosition.length) {
+					return ctx.addIssue({
+						code: z.ZodIssueCode.unrecognized_keys,
+						keys: keysNeedingPosition,
+						message: `\`position\` is required for the following ${pluralise('key', keysNeedingPosition.length)}: \`${keysNeedingPosition.join('`, `')}\``,
+					});
+				}
 			}
 		}
 	})

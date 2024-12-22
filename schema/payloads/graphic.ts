@@ -388,8 +388,20 @@ export const graphicPayload = effectOptions
 				sizeBaseObject
 					.extend({
 						type: z.literal('absolute'),
-						width: z.number().positive().optional().describe('The graphic\'s width, in pixels.'),
-						height: z.number().positive().optional().describe('The graphic\'s height, in pixels.'),
+						width: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'The graphic\'s width, in pixels. If you don\'t provide the `height`, it is scaled to match this value.',
+							),
+						height: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'The graphic\'s height, in pixels. If you don\'t provide the `width`, it is scaled to match this value.',
+							),
 						gridUnits: z
 							.literal(true)
 							.optional()
@@ -421,13 +433,14 @@ export const graphicPayload = effectOptions
 					.strict(),
 				sizeBaseObject
 					.extend({
-						// TODO: superrefine this with `position.type === 'dynamic'`
 						type: z.literal('relative'),
 						scaling: z
 							.number()
 							.positive()
 							.refine(...nonZero)
-							.describe('A scaling applied onto the target placeable\'s size.'),
+							.refine(num => num !== 1, '1 is the default and does not need to be set.')
+							.optional()
+							.describe('A scaling applied onto the target placeable\'s size (default: 1).'),
 						uniform: z
 							.literal(true)
 							.optional()
@@ -450,7 +463,7 @@ export const graphicPayload = effectOptions
 					.object({
 						// TODO: superrefine this for either no `rotation`, or `rotation.type === 'directed'`.
 						type: z.literal('directed'),
-						target: vector2
+						endpoint: vector2
 							.or(z.enum(['SOURCES', 'TARGETS', 'TEMPLATES']))
 							.or(ID)
 							.describe(
@@ -577,7 +590,7 @@ export const graphicPayload = effectOptions
 			})
 			.optional()
 			.describe(
-				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable (in particular, the one determining its `position`).\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `target`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
+				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable (in particular, the one determining its `position`).\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `endpoint`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
 			),
 		reflection: z
 			.object({
@@ -696,11 +709,11 @@ export const graphicPayload = effectOptions
 					.describe(
 						'An array of placeables for the graphic to mask over. You can use `"SOURCES"` and/or `"TARGETS"` to select those tokens, or provide a UUID for any placeable on the canvas. The latter should not be used outside of custom payloads for specific scenes.',
 					),
-				xray: z
+				ignoreTokenVision: z
 					.literal(true)
 					.optional()
 					.describe(
-						'Causes the graphic to be visible even if it would normally be hidden due to token vision.',
+						'Causes the graphic to always be visible, even if a player can\'t see that position on the canvas (e.g. due to walls, darkness, etc.).',
 					),
 			})
 			.strict()

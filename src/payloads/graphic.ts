@@ -60,7 +60,7 @@ function processGraphic(
 	// if (payload.rotation)
 	if (payload.visibility) {
 		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
-		if (payload.visibility.xray) seq.xray(payload.visibility.xray);
+		if (payload.visibility.ignoreTokenVision) seq.xray(payload.visibility.ignoreTokenVision);
 		if (payload.visibility.mask) {
 			const masking = payload.visibility.mask.map((x) => {
 				if (x === 'SOURCES') return data.sources;
