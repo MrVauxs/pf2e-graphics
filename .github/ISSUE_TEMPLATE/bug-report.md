@@ -7,28 +7,31 @@ assignees: MrVauxs
 
 ---
 
-**Describe the bug**
+### Description
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+### Steps to reproduce the bug
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+1. Go to ...
+2. Click on ...
+3. Scroll down to ...
 4. See error
 
-**Expected behavior**
+### Expected behavior
+
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+### Screenshots
+
 If applicable, add screenshots to help explain your problem.
 
-**Additional context**
+### Additional context
+
 Add any other context about the problem here.
 
-> [!important] Versions
+> [!IMPORTANT]
 >
-> - Foundry: v12.330
-> - Sequencer: 3.2.14
-> - PF2e Graphics: 1.0.0
+> - Foundry: v12.330 (replace with your own)
+> - Sequencer: v3.2.14 (replace with your own)
+> - PF2e Graphics: v1.0.0 (replace with your own)
