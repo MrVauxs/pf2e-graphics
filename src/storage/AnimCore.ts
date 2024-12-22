@@ -23,16 +23,16 @@ import {
 } from '../utils.ts';
 
 /**
- * A reduced copy of `ModuleAnimationData`—the complete, merged JSON data available to *PF2e Graphics*—written as a JavaScript `Map`. `_tokenImages` is excluded for simplicity.
+ * A reduced copy of `ModuleDataObject`—the complete, merged JSON data available to *PF2e Graphics*—written as a JavaScript `Map`. `_tokenImages` is excluded for simplicity.
  */
 export type JSONMap = Map<string, string | AnimationSet[]>;
 
 /**
  * A validated, verified, applicable, unrolled animation set.
  *
- * @remarks An object with this type, strictly, should lack `reference`, `overrides`, `contents`, and `default`. This might not always *actually* always be the case to keep the code simple, so avoid iterating over keys where possible! Additionally, the modifications on `Animation` (especially the requirement of `execute`) are only actually guaranteed if the input data validates against the schema; many aspects aren't verified at runtime.
+ * @remarks An object with this type, strictly, should lack `reference`, `overrides`, `contents`, and `default`. This might not always *actually* always be the case to keep the code simple, so avoid iterating over keys where possible! Additionally, the modifications on `AnimationSet` (especially the requirement of `execute`) are only actually guaranteed if the input data validates against the schema; many aspects aren't verified at runtime.
  *
- * @todo `unfoldAnimations()` is the source of the above inexactness.
+ * @todo `unfoldAnimationSets()` is the source of the above inexactness.
  */
 export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> &
 	Required<Pick<AnimationSet, 'execute'>>;
@@ -307,14 +307,14 @@ export let AnimCore = class AnimCore {
 		triggers: string[] = [],
 		animationData: JSONMap = AnimCore.animations,
 	): Record<string, ExecutableAnimation[]> {
-		const unfoldedAnimationSets: [string, ReturnType<typeof unfoldAnimations>][] = [];
+		const unfoldedAnimationSets: [string, ReturnType<typeof unfoldAnimationSets>][] = [];
 
 		for (const [rollOption, animations] of animationData.entries()) {
 			if (!rollOptions.includes(rollOption)) continue;
 			const animationObjects = parseStrings(animations, rollOption);
 			const animationObjectsSansReference = parseReferences(animationObjects, rollOption);
 			const applicableAnimations = filterChildren(animationObjectsSansReference);
-			const unfoldedAnimations = unfoldAnimations(applicableAnimations);
+			const unfoldedAnimations = unfoldAnimationSets(applicableAnimations);
 			unfoldedAnimationSets.push([rollOption, unfoldedAnimations]);
 		}
 
@@ -331,7 +331,7 @@ export let AnimCore = class AnimCore {
 		// #region Functions
 
 		/**
-		 * De-references a `ModuleAnimationData` roll option of shorthand string references, returning a strict collection of `Animation` objects.
+		 * De-references a `ModuleAnimationData` roll option of shorthand string references, returning a strict collection of `AnimationSet` objects.
 		 *
 		 * For example, if the module has the following animation data
 		 * ```json
@@ -348,7 +348,7 @@ export let AnimCore = class AnimCore {
 		 * @param animationSet The payload attached to `rollOption`.
 		 * @param rollOption The triggering roll option (for error-reporting only).
 		 * @param recursionDepth How many look-ups were needed to reach this point. (Internal use only; defaults to 0.)
-		 * @returns An array of (folded-up) `Animation` objects.
+		 * @returns An array of (folded-up) `AnimationSet` objects.
 		 */
 		function parseStrings(
 			animationSet: string | AnimationSet[] | undefined,
@@ -367,10 +367,10 @@ export let AnimCore = class AnimCore {
 		}
 
 		/**
-		 * Transforms `Animation` objects by copying its `reference` into its `contents` (overwriting any `contents` already included).
-		 * @param animations An array of `Animation` objects that potentially contain the `reference` property.
+		 * Transforms `AnimationSet` objects by copying its `reference` into its `contents` (overwriting any `contents` already included).
+		 * @param animations An array of `AnimationSet` objects that potentially contain the `reference` property.
 		 * @param rollOption The triggering roll option (for error-reporting only)
-		 * @returns An array of `Animation` objects with no `reference` property.
+		 * @returns An array of `AnimationSet` objects with no `reference` property.
 		 */
 		function parseReferences(
 			animations: AnimationSet[],
@@ -391,22 +391,22 @@ export let AnimCore = class AnimCore {
 		}
 
 		/**
-		 * Filters `Animation` objects based on its topmost `predicates` property.
+		 * Filters `AnimationSet` objects based on its topmost `predicates` property.
 		 * @remarks Unfolding animations is costly, and most payloads will be filtered out anyway, so predicates are checked early.
 		 * @remarks Inputs with `predicates` left undefined or empty are never filtered out.
-		 * @param animations An array of `Animation` objects.
-		 * @returns An array of `Animation` objects with matching topmost `predicates`.
+		 * @param animations An array of `AnimationSet` objects.
+		 * @returns An array of `AnimationSet` objects with matching topmost `predicates`.
 		 */
 		function filterChildren<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
 			return animations.filter(animation => game.pf2e.Predicate.test(animation.predicates, rollOptions));
 		}
 
 		/**
-		 * 'Unfolds' `Animation`s into their 'executable' form. This removes all remaining references, shorthands, and nested structures. Unfolded `Animation`s are tested against the triggering roll data and only returned if they match.
-		 * @param animationSet An array of `Animation` objects without any `reference` properties.
-		 * @returns An array of `Animation` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `Animation`s).
+		 * 'Unfolds' `AnimationSet`s into their 'executable' form. This removes all remaining references, shorthands, and nested structures. Unfolded `AnimationSet`s are tested against the triggering roll data and only returned if they match.
+		 * @param animationSet An array of `AnimationSet` objects without any `reference` properties.
+		 * @returns An array of `AnimationSet` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `AnimationSet`s).
 		 */
-		function unfoldAnimations(
+		function unfoldAnimationSets(
 			animationSet: Omit<AnimationSet, 'reference'>[],
 		): Omit<AnimationSet, 'reference' | 'default' | 'contents'>[] {
 			return animationSet.flatMap((folder) => {
@@ -429,7 +429,7 @@ export let AnimCore = class AnimCore {
 				delete folder.contents;
 
 				// Recurse to unfold the children's children, and then perform a final predicate test.
-				return unfoldAnimations(
+				return unfoldAnimationSets(
 					// Merge children into the parent.
 					validChildren.map(child => mergeObjectsConcatArrays(folder, child)),
 				).filter(child => game.pf2e.Predicate.test(child.predicates, rollOptions));
@@ -437,10 +437,10 @@ export let AnimCore = class AnimCore {
 		}
 
 		/**
-		 * Filters `Animation` objects based on its topmost `triggers` property.
+		 * Filters `AnimationSet` objects based on its topmost `triggers` property.
 		 * @remarks Inputs with `triggers` left undefined or empty are never filtered out.
-		 * @param animations An array of `Animation` objects.
-		 * @returns An array of `Animation` objects with matching `triggers`.
+		 * @param animations An array of `AnimationSet` objects.
+		 * @returns An array of `AnimationSet` objects with matching `triggers`.
 		 */
 		function filterByTriggers<T extends { triggers?: Trigger[] }>(animations: T[]) {
 			return animations.filter(
@@ -451,8 +451,8 @@ export let AnimCore = class AnimCore {
 		}
 
 		function filterByOverride(
-			animationSets: [string, ReturnType<typeof unfoldAnimations>][],
-		): [string, ReturnType<typeof unfoldAnimations>][] {
+			animationSets: [string, ReturnType<typeof unfoldAnimationSets>][],
+		): [string, ReturnType<typeof unfoldAnimationSets>][] {
 			for (const animationSet of animationSets) {
 				for (const animation of animationSet[1]) {
 					if (!animation.overrides) continue;

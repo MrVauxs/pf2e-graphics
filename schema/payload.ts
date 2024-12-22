@@ -146,7 +146,7 @@ const flatAnimation = z
 			.refine(...uniqueItems)
 			.optional()
 			.describe(
-				'An array of strings, where each element is a roll option which PF2e Graphics should ignore when this animation plays. Partial roll options are permitted to override entire groups (e.g. the `item:base:rapier` animation overriding `item:group` to prevent a generic sword animation from being played).',
+				'An array of strings, where each element is a roll option which *PF2e Graphics* should ignore when this animation plays. Partial roll options are permitted to override entire groups (e.g. the `item:base:rapier` animation overriding `item:group` to prevent a generic sword animation from being played).',
 			),
 		removes: z
 			.array(ID)

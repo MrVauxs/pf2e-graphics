@@ -4,17 +4,17 @@ import { nonZero } from '../helpers/refinements';
 import { easingOptions } from '../helpers/structures';
 
 /**
- * An array of all payload types that PF2e Graphics recognises.
+ * An array of all payload types that *PF2e Graphics* recognises.
  */
 export const payloadTypeList = ['animation', 'crosshair', 'graphic', 'macro', 'sound'] as const;
 
 /**
- * Zod schema for a preset that PF2e Graphics recognises.
+ * Zod schema for a preset that *PF2e Graphics* recognises.
  */
-export const payloadTypes = z.enum(payloadTypeList).describe('A preset that PF2e Graphics recognises.');
+export const payloadTypes = z.enum(payloadTypeList).describe('A preset that *PF2e Graphics* recognises.');
 
 /**
- * A preset that PF2e Graphics recognises.
+ * A preset that *PF2e Graphics* recognises.
  */
 export type PayloadType = z.infer<typeof payloadTypes>;
 
