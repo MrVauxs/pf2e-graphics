@@ -28,6 +28,7 @@ function processGraphic(
 ): EffectSection {
 	// TODO: Handling of `.copySprite()` and antialiasing
 	const seq = new Sequence().effect().file(AnimCore.parseFiles(payload.graphic));
+
 	if (position.type === 'static') {
 		seq.atLocation(positionToArgument(position.location, data));
 		// TODO:
@@ -40,24 +41,31 @@ function processGraphic(
 		if (position.anchor) seq.screenSpaceAnchor(offsetToVector2(position.anchor));
 		if (position.offset) seq.screenSpacePosition(offsetToVector2(position.offset));
 	} else {
-		throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`position[].type\`).`);
+		throw new ErrorMsg('Failed to execute `graphic` payload (unknown `position[].type`).');
 	}
 
 	if (payload.name) seq.name(payload.name);
+
 	if (payload.syncGroup) seq.syncGroup(payload.syncGroup);
-	// if (payload.locally) seq.locally(payload.locally);
+
 	if (payload.users) seq.forUsers(payload.users);
+
 	if (payload.duration) seq.duration(payload.duration);
+
 	if (payload.probability) seq.playIf(() => Math.random() < payload.probability!);
+
 	if (payload.delay) seq.delay(...parseMinMaxObject(payload.delay));
 
 	if (payload.persistent)
 		seq.persist(!!payload.persistent, { persistTokenPrototype: payload.persistent === 'tokenPrototype' });
+
 	if (payload.tieToDocuments && data.item) seq.tieToDocuments(data.item);
+
 	// if (payload.waitUntilFinished)
 	// if (payload.repeats)
 	// if (payload.reflection)
 	// if (payload.rotation)
+
 	if (payload.visibility) {
 		if (payload.visibility.opacity) seq.opacity(payload.visibility.opacity);
 		if (payload.visibility.ignoreTokenVision) seq.xray(payload.visibility.ignoreTokenVision);
@@ -71,44 +79,49 @@ function processGraphic(
 			seq.mask(masking);
 		}
 	}
-	if (payload.size) {
-		switch (payload.size.type) {
-			case 'screenSpace':
-				// TODO: Implement
-				throw new ErrorMsg(
-					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`,
-				);
-				break;
-			case 'directed':
-				// TODO: Implement
-				throw new ErrorMsg(
-					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`,
-				);
-				break;
-			case 'absolute': {
-				if (payload.size.width && payload.size.height) {
-					const size = {
-						width: payload.size.width,
-						height: payload.size.height,
-					};
 
-					seq.size(size, { gridUnits: !!payload.size.gridUnits });
-				}
-				if (payload.size.scaling) {
-					if (typeof payload.size.scaling === 'number') {
-						seq.scale(payload.size.scaling);
-					} else {
-						seq.scale(...parseMinMaxObject(payload.size.scaling));
-					}
-				}
-				break;
+	if (payload.size) {
+		if (payload.size.type === 'directed') {
+			// TODO: Implement
+			throw new ErrorMsg(
+				`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`,
+			);
+		} else {
+			// #region Common properties
+			if (payload.size.spriteScale) seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
+
+			// TODO: check this actually works as expected
+			if (payload.size.scaleIn) {
+				seq.scaleIn(payload.size.scaleIn.initialScale, payload.size.scaleIn.duration, {
+					ease: payload.size.scaleIn.ease,
+					delay: payload.size.scaleIn.delay || 0,
+				});
 			}
-			case 'relative': {
-				if (position.type === 'screenSpace') {
-					throw new ErrorMsg(
-						'Failed to execute `graphic` payload (relative size with screenSpace position). Its either absolute screenSpace or relative on the scene, make up your mind!',
+
+			if (payload.size.scaleOut) {
+				seq.scaleOut(payload.size.scaleOut.finalScale, payload.size.scaleOut.duration, {
+					ease: payload.size.scaleOut.ease,
+					delay: payload.size.scaleOut.delay || 0,
+				});
+			}
+			// #endregion
+
+			if (payload.size.type === 'absolute') {
+				if (payload.size.width || payload.size.height) {
+					seq.size(
+						{
+							// @ts-expect-error TODO: fix Sequencer types
+							width: payload.size.width,
+							// @ts-expect-error TODO: fix Sequencer types
+							height: payload.size.height,
+						},
+						{ gridUnits: payload.size.gridUnits },
 					);
 				}
+				if (payload.size.scaling) seq.scale(...parseMinMaxObject(payload.size.scaling));
+			} else if (payload.size.type === 'relative') {
+				if (position.type === 'screenSpace')
+					throw new ErrorMsg('Failed to execute `graphic` payload (mismatched `position` and `size`).');
 
 				const maybeToken = positionToArgument(position.location, data);
 				const scale
@@ -120,32 +133,14 @@ function processGraphic(
 					uniform: !!payload.size.uniform,
 					considerTokenScale: !!payload.size.considerTokenScale,
 				});
-				break;
-			}
-			default:
-				throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`size.type\`).`);
-		}
-
-		if (payload.size.spriteScale) {
-			if (typeof payload.size.spriteScale === 'number') {
-				seq.spriteScale(payload.size.spriteScale);
+			} else if (payload.size.type === 'screenSpace') {
+				// TODO: Implement
+				throw new ErrorMsg(
+					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`,
+				);
 			} else {
-				seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
+				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `size.type`).');
 			}
-		}
-
-		if (payload.size.scaleIn) {
-			seq.scaleIn(payload.size.scaleIn.initialScale, payload.size.scaleIn.duration, {
-				ease: payload.size.scaleIn.ease,
-				delay: payload.size.scaleIn.delay || 0,
-			});
-		}
-
-		if (payload.size.scaleOut) {
-			seq.scaleOut(payload.size.scaleOut.finalScale, payload.size.scaleOut.duration, {
-				ease: payload.size.scaleOut.ease,
-				delay: payload.size.scaleOut.delay || 0,
-			});
 		}
 	}
 
@@ -171,7 +166,7 @@ function processGraphic(
 				seq.screenSpaceAboveUI();
 			} else {
 				if (typeof payload.elevation.sortLayer !== 'number') {
-					throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`elevation.sortLayer\`).`);
+					throw new ErrorMsg('Failed to execute `graphic` payload (unknown `elevation.sortLayer`).');
 				}
 				// @ts-expect-error TODO: Sequencer add `.sortLayer()`
 				seq.sortLayer(payload.elevation.sortLayer);
@@ -180,8 +175,11 @@ function processGraphic(
 	}
 
 	if (payload.fadeIn) seq.fadeIn(payload.fadeIn.duration, payload.fadeIn);
+
 	if (payload.fadeOut) seq.fadeOut(payload.fadeOut.duration, payload.fadeOut);
+
 	if (payload.tint) seq.tint(payload.tint);
+
 	if (payload.filters) {
 		payload.filters.forEach(filter =>
 			seq.filter(
@@ -191,6 +189,7 @@ function processGraphic(
 			),
 		);
 	}
+
 	if (payload.drawings) {
 		payload.drawings.forEach((drawing) => {
 			if (drawing.type === 'text') {
@@ -207,6 +206,7 @@ function processGraphic(
 			}
 		});
 	}
+
 	if (payload.varyProperties) {
 		for (const variation of payload.varyProperties) {
 			if (variation.type === 'animate') {
@@ -214,7 +214,7 @@ function processGraphic(
 			} else if (variation.type === 'loop') {
 				seq.loopProperty(variation.target, variation.property, variation);
 			} else {
-				throw new ErrorMsg(`Failed to execute \`graphic\` payload (unknown \`varyProperties[].type\`).`);
+				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `varyProperties[].type`).');
 			}
 		}
 	}
