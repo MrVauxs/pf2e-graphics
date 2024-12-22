@@ -39,7 +39,7 @@
 		},
 		"settings": {
 			"cardsGone": {
-				"name": "Disable Cards",
+				"name": "Hide Cards Tab",
 				"hint": "Hides the cards tab, effectively making the animations tab replace it."
 			},
 			"volume": {
