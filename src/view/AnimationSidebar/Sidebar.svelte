@@ -3,6 +3,8 @@
 	import { deslugify } from 'src/utils';
 	import { derived } from 'svelte/store';
 
+	let search = '';
+
 	type ArrayAnimationSet = { name: string; source: string; data: any }[];
 
 	const preset = derived(
@@ -11,7 +13,15 @@
 			.map(([key, data]) => ({ name: deslugify(key), source: 'preset', data })),
 	);
 
-	const list: ArrayAnimationSet = $preset.filter(item => item.name !== '_tokenImages');
+	let list: ArrayAnimationSet = [];
+
+	$: list = $preset
+		.filter(item => item.name !== '_tokenImages')
+		.filter(item =>	item.name.toLowerCase().includes(search.toLowerCase())
+			|| (typeof item.data === 'string'
+				? item.data.toLowerCase().includes(search.toLowerCase())
+				: false))
+		.sort((a, b) => a.name.localeCompare(b.name));
 </script>
 
 <header class='directory-header'>
@@ -28,6 +38,7 @@
 	<div class='header-search flexrow pl-1'>
 		<i class='fas fa-search'></i>
 		<input
+			bind:value={search}
 			type='search'
 			name='search'
 			aria-label='Search Animations'
