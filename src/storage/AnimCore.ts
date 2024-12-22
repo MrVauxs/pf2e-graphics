@@ -319,6 +319,7 @@ export let AnimCore = class AnimCore {
 		}
 
 		// Limit ourselves to the animations that match our triggers.
+		// TODO: Optimize this to not run on every animation and skip the `map` entirely if no triggers are present.
 		const triggeredAnimations = unfoldedAnimationSets.map(
 			([rollOption, animations]) =>
 				[rollOption, filterByTriggers(animations)] as (typeof unfoldedAnimationSets)[0],
@@ -422,8 +423,13 @@ export let AnimCore = class AnimCore {
 				);
 
 				// One child animation can be labelled as `default`, which causes it to be applied if and only if no child animations' predicates match.
-				if (!validChildren.length && folder.contents.some(x => x.default))
+				if (!validChildren.length && folder.contents.some(x => x.default)) {
+					// If there are no valid children, then we need to find the default children and make them valid.
 					validChildren = folder.contents.filter(x => x.default);
+				} else {
+					// If there are valid children, remove the default children from the valid options.
+					validChildren = validChildren.filter(x => !x.default);
+				}
 
 				// We no longer need this.
 				delete folder.contents;
@@ -445,6 +451,7 @@ export let AnimCore = class AnimCore {
 		function filterByTriggers<T extends { triggers?: Trigger[] }>(animations: T[]) {
 			return animations.filter(
 				animation =>
+					// TODO: Optimize this to not run on every animation
 					!animation.triggers?.length // Undefined or empty `triggers` is interpreted as triggering on everything
 					|| animation.triggers.find(t => triggers.includes(t)),
 			);
