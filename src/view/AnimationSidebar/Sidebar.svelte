@@ -1,6 +1,7 @@
 <script lang='ts'>
+	import { TJSDialog } from '#runtime/svelte/application';
 	import { AnimCore } from 'src/storage/AnimCore';
-	import { deslugify } from 'src/utils';
+	import { deslugify, log } from 'src/utils';
 	import { derived } from 'svelte/store';
 
 	let search = '';
@@ -22,15 +23,35 @@
 				? item.data.toLowerCase().includes(search.toLowerCase())
 				: false))
 		.sort((a, b) => a.name.localeCompare(b.name));
+
+	function createAnimation() {
+		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
+		const dialog = new TJSDialog({
+			title: 'Create Animation',
+			content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+			buttons: {
+				create: { onPress: () => dialog.close(), label: 'Create' },
+				cancel: { onPress: () => dialog.close(), label: 'Cancel' },
+			},
+		}, {
+			left: sidebarRect.x - 310,
+			top: sidebarRect.y - 5,
+			width: 300,
+		}).render(true);
+	}
+
+	function openAnimation(data: any) {
+		log('Open Animation', data);
+	}
 </script>
 
 <header class='directory-header'>
 	<div class='header-actions action-buttons flexrow pb-0.5'>
-		<button>
+		<button on:click={createAnimation} id='create-animation'>
 			<i class='fas fa-films'></i>
 			Create Animation
 		</button>
-		<button>
+		<button id='create-folder'>
 			<i class='fas fa-folder'></i>
 			Create Folder
 		</button>
@@ -49,7 +70,19 @@
 </header>
 <ol class='directory-list'>
 	{#each list as item}
-		<li class='relative px-2 hover:bg-slate-400/10 border-0 first:border-t border-b border-black border-solid'>
+		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+		<li
+			tabindex='-1'
+			on:click={() => openAnimation(item)}
+			on:keydown={e => e.key === 'Enter' && openAnimation(item)}
+			class='
+				relative px-2
+				hover:bg-slate-400/10
+				active:bg-slate-400/20
+				border-0 first:border-t border-b
+				border-black border-solid
+				text-left w-full
+			'>
 			<aside class='absolute right-0 top-0 m-1'>
 				{#if item.source === 'preset'}
 					<i data-tooltip='Preset Animation' class='fas fa-gear'></i>
