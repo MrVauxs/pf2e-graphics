@@ -146,7 +146,7 @@ async function processAnimation(
 			}
 		}
 	}
-	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
+	if (payload.tint) seq.tint(payload.tint);
 	// #endregion
 
 	return seq;

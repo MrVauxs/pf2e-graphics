@@ -68,8 +68,11 @@ export const rollOption = z
  * Zod schema for a hexadecimal colour, represented as a string (leading hash).
  */
 export const hexColour = z
-	.string()
-	.regex(/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i, 'String must be a valid hexadecimal colour-code.')
+	.custom<`#${string}`>((val) => {
+		if (typeof val !== 'string') return false;
+		if (val.match(/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i)) return true;
+		return false;
+	}, 'String must be a valid hexadecimal colour-code.')
 	.describe('A hexadecimal colour, represented as a string (leading hash).');
 
 /**

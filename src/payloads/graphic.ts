@@ -181,7 +181,7 @@ function processGraphic(
 
 	if (payload.fadeIn) seq.fadeIn(payload.fadeIn.duration, payload.fadeIn);
 	if (payload.fadeOut) seq.fadeOut(payload.fadeOut.duration, payload.fadeOut);
-	if (payload.tint) seq.tint(payload.tint as `#${string}`); // Required due to Sequencer typings
+	if (payload.tint) seq.tint(payload.tint);
 	if (payload.filters) {
 		payload.filters.forEach(filter =>
 			seq.filter(
@@ -198,10 +198,10 @@ function processGraphic(
 			} else {
 				const options: Parameters<typeof seq.shape>[1] = {
 					...drawing,
-					fillColor: drawing.fill?.color as `#${string}` | undefined, // Required due to Sequencer typings
+					fillColor: drawing.fill?.color,
 					fillAlpha: drawing.fill?.alpha,
 					lineSize: drawing.line?.size,
-					lineColor: drawing.line?.color as `#${string}` | undefined, // Required due to Sequencer typings
+					lineColor: drawing.line?.color,
 				};
 				seq.shape(drawing.type, options);
 			}
