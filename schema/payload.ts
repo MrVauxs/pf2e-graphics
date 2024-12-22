@@ -177,20 +177,20 @@ const flatAnimation = z
 /**
  * The complete animation object, as is encoded in JSON.
  */
-export type AnimationSetItem = z.infer<typeof flatAnimation> & {
+export type AnimationSet = z.infer<typeof flatAnimation> & {
 	contents?: AnimationSetItemPartial[];
 };
 
 /**
- * The complete animation object, as is encoded in JSON, but with everything optional so it can appear in `contents`.
+ * The complete animation object, as is encoded in JSON, but with every property made optional. This is used for nesting within `contents`.
  */
-export type AnimationSetItemPartial = Partial<Omit<z.infer<typeof flatAnimation>, 'execute'>> & {
+type AnimationSetItemPartial = Partial<Omit<z.infer<typeof flatAnimation>, 'execute'>> & {
 	execute?: Partial<Payload>;
 	contents?: AnimationSetItemPartial[];
 };
 
 /**
- * Zod schema for the complete animation object, as is encoded in JSON, but with everything optional so it can appear in `contents`.
+ * Zod schema for the complete animation object, as is encoded in JSON, but with every property made optional. This is used for nesting within `contents`.
  */
 const animationSetItemPartial: z.ZodType<AnimationSetItemPartial> = flatAnimation
 	.omit({ execute: true })
@@ -217,9 +217,10 @@ const animationSetItemPartial: z.ZodType<AnimationSetItemPartial> = flatAnimatio
 	.refine(...nonEmpty);
 
 /**
- * Zod schema for the complete animation object, as is encoded in JSON.
+ * Zod schema for the complete animation set, as is encoded in JSON.
+ * @remarks This schema isn't refined for valid super-structure.
  */
-const animationSetItemFull: z.ZodType<AnimationSetItem> = flatAnimation
+const animationSet: z.ZodType<AnimationSet> = flatAnimation
 	.extend({
 		contents: z
 			.lazy(() =>
@@ -234,22 +235,21 @@ const animationSetItemFull: z.ZodType<AnimationSetItem> = flatAnimation
 	.refine(...nonEmpty);
 
 /**
- * Zod schema of an animation set, as applied to a single roll option.
+ * Zod schema for an array of animation sets, as applied to a single roll option.
  */
-export const animationSet = z
-	.array(animationSetItemFull)
+export const animationSets = z
+	.array(animationSet)
 	.min(1)
 	// .superRefine((arr, ctx) => superValidate(arr, ctx))
 	.refine(...uniqueItems);
 
 /**
- * Zod schema for the animation-set data object, which maps roll options to animation objects (or other roll options).
+ * Zod schema for the data object mapping roll options to animation sets (or other roll options).
  */
-export const animationsSet = z
-	.record(rollOption, rollOption.or(animationSet))
-	.describe('The animations data object, which maps roll options to animation objects (or other roll options).');
+export const animationSetsObject = z
+	.record(rollOption, rollOption.or(animationSets));
 
 /**
- * The animation-set data object, which maps roll options to animation objects (or other roll options).
+ * The data object mapping roll options to animation sets (or other roll options).
  */
-export type AnimationSetData = z.infer<typeof animationsSet>;
+export type AnimationSetsObject = z.infer<typeof animationSetsObject>;

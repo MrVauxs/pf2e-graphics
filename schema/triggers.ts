@@ -3,7 +3,7 @@ import { z } from 'zod';
 /**
  * An array of all triggers that PF2e Graphics recognises.
  */
-export const TRIGGERS = [
+export const triggerList = [
 	'attack-roll',
 	'damage-roll',
 	'place-template',
@@ -27,7 +27,7 @@ export const TRIGGERS = [
 /**
  * Zod schema for a trigger that PF2e Graphics recognises.
  */
-export const trigger = z.enum(TRIGGERS).describe('A trigger that PF2e Graphics recognises.');
+export const trigger = z.enum(triggerList).describe('A trigger that PF2e Graphics recognises.');
 
 /**
  * A trigger that PF2e Graphics recognises.

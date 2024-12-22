@@ -61,7 +61,7 @@ export type TokenImageRule = z.infer<typeof tokenImageRule>;
 /**
  * Zod schema for a token's image data.
  */
-const tokenImageData = z
+const tokenImage = z
 	.object({
 		name: z.string().min(1),
 		uuid: UUID,
@@ -81,14 +81,14 @@ const tokenImageData = z
 /**
  * A token's image data.
  */
-export type TokenImageData = z.infer<typeof tokenImageData>;
+export type TokenImage = z.infer<typeof tokenImage>;
 
 /**
  * Zod schema for an object containing the `_tokenImages` property of the merged animation JSON.
  */
-export const tokenImages = z.object({
+export const tokenImagesObject = z.object({
 	_tokenImages: z
-		.array(tokenImageData)
+		.array(tokenImage)
 		.min(1)
 		.refine(...uniqueItems)
 		.optional()
@@ -98,4 +98,4 @@ export const tokenImages = z.object({
 /**
  * The `_tokenImages` property of the merged animation JSON.
  */
-export type TokenImages = z.infer<typeof tokenImages>;
+export type TokenImagesObject = z.infer<typeof tokenImagesObject>;

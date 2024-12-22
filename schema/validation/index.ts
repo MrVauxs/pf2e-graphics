@@ -1,7 +1,7 @@
 import { ZodError, type ZodIssue, ZodIssueCode } from 'zod';
 import { rollOption } from '../helpers/atoms';
-import { animationSet } from '../payload';
-import { tokenImages } from '../tokenImages';
+import { animationSets } from '../payload';
+import { tokenImagesObject } from '../tokenImages';
 
 /**
  * Validates general animation data.
@@ -32,7 +32,7 @@ export function validateAnimationData(data: unknown): { success: true } | { succ
 	for (const key in data) {
 		// Test _tokenImages as special case
 		if (key === '_tokenImages') {
-			const result = tokenImages.safeParse(data);
+			const result = tokenImagesObject.safeParse(data);
 			if (!result.success) issues.push(...result.error.issues);
 		} else {
 			// Test key
@@ -52,7 +52,7 @@ export function validateAnimationData(data: unknown): { success: true } | { succ
 				if (!result.success)
 					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
 			} else {
-				const result = animationSet.safeParse(value);
+				const result = animationSets.safeParse(value);
 				if (!result.success) {
 					issues.push(...result.error.issues.map(issue => ({ ...issue, path: [key, ...issue.path] })));
 				}

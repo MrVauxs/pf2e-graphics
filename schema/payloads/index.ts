@@ -4,25 +4,19 @@ import { nonZero } from '../helpers/refinements';
 import { easingOptions } from '../helpers/structures';
 
 /**
- * An array of all presets that PF2e Graphics recognises.
+ * An array of all payload types that PF2e Graphics recognises.
  */
-export const PRESETS = [
-	'animation',
-	'crosshair',
-	'graphic',
-	'macro',
-	'sound',
-] as const;
+export const payloadTypeList = ['animation', 'crosshair', 'graphic', 'macro', 'sound'] as const;
 
 /**
  * Zod schema for a preset that PF2e Graphics recognises.
  */
-export const presets = z.enum(PRESETS).describe('A preset that PF2e Graphics recognises.');
+export const payloadTypes = z.enum(payloadTypeList).describe('A preset that PF2e Graphics recognises.');
 
 /**
  * A preset that PF2e Graphics recognises.
  */
-export type Preset = z.infer<typeof presets>;
+export type PayloadType = z.infer<typeof payloadTypes>;
 
 /**
  * Zod schema for the options which are common to all 'effect' payloads (i.e. `sound`, `graphic`, and partially `animation`).
@@ -160,8 +154,3 @@ export const effectOptions = z
 			.describe('Sets the probability that this effect is executed each time it\'s triggered.'),
 	})
 	.strict();
-
-/**
- * Options which are common to all 'effect' payloads (i.e. `sound`, `graphic`, and partially `animation`).
- */
-export type EffectOptions = z.infer<typeof effectOptions>;
