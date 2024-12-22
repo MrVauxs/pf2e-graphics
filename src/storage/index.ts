@@ -24,6 +24,8 @@ Hooks.once('ready', async () => {
 		}
 	}
 
+	window.pf2eGraphics.AnimCore.updateAnimations();
+
 	// Register the crosshair.ts sockets.
 	window.pf2eGraphics.socket = socketlib.registerModule('pf2e-graphics');
 	window.pf2eGraphics.socket.register(
@@ -39,6 +41,7 @@ Hooks.once('ready', async () => {
 if (import.meta.hot) {
 	import.meta.hot.on('updateAnims', (data) => {
 		window.pf2eGraphics.modules['pf2e-graphics'] = JSON.parse(data);
+		window.pf2eGraphics.AnimCore.updateAnimations();
 		ui.notifications.info('Animations updated!');
 	});
 	import.meta.hot.on('updateValidationError', (data) => {

@@ -1,6 +1,6 @@
-import type { Writable } from 'svelte/store';
 import type { TokenOrDoc } from '../extensions';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
+import { get, writable, type Writable } from 'svelte/store';
 import {
 	type AnimationSet,
 	type AnimationSetsObject,
@@ -77,25 +77,26 @@ export let AnimCore = class AnimCore {
 		);
 	}
 
-	static get animations(): JSONMap {
-		if (dev) return this.getAnimations();
-		if (!this._animations) this._animations = this.getAnimations();
-		return this._animations;
+	static updateAnimations() {
+		this.animationsStore.set(this.getAnimations());
+		this.keysStore.set(this.getKeys());
 	}
 
-	static _animations: JSONMap;
+	static animationsStore: Writable<JSONMap> = writable(new Map());
+
+	static get animations(): JSONMap {
+		return get(this.animationsStore);
+	}
 
 	static getKeys(): string[] {
 		return Array.from(this.animations.keys()).filter(x => !x.startsWith('_'));
 	}
 
-	static get keys(): string[] {
-		if (dev) return this.getKeys();
-		if (!this._keys) this._keys = this.getKeys();
-		return this._keys;
-	}
+	static keysStore: Writable<string[]> = writable(this.getKeys());
 
-	static _keys: string[];
+	static get keys(): string[] {
+		return get(this.keysStore);
+	}
 
 	static getTokenImages() {
 		// We can just handily assume that this is real :)
