@@ -112,9 +112,9 @@ function processGraphic(
 
 				const maybeToken = positionToArgument(position.location, data);
 				const scale
-					= payload.size.scaling
+					= (payload.size.scaling || 1)
 					// @ts-expect-error Idiotic TypeScript can't figure out that "sm" is a const Size
-					* (maybeToken instanceof Token && payload.size.considerActorScale ? (maybeToken.actor?.size === 'sm' ? 0.8 : 1) : 1);
+					* (maybeToken instanceof Token && payload.size.considerActorScale && maybeToken.actor?.size === 'sm' ? 0.8 : 1);
 
 				seq.scaleToObject(scale, {
 					uniform: !!payload.size.uniform,
