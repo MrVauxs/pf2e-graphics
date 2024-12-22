@@ -1,9 +1,9 @@
-import type { ModuleAnimationData } from '../src/schema/index.ts';
-import type { AnimationSetData, AnimationSetItem } from '../src/schema/payload.ts';
+import type { ModuleDataObject } from '../schema/index.ts';
+import type { AnimationSet, AnimationSetsObject } from '../schema/payload.ts';
 import type { JSONMap } from '../src/storage/AnimCore.ts';
 import type { FileValidationFailure } from './helpers.ts';
 import * as fs from 'node:fs';
-import { validateAnimationData } from '../src/schema/validation/index.ts';
+import { validateAnimationData } from '../schema/validation/index.ts';
 import { pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
 
 /**
@@ -15,8 +15,8 @@ import { pluralise, safeJSONParse, testFilesRecursively } from './helpers.ts';
 export function testAndMergeAnimations(
 	targetPath: string,
 ):
-	| { success: true; data: ModuleAnimationData }
-	| { success: false; data?: ModuleAnimationData; issues: FileValidationFailure[] } {
+	| { success: true; data: ModuleDataObject }
+	| { success: false; data?: ModuleDataObject; issues: FileValidationFailure[] } {
 	const referenceTracker = new (class ReferenceTracker extends Map<string, Set<string>> {
 		constructor() {
 			super();
@@ -30,7 +30,7 @@ export function testAndMergeAnimations(
 			}
 		}
 
-		populate(file: string, value: string | AnimationSetItem[]): void {
+		populate(file: string, value: string | AnimationSet[]): void {
 			if (typeof value === 'string') {
 				this.addPending(value, file);
 			} else {
@@ -62,7 +62,7 @@ export function testAndMergeAnimations(
 
 				// Test whether the data is an object and is therefore mergeable
 				if (typeof json.data === 'object' && json.data !== null && !Array.isArray(json.data)) {
-					const animations = json.data as AnimationSetData;
+					const animations = json.data as AnimationSetsObject;
 					for (const key in animations) {
 						// Test for duplicate keys
 						if (mergedAnimations.has(key)) {

@@ -1,7 +1,5 @@
 /* eslint-disable no-prototype-builtins */
 
-import { nonEmpty } from './schema/helpers/refinements';
-
 /* eslint-disable no-console */
 // TODO: (Fall Cleaning) Move to $lib
 export class ErrorMsg extends Error {
@@ -59,13 +57,23 @@ export function i18n(string: string, format?: any) {
 }
 
 /**
+ * Returns `true` if the the input object `obj` has at least one property.
+ * @privateRemarks Duplicated from `schema/helpers/refinements.ts`.
+ */
+export function nonEmpty(obj: object): boolean {
+	// eslint-disable-next-line no-unreachable-loop
+	for (const _key in obj) return true; // This is simply most performant ¯\_(ツ)_/¯
+	return false;
+}
+
+/**
  * Returns `true` if the `val` is: `true`, a number, or a non-empty string, object, or array. Returns `false` otherwise (i.e. `null`, `undefined`, and empty strings, objects, or arrays).
  */
 export function isTrueish<T>(val: T): val is NonNullable<T> {
 	return (
 		nonNullable(val)
 		&& Boolean(val)
-		&& (typeof val === 'object' ? nonEmpty[0](val) : true)
+		&& (typeof val === 'object' ? nonEmpty(val) : true)
 		&& (Array.isArray(val) ? val.length !== 0 : true)
 	);
 }

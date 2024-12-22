@@ -1,4 +1,4 @@
-import type { ModuleAnimationData } from './schema';
+import type { ModuleDataObject } from '../schema';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 import { writable } from 'svelte/store';
@@ -17,7 +17,7 @@ let settings: TJSLiveGameSettings & {
 	persistent: boolean;
 	buttonPosition: 0 | 1 | 2;
 	dev: boolean;
-	worldAnimations: ModuleAnimationData;
+	worldAnimations: ModuleDataObject;
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;

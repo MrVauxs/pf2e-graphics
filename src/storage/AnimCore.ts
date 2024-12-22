@@ -1,12 +1,16 @@
 import type { Writable } from 'svelte/store';
 import type { TokenOrDoc } from '../extensions';
-import type { ModuleAnimationData } from '../schema/index.ts';
-import type { AnimationSetData, AnimationSetItem } from '../schema/payload.ts';
-import type { TokenImageData } from '../schema/tokenImages.ts';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
+import {
+	type AnimationSet,
+	type AnimationSetsObject,
+	type ModuleDataObject,
+	payloadTypeList,
+	type TokenImage,
+	type Trigger,
+	triggerList,
+} from '../../schema';
 import { decodePayload } from '../payloads/index.ts';
-import { PRESETS as presetList } from '../schema/payloads/index.ts';
-import { type Trigger, TRIGGERS as triggersList } from '../schema/triggers.ts';
 import {
 	dedupeStrings,
 	dev,
@@ -21,19 +25,17 @@ import {
 /**
  * A reduced copy of `ModuleAnimationData`—the complete, merged JSON data available to *PF2e Graphics*—written as a JavaScript `Map`. `_tokenImages` is excluded for simplicity.
  */
-export type JSONMap = Map<string, string | AnimationSetItem[]>;
+export type JSONMap = Map<string, string | AnimationSet[]>;
 
 /**
- * A validated, verified, applicable, unrolled animation object.
+ * A validated, verified, applicable, unrolled animation set.
  *
  * @remarks An object with this type, strictly, should lack `reference`, `overrides`, `contents`, and `default`. This might not always *actually* always be the case to keep the code simple, so avoid iterating over keys where possible! Additionally, the modifications on `Animation` (especially the requirement of `execute`) are only actually guaranteed if the input data validates against the schema; many aspects aren't verified at runtime.
  *
  * @todo `unfoldAnimations()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<
-	AnimationSetItem,
-	'reference' | 'contents' | 'default' | 'overrides'
-> & Required<Pick<AnimationSetItem, 'execute'>>;
+export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> &
+	Required<Pick<AnimationSet, 'execute'>>;
 
 export interface AnimationHistoryObject {
 	timestamp: number;
@@ -52,7 +54,7 @@ declare global {
 	}
 	interface pf2eGraphics {
 		socket: SocketlibSocket;
-		modules: ModuleAnimationData;
+		modules: ModuleDataObject;
 		AnimCore: typeof AnimCore;
 		liveSettings: liveSettings;
 		storeSettings: storeSettingsType;
@@ -97,7 +99,7 @@ export let AnimCore = class AnimCore {
 
 	static getTokenImages() {
 		// We can just handily assume that this is real :)
-		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImageData[])
+		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImage[])
 			.filter(x => (x?.requires ? !!game.modules.get(x.requires) : true))
 			.map(x => ({
 				...x,
@@ -164,11 +166,11 @@ export let AnimCore = class AnimCore {
 	}
 
 	static CONST = {
-		PRESETS: presetList,
-		TRIGGERS: triggersList,
+		PAYLOAD_TYPES: payloadTypeList,
+		TRIGGERS: triggerList,
 	};
 
-	static addNewAnimation(data: AnimationSetData, overwrite = true) {
+	static addNewAnimation(data: AnimationSetsObject, overwrite = true) {
 		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
 	}
 	// #endregion
@@ -217,7 +219,7 @@ export let AnimCore = class AnimCore {
 		const foundAnimations = AnimCore.search(
 			rollOptions,
 			[trigger],
-			new Map(Object.entries(allAnimations as AnimationSetData)), // Technically false, but we can ignore `_tokenImages` here
+			new Map(Object.entries(allAnimations as AnimationSetsObject)), // Technically false, but we can ignore `_tokenImages` here
 		);
 		const appliedAnimations = Object.values(foundAnimations).map(x =>
 			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
@@ -243,7 +245,7 @@ export let AnimCore = class AnimCore {
 		rollOptions: string[] = [],
 		item?: ItemPF2e<any> | null,
 		actor: ActorPF2e<any> | null | undefined = item?.actor,
-	): { animations: ModuleAnimationData; sources: Record<string, string[]> } {
+	): { animations: ModuleDataObject; sources: Record<string, string[]> } {
 		const obj = {
 			animations: {},
 			sources: {},
@@ -349,10 +351,10 @@ export let AnimCore = class AnimCore {
 		 * @returns An array of (folded-up) `Animation` objects.
 		 */
 		function parseStrings(
-			animationSet: string | AnimationSetItem[] | undefined,
+			animationSet: string | AnimationSet[] | undefined,
 			rollOption: string,
 			recursionDepth: number = 0,
-		): AnimationSetItem[] {
+		): AnimationSet[] {
 			if (recursionDepth > 30) {
 				throw new ErrorMsg(
 					`Animation for \`${rollOption}\` recurses too many times! Do its references form an infinite loop?`,
@@ -371,9 +373,9 @@ export let AnimCore = class AnimCore {
 		 * @returns An array of `Animation` objects with no `reference` property.
 		 */
 		function parseReferences(
-			animations: AnimationSetItem[],
+			animations: AnimationSet[],
 			rollOption: string,
-		): Omit<AnimationSetItem, 'reference'>[] {
+		): Omit<AnimationSet, 'reference'>[] {
 			return animations.map((obj) => {
 				if ('reference' in obj) {
 					const ref = parseStrings(animationData.get(obj.reference!)!, rollOption);
@@ -405,8 +407,8 @@ export let AnimCore = class AnimCore {
 		 * @returns An array of `Animation` objects without any `reference`, `default`, or `contents` properties (i.e. an array of unfolded `Animation`s).
 		 */
 		function unfoldAnimations(
-			animationSet: Omit<AnimationSetItem, 'reference'>[],
-		): Omit<AnimationSetItem, 'reference' | 'default' | 'contents'>[] {
+			animationSet: Omit<AnimationSet, 'reference'>[],
+		): Omit<AnimationSet, 'reference' | 'default' | 'contents'>[] {
 			return animationSet.flatMap((folder) => {
 				// `default` affects the child-selection process (see below), so can be deleted.
 				delete folder.default;
@@ -494,7 +496,7 @@ export let AnimCore = class AnimCore {
 		const sequences: Sequence[] = [];
 
 		type addOnGenericAnimation = ExecutableAnimation & {
-			generic: Extract<AnimationSetItem['generic'], { type: 'add-on' }>;
+			generic: Extract<AnimationSet['generic'], { type: 'add-on' }>;
 		};
 		const addOns: addOnGenericAnimation[] = [];
 

@@ -1,5 +1,5 @@
+import type { Payload } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
-import type { Payload } from '../schema/payload';
 import { addCustomExecutionContext, type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
 import { ErrorMsg } from '../utils';
 

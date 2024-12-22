@@ -1,4 +1,4 @@
-import type { Payload } from '../schema/payload';
+import type { Payload } from '../../schema';
 import type { ArrayElement } from '../utils';
 import { addCustomExecutionContext, type ExecutionContext } from '.';
 import { AnimCore } from '../storage/AnimCore';

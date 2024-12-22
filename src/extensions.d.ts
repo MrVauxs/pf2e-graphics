@@ -1,6 +1,6 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
-import type { ModuleAnimationData } from './schema/index';
+import type { ModuleDataObject } from '../schema';
 
 export type CombinedSvelteApplicationOptions = ApplicationOptions & SvelteApplicationOptions;
 
@@ -29,7 +29,7 @@ export type TokenOrDoc = TokenDocument | Token;
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];
 
 export type moduleFlags = undefined | {
-	customAnimations?: ModuleAnimationData;
+	customAnimations?: ModuleDataObject;
 };
 
 declare global {

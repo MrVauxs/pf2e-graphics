@@ -1,5 +1,5 @@
+import type { Payload } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
-import type { Payload } from '../schema/payload.ts';
 // import type { ExecutableAnimation } from '../storage/AnimCore.ts';
 import { ErrorMsg, warn } from '../utils.ts';
 import { executeAnimation } from './animation.ts';

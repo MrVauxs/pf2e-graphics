@@ -1,4 +1,4 @@
-import type { Payload } from '../schema/payload';
+import type { Payload } from '../../schema';
 import {
 	addCustomExecutionContext,
 	type ExecutionContext,

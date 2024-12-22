@@ -1,4 +1,4 @@
-import type { Payload } from '../schema/payload';
+import type { Payload } from '../../schema';
 import { type ExecutionContext, offsetToVector2 } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 

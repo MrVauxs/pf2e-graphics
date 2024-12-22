@@ -1,4 +1,4 @@
-import type { Trigger } from '../schema/triggers';
+import type { Trigger } from '../../schema';
 import { devLog, log, nonNullable } from '../utils';
 
 function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
@@ -9,7 +9,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 	}
 
 	const rollOptions = message.flags.pf2e.context?.options ?? [];
-	let trigger = message.flags.pf2e.context?.type as (CheckType | Trigger | 'spell-cast') | undefined;
+	let trigger = message.flags.pf2e.context?.type as CheckType | Trigger | 'spell-cast' | undefined;
 	if (!message.token) {
 		log('No token found in the chat message data. This often means there is none on the scene. Aborting.');
 		return;
