@@ -29,6 +29,7 @@ export type ArrayAnimationSet = {
 	source: 'user' | 'world' | 'preset';
 	user?: string;
 	data: string | AnimationSet[];
+	key: string;
 }[];
 
 export type TokenOrDoc = TokenDocument | Token;

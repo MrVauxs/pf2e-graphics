@@ -12,12 +12,23 @@
 		if (location === 'world') {
 			window.pf2eGraphics.liveSettings.globalAnimations = [
 				...window.pf2eGraphics.liveSettings.globalAnimations,
-				{ name, data: [], source: 'world' },
+				{
+					name,
+					data: [],
+					key: '',
+					source: 'world',
+				},
 			];
 		} else if (location === 'user') {
 			game.user.setFlag('pf2e-graphics', 'animations', [
 				...(game.user.getFlag<ArrayAnimationSet[]>('pf2e-graphics', 'animations') || []),
-				{ name, user: game.userId, data: [], source: 'user' },
+				{
+					name,
+					user: game.userId,
+					data: [],
+					key: '',
+					source: 'user',
+				},
 			]);
 		}
 

@@ -32,7 +32,7 @@
 	const world = derived(
 		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
 		$animations => Array.from($animations)
-			.map((data: any) => ({ source: 'world', ...data })) as ArrayAnimationSet,
+			.map((data: any) => ({ key: '', source: 'world', ...data })) as ArrayAnimationSet,
 	);
 
 	let list: ArrayAnimationSet = [];
