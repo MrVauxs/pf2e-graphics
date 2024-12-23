@@ -9,6 +9,8 @@
 
 	let search = '';
 
+	// TODO: TJS I pray to you make this mess gone by letting me update to Svelte 5
+
 	const userDocs = game.users.map(x => new TJSDocument(x));
 	const usersFlags = derived(userDocs, ($userDocs) => {
 		return $userDocs.flatMap(user =>
@@ -122,7 +124,14 @@
 					<i data-tooltip='World Animation' class='fas fa-globe'></i>
 				{/if}
 			</aside>
-			<header class='leading-[3rem]'>{item.name}</header>
+
+			<header class='leading-[3rem]'>
+				{item.name}
+				<span class='text-xs align-sub'>
+					{#if !item.data || !item.data.length} (empty) {/if}
+				</span>
+			</header>
+
 			{#if typeof item.data === 'string'}
 				<footer class='
 					absolute right-0 bottom-0
