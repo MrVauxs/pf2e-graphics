@@ -24,6 +24,13 @@ declare module 'svelte' {
 	): void;
 }
 
+export type ArrayAnimationSet = {
+	name: string;
+	source: 'user' | 'world' | 'preset';
+	user?: string;
+	data: string | AnimationSet[];
+}[];
+
 export type TokenOrDoc = TokenDocument | Token;
 
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];

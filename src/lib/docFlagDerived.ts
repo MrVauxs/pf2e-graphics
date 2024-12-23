@@ -36,7 +36,7 @@ function changeValue(data: unknown) {
  *
  * @param debounce Optional debounce timing.
  */
-export default function docFlagDerived<T>(
+export default function TJSDocFlagDerived<T>(
 	doc: TJSDocument<any>,
 	scope: string,
 	key: string,

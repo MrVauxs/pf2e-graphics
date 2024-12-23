@@ -1,6 +1,6 @@
-import type { ModuleDataObject } from '../schema';
-import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
+import type { ArrayAnimationSet } from './extensions';
 
+import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 import { writable } from 'svelte/store';
 import { AnimCore } from './storage/AnimCore';
 
@@ -17,7 +17,7 @@ let settings: TJSLiveGameSettings & {
 	persistent: boolean;
 	buttonPosition: 0 | 1 | 2;
 	dev: boolean;
-	worldAnimations: ModuleDataObject;
+	globalAnimations: ArrayAnimationSet;
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;
@@ -30,15 +30,15 @@ export type liveSettings = typeof settings;
 const settingsData = [
 	{
 		namespace: 'pf2e-graphics',
-		key: 'worldAnimations',
+		key: 'globalAnimations',
 		folder: 'PF2e Graphics',
 		options: {
-			name: 'pf2e-graphics.settings.worldAnimations.name',
-			hint: 'pf2e-graphics.settings.worldAnimations.hint',
+			name: 'pf2e-graphics.settings.globalAnimations.name',
+			hint: 'pf2e-graphics.settings.globalAnimations.hint',
 			scope: 'world',
 			config: false,
-			type: Object,
-			default: {},
+			type: Array,
+			default: [],
 		},
 	},
 	{

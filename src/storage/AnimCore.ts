@@ -276,7 +276,7 @@ export let AnimCore = class AnimCore {
 		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
 		obj.animations = {
 			...Object.fromEntries(AnimCore.animations.entries()),
-			...window.pf2eGraphics.liveSettings.worldAnimations,
+			// ...window.pf2eGraphics.liveSettings.globalAnimations,
 			...userKeys,
 			...actorOriginKeys,
 			...itemOriginKeys,
@@ -286,7 +286,7 @@ export let AnimCore = class AnimCore {
 
 		obj.sources = {
 			preset: AnimCore.keys,
-			world: Object.keys(window.pf2eGraphics.liveSettings.worldAnimations),
+			// world: Object.keys(window.pf2eGraphics.liveSettings.globalAnimations),
 			user: Object.keys(userKeys),
 			origin: Object.keys(itemOriginKeys),
 			actorOrigin: Object.keys(actorOriginKeys),

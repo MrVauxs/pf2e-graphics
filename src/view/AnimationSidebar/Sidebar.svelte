@@ -1,22 +1,43 @@
 <script lang='ts'>
+	import type { ArrayAnimationSet } from 'src/extensions';
 	import { TJSDialog } from '#runtime/svelte/application';
+	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { AnimCore } from 'src/storage/AnimCore';
 	import { deslugify, log } from 'src/utils';
-	import { derived } from 'svelte/store';
+	import { derived, type Readable } from 'svelte/store';
+	import CreateAnimation from './CreateAnimation.svelte';
 
 	let search = '';
 
-	type ArrayAnimationSet = { name: string; source: string; data: any }[];
+	const userDocs = game.users.map(x => new TJSDocument(x));
+	const usersFlags = derived(userDocs, ($userDocs) => {
+		return $userDocs.flatMap(user =>
+			(user.getFlag<ArrayAnimationSet>('pf2e-graphics', 'animations') || [])
+				.map(anim => ({
+					...anim,
+					source: 'user',
+					user: user.id,
+				})) as ArrayAnimationSet,
+		);
+	});
 
 	const preset = derived(
 		AnimCore.animationsStore,
 		$animations => Array.from($animations)
-			.map(([key, data]) => ({ name: deslugify(key), source: 'preset', data })),
+			.map(([key, data]) => ({ name: deslugify(key), source: 'preset', data })) as ArrayAnimationSet,
+	);
+
+	const world = derived(
+		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
+		$animations => Array.from($animations)
+			.map((data: any) => ({ source: 'world', ...data })) as ArrayAnimationSet,
 	);
 
 	let list: ArrayAnimationSet = [];
 
 	$: list = $preset
+		.concat($world)
+		.concat($usersFlags)
 		.filter(item => item.name !== '_tokenImages')
 		.filter(item =>	item.name.toLowerCase().includes(search.toLowerCase())
 			|| (typeof item.data === 'string'
@@ -26,18 +47,20 @@
 
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
-		const dialog = new TJSDialog({
+		new TJSDialog({
 			title: 'Create Animation',
-			content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-			buttons: {
-				create: { onPress: () => dialog.close(), label: 'Create' },
-				cancel: { onPress: () => dialog.close(), label: 'Cancel' },
+			content: {
+				// @ts-expect-error TJS-2-TS Fix in the next update maybe?
+				class: CreateAnimation,
 			},
+			focusFirst: true,
 		}, {
+			headerIcon: 'modules/pf2e-graphics/assets/module/Vauxs_by_Bishop.png',
+			classes: ['pf2e-g'],
 			left: sidebarRect.x - 310,
 			top: sidebarRect.y - 5,
 			width: 300,
-		}).render(true);
+		}).render(true, { focus: true });
 	}
 
 	function openAnimation(data: any) {
@@ -83,11 +106,18 @@
 				border-black border-solid
 				text-left w-full
 			'>
-			<aside class='absolute right-0 top-0 m-1'>
+			<aside class='
+				absolute right-0 top-0 m-1
+			'>
 				{#if item.source === 'preset'}
 					<i data-tooltip='Preset Animation' class='fas fa-gear'></i>
 				{:else if item.source === 'user'}
-					<i data-tooltip='User Animation' class='fas fa-user'></i>
+					<span class='
+						px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
+					'>
+						{window.game.users.get(item.user || '')?.name}
+					</span>
+					<i data-tooltip='User Animation' class='fas fa-user pl-0.5'></i>
 				{:else if item.source === 'world'}
 					<i data-tooltip='World Animation' class='fas fa-globe'></i>
 				{/if}
