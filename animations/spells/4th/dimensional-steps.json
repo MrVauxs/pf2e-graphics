@@ -8,7 +8,11 @@
 				{
 					"execute": {
 						"type": "crosshair",
-						"name": "spell-dimensional-steps"
+						"name": "spell-dimensional-steps",
+						"template": {
+							"type": "token",
+							"relativeTo": "SOURCES"
+						}
 					}
 				},
 				{

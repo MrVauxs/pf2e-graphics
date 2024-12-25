@@ -9,17 +9,17 @@ const baseTemplate = z
 	.object({
 		size: z
 			.object({
-				default: z.number().positive().describe('The initial size of the template.'),
+				default: z.number().positive().describe('The initial size of the template, in grid units.'),
 				min: z
 					.number()
 					.positive()
 					.optional()
-					.describe('The minimum size of the template, if a range is permitted.'),
+					.describe('The minimum size of the template, if a range is permitted, in grid units.'),
 				max: z
 					.number()
 					.positive()
 					.optional()
-					.describe('The maximum size of the template, if a range is permitted.'),
+					.describe('The maximum size of the template, if a range is permitted, in grid units.'),
 			})
 			.strict()
 			.refine(obj => obj.max === obj.min, '`max` and `min` must be defined together.')
@@ -73,9 +73,25 @@ export const crosshairPayload = z
 			.describe('Sets a custom icon the crosshair.'),
 		template: z
 			.discriminatedUnion('type', [
+				z
+					.object({
+						type: z.literal('token').describe('The shape of the crosshair\'s template.'),
+						relativeTo: z
+							.enum(['SOURCES', 'TARGETS'])
+							.describe('Which token should the crosshair mimic?'),
+						padding: z
+							.number()
+							.positive()
+							.optional()
+							.describe(
+								'How much larger the crosshair\'s radius should be than the token, in grid units. This is useful for emanation-like effects. For example, if the crosshair is mimicking a Medium token on a standard 5-foot grid, then `padding: 5` causes the crosshair\'s template to appear like a Huge token (3 grid-spaces wide).',
+							),
+					})
+					.strict(),
 				baseTemplate
 					.extend({
-						type: z.enum(['CIRCLE', 'RECTANGLE']).describe('The shape of the crosshair\'s template.'),
+						// TODO: This should include `RECTANGLE`, but apparently Sequencer doesn't actually understand how to display that?
+						type: z.enum(['CIRCLE']).describe('The shape of the crosshair\'s template.'),
 					})
 					.strict(),
 				baseTemplate
@@ -110,7 +126,9 @@ export const crosshairPayload = z
 					.strict(),
 			])
 			.optional()
-			.describe('Configures a template to attach to the crosshair (default: ephemeral, 1 × 1 square).'),
+			.describe(
+				'Configures a template to attach to the crosshair (default: ephemeral, 1 × 1 square). Besides the standard Foundry template types (`CIRCLE`, `CONE`, `RAY`, `RECTANGLE`), you can also use `SOURCES` or `TARGETS` to create a template matching that placeable\'s token size (useful for when the crosshair is being used to select a token\'s location).',
+			),
 		snap: z
 			.object({
 				position: z
@@ -297,6 +315,11 @@ export const crosshairPayload = z
 			),
 		borderColor: hexColour.optional().describe('Sets the border colour of the crosshair.'),
 		fillColor: hexColour.optional().describe('Sets the fill colour of the crosshair.'),
+		preset: z
+			.object({})
+			.refine(...nonEmpty)
+			.optional()
+			.describe('Allows you to configure '),
 	})
 	.strict()
 	// refinements are applied to `animationPayload` in `src/schema/animation.ts` due to a Zod limitation

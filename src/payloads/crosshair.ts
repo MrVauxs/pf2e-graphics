@@ -1,5 +1,5 @@
 import type { Payload } from '../../schema';
-import { type ExecutionContext, offsetToVector2 } from '.';
+import { type ExecutionContext, offsetToVector2, positionToArgument } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
 
 export async function executeCrosshair(
@@ -31,27 +31,47 @@ export async function executeCrosshair(
 			borderVisible: payload.icon.borderVisible ?? false,
 		};
 	}
-	if (payload.template) {
-		crosshair.t = CONST.MEASURED_TEMPLATE_TYPES[payload.template.type];
-		crosshair.distance = payload.template.size.default;
-		crosshair.distanceMin = payload.template.size.min; // Can be nullish
-		crosshair.distanceMax = payload.template.size.max; // Can be nullish
-		if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90; // Sequencer default doesn't align with PF2e
-		if (payload.template.type === 'RAY' && crosshair.width) crosshair.width = payload.template.width;
-		if ('direction' in payload.template) crosshair.direction = payload.template.direction;
-		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
-		// if (payload.template.persist) crosshair.persist = true;
-	}
 	if (payload.snap) {
-		const gridSnappingMode = (payload.snap.position ?? ['CENTER']).reduce(
-			(s, v) => s | CONST.GRID_SNAPPING_MODES[v],
-			0,
-		);
+		const snappingCode = getGridSnappingCode(payload.snap.position);
 		crosshair.snap = {
-			position: gridSnappingMode,
-			size: gridSnappingMode,
+			position: snappingCode,
+			size: snappingCode,
 			direction: payload.snap.direction ?? 0,
 		};
+	}
+	if (payload.template) {
+		if (payload.template.type === 'token') {
+			crosshair.t = CONST.MEASURED_TEMPLATE_TYPES.CIRCLE;
+
+			// Assume square token because *why* would you do that in Pf2e 😡
+			const tokenGridSpaces
+				= (positionToArgument(payload.template.relativeTo, data) as Token).getSize().height
+				/ canvas.grid.size;
+
+			crosshair.distance = ((tokenGridSpaces + (payload.template.padding ?? 0)) * canvas.grid.distance) / 2;
+
+			const snappingCode
+				= tokenGridSpaces === 0.5 || tokenGridSpaces === 2 || tokenGridSpaces === 4
+					? getGridSnappingCode(['CORNER']) // Tiny, Large, and Gargantuan
+					: getGridSnappingCode(['CENTER']); // Small, Medium, and Huge
+			crosshair.snap = {
+				position: snappingCode,
+				size: snappingCode,
+				// @ts-expect-error pending https://github.com/fantasycalendar/FoundryVTT-Sequencer/pull/379
+				resolution: tokenGridSpaces === 0.5 ? 2 : 1, // Tiny snaps within each square
+				direction: 0,
+			};
+		} else {
+			crosshair.t = CONST.MEASURED_TEMPLATE_TYPES[payload.template.type];
+			crosshair.distance = payload.template.size.default;
+			crosshair.distanceMin = payload.template.size.min; // Can be nullish
+			crosshair.distanceMax = payload.template.size.max; // Can be nullish
+			if ('angle' in payload.template) crosshair.angle = payload.template.angle ?? 90; // Sequencer default doesn't align with PF2e
+			if (payload.template.type === 'RAY' && crosshair.width) crosshair.width = payload.template.width;
+			if ('direction' in payload.template) crosshair.direction = payload.template.direction;
+		}
+		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
+		// if (payload.template.persist) crosshair.persist = true;
 	}
 	if (payload.location) {
 		crosshair.location = {
@@ -124,4 +144,32 @@ export async function executeCrosshair(
 		name: payload.name,
 		position: position as Vector2,
 	};
+}
+
+/**
+ * @param positions An array of positions on a grid-space that can be snapped.
+ * @returns A number Foundry turns into magic snapping stuff.
+ */
+function getGridSnappingCode(
+	positions: (
+		| 'BOTTOM_LEFT_CORNER'
+		| 'BOTTOM_LEFT_VERTEX'
+		| 'BOTTOM_RIGHT_CORNER'
+		| 'BOTTOM_RIGHT_VERTEX'
+		| 'BOTTOM_SIDE_MIDPOINT'
+		| 'CENTER'
+		| 'CORNER'
+		| 'EDGE_MIDPOINT'
+		| 'LEFT_SIDE_MIDPOINT'
+		| 'RIGHT_SIDE_MIDPOINT'
+		| 'SIDE_MIDPOINT'
+		| 'TOP_LEFT_CORNER'
+		| 'TOP_LEFT_VERTEX'
+		| 'TOP_RIGHT_CORNER'
+		| 'TOP_RIGHT_VERTEX'
+		| 'TOP_SIDE_MIDPOINT'
+		| 'VERTEX'
+	)[] = ['CENTER'],
+): number {
+	return positions.reduce((s, v) => s | CONST.GRID_SNAPPING_MODES[v], 0);
 }
