@@ -1,7 +1,7 @@
-import './app.postcss';
-import './settings.ts';
 // Settings First
 import { i18n } from './utils.ts';
+import './app.postcss';
+import './settings.ts';
 import './view/index.ts';
 import './storage/index.ts';
 import './assets/index.ts';
