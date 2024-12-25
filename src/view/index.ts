@@ -5,3 +5,4 @@
 import './VolumeControls';
 import './AnimationHistory';
 import './AnimationSidebar';
+import './NonStandardSize'

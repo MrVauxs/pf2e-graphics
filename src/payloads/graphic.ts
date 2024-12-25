@@ -165,20 +165,24 @@ function processGraphic(
 								(payload.size.scaling ?? 1) * (placeable.document.texture.scaleX) / (placeable.document.ring.subject.scale ?? 1),
 								{
 									// TODO: Sequencer doesn't understand token scale for dynamic tokens?? 🤔
-									// considerTokenScale: true,
+									// It seems to understand it pretty well - @MrVauxs
+									considerTokenScale: true,
 									uniform: !!payload.size.uniform,
 								},
 							);
 						} else {
-							// TODO:
-							seq.scaleToObject(
-								// @ts-expect-error TS can't figure out that `'sm'` is a member of the enum
-								(payload.size.scaling ?? 1) * (placeable.actor?.size === 'sm' ? 0.8 : 1),
-								{
-									considerTokenScale: false,
-									uniform: !!payload.size.uniform,
-								},
-							);
+							if (placeable.actor?.getFlag('pf2e-graphics', 'nonStandard')) {
+								// TODO:
+							} else {
+								seq.scaleToObject(
+									// @ts-expect-error TS can't figure out that `'sm'` is a member of the enum
+									(payload.size.scaling ?? 1) * (placeable.actor?.size === 'sm' ? 0.8 : 1),
+									{
+										considerTokenScale: false,
+										uniform: !!payload.size.uniform,
+									},
+								);
+							}
 							// Delete ^ when v is implemented
 							// 1. Check 'non-standard size' token configuration
 							// 2. If false, read size trait and scale manually as per `useTokenSpace` condition above
