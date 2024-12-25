@@ -162,9 +162,10 @@ function processGraphic(
 					} else {
 						if (placeable.document.ring.enabled) {
 							seq.scaleToObject(
-								(payload.size.scaling ?? 1) / (placeable.document.ring.subject.scale ?? 1),
+								(payload.size.scaling ?? 1) * (placeable.document.texture.scaleX) / (placeable.document.ring.subject.scale ?? 1),
 								{
-									considerTokenScale: true,
+									// TODO: Sequencer doesn't understand token scale for dynamic tokens?? 🤔
+									// considerTokenScale: true,
 									uniform: !!payload.size.uniform,
 								},
 							);
