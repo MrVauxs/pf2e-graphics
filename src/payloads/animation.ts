@@ -89,7 +89,7 @@ async function processAnimation(
 		} else if (payload.position.type === 'teleport') {
 			seq.teleportTo(payload.position.location, {
 				delay: 0, // TODO: make optional on Sequencer type
-				relativeToCenter: !!payload.position.placeCorner,
+				relativeToCenter: !payload.position.placeCorner,
 			});
 		} else {
 			throw ErrorMsg.send(
