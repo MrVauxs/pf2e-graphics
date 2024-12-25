@@ -27,11 +27,11 @@ const positionBaseObject = z.object({
 		.describe(
 			'If the `target` is a placeable, this causes the token to be placed in the nearest non-intersecting space. Useful to avoid telefragging!',
 		),
-	noSnap: z
+	snapToGrid: z
 		.literal(true)
 		.optional()
 		.describe(
-			'By default, the token\'s final position is snapped to the nearest grid space. You can use this to disable that.',
+			'Forces the position to snap to the grid.\nNote: this is very rarely required! If your `location` is a crosshair\'s `name`, then the snapping is already configured (with higher granularity) in there. Applying snapping twice may lead to unexpected results for certain token sizes/shapes. Only use this if you don\'t have \'sanitised\', pre-snapped data.',
 		),
 });
 
@@ -107,8 +107,8 @@ export const animationPayload = effectOptions
 				'You can only use `noCollision` when the `target` is a placeable with a size (e.g. `"SOURCES"`, `"TARGETS"`, or `"TEMPLATES"`).',
 			)
 			.refine(
-				obj => !obj.noCollision || !obj.noSnap,
-				'`noSnap` is redundant when `noCollision` is enabled.',
+				obj => !obj.noCollision || !obj.snapToGrid,
+				'`snapToGrid` is redundant when `noCollision` is enabled.',
 			)
 			.refine(
 				obj => obj.type !== 'move' || !obj.duration || !obj.speed,

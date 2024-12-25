@@ -98,7 +98,7 @@ async function processAnimation(
 		}
 		if (payload.position.offset) seq.offset(offsetToVector2(payload.position.offset));
 		if (payload.position.noCollision) seq.closestSquare();
-		if (!payload.position.noSnap) seq.snapToGrid();
+		if (payload.position.snapToGrid) seq.snapToGrid();
 	}
 	if (payload.rotation) {
 		if (payload.rotation.type === 'directed') {
