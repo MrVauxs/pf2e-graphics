@@ -588,6 +588,7 @@ if (import.meta.hot) {
 			AnimCore = newModule?.AnimCore;
 			window.pf2eGraphics.AnimCore = newModule?.AnimCore;
 			window.AnimCore = newModule?.AnimCore;
+			AnimCore.updateAnimations();
 			ui.notifications.info('AnimCore updated!');
 		}
 	});
