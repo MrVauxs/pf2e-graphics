@@ -71,18 +71,6 @@ const payload = z
 						'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
 				});
 			}
-		} else if (obj.type === 'graphic') {
-			if (obj.size?.type === 'relative' && (obj.size.considerTokenScale || obj.size.considerActorScale)) {
-				obj.position.forEach((position, index) => {
-					if (position.type === 'screenSpace' || position.location === 'TEMPLATES') {
-						return ctx.addIssue({
-							code: z.ZodIssueCode.custom,
-							path: [...ctx.path, 'position', index],
-							message: `\`size.considerTokenScale\` and \`size.considerActorScale\` require you to position the graphic relative a token.`,
-						});
-					}
-				});
-			}
 		} else if (obj.type === 'sound') {
 			if (!obj.position) {
 				const keysNeedingPosition = (
@@ -258,8 +246,7 @@ export const animationSets = z
 /**
  * Zod schema for the data object mapping roll options to animation sets (or other roll options).
  */
-export const animationSetsObject = z
-	.record(rollOption, rollOption.or(animationSets));
+export const animationSetsObject = z.record(rollOption, rollOption.or(animationSets));
 
 /**
  * The data object mapping roll options to animation sets (or other roll options).

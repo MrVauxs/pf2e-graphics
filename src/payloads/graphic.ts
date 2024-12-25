@@ -123,16 +123,76 @@ function processGraphic(
 				if (position.type === 'screenSpace')
 					throw new ErrorMsg('Failed to execute `graphic` payload (mismatched `position` and `size`).');
 
-				const maybeToken = positionToArgument(position.location, data);
-				const scale
-					= (payload.size.scaling || 1)
-					// @ts-expect-error Idiotic TypeScript can't figure out that "sm" is a const Size
-					* (maybeToken instanceof Token && payload.size.considerActorScale && maybeToken.actor?.size === 'sm' ? 0.8 : 1);
-
-				seq.scaleToObject(scale, {
-					uniform: !!payload.size.uniform,
-					considerTokenScale: !!payload.size.considerTokenScale,
-				});
+				// Get placeable to scale relative to
+				let placeable;
+				if (payload.size.relativeTo) {
+					// It might be defined explcitly
+					placeable = positionToArgument(payload.size.relativeTo, data);
+				} else if (
+					// Else we use the position, if it has one
+					position.location === 'SOURCES'
+					|| position.location === 'TARGETS'
+					|| position.location === 'TEMPLATES'
+				) {
+					placeable = positionToArgument(position.location, data);
+				} else {
+					// Otherwise we try to get *any* placeable defined in the animation set
+					const firstPlaceable = getFirstPlaceable(payload.position);
+					if (!firstPlaceable) {
+						throw new ErrorMsg(
+							'Failed to execute `graphic` payload (couldn\'t find placeable for scaling).',
+						);
+					}
+					placeable = positionToArgument(firstPlaceable, data);
+				}
+				if (placeable instanceof Token) {
+					if (payload.size.useTokenSpace) {
+						const tokenSize = placeable.getSize();
+						if (payload.size.uniform) {
+							const longestSide = tokenSize.height >= tokenSize.width ? 'height' : 'width';
+							seq.size({
+								// @ts-expect-error TODO: fix Sequencer types
+								width: longestSide === 'width' ? tokenSize.width : undefined,
+								// @ts-expect-error TODO: fix Sequencer types
+								height: longestSide === 'height' ? tokenSize.height : undefined,
+							});
+						} else {
+							seq.size(tokenSize);
+						}
+					} else {
+						if (placeable.document.ring.enabled) {
+							seq.scaleToObject(
+								(payload.size.scaling ?? 1) / (placeable.document.ring.subject.scale ?? 1),
+								{
+									considerTokenScale: true,
+									uniform: !!payload.size.uniform,
+								},
+							);
+						} else {
+							// TODO:
+							seq.scaleToObject(
+								// @ts-expect-error TS can't figure out that `'sm'` is a member of the enum
+								(payload.size.scaling ?? 1) * (placeable.actor?.size === 'sm' ? 0.8 : 1),
+								{
+									considerTokenScale: false,
+									uniform: !!payload.size.uniform,
+								},
+							);
+							// Delete ^ when v is implemented
+							// 1. Check 'non-standard size' token configuration
+							// 2. If false, read size trait and scale manually as per `useTokenSpace` condition above
+							// 3. If true, read 'Effective token size' option and scale to that
+						}
+					}
+				} else if (placeable instanceof MeasuredTemplateDocumentPF2e) {
+					seq.scaleToObject(payload.size.scaling ?? 1, {
+						uniform: !!payload.size.uniform,
+					});
+				} else {
+					throw new ErrorMsg(
+						'Failed to execute `graphic` payload (couldn\'t identify scaling placeable).',
+					);
+				}
 			} else if (payload.size.type === 'screenSpace') {
 				// TODO: Implement
 				throw new ErrorMsg(
@@ -220,4 +280,23 @@ function processGraphic(
 	}
 
 	return seq;
+}
+
+/**
+ * Gets the first placeable keyword-string (`'SOURCES'`, `'TARGETS'`, or `'TEMPLATES'`) from an array of positions.
+ * @param array The input array to search.
+ * @returns The first placeable keyword-string. If none are found, then `null` is returned.
+ */
+function getFirstPlaceable(
+	array: (string | Vector2 | ArrayElement<Extract<Payload, { type: 'graphic' }>['position']>)[],
+): 'SOURCES' | 'TARGETS' | 'TEMPLATES' | null {
+	for (const item of array) {
+		if (typeof item === 'string') {
+			if (item === 'SOURCES' || item === 'TARGETS' || item === 'TEMPLATES') return item;
+		} else if ('location' in item) {
+			if (item.location === 'SOURCES' || item.location === 'TARGETS' || item.location === 'TEMPLATES')
+				return item.location;
+		}
+	}
+	return null;
 }

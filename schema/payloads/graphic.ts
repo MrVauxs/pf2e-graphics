@@ -434,6 +434,13 @@ export const graphicPayload = effectOptions
 				sizeBaseObject
 					.extend({
 						type: z.literal('relative'),
+						relativeTo: z
+							// `'TEMPLATES'` is excluded due to Sequencer being weird about how `.scaleToObject()` works with templates and I'm unwilling to break from mimicking its behaviour.
+							.enum(['SOURCES', 'TARGETS'])
+							.optional()
+							.describe(
+								'By default, the scaling is performed relative to the placeable used for the `position`. If *any* of the set\'s `position`s don\'t locate a placeable, or if you want to set a different placeable manually, use this property.',
+							),
 						scaling: z
 							.number()
 							.positive()
@@ -447,15 +454,11 @@ export const graphicPayload = effectOptions
 							.describe(
 								'By default, the graphic is scaled in the x- and y-axes independently, potentially causing a squished presentation for non-square placeables. By setting this to `true`, the graphic\'s largest dimension is scaled to match the placeable, and the graphic\'s other dimension is scaled to retain the same aspect-ratio.',
 							),
-						considerTokenScale: z
-							.literal(true)
-							.optional()
-							.describe('Causes the scaling to also take the token\'s scale into account.'),
-						considerActorScale: z
+						useTokenSpace: z
 							.literal(true)
 							.optional()
 							.describe(
-								'Causes the scaling to also take the actor\'s scale into account.\nThis is most primarily used to account for Small actors, whose tokens are typically scaled by 0.8. without relying on the token scale as it may not be representative of the desired size.',
+								'By default, the graphic is scaled to match the token\'s \'visual size\'—effectively the pixel dimensions of its ring. You can enable this to instead cause the graphic to scale to the token\'s grid-space.\nThis is particularly relevant for Small tokens, whose \'visual size\' is typically smaller than their space (by a factor of 0.8). Enabling this option will override that scaling factor and display graphic with the same size for both (standard-sized) Small and Medium tokens.',
 							),
 					})
 					.strict(),
@@ -538,7 +541,15 @@ export const graphicPayload = effectOptions
 					.strict(),
 			])
 			.superRefine((obj, ctx) => {
-				if (obj.type === 'directed') {
+				if (obj.type === 'relative') {
+					// if (obj.relativeTo === 'TEMPLATES' && obj.useTokenSpace) {
+					// 	ctx.addIssue({
+					// 		code: z.ZodIssueCode.custom,
+					// 		path: [...ctx.path, 'useTokenSpace'],
+					// 		message: 'There\'s no token space to use if you\'re scaling relative to a template.',
+					// 	});
+					// }
+				} else if (obj.type === 'directed') {
 					if (obj.stretch && obj.tile) {
 						ctx.addIssue({
 							code: z.ZodIssueCode.custom,
@@ -590,7 +601,7 @@ export const graphicPayload = effectOptions
 			})
 			.optional()
 			.describe(
-				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable (in particular, the one determining its `position`).\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `endpoint`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
+				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable.\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `endpoint`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
 			),
 		reflection: z
 			.object({

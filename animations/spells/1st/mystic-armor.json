@@ -25,7 +25,6 @@
 				"size": {
 					"type": "relative",
 					"scaling": 1.5,
-					"considerActorScale": true,
 					"scaleIn": {
 						"duration": 1000,
 						"initialScale": 0,
