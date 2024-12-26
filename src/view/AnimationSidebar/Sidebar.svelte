@@ -23,11 +23,22 @@
 		);
 	});
 
-	const preset = derived(
+	const core = derived(
 		AnimCore.animationsStore,
 		$animations => Array.from($animations)
-			.map(([key, data]) => ({ name: deslugify(key), source: 'preset', data })) as ArrayAnimationSet,
+			.map(([key, data]) => ({ name: deslugify(key), source: 'core', data })) as ArrayAnimationSet,
 	);
+
+	// TODO: other modules can add data to PF2e Graphics' core
+	// const modules = derived(
+	// 	game.modules
+	// 		.filter(module => module.flags['pf2e-graphics'])
+	// 		.flatMap((module) => {
+	// 		// idk something goes here
+	// 		}),
+	// 	$animations => Array.from($animations)
+	// 		.map((data: any) => ({ key: '', source: 'module', ...data })) as ArrayAnimationSet,
+	// );
 
 	const world = derived(
 		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
@@ -37,7 +48,8 @@
 
 	let list: ArrayAnimationSet = [];
 
-	$: list = $preset
+	$: list = $core
+		// .concat($modules)
 		.concat($world)
 		.concat($usersFlags)
 		.filter(item => item.name !== '_tokenImages')
@@ -111,8 +123,8 @@
 			<aside class='
 				absolute right-0 top-0 m-1
 			'>
-				{#if item.source === 'preset'}
-					<i data-tooltip='Preset Animation' class='fas fa-gear'></i>
+				{#if item.source === 'core'}
+					<i data-tooltip='Core Animation' class='fas fa-gear'></i>
 				{:else if item.source === 'user'}
 					<span class='
 						px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
