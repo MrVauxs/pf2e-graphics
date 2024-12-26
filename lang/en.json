@@ -6,7 +6,6 @@
 			"3": "Help the Author"
 		},
 		"sidebar": "Graphics",
-		"pick-a-location": "Pick a location!",
 		"source": "source: {format}",
 		"history": "Animation History",
 		"unlink": "Unlink",
@@ -200,36 +199,37 @@
 			"common": {
 				"error": {
 					"missingPayload": "Payload missing—your data may be corrupted.",
-					"unimplemented": "Failed to execute <kbd>{payloadType}</kbd> payload ({unimplemented} unimplemented).",
-					"unknownDiscriminatedUnionValue": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd>).",
-					"unknownEnumArrayElement": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd> element).",
-					"unknownPosition": "Couldn't resolve position <kbd>{position}</kbd>.",
-					"tooMuchRecursion": "Animation for <kbd>{rollOption}</kbd> recurses too many times! Do its references form an infinite loop?",
+					"unimplemented": "Failed to execute <code>{payloadType}</code> payload ({unimplemented} unimplemented).",
+					"unknownDiscriminatedUnionValue": "Failed to execute <code>{payloadType}</code> payload (unknown <code>{property}</code>).",
+					"unknownEnumArrayElement": "Failed to execute <code>{payloadType}</code> payload (unknown <code>{property}</code> element).",
+					"unknownPosition": "Couldn't resolve position <code>{position}</code>.",
+					"tooMuchRecursion": "Animation for <code>{rollOption}</code> recurses too many times! Do its references form an infinite loop?",
 					"cantFindReference": "Couldn't find referenced payload for {rollOption}—run validation scripts to verify.",
-					"catastrophicError": "Execution failed (fatal error in <kbd>decodePayload()</kbd>!)."
+					"catastrophicError": "Execution failed (fatal error in <code>decodePayload()</code>!)."
 				}
 			},
 			"animation": {
 				"error": {
-					"noActor": "Failed to execute <kbd>animation</kbd> on <b>{name}</b> (couldn't find actor).",
-					"unownedToken": "Failed to execute <kbd>animation</kbd> payload on <b>{name}</b> (you don't own this token)."
+					"noActor": "Failed to execute <code>animation</code> on <b>{name}</b> (couldn't find actor).",
+					"unownedToken": "Failed to execute <code>animation</code> payload on <b>{name}</b> (you don't own this token)."
 				}
 			},
 			"crosshair": {
 				"error": {
-					"noName": "Failed to execute a <kbd>crosshair</kbd> payload (no <kbd>name</kbd> provided).",
-					"noActor": "Failed to execute a <kbd>crosshair</kbd> payload (couldn't find actor for source token <b>{token}</b>).",
-					"unresolvedPosition": "Failed to execute a <kbd>crosshair</kbd> payload (couldn't resolve position)."
+					"noName": "Failed to execute a <code>crosshair</code> payload (no <code>name</code> provided).",
+					"noActor": "Failed to execute a <code>crosshair</code> payload (couldn't find actor for source token <b>{token}</b>).",
+					"unresolvedPosition": "Failed to execute a <code>crosshair</code> payload (couldn't resolve position)."
 				},
 				"notifications": {
+					"pickALocation": "Click on the canvas to choose a position!",
 					"interrupted": "Payload interrupted due to cancelled crosshair. Use the Effect Manager to remove any remaining graphics/sounds."
 				}
 			},
 			"graphic": {
 				"error": {
-					"mismatchedPositionSize": "Failed to execute <kbd>graphic</kbd> payload (mismatched <kbd>position</kbd> and <kbd>size</kbd>).",
-					"cantFindPlaceableForRelativeScaling": "Failed to execute <kbd>graphic</kbd> payload (couldn't find placeable for scaling).",
-					"cantIdentifyPlaceableForRelativeScaling": "Failed to execute <kbd>graphic</kbd> payload (couldn't identify placeable for scaling)."
+					"mismatchedPositionSize": "Failed to execute <code>graphic</code> payload (mismatched <code>position</code> and <code>size</code>).",
+					"cantFindPlaceableForRelativeScaling": "Failed to execute <code>graphic</code> payload (couldn't find placeable for scaling).",
+					"cantIdentifyPlaceableForRelativeScaling": "Failed to execute <code>graphic</code> payload (couldn't identify placeable for scaling)."
 				}
 			}
 		},

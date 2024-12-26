@@ -32,9 +32,9 @@ export class ErrorMsg extends Error {
  */
 export function HTMLToMarkdown(str: string): string {
 	return str
-		.replace(/<\/?kbd>/gi, '`')
-		.replace(/<\/?i>/gi, '_')
-		.replace(/<\/?b>/gi, '**')
+		.replace(/<\/?(?:code|kbd|samp|var)>/gi, '`')
+		.replace(/<\/?(?:i|em)>/gi, '_')
+		.replace(/<\/?(?:b|strong)>/gi, '**')
 		.replace(/<\/?(?:u|ins)>/gi, '__')
 		.replace(/<\/?(?:s(?:trike)?|del)/gi, '~~');
 }
@@ -72,6 +72,8 @@ export function warn(message: string) {
 
 export function i18n(code: string, format?: any) {
 	if (code.startsWith('pf2e-graphics')) return game.i18n.format(code, format);
+
+	if (game.i18n.format(code, format) !== code) return game.i18n.format(code, format);
 
 	const test = `pf2e-graphics.${code}`;
 	if (game.i18n.format(test, format) !== test) {
@@ -217,7 +219,7 @@ export function kofiButton(buttons: any[]) {
 	buttons.unshift({
 		icon: 'fas fa-mug-hot ko-fi',
 		class: 'hover:underline',
-		label: `pf2e-graphics.support.${Sequencer.Helpers.random_int_between(1, 4)}`,
+		label: `pf2e-graphics.support.${Sequencer.Helpers.random_int_between(1, 6)}`,
 		onclick: () => {
 			window.open('https://ko-fi.com/mrvauxs', '_blank');
 		},

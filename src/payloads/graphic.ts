@@ -91,7 +91,7 @@ function processGraphic(
 			// TODO: Implement
 			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
 				payloadType: 'graphic',
-				unimplemented: '<kbd>size.type: "directed"</kbd>',
+				unimplemented: '<code>size.type: "directed"</code>',
 			});
 		} else {
 			// #region Common properties
@@ -209,12 +209,12 @@ function processGraphic(
 				// TODO: Implement
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
 					payloadType: 'graphic',
-					unimplemented: '<kbd>size.type: "screenSpace"</kbd>',
+					unimplemented: '<code>size.type: "screenSpace"</code>',
 				});
 			} else {
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
 					payloadType: 'graphic',
-					unimplemented: '<kbd>size.type: "screenSpace"</kbd>',
+					unimplemented: '<code>size.type: "screenSpace"</code>',
 				});
 			}
 		}

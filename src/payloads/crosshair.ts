@@ -107,7 +107,7 @@ export async function executeCrosshair(
 
 	const position = await new Promise((resolve) => {
 		if (users.find(user => user.id === game.userId)) {
-			ui.notifications.info(i18n('pick-a-location'));
+			ui.notifications.info(i18n('pf2e-graphics.execute.crosshair.notifications.pickALocation'));
 			Sequencer.Crosshair.show(crosshair).then((template) => {
 				if (!template) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.notifications.interrupted');
 				window.pf2eGraphics.socket.executeForOthers(
