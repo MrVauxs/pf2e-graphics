@@ -52,7 +52,7 @@
 						<header class='[&>p]:m-0 w-full'>
 							<p class='text-lg text-nowrap truncate'>{entry.item?.name ?? '???'}</p>
 							<p class='text-xs align-right'>
-								{i18n('pf2e-graphics.history.window.data.summary', {
+								{@html i18n('pf2e-graphics.history.window.data.summary', {
 									trigger: entry.trigger,
 									name: entry.actor.name,
 								})}
@@ -110,7 +110,7 @@
 						<h4 class='text-lg bold w-full border-0 border-b border-solid'>
 							{i18n('pf2e-graphics.history.window.data.trigger.header')}
 						</h4>
-						{selected.trigger}
+						<code>{selected.trigger}</code>
 					</section>
 					<section>
 						<h4 class='text-lg bold w-full border-0 border-b border-solid'>

@@ -25,6 +25,7 @@ export default antfu(
 				},
 			],
 			'svelte/prefer-style-directive': 'warn',
+			'svelte/no-at-html-tags': 'off', // Only use it for i18n strings though!
 			'antfu/consistent-list-newline': 'warn',
 			'antfu/if-newline': 'off',
 			'import/no-mutable-exports': 'off',
