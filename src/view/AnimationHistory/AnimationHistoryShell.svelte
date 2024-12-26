@@ -1,4 +1,5 @@
 <svelte:options accessors={true} />
+
 <script lang='ts'>
 	import type { AnimationHistoryObject } from 'src/storage/AnimCore';
 	import { ApplicationShell } from '#runtime/svelte/component/application';
@@ -45,19 +46,27 @@
 						'
 						role='button'
 						tabindex='0'
-						on:click={() => selected = entry}
-						on:keydown={() => selected = entry}
+						on:click={() => (selected = entry)}
+						on:keydown={() => (selected = entry)}
 					>
 						<header class='[&>p]:m-0 w-full'>
-							<p class='text-lg text-nowrap truncate'>{entry.item?.name ? entry.item?.name : '???'}</p>
+							<p class='text-lg text-nowrap truncate'>{entry.item?.name ?? '???'}</p>
 							<p class='text-xs align-right'>
-								"{entry.trigger}" triggered by {entry.actor.name}
+								{i18n('pf2e-graphics.history.window.data.summary', {
+									trigger: entry.trigger,
+									name: entry.actor.name,
+								})}
 								<span class='float-right'>
 									<i
-										data-tooltip={entry.animations.length > 1 || !entry.animations.length
-											? i18n('pf2e-graphics.historyMenu.animations', { count: entry.animations.length })
-											: i18n('pf2e-graphics.historyMenu.animation')}
-										class='fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}'>
+										data-tooltip={entry.animations.length > 1
+											? i18n('pf2e-graphics.history.window.data.count.many', {
+												count: entry.animations.length,
+											})
+											: entry.animations.length === 1
+											? i18n('pf2e-graphics.history.window.data.count.one')
+											: i18n('pf2e-graphics.history.window.data.count.zero')}
+										class="fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}"
+									>
 									</i>
 									{window.foundry.utils.timeSince(new Date(entry.timestamp))}
 								</span>
@@ -73,11 +82,17 @@
 			{#if selected}
 				<div class='basis-2/3'>
 					<div class='flex flex-row gap-1 border border-solid rounded-md'>
-						<div class='self-center text-lg leading-3 pl-1'>Search</div>
+						<div class='self-center text-lg leading-3 pl-1'>
+							{i18n('pf2e-graphics.history.window.search')}
+						</div>
 						<input type='text' bind:value={search} />
 					</div>
-					<ul class='overflow-y-scroll px-1 list-none text-ellipsis overflow-x-hidden leading-5 h-full text-nowrap'>
-						{#each selected.rollOptions.filter(option => option.toLowerCase().includes(search.toLowerCase())) as option}
+					<ul
+						class='overflow-y-scroll px-1 list-none text-ellipsis overflow-x-hidden leading-5 h-full text-nowrap'
+					>
+						{#each selected.rollOptions.filter(option => option
+							.toLowerCase()
+							.includes(search.toLowerCase())) as option}
 							<li class='even:bg-black/10 px-2 -mx-2 select-text'>
 								{option}
 							</li>
@@ -86,16 +101,22 @@
 				</div>
 				<div class='grow p-2 [&>section]:pb-2'>
 					<section>
-						<h4 class='text-lg bold w-full border-0 border-b border-solid'>Actor</h4>
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>
+							{i18n('pf2e-graphics.history.window.data.actor.header')}
+						</h4>
 						{selected.actor.name}
 					</section>
 					<section>
-						<h4 class='text-lg bold w-full border-0 border-b border-solid'>Trigger</h4>
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>
+							{i18n('pf2e-graphics.history.window.data.trigger.header')}
+						</h4>
 						{selected.trigger}
 					</section>
 					<section>
-						<h4 class='text-lg bold w-full border-0 border-b border-solid'>User</h4>
-						{selected.user?.name || 'Unknown'}
+						<h4 class='text-lg bold w-full border-0 border-b border-solid'>
+							{i18n('pf2e-graphics.history.window.data.user.header')}
+						</h4>
+						{selected.user?.name ?? `<i>${i18n('pf2e-graphics.history.window.data.user.unknown')}</i>`}
 					</section>
 				</div>
 			{/if}
@@ -104,7 +125,7 @@
 	<footer class='grow-0 py-1 h-8'>
 		<button type='button' on:click={clearHistory}>
 			<i class='fa fa-trash'></i>
-			Clear
+			{i18n('pf2e-graphics.history.window.clear')}
 		</button>
 	</footer>
 </ApplicationShell>

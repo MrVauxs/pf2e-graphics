@@ -2,20 +2,41 @@
 	"pf2e-graphics": {
 		"support": {
 			"1": "Donate!",
-			"2": "Support Me!",
-			"3": "Help the Author"
+			"2": "Support me!",
+			"3": "Help the author",
+			"4": "Tip jar",
+			"5": "Enjoying the module?"
 		},
-		"sidebar": "Graphics",
-		"history": "Animation History",
 		"jsonEditor": "JSON Editor",
 		"jsonEditorReadonly": "JSON Viewer (Read Only)",
-		"animations": "Animations",
 		"animationsVolume-tooltip": "Controls the volume of sounds created by PF2e Graphics.",
-		"historyMenu": {
-			"title": "Animation History",
-			"animations": "{count} animations",
-			"animation": "1 animation",
-			"open": "Open JSON Data"
+		"history": {
+			"controlsButton": {
+				"tooltip": "Animation History"
+			},
+			"window": {
+				"title": "Animation History",
+				"search": "Search",
+				"data": {
+					"summary": "<code>{trigger}</code> triggered by {name}",
+					"count": {
+						"many": "{count} animation sets",
+						"one": "1 animation set",
+						"zero": "No animation sets"
+					},
+					"actor": {
+						"header": "Actors"
+					},
+					"trigger": {
+						"header": "Triggers"
+					},
+					"user": {
+						"header": "User",
+						"unknown": "Unknown"
+					}
+				},
+				"clear": "Clear"
+			}
 		},
 		"settings": {
 			"cardsGone": {
