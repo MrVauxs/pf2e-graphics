@@ -36,14 +36,6 @@ export async function executeCrosshair(
 			borderVisible: payload.icon.borderVisible ?? false,
 		};
 	}
-	if (payload.snap) {
-		const snappingCode = getGridSnappingCode(payload.snap.position);
-		crosshair.snap = {
-			position: snappingCode,
-			size: snappingCode,
-			direction: payload.snap.direction ?? 0,
-		};
-	}
 	if (payload.template) {
 		if (payload.template.type === 'token') {
 			crosshair.t = CONST.MEASURED_TEMPLATE_TYPES.CIRCLE;
@@ -56,7 +48,7 @@ export async function executeCrosshair(
 			crosshair.distance = ((tokenGridSpaces + (payload.template.padding ?? 0)) * canvas.grid.distance) / 2;
 
 			const snappingCode
-				= tokenGridSpaces % 2
+				= tokenGridSpaces % 2 === 1
 					? getGridSnappingCode(['CENTER']) // Small, Medium, and Huge (plus larger odd-sized tokens)
 					: getGridSnappingCode(['CORNER']); // Tiny, Large, and Gargantuan (plus larger even-sized tokens)
 			crosshair.snap = {
@@ -77,6 +69,14 @@ export async function executeCrosshair(
 		}
 		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
 		// if (payload.template.persist) crosshair.persist = true;
+	}
+	if (payload.snap) {
+		const snappingCode = getGridSnappingCode(payload.snap.position);
+		crosshair.snap = {
+			position: snappingCode,
+			size: snappingCode,
+			direction: payload.snap.direction ?? 0,
+		};
 	}
 	if (payload.location) {
 		crosshair.location = {
