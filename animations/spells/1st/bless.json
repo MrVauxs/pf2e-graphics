@@ -1,0 +1,45 @@
+{
+	"effect:aura-bless": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"file": "jb2a.magic_signs.circle.02.transmutation.complete.yellow",
+			"options": {
+				"size": {
+					"value": 7,
+					"gridUnits": true
+				},
+				"belowTokens": true
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					],
+					"default": true,
+					"trigger": [
+						"effect",
+						"start-turn"
+					]
+				},
+				{
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,60 @@
+{
+	"effect:infuse-vitality": [
+		{
+			"trigger": "effect",
+			"preset": "ranged",
+			"file": "jb2a.bullet.03.green",
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				},
+				"origin-exists",
+				"jb2a:patreon"
+			],
+			"options": {
+				"mirrorX": true,
+				"waitUntilFinished": -1000
+			}
+		},
+		{
+			"preset": "onToken",
+			"file": "jb2a.bless.400px.loop.yellow",
+			"options": {
+				"scaleToObject": 1
+			},
+			"contents": [
+				{
+					"predicate": [
+						{
+							"gte": [
+								"settings:quality",
+								1
+							]
+						}
+					],
+					"default": true,
+					"trigger": [
+						"effect",
+						"start-turn"
+					]
+				},
+				{
+					"trigger": "effect",
+					"predicate": [
+						"settings:persistent"
+					],
+					"options": {
+						"persist": {
+							"value": true,
+							"persistTokenPrototype": true
+						},
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	]
+}

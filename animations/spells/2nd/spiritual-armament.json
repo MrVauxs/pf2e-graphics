@@ -1,0 +1,58 @@
+{
+	"item:slug:spiritual-armament": [
+		{
+			"trigger": "attack-roll",
+			"preset": "ranged",
+			"options": {
+				"sound": {
+					"file": "graphics-sfx.magic.holy.attack.blast",
+					"waitUntilFinished": -3200
+				}
+			},
+			"predicate": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.dagger.throw.01.white.90ft"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:slashing"
+					],
+					"file": "jb2a.greataxe.throw.yellow"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:piercing"
+					],
+					"file": "jb2a.dagger.throw.01.blue"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:bludgeoning"
+					],
+					"file": "jb2a.shield_attack.ranged.throw.04.white.02"
+				},
+				{
+					"predicate": [
+						"jb2a:patreon",
+						"item:damage:spirit"
+					],
+					"file": "jb2a.sword.throw.blue"
+				}
+			]
+		}
+	]
+}
