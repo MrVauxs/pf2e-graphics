@@ -7,8 +7,8 @@ Hooks.on('init', () => {
 		id: 'graphics',
 		beforeId: 'cards',
 		icon: 'fas fa-films',
-		tooltip: 'pf2e-graphics.sidebar',
-		title: 'pf2e-graphics.sidebar',
+		tooltip: 'pf2e-graphics.sidebar.animationSets.tooltip',
+		title: 'pf2e-graphics.sidebar.animationSets.title',
 		// @ts-ignore Fixed in the next update
 		classes: ['flexcol directory pf2e-g'],
 		svelte: {

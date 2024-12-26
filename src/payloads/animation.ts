@@ -1,6 +1,12 @@
 import type { Payload } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
-import { addCustomExecutionContext, type ExecutionContext, offsetToVector2, positionToArgument, verifyPermissions } from '.';
+import {
+	addCustomExecutionContext,
+	type ExecutionContext,
+	offsetToVector2,
+	positionToArgument,
+	verifyPermissions,
+} from '.';
 import { ErrorMsg } from '../utils';
 
 export async function executeAnimation(
@@ -21,7 +27,10 @@ export async function executeAnimation(
 				seq.addSequence(await processAnimation(target, payload, data));
 			}
 		} else {
-			throw ErrorMsg.send('Failed to execute `animation` payload (unknown `targets`).');
+			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownEnumArrayElement', {
+				payloadType: 'animation',
+				property: 'subjects',
+			});
 		}
 	}
 
@@ -33,15 +42,9 @@ async function processAnimation(
 	payload: Parameters<typeof executeAnimation>[0],
 	data: ExecutionContext,
 ): Promise<AnimationSection> {
-	if (!token.actor) {
-		throw ErrorMsg.send(`Failed to execute \`animation\` on ${token.name} (couldn't find actor).`);
-	}
-	// TODO: Only actually run an animation if the user is the triggering user!
-	if (!(await verifyPermissions(token.actor))) {
-		throw ErrorMsg.send(
-			`Failed to execute \`animation\` payload on token ${token.name} (you don\'t own this token).`,
-		);
-	}
+	if (!token.actor) throw ErrorMsg.send('pf2e-graphics.execute.animation.error.noActor', { name: token.name });
+	if (!(await verifyPermissions(token.actor)))
+		throw ErrorMsg.send('pf2e-graphics.execute.animation.error.unownedToken', { name: token.name });
 
 	const seq = new Sequence().animation(token);
 
@@ -92,9 +95,10 @@ async function processAnimation(
 				relativeToCenter: !payload.position.placeCorner,
 			});
 		} else {
-			throw ErrorMsg.send(
-				`Failed to execute \`animation\` payload on token ${token.name} (unknown \`position.type\`).`,
-			);
+			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+				payloadType: 'animation',
+				property: 'position.type',
+			});
 		}
 		if (payload.position.offset) seq.offset(offsetToVector2(payload.position.offset));
 		if (payload.position.noCollision) seq.closestSquare();
@@ -127,9 +131,10 @@ async function processAnimation(
 			if (payload.rotation.spin?.initialAngle)
 				seq.rotate(token.rotation + payload.rotation.spin.initialAngle);
 		} else {
-			throw ErrorMsg.send(
-				`Failed to execute \`animation\` payload on token ${token.name} (unknown \`rotation.type\`}).`,
-			);
+			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+				payloadType: 'animation',
+				property: 'rotation.type',
+			});
 		}
 	}
 	if (payload.visibility) {
@@ -140,9 +145,10 @@ async function processAnimation(
 			} else if (payload.visibility.state === 'show') {
 				seq.show();
 			} else {
-				throw ErrorMsg.send(
-					`Failed to execute \`animation\` payload on token ${token.name} (unknown \`visibility.state\`).`,
-				);
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+					payloadType: 'animation',
+					property: 'visibility.state',
+				});
 			}
 		}
 	}

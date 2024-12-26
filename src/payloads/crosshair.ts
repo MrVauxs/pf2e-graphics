@@ -6,9 +6,14 @@ export async function executeCrosshair(
 	payload: Extract<Payload, { type: 'crosshair' }>,
 	data: ExecutionContext,
 ): Promise<{ name: string; position: Vector2 }> {
-	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
-	if (!data.sources[0].actor)
-		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');
+	if (!payload.name) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.noName');
+	for (const token of data.sources) {
+		if (!token.actor) {
+			throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.noActor', {
+				token: token.name,
+			});
+		}
+	}
 
 	// #region Transform `payload` into Sequencer's `CrosshairData`
 	const crosshair: NonNullable<Parameters<typeof Sequencer.Crosshair.show>[0]> = {
@@ -31,14 +36,6 @@ export async function executeCrosshair(
 			borderVisible: payload.icon.borderVisible ?? false,
 		};
 	}
-	if (payload.snap) {
-		const snappingCode = getGridSnappingCode(payload.snap.position);
-		crosshair.snap = {
-			position: snappingCode,
-			size: snappingCode,
-			direction: payload.snap.direction ?? 0,
-		};
-	}
 	if (payload.template) {
 		if (payload.template.type === 'token') {
 			crosshair.t = CONST.MEASURED_TEMPLATE_TYPES.CIRCLE;
@@ -51,9 +48,9 @@ export async function executeCrosshair(
 			crosshair.distance = ((tokenGridSpaces + (payload.template.padding ?? 0)) * canvas.grid.distance) / 2;
 
 			const snappingCode
-				= tokenGridSpaces === 0.5 || tokenGridSpaces === 2 || tokenGridSpaces === 4
-					? getGridSnappingCode(['CORNER']) // Tiny, Large, and Gargantuan
-					: getGridSnappingCode(['CENTER']); // Small, Medium, and Huge
+				= tokenGridSpaces % 2 === 1
+					? getGridSnappingCode(['CENTER']) // Small, Medium, and Huge (plus larger odd-sized tokens)
+					: getGridSnappingCode(['CORNER']); // Tiny, Large, and Gargantuan (plus larger even-sized tokens)
 			crosshair.snap = {
 				position: snappingCode,
 				size: snappingCode,
@@ -72,6 +69,14 @@ export async function executeCrosshair(
 		}
 		// TODO: is there a way to cause persistence with `Sequencer.Crosshair.show()`?
 		// if (payload.template.persist) crosshair.persist = true;
+	}
+	if (payload.snap) {
+		const snappingCode = getGridSnappingCode(payload.snap.position);
+		crosshair.snap = {
+			position: snappingCode,
+			size: snappingCode,
+			direction: payload.snap.direction ?? 0,
+		};
 	}
 	if (payload.location) {
 		crosshair.location = {
@@ -102,13 +107,9 @@ export async function executeCrosshair(
 
 	const position = await new Promise((resolve) => {
 		if (users.find(user => user.id === game.userId)) {
-			ui.notifications.info(i18n('pick-a-location'));
+			ui.notifications.info(i18n('pf2e-graphics.execute.crosshair.notifications.pickALocation'));
 			Sequencer.Crosshair.show(crosshair).then((template) => {
-				if (!template) {
-					throw new ErrorMsg(
-						'Payload interrupted due to cancelled crosshair. Use the Effect Manager to remove any remaining graphics/sounds.',
-					);
-				}
+				if (!template) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.notifications.interrupted');
 				window.pf2eGraphics.socket.executeForOthers(
 					'remoteLocation',
 					payload.name,
@@ -137,7 +138,7 @@ export async function executeCrosshair(
 		}
 	});
 
-	if (!position) throw new ErrorMsg('Payload failed (could not resolve crosshair position).');
+	if (!position) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.unresolvedPosition');
 	devLog('Crosshair position', payload.name, position);
 
 	return {

@@ -6,7 +6,7 @@ export default class AnimationHistoryApp extends SvelteApplication {
 	static override get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
-			title: 'pf2e-graphics.historyMenu.title', // Automatically localized from `lang/en.json`.
+			title: 'pf2e-graphics.history.window.title',
 			classes: ['pf2e-g'],
 			resizable: true,
 			width: 800,

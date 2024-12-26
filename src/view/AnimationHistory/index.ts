@@ -5,7 +5,7 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 	const history = {
 		icon: 'fa fa-history',
 		name: 'animationhistory',
-		title: 'pf2e-graphics.history',
+		title: 'pf2e-graphics.history.controlsButton.tooltip',
 		button: true,
 		onClick: () => AnimationHistoryApp.show(),
 	};
