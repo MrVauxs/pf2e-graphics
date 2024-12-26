@@ -1,0 +1,27 @@
+{
+	"effect:bless": [
+		{
+			"trigger": "effect",
+			"preset": "onToken",
+			"options": {
+				"scaleToObject": {
+					"value": 1
+				}
+			},
+			"contents": [
+				{
+					"predicate": [
+						"jb2a:patreon"
+					],
+					"file": "jb2a.cast_shape.circle.single01.yellow"
+				},
+				{
+					"predicate": [
+						"jb2a:free"
+					],
+					"file": "jb2a.cast_generic.01.yellow.0"
+				}
+			]
+		}
+	]
+}
