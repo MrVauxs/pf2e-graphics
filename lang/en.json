@@ -7,7 +7,62 @@
 			"4": "Tip jar",
 			"5": "Enjoying the module?"
 		},
+		"presetTypes": {
+			"ranged": "Ranged",
+			"melee": "Melee",
+			"onToken": "On-token",
+			"template": "Template",
+			"custom": "Custom"
+		},
+		"scopes": {
+			"scope": "Scope",
+			"full": {
+				"module": "Module scope",
+				"world": "World scope",
+				"user": "User scope",
+				"item": "Item scope"
+			},
+			"short": {
+				"module": "Module",
+				"world": "World",
+				"user": "User",
+				"item": "Item"
+			}
+		},
 		"sidebar": {
+			"animationSets": {
+				"title": "Animation Sets",
+				"tooltip": "Animation Sets",
+				"create": {
+					"animationSet": {
+						"button": "Create Animation Set",
+						"popup": {
+							"title": "Create Animation Set",
+							"fields": {
+								"name": {
+									"title": "Name",
+									"placeholder": "{type} Animation"
+								},
+								"type": {
+									"title": "Type"
+								}
+							},
+							"complete": "Create New Animation Set"
+						}
+					},
+					"folder": {
+						"button": "Create Folder"
+					}
+				},
+				"search": {
+					"label": "Search Animation Sets",
+					"placeholder": "Search Animation Sets"
+				},
+				"list": {
+					"alias": "Alias of <code>{rollOption}</code>",
+					"empty": "Empty"
+				}
+			},
 			"playlists": {
 				"volumeSlider": {
 					"title": "Animations",

@@ -3,7 +3,7 @@
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { AnimCore } from 'src/storage/AnimCore';
-	import { deslugify, log } from 'src/utils';
+	import { deslugify, i18n, log } from 'src/utils';
 	import { derived, type Readable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
 
@@ -62,7 +62,7 @@
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
 		new TJSDialog({
-			title: 'Create Animation',
+			title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
 			content: {
 				// @ts-expect-error TJS-2-TS Fix in the next update maybe?
 				class: CreateAnimation,
@@ -86,11 +86,11 @@
 	<div class='header-actions action-buttons flexrow pb-0.5'>
 		<button on:click={createAnimation} id='create-animation'>
 			<i class='fas fa-films'></i>
-			Create Animation
+			{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.button')}
 		</button>
 		<button id='create-folder'>
 			<i class='fas fa-folder'></i>
-			Create Folder
+			{i18n('pf2e-graphics.sidebar.animationSets.create.folder.button')}
 		</button>
 	</div>
 	<div class='header-search flexrow pl-1'>
@@ -99,8 +99,8 @@
 			bind:value={search}
 			type='search'
 			name='search'
-			aria-label='Search Animations'
-			placeholder='Search Animations'
+			aria-label={i18n('pf2e-graphics.sidebar.animationSets.search.label')}
+			placeholder={i18n('pf2e-graphics.sidebar.animationSets.search.placeholder')}
 			autocomplete='off'
 		/>
 	</div>
@@ -124,23 +124,25 @@
 				absolute right-0 top-0 m-1
 			'>
 				{#if item.source === 'core'}
-					<i data-tooltip='Core Animation' class='fas fa-gear'></i>
+					<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-gear'></i>
 				{:else if item.source === 'user'}
 					<span class='
 						px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
 					'>
 						{window.game.users.get(item.user || '')?.name}
 					</span>
-					<i data-tooltip='User Animation' class='fas fa-user pl-0.5'></i>
+					<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
 				{:else if item.source === 'world'}
-					<i data-tooltip='World Animation' class='fas fa-globe'></i>
+					<i data-tooltip={i18n('pf2e-graphics.scopes.full.world')} class='fas fa-globe'></i>
 				{/if}
 			</aside>
 
 			<header class='leading-[3rem]'>
 				{item.name}
 				<span class='text-xs align-sub'>
-					{#if !item.data || !item.data.length} (empty) {/if}
+					{#if !item.data || !item.data.length}
+						<i>{i18n('pf2e-graphics.sidebar.animationSets.list.empty')}</i>
+					{/if}
 				</span>
 			</header>
 
@@ -151,7 +153,7 @@
 					bg-black/40 rounded-sm border-solid border border-black/100
 					px-1 m-0.5
 				'>
-					Alias of {item.data}
+					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', { rollOption: item.data })}
 				</footer>
 			{/if}
 		</li>
