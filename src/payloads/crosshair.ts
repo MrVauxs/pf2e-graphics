@@ -1,3 +1,4 @@
+import type { ActorPF2e } from 'foundry-pf2e';
 import type { Payload } from '../../schema';
 import { type ExecutionContext, offsetToVector2, positionToArgument } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';

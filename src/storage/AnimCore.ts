@@ -1,3 +1,4 @@
+import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
 import type { TokenOrDoc } from '../extensions';
 import type { liveSettings, storeSettingsType } from '../settings.ts';
 import { get, writable, type Writable } from 'svelte/store';
@@ -16,7 +17,6 @@ import {
 	dev,
 	devLog,
 	ErrorMsg,
-	getPlayerOwners,
 	log,
 	mergeObjectsConcatArrays,
 	nonNullable,
@@ -255,20 +255,21 @@ export let AnimCore = class AnimCore {
 			From a list of owners, find either the "true" owner (assigned user) or yourself if you are one of them.
 			Otherwise, default to whoever is first.
 		*/
-		const owners = actor ? getPlayerOwners(actor) : [game.user];
+		// const owners = actor ? getPlayerOwners(actor) : [game.user];
+		const actorOrigin = item?.isOfType('condition', 'effect') ? item.origin : null;
 
 		const itemOriginId = rollOptions
 			.find(x => x.includes('origin:item:id:'))
 			?.split(':')
 			.at(-1);
-		const itemOrigin = item?.origin?.items?.get(itemOriginId || '');
+		const itemOrigin = actorOrigin?.items.get(itemOriginId || '');
 
 		// Get all the flags.
 		// TODO: Convert flags to arrays, and then from those arrays to objects here.
-		const userKeys = owners
-			.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
-			.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
-		const actorOriginKeys = item?.origin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		// const userKeys = owners
+		//	.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
+		//	.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
+		const actorOriginKeys = actorOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};

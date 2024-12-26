@@ -1,3 +1,4 @@
+import type { ItemPF2e } from 'foundry-pf2e';
 import { log, nonNullable } from '../utils';
 
 function handleEffect(item: ItemPF2e, delayed = false) {

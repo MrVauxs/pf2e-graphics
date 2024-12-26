@@ -1,3 +1,4 @@
+import type { ActorPF2e, ChatMessageFlagsPF2e, ChatMessagePF2e, CheckType, UserPF2e } from 'foundry-pf2e';
 import type { Trigger } from '../../schema';
 import { devLog, log, nonNullable } from '../utils';
 
@@ -66,7 +67,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		actor: message.actor,
 		item: message.item,
 		animationOptions,
-		user: message.author.id,
+		user: message.author?.id,
 	}, 'Message Animation Data');
 }
 
@@ -94,13 +95,11 @@ const createChatMessage = Hooks.on('createChatMessage', (msg: ChatMessagePF2e) =
 
 const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2e, { flags }: { flags: ChatMessageFlagsPF2e }) => {
 	if (!flags) return;
-	if ('pf2e-toolbelt' in flags) {
-		// @ts-expect-error - Too lazy to properly define custom modules flags
-		for (const targetId of Object.keys(flags['pf2e-toolbelt']?.targetHelper?.saves || {})) {
-			// @ts-expect-error - Too lazy to properly define custom modules flags
+	if (flags['pf2e-toolbelt']?.targetHelper?.saves) {
+		for (const targetId in flags['pf2e-toolbelt'].targetHelper.saves) {
 			const roll = flags['pf2e-toolbelt']?.targetHelper?.saves[targetId];
 			const target = canvas.tokens.get(targetId);
-			roll.roll = JSON.parse(roll.roll);
+			const rollData: Roll = JSON.parse(roll.roll);
 
 			devLog('Target Helper saving throw update', { roll, target });
 
@@ -108,7 +107,7 @@ const updateChatMessage = Hooks.on('updateChatMessage', (message: ChatMessagePF2
 			if (!message.token) return log('The source token no longer exists?? Aborting.');
 
 			const rollOptions = message.flags.pf2e.context?.options ?? [];
-			const trigger = roll.roll.options.type;
+			const trigger = rollData.options.type as Trigger;
 			const animationOptions = { missed: roll?.success.includes('ailure') ?? false };
 
 			window.pf2eGraphics.AnimCore.animate({

@@ -1,3 +1,4 @@
+import type { CombatantPF2e, EncounterPF2e } from 'foundry-pf2e';
 import { log } from '../utils';
 
 function handler(combatant: CombatantPF2e, _encounter: EncounterPF2e, type: 'start' | 'end', delayed = false) {

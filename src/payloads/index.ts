@@ -1,3 +1,4 @@
+import type { ItemPF2e, MeasuredTemplateDocumentPF2e, TokenPF2e } from 'foundry-pf2e';
 import type { Payload } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
 // import type { ExecutableAnimation } from '../storage/AnimCore.ts';
