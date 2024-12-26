@@ -7,8 +7,6 @@
 			"4": "Tip jar",
 			"5": "Enjoying the module?"
 		},
-		"jsonEditor": "JSON Editor",
-		"jsonEditorReadonly": "JSON Viewer (Read Only)",
 		"animationsVolume-tooltip": "Controls the volume of sounds created by PF2e Graphics.",
 		"history": {
 			"controlsButton": {
@@ -36,6 +34,12 @@
 					}
 				},
 				"clear": "Clear"
+			}
+		},
+		"jsonEditor": {
+			"title": {
+				"editable": "JSON Editor",
+				"readOnly": "JSON Viewer (read-only)"
 			}
 		},
 		"settings": {

@@ -5,11 +5,15 @@
 			"2": "Wesprzyj mnie!",
 			"3": "Pomóż autorowi"
 		},
-		"jsonEditor": "Edytor JSON",
-		"jsonEditorReadonly": "Przeglądarka JSON (tylko do odczytu)",
 		"animationsVolume-tooltip": "Kontroluje głośność dźwięków tworzonych przez PF2e Graphics.",
 		"history": {
 			"title": "Historia animacji"
+		},
+		"jsonEditor": {
+			"title": {
+				"editable": "Edytor JSON",
+				"readOnly": "Przeglądarka JSON (tylko do odczytu)"
+			}
 		},
 		"historyMenu": {
 			"title": "Historia animacji",
