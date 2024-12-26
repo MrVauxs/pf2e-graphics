@@ -9,7 +9,7 @@
 	$: {
 		if (enabled) {
 			document.actor?.setFlag('pf2e-graphics', 'effectiveSize', scale);
-		} else {
+		} else if (document.actor?.getFlag('pf2e-graphics', 'effectiveSize')) {
 			document.actor?.unsetFlag('pf2e-graphics', 'effectiveSize');
 		}
 	}
