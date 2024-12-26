@@ -17,12 +17,14 @@
 		"scopes": {
 			"scope": "Scope",
 			"full": {
+				"core": "Core scope",
 				"module": "Module scope",
 				"world": "World scope",
 				"user": "User scope",
 				"item": "Item scope"
 			},
 			"short": {
+				"core": "Core",
 				"module": "Module",
 				"world": "World",
 				"user": "User",
