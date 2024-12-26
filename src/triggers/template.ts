@@ -1,3 +1,4 @@
+import type { MeasuredTemplateDocumentPF2e } from 'foundry-pf2e';
 import { log } from '../utils';
 
 function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false) {

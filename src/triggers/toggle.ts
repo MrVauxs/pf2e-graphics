@@ -1,3 +1,4 @@
+import type { ItemPF2e } from 'foundry-pf2e';
 import { log } from '../utils';
 
 function check(i: ItemPF2e, o: { _id: string; system: any }) {
