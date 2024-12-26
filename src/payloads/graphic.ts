@@ -41,7 +41,10 @@ function processGraphic(
 		if (position.anchor) seq.screenSpaceAnchor(offsetToVector2(position.anchor));
 		if (position.offset) seq.screenSpacePosition(offsetToVector2(position.offset));
 	} else {
-		throw new ErrorMsg('Failed to execute `graphic` payload (unknown `position[].type`).');
+		throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+			payloadType: 'graphic',
+			property: 'position[].type',
+		});
 	}
 
 	if (payload.name) seq.name(payload.name);
@@ -74,7 +77,10 @@ function processGraphic(
 				if (x === 'SOURCES') return data.sources;
 				if (x === 'TARGETS') return data.targets;
 				if (typeof x === 'string') return x;
-				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `visibility.mask` element).');
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownEnumArrayElement', {
+					payloadType: 'graphic',
+					property: 'visibility.mask',
+				});
 			});
 			seq.mask(masking);
 		}
@@ -83,9 +89,10 @@ function processGraphic(
 	if (payload.size) {
 		if (payload.size.type === 'directed') {
 			// TODO: Implement
-			throw new ErrorMsg(
-				`Failed to execute \`graphic\` payload (not implemented \`size.type\` "directed").`,
-			);
+			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
+				payloadType: 'graphic',
+				unimplemented: '<kbd>size.type: "directed"</kbd>',
+			});
 		} else {
 			// #region Common properties
 			if (payload.size.spriteScale) seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
@@ -121,7 +128,7 @@ function processGraphic(
 				if (payload.size.scaling) seq.scale(...parseMinMaxObject(payload.size.scaling));
 			} else if (payload.size.type === 'relative') {
 				if (position.type === 'screenSpace')
-					throw new ErrorMsg('Failed to execute `graphic` payload (mismatched `position` and `size`).');
+					throw ErrorMsg.send('pf2e-graphics.execute.graphic.error.mismatchedPositionSize');
 
 				// Get placeable to scale relative to
 				let placeable;
@@ -139,8 +146,8 @@ function processGraphic(
 					// Otherwise we try to get *any* placeable defined in the animation set
 					const firstPlaceable = getFirstPlaceable(payload.position);
 					if (!firstPlaceable) {
-						throw new ErrorMsg(
-							'Failed to execute `graphic` payload (couldn\'t find placeable for scaling).',
+						throw ErrorMsg.send(
+							'pf2e-graphics.execute.graphic.error.cantFindPlaceableForRelativeScaling',
 						);
 					}
 					placeable = positionToArgument(firstPlaceable, data);
@@ -194,17 +201,21 @@ function processGraphic(
 						uniform: !!payload.size.uniform,
 					});
 				} else {
-					throw new ErrorMsg(
-						'Failed to execute `graphic` payload (couldn\'t identify scaling placeable).',
+					throw ErrorMsg.send(
+						'pf2e-graphics.execute.graphic.error.cantIdentifyPlaceableForRelativeScaling',
 					);
 				}
 			} else if (payload.size.type === 'screenSpace') {
 				// TODO: Implement
-				throw new ErrorMsg(
-					`Failed to execute \`graphic\` payload (not implemented \`size.type\` "screenSpace").`,
-				);
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
+					payloadType: 'graphic',
+					unimplemented: '<kbd>size.type: "screenSpace"</kbd>',
+				});
 			} else {
-				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `size.type`).');
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
+					payloadType: 'graphic',
+					unimplemented: '<kbd>size.type: "screenSpace"</kbd>',
+				});
 			}
 		}
 	}
@@ -231,7 +242,10 @@ function processGraphic(
 				seq.screenSpaceAboveUI();
 			} else {
 				if (typeof payload.elevation.sortLayer !== 'number') {
-					throw new ErrorMsg('Failed to execute `graphic` payload (unknown `elevation.sortLayer`).');
+					throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+						payloadType: 'graphic',
+						property: 'elevation.sortLayer',
+					});
 				}
 				// @ts-expect-error TODO: Sequencer add `.sortLayer()`
 				seq.sortLayer(payload.elevation.sortLayer);
@@ -279,7 +293,10 @@ function processGraphic(
 			} else if (variation.type === 'loop') {
 				seq.loopProperty(variation.target, variation.property, variation);
 			} else {
-				throw new ErrorMsg('Failed to execute `graphic` payload (unknown `varyProperties[].type`).');
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+					payloadType: 'graphic',
+					property: 'varyProperties[].type',
+				});
 			}
 		}
 	}

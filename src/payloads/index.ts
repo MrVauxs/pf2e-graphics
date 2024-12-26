@@ -36,19 +36,16 @@ type DecodedPayload =
  * This should probably either be `.play()`ed immediately or merged with another sequence using `.addSequence()`. Named locations must be directly registered with `.addNamedLocation()`, since you cannot `.addSequence()` a named location.
  */
 export async function decodePayload(payload: Payload, data: GameData): Promise<DecodedPayload> {
-	if (!payload) throw ErrorMsg.send(`Payload missing—your data may be corrupted.`);
+	if (!payload || !payload.type) throw ErrorMsg.send('pf2e-graphics.execute.common.error.missingPayload');
 
 	const context = prepareExecutionContext(data);
 
-	if (payload.type === 'graphic')
-		return { type: 'sequence', data: executeGraphic(payload, context) };
-	if (payload.type === 'sound')
-		return { type: 'sequence', data: executeSound(payload, context) };
+	if (payload.type === 'graphic') return { type: 'sequence', data: executeGraphic(payload, context) };
+	if (payload.type === 'sound') return { type: 'sequence', data: executeSound(payload, context) };
 	if (payload.type === 'crosshair')
 		return { type: 'namedLocation', data: await executeCrosshair(payload, context) };
 	if (payload.type === 'animation') {
-		if (game.userId === data.user)
-			return { type: 'sequence', data: await executeAnimation(payload, context) };
+		if (game.userId === data.user) return { type: 'sequence', data: await executeAnimation(payload, context) };
 		return { type: 'null' };
 	}
 	if (payload.type === 'macro') {
@@ -58,9 +55,10 @@ export async function decodePayload(payload: Payload, data: GameData): Promise<D
 		};
 	}
 
-	throw ErrorMsg.send(
-		`Failed to execute payload with unrecognised type \`${(payload as any).type.toString()}\`!`,
-	);
+	throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
+		payloadType: (payload as any).type.toString(),
+		property: 'type',
+	});
 }
 
 /**
@@ -141,7 +139,9 @@ export function positionToArgument(
 
 	if (typeof position === 'string') return position;
 
-	throw new ErrorMsg(`Could not resolve position \`${position}\`.`);
+	throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownPosition', {
+		position: (position as any).toString(),
+	});
 }
 
 // TODO: convert this to a prompt for the GM to accept when permissions fail

@@ -1,18 +1,42 @@
 /* eslint-disable no-prototype-builtins */
 
 /* eslint-disable no-console */
-// TODO: (Fall Cleaning) Move to $lib
+
+/**
+ * A convenience `Error` class that emits formatted error messages both to console and Foundry's UI.
+ *
+ * TODO: (Fall Cleaning) Move to $lib
+ */
 export class ErrorMsg extends Error {
 	constructor(message: string) {
-		super(message);
-		this.name = 'PF2e Graphics error';
-
-		ui.notifications.error(`PF2e Graphics | ${i18n(message)}`);
+		super(HTMLToMarkdown(message));
 	}
 
-	static send(message: string) {
-		return new this(message);
+	/**
+	 * Creates a workflow-breaking `Error`, formats its data, and emits it to both the console and Foundry's UI.
+	 * @param message The error message to be thrown. Accepts both localisation and literal strings.
+	 * @param format Handlebars formatting object. For instance, `message: "Hello {name}!"` and `format: { name: "Monsieur Vauxs" }` returns a string of `"Hello Monsieur Vauxs!"`.
+	 * @returns An `Error` object.
+	 */
+	static send(message: string, format?: Record<string, string>) {
+		const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
+		ui.notifications.error(i18nedMessage);
+		return new this(i18nedMessage);
 	}
+}
+
+/**
+ * Converts a limited form of inline HTML formatting to markdown (e.g. `<b>` → `**`). Primarily used for outputting readable messages to the console while having them still look pretty for Foundry `ui.notifications` calls.
+ * @param str The input HTML-formatted string.
+ * @returns A string reformatted as markdown.
+ */
+export function HTMLToMarkdown(str: string): string {
+	return str
+		.replace(/<\/?kbd>/gi, '`')
+		.replace(/<\/?i>/gi, '_')
+		.replace(/<\/?b>/gi, '**')
+		.replace(/<\/?(?:u|ins)>/gi, '__')
+		.replace(/<\/?(?:s(?:trike)?|del)/gi, '~~');
 }
 
 /**
@@ -46,14 +70,17 @@ export function warn(message: string) {
 	ui.notifications.warn(`PF2e Graphics | ${i18n(message)}`);
 }
 
-export function i18n(string: string, format?: any) {
-	if (string.startsWith('pf2e-graphics')) return game.i18n.format(string, format);
+export function i18n(code: string, format?: any) {
+	if (code.startsWith('pf2e-graphics')) return game.i18n.format(code, format);
 
-	const test = `pf2e-graphics.${string}`;
-	if (game.i18n.format(test, format) !== test) return game.i18n.format(test, format);
+	const test = `pf2e-graphics.${code}`;
+	if (game.i18n.format(test, format) !== test) {
+		console.warn(`[%cPF2e Graphics%c]`, 'color: yellow', '', 'Missing prefix on:', code);
+		return game.i18n.format(test, format);
+	}
 
-	console.error(`[%cPF2e Graphics%c]`, 'color: yellow', '', 'Failed to run i18n on:', string);
-	return string;
+	console.error(`[%cPF2e Graphics%c]`, 'color: yellow', '', 'Failed to run i18n on:', code);
+	return code;
 }
 
 /**
@@ -216,5 +243,10 @@ export function arrayMove<T>(arr: T[], old_index: number, new_index: number): T[
 }
 
 export function deslugify(string: string) {
-	return string.replaceAll(/-/g, ' ').replaceAll(/:(\w)/g, ': $1').split(' ').map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
+	return string
+		.replaceAll(/-/g, ' ')
+		.replaceAll(/:(\w)/g, ': $1')
+		.split(' ')
+		.map(x => x.charAt(0).toUpperCase() + x.slice(1))
+		.join(' ');
 }

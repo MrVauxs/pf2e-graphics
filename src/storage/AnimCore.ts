@@ -358,13 +358,11 @@ export let AnimCore = class AnimCore {
 			recursionDepth: number = 0,
 		): AnimationSet[] {
 			if (recursionDepth > 30) {
-				throw new ErrorMsg(
-					`Animation for \`${rollOption}\` recurses too many times! Do its references form an infinite loop?`,
-				);
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.tooMuchRecursion', { rollOption });
 			}
 			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet);
 			if (typeof animationSet !== 'string')
-				throw new ErrorMsg('Could not find referenced payload in ${}—run validation scripts to verify.');
+				throw ErrorMsg.send('pf2e-graphics.execute.common.error.cantFindReference', { rollOption });
 			return parseStrings(animationData.get(animationSet), rollOption, recursionDepth + 1);
 		}
 
@@ -563,7 +561,7 @@ export let AnimCore = class AnimCore {
 				} else if (decodedPayload.type === 'null') {
 					// do nothing
 				} else {
-					throw new ErrorMsg('Execution failed (fatal error in `decodePayload()`!).');
+					throw ErrorMsg.send('pf2e-graphics.execute.common.error.catastrophicError');
 				}
 			}
 

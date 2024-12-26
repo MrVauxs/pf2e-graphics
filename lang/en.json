@@ -195,6 +195,38 @@
 			"fadeIn": "Fade In",
 			"belowTokens": "Below Tokens",
 			"masked": "Masked"
+		},
+		"execute": {
+			"common": {
+				"error": {
+					"unimplemented": "Failed to execute <kbd>{payloadType}</kbd> payload ({unimplemented} unimplemented).",
+					"unknownDiscriminatedUnionValue": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd>).",
+					"unknownEnumArrayElement": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd> element)."
+				}
+			},
+			"animation": {
+				"error": {
+					"noActor": "Failed to execute <kbd>animation</kbd> on <b>{name}</b> (couldn't find actor).",
+					"unownedToken": "Failed to execute <kbd>animation</kbd> payload on <b>{name}</b> (you don't own this token)."
+				}
+			},
+			"crosshair": {
+				"error": {
+					"noName": "Failed to execute a <kbd>crosshair</kbd> payload (no <kbd>name</kbd> provided).",
+					"noActor": "Failed to execute a <kbd>crosshair</kbd> payload (couldn't find actor for source token <b>{token}</b>).",
+					"unresolvedPosition": "Failed to execute a <kbd>crosshair</kbd> payload (couldn't resolve position)."
+				},
+				"notifications": {
+					"interrupted": "Payload interrupted due to cancelled crosshair. Use the Effect Manager to remove any remaining graphics/sounds."
+				}
+			},
+			"graphic": {
+				"error": {
+					"mismatchedPositionSize": "Failed to execute <kbd>graphic</kbd> payload (mismatched <kbd>position</kbd> and <kbd>size</kbd>).",
+					"cantFindPlaceableForRelativeScaling": "Failed to execute <kbd>graphic</kbd> payload (couldn't find placeable for scaling).",
+					"cantIdentifyPlaceableForRelativeScaling": "Failed to execute <kbd>graphic</kbd> payload (couldn't identify placeable for scaling)."
+				}
+			}
 		}
 	}
 }

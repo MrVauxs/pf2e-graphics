@@ -6,9 +6,14 @@ export async function executeCrosshair(
 	payload: Extract<Payload, { type: 'crosshair' }>,
 	data: ExecutionContext,
 ): Promise<{ name: string; position: Vector2 }> {
-	if (!payload.name) throw ErrorMsg.send('Failed to execute a `crosshair` payload (no `name` was provided).');
-	if (!data.sources[0].actor)
-		throw ErrorMsg.send('Failed to execute a `crosshair` payload (could not find source token\'s actor?!).');
+	if (!payload.name) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.noName');
+	for (const token of data.sources) {
+		if (!token.actor) {
+			throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.noActor', {
+				token: token.name,
+			});
+		}
+	}
 
 	// #region Transform `payload` into Sequencer's `CrosshairData`
 	const crosshair: NonNullable<Parameters<typeof Sequencer.Crosshair.show>[0]> = {
@@ -104,11 +109,7 @@ export async function executeCrosshair(
 		if (users.find(user => user.id === game.userId)) {
 			ui.notifications.info(i18n('pick-a-location'));
 			Sequencer.Crosshair.show(crosshair).then((template) => {
-				if (!template) {
-					throw new ErrorMsg(
-						'Payload interrupted due to cancelled crosshair. Use the Effect Manager to remove any remaining graphics/sounds.',
-					);
-				}
+				if (!template) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.notifications.interrupted');
 				window.pf2eGraphics.socket.executeForOthers(
 					'remoteLocation',
 					payload.name,
@@ -137,7 +138,7 @@ export async function executeCrosshair(
 		}
 	});
 
-	if (!position) throw new ErrorMsg('Payload failed (could not resolve crosshair position).');
+	if (!position) throw ErrorMsg.send('pf2e-graphics.execute.crosshair.error.unresolvedPosition');
 	devLog('Crosshair position', payload.name, position);
 
 	return {
