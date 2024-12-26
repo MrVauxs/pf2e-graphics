@@ -32,10 +32,19 @@ const payload = z
 	])
 	.superRefine((obj, ctx) => {
 		if (obj.type === 'crosshair') {
+			if (obj.template?.type === 'token' && obj.snap) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					path: [...ctx.path, 'snap'],
+					message:
+						'Setting the template type to `token` automatically configures the snapping behaviour. Overwriting this is probably erroneous.',
+				});
+			}
 			if (obj.snap?.direction) {
 				if (obj.lockManualRotation) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
+						path: [...ctx.path, 'lockManualRotation'],
 						message:
 							'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
 					});
@@ -43,6 +52,7 @@ const payload = z
 				if (obj.location?.lockToEdgeDirection) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
+						path: [...ctx.path, 'location', 'lockToEdgeDirection'],
 						message:
 							'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
 					});
@@ -52,6 +62,7 @@ const payload = z
 				if (obj.lockManualRotation) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
+						path: [...ctx.path, 'lockManualRotation'],
 						message:
 							'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
 					});
@@ -59,6 +70,7 @@ const payload = z
 				if (obj.template && 'direction' in obj.template) {
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
+						path: [...ctx.path, 'template', 'direction'],
 						message:
 							'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
 					});
@@ -67,8 +79,9 @@ const payload = z
 			if (obj.snap?.position && obj.location?.lockToEdge) {
 				ctx.addIssue({
 					code: z.ZodIssueCode.custom,
+					path: [...ctx.path, 'snap', 'position'],
 					message:
-						'Locking a crosshair to a placeable\'s edge (`locktoEdge`) makes position-snapping (`snap.position`) redundant.',
+						'Locking a crosshair to a placeable\'s edge (`lockToEdge`) makes position-snapping (`snap.position`) redundant.',
 				});
 			}
 		} else if (obj.type === 'sound') {
