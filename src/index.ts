@@ -17,10 +17,10 @@ Hooks.once('ready', () => {
 	if (premium?.active || fremium?.active || window.pf2eGraphics.liveSettings.suppressWarnings) return;
 
 	if (premium) {
-		ui.notifications.warn(i18n('settings.suppressWarnings.warnPremium'));
+		ui.notifications.warn(i18n('pf2e-graphics.settings.suppressWarnings.warnPremium'));
 	} else if (fremium) {
-		ui.notifications.warn(i18n('settings.suppressWarnings.warnFremium'));
+		ui.notifications.warn(i18n('pf2e-graphics.settings.suppressWarnings.warnFremium'));
 	} else {
-		ui.notifications.error(i18n('settings.suppressWarnings.warnNone'));
+		ui.notifications.error(i18n('pf2e-graphics.settings.suppressWarnings.warnNone'));
 	}
 });
