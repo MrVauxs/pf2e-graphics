@@ -273,9 +273,10 @@ export let AnimCore = class AnimCore {
 		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 
-		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > Global
+		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > World > External modules > PF2e Graphics itself
 		obj.animations = {
 			...Object.fromEntries(AnimCore.animations.entries()),
+			// ...{external module stuff in here idk}
 			// ...window.pf2eGraphics.liveSettings.globalAnimations,
 			// ...userKeys,
 			...actorOriginKeys,
@@ -285,7 +286,8 @@ export let AnimCore = class AnimCore {
 		} as ReturnType<typeof this.getAnimations>;
 
 		obj.sources = {
-			preset: AnimCore.keys,
+			core: AnimCore.keys,
+			// module: idk,
 			// world: Object.keys(window.pf2eGraphics.liveSettings.globalAnimations),
 			// user: Object.keys(userKeys),
 			origin: Object.keys(itemOriginKeys),
