@@ -13,9 +13,9 @@
 
 	const userDocs = game.users.map(x => new TJSDocument(x));
 	const usersFlags = derived(userDocs, ($userDocs) => {
-		return $userDocs.flatMap(user =>
-			(user.getFlag<ArrayAnimationSet>('pf2e-graphics', 'animations') || [])
-				.map(anim => ({
+		return $userDocs.flatMap(
+			user =>
+				(user.getFlag<ArrayAnimationSet>('pf2e-graphics', 'animations') || []).map(anim => ({
 					...anim,
 					source: 'user',
 					user: user.id,
@@ -25,8 +25,12 @@
 
 	const core = derived(
 		AnimCore.animationsStore,
-		$animations => Array.from($animations)
-			.map(([key, data]) => ({ name: deslugify(key), source: 'core', data })) as ArrayAnimationSet,
+		$animations =>
+			Array.from($animations).map(([key, data]) => ({
+				name: deslugify(key),
+				source: 'core',
+				data,
+			})) as ArrayAnimationSet,
 	);
 
 	// TODO: other modules can add data to PF2e Graphics' core
@@ -42,8 +46,12 @@
 
 	const world = derived(
 		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
-		$animations => Array.from($animations)
-			.map((data: any) => ({ key: '', source: 'world', ...data })) as ArrayAnimationSet,
+		$animations =>
+			Array.from($animations).map((data: any) => ({
+				key: '',
+				source: 'world',
+				...data,
+			})) as ArrayAnimationSet,
 	);
 
 	let list: ArrayAnimationSet = [];
@@ -53,28 +61,31 @@
 		.concat($world)
 		.concat($usersFlags)
 		.filter(item => item.name !== '_tokenImages')
-		.filter(item =>	item.name.toLowerCase().includes(search.toLowerCase())
-			|| (typeof item.data === 'string'
-				? item.data.toLowerCase().includes(search.toLowerCase())
-				: false))
+		.filter(
+			item =>
+				item.name.toLowerCase().includes(search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes(search.toLowerCase()) : false),
+		)
 		.sort((a, b) => a.name.localeCompare(b.name));
 
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
-		new TJSDialog({
-			title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
-			content: {
-				// @ts-expect-error TJS-2-TS Fix in the next update maybe?
-				class: CreateAnimation,
+		new TJSDialog(
+			{
+				title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
+				content: {
+					// @ts-expect-error TJS-2-TS Fix in the next update maybe?
+					class: CreateAnimation,
+				},
+				focusFirst: true,
 			},
-			focusFirst: true,
-		}, {
-			headerIcon: 'modules/pf2e-graphics/assets/module/Vauxs_by_Bishop.png',
-			classes: ['pf2e-g'],
-			left: sidebarRect.x - 310,
-			top: sidebarRect.y - 5,
-			width: 300,
-		}).render(true, { focus: true });
+			{
+				headerIcon: 'modules/pf2e-graphics/assets/module/Vauxs_by_Bishop.png',
+				classes: ['pf2e-g'],
+				left: sidebarRect.x - 310,
+				top: sidebarRect.y - 5,
+				width: 300,
+			},
+		).render(true, { focus: true });
 	}
 
 	function openAnimation(data: any) {
@@ -119,16 +130,21 @@
 				border-0 first:border-t border-b
 				border-black border-solid
 				text-left w-full
-			'>
-			<aside class='
-				absolute right-0 top-0 m-1
-			'>
+			'
+		>
+			<aside
+				class='
+					absolute right-0 top-0 m-1
+				'
+			>
 				{#if item.source === 'core'}
 					<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-gear'></i>
 				{:else if item.source === 'user'}
-					<span class='
-						px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
-					'>
+					<span
+						class='
+							px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
+						'
+					>
 						{window.game.users.get(item.user || '')?.name}
 					</span>
 					<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
@@ -147,17 +163,18 @@
 			</header>
 
 			{#if typeof item.data === 'string'}
-				<footer class='
-					absolute right-0 bottom-0
-					italic text-xs
-					bg-black/40 rounded-sm border-solid border border-black/100
-					px-1 m-0.5
-				'>
+				<footer
+					class='
+						absolute right-0 bottom-0
+						text-xs
+						bg-black/40 rounded-sm border-solid border border-black/100
+						px-1 m-0.5
+					'
+				>
 					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', { rollOption: item.data })}
 				</footer>
 			{/if}
 		</li>
 	{/each}
-
 </ol>
 <footer class='directory-footer'></footer>
