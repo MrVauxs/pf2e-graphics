@@ -9,4 +9,4 @@ updates:
     directory: / # Location of package manifests
     target-branch: v1-alpha
     schedule:
-      interval: daily
+      interval: weekly
