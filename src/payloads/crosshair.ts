@@ -51,9 +51,9 @@ export async function executeCrosshair(
 			crosshair.distance = ((tokenGridSpaces + (payload.template.padding ?? 0)) * canvas.grid.distance) / 2;
 
 			const snappingCode
-				= tokenGridSpaces === 0.5 || tokenGridSpaces === 2 || tokenGridSpaces === 4
-					? getGridSnappingCode(['CORNER']) // Tiny, Large, and Gargantuan
-					: getGridSnappingCode(['CENTER']); // Small, Medium, and Huge
+				= tokenGridSpaces % 2
+					? getGridSnappingCode(['CENTER']) // Small, Medium, and Huge (plus larger odd-sized tokens)
+					: getGridSnappingCode(['CORNER']); // Tiny, Large, and Gargantuan (plus larger even-sized tokens)
 			crosshair.snap = {
 				position: snappingCode,
 				size: snappingCode,
