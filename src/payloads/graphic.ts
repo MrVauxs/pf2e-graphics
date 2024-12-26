@@ -182,7 +182,6 @@ function processGraphic(
 								// TODO:
 							} else {
 								seq.scaleToObject(
-									// @ts-expect-error TS can't figure out that `'sm'` is a member of the enum
 									(payload.size.scaling ?? 1) * (placeable.actor?.size === 'sm' ? 0.8 : 1),
 									{
 										considerTokenScale: false,
@@ -196,7 +195,7 @@ function processGraphic(
 							// 3. If true, read 'Effective token size' option and scale to that
 						}
 					}
-				} else if (placeable instanceof MeasuredTemplateDocumentPF2e) {
+				} else if (placeable instanceof MeasuredTemplate) {
 					seq.scaleToObject(payload.size.scaling ?? 1, {
 						uniform: !!payload.size.uniform,
 					});

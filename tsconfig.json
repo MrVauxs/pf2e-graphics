@@ -10,8 +10,10 @@
 		"types": [
 			"vite/client",
 			"foundry-pf2e",
-			"sequencer",
-			"@typed-foundry/socketlib"
+			"foundry-pf2e/pf2e-toolbelt",
+			"foundry-pf2e/socketlib",
+			"jquery",
+			"sequencer"
 		],
 		"allowImportingTsExtensions": true,
 		/**

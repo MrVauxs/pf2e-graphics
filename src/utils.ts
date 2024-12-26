@@ -1,5 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 
+import type { ActorPF2e, UserPF2e } from 'foundry-pf2e';
+
 /* eslint-disable no-console */
 
 /**

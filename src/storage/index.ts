@@ -27,7 +27,7 @@ Hooks.once('ready', async () => {
 	window.pf2eGraphics.AnimCore.updateAnimations();
 
 	// Register the crosshair.ts sockets.
-	window.pf2eGraphics.socket = socketlib.registerModule('pf2e-graphics');
+	window.pf2eGraphics.socket = socketlib.registerModule('pf2e-graphics')!;
 	window.pf2eGraphics.socket.register(
 		'remoteLocation',
 		(name: string, location: object) =>

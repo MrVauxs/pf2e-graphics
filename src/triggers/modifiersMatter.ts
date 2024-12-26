@@ -1,3 +1,4 @@
+import type { ActorPF2e, ChatMessagePF2e, TokenDocumentPF2e } from 'foundry-pf2e';
 import { devLog, log } from '../utils';
 
 interface modifiersMatterType {
@@ -29,7 +30,7 @@ function handleModifiersMatter(options: modifiersMatterType, delayed = false) {
 			sources: rollingActor.getActiveTokens(),
 			actor: rollingActor,
 			targets: [targetedToken],
-			user: chatMessage.author.id,
+			user: chatMessage.author?.id,
 		}, 'Modifiers Matter Animation Data');
 	}
 }
