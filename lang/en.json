@@ -227,6 +227,12 @@
 					"cantIdentifyPlaceableForRelativeScaling": "Failed to execute <kbd>graphic</kbd> payload (couldn't identify placeable for scaling)."
 				}
 			}
+		},
+		"tokenConfig": {
+			"effectiveSize": {
+				"name": "Effective Size",
+				"tooltip": "If your token is an unusual size (e.g. a Medium token that is 1.2 grid-squares wide), set how many grid-squares its ring covers. See the <i>PF2e Graphics</i> wiki for more information."
+			}
 		}
 	}
 }

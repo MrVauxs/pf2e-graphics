@@ -178,7 +178,7 @@ function processGraphic(
 								},
 							);
 						} else {
-							if (placeable.actor?.getFlag('pf2e-graphics', 'nonStandard')) {
+							if (placeable.actor?.getFlag('pf2e-graphics', 'effectiveSize')) {
 								// TODO:
 							} else {
 								seq.scaleToObject(
