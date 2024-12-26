@@ -199,9 +199,14 @@
 		"execute": {
 			"common": {
 				"error": {
+					"missingPayload": "Payload missing—your data may be corrupted.",
 					"unimplemented": "Failed to execute <kbd>{payloadType}</kbd> payload ({unimplemented} unimplemented).",
 					"unknownDiscriminatedUnionValue": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd>).",
-					"unknownEnumArrayElement": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd> element)."
+					"unknownEnumArrayElement": "Failed to execute <kbd>{payloadType}</kbd> payload (unknown <kbd>{property}</kbd> element).",
+					"unknownPosition": "Couldn't resolve position <kbd>{position}</kbd>.",
+					"tooMuchRecursion": "Animation for <kbd>{rollOption}</kbd> recurses too many times! Do its references form an infinite loop?",
+					"cantFindReference": "Couldn't find referenced payload for {rollOption}—run validation scripts to verify.",
+					"catastrophicError": "Execution failed (fatal error in <kbd>decodePayload()</kbd>!)."
 				}
 			},
 			"animation": {
