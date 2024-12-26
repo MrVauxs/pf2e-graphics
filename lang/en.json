@@ -6,30 +6,11 @@
 			"3": "Help the Author"
 		},
 		"sidebar": "Graphics",
-		"source": "source: {format}",
 		"history": "Animation History",
-		"unlink": "Unlink",
-		"unlinked": "Unlinked the feature from Token Image Manager. Please manually remove the added rule elements!",
-		"modifyItem": "Modify Item Animations",
-		"modifyActor": "Manage Actor Animations",
-		"modifyUser": "Manage User Animations",
-		"modifyWorld": "Manage World Animations",
 		"jsonEditor": "JSON Editor",
 		"jsonEditorReadonly": "JSON Viewer (Read Only)",
-		"hasAnimations": "Has Animations",
-		"noAnimations": "No Animations",
-		"jsonEditorTooltip": "JSON Editor (Shift-click for a Read-Only view)",
-		"confirmConvert": "Are you sure you want to convert this into a reference? This gets rid of all your data.",
-		"reference": "Set to Reference another Animation",
-		"addAnim": "Add a New Animation",
-		"cancel": "Cancel",
-		"easingTooltip": "Learn more about various easing functions here.",
-		"featText": "This feat contains PF2e Graphics-managed Rule Elements, primarily of the TokenImage variety. Opening the Rules tab on this feat may lag your game if the actor contains a lot of forms (ex. Druid).",
-		"areYouSureM8": "Are you sure?",
-		"hasSound": "Has sound effects",
 		"animations": "Animations",
 		"animationsVolume-tooltip": "Controls the volume of sounds created by PF2e Graphics.",
-		"hasSoundWrong": "Has sound effects, some of which do not exist!",
 		"historyMenu": {
 			"title": "Animation History",
 			"animations": "{count} animations",
@@ -89,111 +70,6 @@
 				"warnPremium": "You have JB2A (Patreon) but have not enabled it, please enable it for PF2e Graphics to function as expected.",
 				"warnNone": "You don't have JB2A installed, please install and enable it in order for PF2e Graphics to function!"
 			}
-		},
-		"tooltip": {
-			"imported": "These entries are compiled versions of imported animations from modules.<p/>The JSONs presented may differ from the original data of the module."
-		},
-		"itemAnimation": {
-			"tabs": {
-				"preset-animations": "Preset Animations",
-				"custom-animations": "Custom Animations",
-				"options": "Options"
-			},
-			"openSheet": "Open Sheet"
-		},
-		"worldAnimation": {
-			"shiftJSON": "Hold Shift to preview the processed version",
-			"tabs": {
-				"preset-animations": "Preset Animations",
-				"world-animations": "World Animations"
-			}
-		},
-		"userAnimation": {
-			"tabs": {
-				"user-animations": "User Animations"
-			}
-		},
-		"actorAnimation": {
-			"openFeat": "Open",
-			"displayFeat": "Display Feat on Character Sheet",
-			"tabs": {
-				"all-animations": "All Animations",
-				"actor-animations": "Actor Animations",
-				"tokenimage-manager": "Token Image Manager"
-			},
-			"toggle": "Toggle Predicates on and off, allowing you to preview the token change.",
-			"switch": "See the Effect the rule is predicated onto, or the predicate data itself."
-		},
-		"triggers": {
-			"attack-roll": "Attack Roll",
-			"damage-roll": "Damage Roll",
-			"damage-taken": "Damage Taken",
-			"saving-throw": "Saving Throw",
-			"place-template": "Template Placed",
-			"check": "Check",
-			"counteract-check": "Counteract Check",
-			"flat-check": "Flat Check",
-			"initiative": "Initiative Roll",
-			"perception-check": "Perception Check",
-			"skill-check": "Skill Check",
-			"effect": "Effect Granted",
-			"toggle": "Toggle",
-			"start-turn": "Start of Turn",
-			"end-turn": "End of Turn",
-			"self-effect": "'Use' Effect",
-			"modifiers-matter": "Modifiers Matter",
-			"action": "Action"
-		},
-		"editor": {
-			"tooltip": {
-				"gridUnits": "Use Grid Units (squares, hexes)",
-				"preset": "A basic template for which your animation bases off of. A basic projectile would be Ranged, an AoE spell would be a Template. You can check out more details on the wiki.",
-				"trigger": "What action or roll should trigger the animation. You can check out more details on the wiki.",
-				"predicate": "What roll options the triggering action should have. This is in addition to the primary key. Otherwise works the same as normal PF2e Rule Element predicates. You can check out more details on the wiki.",
-				"persistent": "Causes an animation to stay on the canvas and loop until manually removed or if \"Tie To Documents\" is enabled.",
-				"tieToDocuments": "Causes the persistent animation to be removed when its origin (ex. an Effect) has been removed.",
-				"masked": "Causes the effect to be restricted to the span of the token, making it not visible past the token image.",
-				"belowTokens": "Makes the animation appear below tokens, irrespective of elevation.",
-				"randomizeMirrorY": "Randomly flips the animation on its Y (height) axis, making it upside down with a 50/50 chance.",
-				"randomizeMirrorX": "Randomly flips the animation on its X (width) axis, making it sideways with a 50/50 chance",
-				"mirrorX": "Flips the animation on its X (width) axis, making it sideways.",
-				"mirrorY": "Flips the animation on its Y (height) axis, making it upside down.",
-				"scale": "Multiplies the size of the animation by a given amount.",
-				"scaleToObject": "Multiplies the size of the animation by a given amount, adjusted for token size.",
-				"size": "Changes the actual size of the animation in pixels or optionally grid units.",
-				"fadeOut": "Causes the animation to fade out of view as it ends, counted in milliseconds.",
-				"fadeIn": "Causes the animation to fade into of view as it begins, counted in milliseconds.",
-				"waitUntilFinished": "The animation will wait for the previous animation to finish and then wait the set amount. A negative value will make it start earlier, while the previous animation is still playing.",
-				"delay": "Delays or \"staggers\" the animation to start a set amount of milliseconds.",
-				"overrides": "Causes the animation to override other animations of a given roll option. Accepts multiple strings.<p />Best used for weapons which already have a <code>item:group</code> animation defined."
-			},
-			"preset": "Preset",
-			"overrides": "Overrides",
-			"trigger": "Trigger",
-			"predicate": "Predicate",
-			"imageFile": "Image File",
-			"soundFile": "Sound File",
-			"soundDisclaimer": "This animation contains multiple sounds which are modifiable only through JSON editor.",
-			"triggerDisclaimer": "Multiple triggers detected. Modify through JSON editor.",
-			"notDb": "Using a file path is not the recommended way of creating an animation. Use a Sequencer Database path when able.",
-			"persistent": "Persistent",
-			"tieToDocuments": "Tie To Documents",
-			"waitUntilFinished": "Wait Until Finished",
-			"wait": "Wait",
-			"delay": "Delay",
-			"macro": "Macro",
-			"advancedOptions": "Advanced Options",
-			"randomizeMirrorY": "Randomize Mirror Y",
-			"randomizeMirrorX": "Randomize Mirror X",
-			"mirrorY": "Mirror Y",
-			"mirrorX": "Mirror X",
-			"scale": "Scale",
-			"scaleToObject": "Scale To Object / Token",
-			"size": "Size",
-			"fadeOut": "Fade Out",
-			"fadeIn": "Fade In",
-			"belowTokens": "Below Tokens",
-			"masked": "Masked"
 		},
 		"execute": {
 			"common": {
