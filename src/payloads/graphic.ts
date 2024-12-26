@@ -173,7 +173,7 @@ function processGraphic(
 								{
 									// TODO: Sequencer doesn't understand token scale for dynamic tokens?? 🤔
 									// It seems to understand it pretty well - @MrVauxs
-									considerTokenScale: true,
+									// considerTokenScale: true,
 									uniform: !!payload.size.uniform,
 								},
 							);
