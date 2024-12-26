@@ -1,9 +1,9 @@
 <script lang='ts'>
-	import { i18n } from '../../utils';
+	import { ErrorMsg, i18n } from '../../utils';
 
 	const volume = window.pf2eGraphics.storeSettings.getStore('volume');
 
-	if (!volume) throw new Error('There is no volume setting!?');
+	if (!volume) throw ErrorMsg.send('pf2e-graphics.sidebar.playlists.error.noVolume');
 
 	let element: HTMLElement;
 	let toggle = false;
@@ -12,8 +12,8 @@
 </script>
 
 <div class='pf2e-g'>
-	<li class='sound flexrow bg-purple-400/25 rounded-sm' data-tooltip='pf2e-graphics.animationsVolume-tooltip'>
-		<h4>{i18n('animations')}</h4>
+	<li class='sound flexrow bg-purple-400/25 rounded-sm' data-tooltip='pf2e-graphics.sidebar.playlists.volumeSlider.tooltip'>
+		<h4>{i18n('pf2e-graphics.sidebar.playlists.volumeSlider.title')}</h4>
 		<i class='volume-icon fas fa-volume-down'></i>
 		<input
 			bind:this={element}
