@@ -81,6 +81,43 @@
 	function openAnimation(data: any) {
 		log('Open Animation', data);
 	}
+
+	// Context Menu
+	import { TJSContextMenu } from '#standard/application/menu';
+
+	function contextMenu(event: MouseEvent) {
+		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
+		const coordinates = {
+			y: Math.ceil(bounds.bottom + 1 || 0),
+			x: Math.ceil(bounds.left + 1 || 0),
+		};
+		TJSContextMenu.create({
+			id: 'pf2e-g pf2e-graphics-context',
+			event,
+			...coordinates,
+			styles: {
+				width: `${Math.ceil(bounds.width + 1)}px`,
+			},
+			items: [
+				{
+					icon: 'fa fa-file-export',
+					label: 'Export',
+				},
+				{
+					icon: 'fa fa-file-import',
+					label: 'Import',
+				},
+				{
+					icon: 'fa fa-copy',
+					label: 'Duplicate',
+				},
+				{
+					icon: 'fa fa-trash',
+					label: 'Delete',
+				},
+			],
+		});
+	}
 </script>
 
 <header class='directory-header'>
@@ -112,6 +149,7 @@
 		<li
 			tabindex='-1'
 			on:click={() => openAnimation(item)}
+			on:contextmenu={contextMenu}
 			on:keydown={e => e.key === 'Enter' && openAnimation(item)}
 			class='
 				relative px-2

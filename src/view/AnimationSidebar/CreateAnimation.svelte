@@ -22,7 +22,7 @@
 			];
 		} else if (location === 'user') {
 			game.user.setFlag('pf2e-graphics', 'animations', [
-				...(game.user.getFlag<ArrayAnimationSet[]>('pf2e-graphics', 'animations') || []),
+				...(game.user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet[] || []),
 				{
 					name,
 					user: game.userId,

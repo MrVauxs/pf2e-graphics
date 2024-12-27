@@ -12,7 +12,10 @@
 	};
 
 	$: {
-		foundry.utils.debounce(() => document.actor?.setFlag('pf2e-graphics', 'effectiveSize', effectiveSize), 1000)();
+		foundry.utils.debounce(
+			() => document.actor?.setFlag('pf2e-graphics', 'effectiveSize', effectiveSize),
+			1000,
+		)();
 	}
 </script>
 
