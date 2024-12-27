@@ -254,3 +254,18 @@ export function deslugify(string: string) {
 		.map(x => x.charAt(0).toUpperCase() + x.slice(1))
 		.join(' ');
 }
+
+/**
+ * Converts a mechanical size into a numerical token size (in grid-squares).
+ * @param size A string representing a size, as per the `pf2e` system.
+ * @returns A number representing how big a token usually is for that particular size, in grid-squares.
+ */
+export function getDefaultSize(size: ActorPF2e['size'] | undefined): number {
+	if (size === 'med') return 1;
+	if (size === 'sm') return 0.8;
+	if (size === 'lg') return 2;
+	if (size === 'tiny') return 0.5;
+	if (size === 'huge') return 3;
+	if (size === 'grg') return 4;
+	throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownSize', { size: size!.toString() });
+}

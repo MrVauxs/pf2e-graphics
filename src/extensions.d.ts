@@ -72,3 +72,13 @@ declare global {
 		TextureTransitionFilter: typeof TextureTransitionFilter;
 	}
 }
+
+/**
+ * The nullable interface stored on an actor's module flags to define its tokens' effective size.
+ */
+export type EffectiveSize =
+	| undefined
+	| {
+		enabled: boolean;
+		size: number;
+	};

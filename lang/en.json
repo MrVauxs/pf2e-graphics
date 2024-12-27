@@ -173,7 +173,8 @@
 					"unknownPosition": "Couldn't resolve position <code>{position}</code>.",
 					"tooMuchRecursion": "Animation for <code>{rollOption}</code> recurses too many times! Do its references form an infinite loop?",
 					"cantFindReference": "Couldn't find referenced payload for {rollOption}—run validation scripts to verify.",
-					"catastrophicError": "Execution failed (fatal error in <code>decodePayload()</code>!)."
+					"catastrophicError": "Execution failed (fatal error in <code>decodePayload()</code>!).",
+					"unknownSize": "Unknown actor size <code>{size}</code>."
 				}
 			},
 			"animation": {
