@@ -15,11 +15,12 @@
 	const usersFlags = derived(userDocs, ($userDocs) => {
 		return $userDocs.flatMap(
 			user =>
-				(user.getFlag<ArrayAnimationSet>('pf2e-graphics', 'animations') || []).map(anim => ({
-					...anim,
-					source: 'user',
-					user: user.id,
-				})) as ArrayAnimationSet,
+				(user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet || [])
+					.map(anim => ({
+						...anim,
+						source: 'user',
+						user: user.id,
+					})) as ArrayAnimationSet,
 		);
 	});
 
@@ -32,17 +33,6 @@
 				data,
 			})) as ArrayAnimationSet,
 	);
-
-	// TODO: other modules can add data to PF2e Graphics' core
-	// const modules = derived(
-	// 	game.modules
-	// 		.filter(module => module.flags['pf2e-graphics'])
-	// 		.flatMap((module) => {
-	// 		// idk something goes here
-	// 		}),
-	// 	$animations => Array.from($animations)
-	// 		.map((data: any) => ({ key: '', source: 'module', ...data })) as ArrayAnimationSet,
-	// );
 
 	const world = derived(
 		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
