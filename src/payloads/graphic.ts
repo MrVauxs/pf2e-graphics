@@ -1,4 +1,5 @@
 import type { Payload } from '../../schema';
+import type { EffectiveSize } from '../extensions';
 import {
 	addCustomExecutionContext,
 	type ExecutionContext,
@@ -7,7 +8,7 @@ import {
 	positionToArgument,
 } from '.';
 import { AnimCore } from '../storage/AnimCore';
-import { type ArrayElement, ErrorMsg } from '../utils';
+import { type ArrayElement, ErrorMsg, getDefaultSize } from '../utils';
 
 export function executeGraphic(payload: Extract<Payload, { type: 'graphic' }>, data: ExecutionContext): Sequence {
 	const seq = new Sequence();
@@ -133,7 +134,7 @@ function processGraphic(
 				// Get placeable to scale relative to
 				let placeable;
 				if (payload.size.relativeTo) {
-					// It might be defined explcitly
+					// It might be defined explicitly
 					placeable = positionToArgument(payload.size.relativeTo, data);
 				} else if (
 					// Else we use the position, if it has one
@@ -156,43 +157,58 @@ function processGraphic(
 					if (payload.size.useTokenSpace) {
 						const tokenSize = placeable.getSize();
 						if (payload.size.uniform) {
-							const longestSide = tokenSize.height >= tokenSize.width ? 'height' : 'width';
-							seq.size({
+							if (tokenSize.height >= tokenSize.width) {
 								// @ts-expect-error TODO: fix Sequencer types
-								width: longestSide === 'width' ? tokenSize.width : undefined,
+								seq.size({
+									height: tokenSize.height,
+								});
+							} else {
 								// @ts-expect-error TODO: fix Sequencer types
-								height: longestSide === 'height' ? tokenSize.height : undefined,
-							});
+								seq.size({
+									width: tokenSize.height,
+								});
+							}
 						} else {
 							seq.size(tokenSize);
 						}
 					} else {
-						if (placeable.document.ring.enabled) {
+						const effectiveSize = placeable.actor?.getFlag(
+							'pf2e-graphics',
+							'effectiveSize',
+						) as EffectiveSize;
+						if (effectiveSize?.enabled) {
+							// Manual scaling activated!
+							seq.size(canvas.grid.size * effectiveSize.size);
+							if (payload.size.scaling) seq.scale(payload.size.scaling);
+							// TODO: uniform
+						} else if (placeable.document.ring.enabled) {
+							// Dynamic-ring tokens are regular enough for us to always know the size
 							seq.scaleToObject(
 								(payload.size.scaling ?? 1) / (placeable.document.ring.subject.scale ?? 1),
 								{
-									// TODO: Sequencer doesn't understand token scale for dynamic tokens?? 🤔
-									// It seems to understand it pretty well - @MrVauxs
-									// considerTokenScale: true,
+									considerTokenScale: true,
 									uniform: !!payload.size.uniform,
 								},
 							);
 						} else {
-							if (placeable.actor?.getFlag('pf2e-graphics', 'effectiveSize')) {
-								// TODO:
+							// Just assume default size
+							const tokenSize = placeable.getSize();
+							if (payload.size.uniform) {
+								if (tokenSize.height >= tokenSize.width) {
+									// @ts-expect-error TODO: fix Sequencer types
+									seq.size({
+										height: canvas.grid.size * getDefaultSize(placeable.actor?.size),
+									});
+								} else {
+									// @ts-expect-error TODO: fix Sequencer types
+									seq.size({
+										width: canvas.grid.size * getDefaultSize(placeable.actor?.size),
+									});
+								}
 							} else {
-								seq.scaleToObject(
-									(payload.size.scaling ?? 1) * (placeable.actor?.size === 'sm' ? 0.8 : 1),
-									{
-										considerTokenScale: false,
-										uniform: !!payload.size.uniform,
-									},
-								);
+								seq.size(tokenSize);
 							}
-							// Delete ^ when v is implemented
-							// 1. Check 'non-standard size' token configuration
-							// 2. If false, read size trait and scale manually as per `useTokenSpace` condition above
-							// 3. If true, read 'Effective token size' option and scale to that
+							if (payload.size.scaling) seq.scale(payload.size.scaling);
 						}
 					}
 				} else if (placeable instanceof MeasuredTemplate) {
