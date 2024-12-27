@@ -1,0 +1,65 @@
+{
+	"condition:restrained": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.chain.standard.complete.02.red"
+				],
+				"position": [
+					{
+						"type": "dynamic",
+						"location": "SOURCES"
+					}
+				],
+				"size": {
+					"type": "relative",
+					"scaling": 2
+				},
+				"fadeIn": {
+					"duration": 250
+				},
+				"fadeOut": {
+					"duration": 500
+				},
+				"filters": [
+					{
+						"type": "ColorMatrix",
+						"options": {
+							"saturate": -1
+						}
+					}
+				]
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	]
+}

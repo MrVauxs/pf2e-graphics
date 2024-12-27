@@ -1,0 +1,68 @@
+{
+	"condition:immobilized": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.chain.spectral_standard.complete.02.blue"
+				],
+				"position": [
+					{
+						"type": "dynamic",
+						"location": "SOURCES"
+					}
+				],
+				"size": {
+					"type": "relative",
+					"scaling": 2.5
+				},
+				"visibility": {
+					"opacity": 0.8
+				},
+				"fadeIn": {
+					"duration": 250
+				},
+				"fadeOut": {
+					"duration": 500
+				},
+				"filters": [
+					{
+						"type": "ColorMatrix",
+						"options": {
+							"saturate": -0.8
+						}
+					}
+				]
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	]
+}
