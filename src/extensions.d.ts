@@ -25,8 +25,9 @@ declare module 'svelte' {
 }
 
 export type ArrayAnimationSet = {
+	id: string;
 	name: string;
-	source: 'user' | 'world' | 'module' | 'core';
+	source: 'user' | 'world' | 'module';
 	user?: string;
 	data: string | AnimationSet[];
 	key: string;

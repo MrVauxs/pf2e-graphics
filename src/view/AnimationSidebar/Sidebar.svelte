@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import { readable, type Readable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
+	import { copyAnimation, removeAnimation } from './sidebarFunctions';
 
 	let search = '';
 
@@ -13,7 +14,7 @@
 	onMount(() => {
 		// Delaying the importing because game.users is not available at the time.
 		// TODO: This can definitely be done better.
-		import('./variables').then((module) => {
+		import('./sidebarVars').then((module) => {
 			animationsList = module.animationsList;
 		});
 	});
@@ -26,7 +27,8 @@
 			item =>
 				item.name.toLowerCase().includes(search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes(search.toLowerCase()) : false),
 		)
-		.sort((a, b) => a.name.localeCompare(b.name));
+		.sort((a, b) => a.name.localeCompare(b.name))
+		.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1);
 
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
@@ -53,12 +55,36 @@
 		log('Open Animation', data);
 	}
 
-	function contextMenu(event: MouseEvent) {
+	function contextMenu(event: MouseEvent, animation: ArrayAnimationSet[number]) {
 		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
 		const coordinates = {
 			y: Math.ceil(bounds.bottom + 1 || 0),
 			x: Math.ceil(bounds.left + 1 || 0),
 		};
+
+		const items = [
+			{
+				icon: 'fa fa-file-export',
+				label: 'Export',
+			},
+			{
+				icon: 'fa fa-file-import',
+				label: 'Import',
+			},
+			{
+				icon: 'fa fa-copy',
+				label: 'Duplicate',
+				onPress: () => { copyAnimation(animation); },
+			},
+		];
+
+		if (animation.source !== 'module') {
+			items.push({
+				icon: 'fa fa-trash',
+				label: 'Delete',
+				onPress: () => { removeAnimation(animation); },
+			});
+		}
 
 		TJSContextMenu.create({
 			id: 'pf2e-g pf2e-graphics-context',
@@ -67,24 +93,7 @@
 			styles: {
 				width: `${Math.ceil(bounds.width + 1)}px`,
 			},
-			items: [
-				{
-					icon: 'fa fa-file-export',
-					label: 'Export',
-				},
-				{
-					icon: 'fa fa-file-import',
-					label: 'Import',
-				},
-				{
-					icon: 'fa fa-copy',
-					label: 'Duplicate',
-				},
-				{
-					icon: 'fa fa-trash',
-					label: 'Delete',
-				},
-			],
+			items,
 		});
 	}
 </script>
@@ -119,7 +128,7 @@
 			id='pf2e-g-{item.source}-{item.key}'
 			tabindex='-1'
 			on:click={() => openAnimation(item)}
-			on:contextmenu={contextMenu}
+			on:contextmenu={event => contextMenu(event, item)}
 			on:keydown={e => e.key === 'Enter' && openAnimation(item)}
 			class='
 				relative px-2
@@ -135,9 +144,7 @@
 					absolute right-0 top-0 m-1
 				'
 			>
-				{#if item.source === 'core'}
-					<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
-				{:else if item.source === 'module'}
+				{#if item.source === 'module'}
 					<i data-tooltip={i18n('pf2e-graphics.scopes.full.module')} class='fas fa-cubes'></i>
 				{:else if item.source === 'user'}
 					<span
@@ -166,12 +173,15 @@
 				<footer
 					class='
 						absolute right-0 bottom-0
-						text-xs
+						text-[0.6rem]
 						bg-black/40 rounded-sm border-solid border border-black/100
 						px-1 m-0.5
 					'
 				>
-					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', { rollOption: item.data })}
+					{@html i18n(
+						'pf2e-graphics.sidebar.animationSets.list.alias',
+						{ rollOption: item.data },
+					)}
 				</footer>
 			{/if}
 		</li>

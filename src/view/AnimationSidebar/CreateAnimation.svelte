@@ -1,7 +1,7 @@
 <script lang='ts'>
-	import type { ArrayAnimationSet } from 'src/extensions';
 	import { getContext } from 'svelte';
 	import { i18n } from '../../utils';
+	import { makeAnimation } from './sidebarFunctions';
 
 	const { application } = getContext('#external');
 
@@ -9,30 +9,8 @@
 	let type = 'ranged';
 	let location = 'user';
 
-	function makeAnimation() {
-		if (location === 'world') {
-			window.pf2eGraphics.liveSettings.globalAnimations = [
-				...window.pf2eGraphics.liveSettings.globalAnimations,
-				{
-					name,
-					data: [],
-					key: game.pf2e.system.sluggify(name),
-					source: 'world',
-				},
-			];
-		} else if (location === 'user') {
-			game.user.setFlag('pf2e-graphics', 'animations', [
-				...(game.user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet[] || []),
-				{
-					name,
-					user: game.userId,
-					data: [],
-					key: game.pf2e.system.sluggify(name),
-					source: 'user',
-				},
-			]);
-		}
-
+	function make() {
+		makeAnimation(name, type, location);
 		application.close();
 	}
 </script>
@@ -76,7 +54,7 @@
 </main>
 
 <footer class='mt-2'>
-	<button on:click={makeAnimation}>
+	<button on:click={make}>
 		<i class='fas fa-check'></i>
 		{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.complete')}
 	</button>

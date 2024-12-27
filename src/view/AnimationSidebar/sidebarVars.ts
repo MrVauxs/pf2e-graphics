@@ -23,7 +23,7 @@ const core: Readable<ArrayAnimationSet> = derived(
 	$animations =>
 		Array.from($animations).map(([key, data]) => ({
 			name: deslugify(key),
-			source: 'core',
+			source: 'module',
 			data,
 			key,
 		})) as ArrayAnimationSet,
