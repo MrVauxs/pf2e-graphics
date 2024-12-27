@@ -1,55 +1,26 @@
 <script lang='ts'>
 	import type { ArrayAnimationSet } from 'src/extensions';
 	import { TJSDialog } from '#runtime/svelte/application';
-	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
-	import { AnimCore } from 'src/storage/AnimCore';
-	import { deslugify, i18n, log } from 'src/utils';
-	import { derived, type Readable } from 'svelte/store';
+	import { TJSContextMenu } from '#standard/application/menu';
+	import { i18n, log } from 'src/utils';
+	import { onMount } from 'svelte';
+	import { readable, type Readable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
 
 	let search = '';
 
-	// TODO: TJS I pray to you make this mess gone by letting me update to Svelte 5
-
-	const userDocs = game.users.map(x => new TJSDocument(x));
-	const usersFlags = derived(userDocs, ($userDocs) => {
-		return $userDocs.flatMap(
-			user =>
-				(user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet || [])
-					.map(anim => ({
-						...anim,
-						source: 'user',
-						user: user.id,
-					})) as ArrayAnimationSet,
-		);
+	let animationsList: Readable<ArrayAnimationSet> = readable([]);
+	onMount(() => {
+		// Delaying the importing because game.users is not available at the time.
+		// TODO: This can definitely be done better.
+		import('./variables').then((module) => {
+			animationsList = module.animationsList;
+		});
 	});
 
-	const core = derived(
-		AnimCore.animationsStore,
-		$animations =>
-			Array.from($animations).map(([key, data]) => ({
-				name: deslugify(key),
-				source: 'core',
-				data,
-			})) as ArrayAnimationSet,
-	);
-
-	const world = derived(
-		window.pf2eGraphics.storeSettings.getReadableStore('globalAnimations') as Readable<ArrayAnimationSet>,
-		$animations =>
-			Array.from($animations).map((data: any) => ({
-				key: '',
-				source: 'world',
-				...data,
-			})) as ArrayAnimationSet,
-	);
-
+	// TODO: TJS I pray to you make this mess gone by letting me update to Svelte 5
 	let list: ArrayAnimationSet = [];
-
-	$: list = $core
-		// .concat($modules)
-		.concat($world)
-		.concat($usersFlags)
+	$: list = $animationsList
 		.filter(item => item.name !== '_tokenImages')
 		.filter(
 			item =>
@@ -82,15 +53,13 @@
 		log('Open Animation', data);
 	}
 
-	// Context Menu
-	import { TJSContextMenu } from '#standard/application/menu';
-
 	function contextMenu(event: MouseEvent) {
 		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
 		const coordinates = {
 			y: Math.ceil(bounds.bottom + 1 || 0),
 			x: Math.ceil(bounds.left + 1 || 0),
 		};
+
 		TJSContextMenu.create({
 			id: 'pf2e-g pf2e-graphics-context',
 			event,
@@ -147,6 +116,7 @@
 	{#each list as item}
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<li
+			id='pf2e-g-{item.source}-{item.key}'
 			tabindex='-1'
 			on:click={() => openAnimation(item)}
 			on:contextmenu={contextMenu}

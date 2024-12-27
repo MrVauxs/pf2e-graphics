@@ -16,7 +16,7 @@
 				{
 					name,
 					data: [],
-					key: '',
+					key: game.pf2e.system.sluggify(name),
 					source: 'world',
 				},
 			];
@@ -27,7 +27,7 @@
 					name,
 					user: game.userId,
 					data: [],
-					key: '',
+					key: game.pf2e.system.sluggify(name),
 					source: 'user',
 				},
 			]);
