@@ -23,7 +23,7 @@
 		<input
 			bind:value={name}
 			type='text'
-			class='basis-2/3 capitalize'
+			class='basis-2/3'
 			placeholder={i18n(
 				'pf2e-graphics.sidebar.animationSets.create.animationSet.popup.fields.name.placeholder',
 				{ type: i18n(`pf2e-graphics.presetTypes.${type}`) },
