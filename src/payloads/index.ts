@@ -50,10 +50,13 @@ export async function decodePayload(payload: Payload, data: GameData): Promise<D
 		return { type: 'null' };
 	}
 	if (payload.type === 'macro') {
-		return {
-			type: 'sequence',
-			data: new Sequence().macro(payload.document, { ...context, ...payload.options }),
-		};
+		if (payload.everyoneExecutes || game.userId === data.user) {
+			return {
+				type: 'sequence',
+				data: new Sequence().macro(payload.document, { ...context, ...payload.options }),
+			};
+		}
+		return { type: 'null' };
 	}
 
 	throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {

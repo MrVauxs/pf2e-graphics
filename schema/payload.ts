@@ -17,6 +17,12 @@ const payload = z
 			.object({
 				type: z.literal('macro'),
 				document: UUID.describe('The UUID of the macro to be executed.'),
+				everyoneExecutes: z
+					.literal(true)
+					.optional()
+					.describe(
+						'By default, only the triggering user executes the macro. If you\'d like every logged-in user to execute the macro, enable this option.',
+					),
 				options: z
 					.object({})
 					.optional()

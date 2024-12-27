@@ -41,7 +41,7 @@ export async function executeCrosshair(
 		if (payload.template.type === 'token') {
 			crosshair.t = CONST.MEASURED_TEMPLATE_TYPES.CIRCLE;
 
-			// Assume square token because *why* would you do that in Pf2e 😡
+			// Assume square token because *why* would you not do that in Pf2e 😡
 			const tokenGridSpaces
 				= (positionToArgument(payload.template.relativeTo, data) as Token).getSize().height
 				/ canvas.grid.size;
