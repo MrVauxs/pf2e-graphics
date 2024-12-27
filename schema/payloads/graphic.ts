@@ -378,7 +378,7 @@ export const graphicPayload = effectOptions
 						}
 					})
 					.describe(
-						'Configures where and how the graphic should be placed.\n`"type": "static"`: sets a constant position for the graphic.\n`"type": "dynamic"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.\n`"type": "screenSpace": Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.',
+						'Configures where and how the graphic should be placed.\n- `"type": "static"`: sets a constant position for the graphic.\n- `"type": "dynamic"`: \'attaches\' the graphic onto a placeable (e.g. token, template), so that the graphic moves with the placeable.\n- `"type": "screenSpace"`: Causes the graphic to be displayed in \'screen space\' rather than within Foundry\'s \'canvas space\'. This means that the graphic is rendered with respect to the screen or viewport, rather than a particular point on the scene.',
 					),
 			)
 			.min(1)
@@ -452,7 +452,7 @@ export const graphicPayload = effectOptions
 							.literal(true)
 							.optional()
 							.describe(
-								'By default, the graphic is scaled in the x- and y-axes independently, potentially causing a squished presentation for non-square placeables. By setting this to `true`, the graphic\'s largest dimension is scaled to match the placeable, and the graphic\'s other dimension is scaled to retain the same aspect-ratio.',
+								'By default, the graphic is scaled in the x- and y-axes independently, potentially causing a squished presentation for non-square placeables. By setting this to `true`, the graphic\'s largest dimension is scaled to match the placeable, and the graphic\'s other dimension is scaled to retain the same aspect-ratio. This is especially useful if you\'re placing a non-square graphic \'on top of\' a token.',
 							),
 						useTokenSpace: z
 							.literal(true)
@@ -770,7 +770,7 @@ export const graphicPayload = effectOptions
 			.enum(['canvas', 'tokenPrototype'])
 			.optional()
 			.describe(
-				'Causes the graphic to become permanent. Unless the graphic uses either `name` (so another effect can `remove` it) or `tieToDocuments`, a persistent graphic can only be removed manually via the Effect Manager.\n`"canvas"`: persists the graphic on the canvas.\n`"tokenPrototype"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
+				'Causes the graphic to become permanent. Unless the graphic uses either `name` (so another effect can `remove` it) or `tieToDocuments`, a persistent graphic can only be removed manually via the Effect Manager.\n- `"canvas"`: persists the graphic on the canvas.\n- `"tokenPrototype"`: if the graphic is linked to a token, the graphic becomes persistent on that token\'s prototype data.',
 			),
 		varyProperties: z
 			.array(
