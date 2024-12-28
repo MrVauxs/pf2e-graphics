@@ -145,7 +145,7 @@
 				'
 			>
 				{#if item.source === 'module'}
-					<i data-tooltip={i18n('pf2e-graphics.scopes.full.module')} class='fas fa-cubes'></i>
+					<i data-tooltip={i18n('pf2e-graphics.scopes.full.module')} class='fas fa-cube'></i>
 				{:else if item.source === 'user'}
 					<span
 						class='
