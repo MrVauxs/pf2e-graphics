@@ -4,14 +4,25 @@ import type { ActorPF2e, UserPF2e } from 'foundry-pf2e';
 
 /* eslint-disable no-console */
 
+interface NotifyOptions {
+	/** Should the notification be permanently displayed until dismissed */
+	permanent?: boolean;
+	/** to localize the message content before displaying it */
+	localize?: boolean;
+	/** Whether to log the message to the console */
+	console?: boolean;
+	/** Extra data to send to the console. */
+	data?: unknown;
+}
+
 /**
  * A convenience `Error` class that emits formatted error messages both to console and Foundry's UI.
  *
  * TODO: (Fall Cleaning) Move to $lib
  */
 export class ErrorMsg extends Error {
-	constructor(message: string) {
-		super(HTMLToMarkdown(message));
+	constructor(message: string, options?: ErrorOptions) {
+		super(HTMLToMarkdown(message), options);
 	}
 
 	/**
@@ -20,10 +31,10 @@ export class ErrorMsg extends Error {
 	 * @param format Handlebars formatting object. For instance, `message: "Hello {name}!"` and `format: { name: "Monsieur Vauxs" }` returns a string of `"Hello Monsieur Vauxs!"`.
 	 * @returns An `Error` object.
 	 */
-	static send(message: string, format?: Record<string, string>) {
+	static send(message: string, format?: Record<string, string>, options?: ErrorOptions & NotifyOptions) {
 		const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
-		ui.notifications.error(i18nedMessage);
-		return new this(i18nedMessage);
+		ui.notifications.error(i18nedMessage, options);
+		return new this(i18nedMessage, options);
 	}
 }
 
@@ -62,17 +73,28 @@ export function log(...args: any) {
 	if (dev) console.log(`[%cPF2e Graphics%c]`, 'color: yellow', '', ...args);
 }
 
-/** Fires `ui.notifications.notify()` but with the module name prepended. */
-export function notify(message: string) {
-	ui.notifications.notify(`PF2e Graphics | ${i18n(message)}`);
+/** Fires `ui.notifications.info()` but with the module name prepended. I18n is always called in `message`. */
+export function info(message: string, format?: Record<string, string>, options?: NotifyOptions) {
+	const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
+	ui.notifications.info(i18nedMessage, { ...options, console: false });
+	if (options?.console !== false) console.info(HTMLToMarkdown(i18nedMessage), options?.data ?? ' ');
 }
 
-/** Fires `ui.notifications.warn()` but with the module name prepended. */
-export function warn(message: string) {
-	ui.notifications.warn(`PF2e Graphics | ${i18n(message)}`);
+/** Fires `ui.notifications.warn()` but with the module name prepended. I18n is always called in `message`. */
+export function warn(message: string, format?: Record<string, string>, options?: NotifyOptions) {
+	const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
+	ui.notifications.warn(i18nedMessage, { ...options, console: false });
+	if (options?.console !== false) console.warn(HTMLToMarkdown(i18nedMessage), options?.data ?? ' ');
 }
 
-export function i18n(code: string, format?: any) {
+/** Fires `ui.notifications.error()` but with the module name prepended. I18n is always called in `message`. */
+export function error(message: string, format?: Record<string, string>, options?: NotifyOptions & ErrorOptions) {
+	const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
+	ui.notifications.error(i18nedMessage, { ...options, console: false });
+	if (options?.console !== false) console.error(HTMLToMarkdown(i18nedMessage), options?.data ?? ' ', options?.cause ?? ' ');
+}
+
+export function i18n(code: string, format?: Record<string, string>) {
 	if (code.startsWith('pf2e-graphics')) return game.i18n.format(code, format);
 
 	if (game.i18n.format(code, format) !== code) return game.i18n.format(code, format);
