@@ -1,13 +1,5 @@
 import type { ArrayAnimationSet } from './extensions';
-
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
-import { writable } from 'svelte/store';
-import { AnimCore } from './storage/AnimCore';
-
-Object.assign(window, {
-	pf2eGraphics: { modules: {}, AnimCore, history: writable([]), locations: writable([]) },
-	AnimCore,
-});
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
 export type storeSettingsType = typeof storeSettings;
@@ -203,7 +195,7 @@ function devSettings() {
 	] as const;
 }
 
-Hooks.once('init', () => {
+export function initSettings() {
 	storeSettings.registerAll(settingsData, true);
 	storeSettings.registerAll(devSettings(), true);
 
@@ -211,4 +203,4 @@ Hooks.once('init', () => {
 
 	window.pf2eGraphics.liveSettings = settings;
 	window.pf2eGraphics.storeSettings = storeSettings;
-});
+}

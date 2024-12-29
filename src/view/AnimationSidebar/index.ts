@@ -2,7 +2,7 @@
 import { FVTTSidebarControl } from '@typhonjs-fvtt/standard/application/control/sidebar';
 import AnimationSidebar from './Sidebar.svelte';
 
-Hooks.on('init', () => {
+export function initSidebar() {
 	FVTTSidebarControl.add({
 		id: 'graphics',
 		beforeId: 'cards',
@@ -20,7 +20,7 @@ Hooks.on('init', () => {
 	FVTTSidebarControl.wait().then(() => {
 		$('.graphics-sidebar').addClass('flexcol directory pf2e-g');
 	});
-});
+};
 
 Hooks.once('renderSidebar', () => {
 	const noCards = window.pf2eGraphics.liveSettings.cardsGone;

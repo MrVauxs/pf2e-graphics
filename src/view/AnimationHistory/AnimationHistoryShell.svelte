@@ -60,7 +60,7 @@
 									<i
 										data-tooltip={entry.animations.length > 1
 											? i18n('pf2e-graphics.history.window.data.count.many', {
-												count: entry.animations.length,
+												count: String(entry.animations.length),
 											})
 											: entry.animations.length === 1
 											? i18n('pf2e-graphics.history.window.data.count.one')

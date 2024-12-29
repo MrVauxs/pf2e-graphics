@@ -1,7 +1,6 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
 import type { TokenOrDoc } from '../extensions';
-import type { liveSettings, storeSettingsType } from '../settings.ts';
-import { get, writable, type Writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 import {
 	type AnimationSet,
 	type AnimationSetsObject,
@@ -17,6 +16,7 @@ import {
 	dev,
 	devLog,
 	ErrorMsg,
+	info,
 	log,
 	mergeObjectsConcatArrays,
 	nonNullable,
@@ -34,71 +34,38 @@ export type JSONMap = Map<string, string | AnimationSet[]>;
  *
  * @todo `unfoldAnimationSets()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> &
-	Required<Pick<AnimationSet, 'execute'>>;
+export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> & Required<Pick<AnimationSet, 'execute'>>;
 
 export interface AnimationHistoryObject {
 	timestamp: number;
 	rollOptions: string[];
-	trigger: Trigger | Trigger[];
+	trigger: Trigger;
 	animations: ExecutableAnimation[];
 	actor: { name: string; uuid: string };
 	item?: { name: string; uuid: string };
 	user?: { name: string; id: string };
 }
 
-declare global {
-	interface Window {
-		pf2eGraphics: pf2eGraphics;
-		AnimCore: typeof AnimCore;
-	}
-	interface pf2eGraphics {
-		socket: SocketlibSocket;
-		modules: ModuleDataObject;
-		AnimCore: typeof AnimCore;
-		liveSettings: liveSettings;
-		storeSettings: storeSettingsType;
-		history: Writable<AnimationHistoryObject[]>;
-		locations: Writable<{ name: string; location: object }[]>;
-	}
-}
-
 export let AnimCore = class AnimCore {
+	constructor() {
+		this.animationsStore.subscribe(val => this.animations = val);
+	}
+
 	// #region Data Retrieval
 	/**
 	 * Returns raw animation data, with contents, references, etc.
 	 */
-	static getAnimations(): JSONMap {
-		// Sort "pf2e-graphics" module to be the first one, so everyone overrides it
+	animations: JSONMap = new Map();
+
+	animationsStore = derived(window.pf2eGraphics.modules, (modules) => {
 		return new Map(
-			Object.keys(window.pf2eGraphics.modules)
+			Array.from(modules.keys())
 				.sort((a, b) => (a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0))
-				.flatMap(key => Object.entries(window.pf2eGraphics.modules[key])),
+				.flatMap(key => Object.entries(modules.get(key) || {})),
 		);
-	}
+	});
 
-	static updateAnimations() {
-		this.animationsStore.set(this.getAnimations());
-		this.keysStore.set(this.getKeys());
-	}
-
-	static animationsStore: Writable<JSONMap> = writable(new Map());
-
-	static get animations(): JSONMap {
-		return get(this.animationsStore);
-	}
-
-	static getKeys(): string[] {
-		return Array.from(this.animations.keys()).filter(x => !x.startsWith('_'));
-	}
-
-	static keysStore: Writable<string[]> = writable(this.getKeys());
-
-	static get keys(): string[] {
-		return get(this.keysStore);
-	}
-
-	static getTokenImages() {
+	getTokenImages() {
 		// We can just handily assume that this is real :)
 		return ((this.animations.get('_tokenImages') ?? []) as unknown as TokenImage[])
 			.filter(x => (x?.requires ? !!game.modules.get(x.requires) : true))
@@ -166,14 +133,6 @@ export let AnimCore = class AnimCore {
 		});
 	}
 
-	static CONST = {
-		PAYLOAD_TYPES: payloadTypeList,
-		TRIGGERS: triggerList,
-	};
-
-	static addNewAnimation(data: AnimationSetsObject, overwrite = true) {
-		return foundry.utils.mergeObject(window.pf2eGraphics.modules, data, { overwrite });
-	}
 	// #endregion
 
 	// #region Method 0.10
@@ -187,7 +146,7 @@ export let AnimCore = class AnimCore {
 	 *
 	 * Exit.
 	 */
-	static animate(
+	animate(
 		{
 			trigger,
 			rollOptions,
@@ -214,18 +173,19 @@ export let AnimCore = class AnimCore {
 		if (!actor) return log('No actor found! Aborting.');
 		if (!sources) return log('No source token found on the active scene! Aborting.');
 
-		rollOptions = this.prepRollOptions(rollOptions);
+		rollOptions = AnimCore.prepRollOptions(rollOptions);
 
-		const allAnimations = AnimCore.retrieve(rollOptions, item, actor).animations;
-		const foundAnimations = AnimCore.search(
+		const allAnimations = this.retrieve(rollOptions, item, actor).animations;
+		const foundAnimations = this.search(
 			rollOptions,
 			[trigger],
-			new Map(Object.entries(allAnimations as AnimationSetsObject)), // Technically false, but we can ignore `_tokenImages` here
+			allAnimations,
 		);
 		const appliedAnimations = Object.values(foundAnimations).map(x =>
 			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
 		);
-		this.createHistoryEntry({
+
+		AnimCore.createHistoryEntry({
 			rollOptions,
 			actor,
 			animations: appliedAnimations.flat(),
@@ -242,11 +202,11 @@ export let AnimCore = class AnimCore {
 	 * Retrieves all available animations from the item, actor, user, world, settings, etc.
 	 * These animations are RAW.
 	 */
-	static retrieve(
-		rollOptions: string[] = [],
+	retrieve(
+		_rollOptions: string[] = [],
 		item?: ItemPF2e<any> | null,
-		actor: ActorPF2e<any> | null | undefined = item?.actor,
-	): { animations: ModuleDataObject; sources: Record<string, string[]> } {
+		_actor: ActorPF2e<any> | null | undefined = item?.actor,
+	): { animations: JSONMap; sources: Record<string, string[]> } {
 		const obj = {
 			animations: {},
 			sources: {},
@@ -256,36 +216,25 @@ export let AnimCore = class AnimCore {
 			Otherwise, default to whoever is first.
 		*/
 		// const owners = actor ? getPlayerOwners(actor) : [game.user];
-		const actorOrigin = item?.isOfType('condition', 'effect') ? item.origin : null;
+		// const actorOrigin = item?.isOfType('condition', 'effect') ? item.origin : null;
 
-		const itemOriginId = rollOptions
-			.find(x => x.includes('origin:item:id:'))
-			?.split(':')
-			.at(-1);
-		const itemOrigin = actorOrigin?.items.get(itemOriginId || '');
+		// const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1);
+		// const itemOrigin = actorOrigin?.items.get(itemOriginId || '');
 
 		// Get all the flags.
 		// TODO: Convert flags to arrays, and then from those arrays to objects here.
 		// const userKeys = owners
 		//	.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
 		//	.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
-		const actorOriginKeys = actorOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		// const actorOriginKeys = actorOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		// const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		// const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		// const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
 
 		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > World > External modules > PF2e Graphics itself
-		obj.animations = {
-			...Object.fromEntries(AnimCore.animations.entries()),
-			// ...{external module stuff in here idk}
-			// ...window.pf2eGraphics.liveSettings.globalAnimations,
-			// ...userKeys,
-			...actorOriginKeys,
-			...itemOriginKeys,
-			...actorKeys,
-			...itemKeys,
-		} as ReturnType<typeof this.getAnimations>;
+		obj.animations = this.animations;
 
+		/* Nobody cares for now
 		obj.sources = {
 			core: AnimCore.keys,
 			// module: idk,
@@ -296,9 +245,12 @@ export let AnimCore = class AnimCore {
 			itemOrigin: Object.keys(itemOriginKeys),
 			actor: Object.keys(itemKeys),
 			item: Object.keys(itemKeys),
-		} as const;
+		} as const; */
 
-		return obj;
+		return {
+			animations: this.animations,
+			sources: {},
+		};
 	}
 
 	/**
@@ -306,10 +258,10 @@ export let AnimCore = class AnimCore {
 	 * Checks the rollOptions against provided animations and outputs whatever matches.
 	 * Meant to be used in conjunction with retrieve() for the second parameter.
 	 */
-	static search(
+	search(
 		rollOptions: string[],
 		triggers: string[] = [],
-		animationData: JSONMap = AnimCore.animations,
+		animationData: JSONMap = this.animations,
 	): Record<string, ExecutableAnimation[]> {
 		const unfoldedAnimationSets: [string, ReturnType<typeof unfoldAnimationSets>][] = [];
 
@@ -495,7 +447,7 @@ export let AnimCore = class AnimCore {
 	/**
 	 * Animations in, Sequences out.
 	 */
-	static async play(
+	async play(
 		rawAnimationSets: ExecutableAnimation[][],
 		sources: TokenOrDoc[],
 		targets?: (TokenOrDoc | string | Point)[],
@@ -576,21 +528,13 @@ export let AnimCore = class AnimCore {
 	// #endregion
 };
 
-Hooks.once('ready', () => {
-	if (!game.modules.get('pf2e-modifiers-matter')?.active)
-		// @ts-expect-error Modifiers Matter Safeguards
-		AnimCore.CONST.TRIGGERS = AnimCore.CONST.TRIGGERS.filter(x => x !== 'modifiers-matter');
-});
-
 // HMR
 if (import.meta.hot) {
 	import.meta.hot.accept((newModule) => {
-		if (newModule) {
-			AnimCore = newModule?.AnimCore;
-			window.pf2eGraphics.AnimCore = newModule?.AnimCore;
-			window.AnimCore = newModule?.AnimCore;
-			AnimCore.updateAnimations();
-			ui.notifications.info('AnimCore updated!');
+		if (newModule && newModule.AnimCore) {
+			AnimCore = newModule.AnimCore;
+			window.pf2eGraphics.AnimCore = new newModule.AnimCore();
+			info('pf2e-graphics.load.notify.AnimCoreUpdated');
 		}
 	});
 }

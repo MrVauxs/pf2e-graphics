@@ -8,7 +8,16 @@
 	let element: HTMLElement;
 	let toggle = false;
 
-	$: if (toggle) game.tooltip.activate(element, { text: i18n('PLAYLIST.VOLUME.TOOLTIP', { volume: Math.round($volume * 100) }) });
+	$: if (toggle) {
+		game.tooltip.activate(
+			element,
+			{
+				text: i18n('PLAYLIST.VOLUME.TOOLTIP', {
+					volume: String(Math.round($volume * 100)),
+				}),
+			},
+		);
+	}
 </script>
 
 <div class='pf2e-g'>

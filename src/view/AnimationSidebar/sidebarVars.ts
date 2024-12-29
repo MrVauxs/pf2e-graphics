@@ -1,7 +1,6 @@
 import type { ArrayAnimationSet } from 'src/extensions';
 import type { Readable } from 'svelte/store';
 import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
-import { AnimCore } from 'src/storage/AnimCore';
 import { deslugify } from 'src/utils';
 import { derived } from 'svelte/store';
 
@@ -19,7 +18,7 @@ const users: Readable<ArrayAnimationSet> = derived(userDocs, ($userDocs) => {
 });
 
 const core: Readable<ArrayAnimationSet> = derived(
-	AnimCore.animationsStore,
+	window.pf2eGraphics.AnimCore.animationsStore,
 	$animations =>
 		Array.from($animations).map(([key, data]) => ({
 			name: deslugify(key),

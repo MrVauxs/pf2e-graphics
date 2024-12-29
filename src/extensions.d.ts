@@ -1,6 +1,9 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
+import type { Writable } from 'svelte/store';
 import type { ModuleDataObject } from '../schema';
+import type { liveSettings } from './settings';
+import type { AnimationHistoryObject, AnimCore } from './storage/AnimCore';
 
 export type CombinedSvelteApplicationOptions = ApplicationOptions & SvelteApplicationOptions;
 
@@ -42,6 +45,16 @@ export type moduleFlags = undefined | {
 };
 
 declare global {
+	interface pf2eGraphics {
+		socket: SocketlibSocket;
+		modules: Writable<Map<string, ModuleDataObject>>;
+		AnimCore: InstanceType<typeof AnimCore>;
+		liveSettings: liveSettings;
+		storeSettings: storeSettingsType;
+		history: Writable<AnimationHistoryObject[]>;
+		locations: Writable<{ name: string; location: object }[]>;
+	}
+
 	class TextureTransitionFilter extends AbstractBaseFilter {
 		/** Transition types for this shader. */
 		static get TYPES(): {
@@ -71,6 +84,7 @@ declare global {
 		CanvasAnimation;
 		ImagePopout;
 		TextureTransitionFilter: typeof TextureTransitionFilter;
+		pf2eGraphics: pf2eGraphics;
 	}
 }
 
