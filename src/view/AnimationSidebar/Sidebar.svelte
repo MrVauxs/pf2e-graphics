@@ -4,29 +4,31 @@
 	import { TJSContextMenu } from '#standard/application/menu';
 	import { i18n, log } from 'src/utils';
 	import { onMount } from 'svelte';
-	import { derived, readable, type Readable } from 'svelte/store';
+	import { derived, readable, type Readable, writable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
 	import { copyAnimation, removeAnimation } from './sidebarFunctions';
 	import { initVariables } from './sidebarVars';
 
-	let search = '';
+	const search = writable('');
+
 	let list: Readable<ArrayAnimationSet> = readable([]);
+	const unhook = Hooks.on('pf2eGraphicsReady', () => assignDerivedToList());
+	onMount(() => {
+		if (window.pf2eGraphics.AnimCore.ready) assignDerivedToList();
+		// Return on onMount = onDismount
+		return () => Hooks.off('pf2eGraphicsReady', unhook);
+	});
 
-	// TODO: TJS I pray to you make this mess gone by letting me update to Svelte 5
-
-	const unhook = Hooks.on('pf2eGraphicsReady', () => {
-		list = derived(initVariables(), vars => vars
+	function assignDerivedToList() {
+		list = derived([initVariables(), search], ([vars, $search]) => vars
 			.filter(item => item.name !== '_tokenImages')
 			.filter(
 				item =>
-					item.name.toLowerCase().includes(search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes(search.toLowerCase()) : false),
+					item.name.toLowerCase().includes($search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes($search.toLowerCase()) : false),
 			)
 			.sort((a, b) => a.name.localeCompare(b.name))
 			.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1));
-	});
-
-	// Return on onMount = onDismount
-	onMount(() => () => Hooks.off('pf2eGraphicsReady', unhook));
+	}
 
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
@@ -110,7 +112,7 @@
 	<div class='header-search flexrow pl-1'>
 		<i class='fas fa-search'></i>
 		<input
-			bind:value={search}
+			bind:value={$search}
 			type='search'
 			name='search'
 			aria-label={i18n('pf2e-graphics.sidebar.animationSets.search.label')}

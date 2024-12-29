@@ -43,9 +43,12 @@ export interface AnimationHistoryObject {
 }
 
 export let AnimCore = class AnimCore {
+	ready = false;
+
 	static init() {
 		window.pf2eGraphics.AnimCore = new AnimCore();
 		Hooks.callAll('pf2eGraphicsReady');
+		window.pf2eGraphics.AnimCore.ready = true;
 	}
 
 	// #region Data Retrieval
@@ -55,16 +58,14 @@ export let AnimCore = class AnimCore {
 	animations: JSONMap = new Map();
 
 	animationsStore = derived(window.pf2eGraphics.modules, (modules) => {
-		return new Map(
+		const map = new Map(
 			Array.from(modules.keys())
 				.sort((a, b) => (a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0))
 				.flatMap(key => Object.entries(modules.get(key) || {})),
 		);
+		this.animations = map;
+		return map;
 	});
-
-	constructor() {
-		this.animationsStore.subscribe(val => this.animations = val);
-	}
 
 	getTokenImages() {
 		// We can just handily assume that this is real :)
