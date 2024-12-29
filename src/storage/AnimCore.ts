@@ -1,15 +1,11 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
+import type {
+	AnimationSet,
+	TokenImage,
+	Trigger,
+} from '../../schema';
 import type { TokenOrDoc } from '../extensions';
 import { derived } from 'svelte/store';
-import {
-	type AnimationSet,
-	type AnimationSetsObject,
-	type ModuleDataObject,
-	payloadTypeList,
-	type TokenImage,
-	type Trigger,
-	triggerList,
-} from '../../schema';
 import { decodePayload } from '../payloads/index.ts';
 import {
 	dedupeStrings,
