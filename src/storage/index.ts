@@ -37,7 +37,7 @@ export async function loadAnimations() {
 		}
 	}
 
-	window.pf2eGraphics.AnimCore = new AnimCore();
+	AnimCore.init();
 };
 
 if (import.meta.hot) {

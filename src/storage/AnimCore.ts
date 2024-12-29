@@ -43,13 +43,14 @@ export interface AnimationHistoryObject {
 }
 
 export let AnimCore = class AnimCore {
-	constructor() {
-		this.animationsStore.subscribe(val => this.animations = val);
+	static init() {
+		window.pf2eGraphics.AnimCore = new AnimCore();
+		Hooks.callAll('pf2eGraphicsReady');
 	}
 
 	// #region Data Retrieval
 	/**
-	 * Returns raw animation data, with contents, references, etc.
+	 * Raw animation data, with contents, references, etc.
 	 */
 	animations: JSONMap = new Map();
 
@@ -60,6 +61,10 @@ export let AnimCore = class AnimCore {
 				.flatMap(key => Object.entries(modules.get(key) || {})),
 		);
 	});
+
+	constructor() {
+		this.animationsStore.subscribe(val => this.animations = val);
+	}
 
 	getTokenImages() {
 		// We can just handily assume that this is real :)
@@ -529,7 +534,7 @@ if (import.meta.hot) {
 	import.meta.hot.accept((newModule) => {
 		if (newModule && newModule.AnimCore) {
 			AnimCore = newModule.AnimCore;
-			window.pf2eGraphics.AnimCore = new newModule.AnimCore();
+			newModule.AnimCore.init();
 			info('pf2e-graphics.load.notify.AnimCoreUpdated');
 		}
 	});

@@ -16,7 +16,7 @@ Object.assign(window, {
 	},
 });
 
-Hooks.once('init', () => {
+Hooks.once('setup', () => {
 	initSettings();
 	initSidebar();
 });

@@ -4,31 +4,29 @@
 	import { TJSContextMenu } from '#standard/application/menu';
 	import { i18n, log } from 'src/utils';
 	import { onMount } from 'svelte';
-	import { readable, type Readable } from 'svelte/store';
+	import { derived, readable, type Readable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
 	import { copyAnimation, removeAnimation } from './sidebarFunctions';
+	import { initVariables } from './sidebarVars';
 
 	let search = '';
-
-	let animationsList: Readable<ArrayAnimationSet> = readable([]);
-	onMount(() => {
-		// Delaying the importing because game.users is not available at the time.
-		// TODO: This can definitely be done better.
-		import('./sidebarVars').then((module) => {
-			animationsList = module.animationsList;
-		});
-	});
+	let list: Readable<ArrayAnimationSet> = readable([]);
 
 	// TODO: TJS I pray to you make this mess gone by letting me update to Svelte 5
-	let list: ArrayAnimationSet = [];
-	$: list = $animationsList
-		.filter(item => item.name !== '_tokenImages')
-		.filter(
-			item =>
-				item.name.toLowerCase().includes(search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes(search.toLowerCase()) : false),
-		)
-		.sort((a, b) => a.name.localeCompare(b.name))
-		.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1);
+
+	const unhook = Hooks.on('pf2eGraphicsReady', () => {
+		list = derived(initVariables(), vars => vars
+			.filter(item => item.name !== '_tokenImages')
+			.filter(
+				item =>
+					item.name.toLowerCase().includes(search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes(search.toLowerCase()) : false),
+			)
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1));
+	});
+
+	// Return on onMount = onDismount
+	onMount(() => () => Hooks.off('pf2eGraphicsReady', unhook));
 
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
@@ -122,7 +120,7 @@
 	</div>
 </header>
 <ol class='directory-list'>
-	{#each list as item}
+	{#each $list as item}
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<li
 			id='pf2e-g-{item.source}-{item.key}'
