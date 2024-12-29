@@ -1,5 +1,6 @@
 import type { ArrayAnimationSet } from 'src/extensions';
 import { ErrorMsg } from 'src/utils';
+import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 
 function addToWorld(animation: ArrayAnimationSet[number]) {
 	window.pf2eGraphics.liveSettings.globalAnimations = [
@@ -98,4 +99,8 @@ export function removeAnimation(animation: ArrayAnimationSet[number]) {
 			removeFromCurrentUser(animation);
 			break;
 	}
+}
+
+export function openAnimation(animation: ArrayAnimationSet[number]) {
+	new AnimationDocumentApp({ animation }).render(true);
 }

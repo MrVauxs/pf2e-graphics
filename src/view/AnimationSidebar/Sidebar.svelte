@@ -2,11 +2,11 @@
 	import type { ArrayAnimationSet } from 'src/extensions';
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSContextMenu } from '#standard/application/menu';
-	import { i18n, log } from 'src/utils';
+	import { i18n } from 'src/utils';
 	import { onMount } from 'svelte';
 	import { derived, readable, type Readable, writable } from 'svelte/store';
 	import CreateAnimation from './CreateAnimation.svelte';
-	import { copyAnimation, removeAnimation } from './sidebarFunctions';
+	import { copyAnimation, openAnimation, removeAnimation } from './sidebarFunctions';
 	import { initVariables } from './sidebarVars';
 
 	const search = writable('');
@@ -49,10 +49,6 @@
 				width: 300,
 			},
 		).render(true, { focus: true });
-	}
-
-	function openAnimation(data: any) {
-		log('Open Animation', data);
 	}
 
 	function contextMenu(event: MouseEvent, animation: ArrayAnimationSet[number]) {
