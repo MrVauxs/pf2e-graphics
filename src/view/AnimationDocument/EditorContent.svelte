@@ -6,10 +6,21 @@
 	export let data: AnimationSetItemPartial;
 	export let animation: AnimationSetDocument;
 	export let readonly: boolean;
+	export let sectionArray: number[];
 
 	log(animation);
 
 	let selection: keyof AnimationSetItemPartial = 'name';
+
+	// eslint-disable-next-line prefer-const
+	let upperAnimation = sectionArray.slice(1).slice(0, -1).reduce(
+		(object, index) => {
+			return ({ ...object, ...object.contents![index] });
+		},
+		animation.animationSets[sectionArray[0]] as AnimationSetItemPartial,
+	);
+
+	$: log(upperAnimation);
 
 	function addSection() {
 		switch (selection) {

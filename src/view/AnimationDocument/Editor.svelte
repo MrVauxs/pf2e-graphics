@@ -8,14 +8,14 @@
 	export let readonly: boolean;
 
 	let currentSection: number | string = 'details';
-	let sectionSectioned: number[] = [];
-	$: sectionSectioned = String(currentSection).split('.').map(x => Number(x));
+	let sectionArray: number[] = [];
+	$: sectionArray = String(currentSection).split('.').map(x => Number(x));
 
 	let data: AnimationSetItemPartial;
 
-	$: data = sectionSectioned.slice(1).reduce(
+	$: data = sectionArray.slice(1).reduce(
 		(object, index) => object.contents![index],
-		animation.animationSets[sectionSectioned[0]] as AnimationSetItemPartial,
+		animation.animationSets[sectionArray[0]] as AnimationSetItemPartial,
 	);
 </script>
 
@@ -24,8 +24,9 @@
 		w-1/4
 		border border-solid rounded-sm
 		flex flex-col
+		bg-slate-400/10
 	'>
-		<div class='grow overflow-y-auto bg-slate-400/10'>
+		<div class='grow overflow-y-auto '>
 			<section
 				role='button'
 				tabindex='-1'
@@ -81,7 +82,7 @@
 			{#if typeof animation.animationSets === 'string'}
 				References {animation.animationSets}
 			{:else}
-				<EditorContent bind:data={data} {animation} {readonly} />
+				<EditorContent bind:data={data} {animation} {readonly} {sectionArray} />
 			{/if}
 		{/if}
 	</main>
