@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
-	import { log } from 'src/utils';
+	import { ErrorMsg, log } from 'src/utils';
 	import Svelecte from 'svelecte';
 
 	export let data: AnimationSetItemPartial;
@@ -33,6 +33,10 @@
 				data.triggers = [];
 				break;
 			}
+			case 'predicates':{
+				data.predicates = [];
+				break;
+			}
 		}
 	}
 </script>
@@ -52,6 +56,7 @@
 			>
 				<option value='name'>Name</option>
 				<option value='triggers'>Triggers</option>
+				<option value='predicates'>Predicates</option>
 			</select>
 		</header>
 	{/if}
@@ -82,7 +87,7 @@
 			</label>
 		{/if}
 		<!-- #endregion -->
-		<!-- #region Name -->
+		<!-- #region Triggers -->
 		{#if 'triggers' in data}
 			<label class='grid grid-cols-3 items-center'>
 				<span>
@@ -123,6 +128,41 @@
 					<button
 						class='w-min mx-2'
 						on:click={() => { delete data.triggers; data = data; }}
+						disabled={readonly}
+					>
+						<i class='fa fa-trash-can pl-0.5'></i>
+					</button>
+				</div>
+			</label>
+		{/if}
+		<!-- #endregion -->
+
+		<!-- #region Predicates -->
+		{#if 'predicates' in data}
+			<label class='grid grid-cols-3 items-center'>
+				<span>
+					Predicates
+					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Add link to pf2e wiki about roll options'></i>
+				</span>
+				<div class='
+					flex align-middle items-center
+					col-span-2
+					[&_button]:w-min
+				'>
+					<input
+						type='text'
+						value={JSON.stringify(data.predicates)}
+						on:change={(ev) => {
+							try {
+								data.predicates = JSON.parse(ev.currentTarget.value);
+							} catch {
+								ErrorMsg.send('Invalid JSON! Any unsaved progress will be lost.');
+							}
+						}}
+					/>
+					<button
+						class='w-min mx-2'
+						on:click={() => { delete data.predicates; data = data; }}
 						disabled={readonly}
 					>
 						<i class='fa fa-trash-can pl-0.5'></i>
