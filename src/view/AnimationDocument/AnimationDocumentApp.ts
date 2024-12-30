@@ -1,4 +1,5 @@
 import type { AnimationSetDocument, UserAnimationSetDocument } from 'src/extensions';
+import type { Mode } from 'svelte-jsoneditor';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
 import { ErrorMsg, i18n, kofiButton, log } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
@@ -24,11 +25,14 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 			...super.defaultOptions,
 			id: 'pf2e-graphics-document',
 			title: 'pf2e-graphics.document.title',
-			classes: ['pf2e-g'],
+			classes: ['pf2e-g', 'no-window-padding'],
 			resizable: true,
 			width: 800,
 			height: 600,
+
 			readonly: false,
+			tab: 'main',
+			jsonMode: 'text',
 
 			svelte: {
 				class: BasicAppShell,
@@ -100,4 +104,6 @@ export interface BasicAppOptions extends SvelteApp.Options {
 	/** An example of defining additional options */
 	animation: AnimationSetDocument;
 	readonly: boolean;
+	tab?: 'main' | 'json';
+	jsonMode?: Mode;
 }
