@@ -18,11 +18,21 @@
 		p-1
 		shadow-slate-600
 	'>
-	<span>Section {index}</span>
+	<span>
+		{#if section.name}
+			{section.name}
+		{:else}
+			Section {index}
+		{/if}
+	</span>
 	{#if section.contents}
 		<div class='px-2'>
 			{#each section.contents as content, nextIndex}
-				<svelte:self bind:selection={selection} section={content} index={`${index}.${nextIndex}`} />
+				<svelte:self
+					bind:selection={selection}
+					section={content}
+					index={`${index}.${nextIndex}`}
+				/>
 			{/each}
 		</div>
 	{/if}

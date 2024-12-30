@@ -1,11 +1,14 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
+	import { setContext } from 'svelte';
 	import EditorContent from './EditorContent.svelte';
 	import Section from './Section.svelte';
 
 	export let animation: AnimationSetDocument;
 	export let readonly: boolean;
+
+	setContext('graphics', { readonly });
 
 	let currentSection: number | string = 'details';
 	let sectionSectioned: number[] = [];
@@ -70,7 +73,7 @@
 				<label class='grid grid-cols-2 items-center'>
 					<span>
 						Primary Predicate
-						<i class='fa fa-info-circle' data-tooltip='TODO: Explain'></i>
+						<i class='fa fa-info-circle pl-px' data-tooltip='TODO: Explain'></i>
 					</span>
 					<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
 				</label>
@@ -79,7 +82,7 @@
 			{#if typeof animation.animationSets === 'string'}
 				References {animation.animationSets}
 			{:else}
-				<EditorContent {data} {animation}/>
+				<EditorContent bind:data={data} {animation} />
 			{/if}
 		{/if}
 	</main>
