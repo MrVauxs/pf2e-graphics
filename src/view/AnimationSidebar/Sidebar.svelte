@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import type { AnimationSetData } from 'src/extensions';
+	import type { AnimationSetDocument } from 'src/extensions';
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSContextMenu } from '#standard/application/menu';
 	import { i18n } from 'src/utils';
@@ -11,7 +11,7 @@
 
 	const search = writable('');
 
-	let list: Readable<AnimationSetData[]> = readable([]);
+	let list: Readable<AnimationSetDocument[]> = readable([]);
 	const unhook = Hooks.on('pf2eGraphicsReady', () => assignDerivedToList());
 	onMount(() => {
 		if (window.pf2eGraphics.AnimCore.ready) assignDerivedToList();
@@ -25,8 +25,8 @@
 				.filter(item => item.name !== '_tokenImages')
 				.filter(
 					item =>
-						(typeof item.data === 'string'
-							? item.data.toLowerCase().includes($search.toLowerCase())
+						(typeof item.animationSets === 'string'
+							? item.animationSets.toLowerCase().includes($search.toLowerCase())
 							: false) || item.name.toLowerCase().includes($search.toLowerCase()),
 				)
 				.sort((a, b) => a.name.localeCompare(b.name))
@@ -54,7 +54,7 @@
 		).render(true, { focus: true });
 	}
 
-	function contextMenu(event: MouseEvent, animation: AnimationSetData) {
+	function contextMenu(event: MouseEvent, animation: AnimationSetDocument) {
 		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
 		const coordinates = {
 			y: Math.ceil(bounds.bottom + 1 || 0),
@@ -162,13 +162,13 @@
 			<header class='leading-[3rem]'>
 				{item.name}
 				<span class='text-xs align-sub'>
-					{#if !item.data || !item.data.length}
+					{#if !item.animationSets || !item.animationSets.length}
 						<i>{i18n('pf2e-graphics.sidebar.animationSets.list.empty')}</i>
 					{/if}
 				</span>
 			</header>
 
-			{#if typeof item.data === 'string'}
+			{#if typeof item.animationSets === 'string'}
 				<footer
 					class='
 						absolute right-0 bottom-0

@@ -24,22 +24,44 @@ declare module 'svelte' {
 	export function setContext<T extends keyof Context, K extends Context[T]>(key: T, context: K): void;
 }
 
-export type AnimationSetData =
-	| {
-		id: string;
-		name: string;
-		source: 'world' | 'module';
-		data: string | AnimationSet[];
-		rollOption: string;
-	}
-	| {
-		id: string;
-		name: string;
-		source: 'user';
-		user: string;
-		data: string | AnimationSet[];
-		rollOption: string;
-	};
+/**
+ * The document format for an animation set in the module scope.
+ */
+export interface ModuleAnimationSetDocument {
+	source: 'module';
+	module: string;
+	name: string;
+	rollOption: string;
+	animationSets: string | AnimationSet[];
+}
+
+/**
+ * The document format for an animation set in the world scope.
+ */
+export interface WorldAnimationSetDocument {
+	source: 'world';
+	id: string;
+	name: string;
+	rollOption: string;
+	animationSets: string | AnimationSet[];
+}
+
+/**
+ * The document format for an animation set in the user scope.
+ */
+export interface UserAnimationSetDocument {
+	source: 'user';
+	user: string;
+	id: string;
+	name: string;
+	rollOption: string;
+	animationSets: string | AnimationSet[];
+}
+
+/**
+ * The document format for an animation set.
+ */
+export type AnimationSetDocument = ModuleAnimationSetDocument | WorldAnimationSetDocument | UserAnimationSetDocument;
 
 export type TokenOrDoc = TokenDocument | Token;
 

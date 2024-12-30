@@ -1,4 +1,4 @@
-import type { AnimationSetData } from './extensions';
+import type { WorldAnimationSetDocument } from './extensions';
 import { TJSGameSettings, TJSLiveGameSettings } from '#runtime/svelte/store/fvtt/settings';
 
 const storeSettings = new TJSGameSettings('pf2e-graphics');
@@ -9,7 +9,7 @@ let settings: TJSLiveGameSettings & {
 	persistent: boolean;
 	buttonPosition: 0 | 1 | 2;
 	dev: boolean;
-	globalAnimations: AnimationSetData[];
+	globalAnimations: WorldAnimationSetDocument[];
 	suppressWarnings: boolean;
 	volume: number;
 	delay: number;

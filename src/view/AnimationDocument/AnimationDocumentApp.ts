@@ -1,4 +1,4 @@
-import type { AnimationSetData } from 'src/extensions';
+import type { AnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
 import { ErrorMsg, kofiButton } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
@@ -56,5 +56,5 @@ export type BasicAppExternal = SvelteApp.Context.External<AnimationDocumentApp>;
 /** Extended options that you can define. */
 export interface BasicAppOptions extends SvelteApp.Options {
 	/** An example of defining additional options */
-	animation: AnimationSetData;
+	animation: AnimationSetDocument;
 }
