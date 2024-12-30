@@ -1,7 +1,7 @@
 import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
 import type { Writable } from 'svelte/store';
-import type { ModuleDataObject } from '../schema';
+import type { AnimationSet, ModuleDataObject } from '../schema';
 import type { liveSettings } from './settings';
 import type { AnimationHistoryObject, AnimCore } from './storage/AnimCore';
 
@@ -27,14 +27,23 @@ declare module 'svelte' {
 	): void;
 }
 
-export type ArrayAnimationSet = {
-	id: string;
-	name: string;
-	source: 'user' | 'world' | 'module';
-	user?: string;
-	data: string | AnimationSet[];
-	key: string;
-}[];
+export type ArrayAnimationSet = (
+	| {
+		id: string;
+		name: string;
+		source: 'world' | 'module';
+		data: string | AnimationSet[];
+		key: string;
+	}
+	| {
+		id: string;
+		name: string;
+		source: 'user';
+		user: string;
+		data: string | AnimationSet[];
+		key: string;
+	}
+)[];
 
 export type TokenOrDoc = TokenDocument | Token;
 
