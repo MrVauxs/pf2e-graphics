@@ -1,4 +1,4 @@
-import type { AnimationSetDocument } from 'src/extensions';
+import type { AnimationSetDocument, UserAnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
 import { ErrorMsg, i18n, kofiButton, log } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
@@ -41,8 +41,18 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 	}
 
 	async save(_animation: AnimationSetDocument = this.options.animation) {
+		log('Saving data.', _animation);
 		switch (_animation.source) {
 			case 'user': {
+				const user = game.users.get(_animation.user);
+				if (!user) {
+					throw ErrorMsg.send('Can\'t find the assigned animatiions user?!'); // TODO: i18n
+				}
+				const userAnimations = user.getFlag('pf2e-graphics', 'animations') as UserAnimationSetDocument[];
+
+				userAnimations.findSplice((el) => el.id === _animation.id, _animation)
+
+				await user.setFlag('pf2e-graphics', 'animations', userAnimations);
 				break;
 			}
 			case 'world': {
