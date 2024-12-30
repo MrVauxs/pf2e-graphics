@@ -4,14 +4,11 @@
 	import type { Unsubscriber, Writable } from 'svelte/store';
 	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { onDestroy, onMount } from 'svelte';
-	import { JSONEditor, Mode, type ValidationError, ValidationSeverity } from 'svelte-jsoneditor';
-	import { fromZodIssue } from 'zod-validation-error';
-	import { validateAnimationData } from '../../../schema/validation/index';
+	import { JSONEditor, Mode } from 'svelte-jsoneditor';
 
 	export let elementRoot: HTMLElement;
 	export let store: Writable<object>;
 	export let readOnly: boolean;
-	export let validate: boolean;
 	export let stasis: Writable<boolean>;
 
 	let editor: JSONEditor;
@@ -48,16 +45,6 @@
 
 	$: updateUpstream();
 
-	const validator = (json: unknown): ValidationError[] => {
-		const result = validateAnimationData(json);
-		if (result.success) return [];
-		return result.error.issues.map(issue => ({
-			path: issue.path.map(piece => piece.toString()),
-			message: fromZodIssue(issue, { prefix: null, includePath: false }).toString(),
-			severity: ValidationSeverity.error,
-		}));
-	};
-
 	const mode = 'text' as Mode; // TS...
 
 	onMount(() => {
@@ -79,7 +66,7 @@
 
 <ApplicationShell bind:elementRoot>
 	<main class='h-full w-full overflow-clip relative grow'>
-		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} indentation='	' tabSize={3} validator={validate ? validator : undefined} />
+		<JSONEditor bind:content {readOnly} {mode} bind:this={editor} indentation='	' tabSize={3} />
 	</main>
 	{#if !readOnly}
 		<footer class='grow-0'>
