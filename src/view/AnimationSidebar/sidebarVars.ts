@@ -19,12 +19,13 @@ export function initVariables() {
 	const core: Readable<Extract<AnimationSetData, { source: 'module' }>[]> = derived(
 		window.pf2eGraphics.AnimCore.animationsStore,
 		$animations =>
-				name: deslugify(key),
-				source: 'module',
 			Array.from($animations.entries()).map(([rollOption, data]) => ({
-				data,
-			})) as Extract<AnimationSetData, { source: 'module' }>[],
+				source: 'module' as const,
+				module: data.module,
+				name: deslugify(rollOption),
 				rollOption,
+				animationSets: data.animationSets,
+			})),
 	);
 
 	const world: Readable<Extract<AnimationSetData, { source: 'world' }>[]> = derived(

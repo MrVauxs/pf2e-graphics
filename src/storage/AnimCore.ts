@@ -1,9 +1,5 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
-import type {
-	AnimationSet,
-	TokenImage,
-	Trigger,
-} from '../../schema';
+import type { AnimationSet, TokenImage, Trigger } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
 import { derived } from 'svelte/store';
 import { decodePayload } from '../payloads/index.ts';
@@ -19,9 +15,29 @@ import {
 } from '../utils.ts';
 
 /**
- * A reduced copy of `ModuleDataObject`—the complete, merged JSON data available to *PF2e Graphics*—written as a JavaScript `Map`. `_tokenImages` is excluded for simplicity.
+ * A metadata-containing wrapper around the values of `ModuleDataObject` (the complete merged JSON data available to *PF2e Graphics*).
+ *
+ * This metadata includes:
+ * - `module`: the module ID which provided this animation set.
+ *
+ * `_tokenImages` are excluded for simplicity, although *technically* almost anything using this type may possibly encounter `TokenImages` in the `animationSets` property.
  */
-export type JSONMap = Map<string, string | AnimationSet[]>;
+class AnimationSetMetadataWrapper {
+	module: string;
+	animationSets: string | AnimationSet[];
+
+	constructor(animationSets: string | AnimationSet[], metadata: { module: string }) {
+		this.animationSets = animationSets;
+		this.module = metadata.module;
+	}
+}
+
+/**
+ * A functional analogue of `ModuleDataObject`—the complete merged JSON data available to *PF2e Graphics*—with the animation sets wrapped in an object to track which module provides it.
+ *
+ * `_tokenImages` are excluded for simplicity, although *technically* almost anything using this type may possibly access it via `.get('_tokenImages').animationSets`.
+ */
+export type JSONMap = Map<string, AnimationSetMetadataWrapper>;
 
 /**
  * A validated, verified, applicable, unrolled animation set.
@@ -57,12 +73,31 @@ export let AnimCore = class AnimCore {
 	 */
 	animations: JSONMap = new Map();
 
+	private wrapAnimationSets(
+		module: string,
+		animationSets: string | AnimationSet[],
+	): AnimationSetMetadataWrapper {
+		return new AnimationSetMetadataWrapper(animationSets, { module });
+	}
+
 	animationsStore = derived(window.pf2eGraphics.modules, (modules) => {
+		// Initialise a new `Map` with *PF2e Graphics*' data.
 		const map = new Map(
-			Array.from(modules.keys())
-				.sort((a, b) => (a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0))
-				.flatMap(key => Object.entries(modules.get(key) ?? {})),
+			Object.entries(modules.get('pf2e-graphics')!).map(([rollOption, animationSets]) => [
+				rollOption,
+				this.wrapAnimationSets('pf2e-graphics', animationSets),
+			]),
 		);
+
+		// Add each other module's data in turn, overwriting lower-priority data as appropriate.
+		// TODO: `sort()` the `modules` according to module priority settings
+		modules.forEach((moduleDataObject, module) => {
+			if (module === 'pf2e-graphics') return;
+			Object.entries(moduleDataObject).forEach(([rollOption, animationSets]) =>
+				map.set(rollOption, this.wrapAnimationSets(module, animationSets)),
+			);
+		});
+
 		this.animations = map;
 		return map;
 	});
@@ -269,7 +304,7 @@ export let AnimCore = class AnimCore {
 
 		for (const [rollOption, animations] of animationData.entries()) {
 			if (!rollOptions.includes(rollOption)) continue;
-			const animationObjects = parseStrings(animations, rollOption);
+			const animationObjects = parseStrings(animations.animationSets, rollOption);
 			const animationObjectsSansReference = parseReferences(animationObjects, rollOption);
 			const applicableAnimations = filterChildren(animationObjectsSansReference);
 			const unfoldedAnimations = unfoldAnimationSets(applicableAnimations);
@@ -320,7 +355,7 @@ export let AnimCore = class AnimCore {
 			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet);
 			if (typeof animationSet !== 'string')
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.cantFindReference', { rollOption });
-			return parseStrings(animationData.get(animationSet), rollOption, recursionDepth + 1);
+			return parseStrings(animationData.get(animationSet)?.animationSets, rollOption, recursionDepth + 1);
 		}
 
 		/**
@@ -335,7 +370,7 @@ export let AnimCore = class AnimCore {
 		): Omit<AnimationSet, 'reference'>[] {
 			return animations.map((obj) => {
 				if ('reference' in obj) {
-					const ref = parseStrings(animationData.get(obj.reference!)!, rollOption);
+					const ref = parseStrings(animationData.get(obj.reference!)!.animationSets, rollOption);
 
 					// We are asserting that a Reference cannot have contents, otherwise we are mixing two contents at once and pretty much making mixins.
 					obj.contents = ref;
