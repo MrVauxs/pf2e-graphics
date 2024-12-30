@@ -2,6 +2,7 @@
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
 	import { log } from 'src/utils';
+	import Svelecte from 'svelecte';
 
 	export let data: AnimationSetItemPartial;
 	export let animation: AnimationSetDocument;
@@ -26,6 +27,10 @@
 		switch (selection) {
 			case 'name': {
 				data.name = 'Animation Name';
+				break;
+			}
+			case 'triggers':{
+				data.triggers = [];
 				break;
 			}
 		}
@@ -69,6 +74,7 @@
 					<button
 						class='w-min mx-2'
 						on:click={() => { delete data.name; data = data; }}
+						disabled={readonly}
 					>
 						<i class='fa fa-trash-can pl-0.5'></i>
 					</button>
@@ -83,34 +89,41 @@
 					Triggers
 					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Explain'></i>
 				</span>
-				<div class='flex align-middle items-center col-span-2'>
-					<select
-						class='grow checked:[&>option]:bg-red-500/50'
+				<div class='
+					flex align-middle items-center
+					col-span-2
+					[&_button]:w-min
+				'>
+					<Svelecte
+						options={[
+							'attack-roll',
+							'damage-roll',
+							'place-template',
+							'action',
+							'toggle',
+							'effect',
+							'self-effect',
+							'start-turn',
+							'end-turn',
+							'damage-taken',
+							'saving-throw',
+							'check',
+							'skill-check',
+							'flat-check',
+							'initiative',
+							'perception-check',
+							'counteract-check',
+							'modifiers-matter',
+						]}
 						bind:value={data.triggers}
+						disabled={readonly}
+						selectOnTab={true}
 						multiple
-					>
-						<option value='attack-roll'>Attack Roll</option>
-						<option value='damage-roll'>Damage Roll</option>
-						<option value='place-template'>Place Template</option>
-						<option value='action'>Action</option>
-						<option value='toggle'>Toggle</option>
-						<option value='effect'>Effect</option>
-						<option value='self-effect'>Self-Effect</option>
-						<option value='start-turn'>Start of Turn</option>
-						<option value='end-turn'>End of Turn</option>
-						<option value='damage-taken'>Damage Taken</option>
-						<option value='saving-throw'>Saving Throw</option>
-						<option value='check'>Check</option>
-						<option value='skill-check'>Skill Check</option>
-						<option value='flat-check'>Flat Check</option>
-						<option value='initiative'>Initiative</option>
-						<option value='perception-check'>Perception Check</option>
-						<option value='counteract-check'>Counteract Check</option>
-						<option value='modifiers-matter'>Modifiers Matter</option>
-					</select>
+					/>
 					<button
 						class='w-min mx-2'
 						on:click={() => { delete data.triggers; data = data; }}
+						disabled={readonly}
 					>
 						<i class='fa fa-trash-can pl-0.5'></i>
 					</button>
