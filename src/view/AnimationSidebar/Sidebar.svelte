@@ -1,12 +1,10 @@
 <script lang='ts'>
 	import type { AnimationSetDocument } from 'src/extensions';
-	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSContextMenu } from '#standard/application/menu';
 	import { i18n } from 'src/utils';
 	import { onMount } from 'svelte';
 	import { derived, readable, type Readable, writable } from 'svelte/store';
-	import CreateAnimation from './CreateAnimation.svelte';
-	import { copyAnimation, openAnimation, removeAnimation } from './sidebarFunctions';
+	import { copyAnimation, openAnimation, popupCreateAnimation, removeAnimation } from './sidebarFunctions';
 	import { initVariables } from './sidebarVars';
 
 	const search = writable('');
@@ -36,27 +34,6 @@
 	function moduleIDToName(id: string): string {
 		const module = game.modules.get(id)!;
 		return module.title ?? module.id;
-	}
-
-	function createAnimation() {
-		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
-		new TJSDialog(
-			{
-				title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
-				content: {
-					// @ts-expect-error TJS-2-TS Fix in the next update maybe?
-					class: CreateAnimation,
-				},
-				focusFirst: true,
-			},
-			{
-				headerIcon: 'modules/pf2e-graphics/assets/module/Vauxs_by_Bishop.png',
-				classes: ['pf2e-g'],
-				left: sidebarRect.x - 310,
-				top: sidebarRect.y - 5,
-				width: 300,
-			},
-		).render(true, { focus: true });
 	}
 
 	function contextMenu(event: MouseEvent, animation: AnimationSetDocument) {
@@ -104,7 +81,7 @@
 
 <header class='directory-header'>
 	<div class='header-actions action-buttons flexrow pb-0.5'>
-		<button on:click={createAnimation} id='create-animation'>
+		<button on:click={() => popupCreateAnimation('make')} id='create-animation'>
 			<i class='fas fa-films'></i>
 			{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.button')}
 		</button>

@@ -1,7 +1,9 @@
 import type { AnimationSetDocument, UserAnimationSetDocument, WorldAnimationSetDocument } from 'src/extensions';
 import type { AnimationSet } from '../../../schema';
-import { ErrorMsg } from 'src/utils';
+import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
+import { ErrorMsg, i18n } from 'src/utils';
 import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
+import CreateAnimation from './CreateAnimation.svelte';
 
 function addToWorld(animation: WorldAnimationSetDocument) {
 	window.pf2eGraphics.liveSettings.globalAnimations = [
@@ -49,50 +51,54 @@ function removeFromCurrentUser(animation: UserAnimationSetDocument) {
 	);
 }
 
-// TODO: pop-up for 'duplicate as world/user animation set' (if permissions to write world animations; otherwise just do it as user automatically)
-export function copyAnimation(animation: AnimationSetDocument): void {
+export function copyAnimation(animation: AnimationSetDocument, addCopy: boolean = true): void | AnimationSetDocument {
 	if (animation.source === 'world') {
-		addToWorld({
+		return addToWorld({
 			...animation,
-			name: `${animation.name} (Copy)`,
+			name: addCopy ? `${animation.name} (Copy)` : animation.name,
 			id: foundry.utils.randomID(),
 		});
 	} else if (animation.source === 'user') {
-		addToCurrentUser({
+		return addToCurrentUser({
 			...animation,
-			name: `${animation.name} (Copy)`,
+			name: addCopy ? `${animation.name} (Copy)` : animation.name,
 			id: foundry.utils.randomID(),
 		});
 	} else if (animation.source === 'module') {
-		// TODO: see above
-		throw ErrorMsg.send(`Failed to copy animation set (provided by <code>${animation.module}</code>).`);
+		popupCreateAnimation('copy', animation);
 	} else {
 		throw ErrorMsg.send('Failed to copy animation set (unknown source).');
 	}
 }
 
-export function makeAnimation(name: string, type: string, location: string): AnimationSetDocument {
+export function makeAnimation(name: string, type: string, location: string, animation?: AnimationSetDocument): AnimationSetDocument {
 	// TODO:
 	const template: AnimationSet[] = type === 'ranged' ? [] : [];
 
 	switch (location) {
 		case 'world':
 			return addToWorld({
-				id: foundry.utils.randomID(),
-				name,
 				animationSets: template,
 				rollOption: game.pf2e.system.sluggify(name), // TODO: if this is just template data, make sure the user gets shouted at if they leave it like this (remember you can use the `rollOption` Zod schema to at least check it's got the right format)
+
+				// Ordering here is important, animation has to override animationSets and rollOption
+				...animation,
+				id: foundry.utils.randomID(),
+				name,
 				source: 'world',
 			});
 			break;
 		case 'user':
 		default:
 			return addToCurrentUser({
+				animationSets: template,
+				rollOption: game.pf2e.system.sluggify(name), // TODO: as above
+
+				// Ordering here is important, animation has to override animationSets and rollOption
+				...animation,
 				id: foundry.utils.randomID(),
 				name,
 				user: game.userId,
-				animationSets: template,
-				rollOption: game.pf2e.system.sluggify(name), // TODO: as above
 				source: 'user',
 			});
 			break;
@@ -109,4 +115,29 @@ export function removeAnimation(animation: AnimationSetDocument): void {
 
 export function openAnimation(animation: AnimationSetDocument): void {
 	AnimationDocumentApp.show({ animation });
+}
+
+export function popupCreateAnimation(mode: 'make' | 'copy' = 'make', animation?: AnimationSetDocument) {
+	const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
+	new TJSDialog(
+		{
+			title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
+			content: {
+				// @ts-expect-error TJS-2-TS Fix in the next update maybe?
+				class: CreateAnimation,
+				props: {
+					mode,
+					animation,
+				},
+			},
+			focusFirst: true,
+		},
+		{
+			headerIcon: 'modules/pf2e-graphics/assets/module/Vauxs_by_Bishop.png',
+			classes: ['pf2e-g'],
+			left: sidebarRect.x - 310,
+			top: sidebarRect.y - 5,
+			width: 300,
+		},
+	).render(true, { focus: true });
 }
