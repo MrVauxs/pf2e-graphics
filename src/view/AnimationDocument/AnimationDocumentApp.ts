@@ -47,7 +47,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 				}
 				const userAnimations = user.getFlag('pf2e-graphics', 'animations') as UserAnimationSetDocument[];
 
-				userAnimations.findSplice((el) => el.id === _animation.id, _animation)
+				userAnimations.findSplice(el => el.id === _animation.id, _animation);
 
 				await user.setFlag('pf2e-graphics', 'animations', userAnimations);
 				break;
@@ -60,14 +60,12 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		}
 	}
 
-	override close(_options: { force?: boolean }): Promise<void> {
-		super.close();
+	override close(_options?: { force?: boolean }): Promise<void> {
+		super.close(_options);
 		const closing: Promise<void> = new Promise((resolve) => {
 			try {
 				resolve(this.save());
-			} catch (err: any) {
-				ErrorMsg.send(err); // TODO: i18n
-			}
+			} catch {}
 		});
 		return closing;
 	}

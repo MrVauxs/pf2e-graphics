@@ -8,8 +8,8 @@
 	import JSONEditorApp from '../_components/JSONEditor/JSONEditor';
 
 	export let elementRoot: HTMLElement;
-	const { application: { options, save } } = getContext<BasicAppExternal>('#external');
-	const { animation, readonly } = options;
+	const { application } = getContext<BasicAppExternal>('#external');
+	const { animation, readonly } = application.options;
 
 </script>
 
@@ -26,9 +26,10 @@
 			</label>
 			<button on:click={() => new JSONEditorApp({ store: writable(animation) }).render(true)}>raw data</button>
 		</main>
-		<footer>
+		<footer class='flex gap-1'>
 			{#if !readonly}
-				<button on:click={() => save(animation)}>Save</button>
+				<button on:click={() => application.save(animation)}>Save</button>
+				<button on:click={() => { application.save(animation); application.close(); }}>Save and Close</button>
 			{/if}
 		</footer>
 	</div>
