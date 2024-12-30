@@ -61,7 +61,7 @@ export let AnimCore = class AnimCore {
 		const map = new Map(
 			Array.from(modules.keys())
 				.sort((a, b) => (a === 'pf2e-graphics' ? -1 : b === 'pf2e-graphics' ? 1 : 0))
-				.flatMap(key => Object.entries(modules.get(key) || {})),
+				.flatMap(key => Object.entries(modules.get(key) ?? {})),
 		);
 		this.animations = map;
 		return map;
