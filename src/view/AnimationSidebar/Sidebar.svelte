@@ -33,6 +33,11 @@
 				.sort((a, b) => (a.source === 'module' && b.source !== 'module' ? 1 : -1)));
 	}
 
+	function moduleIDToName(id: string): string {
+		const module = game.modules.get(id)!;
+		return module.title ?? module.id;
+	}
+
 	function createAnimation() {
 		const sidebarRect = document.querySelector('#create-animation')!.getBoundingClientRect();
 		new TJSDialog(
@@ -144,7 +149,21 @@
 				'
 			>
 				{#if item.source === 'module'}
-					<i data-tooltip={i18n('pf2e-graphics.scopes.full.module')} class='fas fa-cube'></i>
+					{#if item.module === 'pf2e-graphics'}
+						<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
+					{:else}
+						<span
+							class='
+								px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
+							'
+						>
+							{moduleIDToName(item.module)}
+						</span>
+						<i
+							data-tooltip={i18n('pf2e-graphics.scopes.full.module')}
+							class='fas fa-cubes'
+						></i>
+					{/if}
 				{:else if item.source === 'user'}
 					<span
 						class='
