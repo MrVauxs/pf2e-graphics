@@ -60,16 +60,21 @@
 			<button class='m-0'><i class='fa fa-plus'></i> Create New Section</button>
 		</footer>
 	</aside>
-	<main class='flex flex-col space-y-2 grow px-2 w-3/4'>
+	<main class='px-2 w-3/4'>
 		{#if currentSection === 'details'}
-			<label>
-				<span>Name</span>
-				<input type='text' bind:value={animation.name} {readonly} disabled={readonly} />
-			</label>
-			<label>
-				<span>Roll Option</span>
-				<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
-			</label>
+			<div class='space-y-1'>
+				<label class='grid grid-cols-2 items-center'>
+					<span>Name</span>
+					<input type='text' bind:value={animation.name} {readonly} disabled={readonly} />
+				</label>
+				<label class='grid grid-cols-2 items-center'>
+					<span>
+						Primary Predicate
+						<i class='fa fa-info-circle' data-tooltip='TODO: Explain'></i>
+					</span>
+					<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
+				</label>
+			</div>
 		{:else}
 			{#if typeof animation.animationSets === 'string'}
 				References {animation.animationSets}
