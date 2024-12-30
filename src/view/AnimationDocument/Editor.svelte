@@ -60,7 +60,7 @@
 			<button class='m-0'><i class='fa fa-plus'></i> Create New Section</button>
 		</footer>
 	</aside>
-	<main class='px-2 w-3/4'>
+	<main class='px-2 w-3/4 overflow-hidden'>
 		{#if currentSection === 'details'}
 			<div class='space-y-1'>
 				<label class='grid grid-cols-2 items-center'>
