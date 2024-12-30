@@ -67,7 +67,9 @@
 		{#if currentSection === 'details'}
 			<div class='space-y-1'>
 				<label class='grid grid-cols-2 items-center'>
-					<span>Name</span>
+					<span>
+						Display Name
+					</span>
 					<input type='text' bind:value={animation.name} {readonly} disabled={readonly} />
 				</label>
 				<label class='grid grid-cols-2 items-center'>
