@@ -6,10 +6,13 @@
 	import { getContext } from 'svelte';
 
 	export let elementRoot: HTMLElement;
-	const { application } = getContext<BasicAppExternal>('#external');
-	const { animation } = application.options;
+	const { application: { options, save } } = getContext<BasicAppExternal>('#external');
+	const { animation, readonly } = options;
 </script>
 
 <ApplicationShell bind:elementRoot>
 	{animation.rollOption}
+	{#if !readonly}
+		<button on:click={() => save}>Save</button>
+	{/if}
 </ApplicationShell>

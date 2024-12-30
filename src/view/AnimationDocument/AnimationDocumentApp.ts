@@ -1,6 +1,6 @@
 import type { AnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
-import { ErrorMsg, kofiButton } from '../../utils';
+import { ErrorMsg, kofiButton, log, warn } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
 
 export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {
@@ -11,6 +11,10 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		this.options.id = `pf2e-graphics-document-${game.pf2e.system.sluggify(options.animation.rollOption)}`;
 		if ('id' in options.animation) {
 			this.options.id = `${this.options.id}-${options.animation.id}`;
+		}
+
+		if (this.options.animation.source === 'module') {
+			this.options.readonly = true;
 		}
 	}
 
@@ -23,6 +27,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 			resizable: true,
 			width: 800,
 			height: 600,
+			readonly: false,
 
 			svelte: {
 				class: BasicAppShell,
@@ -33,13 +38,23 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 	}
 
 	async save(_animation: AnimationSetDocument = this.options.animation) {
-		// TODO:
+		switch (_animation.source) {
+			case 'user': {
+				break;
+			}
+			case 'world': {
+				break;
+			}
+			default:
+				log(`Edits have been ignored on read-only "${_animation.source}" type animation.`); // TODO: i18n
+		}
 	}
 
 	override close(_options: { force?: boolean }): Promise<void> {
+		super.close();
 		const closing: Promise<void> = new Promise((resolve) => {
 			try {
-				this.save().then(() => resolve());
+				resolve(this.save());
 			} catch (err: any) {
 				ErrorMsg.send(err); // TODO: i18n
 			}
@@ -61,10 +76,10 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		});
 	}
 
-	static async show() {
+	static async show(options: Partial<BasicAppOptions>) {
 		const existingApp = this.getActiveApp();
 		if (existingApp) return existingApp.render(false, { focus: true });
-		return new this().render(true, { focus: true });
+		return new this(options).render(true, { focus: true });
 	}
 }
 
@@ -75,4 +90,5 @@ export type BasicAppExternal = SvelteApp.Context.External<AnimationDocumentApp>;
 export interface BasicAppOptions extends SvelteApp.Options {
 	/** An example of defining additional options */
 	animation: AnimationSetDocument;
+	readonly: boolean;
 }

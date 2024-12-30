@@ -106,5 +106,5 @@ export function removeAnimation(animation: AnimationSetDocument): void {
 }
 
 export function openAnimation(animation: AnimationSetDocument): void {
-	new AnimationDocumentApp({ animation }).render(true);
+	AnimationDocumentApp.show({ animation });
 }
