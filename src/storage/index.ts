@@ -26,7 +26,7 @@ export async function loadAnimations() {
 			// HTML status code 200–299 = "OK :)"
 			if (String(resp.status)[0] !== '2')
 				throw new Error(i18n('pf2e-graphics.load.error.cantAccessFile', { path }));
-			const json = await resp.json();
+			const json = await resp.json(); // Throws automatically on invalid JSON
 			window.pf2eGraphics.modules.update(map => map.set(mod.id, json));
 		} catch (err) {
 			error(
