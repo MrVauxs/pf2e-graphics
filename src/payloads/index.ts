@@ -245,19 +245,6 @@ export function offsetToVector2(offset: Partial<Vector2> | undefined): Vector2 {
 // 	}
 // 	if (isTrueish(payload.id)) seq.origin(payload.id);
 // 	if (isTrueish(payload.name)) seq.name(payload.name);
-
-// export function parseOffsetInSitu<T extends { offset?: Partial<Vector2>; gridUnits?: boolean }>(
-// 	obj: T,
-// ): T & { offset: Vector2 & { gridUnits?: boolean } } {
-// 	return {
-// 		...obj,
-// 		offset: {
-// 			...obj.offset,
-// 			x: obj?.offset?.x ?? 0,
-// 			y: obj?.offset?.y ?? 0,
-// 		},
-// 	};
-// }
 // #endregion
 
 /**

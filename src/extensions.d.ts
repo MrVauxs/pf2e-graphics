@@ -21,10 +21,7 @@ interface Context {
 
 declare module 'svelte' {
 	export function getContext<T extends keyof Context, K extends Context[T]>(key: T): K;
-	export function setContext<T extends keyof Context, K extends Context[T]>(
-		key: T,
-		context: K
-	): void;
+	export function setContext<T extends keyof Context, K extends Context[T]>(key: T, context: K): void;
 }
 
 export type ArrayAnimationSet = (
@@ -49,9 +46,11 @@ export type TokenOrDoc = TokenDocument | Token;
 
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];
 
-export type moduleFlags = undefined | {
-	customAnimations?: ModuleDataObject;
-};
+export type moduleFlags =
+	| undefined
+	| {
+		customAnimations?: ModuleDataObject;
+	};
 
 declare global {
 	interface pf2eGraphics {

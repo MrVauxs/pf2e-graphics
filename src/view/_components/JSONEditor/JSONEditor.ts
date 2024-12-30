@@ -31,7 +31,7 @@ export default class JSONEditorApp extends SvelteApplication {
 				props: function () {
 					// @ts-expect-error TJS-2-TS
 					const store = this.options.store;
-					if (!store) throw new ErrorMsg('No Store Provided in ItemAnimationsApp!');
+					if (!store) throw ErrorMsg.send('No Store Provided in ItemAnimationsApp!');
 					// @ts-expect-error TJS-2-TS
 					const readOnly = this.options.readOnly ?? !this.options.permission;
 					// @ts-expect-error TJS-2-TS

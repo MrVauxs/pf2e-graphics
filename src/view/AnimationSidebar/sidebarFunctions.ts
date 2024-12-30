@@ -20,7 +20,7 @@ function removeFromWorld(animation: ArrayAnimationSet[number]) {
 	const animationId = animation.id;
 
 	if (animation.source !== 'world') {
-		throw new ErrorMsg('Attempted to call "removeFromWorld" function with a non-world animation!');
+		throw ErrorMsg.send('Attempted to call "removeFromWorld" function with a non-world animation!');
 	}
 
 	window.pf2eGraphics.liveSettings.globalAnimations
@@ -34,7 +34,7 @@ function removeFromCurrentUser(animation: ArrayAnimationSet[number]) {
 	const animations = game.user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet || [];
 
 	if (animation.source !== 'user') {
-		throw new ErrorMsg('Attempted to call "removeFromCurrentUser" function with a non-user animation!');
+		throw ErrorMsg.send('Attempted to call "removeFromCurrentUser" function with a non-user animation!');
 	}
 
 	game.user.setFlag('pf2e-graphics', 'animations', animations.filter(

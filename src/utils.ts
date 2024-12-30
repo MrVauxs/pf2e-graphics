@@ -16,25 +16,27 @@ interface NotifyOptions {
 }
 
 /**
- * A convenience `Error` class that emits formatted error messages both to console and Foundry's UI.
+ * A convenient wrapper around the `Error` class to handle internationalisation and formatting.
+ *
+ * Use `new ErrorMsg()` to simply generate the `Error` object. Use the static method `ErrorMsg.send()` to generate the error object *and* emit an error notification in Foundry's UI.
  *
  * TODO: (Fall Cleaning) Move to $lib
  */
 export class ErrorMsg extends Error {
-	constructor(message: string, options?: ErrorOptions) {
-		super(HTMLToMarkdown(message), options);
+	constructor(message: string, format?: Record<string, string>, options?: ErrorOptions) {
+		super(HTMLToMarkdown(`PF2e Graphics | ${i18n(message, format)}`), options);
 	}
 
 	/**
-	 * Creates a workflow-breaking `Error`, formats its data, and emits it to both the console and Foundry's UI.
+	 * Creates an `Error`, formats its data, and emits it to Foundry's UI via a toast notification. Use with `throw` to break the workflow and also write the error to the console.
 	 * @param message The error message to be thrown. Accepts both localisation and literal strings.
 	 * @param format Handlebars formatting object. For instance, `message: "Hello {name}!"` and `format: { name: "Monsieur Vauxs" }` returns a string of `"Hello Monsieur Vauxs!"`.
 	 * @returns An `Error` object.
 	 */
 	static send(message: string, format?: Record<string, string>, options?: ErrorOptions & NotifyOptions) {
-		const i18nedMessage = `<b>PF2e Graphics</b> | ${i18n(message, format)}`;
-		ui.notifications.error(i18nedMessage, options);
-		return new this(i18nedMessage, options);
+		const err = new this(message, format, options);
+		ui.notifications.error(`<b>PF2e Graphics</b> | ${message}`, options);
+		return err;
 	}
 }
 
@@ -174,10 +176,6 @@ export function getPlayerOwners(actor: ActorPF2e): UserPF2e[] {
 	}
 }
 
-export function camelToSpaces(string: string): string {
-	return string.replace(/([A-Z])/g, ' $1');
-}
-
 export function clearEmpties(o: Record<string, any>) {
 	for (const k in o) {
 		if (!o[k] || typeof o[k] !== 'object') {
@@ -239,7 +237,19 @@ export function mergeObjectsConcatArrays<T extends MergeableObject, U extends Me
 	return result as T & U;
 }
 
-export function kofiButton(buttons: any[]) {
+/**
+ * Prepends the Ko-fi donation button to an array of application header buttons.
+ *
+ * Note that the input array is modified directly:
+ * ```ts
+ * const a = [];
+ * const b = kofiButton(a);
+ * console.log(a === b); // true
+ * ```
+ * @param buttons An array of application header buttons.
+ * @returns An array of application header buttons with the Ko-fi donation button in index `0`.
+ */
+export function kofiButton(buttons: ApplicationHeaderButton[]): ApplicationHeaderButton[] {
 	buttons.unshift({
 		icon: 'fas fa-mug-hot ko-fi',
 		class: 'hover:underline',
@@ -268,6 +278,12 @@ export function arrayMove<T>(arr: T[], old_index: number, new_index: number): T[
 	return arr; // for testing
 }
 
+/**
+ * Reverses the regularisation of the pf2e system's slug formatting. Notably, dashes are replaced with spaces, colons are right-padded with a space, and a naive title-capitalisation scheme is applied.
+ * @example deslugify('foo-bah:1') // 'Foo Bah: 1'
+ * @param string The input string.
+ * @returns A title-cased, human-presentable string.
+ */
 export function deslugify(string: string) {
 	return string
 		.replaceAll(/-/g, ' ')
