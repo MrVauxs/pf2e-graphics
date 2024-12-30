@@ -15,7 +15,12 @@
 	let selection: keyof AnimationSetItemPartial = 'name';
 
 	function addSection() {
-		data.name = 'text';
+		switch (selection) {
+			case 'name': {
+				data.name = 'Animation Name';
+				break;
+			}
+		}
 	}
 </script>
 
@@ -39,12 +44,26 @@
 	{/if}
 	<main class='p-1 grow space-y-1'>
 		{#if 'name' in data}
-			<label class='grid grid-cols-2 items-center'>
+			<label class='grid grid-cols-3 items-center'>
 				<span>
 					Name
 					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Explain'></i>
 				</span>
-				<input type='text' bind:value={data.name} {readonly} disabled={readonly} />
+				<div class='flex align-middle items-center col-span-2'>
+					<input
+						class=''
+						type='text'
+						bind:value={data.name}
+						{readonly}
+						disabled={readonly}
+					/>
+					<button
+						class='w-min mx-2'
+						on:click={() => { delete data.name; }}
+					>
+						<i class='fa fa-trash-can pl-0.5'></i>
+					</button>
+				</div>
 			</label>
 		{/if}
 	</main>
