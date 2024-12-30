@@ -1,22 +1,22 @@
-import type { ArrayAnimationSet } from 'src/extensions';
+import type { AnimationSetData } from 'src/extensions';
 import { ErrorMsg } from 'src/utils';
 import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 
-function addToWorld(animation: ArrayAnimationSet[number]) {
+function addToWorld(animation: AnimationSetData) {
 	window.pf2eGraphics.liveSettings.globalAnimations = [
 		...window.pf2eGraphics.liveSettings.globalAnimations,
 		animation,
 	];
 }
 
-function addToCurrentUser(animation: ArrayAnimationSet[number]) {
+function addToCurrentUser(animation: AnimationSetData) {
 	game.user.setFlag('pf2e-graphics', 'animations', [
-		...(game.user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet[] || []),
+		...((game.user.getFlag('pf2e-graphics', 'animations') ?? []) as AnimationSetData[]),
 		animation,
 	]);
 }
 
-function removeFromWorld(animation: ArrayAnimationSet[number]) {
+function removeFromWorld(animation: AnimationSetData) {
 	const animationId = animation.id;
 
 	if (animation.source !== 'world') {
@@ -29,9 +29,9 @@ function removeFromWorld(animation: ArrayAnimationSet[number]) {
 		);
 }
 
-function removeFromCurrentUser(animation: ArrayAnimationSet[number]) {
+function removeFromCurrentUser(animation: AnimationSetData) {
 	const animationId = animation.id;
-	const animations = game.user.getFlag('pf2e-graphics', 'animations') as ArrayAnimationSet || [];
+	const animations = (game.user.getFlag('pf2e-graphics', 'animations') ?? []) as AnimationSetData[];
 
 	if (animation.source !== 'user') {
 		throw ErrorMsg.send('Attempted to call "removeFromCurrentUser" function with a non-user animation!');
@@ -42,7 +42,7 @@ function removeFromCurrentUser(animation: ArrayAnimationSet[number]) {
 	));
 }
 
-export function copyAnimation(animation: ArrayAnimationSet[number]) {
+export function copyAnimation(animation: AnimationSetData) {
 	switch (animation.source) {
 		case 'world':
 			addToWorld({
@@ -72,7 +72,7 @@ export function makeAnimation(name: string,	type: string, location: string) {
 				id: foundry.utils.randomID(),
 				name,
 				data: template,
-				key: game.pf2e.system.sluggify(name),
+				rollOption: game.pf2e.system.sluggify(name),
 				source: 'world',
 			});
 			break;
@@ -83,14 +83,14 @@ export function makeAnimation(name: string,	type: string, location: string) {
 				name,
 				user: game.userId,
 				data: template,
-				key: game.pf2e.system.sluggify(name),
+				rollOption: game.pf2e.system.sluggify(name),
 				source: 'user',
 			});
 			break;
 	}
 }
 
-export function removeAnimation(animation: ArrayAnimationSet[number]) {
+export function removeAnimation(animation: AnimationSetData): void {
 	switch (animation.source) {
 		case 'world':
 			removeFromWorld(animation);
@@ -101,6 +101,6 @@ export function removeAnimation(animation: ArrayAnimationSet[number]) {
 	}
 }
 
-export function openAnimation(animation: ArrayAnimationSet[number]) {
+export function openAnimation(animation: AnimationSetData): void {
 	new AnimationDocumentApp({ animation }).render(true);
 }

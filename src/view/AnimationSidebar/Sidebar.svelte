@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import type { ArrayAnimationSet } from 'src/extensions';
+	import type { AnimationSetData } from 'src/extensions';
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSContextMenu } from '#standard/application/menu';
 	import { i18n } from 'src/utils';
@@ -11,7 +11,7 @@
 
 	const search = writable('');
 
-	let list: Readable<ArrayAnimationSet> = readable([]);
+	let list: Readable<AnimationSetData[]> = readable([]);
 	const unhook = Hooks.on('pf2eGraphicsReady', () => assignDerivedToList());
 	onMount(() => {
 		if (window.pf2eGraphics.AnimCore.ready) assignDerivedToList();
@@ -51,7 +51,7 @@
 		).render(true, { focus: true });
 	}
 
-	function contextMenu(event: MouseEvent, animation: ArrayAnimationSet[number]) {
+	function contextMenu(event: MouseEvent, animation: AnimationSetData) {
 		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
 		const coordinates = {
 			y: Math.ceil(bounds.bottom + 1 || 0),
@@ -121,7 +121,7 @@
 	{#each $list as item}
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<li
-			id='pf2e-g-{item.source}-{item.key}'
+			id='pf2e-g-{item.source}-{item.rollOption}'
 			tabindex='-1'
 			on:click={() => openAnimation(item)}
 			on:contextmenu={event => contextMenu(event, item)}

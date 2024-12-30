@@ -1,4 +1,4 @@
-import type { ArrayAnimationSet } from 'src/extensions';
+import type { AnimationSetData } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
 import { ErrorMsg, kofiButton } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
@@ -8,7 +8,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		super(options);
 		if (!options?.animation) throw ErrorMsg.send('pf2e-graphics.document.error.noData');
 
-		this.options.id = `pf2e-graphics-document-k-${game.pf2e.system.sluggify(options.animation.key)}-i-${options.animation.id}`;
+		this.options.id = `pf2e-graphics-document-k-${game.pf2e.system.sluggify(options.animation.rollOption)}-i-${options.animation.id}`;
 	}
 
 	static override get defaultOptions() {
@@ -56,5 +56,5 @@ export type BasicAppExternal = SvelteApp.Context.External<AnimationDocumentApp>;
 /** Extended options that you can define. */
 export interface BasicAppOptions extends SvelteApp.Options {
 	/** An example of defining additional options */
-	animation: ArrayAnimationSet[number];
+	animation: AnimationSetData;
 }

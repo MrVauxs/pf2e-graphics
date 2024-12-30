@@ -24,13 +24,13 @@ declare module 'svelte' {
 	export function setContext<T extends keyof Context, K extends Context[T]>(key: T, context: K): void;
 }
 
-export type ArrayAnimationSet = (
+export type AnimationSetData =
 	| {
 		id: string;
 		name: string;
 		source: 'world' | 'module';
 		data: string | AnimationSet[];
-		key: string;
+		rollOption: string;
 	}
 	| {
 		id: string;
@@ -38,9 +38,8 @@ export type ArrayAnimationSet = (
 		source: 'user';
 		user: string;
 		data: string | AnimationSet[];
-		key: string;
-	}
-)[];
+		rollOption: string;
+	};
 
 export type TokenOrDoc = TokenDocument | Token;
 

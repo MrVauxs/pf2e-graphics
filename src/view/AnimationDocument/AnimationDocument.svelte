@@ -11,5 +11,5 @@
 </script>
 
 <ApplicationShell bind:elementRoot>
-	{animation.key}
+	{animation.rollOption}
 </ApplicationShell>
