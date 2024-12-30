@@ -89,7 +89,8 @@
 			}
 		},
 		"document": {
-			"title": "Configure Animation Set",
+			"title": "Configure Animation Set: {name}",
+			"titleDefault": "Configure Animation Set",
 			"error": {
 				"noData": "<code>AnimationDocument</code> sheet was opened without a provided animation set!"
 			}

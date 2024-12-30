@@ -1,6 +1,6 @@
 import type { AnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
-import { ErrorMsg, kofiButton, log, warn } from '../../utils';
+import { ErrorMsg, i18n, kofiButton, log, warn } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
 
 export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {
@@ -8,7 +8,10 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		super(options);
 		if (!options?.animation) throw ErrorMsg.send('pf2e-graphics.document.error.noData');
 
+		this.options.title = i18n('pf2e-graphics.document.title', { name: options.animation.rollOption });
+
 		this.options.id = `pf2e-graphics-document-${game.pf2e.system.sluggify(options.animation.rollOption)}`;
+
 		if ('id' in options.animation) {
 			this.options.id = `${this.options.id}-${options.animation.id}`;
 		}
@@ -22,7 +25,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			id: 'pf2e-graphics-document',
-			title: 'pf2e-graphics.document.title',
+			title: 'pf2e-graphics.document.titleDefault',
 			classes: ['pf2e-g'],
 			resizable: true,
 			width: 800,
