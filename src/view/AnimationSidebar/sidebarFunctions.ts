@@ -23,10 +23,9 @@ function removeFromWorld(animation: AnimationSetData) {
 		throw ErrorMsg.send('Attempted to call "removeFromWorld" function with a non-world animation!');
 	}
 
-	window.pf2eGraphics.liveSettings.globalAnimations
-		= window.pf2eGraphics.liveSettings.globalAnimations.filter(
-			animation => animation.id !== animationId,
-		);
+	window.pf2eGraphics.liveSettings.globalAnimations = window.pf2eGraphics.liveSettings.globalAnimations.filter(
+		animation => animation.id !== animationId,
+	);
 }
 
 function removeFromCurrentUser(animation: AnimationSetData) {
@@ -37,9 +36,11 @@ function removeFromCurrentUser(animation: AnimationSetData) {
 		throw ErrorMsg.send('Attempted to call "removeFromCurrentUser" function with a non-user animation!');
 	}
 
-	game.user.setFlag('pf2e-graphics', 'animations', animations.filter(
-		animation => animation.id !== animationId,
-	));
+	game.user.setFlag(
+		'pf2e-graphics',
+		'animations',
+		animations.filter(animation => animation.id !== animationId),
+	);
 }
 
 export function copyAnimation(animation: AnimationSetData) {
@@ -62,7 +63,7 @@ export function copyAnimation(animation: AnimationSetData) {
 	}
 }
 
-export function makeAnimation(name: string,	type: string, location: string) {
+export function makeAnimation(name: string, type: string, location: string) {
 	// TODO:
 	const template = type === 'ranged' ? [] : [];
 
@@ -91,14 +92,9 @@ export function makeAnimation(name: string,	type: string, location: string) {
 }
 
 export function removeAnimation(animation: AnimationSetData): void {
-	switch (animation.source) {
-		case 'world':
-			removeFromWorld(animation);
-			break;
-		case 'user':
-			removeFromCurrentUser(animation);
-			break;
-	}
+	if (animation.source === 'world') return removeFromWorld(animation);
+	if (animation.source === 'user') return removeFromCurrentUser(animation);
+	throw ErrorMsg.send('Failed to remove animation set (unknown source).');
 }
 
 export function openAnimation(animation: AnimationSetData): void {

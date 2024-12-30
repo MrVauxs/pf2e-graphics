@@ -39,8 +39,5 @@ export function initVariables() {
 			})) as Extract<AnimationSetData, { source: 'world' }>[],
 	);
 
-	return derived(
-		[users, core, world],
-		([$users, $core, $world]) => $users.concat($core).concat($world),
-	);
+	return derived([users, core, world], ([$users, $core, $world]) => $users.concat($core).concat($world));
 }

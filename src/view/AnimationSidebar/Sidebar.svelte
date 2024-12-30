@@ -20,14 +20,17 @@
 	});
 
 	function assignDerivedToList() {
-		list = derived([initVariables(), search], ([vars, $search]) => vars
-			.filter(item => item.name !== '_tokenImages')
-			.filter(
-				item =>
-					item.name.toLowerCase().includes($search.toLowerCase()) || (typeof item.data === 'string' ? item.data.toLowerCase().includes($search.toLowerCase()) : false),
-			)
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1));
+		list = derived([initVariables(), search], ([vars, $search]) =>
+			vars
+				.filter(item => item.name !== '_tokenImages')
+				.filter(
+					item =>
+						(typeof item.data === 'string'
+							? item.data.toLowerCase().includes($search.toLowerCase())
+							: false) || item.name.toLowerCase().includes($search.toLowerCase()),
+				)
+				.sort((a, b) => a.name.localeCompare(b.name))
+				.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1));
 	}
 
 	function createAnimation() {
@@ -70,7 +73,7 @@
 			{
 				icon: 'fa fa-copy',
 				label: 'Duplicate',
-				onPress: () => { copyAnimation(animation); },
+				onPress: () => copyAnimation(animation),
 			},
 		];
 
@@ -78,7 +81,7 @@
 			items.push({
 				icon: 'fa fa-trash',
 				label: 'Delete',
-				onPress: () => { removeAnimation(animation); },
+				onPress: () => removeAnimation(animation),
 			});
 		}
 
@@ -174,10 +177,7 @@
 						px-1 m-0.5
 					'
 				>
-					{@html i18n(
-						'pf2e-graphics.sidebar.animationSets.list.alias',
-						{ rollOption: item.data },
-					)}
+					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', { rollOption: item.data })}
 				</footer>
 			{/if}
 		</li>

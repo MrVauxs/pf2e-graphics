@@ -431,21 +431,6 @@ export let AnimCore = class AnimCore {
 		// #endregion
 	}
 
-	// TODO: unused; delete?
-	// static async createSequenceInQueue(
-	// 	queue: Sequence[],
-	// 	animation: ExecutableAnimation,
-	// 	data: GameData,
-	// 	index: number = -1,
-	// 	replace: boolean = false,
-	// ) {
-	// 	const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
-
-	// 	await addAnimationToSequence(sequence, animation.execute, data);
-
-	// 	queue.splice(index, replace ? 1 : 0, sequence);
-	// }
-
 	/**
 	 * Animations in, Sequences out.
 	 */
