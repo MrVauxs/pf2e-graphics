@@ -8,7 +8,10 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		super(options);
 		if (!options?.animation) throw ErrorMsg.send('pf2e-graphics.document.error.noData');
 
-		this.options.id = `pf2e-graphics-document-k-${game.pf2e.system.sluggify(options.animation.rollOption)}-i-${options.animation.id}`;
+		this.options.id = `pf2e-graphics-document-${game.pf2e.system.sluggify(options.animation.rollOption)}`;
+		if ('id' in options.animation) {
+			this.options.id = `${this.options.id}-${options.animation.id}`;
+		}
 	}
 
 	static override get defaultOptions() {
@@ -27,6 +30,21 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 				intro: true,
 			},
 		});
+	}
+
+	async save(_animation: AnimationSetDocument = this.options.animation) {
+		// TODO:
+	}
+
+	override close(_options: { force?: boolean }): Promise<void> {
+		const closing: Promise<void> = new Promise((resolve) => {
+			try {
+				this.save().then(() => resolve());
+			} catch (err: any) {
+				ErrorMsg.send(err); // TODO: i18n
+			}
+		});
+		return closing;
 	}
 
 	override _getHeaderButtons() {
