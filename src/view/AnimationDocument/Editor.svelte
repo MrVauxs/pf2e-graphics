@@ -1,14 +1,11 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
-	import { setContext } from 'svelte';
 	import EditorContent from './EditorContent.svelte';
 	import Section from './Section.svelte';
 
 	export let animation: AnimationSetDocument;
 	export let readonly: boolean;
-
-	setContext('graphics', { readonly });
 
 	let currentSection: number | string = 'details';
 	let sectionSectioned: number[] = [];
@@ -84,7 +81,7 @@
 			{#if typeof animation.animationSets === 'string'}
 				References {animation.animationSets}
 			{:else}
-				<EditorContent bind:data={data} {animation} />
+				<EditorContent bind:data={data} {animation} {readonly} />
 			{/if}
 		{/if}
 	</main>

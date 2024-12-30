@@ -2,15 +2,12 @@
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
 	import { log } from 'src/utils';
-	import { getContext } from 'svelte';
 
 	export let data: AnimationSetItemPartial;
 	export let animation: AnimationSetDocument;
+	export let readonly: boolean;
 
 	log(animation);
-	$: log(data);
-
-	const { readonly } = getContext<{ readonly: boolean }>('graphics');
 
 	let selection: keyof AnimationSetItemPartial = 'name';
 
