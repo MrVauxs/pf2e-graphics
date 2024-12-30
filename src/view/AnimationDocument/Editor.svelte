@@ -79,7 +79,7 @@
 			{#if typeof animation.animationSets === 'string'}
 				References {animation.animationSets}
 			{:else}
-				<EditorContent {data} />
+				<EditorContent {data} {animation}/>
 			{/if}
 		{/if}
 	</main>
