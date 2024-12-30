@@ -1,6 +1,6 @@
 import type { AnimationSetDocument, UserAnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
-import { ErrorMsg, kofiButton, log } from '../../utils';
+import { ErrorMsg, i18n, kofiButton, log } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
 
 export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {
@@ -15,6 +15,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 
 		if (this.options.animation.source === 'module') {
 			this.options.readonly = true;
+			this.options.title = `${i18n('pf2e-graphics.document.title')} (Read-only)`;
 		}
 	}
 

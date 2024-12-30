@@ -10,7 +10,6 @@
 	export let elementRoot: HTMLElement;
 	const { application } = getContext<BasicAppExternal>('#external');
 	const { animation, readonly } = application.options;
-
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -18,18 +17,27 @@
 		<main class='grow space-y-2'>
 			<label>
 				Name
-				<input type='text' bind:value={animation.name} />
+				<input type='text' bind:value={animation.name} {readonly} disabled={readonly} />
 			</label>
 			<label>
 				Roll Option
-				<input type='text' bind:value={animation.rollOption} />
+				<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
 			</label>
-			<button on:click={() => new JSONEditorApp({ store: writable(animation) }).render(true)}>raw data</button>
+			<button on:click={() => new JSONEditorApp({ store: writable(animation) }).render(true)}>
+				raw data
+			</button>
 		</main>
 		<footer class='flex gap-1'>
 			{#if !readonly}
-				<button on:click={() => application.save(animation)}>Save</button>
-				<button on:click={() => { application.save(animation); application.close(); }}>Save and Close</button>
+				<button on:click={() => application.save(animation)}>
+					Save
+				</button>
+				<button on:click={() => {
+					application.save(animation);
+					application.close();
+				}}>
+					Save and Close
+				</button>
 			{/if}
 		</footer>
 	</div>
