@@ -6,7 +6,7 @@ import BasicAppShell from './AnimationDocument.svelte';
 export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {
 	constructor(options?: Partial<BasicAppOptions>) {
 		super(options);
-		if (!options?.animation) throw new ErrorMsg('AnimationDocument sheet was opened without an animation provided!');
+		if (!options?.animation) throw ErrorMsg.send('pf2e-graphics.document.error.noData');
 
 		this.options.id = `pf2e-graphics-document-k-${game.pf2e.system.sluggify(options.animation.key)}-i-${options.animation.id}`;
 	}
@@ -15,7 +15,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
 			id: 'pf2e-graphics-document',
-			title: 'pf2e-graphics.document.window.title',
+			title: 'pf2e-graphics.document.title',
 			classes: ['pf2e-g'],
 			resizable: true,
 			width: 800,

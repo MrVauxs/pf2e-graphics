@@ -33,7 +33,7 @@
 		},
 		"load": {
 			"notify": {
-				"AnimCoreUpdated": "<code>AnimCore.ts</code> updated!",
+				"AnimCoreUpdated": "<code>AnimCore</code> updated!",
 				"animationSetsUpdated": "Animation sets updated!"
 			},
 			"error": {
@@ -85,6 +85,12 @@
 				"error": {
 					"noVolume": "There is no volume setting?!"
 				}
+			}
+		},
+		"document": {
+			"title": "Configure Animation Set: {name}",
+			"error": {
+				"noData": "<code>AnimationDocument</code> sheet was opened without a provided animation set!"
 			}
 		},
 		"history": {
