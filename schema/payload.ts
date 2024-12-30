@@ -203,7 +203,7 @@ export type AnimationSet = z.infer<typeof flatAnimation> & {
 /**
  * The complete animation object, as is encoded in JSON, but with every property made optional. This is used for nesting within `contents`.
  */
-type AnimationSetItemPartial = Partial<Omit<z.infer<typeof flatAnimation>, 'execute'>> & {
+export type AnimationSetItemPartial = Partial<Omit<z.infer<typeof flatAnimation>, 'execute'>> & {
 	execute?: Partial<Payload>;
 	contents?: AnimationSetItemPartial[];
 };

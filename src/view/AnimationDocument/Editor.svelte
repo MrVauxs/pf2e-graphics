@@ -1,10 +1,22 @@
 <script lang='ts'>
+	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
+	import EditorContent from './EditorContent.svelte';
+	import Section from './Section.svelte';
 
 	export let animation: AnimationSetDocument;
 	export let readonly: boolean;
 
-	let currentSection: number | 'details' = 'details';
+	let currentSection: number | string = 'details';
+	let sectionSectioned: number[] = [];
+	$: sectionSectioned = String(currentSection).split('.').map(x => Number(x));
+
+	let data: AnimationSetItemPartial;
+
+	$: data = sectionSectioned.slice(1).reduce(
+		(object, index) => object.contents![index],
+		animation.animationSets[sectionSectioned[0]] as AnimationSetItemPartial,
+	);
 </script>
 
 <div class='flex flex-row h-full pt-1'>
@@ -29,28 +41,18 @@
 				<span> Details </span>
 			</section>
 			{#if typeof animation.animationSets === 'string'}
-				Reference: {animation.animationSets}
+				<section
+					class='
+						hover:bg-slate-600/20
+						border-0 border-b border-solid
+						p-1
+						shadow-slate-600
+					'>
+					Reference: <i class='text-nowrap'>{animation.animationSets}</i>
+				</section>
 			{:else}
-				{#each animation.animationSets as set, index}
-					<section
-						role='button'
-						tabindex='-1'
-						on:keypress={() => currentSection = index}
-						on:click={() => currentSection = index}
-						class:shadow-inner={currentSection === index}
-						class='
-							hover:bg-slate-600/20
-							border-0 border-b border-solid
-							p-1
-							shadow-slate-600
-						'>
-						<span>Section {index + 1}</span>
-						{#if set.contents}
-							<div class='pl-4'>
-								- test
-							</div>
-						{/if}
-					</section>
+				{#each animation.animationSets as section, index}
+					<Section {section} index={index} bind:selection={currentSection} />
 				{/each}
 			{/if}
 		</div>
@@ -69,7 +71,11 @@
 				<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
 			</label>
 		{:else}
-			test
+			{#if typeof animation.animationSets === 'string'}
+				References {animation.animationSets}
+			{:else}
+				<EditorContent {data} />
+			{/if}
 		{/if}
 	</main>
 </div>
