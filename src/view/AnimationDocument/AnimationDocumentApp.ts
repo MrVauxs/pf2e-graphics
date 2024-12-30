@@ -84,7 +84,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 	static getActiveApp() {
 		return Object.values(ui.windows).find((app) => {
 			return (
-				app instanceof this && app._state > Application.RENDER_STATES.CLOSED
+				app instanceof this && app.id === '' && app._state > Application.RENDER_STATES.CLOSED
 			);
 		});
 	}

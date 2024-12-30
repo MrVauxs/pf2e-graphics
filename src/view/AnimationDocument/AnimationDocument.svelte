@@ -5,10 +5,11 @@
 	import { ApplicationShell } from '#runtime/svelte/component/application';
 	import { getContext } from 'svelte';
 	import { JSONEditor } from 'svelte-jsoneditor';
+	import Editor from './Editor.svelte';
 
 	export let elementRoot: HTMLElement;
 	const { application } = getContext<BasicAppExternal>('#external');
-	const { animation, readonly } = application.options;
+	let animation = application.options.animation;
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -42,34 +43,23 @@
 			</nav>
 			<hr />
 		</header>
-		<main class='grow overflow-y-auto min-h-0'>
+		<main class='grow overflow-y-auto'>
 			{#if application.options.tab === 'main'}
-				<div class='flex flex-col space-y-2'>
-					<label>
-						<span>Name</span>
-						<input type='text' bind:value={animation.name} {readonly} disabled={readonly} />
-					</label>
-					<label>
-						<span>Roll Option</span>
-						<input type='text' bind:value={animation.rollOption} {readonly} disabled={readonly} />
-					</label>
-				</div>
+				<Editor bind:animation readonly={application.options.readonly} />
 			{:else if application.options.tab === 'json'}
-				<div class='h-full'>
-					<JSONEditor
-						content={{ json: animation }}
-						readOnly={true}
-						mode={application.options.jsonMode}
-						navigationBar={false}
-						statusBar={false}
-						indentation='	'
-						tabSize={2}
-					/>
-				</div>
+				<JSONEditor
+					content={{ json: animation }}
+					readOnly={true}
+					mode={application.options.jsonMode}
+					navigationBar={false}
+					statusBar={false}
+					indentation='	'
+					tabSize={2}
+				/>
 			{/if}
 		</main>
 		<footer class='flex gap-1 grow-0 pt-2'>
-			{#if !readonly}
+			{#if !application.options.readonly}
 				<button on:click={() => application.save(animation)}>
 					Save
 				</button>
