@@ -8,6 +8,7 @@ function addToWorld(animation: WorldAnimationSetDocument) {
 		...window.pf2eGraphics.liveSettings.globalAnimations,
 		animation,
 	];
+	return animation;
 }
 
 function addToCurrentUser(animation: UserAnimationSetDocument) {
@@ -15,6 +16,7 @@ function addToCurrentUser(animation: UserAnimationSetDocument) {
 		...((game.user.getFlag('pf2e-graphics', 'animations') ?? []) as AnimationSetDocument[]),
 		animation,
 	]);
+	return animation;
 }
 
 function removeFromWorld(animation: WorldAnimationSetDocument) {
@@ -50,13 +52,13 @@ function removeFromCurrentUser(animation: UserAnimationSetDocument) {
 // TODO: pop-up for 'duplicate as world/user animation set' (if permissions to write world animations; otherwise just do it as user automatically)
 export function copyAnimation(animation: AnimationSetDocument): void {
 	if (animation.source === 'world') {
-		return addToWorld({
+		addToWorld({
 			...animation,
 			name: `${animation.name} (Copy)`,
 			id: foundry.utils.randomID(),
 		});
 	} else if (animation.source === 'user') {
-		return addToCurrentUser({
+		addToCurrentUser({
 			...animation,
 			name: `${animation.name} (Copy)`,
 			id: foundry.utils.randomID(),
@@ -69,13 +71,13 @@ export function copyAnimation(animation: AnimationSetDocument): void {
 	}
 }
 
-export function makeAnimation(name: string, type: string, location: string) {
+export function makeAnimation(name: string, type: string, location: string): AnimationSetDocument {
 	// TODO:
 	const template: AnimationSet[] = type === 'ranged' ? [] : [];
 
 	switch (location) {
 		case 'world':
-			addToWorld({
+			return addToWorld({
 				id: foundry.utils.randomID(),
 				name,
 				animationSets: template,
@@ -85,7 +87,7 @@ export function makeAnimation(name: string, type: string, location: string) {
 			break;
 		case 'user':
 		default:
-			addToCurrentUser({
+			return addToCurrentUser({
 				id: foundry.utils.randomID(),
 				name,
 				user: game.userId,

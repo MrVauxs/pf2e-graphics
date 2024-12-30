@@ -1,6 +1,6 @@
 import type { AnimationSetDocument } from 'src/extensions';
 import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
-import { ErrorMsg, i18n, kofiButton, log, warn } from '../../utils';
+import { ErrorMsg, i18n, kofiButton, log } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
 
 export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {

@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import { getContext } from 'svelte';
 	import { i18n } from '../../utils';
-	import { makeAnimation } from './sidebarFunctions';
+	import { makeAnimation, openAnimation } from './sidebarFunctions';
 
 	const { application } = getContext('#external');
 
@@ -10,7 +10,8 @@
 	let location = 'user';
 
 	function make() {
-		makeAnimation(name, type, location);
+		const animation = makeAnimation(name, type, location);
+		openAnimation(animation)
 		application.close();
 	}
 </script>
