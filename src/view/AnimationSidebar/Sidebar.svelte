@@ -30,7 +30,7 @@
 							: false) || item.name.toLowerCase().includes($search.toLowerCase()),
 				)
 				.sort((a, b) => a.name.localeCompare(b.name))
-				.sort((a, b) => a.source === 'module' && b.source !== 'module' ? 1 : -1));
+				.sort((a, b) => (a.source === 'module' && b.source !== 'module' ? 1 : -1)));
 	}
 
 	function createAnimation() {
@@ -151,7 +151,7 @@
 							px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
 						'
 					>
-						{window.game.users.get(item.user || '')?.name}
+						{window.game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
 					</span>
 					<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
 				{:else if item.source === 'world'}
@@ -177,7 +177,9 @@
 						px-1 m-0.5
 					'
 				>
-					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', { rollOption: item.data })}
+					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', {
+						rollOption: item.animationSets,
+					})}
 				</footer>
 			{/if}
 		</li>

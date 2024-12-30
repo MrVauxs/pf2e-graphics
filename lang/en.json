@@ -74,7 +74,8 @@
 				},
 				"list": {
 					"alias": "Alias of <code>{rollOption}</code>",
-					"empty": "Empty"
+					"empty": "Empty",
+					"unknownUser": "Unknown"
 				}
 			},
 			"playlists": {

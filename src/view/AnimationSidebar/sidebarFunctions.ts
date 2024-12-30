@@ -71,15 +71,15 @@ export function copyAnimation(animation: AnimationSetDocument): void {
 
 export function makeAnimation(name: string, type: string, location: string) {
 	// TODO:
-	const template = type === 'ranged' ? [] : [];
+	const template: AnimationSet[] = type === 'ranged' ? [] : [];
 
 	switch (location) {
 		case 'world':
 			addToWorld({
 				id: foundry.utils.randomID(),
 				name,
-				rollOption: game.pf2e.system.sluggify(name),
 				animationSets: template,
+				rollOption: game.pf2e.system.sluggify(name), // TODO: if this is just template data, make sure the user gets shouted at if they leave it like this (remember you can use the `rollOption` Zod schema to at least check it's got the right format)
 				source: 'world',
 			});
 			break;
@@ -89,8 +89,8 @@ export function makeAnimation(name: string, type: string, location: string) {
 				id: foundry.utils.randomID(),
 				name,
 				user: game.userId,
-				rollOption: game.pf2e.system.sluggify(name),
 				animationSets: template,
+				rollOption: game.pf2e.system.sluggify(name), // TODO: as above
 				source: 'user',
 			});
 			break;
@@ -100,6 +100,8 @@ export function makeAnimation(name: string, type: string, location: string) {
 export function removeAnimation(animation: AnimationSetDocument): void {
 	if (animation.source === 'world') return removeFromWorld(animation);
 	if (animation.source === 'user') return removeFromCurrentUser(animation);
+	if (animation.source === 'module')
+		throw ErrorMsg.send(`Failed to remove animation set (provided by <code>${animation.module}</code>).`);
 	throw ErrorMsg.send('Failed to remove animation set (unknown source).');
 }
 

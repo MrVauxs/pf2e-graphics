@@ -46,7 +46,8 @@ export type JSONMap = Map<string, AnimationSetMetadataWrapper>;
  *
  * @todo `unfoldAnimationSets()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> & Required<Pick<AnimationSet, 'execute'>>;
+export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> &
+	Required<Pick<AnimationSet, 'execute'>>;
 
 export interface AnimationHistoryObject {
 	timestamp: number;
@@ -213,11 +214,7 @@ export let AnimCore = class AnimCore {
 		rollOptions = AnimCore.prepRollOptions(rollOptions);
 
 		const allAnimations = this.retrieve(rollOptions, item, actor).animations;
-		const foundAnimations = this.search(
-			rollOptions,
-			[trigger],
-			allAnimations,
-		);
+		const foundAnimations = this.search(rollOptions, [trigger], allAnimations);
 		const appliedAnimations = Object.values(foundAnimations).map(x =>
 			x.map(x => mergeObjectsConcatArrays({ options: animationOptions } as any, x)),
 		);
@@ -352,7 +349,7 @@ export let AnimCore = class AnimCore {
 			if (recursionDepth > 30) {
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.tooMuchRecursion', { rollOption });
 			}
-			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet);
+			if (typeof animationSet === 'object') return foundry.utils.deepClone(animationSet); // clone to prevent overwriting source data in later workflow
 			if (typeof animationSet !== 'string')
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.cantFindReference', { rollOption });
 			return parseStrings(animationData.get(animationSet)?.animationSets, rollOption, recursionDepth + 1);
