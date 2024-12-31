@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
+	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { ErrorMsg, log } from 'src/utils';
 	import Svelecte from 'svelecte';
 
@@ -37,7 +38,25 @@
 				data.predicates = [];
 				break;
 			}
+			case 'removes':{
+				data.removes = [];
+				break;
+			}
+			case 'execute':{
+				data.execute = {};
+				break;
+			}
 		}
+	}
+
+	const macroDoc = new TJSDocument<Macro>();
+	function onDrop(event: DragEvent) {
+		try {
+			const transfer = event.dataTransfer?.getData('text/plain');
+			if (transfer) macroDoc.setFromDataTransfer(JSON.parse(transfer));
+			if ($macroDoc.collectionName !== 'macros') throw ErrorMsg.send('This isn\'t a macro!'); // TODO: i18n
+			if (data.execute?.type === 'macro') data.execute.document = $macroDoc.uuid;
+		} catch {}
 	}
 </script>
 
@@ -57,27 +76,28 @@
 				<option value='name'>Name</option>
 				<option value='triggers'>Triggers</option>
 				<option value='predicates'>Predicates</option>
+				<option value='removes'>Removes</option>
+				<option value='execute'>Execute</option>
 			</select>
 		</header>
 	{/if}
-	<main class='p-1 grow space-y-1'>
+	<main class='p-0.5 grow space-y-1'>
 		<!-- #region Name -->
 		{#if 'name' in data}
-			<label class='grid grid-cols-3 items-center'>
-				<span>
+			<label class='p-0.5 grid grid-cols-3 items-center'>
+				<span data-tooltip='TODO: Explain'>
 					Name
-					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Explain'></i>
+					<i class='fa fa-info-circle pl-px align-middle'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
 					<input
-						class=''
 						type='text'
 						bind:value={data.name}
 						{readonly}
 						disabled={readonly}
 					/>
 					<button
-						class='w-min mx-2'
+						class='w-min ml-1'
 						on:click={() => { delete data.name; data = data; }}
 						disabled={readonly}
 					>
@@ -89,10 +109,10 @@
 		<!-- #endregion -->
 		<!-- #region Triggers -->
 		{#if 'triggers' in data}
-			<label class='grid grid-cols-3 items-center'>
-				<span>
+			<label class='p-0.5 grid grid-cols-3 items-center'>
+				<span data-tooltip='TODO: Explain'>
 					Triggers
-					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Explain'></i>
+					<i class='fa fa-info-circle pl-px align-middle'></i>
 				</span>
 				<div class='
 					flex align-middle items-center
@@ -126,7 +146,7 @@
 						multiple
 					/>
 					<button
-						class='w-min mx-2'
+						class='w-min ml-1'
 						on:click={() => { delete data.triggers; data = data; }}
 						disabled={readonly}
 					>
@@ -136,22 +156,35 @@
 			</label>
 		{/if}
 		<!-- #endregion -->
-
 		<!-- #region Predicates -->
-		{#if 'predicates' in data}
-			<label class='grid grid-cols-3 items-center'>
-				<span>
+		{#if 'predicates' in data || 'default' in data}
+			<label class='p-0.5 grid grid-cols-3 items-center' for='predicates'>
+				<span data-tooltip='TODO: Add link to pf2e wiki about roll options'>
 					Predicates
-					<i class='fa fa-info-circle pl-px align-middle' data-tooltip='TODO: Add link to pf2e wiki about roll options'></i>
+					<i class='fa fa-info-circle pl-px align-middle'></i>
 				</span>
 				<div class='
 					flex align-middle items-center
 					col-span-2
-					[&_button]:w-min
 				'>
+					<label
+						data-tooltip={data.predicates?.length ? 'Must empty out the Predicates (to [])' : ''}
+						class='flex align-middle items-center text-xs'
+						for='default'
+					>
+						Default
+						<input
+							id='default'
+							type='checkbox'
+							disabled={readonly || !!data.predicates?.length}
+							bind:checked={data.default}
+						/>
+					</label>
 					<input
+						id='predicates'
 						type='text'
-						value={JSON.stringify(data.predicates)}
+						disabled={data.default || readonly}
+						value={JSON.stringify(data.predicates || [])}
 						on:change={(ev) => {
 							try {
 								data.predicates = JSON.parse(ev.currentTarget.value);
@@ -161,14 +194,109 @@
 						}}
 					/>
 					<button
-						class='w-min mx-2'
-						on:click={() => { delete data.predicates; data = data; }}
+						class='w-min ml-1'
+						on:click={() => { delete data.predicates; delete data.default; data = data; }}
 						disabled={readonly}
 					>
 						<i class='fa fa-trash-can pl-0.5'></i>
 					</button>
 				</div>
 			</label>
+		{/if}
+		<!-- #endregion -->
+		<!-- #region Removes -->
+		{#if 'removes' in data}
+			<label class='p-0.5 grid grid-cols-3 items-center'>
+				<span data-tooltip='TODO: Explain'>
+					Removes
+					<i class='fa fa-info-circle pl-px align-middle'></i>
+				</span>
+				<div class='
+					flex align-middle items-center
+					col-span-2
+					[&_button]:w-min
+				'>
+					<input
+						type='text'
+						value={JSON.stringify(data.removes)}
+						on:change={(ev) => {
+							try {
+								data.removes = JSON.parse(ev.currentTarget.value);
+							} catch {
+								ErrorMsg.send('Invalid JSON! Any unsaved progress will be lost.');
+							}
+						}}
+					/>
+					<button
+						class='w-min ml-1'
+						on:click={() => { delete data.removes; data = data; }}
+						disabled={readonly}
+					>
+						<i class='fa fa-trash-can pl-0.5'></i>
+					</button>
+				</div>
+			</label>
+		{/if}
+		<!-- #endregion -->
+		<!-- #region Execute -->
+		{#if 'execute' in data && data.execute}
+			<section
+				on:drop|preventDefault|stopPropagation={onDrop}
+				on:dragover|preventDefault
+				aria-dropeffect='none'
+				aria-label='Document drop target'
+				class='
+					border border-solid rounded-sm bg-slate-500/10
+				'>
+				<label class='p-0.5 pl-1 grid grid-cols-3 items-center'>
+					<span data-tooltip='TODO: Explain'>
+						Execute
+						<i class='fa fa-info-circle pl-px align-middle'></i>
+					</span>
+					<div class='flex align-middle items-center col-span-2'>
+						<select class='grow' bind:value={data.execute.type}>
+							<option value='graphic'>Graphic</option>
+							<option value='sound'>Sound</option>
+							<option value='crosshair'>Crosshair</option>
+							<option value='animation'>Animation</option>
+							<option value='macro'>Macro</option>
+						</select>
+						<button
+							class='w-min ml-1'
+							on:click={() => { delete data.execute; data = data; }}
+							disabled={readonly}
+						>
+							<i class='fa fa-trash-can pl-0.5'></i>
+						</button>
+					</div>
+				</label>
+				<hr class='mx-1' />
+				<div class='p-1 pb-2'>
+					{#if data.execute.type === 'graphic'}
+						graphic options
+					{:else if data.execute.type === 'animation'}
+						animation options
+					{:else if data.execute.type === 'sound'}
+						sound options
+					{:else if data.execute.type === 'crosshair'}
+						crosshair options
+					{:else if data.execute.type === 'macro'}
+						<label class='grid grid-cols-3 items-center'>
+							<span data-tooltip='TODO: Explain'>
+								UUID
+								<i class='fa fa-info-circle pl-px align-middle'></i>
+							</span>
+							<div class='flex align-middle items-center col-span-2'>
+								<input
+									placeholder='Drag a macro or type in the UUID...'
+									type='text'
+									bind:value={data.execute.document}
+								/>
+							</div>
+						</label>
+					{/if}
+				</div>
+			</section>
 		{/if}
 		<!-- #endregion -->
 	</main>
