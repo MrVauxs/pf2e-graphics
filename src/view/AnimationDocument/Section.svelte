@@ -33,11 +33,11 @@
 				Section {index}
 			{/if}
 		</span>
-		<button on:click={addContent} class='size-min text-xs'>
-			<i class='fa fa-plus m-0 p-0'></i>
+		<button on:click={addContent} class='size-min text-xs mx-0.5 p-0 px-1'>
+			<i class='fa fa-plus fa-fw m-0 p-0'></i>
 		</button>
-		<button on:click={() => deleteFn(index)} class='size-min text-xs'>
-			<i class='fa fa-trash m-0 p-0'></i>
+		<button on:click={() => deleteFn(index)} class='size-min text-xs mx-0.5 p-0 px-1'>
+			<i class='fa fa-trash fa-fw m-0 p-0'></i>
 		</button>
 	</div>
 	{#if section?.contents}
