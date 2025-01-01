@@ -73,11 +73,7 @@
 		text-left w-full
 	'
 >
-	<aside
-		class='
-			absolute right-0 top-0 m-1
-		'
-	>
+	<aside class='absolute right-0 top-0 m-1'>
 		{#if item.source === 'module'}
 			{#if item.module === 'pf2e-graphics'}
 				<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
@@ -110,14 +106,12 @@
 	</header>
 
 	{#if typeof item.animationSets === 'string'}
-		<footer
-			class='
-				absolute right-0 bottom-0
-				text-[0.6rem]
-				bg-black/40 rounded-sm border-solid border border-black
-				px-1 m-0.5
-			'
-		>
+		<footer class='
+			absolute right-0 bottom-0
+			text-[0.6rem]
+			bg-black/40 rounded-sm border-solid border border-black
+			px-1 m-0.5
+		'>
 			{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', {
 				rollOption: item.animationSets,
 			})}

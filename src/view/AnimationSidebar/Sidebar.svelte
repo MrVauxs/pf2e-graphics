@@ -40,7 +40,7 @@
 			<i class='fas fa-films'></i>
 			{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.button')}
 		</button>
-		<button id='create-folder'>
+		<button id='create-folder' disabled>
 			<i class='fas fa-folder'></i>
 			{i18n('pf2e-graphics.sidebar.animationSets.create.folder.button')}
 		</button>

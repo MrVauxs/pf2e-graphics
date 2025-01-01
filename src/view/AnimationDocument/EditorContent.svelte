@@ -4,6 +4,7 @@
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { ErrorMsg, log } from 'src/utils';
 	import Svelecte from 'svelecte';
+	import { Animation, Crosshair, Graphic, Macro, Sound } from './execute';
 
 	export let data: AnimationSetItemPartial;
 	export let animation: AnimationSetDocument;
@@ -274,27 +275,15 @@
 				<hr class='mx-1' />
 				<div class='p-1 pb-2'>
 					{#if data.execute.type === 'graphic'}
-						graphic options
+						<Graphic bind:data={data} {readonly} />
 					{:else if data.execute.type === 'animation'}
-						animation options
+						<Animation bind:data={data} {readonly} />
 					{:else if data.execute.type === 'sound'}
-						sound options
+						<Sound bind:data={data} {readonly} />
 					{:else if data.execute.type === 'crosshair'}
-						crosshair options
+						<Crosshair bind:data={data} {readonly} />
 					{:else if data.execute.type === 'macro'}
-						<label class='grid grid-cols-3 items-center'>
-							<span data-tooltip='TODO: Explain'>
-								UUID
-								<i class='fa fa-info-circle pl-px'></i>
-							</span>
-							<div class='flex align-middle items-center col-span-2'>
-								<input
-									placeholder='Drag a macro or type in the UUID...'
-									type='text'
-									bind:value={data.execute.document}
-								/>
-							</div>
-						</label>
+						<Macro bind:data={data} {readonly} />
 					{/if}
 				</div>
 			</section>
