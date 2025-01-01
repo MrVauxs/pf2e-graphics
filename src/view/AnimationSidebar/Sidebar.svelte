@@ -1,10 +1,10 @@
 <script lang='ts'>
 	import type { AnimationSetDocument } from 'src/extensions';
-	import { TJSContextMenu } from '#standard/application/menu';
-	import { i18n } from 'src/utils';
+	import { dev, i18n } from 'src/utils';
 	import { onMount } from 'svelte';
 	import { derived, readable, type Readable, writable } from 'svelte/store';
-	import { copyAnimation, openAnimation, popupCreateAnimation, removeAnimation } from './sidebarFunctions';
+	import { popupCreateAnimation } from './sidebarFunctions';
+	import SidebarListElement from './SidebarListElement.svelte';
 	import { initVariables } from './sidebarVars';
 
 	const search = writable('');
@@ -31,52 +31,7 @@
 				.sort((a, b) => (a.source === 'module' && b.source !== 'module' ? 1 : -1)));
 	}
 
-	function moduleIDToName(id: string): string {
-		const module = game.modules.get(id)!;
-		return module.title ?? module.id;
-	}
-
-	function contextMenu(event: MouseEvent, animation: AnimationSetDocument) {
-		const bounds = (event.currentTarget as HTMLElement)?.getBoundingClientRect();
-		const coordinates = {
-			y: Math.ceil(bounds.bottom + 1 || 0),
-			x: Math.ceil(bounds.left + 1 || 0),
-		};
-
-		const items = [
-			{
-				icon: 'fa fa-file-export',
-				label: 'Export',
-			},
-			{
-				icon: 'fa fa-file-import',
-				label: 'Import',
-			},
-			{
-				icon: 'fa fa-copy',
-				label: 'Duplicate',
-				onPress: () => copyAnimation(animation),
-			},
-		];
-
-		if (animation.source !== 'module') {
-			items.push({
-				icon: 'fa fa-trash',
-				label: 'Delete',
-				onPress: () => removeAnimation(animation),
-			});
-		}
-
-		TJSContextMenu.create({
-			id: 'pf2e-g pf2e-graphics-context',
-			event,
-			...coordinates,
-			styles: {
-				width: `${Math.ceil(bounds.width + 1)}px`,
-			},
-			items,
-		});
-	}
+	let showModuleAnimations = dev;
 </script>
 
 <header class='directory-header'>
@@ -102,83 +57,40 @@
 		/>
 	</div>
 </header>
-<ol class='directory-list'>
-	{#each $list as item}
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-		<li
-			id='pf2e-g-{item.source}-{item.rollOption}'
-			tabindex='-1'
-			on:click={() => openAnimation(item)}
-			on:contextmenu={event => contextMenu(event, item)}
-			on:keydown={e => e.key === 'Enter' && openAnimation(item)}
-			class='
-				relative px-2
-				hover:bg-slate-400/10
-				active:bg-slate-400/20
-				border-0 first:border-t border-b
-				border-black border-solid
-				text-left w-full
-			'
-		>
-			<aside
-				class='
-					absolute right-0 top-0 m-1
-				'
+<div class='inline-flex flex-col'>
+	<ol
+		class:grow={!$search}
+		class='m-0 p-0 list-none overflow-x-hidden overflow-y-auto'
+	>
+		{#each $list.filter(x => x.source !== 'module') as item, index}
+			<SidebarListElement {item} {index} />
+		{:else}
+			<li class='p-8 text-center opacity-40 italic text-sm'>
+				{i18n('pf2e-graphics.sidebar.animationSets.list.empty')}
+			</li>
+		{/each}
+	</ol>
+	<ol class='
+		m-0 p-0
+		list-none overflow-x-hidden overflow-y-auto
+	'>
+		<li class='[&>li]:pl-2 [&>li]:border-l-4 [&>li]:border-solid [&>li]:border-l-red-900'>
+			<header
+				role='tree'
+				tabindex='0'
+				class='p-2 leading-6 bg-red-900'
+				on:click={() => (showModuleAnimations = !showModuleAnimations)}
+				on:keypress={() => (showModuleAnimations = !showModuleAnimations)}
 			>
-				{#if item.source === 'module'}
-					{#if item.module === 'pf2e-graphics'}
-						<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
-					{:else}
-						<span
-							class='
-								px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
-							'
-						>
-							{moduleIDToName(item.module)}
-						</span>
-						<i
-							data-tooltip={i18n('pf2e-graphics.scopes.full.module')}
-							class='fas fa-cubes'
-						></i>
-					{/if}
-				{:else if item.source === 'user'}
-					<span
-						class='
-							px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
-						'
-					>
-						{window.game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
-					</span>
-					<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
-				{:else if item.source === 'world'}
-					<i data-tooltip={i18n('pf2e-graphics.scopes.full.world')} class='fas fa-globe'></i>
-				{/if}
-			</aside>
-
-			<header class='leading-[3rem]'>
-				{item.name}
-				<span class='text-xs align-sub'>
-					{#if !item.animationSets || !item.animationSets.length}
-						<i>{i18n('pf2e-graphics.sidebar.animationSets.list.empty')}</i>
-					{/if}
-				</span>
+				<i class='fas fa-cubes pr-1'></i>
+				Module Animations
 			</header>
-
-			{#if typeof item.animationSets === 'string'}
-				<footer
-					class='
-						absolute right-0 bottom-0
-						text-[0.6rem]
-						bg-black/40 rounded-sm border-solid border border-black/100
-						px-1 m-0.5
-					'
-				>
-					{@html i18n('pf2e-graphics.sidebar.animationSets.list.alias', {
-						rollOption: item.animationSets,
-					})}
-				</footer>
+			{#if showModuleAnimations}
+				{#each $list.filter(x => x.source === 'module') as item, index}
+					<SidebarListElement {item} {index} />
+				{/each}
 			{/if}
 		</li>
-	{/each}
-</ol>
+	</ol>
+</div>
 <footer class='directory-footer'></footer>
