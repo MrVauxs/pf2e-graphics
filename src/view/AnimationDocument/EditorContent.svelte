@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
+	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { ErrorMsg, log } from 'src/utils';
 	import Svelecte from 'svelecte';
@@ -270,7 +271,14 @@
 						</select>
 						<button
 							class='w-min ml-1'
-							on:click={() => { delete data.execute; data = data; }}
+							on:click={() => {
+								TJSDialog.confirm({
+									modal: true,
+									title: 'Confirm Deletion',
+									content: 'Are you sure you want to delete this Execute payload?<p/><b>All data will be lost.</b>',
+									onYes: () => { delete data.execute; data = data; },
+								});
+							}}
 							disabled={readonly}
 						>
 							<i class='fa fa-trash-can pl-0.5'></i>

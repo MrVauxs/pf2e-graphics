@@ -20,9 +20,9 @@
 	}
 
 	function copy() {
-		if (!animation) throw ErrorMsg.send('Attempted to copy an empty animation?'); // TODO: i18n
+		if (!animation) throw ErrorMsg.send('Attempted to copy no animation?'); // TODO: i18n
 
-		const newAnimation = makeAnimation(name, type, location, animation);
+		const newAnimation = makeAnimation(name, type, location, foundry.utils.deepClone(animation));
 		openAnimation(newAnimation);
 		application.close();
 	}
