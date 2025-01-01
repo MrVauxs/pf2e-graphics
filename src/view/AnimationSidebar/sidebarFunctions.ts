@@ -75,11 +75,13 @@ export function makeAnimation(name: string, type: string, location: string, anim
 	// TODO:
 	const template: AnimationSet[] = type === 'ranged' ? [] : [];
 
+	const sluggify = (name: string) => game.pf2e.system.sluggify(name).replaceAll(/(effect|spell|item)-/g, '$1:');
+
 	switch (location) {
 		case 'world':
 			return addToWorld({
 				animationSets: template,
-				rollOption: game.pf2e.system.sluggify(name), // TODO: if this is just template data, make sure the user gets shouted at if they leave it like this (remember you can use the `rollOption` Zod schema to at least check it's got the right format)
+				rollOption: sluggify(name), // TODO: if this is just template data, make sure the user gets shouted at if they leave it like this (remember you can use the `rollOption` Zod schema to at least check it's got the right format)
 
 				// Ordering here is important, animation has to override animationSets and rollOption
 				...animation,
@@ -92,7 +94,7 @@ export function makeAnimation(name: string, type: string, location: string, anim
 		default:
 			return addToCurrentUser({
 				animationSets: template,
-				rollOption: game.pf2e.system.sluggify(name), // TODO: as above
+				rollOption: sluggify(name), // TODO: as above
 
 				// Ordering here is important, animation has to override animationSets and rollOption
 				...animation,

@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import type { AnimationSetItemPartial } from 'schema/payload';
+	import type { AnimationSet, AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
 	import type { Writable } from 'svelte/store';
 	import type { BasicAppExternal } from './AnimationDocumentApp';
@@ -12,17 +12,60 @@
 
 	const { application } = getContext<BasicAppExternal>('#external');
 
-	const currentSection: Writable<number | string> = application.reactive.sessionStorage.getStore(`${application.options.id}`, 'details');
+	const currentSection: Writable<string> = application.reactive.sessionStorage.getStore(`${application.options.id}`, 'details');
 
 	let sectionArray: number[] = [];
 	$: sectionArray = String($currentSection).split('.').map(x => Number(x));
 
 	let data: AnimationSetItemPartial;
 
-	$: data = sectionArray.slice(1).reduce(
-		(object, index) => object.contents![index],
-		animation.animationSets[sectionArray[0]] as AnimationSetItemPartial,
-	);
+	$: {
+		// Crash prevention in case the animation was modified
+		// when you were gone or crashed before saving.
+		try {
+			data = sectionArray.slice(1).reduce(
+				(object, index) => {
+					try {
+						return object.contents![index];
+					} catch {
+						currentSection.set('details');
+						return object;
+					}
+				},
+				animation.animationSets[sectionArray[0]] as AnimationSetItemPartial,
+			);
+		} catch {
+			currentSection.set('details');
+		}
+	}
+
+	function addSection() {
+		if (typeof animation.animationSets === 'string') return;
+		animation.animationSets.push({});
+		animation = animation;
+	}
+
+	function deleteSectionOrContent(location: string) {
+		const locationArray = location.split('.').map(x => Number(x));
+
+		if (location === $currentSection) {
+			$currentSection = locationArray.join('.').slice(0, -2) || 'details';
+		}
+
+		if (locationArray.length === 1) {
+			(animation.animationSets as AnimationSet[]).splice(locationArray[0], 1);
+		} else {
+			let current = animation.animationSets[locationArray[0]] as AnimationSetItemPartial;
+			const last = locationArray.pop()!;
+			for (let i = 0; i < locationArray.length - 1; i++) {
+				const key = locationArray[i];
+				if (current.contents) current = current.contents[key];
+			}
+			current.contents!.splice(last, 1);
+		}
+
+		animation = animation;
+	}
 </script>
 
 <div class='flex flex-row h-full pt-1'>
@@ -59,12 +102,19 @@
 				</section>
 			{:else}
 				{#each animation.animationSets as section, index}
-					<Section {section} index={index} bind:selection={$currentSection} />
+					<Section
+						{section}
+						bind:selection={$currentSection}
+						index={String(index)}
+						deleteFn={deleteSectionOrContent}
+					/>
 				{/each}
 			{/if}
 		</div>
 		<footer class='p-1'>
-			<button class='m-0'><i class='fa fa-plus'></i> Create New Section</button>
+			<button class='m-0' on:click={addSection}>
+				<i class='fa fa-plus'></i> Create New Section
+			</button>
 		</footer>
 	</aside>
 	<main class='px-2 w-3/4 overflow-hidden'>
