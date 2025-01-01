@@ -75,7 +75,9 @@ export function makeAnimation(name: string, type: string, location: string, anim
 	// TODO:
 	const template: AnimationSet[] = type === 'ranged' ? [] : [];
 
-	const sluggify = (name: string) => game.pf2e.system.sluggify(name).replaceAll(/(effect|spell|item)-/g, '$1:');
+	const sluggify = (name: string) =>
+		game.pf2e.system.sluggify(name)
+			.replaceAll(/((spell-?)effect)-/g, 'effect:');
 
 	switch (location) {
 		case 'world':
