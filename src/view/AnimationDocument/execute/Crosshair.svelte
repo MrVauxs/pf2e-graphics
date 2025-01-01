@@ -1,8 +1,11 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
+	import Svelecte from 'svelecte';
 
 	export let data: AnimationSetItemPartial;
 	export let readonly: boolean;
+
+	// TODO: .location, .borderColor, .fillColor, .icon
 
 	function addType() {
 		if (!data.execute || data.execute.type !== 'crosshair') return;
@@ -16,6 +19,7 @@
 	<p>This isn't the right component! Something went extremely wrong if you are seeing this!</p>
 {:else}
 	<div class='space-y-2'>
+		<!-- #region Name -->
 		<label class='grid grid-cols-3 items-center'>
 			<span data-tooltip='TODO: Explain'>
 				Name
@@ -30,6 +34,8 @@
 				/>
 			</div>
 		</label>
+		<!-- #endregion -->
+		<!-- #region Label -->
 		<label class='grid grid-cols-3 items-center'>
 			<span data-tooltip='TODO: Explain'>
 				Label
@@ -44,6 +50,8 @@
 				/>
 			</div>
 		</label>
+		<!-- #endregion -->
+		<!-- #region Template -->
 		<label class='grid grid-cols-3 items-center'>
 			<span data-tooltip='TODO: Explain'>
 				Template
@@ -67,7 +75,6 @@
 				{/if}
 			</div>
 		</label>
-
 		{#if data.execute.template && data.execute.template.type === 'token'}
 			<label class='grid grid-cols-3 items-center'>
 				<span data-tooltip='TODO: Explain'>
@@ -224,5 +231,106 @@
 				</div>
 			</label>
 		{/if}
+		<!-- #endregion -->
+		<!-- #region Snap -->
+		{#if !data.execute.snap}
+			<!-- If wrong, don't! -->
+			{data.execute.snap = { position: ['CENTER'] }}
+		{:else}
+			<!-- svelte-ignore a11y-label-has-associated-control -->
+			<label class='grid grid-cols-3 items-center'>
+				<span data-tooltip='TODO: Explain'>
+					Snap Location
+					<i class='fa fa-info-circle pl-px'></i>
+				</span>
+				<div class='flex align middle items-center col-span-2'>
+					<Svelecte
+						options={[
+							'BOTTOM_LEFT_CORNER',
+							'BOTTOM_LEFT_VERTEX',
+							'BOTTOM_RIGHT_CORNER',
+							'BOTTOM_RIGHT_VERTEX',
+							'BOTTOM_SIDE_MIDPOINT',
+							'CENTER',
+							'CORNER',
+							'EDGE_MIDPOINT',
+							'LEFT_SIDE_MIDPOINT',
+							'RIGHT_SIDE_MIDPOINT',
+							'SIDE_MIDPOINT',
+							'TOP_LEFT_CORNER',
+							'TOP_LEFT_VERTEX',
+							'TOP_RIGHT_CORNER',
+							'TOP_RIGHT_VERTEX',
+							'TOP_SIDE_MIDPOINT',
+							'VERTEX',
+						]}
+						bind:value={data.execute.snap.position}
+						disabled={readonly}
+						selectOnTab={true}
+						multiple
+					/>
+				</div>
+			</label>
+			<label class='grid grid-cols-3 items-center'>
+				<span data-tooltip='TODO: Explain'>
+					Snap Direction
+					<i class='fa fa-info-circle pl-px'></i>
+				</span>
+				<div class='flex align-middle items-center col-span-2'>
+					<input
+						type='number'
+						bind:value={data.execute.snap.direction}
+						step='1' min='2' max='8'
+						disabled={readonly}
+					/>
+				</div>
+			</label>
+		{/if}
+		<!-- #endregion -->
+		<!-- #region Lock Drag -->
+		<label class='grid grid-cols-3 items-center'>
+			<span data-tooltip='TODO: Explain'>
+				Lock Drag
+				<i class='fa fa-info-circle pl-px'></i>
+			</span>
+			<div class='flex items-center col-span-2'>
+				<input
+					type='checkbox'
+					bind:checked={data.execute.lockDrag}
+					disabled={readonly}
+				/>
+			</div>
+		</label>
+		<!-- #endregion -->
+		<!-- #region Lock Rotation -->
+		<label class='grid grid-cols-3 items-center'>
+			<span data-tooltip='TODO: Explain'>
+				Lock Rotation
+				<i class='fa fa-info-circle pl-px'></i>
+			</span>
+			<div class='flex align-middle items-center col-span-2'>
+				<input
+					type='checkbox'
+					bind:checked={data.execute.lockManualRotation}
+					disabled={readonly}
+				/>
+			</div>
+		</label>
+		<!-- #endregion -->
+		<!-- #region No Grid Highlight -->
+		<label class='grid grid-cols-3 items-center'>
+			<span data-tooltip='TODO: Explain'>
+				No Grid Highlight
+				<i class='fa fa-info-circle pl-px'></i>
+			</span>
+			<div class='flex align-middle items-center col-span-2'>
+				<input
+					type='checkbox'
+					bind:checked={data.execute.noGridHighlight}
+					disabled={readonly}
+				/>
+			</div>
+		</label>
+		<!-- #endregion -->
 	</div>
 {/if}

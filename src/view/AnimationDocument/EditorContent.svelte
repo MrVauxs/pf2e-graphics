@@ -119,7 +119,6 @@
 				<div class='
 					flex align-middle items-center
 					col-span-2
-					[&_button]:w-min
 				'>
 					<Svelecte
 						options={[
