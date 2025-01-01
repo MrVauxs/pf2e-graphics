@@ -18,6 +18,10 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 			this.options.readonly = true;
 			this.options.title = `${i18n('pf2e-graphics.document.title')} (Read-only)`;
 		}
+
+		if (this.options.readonly) {
+			this.options.animation = Object.freeze(foundry.utils.deepClone(this.options.animation));
+		}
 	}
 
 	static override get defaultOptions() {
