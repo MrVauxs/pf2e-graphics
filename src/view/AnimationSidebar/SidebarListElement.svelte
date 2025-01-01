@@ -82,11 +82,7 @@
 			{#if item.module === 'pf2e-graphics'}
 				<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
 			{:else}
-				<span
-					class='
-						px-0.5 bg-black/40 rounded-sm border-solid border border-black
-					'
-				>
+				<span class='px-0.5 bg-black/40 rounded-sm border-solid border border-black'>
 					{moduleIDToName(item.module)}
 				</span>
 				<i
@@ -95,11 +91,7 @@
 				></i>
 			{/if}
 		{:else if item.source === 'user'}
-			<span
-				class='
-					px-0.5 bg-black/40 rounded-sm border-solid border border-black
-				'
-			>
+			<span class='px-0.5 bg-black/40 rounded-sm border-solid border border-black'>
 				{window.game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
 			</span>
 			<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
