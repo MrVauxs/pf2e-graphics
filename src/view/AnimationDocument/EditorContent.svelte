@@ -69,17 +69,16 @@
 				class='w-min text-nowrap h-8'
 				on:click={addSection}
 			>
-				<i class='fa fa-plus pr-1'></i>Add
+				<i class='fa fa-plus pr-1'></i>
+				Add
 			</button>
 			<select
 				class='grow h-8'
 				bind:value={selection}
 			>
-				<option value='name'>Name</option>
-				<option value='triggers'>Triggers</option>
-				<option value='predicates'>Predicates</option>
-				<option value='removes'>Removes</option>
-				<option value='execute'>Execute</option>
+				{#each ['Name', 'Triggers', 'Predicates', 'Removes', 'Execute'].filter(x => !Object.keys(data).includes(x.toLowerCase())) as section}
+					<option value={section.toLowerCase()}>{section}</option>
+				{/each}
 			</select>
 		</header>
 	{/if}
