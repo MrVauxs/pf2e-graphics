@@ -87,7 +87,7 @@
 			<label class='p-0.5 grid grid-cols-3 items-center'>
 				<span data-tooltip='TODO: Explain'>
 					Name
-					<i class='fa fa-info-circle pl-px align-middle'></i>
+					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
 					<input
@@ -112,7 +112,7 @@
 			<label class='p-0.5 grid grid-cols-3 items-center'>
 				<span data-tooltip='TODO: Explain'>
 					Triggers
-					<i class='fa fa-info-circle pl-px align-middle'></i>
+					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='
 					flex align-middle items-center
@@ -161,7 +161,7 @@
 			<label class='p-0.5 grid grid-cols-3 items-center' for='predicates'>
 				<span data-tooltip='TODO: Add link to pf2e wiki about roll options'>
 					Predicates
-					<i class='fa fa-info-circle pl-px align-middle'></i>
+					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='
 					flex align-middle items-center
@@ -209,7 +209,7 @@
 			<label class='p-0.5 grid grid-cols-3 items-center'>
 				<span data-tooltip='TODO: Explain'>
 					Removes
-					<i class='fa fa-info-circle pl-px align-middle'></i>
+					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='
 					flex align-middle items-center
@@ -251,7 +251,7 @@
 				<label class='p-0.5 pl-1 grid grid-cols-3 items-center'>
 					<span data-tooltip='TODO: Explain'>
 						Execute
-						<i class='fa fa-info-circle pl-px align-middle'></i>
+						<i class='fa fa-info-circle pl-px'></i>
 					</span>
 					<div class='flex align-middle items-center col-span-2'>
 						<select class='grow' bind:value={data.execute.type}>
@@ -284,7 +284,7 @@
 						<label class='grid grid-cols-3 items-center'>
 							<span data-tooltip='TODO: Explain'>
 								UUID
-								<i class='fa fa-info-circle pl-px align-middle'></i>
+								<i class='fa fa-info-circle pl-px'></i>
 							</span>
 							<div class='flex align-middle items-center col-span-2'>
 								<input
