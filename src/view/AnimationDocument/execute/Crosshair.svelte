@@ -82,6 +82,7 @@
 							name='scoops'
 							value='SOURCES'
 							bind:group={data.execute.template.relativeTo}
+							disabled={readonly}
 						/>
 					</label>
 					<label>
@@ -91,6 +92,7 @@
 							name='scoops'
 							value='TARGETS'
 							bind:group={data.execute.template.relativeTo}
+							disabled={readonly}
 						/>
 					</label>
 				</div>
@@ -101,7 +103,12 @@
 					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
-					<input type='number' bind:value={data.execute.template.padding} step='1' min='0' />
+					<input
+						type='number'
+						bind:value={data.execute.template.padding}
+						step='1' min='0'
+						disabled={readonly}
+					/>
 				</div>
 			</label>
 		{/if}
@@ -116,7 +123,12 @@
 						<i class='fa fa-info-circle pl-px'></i>
 					</span>
 					<div class='flex align-middle items-center col-span-2'>
-						<input type='number' bind:value={data.execute.template.size.default} step='5' min='0' />
+						<input
+							type='number'
+							bind:value={data.execute.template.size.default}
+							step='5' min='0'
+							disabled={readonly}
+						/>
 					</div>
 				</label>
 				<label class='grid grid-cols-3 items-center'>
@@ -130,6 +142,7 @@
 							bind:value={data.execute.template.size.min}
 							step='5' min='0'
 							placeholder='0'
+							disabled={readonly}
 						/>
 
 						<label class='grid grid-cols-3 items-center col-span-2 gap-2'>
@@ -138,7 +151,13 @@
 								<i class='fa fa-info-circle pl-px'></i>
 							</span>
 							<div class='flex align-middle items-center col-span-2'>
-								<input type='number' bind:value={data.execute.template.size.max} step='5' min='0' placeholder='Infinite...?' />
+								<input
+									type='number'
+									bind:value={data.execute.template.size.max}
+									step='5' min='0'
+									placeholder='Infinite...?'
+									disabled={readonly}
+								/>
 							</div>
 						</label>
 					</div>
@@ -152,7 +171,12 @@
 					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
-					<input type='number' bind:value={data.execute.template.angle} step='10' min='0' max='360' />
+					<input
+						type='number'
+						bind:value={data.execute.template.angle}
+						step='10' min='0' max='360'
+						disabled={readonly}
+					/>
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
@@ -161,7 +185,12 @@
 					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
-					<input type='number' bind:value={data.execute.template.direction} step='10' min='-180' max='180' />
+					<input
+						type='number'
+						bind:value={data.execute.template.direction}
+						step='10' min='-180' max='180'
+						disabled={readonly}
+					/>
 				</div>
 			</label>
 		{/if}
@@ -172,7 +201,12 @@
 					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
-					<input type='number' bind:value={data.execute.template.width} step='5' min='0' />
+					<input
+						type='number'
+						bind:value={data.execute.template.width}
+						step='5' min='0'
+						disabled={readonly}
+					/>
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
@@ -181,7 +215,12 @@
 					<i class='fa fa-info-circle pl-px'></i>
 				</span>
 				<div class='flex align-middle items-center col-span-2'>
-					<input type='number' bind:value={data.execute.template.direction} step='10' min='-180' max='180' />
+					<input
+						type='number'
+						bind:value={data.execute.template.direction}
+						step='10' min='-180' max='180'
+						disabled={readonly}
+					/>
 				</div>
 			</label>
 		{/if}
