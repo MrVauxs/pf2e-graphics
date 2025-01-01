@@ -10,10 +10,6 @@
 			type: 'token',
 			relativeTo: 'SOURCES',
 		};
-		// @ts-expect-error We are ignoring this so Svelte doesnt shit itself on attempting to null-coalesce (?.)
-		data.execute.template.size = {
-			default: 5,
-		};
 	}
 </script>
 {#if !data.execute || data.execute?.type !== 'crosshair'}
@@ -111,9 +107,9 @@
 		{/if}
 		{#if data.execute.template && data.execute.template.type !== 'token'}
 			{#if !data.execute.template.size}
+				<!-- If wrong, don't! -->
 				{data.execute.template.size = { default: 5 }}
 			{:else}
-				<!-- Set the Default, Min, Max -->
 				<label class='grid grid-cols-3 items-center'>
 					<span data-tooltip='TODO: Explain'>
 						Default Size

@@ -31,19 +31,19 @@
 				data.name = 'Animation Name';
 				break;
 			}
-			case 'triggers':{
+			case 'triggers': {
 				data.triggers = [];
 				break;
 			}
-			case 'predicates':{
+			case 'predicates': {
 				data.predicates = [];
 				break;
 			}
-			case 'removes':{
+			case 'removes': {
 				data.removes = [];
 				break;
 			}
-			case 'execute':{
+			case 'execute': {
 				data.execute = {};
 				break;
 			}
