@@ -2,7 +2,7 @@
 	import type { AnimationSetDocument } from 'src/extensions';
 	import { TJSContextMenu } from '@typhonjs-fvtt/standard/application/menu';
 	import { i18n } from 'src/utils';
-	import { fly } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import { copyAnimation, openAnimation, removeAnimation } from './sidebarFunctions';
 
 	export let item: AnimationSetDocument;
@@ -58,7 +58,7 @@
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <li
-	transition:fly|global={{ duration: 500, x: 200, delay: Math.max(0, 250 * index - 50 * index) }}
+	transition:slide|global={{ duration: 500, delay: Math.max(0, 250 * index - 50 * index) }}
 	id='pf2e-g-{item.source}-{item.rollOption}'
 	tabindex='-1'
 	on:click={() => openAnimation(item)}
