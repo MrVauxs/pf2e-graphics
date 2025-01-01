@@ -58,7 +58,7 @@
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <li
-	transition:slide|global={{ duration: 500, delay: Math.max(0, 250 * index - 50 * index) }}
+	transition:slide|global={{ duration: 500, delay: Math.max(0, 50 * Math.min(index, 10)) }}
 	id='pf2e-g-{item.source}-{item.rollOption}'
 	tabindex='-1'
 	on:click={() => openAnimation(item)}
