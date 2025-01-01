@@ -52,12 +52,12 @@
 
 	const macroDoc = new TJSDocument<Macro>();
 	function onDrop(event: DragEvent) {
-		if (readonly) return;
+		if (readonly || data.execute?.type !== 'macro') return;
 		try {
 			const transfer = event.dataTransfer?.getData('text/plain');
 			if (transfer) macroDoc.setFromDataTransfer(JSON.parse(transfer));
 			if ($macroDoc.collectionName !== 'macros') throw ErrorMsg.send('This isn\'t a macro!'); // TODO: i18n
-			if (data.execute?.type === 'macro') data.execute.document = $macroDoc.uuid;
+			data.execute.document = $macroDoc.uuid;
 		} catch {}
 	}
 </script>
@@ -256,7 +256,13 @@
 						<i class='fa fa-info-circle pl-px'></i>
 					</span>
 					<div class='flex align-middle items-center col-span-2'>
-						<select class='grow' bind:value={data.execute.type} disabled={readonly}>
+						<select
+							class='grow underline-offset-2'
+							class:underline={Object.keys(data.execute).length > 1}
+							bind:value={data.execute.type}
+							disabled={readonly || Object.keys(data.execute).length > 1}
+							data-tooltip={Object.keys(data.execute).length > 1 ? 'In order to change the type of Execute payload, you have to remove the existing one first.' : ''}
+						>
 							<option value='graphic'>Graphic</option>
 							<option value='sound'>Sound</option>
 							<option value='crosshair'>Crosshair</option>
