@@ -63,7 +63,7 @@
 	}
 </script>
 
-<div class='flex flex-col gap-2 h-full py-1'>
+<form class='flex flex-col gap-2 h-full py-1'>
 	{#if !readonly}
 		<header class='flex items-center grow-0'>
 			<button
@@ -303,4 +303,4 @@
 		{/if}
 		<!-- #endregion -->
 	</main>
-</div>
+</form>
