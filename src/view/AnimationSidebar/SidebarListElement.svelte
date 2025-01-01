@@ -84,7 +84,7 @@
 			{:else}
 				<span
 					class='
-						px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
+						px-0.5 bg-black/40 rounded-sm border-solid border border-black
 					'
 				>
 					{moduleIDToName(item.module)}
@@ -97,7 +97,7 @@
 		{:else if item.source === 'user'}
 			<span
 				class='
-					px-0.5 bg-black/40 rounded-sm border-solid border border-black/100
+					px-0.5 bg-black/40 rounded-sm border-solid border border-black
 				'
 			>
 				{window.game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
@@ -122,7 +122,7 @@
 			class='
 				absolute right-0 bottom-0
 				text-[0.6rem]
-				bg-black/40 rounded-sm border-solid border border-black/100
+				bg-black/40 rounded-sm border-solid border border-black
 				px-1 m-0.5
 			'
 		>
