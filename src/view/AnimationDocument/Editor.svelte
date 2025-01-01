@@ -1,15 +1,21 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 	import type { AnimationSetDocument } from 'src/extensions';
+	import type { Writable } from 'svelte/store';
+	import type { BasicAppExternal } from './AnimationDocumentApp';
+	import { getContext } from 'svelte';
 	import EditorContent from './EditorContent.svelte';
 	import Section from './Section.svelte';
 
 	export let animation: AnimationSetDocument;
 	export let readonly: boolean;
 
-	let currentSection: number | string = 'details';
+	const { application } = getContext<BasicAppExternal>('#external');
+
+	const currentSection: Writable<number | string> = application.reactive.sessionStorage.getStore(`${application.options.id}`, 'details');
+
 	let sectionArray: number[] = [];
-	$: sectionArray = String(currentSection).split('.').map(x => Number(x));
+	$: sectionArray = String($currentSection).split('.').map(x => Number(x));
 
 	let data: AnimationSetItemPartial;
 
@@ -30,9 +36,9 @@
 			<section
 				role='button'
 				tabindex='-1'
-				on:keypress={() => currentSection = 'details'}
-				on:click={() => currentSection = 'details'}
-				class:shadow-inner={currentSection === 'details'}
+				on:keypress={() => $currentSection = 'details'}
+				on:click={() => $currentSection = 'details'}
+				class:shadow-inner={$currentSection === 'details'}
 				class='
 					hover:bg-slate-600/20
 					border-0 border-b border-solid
@@ -53,7 +59,7 @@
 				</section>
 			{:else}
 				{#each animation.animationSets as section, index}
-					<Section {section} index={index} bind:selection={currentSection} />
+					<Section {section} index={index} bind:selection={$currentSection} />
 				{/each}
 			{/if}
 		</div>
@@ -62,7 +68,7 @@
 		</footer>
 	</aside>
 	<main class='px-2 w-3/4 overflow-hidden'>
-		{#if currentSection === 'details'}
+		{#if $currentSection === 'details'}
 			<div class='space-y-1'>
 				<label class='grid grid-cols-2 items-center'>
 					<span>

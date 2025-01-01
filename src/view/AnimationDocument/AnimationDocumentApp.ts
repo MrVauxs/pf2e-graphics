@@ -12,6 +12,11 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 		this.options.id = `pf2e-graphics-document-${game.pf2e.system.sluggify(options.animation.rollOption)}`;
 		if ('id' in options.animation) {
 			this.options.id = `${this.options.id}-${options.animation.id}`;
+
+			try {
+				// Attempt to parse session storage item and set to application state.
+				this.state.set(JSON.parse(sessionStorage.getItem(`${this.options.id}`) || '{}'));
+			} catch { }
 		}
 
 		if (this.options.animation.source === 'module') {
