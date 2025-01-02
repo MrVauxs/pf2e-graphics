@@ -66,7 +66,8 @@ function processGraphic(
 
 	if (payload.tieToDocuments && data.item) seq.tieToDocuments(data.item);
 
-	// if (payload.waitUntilFinished)
+	if (payload.waitUntilFinished) seq.waitUntilFinished(...parseMinMaxObject(payload.waitUntilFinished));
+
 	// if (payload.repeats)
 	// if (payload.reflection)
 	// if (payload.rotation)
