@@ -4,6 +4,8 @@ import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store/fvtt/document';
 import { deslugify } from 'src/utils';
 import { derived } from 'svelte/store';
 
+const ignoredWords = ['item:slug:'];
+
 export function initVariables(): Readable<AnimationSetDocument[]> {
 	const userDocs = game.users.map(x => new TJSDocument(x));
 	const users: Readable<UserAnimationSetDocument[]> = derived(userDocs, $userDocs =>
@@ -26,7 +28,7 @@ export function initVariables(): Readable<AnimationSetDocument[]> {
 			Array.from($animations.entries()).map(([rollOption, data]) => ({
 				source: 'module' as const,
 				module: data.module,
-				name: deslugify(rollOption),
+				name: deslugify(rollOption.replace(new RegExp(ignoredWords.join('|'), 'g'), '')),
 				rollOption,
 				animationSets: data.animationSets,
 			})),
