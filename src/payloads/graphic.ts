@@ -1,3 +1,4 @@
+import type { TokenPF2e } from 'foundry-pf2e';
 import type { Payload } from '../../schema';
 import type { EffectiveSize } from '../extensions';
 import {
@@ -89,11 +90,13 @@ function processGraphic(
 
 	if (payload.size) {
 		if (payload.size.type === 'directed') {
+			seq.stretchTo(positionToArgument(payload.size.endpoint, data));
+
 			// TODO: Implement
-			throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
-				payloadType: 'graphic',
-				unimplemented: '<code>size.type: "directed"</code>',
-			});
+			// throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
+			// 	payloadType: 'graphic',
+			// 	unimplemented: '<code>size.type: "directed"</code>',
+			// });
 		} else {
 			// #region Common properties
 			if (payload.size.spriteScale) seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
@@ -153,7 +156,10 @@ function processGraphic(
 					}
 					placeable = positionToArgument(firstPlaceable, data);
 				}
-				if (placeable instanceof Token) {
+				if (placeable instanceof CONFIG.Token.objectClass || placeable instanceof CONFIG.Token.documentClass) {
+					if (placeable instanceof CONFIG.Token.documentClass) {
+						placeable = placeable.object as TokenPF2e;
+					}
 					if (payload.size.useTokenSpace) {
 						const tokenSize = placeable.getSize();
 						if (payload.size.uniform) {
@@ -211,7 +217,7 @@ function processGraphic(
 							if (payload.size.scaling) seq.scale(payload.size.scaling);
 						}
 					}
-				} else if (placeable instanceof MeasuredTemplate) {
+				} else if (placeable instanceof MeasuredTemplate || placeable instanceof MeasuredTemplateDocument) {
 					seq.scaleToObject(payload.size.scaling ?? 1, {
 						uniform: !!payload.size.uniform,
 					});
