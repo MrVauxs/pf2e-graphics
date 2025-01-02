@@ -414,9 +414,11 @@ export let AnimCore = class AnimCore {
 				if (!validChildren.length && folder.contents.some(x => x.default)) {
 					// If there are no valid children, then we need to find the default children and make them valid.
 					validChildren = folder.contents.filter(x => x.default);
-				} else {
-					// If there are valid children, remove the default children from the valid options.
+				} else if (validChildren.length > 1) {
+					// If there are MULTIPLE valid children, remove the default children from the valid options.
 					validChildren = validChildren.filter(x => !x.default);
+				} else {
+					// If there is only one valid child, then we don't need to do anything.
 				}
 
 				// We no longer need this.
