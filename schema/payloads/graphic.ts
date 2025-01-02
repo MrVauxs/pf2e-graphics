@@ -601,7 +601,7 @@ export const graphicPayload = effectOptions
 			})
 			.optional()
 			.describe(
-				'Controls how large the graphic should be.\n`"type": "absolute"`: scales the graphic to a fixed size.\n`"type": "relative"`: scales the graphic relative to a particular placeable.\n`"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `endpoint`. This also rotates the graphic appropriately—use `rotation` to modify it.\n`"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
+				'Controls how large the graphic should be.\n- `"type": "absolute"`: scales the graphic to a fixed size.\n- `"type": "relative"`: scales the graphic relative to a particular placeable.\n- `"type": "directed"`: scales or stretches the graphic so that it spans from its `position` to the `endpoint`. This also rotates the graphic appropriately—use `rotation` to modify it.\n- `"type": "screenSpace"`: controls the graphic\'s size when it\'s been configured to play in screen space (see `position` for more information).',
 			),
 		reflection: z
 			.object({
@@ -609,13 +609,13 @@ export const graphicPayload = effectOptions
 					.enum(['always', 'random'])
 					.optional()
 					.describe(
-						'`"always"`: reflects the graphic across the x-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
+						'- `"always"`: reflects the graphic across the x-axis.\n- `"random"`: randomly chooses whether to reflect the graphic across the x-axis on each execution.',
 					),
 				y: z
 					.enum(['always', 'random'])
 					.optional()
 					.describe(
-						'`"always"`: reflects the graphic across the y-axis.\n`"random"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
+						'- `"always"`: reflects the graphic across the y-axis.\n- `"random"`: randomly chooses whether to reflect the graphic across the y-axis on each execution.',
 					),
 			})
 			.strict()
