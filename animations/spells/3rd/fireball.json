@@ -1,0 +1,99 @@
+{
+	"origin:item:slug:fireball": [
+		{
+			"triggers": [
+				"place-template"
+			],
+			"contents": [
+				{
+					"default": true,
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.fire_bolt.orange"
+								],
+								"position": [
+									{
+										"type": "static",
+										"location": "SOURCES"
+									}
+								],
+								"size": {
+									"type": "directed",
+									"endpoint": "TEMPLATES",
+									"stretch": true
+								},
+								"waitUntilFinished": -1000
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.fireball.explosion.orange"
+								],
+								"position": [
+									{
+										"type": "static",
+										"location": "TEMPLATES"
+									}
+								],
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"predicates": [
+						"conservation-of-energy:cold"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.spell_projectile.ice_shard.blue"
+								],
+								"position": [
+									{
+										"type": "static",
+										"location": "SOURCES"
+									}
+								],
+								"size": {
+									"type": "directed",
+									"endpoint": "TEMPLATES",
+									"stretch": true
+								},
+								"waitUntilFinished": -1500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.ice_spikes.radial.burst.white"
+								],
+								"position": [
+									{
+										"type": "static",
+										"location": "TEMPLATES"
+									}
+								],
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
