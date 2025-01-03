@@ -63,12 +63,13 @@
 						<i class='fa fa-info-circle pl-px'></i>
 					</span>
 					<div class='flex align-middle items-center col-span-2'>
-						<select bind:value={positionType} class='grow h-8 capitalize'>
+						<select disabled={readonly} bind:value={positionType} class='grow h-8 capitalize'>
 							{#each ['static', 'dynamic'] as section}
 								<option value={section}>{section}</option>
 							{/each}
 						</select>
 						<button
+							disabled={readonly}
 							class='w-min text-nowrap h-8'
 							on:click={() => {
 								if (!data.execute || !data.execute.position) return;
@@ -94,6 +95,7 @@
 								Type: <i>{position.type}</i>
 							</span>
 							<button
+								disabled={readonly}
 								class='ml-auto size-min'
 								on:click={() => {
 									if (data.execute?.position)
@@ -133,6 +135,7 @@
 								<div class='flex items-center gap-2 h-7 col-span-2'>
 									<input
 										type='checkbox'
+										disabled={readonly}
 										checked={Boolean(position.moveTowards)}
 										on:change={(e) => {
 											// TODO: Remove unnecessary typecheck in Svelte 5
