@@ -91,9 +91,15 @@ function processGraphic(
 
 	if (payload.size) {
 		if (payload.size.type === 'directed') {
-			seq.stretchTo(positionToArgument(payload.size.endpoint, data), {
-				onlyX: payload.size.stretch ?? false,
-			});
+			seq.stretchTo(
+				positionToArgument(payload.size.endpoint, data),
+				{
+					hideLineOfSight: payload.size.requiresLineOfSight === 'hide',
+					requiresLineOfSight: payload.size.requiresLineOfSight === 'terminate',
+					onlyX: payload.size.stretch ?? false,
+					tiling: payload.size.tile ?? false,
+				},
+			);
 
 			// TODO: Implement
 			// throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
