@@ -61,6 +61,14 @@
 			data.execute.document = $macroDoc.uuid;
 		} catch {}
 	}
+
+	function checkIfEmpty(object: object) {
+		const entries = Object.entries(object)
+			.filter(x => Array.isArray(x[1]) ? x[1].length > 0 : false)
+			.filter(x => x[0] !== 'type');
+
+		return entries.length === 0;
+	}
 </script>
 
 <div class='flex flex-col gap-2 h-full py-1'>
@@ -257,10 +265,10 @@
 					<div class='flex align-middle items-center col-span-2'>
 						<select
 							class='grow underline-offset-2'
-							class:underline={Object.keys(data.execute).length > 1}
 							bind:value={data.execute.type}
-							disabled={readonly || Object.keys(data.execute).length > 1}
-							data-tooltip={Object.keys(data.execute).length > 1 ? 'In order to change the type of Execute payload, you have to remove the existing one first.' : ''}
+							class:underline={!checkIfEmpty(data.execute)}
+							disabled={readonly || !checkIfEmpty(data.execute)}
+							data-tooltip={!checkIfEmpty(data.execute) ? 'In order to change the type of Execute payload, you have to remove the existing one first.' : ''}
 						>
 							<option value='graphic'>Graphic</option>
 							<option value='sound'>Sound</option>
@@ -287,7 +295,7 @@
 				<hr class='mx-1' />
 				<div class='p-1 pb-2'>
 					{#if data.execute.type === 'graphic'}
-						<Graphic bind:data={data} {readonly} />
+						<Graphic bind:dataO={data} {readonly} />
 					{:else if data.execute.type === 'animation'}
 						<Animation bind:data={data} {readonly} />
 					{:else if data.execute.type === 'sound'}

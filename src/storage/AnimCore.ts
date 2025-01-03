@@ -1,6 +1,6 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
 import type { AnimationSet, TokenImage, Trigger } from '../../schema';
-import type { TokenOrDoc } from '../extensions';
+import type { AnimationSetDocument, TokenOrDoc, UserAnimationSetDocument } from '../extensions';
 import { derived } from 'svelte/store';
 import { decodePayload } from '../payloads/index.ts';
 import {
@@ -8,6 +8,7 @@ import {
 	dev,
 	devLog,
 	ErrorMsg,
+	getPlayerOwners,
 	info,
 	log,
 	mergeObjectsConcatArrays,
@@ -239,34 +240,43 @@ export let AnimCore = class AnimCore {
 	retrieve(
 		_rollOptions: string[] = [],
 		item?: ItemPF2e<any> | null,
-		_actor: ActorPF2e<any> | null | undefined = item?.actor,
+		actor: ActorPF2e<any> | null | undefined = item?.actor,
 	): { animations: JSONMap; sources: Record<string, string[]> } {
 		const obj = {
-			animations: {},
+			animations: new Map(),
 			sources: {},
 		};
 		/*
 			From a list of owners, find either the "true" owner (assigned user) or yourself if you are one of them.
 			Otherwise, default to whoever is first.
 		*/
-		// const owners = actor ? getPlayerOwners(actor) : [game.user];
+		const owners = actor ? getPlayerOwners(actor) : [game.user];
 		// const actorOrigin = item?.isOfType('condition', 'effect') ? item.origin : null;
 
 		// const itemOriginId = rollOptions.find(x => x.includes('origin:item:id:'))?.split(':').at(-1);
 		// const itemOrigin = actorOrigin?.items.get(itemOriginId || '');
 
 		// Get all the flags.
-		// TODO: Convert flags to arrays, and then from those arrays to objects here.
-		// const userKeys = owners
-		//	.map(u => u.getFlag('pf2e-graphics', 'customAnimations') ?? {})
-		//	.reduce((p, c) => foundry.utils.mergeObject(p, c), {});
-		// const actorOriginKeys = actorOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		// const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		// const actorKeys = actor?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
-		// const itemKeys = item?.getFlag('pf2e-graphics', 'customAnimations') ?? {};
+		const worldDocs = convertDocumentsToMap(window.pf2eGraphics.liveSettings.globalAnimations);
+		const userDocs = convertDocumentsToMap(owners.flatMap(u => u.getFlag('pf2e-graphics', 'animations') as UserAnimationSetDocument[] ?? []));
 
-		// Priority (highest to lowest): Item > Actor (Affected) > Item (Origin) > Actor (Origin) > User > World > External modules > PF2e Graphics itself
-		obj.animations = this.animations;
+		// const actorOriginKeys = actorOrigin?.getFlag('pf2e-graphics', 'animations') ?? [];
+		// const itemOriginKeys = itemOrigin?.getFlag('pf2e-graphics', 'animations') ?? [];
+		// const actorKeys = actor?.getFlag('pf2e-graphics', 'animations') ?? [];
+		// const itemKeys = item?.getFlag('pf2e-graphics', 'animations') ?? [];
+
+		/**
+		 * Priority (highest to lowest):
+		 * Item >
+		 * Actor (Affected) >
+		 * Item (Origin) >
+		 * Actor (Origin) >
+		 * User >
+		 * World >
+		 * External modules >
+		 * PF2e Graphics itself
+		 */
+		obj.animations = new Map([...this.animations, ...worldDocs, ...userDocs]);
 
 		/* Nobody cares for now
 		obj.sources = {
@@ -281,10 +291,7 @@ export let AnimCore = class AnimCore {
 			item: Object.keys(itemKeys),
 		} as const; */
 
-		return {
-			animations: this.animations,
-			sources: {},
-		};
+		return obj;
 	}
 
 	/**
@@ -548,6 +555,20 @@ export let AnimCore = class AnimCore {
 	}
 	// #endregion
 };
+
+export function convertDocumentsToMap(document: AnimationSetDocument[]): JSONMap {
+	const map = new Map<string, AnimationSetMetadataWrapper>();
+	for (const doc of document) {
+		map.set(
+			doc.rollOption,
+			new AnimationSetMetadataWrapper(
+				doc.animationSets,
+				{ module: doc.source },
+			),
+		);
+	}
+	return map;
+}
 
 // HMR
 if (import.meta.hot) {

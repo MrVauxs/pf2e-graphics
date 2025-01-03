@@ -1,8 +1,10 @@
 <script lang='ts'>
 	import type { AnimationSetItemPartial } from 'schema/payload';
 
-	export let data: AnimationSetItemPartial<'graphic'>;
+	export let dataO: AnimationSetItemPartial;
 	export let readonly: boolean;
+
+	let data = dataO as AnimationSetItemPartial<'graphic'>;
 
 	// @ts-expect-error TODO: Sequencer Types
 	const entries: string[] = window.Sequencer.Database.publicFlattenedSimpleEntries;
@@ -35,7 +37,11 @@
 						value={data.execute.graphic}
 						on:change={(e) => {
 							if (!data.execute) data.execute = {};
-							data.execute.graphic = [e.currentTarget.value];
+							if (e.currentTarget.value) {
+								data.execute.graphic = [e.currentTarget.value];
+							} else {
+								data.execute.graphic = [];
+							};
 						}}
 						{readonly}
 						disabled={readonly}
@@ -105,17 +111,19 @@
 									Location
 									<i class='fa fa-info-circle pl-px'></i>
 								</span>
-								<select
+								<datalist id='location'>
+									<option>SOURCES</option>
+									<option>TARGETS</option>
+									<option>TEMPLATES</option>
+								</datalist>
+								<input
 									class='col-span-2'
+									list='location'
+									type='text'
 									bind:value={position.location}
+									{readonly}
 									disabled={readonly}
-								>
-									{#each ['SOURCES', 'TARGETS', 'TEMPLATES'] as section}
-										<option value={section}>
-											{section.toLowerCase().capitalize()}
-										</option>
-									{/each}
-								</select>
+								/>
 							</label>
 							<label class='grid grid-cols-3 items-center'>
 								<span data-tooltip='TODO: Explain'>

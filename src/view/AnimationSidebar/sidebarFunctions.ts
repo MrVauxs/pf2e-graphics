@@ -77,7 +77,8 @@ export function makeAnimation(name: string, type: string, location: string, anim
 
 	const sluggify = (name: string) =>
 		game.pf2e.system.sluggify(name)
-			.replaceAll(/((spell-?)effect)-/g, 'effect:');
+			.replaceAll(/((spell-?)effect)-/g, 'effect:')
+			.replaceAll(/(spell|item)-/g, '$1:');
 
 	switch (location) {
 		case 'world':
