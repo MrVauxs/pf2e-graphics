@@ -91,7 +91,9 @@ function processGraphic(
 
 	if (payload.size) {
 		if (payload.size.type === 'directed') {
-			seq.stretchTo(positionToArgument(payload.size.endpoint, data));
+			seq.stretchTo(positionToArgument(payload.size.endpoint, data), {
+				onlyX: payload.size.stretch ?? false,
+			});
 
 			// TODO: Implement
 			// throw ErrorMsg.send('pf2e-graphics.execute.common.error.unimplemented', {
