@@ -122,7 +122,7 @@
 		{#if data.execute.template && data.execute.template.type !== 'token'}
 			{#if !data.execute.template.size}
 				<!-- If wrong, don't! -->
-				{data.execute.template.size = { default: 5 }}
+				{(data.execute.template.size = { default: 5 }) && ''}
 			{:else}
 				<label class='grid grid-cols-3 items-center'>
 					<span data-tooltip='TODO: Explain'>
@@ -235,7 +235,7 @@
 		<!-- #region Snap -->
 		{#if !data.execute.snap}
 			<!-- If wrong, don't! -->
-			{data.execute.snap = { position: ['CENTER'] }}
+			{(data.execute.snap = { position: ['CENTER'] }) && ''}
 		{:else}
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<label class='grid grid-cols-3 items-center'>
