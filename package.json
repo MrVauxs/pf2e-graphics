@@ -52,7 +52,7 @@
 		"picocolors": "^1.1.1",
 		"postcss": "^8.5.1",
 		"postcss-minify": "^1.1.0",
-		"postcss-prefixwrap": "^1.53.0",
+		"postcss-prefixwrap": "^1.54.0",
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
 		"sonda": "^0.7.1",
 		"svelecte": "^4.5.1",
