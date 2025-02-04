@@ -27,7 +27,7 @@
 		"#standard/*": "@typhonjs-fvtt/standard/*"
 	},
 	"dependencies": {
-		"@typhonjs-fvtt/runtime": "^0.2.0-next.8",
+		"@typhonjs-fvtt/runtime": "^0.2.0-next.9",
 		"@typhonjs-fvtt/standard": "^0.2.0-next.6"
 	},
 	"devDependencies": {
