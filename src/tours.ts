@@ -56,7 +56,6 @@ export async function registerTours() {
 					title: 'pf2e-graphics.tours.sidebar.steps.6:animationHistory.title',
 					content: 'pf2e-graphics.tours.sidebar.steps.6:animationHistory.content',
 					selector: 'li[data-tool="animationhistory"]',
-					// @ts-expect-error https://github.com/7H3LaughingMan/foundry-pf2e/pull/603
 					layer: 'tokens',
 					tooltipDirection: 'RIGHT',
 					restricted: !(game.settings.get('pf2e-graphics', 'history') as boolean),
@@ -90,13 +89,10 @@ export async function registerTours() {
 		override async _preStep() {
 			await super._preStep();
 			if ('layer' in this.currentStep! && canvas.scene) {
-				// @ts-expect-error https://github.com/7H3LaughingMan/foundry-pf2e/pull/603
-				const layer = canvas[this.currentStep.layer as string];
+				const layer = canvas[this.currentStep.layer as keyof typeof canvas] as InteractionLayer;
 				if (layer.active) {
-					// @ts-expect-error https://github.com/7H3LaughingMan/foundry-pf2e/pull/603
 					ui.controls.initialize({ tool: this.currentStep.tool });
 				} else {
-					// @ts-expect-error https://github.com/7H3LaughingMan/foundry-pf2e/pull/603
 					layer.activate({ tool: this.currentStep.tool });
 				}
 			}
