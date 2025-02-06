@@ -37,8 +37,9 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"skipLibCheck": true,
-		"erasableSyntaxOnly": true
+		"skipLibCheck": true
+		// TODO: enable this when TS v5.8.x released
+		// "erasableSyntaxOnly": true
 	},
 	"include": [
 		"src/**/*",

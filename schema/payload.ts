@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { ID, predicate, rollOption } from './helpers/atoms';
 import { nonEmpty, uniqueItems } from './helpers/refinements';
-import { pluralise } from './helpers/utils';
 import { animationPayload } from './payloads/animation';
 import { crosshairPayload } from './payloads/crosshair';
 import { graphicPayload } from './payloads/graphic';
@@ -12,90 +11,92 @@ import { trigger } from './triggers';
 /**
  * Zod schema for the animation-set payload that actually gets executed.
  */
-const payload = z
+export const payload = z
 	.discriminatedUnion('type', [
-		animationPayload.strict(),
-		crosshairPayload.strict(),
-		graphicPayload.strict(),
-		macroPayload.strict(),
-		soundPayload.strict(),
+		animationPayload,
+		crosshairPayload,
+		graphicPayload,
+		macroPayload,
+		soundPayload,
 	])
-	.superRefine((obj, ctx) => {
-		if (obj.type === 'crosshair') {
-			if (obj.template?.type === 'token' && obj.snap) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					path: [...ctx.path, 'snap'],
-					message:
-						'Setting the template type to `token` automatically configures the snapping behaviour. Overwriting this is probably erroneous.',
-				});
-			}
-			if (obj.snap?.direction) {
-				if (obj.lockManualRotation) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						path: [...ctx.path, 'lockManualRotation'],
-						message:
-							'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
-					});
-				}
-				if (obj.location?.lockToEdgeDirection) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						path: [...ctx.path, 'location', 'lockToEdgeDirection'],
-						message:
-							'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
-					});
-				}
-			}
-			if (obj.location?.lockToEdgeDirection) {
-				if (obj.lockManualRotation) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						path: [...ctx.path, 'lockManualRotation'],
-						message:
-							'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
-					});
-				}
-				if (obj.template && 'direction' in obj.template) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						path: [...ctx.path, 'template', 'direction'],
-						message:
-							'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
-					});
-				}
-			}
-			if (obj.snap?.position && obj.location?.lockToEdge) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					path: [...ctx.path, 'snap', 'position'],
-					message:
-						'Locking a crosshair to a placeable\'s edge (`lockToEdge`) makes position-snapping (`snap.position`) redundant.',
-				});
-			}
-		} else if (obj.type === 'sound') {
-			if (!obj.position) {
-				const keysNeedingPosition = (
-					[
-						'radius',
-						'constrainedByWalls',
-						'noDistanceEasing',
-						'alwaysForGMs',
-						'baseEffect',
-						'muffledEffect',
-					] as const
-				).filter(key => key in obj);
-				if (keysNeedingPosition.length) {
-					return ctx.addIssue({
-						code: z.ZodIssueCode.unrecognized_keys,
-						keys: keysNeedingPosition,
-						message: `\`position\` is required for the following ${pluralise('key', keysNeedingPosition.length)}: \`${keysNeedingPosition.join('`, `')}\``,
-					});
-				}
-			}
-		}
-	})
+	// TODO: move this to the mega-super-refinement
+	//
+	// .superRefine((obj, ctx) => {
+	// 	if (obj.type === 'crosshair') {
+	// 		if (obj.template?.type === 'token' && obj.snap) {
+	// 			ctx.addIssue({
+	// 				code: z.ZodIssueCode.custom,
+	// 				path: [...ctx.path, 'snap'],
+	// 				message:
+	// 					'Setting the template type to `token` automatically configures the snapping behaviour. Overwriting this is probably erroneous.',
+	// 			});
+	// 		}
+	// 		if (obj.snap?.direction) {
+	// 			if (obj.lockManualRotation) {
+	// 				ctx.addIssue({
+	// 					code: z.ZodIssueCode.custom,
+	// 					path: [...ctx.path, 'lockManualRotation'],
+	// 					message:
+	// 						'Locking a template\'s direction (`lockManualRotation`) makes direction-snapping (`snap.direction`) redundant.',
+	// 				});
+	// 			}
+	// 			if (obj.location?.lockToEdgeDirection) {
+	// 				ctx.addIssue({
+	// 					code: z.ZodIssueCode.custom,
+	// 					path: [...ctx.path, 'location', 'lockToEdgeDirection'],
+	// 					message:
+	// 						'`lockToEdgeDirection` forces a template\'s direction, making `snap.direction` redundant.',
+	// 				});
+	// 			}
+	// 		}
+	// 		if (obj.location?.lockToEdgeDirection) {
+	// 			if (obj.lockManualRotation) {
+	// 				ctx.addIssue({
+	// 					code: z.ZodIssueCode.custom,
+	// 					path: [...ctx.path, 'lockManualRotation'],
+	// 					message:
+	// 						'`lockManualRotation` is redundant when the template\'s orientation is locked away from the placeable (`location.lockToEdgeDirection`).',
+	// 				});
+	// 			}
+	// 			if (obj.template && 'direction' in obj.template) {
+	// 				ctx.addIssue({
+	// 					code: z.ZodIssueCode.custom,
+	// 					path: [...ctx.path, 'template', 'direction'],
+	// 					message:
+	// 						'There\'s no point setting an initial orientation (`template.direction`) when the template\'s orientation is dependent on its position (`location.lockToEdgeDirection`).',
+	// 				});
+	// 			}
+	// 		}
+	// 		if (obj.snap?.position && obj.location?.lockToEdge) {
+	// 			ctx.addIssue({
+	// 				code: z.ZodIssueCode.custom,
+	// 				path: [...ctx.path, 'snap', 'position'],
+	// 				message:
+	// 					'Locking a crosshair to a placeable\'s edge (`lockToEdge`) makes position-snapping (`snap.position`) redundant.',
+	// 			});
+	// 		}
+	// 	} else if (obj.type === 'sound') {
+	// 		if (!obj.position) {
+	// 			const keysNeedingPosition = (
+	// 				[
+	// 					'radius',
+	// 					'constrainedByWalls',
+	// 					'noDistanceEasing',
+	// 					'alwaysForGMs',
+	// 					'baseEffect',
+	// 					'muffledEffect',
+	// 				] as const
+	// 			).filter(key => key in obj);
+	// 			if (keysNeedingPosition.length) {
+	// 				return ctx.addIssue({
+	// 					code: z.ZodIssueCode.unrecognized_keys,
+	// 					keys: keysNeedingPosition,
+	// 					message: `\`position\` is required for the following ${pluralise('key', keysNeedingPosition.length)}: \`${keysNeedingPosition.join('`, `')}\``,
+	// 				});
+	// 			}
+	// 		}
+	// 	}
+	// })
 	.describe('The animation payload that actually gets executed.');
 
 /**
@@ -104,6 +105,17 @@ const payload = z
  * Consider using as `Extract<Payload, { type: '...' }>` to select specific members.
  */
 export type Payload = z.infer<typeof payload>;
+
+/**
+ * Zod schema for any subset of a valid payload.
+ */
+const partialPayload = z.union([
+	animationPayload.partial(),
+	crosshairPayload.partial(),
+	graphicPayload.partial(),
+	macroPayload.partial(),
+	soundPayload.partial(),
+]);
 
 /**
  * Zod schema for the 'flat' form of an animation-set object, after all `contents` have been unrolled and merged appropriately.
@@ -151,7 +163,7 @@ const flatAnimation = z
 			.describe(
 				'An array of predicates as per the pf2e system. The animation will only be executed if the predicates apply.\nFor more information, see: https://github.com/foundryvtt/pf2e/wiki/Quickstart-guide-for-rule-elements#predicates',
 			),
-		execute: payload.optional().describe('The actual animation to be executed!'),
+		execute: partialPayload.optional().describe('The actual animation to be executed!'),
 	})
 	.strict();
 
@@ -210,14 +222,7 @@ const animationSetContentsItem: z.ZodType<AnimationSetContentsItem> = flatAnimat
 			.describe(
 				'When no animation sets within the same `contents` depth would be executed due to a lack of matches in `predicates`, a set with `default: true` will be executed anyway. Conversely, if multiple sets at the same `contents` depth would be executed, a set with `default: true` will be ignored.\nThis is especially useful when you have one \'standard\' payload, with variants for particular edge-cases. For instance, changing the sound of a Strike depending on the target\'s traits, or more generally setting the default payload when certain module settings are enabled or disabled (e.g. persistence, quality).\nThe same effect can be achieved using combining logic in `predicates`; this property is just a convenience.',
 			),
-		execute: z
-			.union([
-				animationPayload.partial(),
-				crosshairPayload.partial(),
-				graphicPayload.partial(),
-				macroPayload.partial(),
-				soundPayload.partial(),
-			])
+		execute: partialPayload
 			.optional(),
 		contents: z
 			.lazy(() =>

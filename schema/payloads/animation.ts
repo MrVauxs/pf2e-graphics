@@ -166,4 +166,5 @@ export const animationPayload = effectOptions
 			.optional()
 			.describe('By default, the token\'s visibility is left unmodified, and serves as the final value for `fadeIn` and the initial value for `fadeOut`.'),
 		tint: hexColour.describe('A hexadecimal colour-code to give the token a certain tint.').optional(),
-	});
+	})
+	.strict();

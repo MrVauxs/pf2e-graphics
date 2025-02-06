@@ -86,7 +86,6 @@ export const soundPayload = effectOptions
 			.describe('Sets the sound\'s output channel (default: `interface`).'),
 	})
 	.strict()
-	// refinements are applied to `animationPayload` in `src/schema/animation.ts` due to a Zod limitation
 	.describe('The options specific to a `sound`-preset animation.');
 
 /**

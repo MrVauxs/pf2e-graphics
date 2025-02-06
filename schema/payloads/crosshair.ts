@@ -338,5 +338,4 @@ export const crosshairPayload = z
 			.describe('Allows you to configure '),
 	})
 	.strict()
-	// refinements are applied to `animationPayload` in `src/schema/animation.ts` due to a Zod limitation
 	.describe('The options specific to a `crosshair`-preset animation.');

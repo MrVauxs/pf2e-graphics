@@ -47,7 +47,12 @@
 				{
 					"label": "Polearm Strike (Reach)",
 					"predicates": [
-						{ "gt": ["target:distance", 5] }
+						{
+							"gt": [
+								"target:distance",
+								5
+							]
+						}
 					],
 					"execute": {
 						"graphic": [

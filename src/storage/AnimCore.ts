@@ -1,5 +1,5 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
-import type { AnimationSetDocument, UserAnimationSetDocument } from 'schema';
+import type { AnimationSetDocument, Payload, UserAnimationSetDocument } from 'schema';
 import type { AnimationSet, TokenImage, Trigger } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
 import type { TriggerContext } from '../payloads/index.ts';
@@ -49,8 +49,7 @@ export type JSONMap = Map<string, AnimationSetMetadataWrapper>;
  *
  * @todo `unfoldAnimationSets()` is the source of the above inexactness.
  */
-export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides'> &
-	Required<Pick<AnimationSet, 'execute'>>;
+export type ExecutableAnimation = Omit<AnimationSet, 'reference' | 'contents' | 'default' | 'overrides' | 'execute'> & { execute: Payload };
 
 export interface AnimationHistoryObject {
 	timestamp: number;
