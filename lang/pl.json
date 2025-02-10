@@ -3,40 +3,146 @@
 		"support": {
 			"1": "Przekaż darowiznę!",
 			"2": "Wesprzyj mnie!",
-			"3": "Pomóż autorowi"
+			"3": "Pomóż autorowi",
+			"4": "Daj napiwek",
+			"5": "Podoba ci się moduł?"
 		},
-		"pick-a-location": "Wybierz pozycję!",
-		"source": "źródło: {format}",
-		"history": "Historia animacji",
-		"unlink": "Odłącz",
-		"unlinked": "Odłączono funkcję z Menedżera obrazów tokenów. Ręcznie usuń dodane elementy reguł!",
-		"modifyItem": "Modyfikacja animacji przedmiotów",
-		"modifyActor": "Zarządzaj animacjami aktora",
-		"modifyUser": "Zarządzaj animacjami użytkownika",
-		"modifyWorld": "Zarządzaj animacjami świata",
-		"jsonEditor": "Edytor JSON",
-		"jsonEditorReadonly": "Przeglądarka JSON (tylko do odczytu)",
-		"hasAnimations": "Posiada animacje",
-		"noAnimations": "Brak animacji",
-		"jsonEditorTooltip": "Edytor JSON (kliknij z wciśniętym klawiszem Shift, aby wyświetlić widok tylko do odczytu)",
-		"confirmConvert": "Czy na pewno chcesz przekonwertować to na odniesienie? Spowoduje to usunięcie wszystkich danych.",
-		"reference": "Ustaw odniesienie do innej animacji",
-		"addAnim": "Dodaj nową animację",
-		"cancel": "Anuluj",
-		"easingTooltip": "Dowiedz się więcej o różnych funkcjach wygładzania tutaj.",
-		"featText": "Ten atut zawiera elementy reguł zarządzane przez grafikę PF2e, głównie odmiany Token Image. Otwarcie karty zasad tego atutu może opóźnić grę, jeśli aktor zawiera wiele postaci (np. Druid).",
-		"areYouSureM8": "Jesteś pewien?",
-		"hasSound": "Posiada efekty dźwiękowe",
-		"animations": "Animacje",
-		"animationsVolume-tooltip": "Kontroluje głośność dźwięków tworzonych przez PF2e Graphics.",
-		"hasSoundWrong": "Posiada efekty dźwiękowe, z których niektóre nie istnieją!",
-		"historyMenu": {
-			"title": "Historia animacji",
-			"animations": "{count} animacji",
-			"animation": "1 animacja",
-			"open": "Otwarte dane JSON"
+		"presetTypes": {
+			"ranged": "Dystans",
+			"melee": "Walka Wręcz",
+			"onToken": "Na token",
+			"template": "Szablon",
+			"custom": "Niestandardowe"
+		},
+		"scopes": {
+			"scope": "Zakres",
+			"full": {
+				"core": "Zakres podstawowy",
+				"module": "Zakres modułu",
+				"world": "Zakres świata",
+				"user": "Zakres użytkownika",
+				"item": "Zakres przedmiotu"
+			},
+			"short": {
+				"core": "Główny",
+				"module": "Moduł",
+				"world": "Świat",
+				"user": "Użytkownik",
+				"item": "Przedmiot"
+			}
+		},
+		"load": {
+			"notify": {
+				"componentUpdated": "<code>{component}</code> zaktualizowano!",
+				"animationSetsUpdated": "Zaktualizowano zestawy animacji!"
+			},
+			"error": {
+				"badModuleFlags": "Nie udało się odczytać flag pakietów dla modułu {title} (<code>{id}</code>).",
+				"badModuleAnimations": "Nie udało się załadować zestawów animacji dla {title} (<code>{id}</code>). Zobacz konsolę (<kbd>F12</kbd>) aby uzyskać więcej informacji.",
+				"badMessageFlags": "Nie udało się odczytać flag modułu <code>ChatMessage</code> (otrzymano <code>{flags}</code>).",
+				"cantAccessFile": "Nie można uzyskać dostępu do pliku `{path}`.",
+				"schemaValidationFailed": "{number} zestawów animacji nie przeszły walidacji! Zobacz konsolę (<kbd>F12</kbd>) aby uzyskać więcej informacji."
+			}
+		},
+		"sidebar": {
+			"animationSets": {
+				"title": "Zestawy animacji",
+				"tooltip": "Zestawy animacji",
+				"create": {
+					"animationSet": {
+						"button": "Utwórz zestaw animacji",
+						"popup": {
+							"title": "Utwórz zestaw animacji",
+							"fields": {
+								"name": {
+									"title": "Nazwa",
+									"placeholder": "Animacja typu {type}"
+								},
+								"type": {
+									"title": "Typ"
+								}
+							},
+							"complete": "Utwórz nowy zestaw animacji"
+						}
+					},
+					"folder": {
+						"button": "Utwórz folder"
+					}
+				},
+				"search": {
+					"label": "Wyszukiwanie zestawów animacji",
+					"placeholder": "Wyszukiwanie zestawów animacji"
+				},
+				"list": {
+					"alias": "Alias <code>{rollOption}</code>",
+					"empty": "Pusty",
+					"unknownUser": "Nieznany"
+				},
+				"moduleAnimationSets": "Zestawy animacji modułów",
+				"disabled": {
+					"global": "Wyłączony globalnie przez MG.",
+					"users": "Wyłączony dla {users}.",
+					"both": "Wyłączony globalnie przez MG i dla {users}."
+				}
+			},
+			"playlists": {
+				"volumeSlider": {
+					"title": "Animacje",
+					"tooltip": "Kontroluje głośność dźwięków generowanych przez <i>PF2e Graphics</i>."
+				},
+				"error": {
+					"noVolume": "Nie ma ustawień głośności?"
+				}
+			}
+		},
+		"document": {
+			"title": "Konfiguracja zestawu animacji",
+			"error": {
+				"noData": "Karta <code>AnimationDocument</code> została otwarta bez dostarczonego zestawu animacji!"
+			}
+		},
+		"history": {
+			"controlsButton": {
+				"tooltip": "Historia animacji"
+			},
+			"window": {
+				"title": "Historia animacji",
+				"search": "Wyszukiwanie",
+				"data": {
+					"summary": "<code>{trigger}</code> wyzwalany przez {name}",
+					"count": {
+						"many": "{count} zestawów animacji",
+						"one": "1 zestaw animacji",
+						"zero": "Brak zestawów animacji"
+					},
+					"actor": {
+						"header": "Aktorzy"
+					},
+					"trigger": {
+						"header": "Wyzwalacze"
+					},
+					"user": {
+						"header": "Użytkownik",
+						"unknown": "Nieznany"
+					},
+					"triggerContext": {
+						"header": "Kontekst"
+					}
+				},
+				"clear": "Wyczyść"
+			}
+		},
+		"jsonEditor": {
+			"title": {
+				"editable": "Edytor JSON",
+				"readOnly": "Przeglądarka JSON (tylko do odczytu)"
+			}
 		},
 		"settings": {
+			"cardsGone": {
+				"name": "Ukryj zakładkę Kart",
+				"hint": "Ukrywa zakładkę kart, skutecznie zastępując ją kartą animacji."
+			},
 			"volume": {
 				"name": "Głośność animacji",
 				"hint": "Mnoży głośność animacji przez określoną wartość. Nie zastępuje własnych ustawień głośności animacji."
@@ -44,6 +150,10 @@
 			"history": {
 				"name": "Wyświetl historię animacji graczom",
 				"hint": "Historia animacji zawiera poufne informacje, głównie o opcjach rzutu. Włącz tę opcję, jeśli nie martwisz się, że gracze odczytają, jakie cechy lub umiejętności może mieć BN."
+			},
+			"showHiddenRolls": {
+				"name": "Animacja ukrytych rzutów",
+				"hint": "Umożliwia uruchamianie animacji przez ukryte rzuty. Domyślnie jest wyłączona, aby zapobiec metagamingowi."
 			},
 			"delay": {
 				"name": "Opóźnienie animacji",
@@ -72,16 +182,6 @@
 				"name": "Tryb dewelopera",
 				"hint": "Włącza logi konsoli. Przydatne podczas tworzenia własnych animacji. Dodaje także nowe ustawienia, widoczne przy odświeżaniu."
 			},
-			"userMenu": {
-				"name": "Animacje użytkownika",
-				"hint": "Dostosuj własne animacje lub zobacz inne.",
-				"label": "Otwórz menu"
-			},
-			"worldMenu": {
-				"name": "Animacje świata",
-				"hint": "Dostosuj globalne animacje, które każdy będzie miał domyślnie.",
-				"label": "Otwórz menu"
-			},
 			"jb2aMode": {
 				"name": "[DEV] Tryb JB2A",
 				"hint": "Przełączanie między wersją darmową a patreon dla celów predykatów.",
@@ -96,110 +196,99 @@
 				"warnNone": "Nie masz zainstalowanego JB2A, zainstaluj i włącz go, aby PF2e Graphics działało!"
 			}
 		},
-		"tooltip": {
-			"imported": "Wpisy te są skompilowanymi wersjami animacji zaimportowanych z modułów. <p/>Przedstawione dane JSON mogą różnić się od oryginalnych danych modułu."
-		},
-		"itemAnimation": {
-			"tabs": {
-				"preset-animations": "Wstępnie zdefiniowane animacje",
-				"custom-animations": "Animacje niestandardowe",
-				"options": "Opcje"
+		"execute": {
+			"common": {
+				"error": {
+					"missingPayload": "Brak zawartości - dane mogą być uszkodzone.",
+					"unimplemented": "Nie udało się wykonać zawartości <code>{payloadType}</code> ({unimplemented} niewdrożony).",
+					"unknownDiscriminatedUnionValue": "Nie udało się wykonać zawartości <code>{payloadType}</code> (nieznany <code>{property}</code>).",
+					"unknownEnumArrayElement": "Nie udało się wykonać zawartości <code>{payloadType}</code> (nieznany element <code>{property}</code>).",
+					"unknownPosition": "Nie udało się ustalić pozycji <code>{position}</code>.",
+					"tooMuchRecursion": "Animacja dla <code>{rollOption}</code> powraca zbyt wiele razy! Czy jego referencje tworzą nieskończoną pętlę?",
+					"cantFindReference": "Nie można znaleźć zawartości odniesienia dla {rollOption} - uruchom skrypty sprawdzania poprawności, aby zweryfikować.",
+					"catastrophicError": "Wykonanie nie powiodło się (błąd krytyczny w <code>decodePayload()</code>!).",
+					"unknownSize": "Nieznany rozmiar aktora <code>{size}</code>.",
+					"incompatibleValue": "Nie udało się wykonać zawartości <code>{payloadType}</code> (<code>{property1}</code> jest niekompatybilny z <code>{property2}</code>).",
+					"schema": "Wykonanie nie powiodło się (wystąpił nierozwiązywalny błąd schematu)."
+				}
 			},
-			"openSheet": "Otwórz kartę"
-		},
-		"worldAnimation": {
-			"shiftJSON": "Przytrzymaj Shift, aby wyświetlić podgląd przetworzonej wersji",
-			"tabs": {
-				"preset-animations": "Wstępnie zdefiniowane animacje",
-				"world-animations": "Animacje świata"
+			"animation": {
+				"error": {
+					"noActor": "Nie udało się wykonać <code>animacji</code> na <b>{name}</b> (nie udało się znaleźć aktora).",
+					"unownedToken": "Nie udało się wykonać zawartości <code>animacji</code> na <b>{name}</b> (nie jesteś właścicielem tego tokena)."
+				}
+			},
+			"crosshair": {
+				"error": {
+					"noName": "Nie udało się wykonać zawartości <code>celownika</code> (brak <code>nazwy</code>).",
+					"noActor": "Nie udało się wykonać zawartości <code>celownika</code> (nie można znaleźć aktora dla tokena źródłowego <b>{token}</b>).",
+					"unresolvedPosition": "Nie udało się wykonać zawartości <code>celownika</code> (nie udało się ustalić pozycji).",
+					"noToken": "Nie udało się wykonać zawartości <code>celownika</code> (nie można znaleźć tokena)."
+				},
+				"notifications": {
+					"pickALocation": "Kliknij na płótno, aby wybrać pozycję!",
+					"interrupted": "Przerwano załadunek z powodu anulowania celownika. Użyj Menedżera efektów, aby usunąć wszelkie pozostałe grafiki/dźwięki."
+				}
+			},
+			"graphic": {
+				"error": {
+					"mismatchedPositionSize": "Nie udało się wykonać zawartości<code>grafiki</code> (niedopasowana <code>pozycja</code> i <code>rozmiar</code>).",
+					"cantFindPlaceableForRelativeScaling": "Nie udało się wykonać zawartości <code>grafiki</code> (Nie można znaleźć miejsca do skalowania).",
+					"cantIdentifyPlaceableForRelativeScaling": "Nie udało się wykonać zawartości <code>grafiki</code> (nie można określić miejsca do skalowania)."
+				}
 			}
 		},
-		"userAnimation": {
-			"tabs": {
-				"user-animations": "Animacje użytkownika"
+		"tokenConfig": {
+			"effectiveSize": {
+				"name": "Efektywny rozmiar",
+				"tooltip": "Jeśli token ma nietypowy rozmiar (np. średni token o szerokości 1,2 kwadratu siatki), ustaw liczbę kwadratów siatki, które pokrywa jego pierścień. Zobacz wiki <i>PF2e Graphics</i> aby uzyskać więcej informacji."
 			}
 		},
-		"actorAnimation": {
-			"openFeat": "Otwórz",
-			"displayFeat": "Wyświetl atut na karcie postaci",
-			"tabs": {
-				"all-animations": "Wszystkie animacje",
-				"actor-animations": "Animacje aktora",
-				"tokenimage-manager": "Menedżer obrazów tokenów"
-			},
-			"toggle": "Włącza i wyłącza predykaty, umożliwiając podgląd zmiany tokena.",
-			"switch": "Zobacz efekt, którego dotyczy reguła, lub same dane predykatu."
+		"explanations": {
+			"rollOption": "Opcja rzutu, która aktywuje ten zestaw animacji (np. <code>item:slug:jaws</code> lub <code>check:statistic:society</code>).<p />Wybór powinien być dostosowany do animowanej rzeczy. Jeśli masz wątpliwości, użyj opcji <b>Historia animacji</b> aby znaleźć odpowiednią opcję rzutu dla danej akcji.",
+			"triggers": "Lista wyzwalaczy, które spowodują wykonanie tej animacji.",
+			"overrides": "Lista opcji rzutów, z których każda odpowiada głównemu predykatowi animacji. Jeśli dwie animacje są wyzwalane przez ten sam wyzwalacz i jedna z nich zastępuje drugą, nadrzędna animacja nie zostanie wykonana.",
+			"predicates": "Lista predykatów zgodnie z systemem pf2e. Animacja zostanie wykonana tylko wtedy, gdy te warunki mają zastosowanie."
 		},
-		"triggers": {
-			"attack-roll": "Rzut na atak",
-			"damage-roll": "Rzut na obrażenia",
-			"damage-taken": "Otrzymane obrażenia",
-			"saving-throw": "Rzut obronny",
-			"place-template": "Umieszczono szablon",
-			"check": "Test",
-			"counteract-check": "Test przeciwdziałania",
-			"flat-check": "Płaski test",
-			"initiative": "Rzut na inicjatywę",
-			"perception-check": "Test Percepcji",
-			"skill-check": "Test umiejętności",
-			"effect": "Przyznano efekt",
-			"toggle": "Przełącznik",
-			"start-turn": "Początek tury",
-			"end-turn": "Koniec tury",
-			"self-effect": "Efekt \"użycia\"",
-			"modifiers-matter": "Modifiers Matter",
-			"action": "Akcja"
-		},
-		"editor": {
-			"tooltip": {
-				"gridUnits": "Użyj jednostek siatki (kwadraty, heksy)",
-				"preset": "Podstawowy szablon, na którym opiera się animacja. Podstawowy pocisk byłby dystansowy, a zaklęcie obszarowe byłoby szablonem. Więcej szczegółów można znaleźć na wiki.",
-				"trigger": "Jaka akcja lub rzut powinny uruchomić animację. Więcej szczegółów można znaleźć na wiki.",
-				"predicate": "Jakie opcje rzutu powinny mieć akcje wyzwalające. Jest to dodatek do klucza głównego. W przeciwnym razie działa tak samo jak zwykłe predykaty PF2e Rule Element. Więcej szczegółów można znaleźć na wiki.",
-				"persistent": "Powoduje, że animacja pozostaje na płótnie i zapętla się, dopóki nie zostanie ręcznie usunięta lub jeśli włączona jest opcja \"Powiąż z dokumentami\".",
-				"tieToDocuments": "Powoduje usunięcie trwałej animacji po usunięciu jej źródła (np. efektu).",
-				"masked": "Powoduje, że efekt jest ograniczony do zakresu tokena, przez co nie jest widoczny poza obrazem tokena.",
-				"belowTokens": "Sprawia, że animacja pojawia się pod tokenami, niezależnie od wysokości.",
-				"randomizeMirrorY": "Losowo odwraca animację na osi Y (wysokości), czyniąc ją odwróconą do góry nogami z szansą 50/50.",
-				"randomizeMirrorX": "Losowo odwraca animację na osi X (szerokości), czyniąc ją obróconą na bok z szansą 50/50.",
-				"mirrorX": "Odwraca animację na osi X (szerokości), czyniąc ją obróconą na bok.",
-				"mirrorY": "Odwraca animację na osi Y (wysokości), czyniąc ją odwróconą do góry nogami.",
-				"scale": "Mnoży rozmiar animacji przez określoną wartość.",
-				"scaleToObject": "Mnoży rozmiar animacji przez podaną wartość, dostosowaną do rozmiaru tokena.",
-				"size": "Zmienia rzeczywisty rozmiar animacji w pikselach lub opcjonalnie w jednostkach siatki.",
-				"fadeOut": "Powoduje wygaszenie animacji po jej zakończeniu, liczone w milisekundach.",
-				"fadeIn": "Powoduje zanikanie animacji w momencie jej rozpoczęcia, liczone w milisekundach.",
-				"waitUntilFinished": "Animacja będzie czekać na zakończenie poprzedniej animacji, a następnie odczeka ustawioną ilość czasu. Wartość ujemna spowoduje, że animacja rozpocznie się wcześniej, podczas gdy poprzednia animacja będzie nadal odtwarzana.",
-				"delay": "Opóźnia rozpoczęcie animacji o określoną liczbę milisekund.",
-				"overrides": "Powoduje, że animacja zastępuje inne animacje danej opcji rzutu. Akceptuje wiele ciągów znaków.<p />Najlepiej używać dla broni, które mają już zdefiniowaną animację <code>item:group</code>."
-			},
-			"preset": "Ustawienie wstępne",
-			"overrides": "Nadpisania",
-			"trigger": "Wyzwalacz",
-			"predicate": "Predykat",
-			"imageFile": "Plik obrazu",
-			"soundFile": "Plik dźwiękowy",
-			"soundDisclaimer": "Ta animacja zawiera wiele dźwięków, które można modyfikować tylko za pomocą edytora JSON.",
-			"triggerDisclaimer": "Wykryto wiele wyzwalaczy. Modyfikacja za pomocą edytora JSON.",
-			"notDb": "Używanie ścieżki pliku nie jest zalecanym sposobem tworzenia animacji. Jeśli to możliwe, należy użyć ścieżki bazy danych sekwencera.",
-			"persistent": "Stały",
-			"tieToDocuments": "Powiąż z dokumentami",
-			"waitUntilFinished": "Poczekaj do zakończenia",
-			"wait": "Czekaj",
-			"delay": "Opóźnienie",
-			"macro": "Makro",
-			"advancedOptions": "Zaawansowane opcje",
-			"randomizeMirrorY": "Losowe odbicie lustrzane Y",
-			"randomizeMirrorX": "Losowe odbicie lustrzane X",
-			"mirrorY": "Odbicie lustrzane Y",
-			"mirrorX": "Odbicie lustrzane X",
-			"scale": "Skala",
-			"scaleToObject": "Skalowanie do obiektu / tokena",
-			"size": "Rozmiar",
-			"fadeOut": "Zanikanie",
-			"fadeIn": "Wzmacnianie",
-			"belowTokens": "Poniżej tokenów",
-			"masked": "Zamaskowany"
+		"tours": {
+			"sidebar": {
+				"title": "Nowe elementy interfejsu",
+				"description": "Przedstawia zmiany, jakie <i>PF2e Graphics</i> wprowadza do paska bocznego i elementów sterujących płótna.",
+				"steps": {
+					"1:intro": {
+						"title": "Witamy!",
+						"content": "Witamy w <i>PF2e Graphics</i>! Ta krótka wycieczka pokaże ci, jak korzystać z modułu."
+					},
+					"2:animationSetsTabButton": {
+						"title": "Zestawy animacji",
+						"content": "Ten nowy przycisk na pasku bocznym przełącza do zakładki <i>Zestawy animacji</i>.\nOtwórzmy ją!"
+					},
+					"3:animationSetsTab": {
+						"title": "Zestawy animacji",
+						"content": "Zakładka Zestawy animacji jest podobna do zakładki Aktorzy lub Przedmioty, z tą różnicą, że zawiera zestawy animacji!\n„Zestaw animacji” jest tym, co <i>PF2e Graphics</i> nazywa kompletną partią grafiki, dźwięków i innej magii, która jest odtwarzana, gdy coś się dzieje."
+					},
+					"4:bundledAnimationSets": {
+						"title": "Zestawy animacji",
+						"content": "Tutaj znajduje się specjalny folder zawierający wszystkie gotowe zestawy animacji dołączone do <i>PF2e Graphics</i>. Nie można ich bezpośrednio dodawać, usuwać ani edytować, ale są one nadal dostępne do wglądu.\nJeśli aktywowałeś inny moduł, który integruje się z <i>PF2e Graphics</i>, znajdziesz tutaj również jego zestawy animacji. Ikona w prawym górnym rogu każdego dokumentu informuje, skąd pochodzi."
+					},
+					"5:customAnimationSets": {
+						"title": "Zestawy animacji",
+						"content": "Tutaj znajdują się (lub będą!) wszystkie niestandardowe zestawy animacji w twoim świecie. Ikona w prawym górnym rogu każdego elementu informuje, czy znajduje się on w „zakresie użytkownika” (uruchamiany tylko przez ciebie), czy „zakresie świata” (może być uruchamiany przez każdego).\nNiestandardowe zestawy animacji mają pierwszeństwo przed zestawami modułów."
+					},
+					"6:animationHistory": {
+						"title": "Historia animacji",
+						"content": "Ten mały przycisk otwiera okno „Historia animacji”.\nZa każdym razem, gdy wydarzy się coś, co może uruchomić <i>PF2e Graphics</i>, dokonywany jest wpis w Historii animacji. Można to wykorzystać do określenia wyzwalaczy i opcji rzutów podczas tworzenia własnych niestandardowych zestawów animacji - po prostu zrób to, co chcesz i zobacz, co zostanie zarejestrowane!"
+					},
+					"7:animationSetsVolumeSlider": {
+						"title": "Sterowanie dźwiękiem",
+						"content": "W zakładce Playlisty, <i>PF2e Graphics</i> dodaje również nowy suwak głośności. Pozwala on kontrolować głośność odtwarzanych przez <i>PF2e Graphics</i> dźwięków.\nNależy pamiętać, że jest to w rzeczywistości ten sam suwak, co w ustawieniach modułu <i>PF2e Graphics</i> — jest tu tylko dla wygody!"
+					},
+					"8:thanks": {
+						"title": "To wszystko!",
+						"content": "Jeśli masz jakieś pytania, przeczytaj nasze <a href=\"https://github.com/MrVauxs/pf2e-graphics/wiki\">wiki</a>, lub zapytaj nas bezpośrednio na <a href=\"https://discord.com/invite/SajryVzCyf\">Discordzie</a> (szukaj wątku <b><code>#PF2e Graphics</code></b> w ramach <b><code>#pf2e-modules</code></b>).\nDziękujemy za korzystanie z modułu! <a href=\"https://ko-fi.com/mrvauxs\" target=\"_blank\"><i class=\"fas fa-mug-hot ko-fi\"></i> Ko-fi</a>"
+					}
+				}
+			}
 		}
 	}
 }
