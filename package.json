@@ -40,7 +40,7 @@
 		"@types/lodash": "^4.17.15",
 		"autoprefixer": "^10.4.18",
 		"cross-env": "^7.0.3",
-		"eslint": "^9.20.0",
+		"eslint": "^9.20.1",
 		"eslint-plugin-antfu": "^3.0.0",
 		"eslint-plugin-format": "^1.0.1",
 		"eslint-plugin-svelte": "^3.0.0-next.18",
