@@ -80,9 +80,8 @@
 				},
 				"moduleAnimationSets": "Module Animation Sets",
 				"disabled": {
-					"global": "Disabled globally by the GM.",
-					"users": "Disabled for {users}.",
-					"both": "Disabled globally by the GM and for {users}."
+					"global": "Disabled for everyone by the GM.",
+					"users": "Disabled for {users}."
 				}
 			},
 			"playlists": {
