@@ -77,7 +77,7 @@
 				onPress: () => popupCreateAnimation('copy', animation),
 			},
 			{
-				icon: 'fa fa-eye-slash',
+				icon: disabledUser ? 'fa fa-eye' : 'fa fa-eye-slash',
 				label: disabledUser ? 'Enable' : 'Disable',
 				onPress: () => {
 					// TODO: disable by ID rather than just roll option
@@ -112,8 +112,8 @@
 
 		if (game.user.isGM) {
 			items.push({
-				icon: 'fa fa-ban',
-				label: `${disabledGlobal ? 'Enable' : 'Disable'} for everyone`,
+				icon: disabledGlobal ? 'fa fa-user-check' : 'fa fa-user-xmark',
+				label: `${disabledGlobal ? 'Allow' : 'Disable'} for everyone`,
 				onPress: () => {
 					if (disabledGlobal) {
 						game.settings
@@ -157,14 +157,10 @@
 		if (dev) {
 			items.unshift({
 				icon: 'fa fa-download',
-				label: 'Export data for Module dev',
+				label: 'Export data for module dev',
 				onPress: async () => {
 					const data = { [item.rollOption]: await validateExport() };
-					window.saveDataToFile(
-						JSON.stringify(data, null, '\t'),
-						'text/json',
-						`${item.name}.json`,
-					);
+					window.saveDataToFile(JSON.stringify(data, null, '\t'), 'text/json', `${item.name}.json`);
 				},
 			});
 		}
@@ -206,17 +202,15 @@
 	"
 >
 	<aside class='absolute right-0 top-0 m-1'>
-		{#if $global.includes(item.rollOption) && Object.values($user).flat().includes(item.rollOption)}
+		{#if $global.includes(item.rollOption)}
 			<i
-				data-tooltip={i18n('pf2e-graphics.sidebar.animationSets.disabled.both', { users })}
-				class='fas fa-ban'
+				data-tooltip={i18n('pf2e-graphics.sidebar.animationSets.disabled.global')}
+				class='fas fa-users-slash'
 			></i>
-		{:else if $global.includes(item.rollOption)}
-			<i data-tooltip={i18n('pf2e-graphics.sidebar.animationSets.disabled.global')} class='fas fa-ban'></i>
 		{:else if Object.values($user).flat().includes(item.rollOption)}
 			<i
 				data-tooltip={i18n('pf2e-graphics.sidebar.animationSets.disabled.users', { users })}
-				class='fas fa-eye-slash'
+				class='fas fa-user-slash'
 			></i>
 		{/if}
 		{#if item.source === 'module'}
