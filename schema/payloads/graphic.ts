@@ -463,24 +463,24 @@ export const graphicPayload = effectOptions
 						attach: z
 							.literal(true)
 							.optional()
-							.describe('Attaches the scaling to dynamically update as the `target` moves.'),
+							.describe('Attaches the graphic to the `endpoint`, so that it dynamically updates its rotation as the `endpoint` moves.'),
 						stretch: z
 							.literal(true)
 							.optional()
 							.describe(
-								'By default, the entire graphic is scaled uniformly to span the gap between the `position` and `target`. If you only want scaling in one dimension—a stretch—set this to `true`. This is particularly useful for ray- or beam-like graphics.',
+								'By default, the entire graphic is scaled uniformly to span the gap between the `position` and `endpoint`. If you only want scaling in one dimension—a stretch—set this to `true`. This is particularly useful for ray- or beam-like graphics.',
 							),
 						tile: z
 							.literal(true)
 							.optional()
 							.describe(
-								'This causes the graphic to not scale at all, but rather tile to span the gap between the `position` and `target`. This is particularly useful for graphics with a realistic texture (for instance, a rope should get longer, not expand or stretch).',
+								'This causes the graphic to not scale at all, but rather tile to span the gap between the `position` and `endpoint`. This is particularly useful for graphics with a realistic texture (for instance, a rope should get longer, not expand or stretch).',
 							),
 						requiresLineOfSight: z
 							.enum(['hide', 'terminate'])
 							.optional()
 							.describe(
-								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `target` moves behind a wall mid-execution. You can set this property to `"hide"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `target`, or to `"terminate"` to cancel the graphic as soon as line-of-sight is broken.',
+								'By default, the graphic will continue its execution regardless of what happens on the canvas. This can be undesirable if the `attach`ed `endpoint` moves behind a wall mid-execution. You can set this property to `"hide"` to cause the graphic to become invisible while there is no line-of-sight between its `position` and its `endpoint`, or to `"terminate"` to cancel the graphic as soon as line-of-sight is broken.',
 							),
 					})
 					.strict(),
