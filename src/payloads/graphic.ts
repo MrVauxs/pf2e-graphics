@@ -442,10 +442,11 @@ function processGraphic(payload: Parameters<typeof executeGraphic>[0], context: 
 
 	if (payload.varyProperties) {
 		for (const variation of payload.varyProperties) {
+			const object = variation.object === 'shapes' ? `${variation.object}.${variation.name}` : variation.object;
 			if (variation.type === 'animate') {
-				seq.animateProperty(variation.target, variation.property, variation);
+				seq.animateProperty(object, variation.property, variation);
 			} else if (variation.type === 'loop') {
-				seq.loopProperty(variation.target, variation.property, variation);
+				seq.loopProperty(object, variation.property, variation);
 			} else {
 				throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownDiscriminatedUnionValue', {
 					payloadType: 'graphic',

@@ -100,7 +100,9 @@
 					},
 					"contents": [
 						{
-							"predicates": ["check:outcome:success"],
+							"predicates": [
+								"check:outcome:success"
+							],
 							"execute": {
 								"sound": [
 									"graphics-sfx.sword.melee.hit.flesh"
@@ -108,7 +110,9 @@
 							}
 						},
 						{
-							"predicates": ["check:outcome:failure"],
+							"predicates": [
+								"check:outcome:failure"
+							],
 							"execute": {
 								"sound": [
 									"graphics-sfx.sword.melee.miss"
