@@ -12,16 +12,21 @@
 		return (json: unknown): ValidationError[] => {
 			const result = schema.safeParse(json);
 			if (result.success) return [];
-			return result.error.issues.map(issue => ({
-				path: issue.path.map(piece => piece.toString()),
-				message: fromZodIssue(issue, { prefix: null, includePath: false }).toString(),
-				severity: ValidationSeverity.error,
-			}));
+			return result.error.issues.map((zodIssue) => {
+				const issue = fromZodIssue(zodIssue, { prefix: null, includePath: false });
+
+				console.error(issue.toString());
+				return ({
+					path: zodIssue.path.map(piece => piece.toString()),
+					message: issue.toString(),
+					severity: ValidationSeverity.error,
+				});
+			});
 		};
 	}
 </script>
 
-<section class='pf2e-g'>
+<section class='pf2e-g h-full'>
 	{#await import('svelte-jsoneditor')}
 		Waiting for extra JSONEditor code...
 	{:then Module}

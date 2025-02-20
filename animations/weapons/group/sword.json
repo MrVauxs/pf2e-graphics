@@ -1,0 +1,127 @@
+{
+	"item:group:sword": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"melee",
+				{
+					"gt": [
+						"target:distance",
+						0
+					]
+				}
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"position": {
+							"type": "static",
+							"location": "SOURCES",
+							"anchor": {
+								"x": 0.4
+							}
+						},
+						"reflection": {
+							"y": "random"
+						},
+						"size": {
+							"type": "relative",
+							"relativeTo": "SOURCES",
+							"scaling": 4.5
+						},
+						"rotation": {
+							"type": "relative",
+							"location": "TARGETS"
+						}
+					},
+					"contents": [
+						{
+							"default": true,
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.shortsword.melee.01.white"
+								]
+							}
+						},
+						{
+							"predicates": [
+								{
+									"gte": [
+										"item:damage:die:faces",
+										8
+									]
+								},
+								{
+									"lt": [
+										"item:damage:die:faces",
+										12
+									]
+								}
+							],
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.greatsword.melee.standard.white",
+									"jb2a.melee_attack.03.greatsword.01"
+								]
+							}
+						},
+						{
+							"predicates": [
+								{
+									"gte": [
+										"item:damage:die:faces",
+										12
+									]
+								}
+							],
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.melee_attack.03.khybersword.01"
+								]
+							}
+						}
+					]
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "TARGETS"
+						}
+					},
+					"contents": [
+						{
+							"predicates": [
+								"check:outcome:success"
+							],
+							"execute": {
+								"sound": [
+									"graphics-sfx.sword.melee.hit.flesh"
+								]
+							}
+						},
+						{
+							"predicates": [
+								"check:outcome:failure"
+							],
+							"execute": {
+								"sound": [
+									"graphics-sfx.sword.melee.miss"
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,203 @@
+{
+	"item:acid-grip": [
+		{
+			"triggers": [
+				"saving-throw"
+			],
+			"execute": {
+				"type": "graphic",
+				"position": {
+					"type": "dynamic",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.5
+				}
+			},
+			"contents": [
+				{
+					"execute": {
+						"graphic": [
+							"jb2a.bubble.001.001.complete.green"
+						],
+						"position": {
+							"type": "dynamic",
+							"location": "TARGETS",
+							"offset": {
+								"x": 1
+							},
+							"gridUnits": true
+						},
+						"elevation": {
+							"sortLayer": "belowTokens"
+						}
+					}
+				},
+				{
+					"execute": {
+						"graphic": [
+							"jb2a.bubble.001.001.complete.green"
+						],
+						"position": {
+							"type": "dynamic",
+							"location": "TARGETS",
+							"offset": {
+								"x": 1
+							},
+							"gridUnits": true
+						},
+						"visibility": {
+							"opacity": 0.5
+						}
+					}
+				},
+				{
+					"execute": {
+						"graphic": [
+							"jb2a.arcane_hand.green"
+						],
+						"delay": 1000,
+						"fadeIn": {
+							"duration": 500
+						},
+						"fadeOut": {
+							"duration": 500
+						},
+						"position": {
+							"type": "dynamic",
+							"location": "TARGETS",
+							"offset": {
+								"x": 1
+							},
+							"gridUnits": true
+						},
+						"duration": 2200,
+						"waitUntilFinished": -1000,
+						"size": {
+							"type": "relative",
+							"relativeTo": "TARGETS",
+							"scaling": 1.5
+						}
+					},
+					"contents": [
+						{
+							"predicates": [
+								{
+									"or": [
+										"check:outcome:critical-failure",
+										"check:outcome:failure"
+									]
+								}
+							],
+							"execute": {
+								"type": "graphic",
+								"varyProperties": [
+									{
+										"property": "rotation",
+										"ease": "easeInOutBack",
+										"type": "animate",
+										"delay": 300,
+										"object": "sprite",
+										"from": 0,
+										"to": -90,
+										"duration": 500
+									},
+									{
+										"ease": "easeOutCubic",
+										"delay": 1500,
+										"duration": 600,
+										"type": "animate",
+										"object": "sprite",
+										"property": "position.x",
+										"from": 0,
+										"to": -1,
+										"gridUnits": true
+									},
+									{
+										"ease": "easeInOutBack",
+										"type": "animate",
+										"delay": 1400,
+										"object": "sprite",
+										"property": "rotation",
+										"from": 0,
+										"to": 45,
+										"duration": 600
+									}
+								]
+							}
+						},
+						{
+							"predicates": [
+								{
+									"or": [
+										"check:outcome:success",
+										"check:outcome:critical-success"
+									]
+								}
+							],
+							"execute": {
+								"type": "graphic",
+								"varyProperties": [
+									{
+										"ease": "easeInOutBack",
+										"type": "animate",
+										"delay": 300,
+										"object": "sprite",
+										"property": "rotation",
+										"from": 0,
+										"to": -90,
+										"duration": 500
+									},
+									{
+										"ease": "easeOutCubic",
+										"delay": 1500,
+										"duration": 600,
+										"type": "animate",
+										"object": "sprite",
+										"property": "position.x",
+										"from": 0,
+										"to": -2,
+										"gridUnits": true
+									},
+									{
+										"ease": "easeInOutBack",
+										"type": "animate",
+										"delay": 1400,
+										"object": "sprite",
+										"property": "rotation",
+										"from": 0,
+										"to": 45,
+										"duration": 600
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"predicates": [
+						{
+							"or": [
+								"check:outcome:critical-failure",
+								"check:outcome:failure"
+							]
+						}
+					],
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.markers.chain.spectral_standard.complete.02.green"
+						],
+						"size": {
+							"type": "relative",
+							"relativeTo": "TARGETS",
+							"scaling": 1.8
+						}
+					}
+				}
+			]
+		}
+	]
+}

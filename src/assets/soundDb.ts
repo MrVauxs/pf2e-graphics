@@ -323,10 +323,17 @@ export const database = {
 	// #endregion
 	// #region Misc
 	critical: {
-		'01': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-01.ogg`,
-		'02': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-02.ogg`,
-		'03': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-03.ogg`,
-		'04': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-04.ogg`,
+		melee: {
+			'01': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-01.ogg`,
+			'02': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-02.ogg`,
+			'03': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-03.ogg`,
+			'04': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-04.ogg`,
+		},
+		ranged: {
+			'01': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun A.ogg`,
+			'02': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun B.ogg`,
+			'03': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun C.ogg`,
+		},
 	},
 	finisher: {
 		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,

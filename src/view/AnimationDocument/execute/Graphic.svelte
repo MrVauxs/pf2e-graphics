@@ -18,50 +18,46 @@
 {:else}
 	<div class='space-y-2'>
 		<!-- #region Graphic -->
-		{#if !data.execute.graphic}
-			<!-- If wrong, don't! -->
-			{(data.execute.graphic = []) && ''}
-		{:else}
-			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
-					Graphic
-					<i class='fa fa-info-circle px-2 ml-auto'></i>
-				</span>
-				<div class='flex align-middle items-center col-span-2'>
-					<input
-						list='graphic'
-						type='text'
-						value={data.execute.graphic?.length ? JSON.stringify(data.execute.graphic) : ''}
-						on:change={(e) => {
-							if (!data.execute) data.execute = {};
-							if (e.currentTarget.value) {
-								try {
-									const val = JSON.parse(e.currentTarget.value);
-									if (!Array.isArray(val)) {
-										window.ui.notifications.error(
-											'Graphic must be an array of strings! ex. <code>["jb2a.arrow"]</code>',
-										);
-									} else {
-										data.execute.graphic = JSON.parse(e.currentTarget.value);
-									}
-								} catch {
-									window.ui.notifications.error('The current Graphics value is not valid JSON.');
+		{(data.execute.graphic ??= []) && ''}
+		<label class='grid grid-cols-3 items-center'>
+			<span class='flex items-center' data-tooltip='TODO: Explain'>
+				Graphic
+				<i class='fa fa-info-circle px-2 ml-auto'></i>
+			</span>
+			<div class='flex align-middle items-center col-span-2'>
+				<input
+					list='graphic'
+					type='text'
+					value={data.execute.graphic?.length ? JSON.stringify(data.execute.graphic) : ''}
+					on:change={(e) => {
+						if (!data.execute) data.execute = {};
+						if (e.currentTarget.value) {
+							try {
+								const val = JSON.parse(e.currentTarget.value);
+								if (!Array.isArray(val)) {
+									window.ui.notifications.error(
+										'Graphic must be an array of strings! ex. <code>["jb2a.arrow"]</code>',
+									);
+								} else {
+									data.execute.graphic = JSON.parse(e.currentTarget.value);
 								}
-							} else {
-								data.execute.graphic = [];
+							} catch {
+								window.ui.notifications.error('The current Graphics value is not valid JSON.');
 							}
-						}}
-						{readonly}
-						disabled={readonly}
-						placeholder='["graphics-vfx.rpg.accelerate"]'
-					/>
-				</div>
-			</label>
-		{/if}
+						} else {
+							data.execute.graphic = [];
+						}
+					}}
+					{readonly}
+					disabled={readonly}
+					placeholder='["graphics-vfx.rpg.accelerate"]'
+				/>
+			</div>
+		</label>
 		<!-- #endregion -->
 		<!-- #region Position -->
-		<FadedWrapper>
-			<label class='grid grid-cols-3 items-center'>
+		<FadedWrapper showButton={Boolean(data.execute?.position)}>
+			<label class='grid grid-cols-3 items-center' slot='title'>
 				<span class='flex items-center' data-tooltip='TODO: Explain'>
 					Position
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
@@ -302,8 +298,8 @@
 		</FadedWrapper>
 		<!-- #endregion -->
 		<!-- #region Size -->
-		<FadedWrapper>
-			<label class='grid grid-cols-3 items-center'>
+		<FadedWrapper showButton={Boolean(data.execute.size)}>
+			<label class='grid grid-cols-3 items-center' slot='title'>
 				<span class='flex items-center' data-tooltip='TODO: Explain'>
 					Size / Direction
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
@@ -416,35 +412,32 @@
 		</FadedWrapper>
 		<!-- #endregion -->
 		<!-- #region Reflection -->
-		{#if !data.execute.reflection}
-			<!-- If wrong, don't! -->
-			{(data.execute.reflection = { x: undefined, y: undefined }) && ''}
-		{:else}
-			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
-					Reflection
-					<i class='fa fa-info-circle px-2 ml-auto'></i>
-				</span>
-				<div class='grid grid-cols-2 gap-4 items-stretch col-span-2'>
-					<label class='flex items-center gap-2'>
-						X
-						<select bind:value={data.execute.reflection.x} class='w-full'>
-							<option value={undefined}>None</option>
-							<option value='always'>Always</option>
-							<option value='random'>Random</option>
-						</select>
-					</label>
-					<label class='flex items-center gap-2'>
-						Y
-						<select bind:value={data.execute.reflection.y} class='w-full'>
-							<option value={undefined}>None</option>
-							<option value='always'>Always</option>
-							<option value='random'>Random</option>
-						</select>
-					</label>
-				</div>
-			</label>
-		{/if}
+		<!-- If wrong, don't! -->
+		{(data.execute.reflection ??= { x: undefined, y: undefined }) && ''}
+		<label class='grid grid-cols-3 items-center'>
+			<span class='flex items-center' data-tooltip='TODO: Explain'>
+				Reflection
+				<i class='fa fa-info-circle px-2 ml-auto'></i>
+			</span>
+			<div class='grid grid-cols-2 gap-4 items-stretch col-span-2'>
+				<label class='flex items-center gap-2'>
+					X
+					<select bind:value={data.execute.reflection.x} class='w-full'>
+						<option value={undefined}>None</option>
+						<option value='always'>Always</option>
+						<option value='random'>Random</option>
+					</select>
+				</label>
+				<label class='flex items-center gap-2'>
+					Y
+					<select bind:value={data.execute.reflection.y} class='w-full'>
+						<option value={undefined}>None</option>
+						<option value='always'>Always</option>
+						<option value='random'>Random</option>
+					</select>
+				</label>
+			</div>
+		</label>
 		<!-- #endregion -->
 		<!-- #region Persistent -->
 		<label class='grid grid-cols-3 items-center'>
@@ -491,48 +484,66 @@
 		<FadedWrapper>
 			<h3 slot='title' class='text-lg font-bold mb-0'>Visibility</h3>
 
-			{#if !data.execute.visibility}
-				<!-- If wrong, don't! -->
-				{(data.execute.visibility = {}) && ''}
-			{:else}
-				<label class='grid grid-cols-3 items-center'>
-					<span class='flex items-center' data-tooltip='TODO: Explain'>
-						Opacity
-						<i class='fa fa-info-circle px-2 ml-auto'></i>
-					</span>
-					<div class='flex align-middle items-center col-span-2 gap-2'>
-						<input
-							class='grow'
-							bind:value={data.execute.visibility.opacity}
-							type='range'
-							placeholder='1'
-							min='0.05' max='1' step='.05' disabled={readonly} {readonly}
-						/>
-						<input
-							class='shrink w-min'
-							bind:value={data.execute.visibility.opacity}
-							on:change={() => {
-								if (!data.execute?.visibility?.opacity) return;
+			<!-- If wrong, don't! -->
+			{(data.execute.visibility ??= {}) && ''}
+			<label class='grid grid-cols-3 items-center'>
+				<span class='flex items-center' data-tooltip='TODO: Explain'>
+					Opacity
+					<i class='fa fa-info-circle px-2 ml-auto'></i>
+				</span>
+				<div class='flex align-middle items-center col-span-2 gap-2'>
+					<input
+						class='grow'
+						bind:value={data.execute.visibility.opacity}
+						type='range'
+						placeholder='1'
+						min='0.05' max='1' step='.05' disabled={readonly} {readonly}
+					/>
+					<input
+						class='shrink w-min'
+						bind:value={data.execute.visibility.opacity}
+						on:change={() => {
+							if (!data.execute?.visibility?.opacity) return;
 
-								if (data.execute.visibility.opacity < 0) data.execute.visibility.opacity = 0.05;
-								if (data.execute.visibility.opacity > 1) data.execute.visibility.opacity = 1;
-							}}
-							type='number'
-							placeholder='1'
-							min='0.05' max='1' step='.05' disabled={readonly} {readonly}
-						/>
-					</div>
-				</label>
-				<label class='grid grid-cols-3 items-center'>
-					<span class='flex items-center' data-tooltip='TODO: Explain'>
-						Ignore Token Vision
-						<i class='fa fa-info-circle px-2 ml-auto'></i>
-					</span>
-					<div class='flex align-middle items-center col-span-2'>
-						<input disabled={readonly} {readonly} bind:checked={data.execute.visibility.ignoreTokenVision} type='checkbox' />
-					</div>
-				</label>
-			{/if}
+							if (data.execute.visibility.opacity < 0) data.execute.visibility.opacity = 0.05;
+							if (data.execute.visibility.opacity > 1) data.execute.visibility.opacity = 1;
+						}}
+						type='number'
+						placeholder='1'
+						min='0.05' max='1' step='.05' disabled={readonly} {readonly}
+					/>
+				</div>
+			</label>
+			<label class='grid grid-cols-3 items-center'>
+				<span class='flex items-center' data-tooltip='TODO: Explain'>
+					Mask To
+					<i class='fa fa-info-circle px-2 ml-auto'></i>
+				</span>
+				<div class='flex align-middle items-center col-span-2'>
+					<datalist id='mask'>
+						<option>SOURCES</option>
+						<option>TARGETS</option>
+						<option>TEMPLATES</option>
+					</datalist>
+					<input
+						class='col-span-2'
+						list='mask'
+						type='text'
+						bind:value={data.execute.visibility.mask}
+						{readonly}
+						disabled={readonly}
+					/>
+				</div>
+			</label>
+			<label class='grid grid-cols-3 items-center'>
+				<span class='flex items-center' data-tooltip='TODO: Explain'>
+					Ignore Token Vision
+					<i class='fa fa-info-circle px-2 ml-auto'></i>
+				</span>
+				<div class='flex align-middle items-center col-span-2'>
+					<input disabled={readonly} {readonly} bind:checked={data.execute.visibility.ignoreTokenVision} type='checkbox' />
+				</div>
+			</label>
 		</FadedWrapper>
 		<!-- #endregion -->
 		<!-- #region Unfinished -->

@@ -11,6 +11,7 @@
 	export let elementRoot: HTMLElement;
 	const { application } = getContext<BasicAppExternal>('#external');
 	let animation = application.options.animation;
+	const json = clearEmpties(animation);
 </script>
 
 <ApplicationShell bind:elementRoot>
@@ -48,7 +49,7 @@
 			{#if application.options.tab === 'main'}
 				<Editor bind:animation readonly={application.options.readonly} />
 			{:else if application.options.tab === 'json'}
-				<JsonEditor json={clearEmpties(animation)} />
+				<JsonEditor {json} />
 			{/if}
 		</main>
 		<footer class='flex gap-1 grow-0 pt-2'>

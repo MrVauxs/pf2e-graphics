@@ -12,12 +12,30 @@
 			],
 			"contents": [
 				{
-					"execute": {
-						"type": "sound",
-						"sound": [
-							"graphics-sfx.critical"
-						]
-					}
+					"contents": [
+						{
+							"predicates": [
+								"melee"
+							],
+							"execute": {
+								"type": "sound",
+								"sound": [
+									"graphics-sfx.critical.melee"
+								]
+							}
+						},
+						{
+							"predicates": [
+								"ranged"
+							],
+							"execute": {
+								"type": "sound",
+								"sound": [
+									"graphics-sfx.critical.ranged"
+								]
+							}
+						}
+					]
 				},
 				{
 					"execute": {
