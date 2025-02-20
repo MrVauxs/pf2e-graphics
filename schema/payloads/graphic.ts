@@ -114,8 +114,9 @@ const varyPropertiesBaseObject = z.object({
 	name: z
 		.string()
 		.regex(/^\w+$/)
-		.describe('*(`"target": "shapes"` only)* The name of the shape you\'re targetting.'),
-	target: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
+		.optional()
+		.describe('**(`"target": "shapes"` only)** The name of the shape you\'re targetting.'),
+	object: z.string(), // Required due to Zod limitation (can't multiply nest `discriminatedUnion`s)
 	duration: z.number().positive(),
 	from: z.number(),
 	to: z.number(),
@@ -128,50 +129,46 @@ const varyPropertiesBaseObject = z.object({
 });
 
 /**
- * Zod schema for a `varyProperties` object, which unifies the Sequencer `animateProperty` and `loopProperty` methods.
+ * Zod schema for a `varyProperties` object which represents the Sequencer `animateProperty` method.
  */
-const varyPropertiesObject = z
-	.union([
-		varyPropertiesBaseObject.extend({
-			type: z.literal('animate'),
-			absolute: z
-				.literal(true)
-				.optional()
-				.describe(
-					'Normally, `from` and `to` values are interpreted relatively, as multipliers on the initial value. This option instead makes them absolute: animating the width `to: 200` will make the final width 200 pixels, not 200 times the initial value.',
-				),
-			fromEnd: z
-				.literal(true)
-				.optional()
-				.describe(
-					'Indicates that this animation\'s `duration` should be anchored to the graphic\'s end, and counted backwards.',
-				),
-		}),
-		varyPropertiesBaseObject
-			.partial({
-				to: true,
-				from: true,
-			})
-			.extend({
-				type: z.literal('loop'),
-				loops: z
-					.number()
-					.int()
-					.positive()
-					.optional()
-					.describe('The number of loops to execute (default: infinite).'),
-				values: z
-					.array(z.number())
-					.refine(...minimumUniqueItems(2))
-					.optional(),
-				pingPong: z.literal(true).optional(),
-			})
-			.refine(
-				obj => Boolean(obj.to && obj.from) !== 'values' in obj,
-				'You must define either a range of values to loop over via `to` and `from`, or provide those values directly via `values`.',
-			),
-	])
-	.refine(obj => (obj.to ?? Number.NaN) !== (obj.from ?? Number.NaN), '`to` and `from` can\'t be identical.');
+const varyPropertiesAnimateObject = varyPropertiesBaseObject.extend({
+	type: z.literal('animate'),
+	absolute: z
+		.literal(true)
+		.optional()
+		.describe(
+			'Normally, `from` and `to` values are interpreted relatively, as multipliers on the initial value. This option instead makes them absolute: animating the width `"to": 200` will make the final width 200 pixels, not 200 times the initial value.',
+		),
+	fromEnd: z
+		.literal(true)
+		.optional()
+		.describe(
+			'Indicates that this animation\'s `duration` should be anchored to the graphic\'s end, and counted backwards.',
+		),
+});
+
+/**
+ * Zod schema for a `varyProperties` object which represents the Sequencer `loopProperty` method.
+ */
+const varyPropertiesLoopObject = varyPropertiesBaseObject
+	.partial({
+		to: true,
+		from: true,
+	})
+	.extend({
+		type: z.literal('loop'),
+		loops: z
+			.number()
+			.int()
+			.positive()
+			.optional()
+			.describe('The number of loops to execute (default: infinite).'),
+		values: z
+			.array(z.number())
+			.refine(...minimumUniqueItems(2))
+			.optional(),
+		pingPong: z.literal(true).optional(),
+	});
 
 /**
  * Zod schema for shape object's common options.
@@ -463,7 +460,9 @@ export const graphicPayload = effectOptions
 						attach: z
 							.literal(true)
 							.optional()
-							.describe('Attaches the graphic to the `endpoint`, so that it dynamically updates its rotation as the `endpoint` moves.'),
+							.describe(
+								'Attaches the graphic to the `endpoint`, so that it dynamically updates its rotation as the `endpoint` moves.',
+							),
 						stretch: z
 							.literal(true)
 							.optional()
@@ -764,9 +763,9 @@ export const graphicPayload = effectOptions
 		varyProperties: z
 			.array(
 				z
-					.discriminatedUnion('target', [
+					.discriminatedUnion('object', [
 						z.object({
-							target: z.literal('sprite'),
+							object: z.literal('sprite'),
 							property: z.enum([
 								'alpha',
 								'position.x',
@@ -780,7 +779,7 @@ export const graphicPayload = effectOptions
 							]),
 						}),
 						z.object({
-							target: z.literal('spriteContainer'),
+							object: z.literal('spriteContainer'),
 							property: z.enum([
 								'position.x',
 								'position.y',
@@ -791,7 +790,7 @@ export const graphicPayload = effectOptions
 							]),
 						}),
 						z.object({
-							target: z.literal('effect'),
+							object: z.literal('effect'),
 							property: z.enum([
 								'effectAlpha',
 								'sourceOffset.x',
@@ -801,26 +800,34 @@ export const graphicPayload = effectOptions
 							]),
 						}),
 						z.object({
-							target: z.literal('shapes'),
+							object: z.literal('shapes'),
 							name: z
 								.string()
 								.regex(/^\w+$/)
 								.describe(
-									'*(`"target": "shapes"` only)* The name of the shape you\'re targetting.',
+									'*(`"object": "shapes"` only)* The name of the shape you\'re targetting.',
 								),
 							property: z.enum(['scale.x', 'scale.y']),
 						}),
 					])
-					.and(varyPropertiesObject)
+					.and(varyPropertiesAnimateObject.or(varyPropertiesLoopObject))
+					.refine(
+						obj => (obj.to !== undefined && obj.from !== undefined) !== 'values' in obj,
+						'You must define either a range of values to loop over via `to` and `from`, or provide those values directly via `values`.',
+					)
+					.refine(
+						obj => (obj.to ?? Number.NaN) !== (obj.from ?? Number.NaN),
+						'`to` and `from` can\'t be identical.',
+					)
 					// Required due to Zod limitation (can't set `strict()` on above objects due to intersection)
 					.superRefine((obj, ctx) => {
 						const unrecognisedKeys = [];
 						for (const key in obj) {
 							const recognised
-								= key in varyPropertiesBaseObject.shape
-									|| ['type', 'absolute', 'fromEnd', 'loops', 'values', 'pingPong'].includes(key);
-							if (recognised) unrecognisedKeys.push(key);
+								= key in varyPropertiesAnimateObject.shape || key in varyPropertiesLoopObject.shape;
+							if (!recognised) unrecognisedKeys.push(key);
 						}
+						if ('name' in obj && obj.object !== 'shapes') unrecognisedKeys.push('name');
 						if (unrecognisedKeys.length) {
 							ctx.addIssue({
 								code: z.ZodIssueCode.unrecognized_keys,
@@ -829,7 +836,7 @@ export const graphicPayload = effectOptions
 						}
 					})
 					.describe(
-						'A property-variation configuration object.\nFirst, set the `target` and `property` of said target to vary, then choose the `type` of variation you want (either `"animate"` or `"loop"`).\nSee [Sequencer\'s documentation](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) for more information.',
+						'A property-variation configuration object.\nFirst, choose a canvas `object`, and then the `property` of that object you want to vary. Next, choose the `type` of variation you want (either `"animate"` or `"loop"`).\nSee [Sequencer\'s documentation](https://fantasycomputer.works/FoundryVTT-Sequencer/#/api/effect?id=animate-property) for more information.',
 					),
 			)
 			.min(1)

@@ -14,7 +14,9 @@
 				{
 					"contents": [
 						{
-							"predicates": ["melee"],
+							"predicates": [
+								"melee"
+							],
 							"execute": {
 								"type": "sound",
 								"sound": [
@@ -23,7 +25,9 @@
 							}
 						},
 						{
-							"predicates": ["ranged"],
+							"predicates": [
+								"ranged"
+							],
 							"execute": {
 								"type": "sound",
 								"sound": [
@@ -32,7 +36,6 @@
 							}
 						}
 					]
-
 				},
 				{
 					"execute": {
