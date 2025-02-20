@@ -21,6 +21,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Get changed source files
+        id: changed-source-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            src/**
+            schema/**
+            *.ts
+            *.js
+            *.json
+
       - uses: actions/setup-node@v4
         with:
           node-version: latest
