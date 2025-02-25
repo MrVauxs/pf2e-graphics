@@ -47,7 +47,7 @@
 		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
 		"jb2a-databases": "github:Jules-Bens-Aa/jb2a-databases",
 		"json-source-map": "github:MrVauxs/json-source-map",
-		"keep-a-changelog": "^2.5.3",
+		"keep-a-changelog": "^2.6.1",
 		"lodash": "^4.17.21",
 		"picocolors": "^1.1.1",
 		"postcss": "^8.5.3",
