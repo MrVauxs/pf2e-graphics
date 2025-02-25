@@ -158,6 +158,8 @@
 									indentation='	'
 									tabSize={2}
 								/>
+							{:catch}
+								Errored trying to load JSONEditor!
 							{/await}
 						</div>
 					{/if}
