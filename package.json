@@ -42,7 +42,7 @@
 		"eslint": "^9.21.0",
 		"eslint-plugin-antfu": "^3.0.0",
 		"eslint-plugin-format": "^1.0.1",
-		"eslint-plugin-svelte": "^3.0.0-next.18",
+		"eslint-plugin-svelte": "^3.0.2",
 		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
 		"jb2a-databases": "github:Jules-Bens-Aa/jb2a-databases",
 		"json-source-map": "github:MrVauxs/json-source-map",
