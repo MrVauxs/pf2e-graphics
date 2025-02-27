@@ -697,7 +697,7 @@ interface OldJSON {
 interface FuncOpts<P extends Preset> {
 	file: string;
 	preset?: Preset;
-	workingObj?: AnimationSetContentsItem<PresetToSetMap[P]>;
+	workingObj?: AnimationSetContentsItem<presetToSetMap[P]>;
 }
 
 type ConversionResponse<T> =
@@ -757,18 +757,22 @@ function simplifyOffset(inObj: { offset?: Offset; randomOffset?: number }): {
 	return outObj;
 }
 
-interface PresetToSetMap {
-	readonly melee: 'graphic';
-	readonly onToken: 'graphic';
-	readonly template: 'graphic';
-	readonly ranged: 'graphic';
-	readonly animation: 'animation';
-	readonly crosshair: 'crosshair';
-	readonly sound: 'sound';
-	readonly macro: 'macro';
-};
+const presetToSetMap = {
+	melee: 'graphic',
+	onToken: 'graphic',
+	template: 'graphic',
+	ranged: 'graphic',
+	animation: 'animation',
+	crosshair: 'crosshair',
+	sound: 'sound',
+	macro: 'macro',
+} as const;
 
-function presetToSetType<P extends keyof PresetToSetMap>(preset: P | undefined): ConversionResponse<PresetToSetMap[P] | undefined> {
+type PresetToSetMap = (typeof presetToSetMap)[keyof typeof presetToSetMap];
+
+function presetToSetType(
+	preset?: keyof typeof presetToSetMap,
+): ConversionResponse<(typeof presetToSetMap)[keyof typeof presetToSetMap] | undefined> {
 	if (!preset) return { success: true, data: undefined };
 	if (preset === 'melee') return { success: true, data: 'graphic' };
 	if (preset === 'onToken') return { success: true, data: 'graphic' };
@@ -790,8 +794,62 @@ interface MergeOptions {
 	recursive?: boolean;
 	performDeletions?: boolean;
 }
-export function expandObject(obj: object) {
-	function _expand(value: unknown, depth: number) {
+
+interface JSONObject {
+	[key: string]: boolean | number | string | JSONObject;
+}
+
+export function setProperty<T extends JSONObject>(object: T, key: string & keyof T, value: any) {
+	if (!key) return false;
+
+	// Convert the key to an object reference if it contains dot notation
+	let target = object;
+	if (key.includes('.')) {
+		const parts = key.split('.');
+		key = parts.pop();
+		target = parts.reduce((o, i) => {
+			if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
+			return o[i];
+		}, object);
+	}
+
+	// Update the target
+	if (!(key in target) || target[key] !== value) {
+		target[key] = value;
+		return true;
+	}
+	return false;
+}
+
+export function getType(variable: any) {
+	// Primitive types, handled with simple typeof check
+	const typeOf = typeof variable;
+	if (typeOf !== 'object') return typeOf;
+
+	// Special cases of object
+	if (variable === null) return 'null';
+	if (!variable.constructor) return 'Object'; // Object with the null prototype.
+	if (variable.constructor.name === 'Object') return 'Object'; // simple objects
+
+	// Match prototype instances
+	const prototypes = [
+		[Array, 'Array'],
+		[Set, 'Set'],
+		[Map, 'Map'],
+		[Promise, 'Promise'],
+		[Error, 'Error'],
+		[Color, 'number'],
+	] as const;
+	for (const [cls, type] of prototypes) {
+		if (variable instanceof cls) return type;
+	}
+
+	// Unknown Object type
+	return 'Object';
+}
+
+export function expandObject<T extends JSONObject>(obj: T) {
+	function _expand<T>(value: T, depth: number): T {
 		if (depth > 32) throw new Error('Maximum object expansion depth exceeded');
 		if (!value) return value;
 		if (Array.isArray(value)) return value.map(v => _expand(v, depth + 1)); // Map arrays
@@ -817,7 +875,7 @@ function _mergeUpdate<T extends object>(
 
 	// Recursively merge an inner object
 	if (tv === 'Object' && tx === 'Object' && recursive) {
-		return mergeObject(
+		return objAss(
 			x,
 			v,
 			{
@@ -888,7 +946,7 @@ function objAss<T extends { [key: string]: any }, V extends { [key: string]: V }
 function convertEffect<P extends Preset>(
 	oldSet: AnimationObject,
 	opts: FuncOpts<P>,
-): ConversionResponse<AnimationSetContentsItem<(PresetToSetMap[P])>> {
+): ConversionResponse<AnimationSetContentsItem<PresetToSetMap[P]>> {
 	if (!opts.workingObj) throw new Error('Needs `opts.workingObj`!');
 	const newSet = opts.workingObj;
 
