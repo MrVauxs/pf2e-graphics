@@ -20,21 +20,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup NodeJS
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install NodeJS
         uses: actions/setup-node@v4
         with:
-          node-version: 22.6
+          node-version: latest
+          cache: pnpm
 
-      - name: Cache NPM dependencies
-        id: cache-npm
-        uses: actions/cache@v4
-        with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Install NPM dependencies
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Format animation JSONs
         run: npm run build:clean

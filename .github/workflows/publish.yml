@@ -1,4 +1,4 @@
-name: Release Creation
+name: Release creation
 
 on:
   release:
@@ -11,28 +11,39 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
         with:
           node-version: latest
-          cache: npm
+          cache: pnpm
 
-          # get part of the tag after the `v`
+      - name: Install dependencies
+        run: pnpm install
+
+        # Get part of the tag after the `v`
       - name: Extract tag version number
         id: get-version
         run: echo "version-without-v=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
-      - name: Get Module JSON
+      - name: Get module JSON
         id: set_var
         run: |
           echo "PACKAGE_JSON=$(jq -c . < module.json)" >> $GITHUB_OUTPUT
 
-      - name: Get Module Title
+      - name: Get module title
         id: title
         run: echo "title=${{ fromJson(steps.set_var.outputs.PACKAGE_JSON).title }}" >> "$GITHUB_OUTPUT"
 
-        # Substitute the Manifest and Download URLs in the `module.json`.
-      - name: Substitute Manifest and Download Links For Versioned Ones
+        # Substitute the manifest and download URLs in the `module.json`.
+      - name: Substitute manifest and download links for versioned ones
         id: sub_manifest_link_version
         uses: devops-actions/variable-substitution@v1.2
         with:
@@ -42,7 +53,7 @@ jobs:
           manifest: https://github.com/${{ github.repository }}/releases/latest/download/module.json
           download: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.zip
 
-      - name: Substitute Manifest for Prerelease
+      - name: Substitute manifest for prerelease
         if: github.event.release.prerelease
         id: sub_prerelease_manifest_version
         uses: devops-actions/variable-substitution@v1.2
@@ -52,22 +63,20 @@ jobs:
           manifest: https://raw.githubusercontent.com/${{ github.repository }}/next/module.json
 
       - name: Build
-        run: |
-          npm ci --legacy-peer-deps
-          npm run build
+        run: pnpm run build
 
-          # Create a folder containing all the module stuff and zip it for the release
-      - name: Create Zip
+        # Create a folder containing all the module stuff and zip it for the release
+      - name: Create zip
         run: zip -r9 ./module.zip module.json assets/ lang/ packs/ dist/ README.md LICENSE CHANGELOG.md
 
-      - name: Get Changelog Body
+      - name: Get changelog body
         id: changelog
         uses: release-flow/keep-a-changelog-action@v3
         with:
           command: query
           version: ${{ steps.get-version.outputs.version-without-v }}
 
-      - name: Update Release with Files
+      - name: Update release with files
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
@@ -102,7 +111,8 @@ jobs:
 
             # Run the following when setting up a repo
             # git switch --orphan next && git commit --allow-empty -m "init" && git push -u origin next
-      - name: Update Prerelease Repository
+
+      - name: Update prerelease repository
         if: github.event.release.prerelease
         run: |
           git config --global user.name '${{ github.actor }}'

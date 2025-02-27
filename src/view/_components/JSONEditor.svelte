@@ -42,6 +42,8 @@
 					indentation='	'
 					tabSize={2}
 				/>
+			{:catch}
+				Errored trying to load Zod validator!
 			{/await}
 		{:else}
 			<Module.JSONEditor
@@ -54,5 +56,8 @@
 				tabSize={2}
 			/>
 		{/if}
+
+	{:catch}
+		Errored trying to load JSONEditor!
 	{/await}
 </section>

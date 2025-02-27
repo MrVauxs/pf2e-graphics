@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Get changed source files
         id: changed-source-files
@@ -29,29 +30,28 @@ jobs:
           files: |
             src/**
             schema/**
+            scripts/**
             *.ts
             *.js
             *.json
 
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
         with:
           node-version: latest
-          cache: npm
+          cache: pnpm
 
-      - name: Cache NPM dependencies
-        id: cache-npm
-        uses: actions/cache@v4
-        with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
-
-      - name: Install NPM dependencies
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Vite build
         id: build
-        run: npm run build:vite
+        run: pnpm run build:vite
 
       - name: File Existence
         id: files
@@ -60,12 +60,12 @@ jobs:
           files: 'module.json, dist/pf2e-graphics.js'
           fail: true
 
-      - name: Build DEBUG
+      - name: Vite build (DEBUG)
         if: failure() && steps.build.outcome == 'success'
-        run: npm run build:vite -- --debug
+        run: pnpm run build:vite -- --debug
 
-      - name: Check
-        run: npm run check
+      - name: Svelte check
+        run: pnpm run check
 
   eslint:
     name: ESLint
@@ -73,23 +73,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-
-      - name: Cache NPM dependencies
-        id: cache-npm
-        uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
+          run_install: false
 
-      - name: Install NPM dependencies
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: npm ci --legacy-peer-deps
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Test ESLint
-        run: npm run lint
+        run: pnpm run lint
 
   animations:
     name: Animation files
@@ -100,7 +102,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Get changed animations
         id: changed-animations
@@ -109,22 +112,22 @@ jobs:
           files: |
             animations/**/*.json
 
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
         if: steps.changed-animations.outputs.any_changed == 'true'
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 22.6
+          run_install: false
 
-      - name: Cache NPM dependencies
-        id: cache-npm
-        uses: actions/cache@v4
+      - name: Install NodeJS
         if: steps.changed-animations.outputs.any_changed == 'true'
+        uses: actions/setup-node@v4
         with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
+          node-version: latest
+          cache: pnpm
 
-      - name: Install NPM dependencies
-        if: steps.changed-animations.outputs.any_changed == 'true'&& steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        if: steps.changed-animations.outputs.any_changed == 'true'
+        run: pnpm install
 
       - name: Test animation files
         if: steps.changed-animations.outputs.any_changed == 'true'
@@ -141,7 +144,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Get changed assets
         id: changed-assets
@@ -151,22 +155,22 @@ jobs:
             src/assets/*Db.ts
             assets/library/**
 
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
         if: steps.changed-assets.outputs.any_changed == 'true'
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 22.6
+          run_install: false
 
-      - name: Cache NPM dependencies
-        id: cache-npm
-        uses: actions/cache@v4
+      - name: Install NodeJS
         if: steps.changed-assets.outputs.any_changed == 'true'
+        uses: actions/setup-node@v4
         with:
-          path: node_modules/
-          key: npm-${{ hashFiles('package-lock.json') }}
+          node-version: latest
+          cache: pnpm
 
-      - name: Install NPM dependencies
-        if: steps.changed-assets.outputs.any_changed == 'true' && steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        if: steps.changed-assets.outputs.any_changed == 'true'
+        run: pnpm install
 
       - name: Test Sequencer DB
         if: steps.changed-assets.outputs.any_changed == 'true'
