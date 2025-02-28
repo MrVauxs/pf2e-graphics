@@ -696,6 +696,7 @@ interface OldJSON {
 // #region Conversion functions
 interface FuncOpts<P extends Preset | undefined> {
 	file: string;
+	depthWithinPreset?: number;
 	preset?: P;
 }
 
@@ -796,11 +797,11 @@ function convertGraphic<P extends Preset>(
 		if (oldSet.options.randomRotation) newSet.execute.rotation = { type: 'absolute', angle: 'random' };
 		if (oldSet.options.scale) {
 			if (typeof oldSet.options.scale === 'number') {
-				newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale };
+				newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale };
 			} else if (typeof oldSet.options.scale.min === 'number') {
 				if (oldSet.options.scale.max) {
 					// @ts-expect-error i have no idea why tf TS doesn't get this
-					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale };
+					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale };
 				} else {
 					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale.min };
 				}
@@ -1114,43 +1115,50 @@ function convertPartialSet<P extends Preset>(
 	if (!newSetResp.success) return newSetResp;
 	let newSet = newSetResp.data;
 
-	// @ts-expect-error i don't care
-	if (!opts.preset) opts.preset = oldSet.preset;
+	if (!opts.preset && oldSet.preset) {
+		// @ts-expect-error i don't care
+		opts.preset = oldSet.preset;
+		opts.depthWithinPreset = 0;
+	};
 
 	// #region Payload stuff
-	if (oldSet.preset === 'animation') {
+	if (opts.preset === 'animation') {
 		// TODO
-		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
-	} else if (oldSet.preset === 'crosshair') {
+		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+	} else if (opts.preset === 'crosshair') {
 		// TODO
-		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
-	} else if (oldSet.preset === 'melee') {
-		newSet.execute = {
-			type: 'graphic',
-			position: {
-				type: 'dynamic',
-				location: 'SOURCES',
-				anchor: { x: 0.4 },
-			},
-			reflection: {
-				y: 'random',
-			},
-			rotation: {
-				type: 'relative',
-				location: 'TARGETS',
-			},
-			size: {
-				type: 'relative',
-				scaling: 4,
-			},
-		};
+		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+	} else if (opts.preset === 'melee') {
+		newSet.execute = opts.depthWithinPreset
+			? {}
+			: {
+					type: 'graphic',
+					position: {
+						type: 'dynamic',
+						location: 'SOURCES',
+						anchor: { x: 0.4 },
+					},
+					reflection: {
+						y: 'random',
+					},
+					rotation: {
+						type: 'relative',
+						location: 'TARGETS',
+					},
+					size: {
+						type: 'relative',
+						scaling: 4,
+					},
+				};
 
 		if (
+			// @ts-expect-error aaaaaaaaa
 			newSet.execute.position
 			&& oldSet.options.preset?.attachTo
 			&& typeof oldSet.options.preset.attachTo === 'object'
 		) {
 			const { offset, randomOffset } = simplifyOffset(oldSet.options.preset.attachTo);
+			// @ts-expect-error ;-;
 			newSet.execute.position = {
 				type: 'dynamic',
 				location: 'SOURCES',
@@ -1169,11 +1177,13 @@ function convertPartialSet<P extends Preset>(
 			};
 		}
 		if (
+			// @ts-expect-error afsafsddfasdfas
 			newSet.execute.rotation
 			&& oldSet.options.preset?.rotateTowards
 			&& typeof oldSet.options.preset.rotateTowards === 'object'
 		) {
 			const { offset, randomOffset } = simplifyOffset(oldSet.options.preset.rotateTowards);
+			// @ts-expect-error i will cry
 			newSet.execute.rotation = {
 				type: 'relative',
 				location: 'TARGETS',
@@ -1190,57 +1200,59 @@ function convertPartialSet<P extends Preset>(
 		const convertEffectResp = convertEffect(oldSet, { ...opts, preset: 'melee' }, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
-	} else if (oldSet.preset === 'onToken') {
+	} else if (opts.preset === 'onToken') {
 		// @ts-expect-error whatever
 		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
-		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
-	} else if (oldSet.preset === 'ranged') {
-		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, opts, newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
-		// TODO
-		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
-	} else if (oldSet.preset === 'sound') {
+		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+	} else if (opts.preset === 'ranged') {
 		// @ts-expect-error whatever
 		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 		// TODO
-		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
-	} else if (oldSet.preset === 'template') {
-		newSet.execute = {
-			type: 'graphic',
-			position: {
-				type: 'dynamic',
-				location: 'TEMPLATES',
-			},
-			size: {
-				type: 'relative',
-				scaling: 4,
-			},
-		};
+		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+	} else if (opts.preset === 'sound') {
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, opts, newSet);
+		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
+		newSet = convertEffectResp.data;
+		// TODO
+		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+	} else if (opts.preset === 'template') {
+		newSet.execute = opts.depthWithinPreset
+			? {}
+			: {
+					type: 'graphic',
+					position: {
+						type: 'dynamic',
+						location: 'TEMPLATES',
+					},
+					size: {
+						type: 'relative',
+						scaling: 4,
+					},
+				};
 
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, opts, newSet);
+		const convertEffectResp = convertEffect(oldSet, structuredClone(opts), newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
-	} else if (oldSet.preset === 'macro') {
+	} else if (opts.preset === 'macro') {
 		newSet.execute = {
 			type: 'macro',
 			document: oldSet.macro,
 		};
 	} else if (!opts.preset && (!oldSet.contents || oldSet.contents.length === 0)) {
-		return { success: false, error: `Unknown preset \`${oldSet.preset}\`.` };
+		return { success: false, error: `Unknown preset \`${opts.preset}\`.` };
 	}
 	// #endregion
 
 	// Handle `options.sound`
 	// Move `execute` to `contents`, create new `sound` contents item
 	if (oldSet.options.sound) {
-		newSet.contents = [{ execute: newSet.execute }];
+		newSet.contents = Object.keys(newSet.execute ?? {}).length ? [{ execute: newSet.execute }] : [];
 		for (const sound of [oldSet.options.sound].flat()) {
 			const item: AnimationSetContentsItem<'sound'> = {
 				default: sound.default,
@@ -1282,8 +1294,9 @@ function convertPartialSet<P extends Preset>(
 
 	if (oldSet.contents) {
 		const contents = [];
-		for (const item of oldSet.contents) {
-			const resp = convertPartialSet(item, opts);
+		for (const item of oldSet.contents.filter(item => Object.keys(item).length)) {
+			if (typeof opts.depthWithinPreset === 'number') opts.depthWithinPreset++;
+			const resp = convertPartialSet(item, structuredClone(opts));
 			if (!resp.success) return { success: false, error: resp.error };
 			if (resp.messages) messages.push(...resp.messages);
 			contents.push(resp.data);
