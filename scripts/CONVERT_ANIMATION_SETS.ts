@@ -1,4 +1,4 @@
-import type { AnimationSet, AnimationSetContentsItem, AnimationSetsObject, PayloadType } from '../schema';
+import type { AnimationSet, AnimationSetContentsItem, AnimationSetsObject } from '../schema';
 import * as fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
@@ -694,13 +694,12 @@ interface OldJSON {
 // #endregion
 
 // #region Conversion functions
-interface FuncOpts<P extends Preset> {
+interface FuncOpts<P extends Preset | undefined> {
 	file: string;
-	preset?: Preset;
-	workingObj?: AnimationSetContentsItem<presetToSetMap[P]>;
+	preset?: P;
 }
 
-type ConversionResponse<T> =
+type Resp<T> =
 	| {
 		success: true;
 		data: T;
@@ -757,22 +756,18 @@ function simplifyOffset(inObj: { offset?: Offset; randomOffset?: number }): {
 	return outObj;
 }
 
-const presetToSetMap = {
-	melee: 'graphic',
-	onToken: 'graphic',
-	template: 'graphic',
-	ranged: 'graphic',
-	animation: 'animation',
-	crosshair: 'crosshair',
-	sound: 'sound',
-	macro: 'macro',
-} as const;
+interface PresetToSetMap {
+	readonly melee: 'graphic';
+	readonly onToken: 'graphic';
+	readonly template: 'graphic';
+	readonly ranged: 'graphic';
+	readonly animation: 'animation';
+	readonly crosshair: 'crosshair';
+	readonly sound: 'sound';
+	readonly macro: 'macro';
+}
 
-type PresetToSetMap = (typeof presetToSetMap)[keyof typeof presetToSetMap];
-
-function presetToSetType(
-	preset?: keyof typeof presetToSetMap,
-): ConversionResponse<(typeof presetToSetMap)[keyof typeof presetToSetMap] | undefined> {
+function presetToSetType(preset?: keyof PresetToSetMap): Resp<PresetToSetMap[keyof PresetToSetMap] | undefined> {
 	if (!preset) return { success: true, data: undefined };
 	if (preset === 'melee') return { success: true, data: 'graphic' };
 	if (preset === 'onToken') return { success: true, data: 'graphic' };
@@ -785,203 +780,307 @@ function presetToSetType(
 	return { success: false, error: `Unknown preset \`${preset}\`.` };
 }
 
-// #region FoundryVTT core `foundry.util.mergeObject()` method
-interface MergeOptions {
-	insertKeys?: boolean;
-	insertValues?: boolean;
-	enforceTypes?: boolean;
-	overwrite?: boolean;
-	recursive?: boolean;
-	performDeletions?: boolean;
-}
-
-interface JSONObject {
-	[key: string]: boolean | number | string | JSONObject;
-}
-
-export function setProperty<T extends JSONObject>(object: T, key: string & keyof T, value: any) {
-	if (!key) return false;
-
-	// Convert the key to an object reference if it contains dot notation
-	let target = object;
-	if (key.includes('.')) {
-		const parts = key.split('.');
-		key = parts.pop();
-		target = parts.reduce((o, i) => {
-			if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
-			return o[i];
-		}, object);
-	}
-
-	// Update the target
-	if (!(key in target) || target[key] !== value) {
-		target[key] = value;
-		return true;
-	}
-	return false;
-}
-
-export function getType(variable: any) {
-	// Primitive types, handled with simple typeof check
-	const typeOf = typeof variable;
-	if (typeOf !== 'object') return typeOf;
-
-	// Special cases of object
-	if (variable === null) return 'null';
-	if (!variable.constructor) return 'Object'; // Object with the null prototype.
-	if (variable.constructor.name === 'Object') return 'Object'; // simple objects
-
-	// Match prototype instances
-	const prototypes = [
-		[Array, 'Array'],
-		[Set, 'Set'],
-		[Map, 'Map'],
-		[Promise, 'Promise'],
-		[Error, 'Error'],
-		[Color, 'number'],
-	] as const;
-	for (const [cls, type] of prototypes) {
-		if (variable instanceof cls) return type;
-	}
-
-	// Unknown Object type
-	return 'Object';
-}
-
-export function expandObject<T extends JSONObject>(obj: T) {
-	function _expand<T>(value: T, depth: number): T {
-		if (depth > 32) throw new Error('Maximum object expansion depth exceeded');
-		if (!value) return value;
-		if (Array.isArray(value)) return value.map(v => _expand(v, depth + 1)); // Map arrays
-		if (value.constructor?.name !== 'Object') return value; // Return advanced objects directly
-		const expanded = {}; // Expand simple objects
-		for (let [k, v] of Object.entries(value)) {
-			setProperty(expanded, k, _expand(v, depth + 1));
-		}
-		return expanded;
-	}
-	return _expand(obj, 0);
-}
-function _mergeUpdate<T extends object>(
-	original: T,
-	k: keyof T,
-	v: any,
-	{ insertKeys, insertValues, enforceTypes, overwrite, recursive, performDeletions }: MergeOptions = {},
-	_d: number,
-) {
-	const x = original[k];
-	const tv = getType(v);
-	const tx = getType(x);
-
-	// Recursively merge an inner object
-	if (tv === 'Object' && tx === 'Object' && recursive) {
-		return objAss(
-			x,
-			v,
-			{
-				insertKeys,
-				insertValues,
-				overwrite,
-				enforceTypes,
-				performDeletions,
-				inplace: true,
-			},
-			_d,
-		);
-	}
-
-	// Overwrite an existing value
-	if (overwrite) {
-		original[k] = v;
-	}
-}
-function _mergeInsert(original, k, v, { insertKeys, insertValues, performDeletions } = {}, _d: number) {
-	if (k.startsWith('-=') && performDeletions) {
-		delete original[k.slice(2)];
-		return;
-	}
-
-	const canInsert = (_d <= 1 && insertKeys) || (_d > 1 && insertValues);
-	if (!canInsert) return;
-
-	if (v?.constructor === Object) {
-		original[k] = objAss({}, v, { insertKeys: true, inplace: true, performDeletions });
-		return;
-	}
-
-	original[k] = v;
-}
-function objAss<T extends { [key: string]: any }, V extends { [key: string]: V }>(
-	obj: T,
-	val: V,
-	options = {
-		insertKeys: true,
-		insertValues: true,
-		overwrite: true,
-		recursive: true,
-		inplace: true,
-		enforceTypes: false,
-		performDeletions: false,
-	},
-	_d: number = 0,
-): T & V {
-	if (_d === 0) {
-		if (Object.keys(val).some(k => /\./.test(k))) val = expandObject(val);
-		if (Object.keys(obj).some(k => /\./.test(k))) {
-			const expanded = expandObject(obj);
-			Object.keys(obj).forEach(k => delete obj[k]);
-			Object.assign(obj, expanded);
-		}
-	}
-
-	for (const k of Object.keys(val)) {
-		const v = val[k];
-		if (Object.prototype.hasOwnProperty.call(obj, k)) _mergeUpdate(obj, k, v, options, _d + 1);
-		else _mergeInsert(obj, k, v, options, _d + 1);
-	}
-	return obj;
-}
-// #endregion
-
-function convertEffect<P extends Preset>(
+function convertGraphic<P extends Preset>(
 	oldSet: AnimationObject,
-	opts: FuncOpts<P>,
-): ConversionResponse<AnimationSetContentsItem<PresetToSetMap[P]>> {
-	if (!opts.workingObj) throw new Error('Needs `opts.workingObj`!');
-	const newSet = opts.workingObj;
-
-	// if (opts.preset !== 'melee') throw new Error('a');
-	const setTypeResp = presetToSetType(opts.preset);
-	if (!setTypeResp.success) return { success: false, error: setTypeResp.error };
-
+	_opts: FuncOpts<P>,
+	newSet: AnimationSetContentsItem<'graphic'>,
+): Resp<AnimationSetContentsItem<'graphic'>> {
 	if (!newSet.execute) newSet.execute = {};
+	const messages = [];
 
-	if (setTypeResp.data === 'graphic') {
-		if (oldSet.file) newSet.execute.graphic = [oldSet.file].flat();
-		if (oldSet.options) {
-			if (typeof oldSet.options.scaleToObject === 'number' && newSet.execute?.size?.scaling) {
-				newSet.execute.size.scaling = oldSet.options.scaleToObject;
+	if (oldSet.file) newSet.execute.graphic = [oldSet.file].flat();
+	if (oldSet.options) {
+		if (oldSet.options.zIndex)
+			newSet.execute.elevation = { ...newSet.execute.elevation, zIndex: oldSet.options.zIndex };
+		if (oldSet.options.syncGroup) newSet.execute.syncGroup = oldSet.options.syncGroup;
+		if (oldSet.options.randomRotation) newSet.execute.rotation = { type: 'absolute', angle: 'random' };
+		if (oldSet.options.scale) {
+			if (typeof oldSet.options.scale === 'number') {
+				newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale };
+			} else if (typeof oldSet.options.scale.min === 'number') {
+				if (oldSet.options.scale.max) {
+					// @ts-expect-error i have no idea why tf TS doesn't get this
+					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale };
+				} else {
+					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale.min };
+				}
+			} else {
+				if (oldSet.options.scale.max) {
+					newSet.execute.size = {
+						type: 'absolute',
+						scaling: {
+							min: (oldSet.options.scale.min.x + oldSet.options.scale.min.y) / 2,
+							max: oldSet.options.scale.max,
+						},
+					};
+				} else {
+					newSet.execute.size = {
+						type: 'absolute',
+						scaling: (oldSet.options.scale.min.x + oldSet.options.scale.min.y) / 2,
+					};
+				}
+				messages.push(
+					'Non-uniform absolute `scale` ignored; average value taken for `execute.size.scaling`.',
+				);
 			}
 		}
-	} else if (setTypeResp.data === 'sound') {
-		// TODO
-	} else if (setTypeResp.data === 'animation') {
-		// TODO
-	} else if (setTypeResp.data === 'crosshair') {
-		// TODO
-	} else if (setTypeResp.data === 'macro') {
-		// Do nothing maybe?
+		if (oldSet.options.spriteOffset) {
+			if (!newSet.execute.position) return { success: false, error: 'Couldn\'t identify position' };
+			if (newSet.execute.position.type !== 'screenSpace') {
+				newSet.execute.position = {
+					...newSet.execute.position,
+					spriteOffset: simplifyOffset(oldSet.options.spriteOffset).offset,
+				};
+			} else {
+				return { success: false, error: 'Where did that screenspace come from?!' };
+			}
+		}
+		if (oldSet.options.spriteRotation) {
+			if (!newSet.execute.rotation) newSet.execute.rotation = { type: 'absolute' };
+			// @ts-expect-error i don't care
+			newSet.execute.rotation = { ...newSet.execute.rotation, spriteAngle: oldSet.options.spriteRotation };
+		}
+		if (oldSet.options.scaleToObject) {
+			if (typeof oldSet.options.scaleToObject === 'number') {
+				newSet.execute.size = { type: 'relative', scaling: oldSet.options.scaleToObject };
+			} else {
+				newSet.execute.size = {
+					type: 'relative',
+					scaling: oldSet.options.scaleToObject.value,
+					uniform: oldSet.options.scaleToObject.uniform,
+					useTokenSpace: !oldSet.options.scaleToObject.considerTokenScale || undefined,
+				};
+			}
+		}
+		if (oldSet.options.filter) {
+			if (!newSet.execute.filters) newSet.execute.filters = [];
+			// @ts-expect-error strict subset hopefully
+			newSet.execute.filters.push(oldSet.options.filter);
+		}
+		if (oldSet.options.waitUntilFinished) newSet.execute.waitUntilFinished = oldSet.options.waitUntilFinished;
+		if (oldSet.options.locally) messages.push('`locally` is no longer supported.');
+		if (oldSet.options.missed) {
+			if (!newSet.execute.position || newSet.execute.position.type === 'screenSpace') {
+				messages.push('Can\'t apply `missed` to `position.type: \'screenSpace\'`.');
+			} else {
+				newSet.execute.position = { ...newSet.execute.position, missed: oldSet.options.missed };
+			}
+		}
+		if (oldSet.options.rotate) {
+			if (!newSet.execute.rotation) {
+				newSet.execute.rotation = { type: 'absolute', angle: oldSet.options.rotate };
+			} else if (newSet.execute.rotation.type === 'directed') {
+				messages.push('Rotational offsets are incompatible with `rotation.type: "directed"`.');
+			} else if (newSet.execute.rotation.type === 'absolute') {
+				newSet.execute.rotation = { ...newSet.execute.rotation, angle: oldSet.options.rotate };
+			} else {
+				newSet.execute.rotation = { ...newSet.execute.rotation, rotationOffset: oldSet.options.rotate };
+			}
+		}
+		if (oldSet.options.fadeIn) {
+			if (typeof oldSet.options.fadeIn === 'number') {
+				newSet.execute.fadeIn = { duration: oldSet.options.fadeIn };
+			} else {
+				newSet.execute.fadeIn = {
+					duration: oldSet.options.fadeIn.value,
+					ease: oldSet.options.fadeIn.ease,
+					delay: oldSet.options.fadeIn.delay,
+				};
+			}
+		}
+		if (oldSet.options.fadeOut) {
+			if (typeof oldSet.options.fadeOut === 'number') {
+				newSet.execute.fadeOut = { duration: oldSet.options.fadeOut };
+			} else {
+				newSet.execute.fadeOut = {
+					duration: oldSet.options.fadeOut.value,
+					ease: oldSet.options.fadeOut.ease,
+					delay: oldSet.options.fadeOut.delay,
+				};
+			}
+		}
+		if (oldSet.options.belowTokens)
+			newSet.execute.elevation = { ...newSet.execute.elevation, sortLayer: 'belowTokens' };
+		if (oldSet.options.duration) newSet.execute.duration = oldSet.options.duration;
+		if (oldSet.options.randomizeMirrorX)
+			newSet.execute.reflection = { ...newSet.execute.reflection, x: 'random' };
+		if (oldSet.options.randomizeMirrorY)
+			newSet.execute.reflection = { ...newSet.execute.reflection, y: 'random' };
+		if (oldSet.options.mirrorX) newSet.execute.reflection = { ...newSet.execute.reflection, x: 'always' };
+		if (oldSet.options.mirrorY) newSet.execute.reflection = { ...newSet.execute.reflection, y: 'always' };
+		if (oldSet.options.repeats) {
+			if (typeof oldSet.options.repeats === 'number') {
+				newSet.execute.repeats = { count: oldSet.options.repeats };
+			} else {
+				newSet.execute.repeats = { count: oldSet.options.repeats.count };
+				if (
+					typeof oldSet.options.repeats.delayMin === 'number'
+					&& typeof oldSet.options.repeats.delayMax === 'number'
+				) {
+					newSet.execute.repeats.delay = {
+						min: oldSet.options.repeats.delayMin,
+						max: oldSet.options.repeats.delayMax,
+					};
+				} else {
+					newSet.execute.repeats.delay
+						= oldSet.options.repeats.delayMin ?? oldSet.options.repeats.delayMax;
+				}
+			}
+		}
+		if (oldSet.options.template) messages.push('idk what to do with `templates` sorry :(');
+		if (oldSet.options.tint) newSet.execute.tint = oldSet.options.tint as `#${string}`;
+		if (oldSet.options.anchor) {
+			if (!newSet.execute.position) newSet.execute.position = { type: 'static', location: 'TARGETS' };
+			newSet.execute.position.anchor = oldSet.options.anchor;
+		}
+		if (oldSet.options.wait) {
+			if (typeof oldSet.options.wait === 'number') {
+				if (typeof newSet.execute.delay !== 'object') {
+					newSet.execute.delay = (newSet.execute.delay ?? 0) + oldSet.options.wait;
+				} else {
+					newSet.execute.delay = {
+						min: newSet.execute.delay.min + oldSet.options.wait,
+						max: newSet.execute.delay.max + oldSet.options.wait,
+					};
+				}
+			} else {
+				if (oldSet.options.wait.max) {
+					if (typeof newSet.execute.delay !== 'object') {
+						newSet.execute.delay = {
+							min: (newSet.execute.delay ?? 0) + oldSet.options.wait.min,
+							max: (newSet.execute.delay ?? 0) + oldSet.options.wait.max,
+						};
+					} else {
+						newSet.execute.delay = {
+							min: newSet.execute.delay.min + oldSet.options.wait.min,
+							max: newSet.execute.delay.max + oldSet.options.wait.max,
+						};
+					}
+				}
+			}
+		}
+		if (oldSet.options.delay) {
+			if (typeof oldSet.options.delay === 'number') {
+				if (typeof newSet.execute.delay !== 'object') {
+					newSet.execute.delay = (newSet.execute.delay ?? 0) + oldSet.options.delay;
+				} else {
+					newSet.execute.delay = {
+						min: newSet.execute.delay.min + oldSet.options.delay,
+						max: newSet.execute.delay.max + oldSet.options.delay,
+					};
+				}
+			} else {
+				if (oldSet.options.delay.max) {
+					if (typeof newSet.execute.delay !== 'object') {
+						newSet.execute.delay = {
+							min: (newSet.execute.delay ?? 0) + oldSet.options.delay.min,
+							max: (newSet.execute.delay ?? 0) + oldSet.options.delay.max,
+						};
+					} else {
+						newSet.execute.delay = {
+							min: newSet.execute.delay.min + oldSet.options.delay.min,
+							max: newSet.execute.delay.max + oldSet.options.delay.max,
+						};
+					}
+				}
+			}
+		}
+		if (oldSet.options.opacity)
+			newSet.execute.visibility = { ...newSet.execute.visibility, opacity: oldSet.options.opacity };
+		if (oldSet.options.size) {
+			newSet.execute.size = { type: 'absolute' };
+			if (typeof oldSet.options.size === 'number') {
+				newSet.execute.size.width = oldSet.options.size;
+				newSet.execute.size.height = oldSet.options.size;
+			} else {
+				newSet.execute.size.width = oldSet.options.size.value;
+				newSet.execute.size.height = oldSet.options.size.value;
+				newSet.execute.size.gridUnits = oldSet.options.size.gridUnits;
+			}
+		}
+		if (oldSet.options.moveTowards) {
+			if (!newSet.execute.position) newSet.execute.position = { type: 'static', location: 'TARGETS' };
+			if (newSet.execute.position.type !== 'static') {
+				return {
+					success: false,
+					error: `\`moveTowards\` isn't compatible with \`position.type: "${newSet.execute.position.type}"\`.`,
+				};
+			}
+			newSet.execute.position = { ...newSet.execute.position, moveTowards: oldSet.options.moveTowards };
+		}
+		if (oldSet.options.loopProperty) {
+			if (!newSet.execute.varyProperties) newSet.execute.varyProperties = [];
+			oldSet.options.loopProperty.forEach(prop =>
+				// @ts-expect-error no it isn't
+				newSet.execute.varyProperties.push({
+					...prop,
+					// @ts-expect-error rip schema
+					object: prop.target,
+					type: 'loop',
+				}),
+			);
+		}
+		if (oldSet.options.animateProperty) {
+			if (!newSet.execute.varyProperties) newSet.execute.varyProperties = [];
+			oldSet.options.animateProperty.forEach(prop =>
+				// @ts-expect-error no it isn't
+				newSet.execute.varyProperties.push({
+					...prop,
+					// @ts-expect-error rip schema
+					object: prop.target,
+					type: 'loop',
+				}),
+			);
+		}
+		if (oldSet.options.shape) {
+			if (!newSet.execute.drawings) newSet.execute.drawings = [];
+			// @ts-expect-error schema baaaaad
+			[oldSet.options.shape].flat().forEach(shape => newSet.execute.drawings.push(shape));
+		}
+		if (oldSet.options.persist) {
+			if (typeof oldSet.options.persist === 'boolean') {
+				newSet.execute.persistent = 'canvas';
+			} else if (oldSet.options.persist.value && oldSet.options.persist.persistTokenPrototype) {
+				newSet.execute.persistent = 'tokenPrototype';
+			}
+		}
+		if (oldSet.options.tieToDocuments) newSet.execute.tieToDocuments = oldSet.options.tieToDocuments;
+		if (oldSet.options.mask) newSet.execute.visibility = { ...newSet.execute.visibility, mask: ['SOURCES'] };
 	}
 
 	return { success: true, data: newSet };
 }
 
-function convertPartialSet(oldSet: AnimationObject, opts: FuncOpts): ConversionResponse<AnimationSetContentsItem> {
-	if (!oldSet.options) oldSet.options = {};
-	let newSet: AnimationSet & AnimationSetContentsItem = {};
-	const messages: string[] = [];
+function convertEffect<P extends Preset>(
+	oldSet: AnimationObject,
+	opts: FuncOpts<P>,
+	newSet: AnimationSetContentsItem<PresetToSetMap[P]>,
+): Resp<AnimationSetContentsItem<PresetToSetMap[P]>> {
+	const setTypeResp = presetToSetType(oldSet.preset ?? opts.preset);
+	if (!setTypeResp.success) return { success: false, error: setTypeResp.error };
 
-	// #region Scheduling and metadata, etc.
+	// @ts-expect-error whatever
+	if (setTypeResp.data === 'graphic') return convertGraphic(oldSet, opts, newSet);
+	// if (setTypeResp.data === 'sound') {
+	// TODO
+	// if (setTypeResp.data === 'animation') {
+	// TODO
+	// if (setTypeResp.data === 'crosshair') {
+	// TODO
+	// if (setTypeResp.data === 'macro') {
+	// Do nothing maybe?
+
+	return { success: false, error: `Unknown preset ${setTypeResp.data}` };
+}
+
+function getGenericSet<P extends Preset>(
+	oldSet: AnimationObject,
+	_opts: FuncOpts<P>,
+): Resp<AnimationSet | AnimationSetContentsItem> {
+	if (!oldSet.options) oldSet.options = {};
+	const newSet: AnimationSetContentsItem & AnimationSet = {};
+	const messages = [];
+
 	if (oldSet.overrides) newSet.overrides = oldSet.overrides;
 	if (oldSet.trigger) newSet.triggers = [oldSet.trigger].flat();
 	if (oldSet.predicate) newSet.predicates = oldSet.predicate;
@@ -1000,8 +1099,22 @@ function convertPartialSet(oldSet: AnimationObject, opts: FuncOpts): ConversionR
 		if (removes.includes('all'))
 			messages.push('Special `remove` value `"all"` is unconvertible. See new schema for information.');
 	}
-	// #endregion
 
+	return { success: true, data: newSet, messages };
+}
+
+function convertPartialSet<P extends Preset>(
+	oldSet: AnimationObject,
+	opts: FuncOpts<P>,
+): Resp<AnimationSetContentsItem<P extends Preset ? PresetToSetMap[P] : never>> {
+	if (!oldSet.options) oldSet.options = {};
+	const messages: string[] = [];
+
+	const newSetResp = getGenericSet(oldSet, opts);
+	if (!newSetResp.success) return newSetResp;
+	let newSet = newSetResp.data;
+
+	// @ts-expect-error i don't care
 	if (!opts.preset) opts.preset = oldSet.preset;
 
 	// #region Payload stuff
@@ -1073,34 +1186,26 @@ function convertPartialSet(oldSet: AnimationObject, opts: FuncOpts): ConversionR
 			};
 		}
 
-		const convertEffectResp = convertEffect(oldSet, {
-			workingObj: newSet,
-			...opts,
-		});
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, { ...opts, preset: 'melee' }, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 	} else if (oldSet.preset === 'onToken') {
-		const convertEffectResp = convertEffect(oldSet, {
-			workingObj: newSet,
-			...opts,
-		});
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
 	} else if (oldSet.preset === 'ranged') {
-		const convertEffectResp = convertEffect(oldSet, {
-			workingObj: newSet,
-			...opts,
-		});
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 		// TODO
 		return { success: false, error: `Preset \`${oldSet.preset}\` is unimplemented.` };
 	} else if (oldSet.preset === 'sound') {
-		const convertEffectResp = convertEffect(oldSet, {
-			workingObj: newSet,
-			...opts,
-		});
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 		// TODO
@@ -1118,10 +1223,8 @@ function convertPartialSet(oldSet: AnimationObject, opts: FuncOpts): ConversionR
 			},
 		};
 
-		const convertEffectResp = convertEffect(oldSet, {
-			workingObj: newSet,
-			...opts,
-		});
+		// @ts-expect-error whatever
+		const convertEffectResp = convertEffect(oldSet, opts, newSet);
 		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
 		newSet = convertEffectResp.data;
 	} else if (oldSet.preset === 'macro') {
@@ -1189,10 +1292,11 @@ function convertPartialSet(oldSet: AnimationObject, opts: FuncOpts): ConversionR
 		newSet.contents = (newSet.contents ?? []).concat(contents);
 	}
 
+	// @ts-expect-error whatever
 	return { success: true, data: newSet, messages };
 }
 
-function convertSchema(oldJSON: OldJSON, opts: FuncOpts): ConversionResponse<AnimationSetsObject> {
+function convertSchema<P extends Preset>(oldJSON: OldJSON, opts: FuncOpts<P>): Resp<AnimationSetsObject> {
 	const newJSON: AnimationSetsObject = {};
 	const messages: string[] = [];
 
