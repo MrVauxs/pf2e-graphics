@@ -328,26 +328,15 @@ export const graphicPayload = effectOptions
 							.literal(true)
 							.optional()
 							.describe('Renders the graphic above Foundry\'s UI elements.'),
-						anchor: z
-							.object({
-								x: z
-									.number()
-									.describe(
-										'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
-									),
-								y: z
-									.number()
-									.describe(
-										'The proportion horizontally along the screen to anchor the graphic. `0` indicates the leftmost edge; `1` indicates the rightmost.',
-									),
-							})
-							.strict()
+						anchor: vector2
 							.refine(
 								obj => obj.x !== 0.5 || obj.y !== 0.5,
 								'The default `anchor` is the centre of the screen (`{ x: 0.5, y: 0.5 }`) and doesn\'t need to be configured.',
 							)
 							.optional()
-							.describe('Locks the graphic to some point on the screen (default: centre).'),
+							.describe(
+								'Locks the graphic to some point on the screen, specified as the proportion horizontally right (`x`) and vertically down (`y`) the screen (default: centre).',
+							),
 						offset: vector2
 							.optional()
 							.describe('Offsets the graphic from its `anchor` by some number of pixels.'),
