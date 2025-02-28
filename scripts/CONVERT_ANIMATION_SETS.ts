@@ -797,27 +797,37 @@ function convertGraphic<P extends Preset>(
 		if (oldSet.options.randomRotation) newSet.execute.rotation = { type: 'absolute', angle: 'random' };
 		if (oldSet.options.scale) {
 			if (typeof oldSet.options.scale === 'number') {
-				newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale };
+				newSet.execute.size = {
+					type: 'absolute',
+					scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale,
+				};
 			} else if (typeof oldSet.options.scale.min === 'number') {
 				if (oldSet.options.scale.max) {
 					// @ts-expect-error i have no idea why tf TS doesn't get this
-					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale };
+					newSet.execute.size = {
+						type: 'absolute',
+						scaling: oldSet.options.scale === 1 ? undefined : oldSet.options.scale,
+					};
 				} else {
-					newSet.execute.size = { type: 'absolute', scaling: oldSet.options.scale.min };
+					newSet.execute.size = {
+						type: 'absolute',
+						scaling: oldSet.options.scale.min === 1 ? undefined : oldSet.options.scale.min,
+					};
 				}
 			} else {
+				const scaling = (oldSet.options.scale.min.x + oldSet.options.scale.min.y) / 2;
 				if (oldSet.options.scale.max) {
 					newSet.execute.size = {
 						type: 'absolute',
 						scaling: {
-							min: (oldSet.options.scale.min.x + oldSet.options.scale.min.y) / 2,
+							min: scaling,
 							max: oldSet.options.scale.max,
 						},
 					};
 				} else {
 					newSet.execute.size = {
 						type: 'absolute',
-						scaling: (oldSet.options.scale.min.x + oldSet.options.scale.min.y) / 2,
+						scaling: scaling === 1 ? undefined : scaling,
 					};
 				}
 				messages.push(
@@ -843,11 +853,15 @@ function convertGraphic<P extends Preset>(
 		}
 		if (oldSet.options.scaleToObject) {
 			if (typeof oldSet.options.scaleToObject === 'number') {
-				newSet.execute.size = { type: 'relative', scaling: oldSet.options.scaleToObject };
+				newSet.execute.size = {
+					type: 'relative',
+					scaling: oldSet.options.scaleToObject === 1 ? undefined : oldSet.options.scaleToObject,
+				};
 			} else {
 				newSet.execute.size = {
 					type: 'relative',
-					scaling: oldSet.options.scaleToObject.value,
+					scaling:
+						oldSet.options.scaleToObject.value === 1 ? undefined : oldSet.options.scaleToObject.value,
 					uniform: oldSet.options.scaleToObject.uniform,
 					useTokenSpace: !oldSet.options.scaleToObject.considerTokenScale || undefined,
 				};
@@ -1052,7 +1066,7 @@ function convertGraphic<P extends Preset>(
 	return { success: true, data: newSet };
 }
 
-function convertEffect<P extends Preset>(
+function convertSound<P extends Preset>(
 	oldSet: AnimationObject,
 	opts: FuncOpts<P>,
 	newSet: AnimationSetContentsItem<PresetToSetMap[P]>,
@@ -1062,14 +1076,10 @@ function convertEffect<P extends Preset>(
 
 	// @ts-expect-error whatever
 	if (setTypeResp.data === 'graphic') return convertGraphic(oldSet, opts, newSet);
-	// if (setTypeResp.data === 'sound') {
-	// TODO
-	// if (setTypeResp.data === 'animation') {
-	// TODO
-	// if (setTypeResp.data === 'crosshair') {
-	// TODO
-	// if (setTypeResp.data === 'macro') {
-	// Do nothing maybe?
+	if (setTypeResp.data === 'sound') return { success: false, error: `Not implemented` }; // TODO
+	if (setTypeResp.data === 'animation') return { success: false, error: `Not implemented` }; // TODO
+	if (setTypeResp.data === 'crosshair') return { success: false, error: `Not implemented` }; // TODO
+	if (setTypeResp.data === 'macro') return { success: true, data: newSet };
 
 	return { success: false, error: `Unknown preset ${setTypeResp.data}` };
 }
@@ -1119,7 +1129,7 @@ function convertPartialSet<P extends Preset>(
 		// @ts-expect-error i don't care
 		opts.preset = oldSet.preset;
 		opts.depthWithinPreset = 0;
-	};
+	}
 
 	// #region Payload stuff
 	if (opts.preset === 'animation') {
@@ -1197,27 +1207,38 @@ function convertPartialSet<P extends Preset>(
 		}
 
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, { ...opts, preset: 'melee' }, newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
+		const resp = convertGraphic(oldSet, structuredClone(opts), newSet);
+		if (!resp.success) return resp;
+		newSet = resp.data;
 	} else if (opts.preset === 'onToken') {
+		if (opts.depthWithinPreset) {
+			newSet.execute = {};
+		} else {
+			messages.push(
+				'The v0 schema inferred an `onToken` animation\'s position from the game\'s targeting data. However, the v1 schema requires that the location is explicit, so `TARGETS` has been assumed.',
+			);
+			newSet.execute = oldSet.options.preset?.atLocation
+				? { type: 'graphic', position: { type: 'static', location: 'TARGETS' } }
+				: { type: 'graphic', position: { type: 'dynamic', location: 'TARGETS' } };
+			// TODO
+		}
+
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, opts, newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
-		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
+		const resp = convertGraphic(oldSet, structuredClone(opts), newSet);
+		if (!resp.success) return resp;
+		newSet = resp.data;
 	} else if (opts.preset === 'ranged') {
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, opts, newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
+		const resp = convertGraphic(oldSet, structuredClone(opts), newSet);
+		if (!resp.success) return resp;
+		newSet = resp.data;
 		// TODO
 		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
 	} else if (opts.preset === 'sound') {
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, opts, newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
+		const resp = convertSound(oldSet, structuredClone(opts), newSet);
+		if (!resp.success) return resp;
+		newSet = resp.data;
 		// TODO
 		return { success: false, error: `Preset \`${opts.preset}\` is unimplemented.` };
 	} else if (opts.preset === 'template') {
@@ -1236,9 +1257,9 @@ function convertPartialSet<P extends Preset>(
 				};
 
 		// @ts-expect-error whatever
-		const convertEffectResp = convertEffect(oldSet, structuredClone(opts), newSet);
-		if (!convertEffectResp.success) return { success: false, error: convertEffectResp.error };
-		newSet = convertEffectResp.data;
+		const resp = convertGraphic(oldSet, structuredClone(opts), newSet);
+		if (!resp.success) return resp;
+		newSet = resp.data;
 	} else if (opts.preset === 'macro') {
 		newSet.execute = {
 			type: 'macro',
@@ -1303,6 +1324,11 @@ function convertPartialSet<P extends Preset>(
 		}
 
 		newSet.contents = (newSet.contents ?? []).concat(contents);
+
+		if (newSet.contents.length === 1) {
+			newSet = { ...newSet, ...newSet.contents[0] };
+			newSet.contents = [];
+		}
 	}
 
 	// @ts-expect-error whatever
