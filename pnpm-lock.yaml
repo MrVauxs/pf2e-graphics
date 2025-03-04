@@ -12,8 +12,8 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
       '@typhonjs-fvtt/standard':
-        specifier: ^0.2.0
-        version: 0.2.0(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)
+        specifier: ^0.2.1
+        version: 0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)
     devDependencies:
       '@actions/core':
         specifier: ^1.11.1
@@ -1434,8 +1434,8 @@ packages:
       svelte-preprocess: '>=6'
       vite: '>=5'
 
-  '@typhonjs-fvtt/standard@0.2.0':
-    resolution: {integrity: sha512-a4k719XoRUgl5wLldASRmU+bloBtan45lVgVnyvK99ztIEtNq5C+gukAW9WbM2qsihMcj0LEcUiHmUP4k1yZwQ==}
+  '@typhonjs-fvtt/standard@0.2.1':
+    resolution: {integrity: sha512-Z45Hx6aeB1SC58XdBJqsMPTZxtN8K+gUhi1cUzMsde+edyAKlJYvp1IMKxihanQxOV59qnUicVas0pJDZ514Xw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@typhonjs-fvtt/runtime': '>=0.2.0 <0.3.0'
@@ -5202,7 +5202,7 @@ snapshots:
       svelte-preprocess: 6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3)
       vite: 6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)
 
-  '@typhonjs-fvtt/standard@0.2.0(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)':
+  '@typhonjs-fvtt/standard@0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)':
     dependencies:
       '@typhonjs-fvtt/runtime': 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.7.3))(svelte@4.2.19)(vite@6.2.0(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
       svelte: 4.2.19
