@@ -40,8 +40,8 @@ importers:
         specifier: ^9.22.0
         version: 9.22.0(jiti@1.21.7)
       eslint-plugin-antfu:
-        specifier: ^3.0.0
-        version: 3.1.0(eslint@9.22.0(jiti@1.21.7))
+        specifier: ^3.1.1
+        version: 3.1.1(eslint@9.22.0(jiti@1.21.7))
       eslint-plugin-format:
         specifier: ^1.0.1
         version: 1.0.1(eslint@9.22.0(jiti@1.21.7))
@@ -2004,8 +2004,8 @@ packages:
   eslint-parser-plain@0.1.1:
     resolution: {integrity: sha512-KRgd6wuxH4U8kczqPp+Oyk4irThIhHWxgFgLDtpgjUGVIS3wGrJntvZW/p6hHq1T4FOwnOtCNkvAI4Kr+mQ/Hw==}
 
-  eslint-plugin-antfu@3.1.0:
-    resolution: {integrity: sha512-BKlJcpIG8OGyU5JwQCdyTGaLuRgItheEYinhNroCx3bcuz2bCSYK0eNzJvPy2TY8yyz0uSSRxr5KHuQ1WOdOKg==}
+  eslint-plugin-antfu@3.1.1:
+    resolution: {integrity: sha512-7Q+NhwLfHJFvopI2HBZbSxWXngTwBLKxW1AGXLr2lEGxcEIK/AsDs8pn8fvIizl5aZjBbVbVK5ujmMpBe4Tvdg==}
     peerDependencies:
       eslint: '*'
 
@@ -4012,7 +4012,7 @@ snapshots:
       eslint-config-flat-gitignore: 2.1.0(eslint@9.22.0(jiti@1.21.7))
       eslint-flat-config-utils: 2.0.1
       eslint-merge-processors: 2.0.0(eslint@9.22.0(jiti@1.21.7))
-      eslint-plugin-antfu: 3.1.0(eslint@9.22.0(jiti@1.21.7))
+      eslint-plugin-antfu: 3.1.1(eslint@9.22.0(jiti@1.21.7))
       eslint-plugin-command: 3.1.0(eslint@9.22.0(jiti@1.21.7))
       eslint-plugin-import-x: 4.6.1(eslint@9.22.0(jiti@1.21.7))(typescript@5.8.2)
       eslint-plugin-jsdoc: 50.6.3(eslint@9.22.0(jiti@1.21.7))
@@ -5802,7 +5802,7 @@ snapshots:
 
   eslint-parser-plain@0.1.1: {}
 
-  eslint-plugin-antfu@3.1.0(eslint@9.22.0(jiti@1.21.7)):
+  eslint-plugin-antfu@3.1.1(eslint@9.22.0(jiti@1.21.7)):
     dependencies:
       eslint: 9.22.0(jiti@1.21.7)
 
