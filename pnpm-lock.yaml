@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@typhonjs-fvtt/runtime':
         specifier: ^0.2.0
-        version: 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
+        version: 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.21(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
       '@typhonjs-fvtt/standard':
         specifier: ^0.2.1
-        version: 0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)
+        version: 0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.21(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)
     devDependencies:
       '@actions/core':
         specifier: ^1.11.1
@@ -31,8 +31,8 @@ importers:
         specifier: ^3.5.32
         version: 3.5.32
       autoprefixer:
-        specifier: ^10.4.18
-        version: 10.4.20(postcss@8.5.3)
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.3)
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -1552,8 +1552,8 @@ packages:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
 
-  autoprefixer@10.4.20:
-    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -1623,8 +1623,8 @@ packages:
   caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
 
-  caniuse-lite@1.0.30001700:
-    resolution: {integrity: sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==}
+  caniuse-lite@1.0.30001703:
+    resolution: {integrity: sha512-kRlAGTRWgPsOj7oARC9m1okJEXdL/8fekFVcxA8Hl7GH4r/sN4OJn/i6Flde373T50KS7Y37oFbMwlE8+F42kQ==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -1893,8 +1893,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.105:
-    resolution: {integrity: sha512-ccp7LocdXx3yBhwiG0qTQ7XFrK48Ua2pxIxBdJO8cbddp/MvbBtPFzvnTchtyHQTsgqqczO8cdmAIbpMa0u2+g==}
+  electron-to-chromium@1.5.114:
+    resolution: {integrity: sha512-DFptFef3iktoKlFQK/afbo274/XNWD00Am0xa7M8FZUepHlHT8PEuiNBoRfFHbH1okqN58AlhbJ4QTkcnXorjA==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -3761,8 +3761,8 @@ packages:
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
 
-  update-browserslist-db@1.1.2:
-    resolution: {integrity: sha512-PPypAm5qvlD7XMZC3BujecnaOxwhrtoFR+Dqkk5Aa/6DssiH0ibKoketaj9w8LP7Bont1rYeoV5plxD7RTEPRg==}
+  update-browserslist-db@1.1.3:
+    resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
@@ -5205,7 +5205,7 @@ snapshots:
     dependencies:
       '@rollup/plugin-node-resolve': 15.3.1(rollup@4.35.0)
       '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       cssnano: 6.1.2(postcss@8.5.3)
       postcss: 8.5.3
       postcss-preset-env: 9.6.0(postcss@8.5.3)
@@ -5217,10 +5217,10 @@ snapshots:
       - rollup
       - supports-color
 
-  '@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))':
+  '@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.21(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       cssnano: 6.1.2(postcss@8.5.3)
       postcss: 8.5.3
       postcss-preset-env: 9.6.0(postcss@8.5.3)
@@ -5229,9 +5229,9 @@ snapshots:
       svelte-preprocess: 6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2)
       vite: 6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)
 
-  '@typhonjs-fvtt/standard@0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)':
+  '@typhonjs-fvtt/standard@0.2.1(@typhonjs-fvtt/runtime@0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.21(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)':
     dependencies:
-      '@typhonjs-fvtt/runtime': 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.20(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
+      '@typhonjs-fvtt/runtime': 0.2.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(autoprefixer@10.4.21(postcss@8.5.3))(cssnano@6.1.2(postcss@8.5.3))(postcss-preset-env@9.6.0(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0))
       svelte: 4.2.19
 
   '@typhonjs-fvtt/svelte-standard@0.1.0(@typhonjs-fvtt/runtime@0.1.3(rollup@4.35.0)(svelte-preprocess@6.0.3(postcss-load-config@4.0.2(postcss@8.5.3))(postcss@8.5.3)(sass@1.85.1)(svelte@4.2.19)(typescript@5.8.2))(svelte@4.2.19)(vite@6.2.1(@types/node@22.13.5)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.3)(yaml@2.7.0)))(svelte@4.2.19)':
@@ -5336,10 +5336,10 @@ snapshots:
 
   aria-query@5.3.2: {}
 
-  autoprefixer@10.4.20(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@8.5.3):
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001700
+      caniuse-lite: 1.0.30001703
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -5371,10 +5371,10 @@ snapshots:
 
   browserslist@4.24.4:
     dependencies:
-      caniuse-lite: 1.0.30001700
-      electron-to-chromium: 1.5.105
+      caniuse-lite: 1.0.30001703
+      electron-to-chromium: 1.5.114
       node-releases: 2.0.19
-      update-browserslist-db: 1.1.2(browserslist@4.24.4)
+      update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
   builtin-modules@4.0.0: {}
 
@@ -5401,11 +5401,11 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001700
+      caniuse-lite: 1.0.30001703
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
-  caniuse-lite@1.0.30001700: {}
+  caniuse-lite@1.0.30001703: {}
 
   ccount@2.0.1: {}
 
@@ -5669,7 +5669,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.105: {}
+  electron-to-chromium@1.5.114: {}
 
   emoji-regex@8.0.0: {}
 
@@ -7274,7 +7274,7 @@ snapshots:
       '@csstools/postcss-text-decoration-shorthand': 3.0.7(postcss@8.5.3)
       '@csstools/postcss-trigonometric-functions': 3.0.10(postcss@8.5.3)
       '@csstools/postcss-unset-value': 3.0.1(postcss@8.5.3)
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       browserslist: 4.24.4
       css-blank-pseudo: 6.0.2(postcss@8.5.3)
       css-has-pseudo: 6.0.5(postcss@8.5.3)
@@ -7957,7 +7957,7 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
-  update-browserslist-db@1.1.2(browserslist@4.24.4):
+  update-browserslist-db@1.1.3(browserslist@4.24.4):
     dependencies:
       browserslist: 4.24.4
       escalade: 3.2.0
