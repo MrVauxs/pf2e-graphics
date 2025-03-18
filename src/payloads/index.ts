@@ -55,8 +55,14 @@ type DecodedPayload =
  *
  * This should probably either be `.play()`ed immediately or merged with another sequence using `.addSequence()`. Named locations must be directly registered with `.addNamedLocation()`, since you cannot `.addSequence()` a named location.
  */
-export async function decodePayload(payload: Payload, context: ExecutionContext): Promise<DecodedPayload> {
-	if (!payload || !payload.type) throw ErrorMsg.send('pf2e-graphics.execute.common.error.missingPayload');
+export async function decodePayload(payload: Payload, context: ExecutionContext, ignoreLackOfPayload?: boolean): Promise<DecodedPayload> {
+	if (!payload || !payload.type) {
+		if (ignoreLackOfPayload) {
+			return { type: 'null' };
+		} else {
+			throw ErrorMsg.send('pf2e-graphics.execute.common.error.missingPayload');
+		}
+	}
 
 	if (payload.type === 'graphic') return { type: 'sequence', data: executeGraphic(payload, context) };
 	if (payload.type === 'sound') return { type: 'sequence', data: executeSound(payload, context) };

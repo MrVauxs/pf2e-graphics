@@ -287,6 +287,8 @@ export let AnimCore = class AnimCore {
 
 		const disabledUser = (game.user.getFlag('pf2e-graphics', 'disabledAnimations') as string[]) ?? [];
 		const disabledGlobal = window.pf2eGraphics.liveSettings.globalDisabledAnimations;
+		const disabled = disabledGlobal.concat(disabledUser);
+
 		/**
 		 * Priority (highest to lowest):
 		 * Item >
@@ -299,9 +301,7 @@ export let AnimCore = class AnimCore {
 		 * PF2e Graphics itself
 		 */
 		obj.animations = new Map(
-			[...this.animations, ...worldDocs, ...userDocs].filter(
-				val => !disabledUser.includes(val[0]) || !disabledGlobal.includes(val[0]),
-			),
+			[...this.animations, ...worldDocs, ...userDocs].filter(val => !disabled.includes(val[0])),
 		);
 
 		/* Nobody cares for now
@@ -336,7 +336,7 @@ export let AnimCore = class AnimCore {
 			if (!rollOptions.includes(rollOption)) continue;
 			const animationObjects = parseStrings(animations.animationSets, rollOption);
 			const animationObjectsSansReference = parseReferences(animationObjects, rollOption);
-			const applicableAnimations = filterChildren(animationObjectsSansReference);
+			const applicableAnimations = filterByPredicates(animationObjectsSansReference);
 			const unfoldedAnimations = unfoldAnimationSets(applicableAnimations);
 			unfoldedAnimationSets.push([rollOption, unfoldedAnimations]);
 		}
@@ -419,7 +419,7 @@ export let AnimCore = class AnimCore {
 		 * @param animations An array of `AnimationSet` objects.
 		 * @returns An array of `AnimationSet` objects with matching topmost `predicates`.
 		 */
-		function filterChildren<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
+		function filterByPredicates<T extends { predicates?: PredicateStatement[] }>(animations: T[]) {
 			return animations.filter(animation => game.pf2e.Predicate.test(animation.predicates, rollOptions));
 		}
 
@@ -568,17 +568,6 @@ export let AnimCore = class AnimCore {
 				const templates = (data.targets ?? []).filter(
 					target => target instanceof MeasuredTemplateDocument,
 				);
-				const decodedPayload = await decodePayload(set.execute, {
-					label: set.label,
-					currentIndex: index,
-					sources: data.sources,
-					targets,
-					templates,
-					item: data.item,
-					user: data.user,
-					trigger: data.trigger,
-					triggerContext: data.triggerContext ?? {},
-				});
 
 				// Handle `removes`
 				if (game.user.isGM) {
@@ -602,6 +591,18 @@ export let AnimCore = class AnimCore {
 						}
 					}
 				}
+
+				const decodedPayload = await decodePayload(set.execute, {
+					label: set.label,
+					currentIndex: index,
+					sources: data.sources,
+					targets,
+					templates,
+					item: data.item,
+					user: data.user,
+					trigger: data.trigger,
+					triggerContext: data.triggerContext ?? {},
+				}, Boolean((set?.removes ?? []).length));
 
 				// Handle decoded payload itself
 				if (decodedPayload.type === 'sequence') {

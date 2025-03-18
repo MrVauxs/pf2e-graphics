@@ -38,9 +38,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
-		"skipLibCheck": true
-		// TODO: enable this when TS v5.8.x released
-		// "erasableSyntaxOnly": true
+		"skipLibCheck": true,
+		"erasableSyntaxOnly": true
 	},
 	"include": [
 		"src/**/*",

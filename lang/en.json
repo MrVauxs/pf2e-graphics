@@ -246,8 +246,29 @@
 		"explanations": {
 			"rollOption": "The roll option that activates this animation set (e.g. <code>item:slug:jaws</code> or <code>check:statistic:society</code>).<p />Your choice should be specific to the thing you're animating. If in doubt, use the <b>Animation History</b> to find an appropriate roll option for your action.",
 			"triggers": "A list of triggers that will cause this animation to be executed.",
-			"overrides": "An list of roll options, with each roll option corresponding to an animation's primary predicate. If two animations are triggered by the same trigger and one of them overrides the other, the overridden animation will not be executed.",
-			"predicates": "A list of predicates as per the pf2e system. The animation will only be executed if the predicates apply."
+			"overrides": "A list of roll options, with each roll option corresponding to an animation's primary predicate. If two animations are triggered by the same trigger and one of them overrides the other, the overridden animation will not be executed.",
+			"predicates": "A list of predicates as per the pf2e system. The animation will only be executed if the predicates apply.",
+			"label": "A case-sensitive string that exists so that other entities can reference it, particularly when another payload `removes` it. This should be reasonably unique to avoid collissions.",
+			"removes": "A list of Label strings that when this set is executed, any matching sets are interrupted and removed.<p/>In addition to using a regular Label, you can also use the fixed strings \"ALL_ON_SOURCES\", \"ALL_ON_TARGETS\", and \"ALL_ON_TEMPLATES\", which removes all ongoing effects on the source or target tokens respectively.",
+			"execute": "Execute is the main meat of a given animation set. It dictates whether a given set creates an graphical effect, plays a sound, lets you place a crosshair, animates a token, or executes a macro.",
+			"crosshair": {
+				"name": "TODO: Explain name",
+				"label": "TODO: Explain label",
+				"template": "TODO: Explain template",
+				"relativeTo": "TODO: Explain relativeTo",
+				"padding": "TODO: Explain padding",
+				"defaultSize": "TODO: Explain defaultSize",
+				"minSize": "TODO: Explain minSize",
+				"maxSize": "TODO: Explain maxSize",
+				"angle": "TODO: Explain angle",
+				"direction": "TODO: Explain direction",
+				"width": "TODO: Explain width",
+				"snapDirection": "TODO: Explain snapDirection",
+				"snapLocation": "TODO: Explain snapLocation",
+				"lockDrag": "TODO: Explain lockDrag",
+				"lockRotation": "TODO: Explain lockRotation",
+				"noGridHighlight": "TODO: Explain noGridHighlight"
+			}
 		},
 		"tours": {
 			"sidebar": {

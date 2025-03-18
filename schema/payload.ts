@@ -131,7 +131,7 @@ const flatAnimation = z
 			.refine(...uniqueItems)
 			.optional()
 			.describe(
-				'An array of strings, where each element is a trigger on which to consider playing the animation.',
+				'An array of strings, where each element is a trigger on which to consider executing the animation. To always execute the animation regardless of trigger, leave this field undefined.',
 			),
 		overrides: z
 			.array(rollOption)

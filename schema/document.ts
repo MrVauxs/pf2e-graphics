@@ -40,6 +40,7 @@ export type WorldAnimationSetDocument = z.infer<typeof worldAnimationSetDocument
 export const userAnimationSetDocument = animationSetDocumentBase.extend({
 	source: z.literal('user'),
 	user: z.string().min(1),
+	id: z.string().min(1),
 });
 
 /**

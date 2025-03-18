@@ -98,7 +98,7 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 
 const diceSoNiceMessageProcessed = Hooks.on(
 	'diceSoNiceMessageProcessed',
-	async (messageId: string, willTrigger3DRoll: boolean) => {
+	async (messageId: string, { willTrigger3DRoll }: { willTrigger3DRoll: boolean }) => {
 		if (willTrigger3DRoll) {
 			// @ts-expect-error TODO: Dice So Nice types
 			await game.dice3d!.waitFor3DAnimationByMessageID(messageId);

@@ -2,6 +2,7 @@
 	import type { AnimationSet, AnimationSetContentsItem, AnimationSetDocument } from 'schema';
 	import type { Writable } from 'svelte/store';
 	import type { BasicAppExternal } from './AnimationDocumentApp';
+	import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
 	import { devLog } from 'src/utils';
 	import { getContext } from 'svelte';
 	import { sluggify } from '../AnimationSidebar/sidebarFunctions';
@@ -77,6 +78,8 @@
 
 		animation = animation;
 	}
+
+	let reference = typeof animation.animationSets === 'string';
 </script>
 
 <div class='flex flex-row h-full pt-1'>
@@ -169,6 +172,49 @@
 								animation.rollOption = sluggify(`Animation ${animation.id.slice(0, 4)}`);
 						}}
 					/>
+				</label>
+				<label class='grid grid-cols-2 items-center'>
+					<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.reference'>
+						Reference
+						<i class='fa fa-info-circle px-2 ml-auto'></i>
+					</span>
+					<div class='flex flex-row flex-nowrap items-center'>
+						<input
+							type='checkbox'
+							{readonly}
+							disabled={readonly}
+							bind:checked={reference}
+							on:change={() => {
+								if (typeof animation.animationSets === 'string') {
+									animation.animationSets = [];
+								} else if (animation.animationSets.length) {
+									TJSDialog.confirm({
+										modal: true,
+										title: 'Confirm',
+										content: 'By converting to a reference, the existing animationSets will be deleted. Are you sure you want to do this?',
+										onYes: () => {
+											animation.animationSets = '';
+										},
+										onNo: () => {
+											reference = false;
+										},
+									});
+								} else {
+									animation.animationSets = '';
+								}
+							}}
+						/>
+						{#if typeof animation.animationSets === 'string'}
+							<input
+								class='grow'
+								type='text'
+								{readonly}
+								disabled={readonly}
+								placeholder='roll-option'
+								bind:value={animation.animationSets}
+							/>
+						{/if}
+					</div>
 				</label>
 			</div>
 		{:else if typeof animation.animationSets === 'string'}

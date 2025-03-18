@@ -56,7 +56,6 @@
 				tabSize={2}
 			/>
 		{/if}
-
 	{:catch}
 		Errored trying to load JSONEditor!
 	{/await}

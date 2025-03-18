@@ -75,6 +75,7 @@
 							class: ImportData,
 							props: {
 								animation,
+								close: (force: boolean) => dialog.close({ force }),
 							},
 						},
 						title: 'Import data',

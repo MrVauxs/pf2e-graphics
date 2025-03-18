@@ -1,8 +1,10 @@
 <script lang='ts'>
 	import type { AnimationSetDocument } from 'schema';
 	import { devLog, error, safeJSONParse, warn } from 'src/utils';
+	import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 
 	export let animation: AnimationSetDocument;
+	export let close: (force: boolean) => void;
 
 	let json = '';
 	let data: undefined | AnimationSetDocument;
@@ -47,10 +49,20 @@
 		reader.readAsText(file);
 	};
 
-	function importAnimationData() {
+	async function importAnimationData() {
 		if (!data) return;
-		// TODO:
-		animation = data;
+		const doc = new AnimationDocumentApp({ animation });
+
+		// Alternatively we could do Spappz suggestion of just the name and animationSets but that's more of a types issue than a coding problem.
+		const cleanedData = data;
+		cleanedData.source = animation.source;
+		// @ts-expect-error TODO: Can't be bothered to fix whatever wrong schema we have going on here
+		cleanedData.user = animation.user;
+		// @ts-expect-error TODO: Can't be bothered to fix whatever wrong schema we have going on here
+		cleanedData.id = animation.id;
+
+		await doc.save(cleanedData);
+		close(true);
 	}
 </script>
 

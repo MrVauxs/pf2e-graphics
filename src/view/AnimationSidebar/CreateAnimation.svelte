@@ -3,19 +3,24 @@
 	import type { AnimationPresetType } from './sidebarFunctions';
 	import { getContext } from 'svelte';
 	import { ErrorMsg, i18n } from '../../utils';
-	import { getAnimationNameAndID, makeAnimation, openAnimation } from './sidebarFunctions';
+	import { makeAnimation, openAnimation } from './sidebarFunctions';
 
 	export let mode: 'make' | 'copy';
 	export let animation: AnimationSetDocument | undefined;
 
 	const { application } = getContext('#external');
 
-	let name = `${getAnimationNameAndID(animation?.name)._name}${mode === 'copy' ? ' (Copy)' : ''}`;
+	let name = `${animation?.name || ''}${mode === 'copy' ? ' (Copy)' : ''}`;
 	let type = 'ranged';
 	let location: AnimationSetDocument['source'] = 'user';
 
+	$: defaultName = i18n(
+		'pf2e-graphics.sidebar.animationSets.create.animationSet.popup.fields.name.placeholder',
+		{ type: i18n(`pf2e-graphics.presetTypes.${type}`) },
+	);
+
 	function make() {
-		const newAnimation = makeAnimation(name, type as AnimationPresetType, location);
+		const newAnimation = makeAnimation(name || defaultName, type as AnimationPresetType, location);
 		openAnimation(newAnimation);
 		application.close();
 	}
@@ -49,10 +54,7 @@
 			bind:value={name}
 			type='text'
 			class='basis-2/3'
-			placeholder={i18n(
-				'pf2e-graphics.sidebar.animationSets.create.animationSet.popup.fields.name.placeholder',
-				{ type: i18n(`pf2e-graphics.presetTypes.${type}`) },
-			)}
+			placeholder={defaultName}
 		/>
 	</label>
 	{#if mode === 'make'}

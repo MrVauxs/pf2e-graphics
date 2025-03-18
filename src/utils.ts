@@ -119,7 +119,7 @@ export function i18n(code: string, format?: Record<string, string>) {
  */
 export function nonEmpty(obj: { [K: string]: any }): boolean {
 	for (const _key in obj) {
-		if (obj[_key] !== 'undefined') return true; // This is simply most performant ¯\_(ツ)_/¯
+		if (obj[_key] !== undefined) return true; // This is simply most performant ¯\_(ツ)_/¯
 	}
 	return false;
 }

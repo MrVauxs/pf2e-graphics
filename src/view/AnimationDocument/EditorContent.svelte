@@ -14,7 +14,10 @@
 
 	log('Animation Document', animation);
 
-	let selection: keyof AnimationSetContentsItem = 'label';
+	const options: (keyof AnimationSetContentsItem)[] = ['execute', 'label', 'triggers', 'predicates', 'overrides', 'removes'];
+	$: remainingOptions = options.filter(x => !Object.keys(data).includes(x.toLowerCase()));
+	let selection: keyof AnimationSetContentsItem = remainingOptions?.[0];
+	$: selection = remainingOptions?.[0];
 
 	function addSection() {
 		if (selection === 'label') {
@@ -27,6 +30,8 @@
 			data.removes = [];
 		} else if (selection === 'execute') {
 			data.execute = {};
+		} else if (selection === 'overrides') {
+			data.overrides = [];
 		}
 	}
 
@@ -53,12 +58,12 @@
 <div class='flex flex-col gap-2 h-full py-1'>
 	{#if !readonly}
 		<header class='flex items-center grow-0'>
-			<button class='w-min text-nowrap h-8' on:click={addSection}>
+			<button class='w-min text-nowrap h-8' on:click={addSection} disabled={!selection}>
 				<i class='fa fa-plus pr-1'></i>
 				Add
 			</button>
-			<select class='grow h-8' bind:value={selection}>
-				{#each ['Execute', 'Label', 'Triggers', 'Predicates', 'Removes'].filter(x => !Object.keys(data).includes(x.toLowerCase())) as section}
+			<select class='grow h-8 capitalize' bind:value={selection} disabled={!remainingOptions.length}>
+				{#each remainingOptions as section}
 					<option value={section.toLowerCase()}>{section}</option>
 				{/each}
 			</select>
@@ -68,7 +73,7 @@
 		<!-- #region Label -->
 		{#if 'label' in data}
 			<label class='p-0.5 grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.label'>
 					Label
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -203,10 +208,49 @@
 			</label>
 		{/if}
 		<!-- #endregion -->
+		<!-- #region Overrides -->
+		{#if 'overrides' in data}
+			<label class='p-0.5 grid grid-cols-3 items-center'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.overrides'>
+					Overrides
+					<i class='fa fa-info-circle px-2 ml-auto'></i>
+				</span>
+				<div
+					class='
+						flex align-middle items-center
+						col-span-2
+						[&_button]:w-min
+					'
+				>
+					<input
+						type='text'
+						value={JSON.stringify(data.overrides)}
+						on:change={(ev) => {
+							try {
+								data.overrides = JSON.parse(ev.currentTarget.value);
+							} catch {
+								ErrorMsg.send('Invalid JSON! Any unsaved progress will be lost.');
+							}
+						}}
+					/>
+					<button
+						class='w-min ml-1'
+						on:click={() => {
+							delete data.overrides;
+							data = data;
+						}}
+						disabled={readonly}
+					>
+						<i class='fa fa-trash-can mx-auto fa-fw'></i>
+					</button>
+				</div>
+			</label>
+		{/if}
+		<!-- #endregion -->
 		<!-- #region Removes -->
 		{#if 'removes' in data}
 			<label class='p-0.5 grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.removes'>
 					Removes
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -252,7 +296,7 @@
 				class='border border-solid rounded-sm bg-slate-600/15'
 			>
 				<label class='p-0.5 pl-1 grid grid-cols-3 items-center'>
-					<span class='flex items-center' data-tooltip='TODO: Explain'>
+					<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.execute'>
 						Execute
 						<i class='fa fa-info-circle px-2 ml-auto'></i>
 					</span>

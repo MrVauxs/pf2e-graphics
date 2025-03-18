@@ -23,7 +23,7 @@
 	<div class='space-y-2'>
 		<!-- #region Name -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.name'>
 				Name
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
@@ -39,7 +39,7 @@
 		<!-- #endregion -->
 		<!-- #region Label -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.label'>
 				Label
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
@@ -55,7 +55,7 @@
 		<!-- #endregion -->
 		<!-- #region Template -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.template'>
 				Template
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
@@ -79,7 +79,7 @@
 		</label>
 		{#if data.execute.template && data.execute.template.type === 'token'}
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.relativeTo'>
 					Relative To
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -107,7 +107,7 @@
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.padding'>
 					Padding
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -127,7 +127,7 @@
 				{(data.execute.template.size = { default: 5 }) && ''}
 			{:else}
 				<label class='grid grid-cols-3 items-center'>
-					<span class='flex items-center' data-tooltip='TODO: Explain'>
+					<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.defaultSize'>
 						Default Size
 						<i class='fa fa-info-circle px-2 ml-auto'></i>
 					</span>
@@ -141,7 +141,7 @@
 					</div>
 				</label>
 				<label class='grid grid-cols-3 items-center'>
-					<span class='flex items-center' data-tooltip='TODO: Explain'>
+					<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.minSize'>
 						Min Size
 						<i class='fa fa-info-circle px-2 ml-auto'></i>
 					</span>
@@ -155,7 +155,7 @@
 						/>
 
 						<label class='grid grid-cols-3 items-center col-span-2 gap-2'>
-							<span class='flex items-center' data-tooltip='TODO: Explain'>
+							<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.maxSize'>
 								Max Size
 								<i class='fa fa-info-circle px-2 ml-auto'></i>
 							</span>
@@ -175,7 +175,7 @@
 		{/if}
 		{#if data.execute.template && data.execute.template.type === 'CONE'}
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.angle'>
 					Angle
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -189,7 +189,7 @@
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.direction'>
 					Direction
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -205,7 +205,7 @@
 		{/if}
 		{#if data.execute.template && data.execute.template.type === 'RAY'}
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.width'>
 					Width
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -219,7 +219,7 @@
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.direction'>
 					Direction
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -241,7 +241,7 @@
 		{:else}
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.snapLocation'>
 					Snap Location
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -270,7 +270,7 @@
 				</div>
 			</label>
 			<label class='grid grid-cols-3 items-center'>
-				<span class='flex items-center' data-tooltip='TODO: Explain'>
+				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.snapDirection'>
 					Snap Direction
 					<i class='fa fa-info-circle px-2 ml-auto'></i>
 				</span>
@@ -287,7 +287,7 @@
 		<!-- #endregion -->
 		<!-- #region Lock Drag -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.lockDrag'>
 				Lock Drag
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
@@ -302,7 +302,7 @@
 		<!-- #endregion -->
 		<!-- #region Lock Rotation -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.lockRotation'>
 				Lock Rotation
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
@@ -317,7 +317,7 @@
 		<!-- #endregion -->
 		<!-- #region No Grid Highlight -->
 		<label class='grid grid-cols-3 items-center'>
-			<span class='flex items-center' data-tooltip='TODO: Explain'>
+			<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.noGridHighlight'>
 				No Grid Highlight
 				<i class='fa fa-info-circle px-2 ml-auto'></i>
 			</span>
