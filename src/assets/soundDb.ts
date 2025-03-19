@@ -1311,6 +1311,12 @@ export const database = {
 					'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_09.ogg`,
 					'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Water/Water_Spell_10.ogg`,
 				},
+				'04': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 004.ogg`,
+				}
 			},
 			hold: {
 				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
@@ -1628,6 +1634,89 @@ export const database = {
 			poison: {
 				'01': `${p}/gamedev-market/Medieval Fantasy 2 SFX Pack/Weapons/Weapon Power Up Poison.ogg`,
 			},
+		},
+		regen: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 004.ogg`,
+			}
+		}
+	},
+	debuffs: {
+		hunger: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 004.ogg`,
+			}
+		},
+		bleed: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 004.ogg`,
+			}
+		},
+		confused: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 004.ogg`,
+			}
+		},
+		freeze: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 004.ogg`,
+			}
+		},
+		grease: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 004.ogg`,
+				'05': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 005.ogg`,
+			}
+		},
+		restrained: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 004.ogg`,
+			}
+		},
+		hypnotize: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 004.ogg`,
+			}
+		},
+		slow: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 004.ogg`,
+			}
+		},
+		stun: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 004.ogg`,
+			}
 		},
 	},
 	dodge: {
