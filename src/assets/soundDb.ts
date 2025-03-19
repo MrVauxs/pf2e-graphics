@@ -412,6 +412,12 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 004.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 004.ogg`,
 			}
 		},
 		suspense: {
@@ -437,6 +443,22 @@ export const database = {
 		unlock: {
 			'01': `${p}/tom-music/containers/Lock Unlock.ogg`,
 		},
+		lock: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Magic Lock 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Magic Lock 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Magic Lock 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Magic Lock 004.ogg`,
+				'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Magic Lock 005.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 004.ogg`,
+				'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 005.ogg`,
+			}
+		}
 	},
 	magic: {
 		air: {
@@ -466,6 +488,13 @@ export const database = {
 						'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_09.ogg`,
 						'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Spell_10.ogg`,
 					},
+					'02': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 004.ogg`,
+						'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 005.ogg`,
+					}
 				},
 			},
 			impact: {
@@ -714,6 +743,12 @@ export const database = {
 				'02': {
 					snap: `${p}/ovani-sounds/Magic/Fire/Combustion.ogg`,
 				},
+				'03': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 004.ogg`,
+				}
 			},
 			buff: {
 				'01': {
@@ -802,11 +837,17 @@ export const database = {
 					'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_09.ogg`,
 					'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_10.ogg`,
 				},
-				'04': {
+				'02': {
 					'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 001.ogg`,
 					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 004.ogg`,
+				},
+				'03': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 004.ogg`,
 				}
 			},
 			curse: {
@@ -1004,9 +1045,18 @@ export const database = {
 				'03': `${p}/soundflakes/diablo-wrath-miscellaneous/stone-door-shuted-03.ogg`,
 			},
 			explosion: {
-				'01': `${p}/soundflakes/diablo-wrath-miscellaneous/stone-with-chains-is-destroyed.ogg`,
-
-				'02': `${p}/ovani-sounds/Magic/Earth/Quake Step.ogg`,
+				'01': {
+					'01': `${p}/soundflakes/diablo-wrath-miscellaneous/stone-with-chains-is-destroyed.ogg`,
+				},
+				'02': {
+					'02': `${p}/ovani-sounds/Magic/Earth/Quake Step.ogg`,
+				},
+				'03': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 004.ogg`,
+				}
 			},
 			eruption: {
 				'01': `${p}/ovani-sounds/Magic II/Earth/Boulder Eruption 001.ogg`,
@@ -1018,8 +1068,18 @@ export const database = {
 			},
 			magnet: {
 				burst: {
-					'01': `${p}/ovani-sounds/Magic/Earth/Magnetic Burst.ogg`,
+					'01': {
+						'01': `${p}/ovani-sounds/Magic/Earth/Magnetic Burst.ogg`,
+					}
 				},
+				cast: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 004.ogg`,
+					}
+				}
 			},
 			grab: {
 				'01': `${p}/ovani-sounds/Magic/Earth/Earthen Grasp.ogg`,
@@ -1342,6 +1402,12 @@ export const database = {
 					'02': {
 						'01': `${p}/LastDayDreaming/Magic/Lightning/EM_LIGHT_IMPACT_01.ogg`,
 					},
+					'03': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 004.ogg`,
+					}
 				},
 			},
 			buff: {
@@ -1463,7 +1529,19 @@ export const database = {
 				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
 			},
 			impact: {
-				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
+				splash: {
+					'01': {
+						'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
+					}
+				},
+				bubble: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 004.ogg`,
+					}
+				}
 			},
 			launch: {
 				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
@@ -1566,7 +1644,15 @@ export const database = {
 			},
 		},
 		counterspell: {
-			'01': `${p}/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
+			'01': {
+				'01': `${p}/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 004.ogg`,
+			}
 		},
 		dispel: {
 			'01': {
@@ -1665,6 +1751,14 @@ export const database = {
 			loop: {
 				'01': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
 			},
+			impact: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 004.ogg`,
+				}
+			}
 		},
 		buff: {
 			generic: {
@@ -1968,6 +2062,16 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 004.ogg`,
+			}
+		},
+		blast: {
+			gravity: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast Dry.ogg`,
+				}
 			}
 		}
 	}
