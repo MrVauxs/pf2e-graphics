@@ -262,6 +262,76 @@ export const database = {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/shield-breaking-with-bludgeon.ogg`,
 		},
 	},
+	cannon: {
+		fuse: {
+			dud: {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse Dud.ogg`,
+			},
+			loop: {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse Loop A.ogg`,
+			},
+			complete: {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse With End A.ogg`,
+				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse With End B.ogg`,
+			}
+		},
+		ball: {
+			'01': {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball A.ogg`,
+				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball B.ogg`,
+				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball C.ogg`,
+				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball D.ogg`,
+				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball E.ogg`,
+			}
+		},
+		barrage: {
+			'01': {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage A.ogg`,
+				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage B.ogg`,
+				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage C.ogg`,
+				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage D.ogg`,
+				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage E.ogg`,
+				'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage F.ogg`,
+			}
+		},
+		fire: {
+			close: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close D.ogg`,
+					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close E.ogg`,
+				}
+			},
+			far: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant D.ogg`,
+					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant E.ogg`,
+				}
+			}
+		},
+		load: {
+			'01': {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load A.ogg`,
+				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load B.ogg`,
+				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load C.ogg`,
+				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load D.ogg`,
+				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load E.ogg`,
+				'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load F.ogg`,
+			}
+		},
+		ready: {
+			'01': {
+				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready A.ogg`,
+				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready B.ogg`,
+				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready C.ogg`,
+			}
+		}
+	},
 	unarmed: {
 		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-face-punch.ogg`,
 		'02': `${p}/OpenGameArt/independent_nu/hits/hit01.ogg`,
@@ -905,6 +975,18 @@ export const database = {
 					},
 				},
 			},
+			cast: {
+				basic: {
+					'01': {
+						'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage A.ogg`,
+						'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage B.ogg`,
+						'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage C.ogg`,
+						'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage D.ogg`,
+						'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage E.ogg`,
+						'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage F.ogg`,
+					}
+				}
+			},
 			ward: {
 				'01': `${p}/ovani-sounds/Magic II/Earth/Stone Ward 001.ogg`,
 				'02': `${p}/ovani-sounds/Magic II/Earth/Stone Ward 002.ogg`,
@@ -1541,7 +1623,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 004.ogg`,
-				}
+				},
 				'05': {
 					'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 001.ogg`,
 					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 002.ogg`,
