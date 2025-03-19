@@ -335,6 +335,24 @@ export const database = {
 			'03': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun C.ogg`,
 		},
 	},
+	misc: {
+		detected: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Detected 004.ogg`,
+			}
+		},
+		suspense: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 004.ogg`,
+			}
+		}
+	},
 	finisher: {
 		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
 	},
@@ -773,6 +791,14 @@ export const database = {
 					},
 				},
 			},
+			fear: {
+				'02': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 004.ogg`,
+				}
+			}
 		},
 		earth: {
 			geokinesis: {
@@ -1108,9 +1134,17 @@ export const database = {
 				'04': `${p}/ovani-sounds/Magic II/Light/Cure 004.ogg`,
 			},
 			bless: {
-				'01': `${p}/ovani-sounds/Magic II/Light/Bless 001.ogg`,
-				'02': `${p}/ovani-sounds/Magic II/Light/Bless 002.ogg`,
-				'03': `${p}/ovani-sounds/Magic II/Light/Bless 003.ogg`,
+				'01': {
+					'01': `${p}/ovani-sounds/Magic II/Light/Bless 001.ogg`,
+					'02': `${p}/ovani-sounds/Magic II/Light/Bless 002.ogg`,
+					'03': `${p}/ovani-sounds/Magic II/Light/Bless 003.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 004.ogg`,
+				}
 			},
 			bolt: {
 				cast: {
@@ -1154,6 +1188,12 @@ export const database = {
 				'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_09.ogg`,
 				'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Heal_10.ogg`,
 			},
+			'03': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 004.ogg`,
+			}
 		},
 		lightning: {
 			cast: {
@@ -1505,6 +1545,14 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 004.ogg`,
+				}
+			},
+			light: {
+				'01': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 004.ogg`,
 				}
 			},
 			loop: {
