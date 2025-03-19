@@ -1798,5 +1798,49 @@ export const database = {
 	dodge: {
 		'01': `${p}/soundflakes/diablo-wrath-miscellaneous/auriel-avoiding.ogg`,
 	},
+	science: {
+		device: {
+			use: {
+				'01': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 004.ogg`,
+				}
+			}
+		},
+		meter_refill: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 004.ogg`,
+			}
+		},
+		overshield: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 004.ogg`,
+			}
+		},
+		power_up: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-004.ogg`,
+			}
+		},
+		ready: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 004.ogg`,
+			}
+		}
+	}
 	// #endregion
 } as const;
