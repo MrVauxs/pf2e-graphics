@@ -351,7 +351,14 @@ export const database = {
 				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 004.ogg`,
 			}
-		}
+		},
+		heartbeat: {
+			'01': {
+				'slow': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Slow Loop.ogg`,
+				'fast': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Fast Loop.ogg`,
+				'middle': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Mid Loop.ogg`,
+			}
+		},
 	},
 	finisher: {
 		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
@@ -725,6 +732,12 @@ export const database = {
 					'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_09.ogg`,
 					'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Shadow/Shadow_Spell_10.ogg`,
 				},
+				'04': {
+					'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Decision 004.ogg`,
+				}
 			},
 			curse: {
 				'01': {
@@ -1523,6 +1536,18 @@ export const database = {
 					'09': `${p}/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_09.ogg`,
 					'10': `${p}/gamedev-market/Magic_Spells_Sound_Pack/General Magic/Negative_Aura_10.ogg`,
 				},
+				'04': {
+					'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Change 004.ogg`,
+				}
+				'05': {
+					'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 004.ogg`,
+				}
 			},
 			buff: {
 				'01': {
@@ -1692,6 +1717,20 @@ export const database = {
 		landing: {
 			'01': `${p}/soundflakes/diablo-wrath-miscellaneous/tyrael-landing_footsteps.ogg`,
 		},
+		dash: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Dash 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Dash 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Dash 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Dash 004.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 004.ogg`,
+			}
+		}
 	},
 	buff: {
 		weapon: {
@@ -1798,7 +1837,7 @@ export const database = {
 	dodge: {
 		'01': `${p}/soundflakes/diablo-wrath-miscellaneous/auriel-avoiding.ogg`,
 	},
-	science: {
+	scifi: {
 		device: {
 			use: {
 				'01': {
@@ -1839,6 +1878,14 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 004.ogg`,
+			}
+		},
+		stimpack: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 004.ogg`,
 			}
 		}
 	}
