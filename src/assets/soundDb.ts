@@ -724,6 +724,12 @@ export const database = {
 					'03': `${p}/ovani-sounds/Magic II/Dark/Hex 003.ogg`,
 					'04': `${p}/ovani-sounds/Magic II/Dark/Hex 004.ogg`,
 				},
+				'05': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 004.ogg`,
+				}
 			},
 			bells: {
 				'01': {
@@ -1427,6 +1433,14 @@ export const database = {
 		counterspell: {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/tyrael-spellbreaking.ogg`,
 		},
+		dispel: {
+			'01': {
+				'01': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 001.ogg`,
+				'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 002.ogg`,
+				'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 003.ogg`,
+				'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 004.ogg`,
+			}
+		},
 		fail: {
 			'01': `${p}/soundflakes/diablo-wrath-miscellaneous/imperius-land-on-giant.ogg`,
 		},
@@ -1478,6 +1492,20 @@ export const database = {
 					'04': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_04.ogg`,
 					'05': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Arcane/Arcane_Buff_05.ogg`,
 				},
+				'02': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 004.ogg`,
+				}
+			},
+			revealing_light: {
+				'01': {
+					'01': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 001.ogg`,
+					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 002.ogg`,
+					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 003.ogg`,
+					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 004.ogg`,
+				}
 			},
 			loop: {
 				'01': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
