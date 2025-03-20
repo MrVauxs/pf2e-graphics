@@ -559,6 +559,44 @@ export const database = {
 			'01': `${p}/ovani-sounds/Magic/Fire/Fire Whip.ogg`,
 		},
 	},
+	cards: {
+		shuffle: {
+			'01': {
+				'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Deck Reassemble 001.ogg`,
+				'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Deck Reassemble 002.ogg`,
+				'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Deck Reassemble 003.ogg`,
+				'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Deck Reassemble 004.ogg`,
+			},
+		},
+		play: {
+			'01': {
+				'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard 001.ogg`,
+				'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard 002.ogg`,
+				'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard 003.ogg`,
+				'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard 004.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Dispel 001.ogg`,
+				'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Dispel 002.ogg`,
+				'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Dispel 003.ogg`,
+				'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Dispel 004.ogg`,
+			},
+			'03': {
+				'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Flying Cards 001.ogg`,
+				'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Flying Cards 002.ogg`,
+				'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Flying Cards 003.ogg`,
+				'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Flying Cards 004.ogg`,
+			},
+		},
+		draw: {
+			'01': {
+				'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard For Gold 001.ogg`,
+				'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard For Gold 002.ogg`,
+				'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard For Gold 003.ogg`,
+				'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Discard For Gold 004.ogg`,
+			},
+		},
+	},
 	// #endregion
 	// #region Misc
 	critical: {
@@ -2038,6 +2076,12 @@ export const database = {
 					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered C.ogg`,
 					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered D.ogg`,
 					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered E.ogg`,
+				},
+				'04': {
+					'01': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Boost 001.ogg`,
+					'02': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Boost 002.ogg`,
+					'03': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Boost 003.ogg`,
+					'04': `${p}/ovani-sounds/Decks and Cards SFX/FX/FX Boost 004.ogg`,
 				},
 			},
 			revealing_light: {
