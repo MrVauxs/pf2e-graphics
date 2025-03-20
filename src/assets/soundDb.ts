@@ -297,6 +297,17 @@ export const database = {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/shield-breaking-with-bludgeon.ogg`,
 		},
 	},
+	firearm: {
+		ricochet: {
+			'01': {
+				'01': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos A.ogg`,
+				'02': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos B.ogg`,
+				'03': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos C.ogg`,
+				'04': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos D.ogg`,
+				'05': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos E.ogg`,
+			},
+		}
+	},
 	cannon: {
 		fuse: {
 			dud: {
