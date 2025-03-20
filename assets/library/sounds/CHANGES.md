@@ -2,7 +2,7 @@
 | :---------------------------------------------------: | :--------------------------------------------: |
 |                      All Assets                       |               Converted to .ogg                |
 | ovani-sounds/Magic/Shock/Lightning Bolt Impact \*.wav |          Lengthened file to 2 seconds          |
-|                    ovani-sounds/                      |  Normalized some sfx volume to prevent peaking |
+|                     ovani-sounds/                     | Normalized some sfx volume to prevent peaking  |
 |        gamedev-market/BowWhistleShot(3-7).wav         |            Pitched variants of 1-2             |
 |          gamedev-market/BowWhistleShot\*.wav          |               Cut to same length               |
 |                  soundflakes/\*.wav                   | Normalized, Trimmed Silence (Threshold -40 Db) |

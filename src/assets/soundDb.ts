@@ -57,8 +57,8 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 004.ogg`,
-			}
-		}
+			},
+		},
 	},
 	sword: {
 		melee: {
@@ -77,14 +77,24 @@ export const database = {
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 005.ogg`,
-				}
+				},
 			},
 			hit: {
 				solid: {
-					'04': `${p}/soniss/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.ogg`,
-					'01': `${p}/tom-music/sword/Sword Blocked 1.ogg`,
-					'02': `${p}/tom-music/sword/Sword Blocked 2.ogg`,
-					'03': `${p}/tom-music/sword/Sword Blocked 3.ogg`,
+					'01': {
+						'01': `${p}/tom-music/sword/Sword Blocked 1.ogg`,
+						'02': `${p}/tom-music/sword/Sword Blocked 2.ogg`,
+						'03': `${p}/tom-music/sword/Sword Blocked 3.ogg`,
+					},
+					'02': {
+						'01': `${p}/soniss/SWSH_Sword Slash Impact V2 Assorted 18_DDUMAIS_NONE.ogg`,
+					},
+					'03': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Crit A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Crit B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Crit C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Crit D.ogg`,
+					},
 				},
 				flesh: {
 					'01': `${p}/tom-music/sword/Sword Impact Hit 1.ogg`,
@@ -96,9 +106,17 @@ export const database = {
 					'07': `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-hit-flesh-03.ogg`,
 				},
 				parry: {
-					'01': `${p}/tom-music/sword/Sword Parry 1.ogg`,
-					'02': `${p}/tom-music/sword/Sword Parry 2.ogg`,
-					'03': `${p}/tom-music/sword/Sword Parry 3.ogg`,
+					'01': {
+						'01': `${p}/tom-music/sword/Sword Parry 1.ogg`,
+						'02': `${p}/tom-music/sword/Sword Parry 2.ogg`,
+						'03': `${p}/tom-music/sword/Sword Parry 3.ogg`,
+					},
+					'02': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Parry/Parry Ultimate A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Parry/Parry Ultimate B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Parry/Parry Ultimate C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Parry/Parry Ultimate D.ogg`,
+					},
 				},
 			},
 			miss: {
@@ -127,8 +145,8 @@ export const database = {
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 005.ogg`,
-				}
-			}
+				},
+			},
 		},
 		throw: {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-throw-swoosh-02.ogg`,
@@ -160,6 +178,39 @@ export const database = {
 				'01': `${p}/tom-music/bow/Bow Impact Hit 1.ogg`,
 				'02': `${p}/tom-music/bow/Bow Impact Hit 2.ogg`,
 				'03': `${p}/tom-music/bow/Bow Impact Hit 3.ogg`,
+			},
+			combo: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Hit A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Hit B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Hit C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Hit D.ogg`,
+					'05': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Hit E.ogg`,
+				},
+			},
+		},
+		magical: {
+			arcane: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Fire A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Fire B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Fire C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Fire D.ogg`,
+					'05': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Crit Fire E.ogg`,
+				},
+			},
+		},
+		miss: {
+			'01': {
+				'01': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Miss A.ogg`,
+				'02': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Miss B.ogg`,
+				'03': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Miss C.ogg`,
+				'04': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Miss D.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Fail A.ogg`,
+				'02': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Fail B.ogg`,
+				'03': `${p}/ovani-sounds/Combos Crits and Fails/Arrow/Arrow Fail C.ogg`,
 			},
 		},
 		sheath: {
@@ -208,7 +259,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Siren Call B.ogg`,
 					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Siren Call C.ogg`,
 				},
-			}
+			},
 		},
 		strike: {
 			tentacle: {
@@ -217,8 +268,8 @@ export const database = {
 					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Tenticle B.ogg`,
 					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Tenticle C.ogg`,
 				},
-			}
-		}
+			},
+		},
 	},
 	axe: {
 		slash: {
@@ -338,7 +389,26 @@ export const database = {
 				'04': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos D.ogg`,
 				'05': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos E.ogg`,
 			},
-		}
+		},
+		impact: {
+			magical: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Ultimate A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Ultimate B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Ultimate C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Ultimate D.ogg`,
+				},
+			},
+		},
+		misfire: {
+			magical: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Fail A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Fail B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Fail C.ogg`,
+				},
+			},
+		},
 	},
 	cannon: {
 		fuse: {
@@ -351,7 +421,7 @@ export const database = {
 			complete: {
 				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse With End A.ogg`,
 				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Burning Fuse With End B.ogg`,
-			}
+			},
 		},
 		ball: {
 			'01': {
@@ -360,7 +430,7 @@ export const database = {
 				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball C.ogg`,
 				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball D.ogg`,
 				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ball E.ogg`,
-			}
+			},
 		},
 		barrage: {
 			'01': {
@@ -370,7 +440,7 @@ export const database = {
 				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage D.ogg`,
 				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage E.ogg`,
 				'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Barrage F.ogg`,
-			}
+			},
 		},
 		fire: {
 			close: {
@@ -380,7 +450,7 @@ export const database = {
 					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close C.ogg`,
 					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close D.ogg`,
 					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Close E.ogg`,
-				}
+				},
 			},
 			far: {
 				'01': {
@@ -389,8 +459,8 @@ export const database = {
 					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant C.ogg`,
 					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant D.ogg`,
 					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Fire Distant E.ogg`,
-				}
-			}
+				},
+			},
 		},
 		load: {
 			'01': {
@@ -400,15 +470,15 @@ export const database = {
 				'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load D.ogg`,
 				'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load E.ogg`,
 				'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Load F.ogg`,
-			}
+			},
 		},
 		ready: {
 			'01': {
 				'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready A.ogg`,
 				'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready B.ogg`,
 				'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Cannon Ready C.ogg`,
-			}
-		}
+			},
+		},
 	},
 	unarmed: {
 		'01': {
@@ -447,7 +517,13 @@ export const database = {
 			'30': `${p}/OpenGameArt/independent_nu/hits/hit30.ogg`,
 			'31': `${p}/OpenGameArt/independent_nu/hits/hit31.ogg`,
 			'32': `${p}/OpenGameArt/independent_nu/hits/hit32.ogg`,
-		}
+		},
+		'03': {
+			'01': `${p}/ovani-sounds/Combos Crits and Fails/Punch/Punch Ultimate A.ogg`,
+			'02': `${p}/ovani-sounds/Combos Crits and Fails/Punch/Punch Ultimate B.ogg`,
+			'03': `${p}/ovani-sounds/Combos Crits and Fails/Punch/Punch Ultimate C.ogg`,
+			'04': `${p}/ovani-sounds/Combos Crits and Fails/Punch/Punch Ultimate D.ogg`,
+		},
 	},
 	torch: {
 		light: {
@@ -475,8 +551,8 @@ export const database = {
 				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 001.ogg`,
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 003.ogg`,
-			}
-		}
+			},
+		},
 	},
 	whip: {
 		flame: {
@@ -487,15 +563,25 @@ export const database = {
 	// #region Misc
 	critical: {
 		melee: {
-			'01': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-01.ogg`,
-			'02': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-02.ogg`,
-			'03': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-03.ogg`,
-			'04': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-04.ogg`,
+			'01': {
+				'01': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-01.ogg`,
+				'02': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-02.ogg`,
+				'03': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-03.ogg`,
+				'04': `${p}/soundflakes/diablo-wrath-weapon/etherael-attack-04.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Ultimate A.ogg`,
+				'02': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Ultimate B.ogg`,
+				'03': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Ultimate C.ogg`,
+				'04': `${p}/ovani-sounds/Combos Crits and Fails/Sword/Sword Ultimate D.ogg`,
+			},
 		},
 		ranged: {
-			'01': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun A.ogg`,
-			'02': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun B.ogg`,
-			'03': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun C.ogg`,
+			'01': {
+				'01': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun A.ogg`,
+				'02': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun B.ogg`,
+				'03': `${p}/ovani-sounds/Science Fiction SFX 2/Big Freaking Gun C.ogg`,
+			},
 		},
 	},
 	misc: {
@@ -511,7 +597,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Heavy Tom 004.ogg`,
-			}
+			},
 		},
 		suspense: {
 			'01': {
@@ -519,20 +605,20 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Suspense 004.ogg`,
-			}
+			},
 		},
 		heartbeat: {
 			'01': {
-				'slow': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Slow Loop.ogg`,
-				'fast': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Fast Loop.ogg`,
-				'middle': `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Mid Loop.ogg`,
-			}
+				slow: `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Slow Loop.ogg`,
+				fast: `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Fast Loop.ogg`,
+				middle: `${p}/ovani-sounds/Player Status SFX/General/Low HP Heartbeat Mid Loop.ogg`,
+			},
 		},
 	},
 	finisher: {
 		'01': {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
-		}
+		},
 	},
 	containers: {
 		unlock: {
@@ -552,7 +638,7 @@ export const database = {
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 004.ogg`,
 				'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Metal Spring 005.ogg`,
-			}
+			},
 		},
 		open: {
 			'01': {
@@ -565,7 +651,7 @@ export const database = {
 				'01': `${p}/ovani-sounds/Crafting SFX/Tool/Toolbox Close A.ogg`,
 				'02': `${p}/ovani-sounds/Crafting SFX/Tool/Toolbox Close B.ogg`,
 			},
-		}
+		},
 	},
 	magic: {
 		air: {
@@ -586,8 +672,8 @@ export const database = {
 							'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 001.ogg`,
 							'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 002.ogg`,
 							'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 003.ogg`,
-						}
-					}
+						},
+					},
 				},
 				generic: {
 					'01': {
@@ -615,7 +701,7 @@ export const database = {
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 004.ogg`,
 						'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 005.ogg`,
-					}
+					},
 				},
 			},
 			impact: {
@@ -696,7 +782,7 @@ export const database = {
 					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 001.ogg`,
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 003.ogg`,
-				}
+				},
 			},
 			zephyr: {
 				embrace: `${p}/ovani-sounds/Magic/Air/Zephyrs Embrace.ogg`,
@@ -717,7 +803,7 @@ export const database = {
 				},
 				'02': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Wind Craft.ogg`,
-				}
+				},
 			},
 			glyph: {
 				'01': {
@@ -733,8 +819,8 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 004.ogg`,
-				}
-			}
+				},
+			},
 		},
 		fire: {
 			cast: {
@@ -887,7 +973,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 004.ogg`,
-				}
+				},
 			},
 			buff: {
 				'01': {
@@ -987,7 +1073,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Moor 004.ogg`,
-				}
+				},
 			},
 			curse: {
 				'01': {
@@ -1021,7 +1107,7 @@ export const database = {
 				'07': {
 					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Ghost Ship Tier 2 A.ogg`,
 					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Ghost Ship Tier 2 B.ogg`,
-				}
+				},
 			},
 			bells: {
 				'01': {
@@ -1071,7 +1157,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 004.ogg`,
-				}
+				},
 			},
 			teleport: {
 				'01': {
@@ -1080,8 +1166,8 @@ export const database = {
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 005.ogg`,
-				}
-			}
+				},
+			},
 		},
 		earth: {
 			geokinesis: {
@@ -1184,8 +1270,8 @@ export const database = {
 						'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage D.ogg`,
 						'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage E.ogg`,
 						'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Battle/Ship Hull Damage F.ogg`,
-					}
-				}
+					},
+				},
 			},
 			ward: {
 				'01': `${p}/ovani-sounds/Magic II/Earth/Stone Ward 001.ogg`,
@@ -1215,7 +1301,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Comet 004.ogg`,
-				}
+				},
 			},
 			eruption: {
 				'01': `${p}/ovani-sounds/Magic II/Earth/Boulder Eruption 001.ogg`,
@@ -1229,7 +1315,7 @@ export const database = {
 				burst: {
 					'01': {
 						'01': `${p}/ovani-sounds/Magic/Earth/Magnetic Burst.ogg`,
-					}
+					},
 				},
 				cast: {
 					'01': {
@@ -1237,15 +1323,15 @@ export const database = {
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 004.ogg`,
-					}
+					},
 				},
 				wave: {
 					'01': {
 						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 001.ogg`,
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 003.ogg`,
-					}
-				}
+					},
+				},
 			},
 			grab: {
 				'01': `${p}/ovani-sounds/Magic/Earth/Earthen Grasp.ogg`,
@@ -1259,8 +1345,8 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 004.ogg`,
-				}
-			}
+				},
+			},
 		},
 		ice: {
 			ranged: {
@@ -1377,7 +1463,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 004.ogg`,
-				}
+				},
 			},
 			loop: {
 				'01': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Ice_Cast_Loop_01.ogg`,
@@ -1479,7 +1565,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Bless 004.ogg`,
-				}
+				},
 			},
 			bolt: {
 				cast: {
@@ -1528,7 +1614,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Heal 004.ogg`,
-			}
+			},
 		},
 		lightning: {
 			cast: {
@@ -1587,7 +1673,7 @@ export const database = {
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Electroheart 004.ogg`,
-					}
+					},
 				},
 			},
 			buff: {
@@ -1676,7 +1762,7 @@ export const database = {
 				'02': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Tool/Quick Weld.ogg`,
 				},
-			}
+			},
 		},
 		water: {
 			charm: {
@@ -1711,7 +1797,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Poison 004.ogg`,
-				}
+				},
 			},
 			hold: {
 				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_HOLD_4s.ogg`,
@@ -1720,7 +1806,7 @@ export const database = {
 				splash: {
 					'01': {
 						'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_IMPACT_01.ogg`,
-					}
+					},
 				},
 				bubble: {
 					'01': {
@@ -1728,8 +1814,8 @@ export const database = {
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Bubble 004.ogg`,
-					}
-				}
+					},
+				},
 			},
 			launch: {
 				'01': `${p}/LastDayDreaming/Magic/Water/EM_WATER_LAUNCH_01.ogg`,
@@ -1833,9 +1919,9 @@ export const database = {
 						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 001.ogg`,
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 003.ogg`,
-					}
-				}
-			}
+					},
+				},
+			},
 		},
 		movement: {
 			blink: {
@@ -1861,7 +1947,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fatality 004.ogg`,
-			}
+			},
 		},
 		dispel: {
 			'01': {
@@ -1869,7 +1955,13 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dispel 004.ogg`,
-			}
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Disruption A.ogg`,
+				'02': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Disruption B.ogg`,
+				'03': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Disruption C.ogg`,
+				'04': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Disruption D.ogg`,
+			},
 		},
 		fail: {
 			'01': `${p}/soundflakes/diablo-wrath-miscellaneous/imperius-land-on-giant.ogg`,
@@ -1924,7 +2016,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Reward 004.ogg`,
-				}
+				},
 			},
 			buff: {
 				'01': {
@@ -1954,7 +2046,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Fairy Dust 004.ogg`,
-				}
+				},
 			},
 			light: {
 				'01': {
@@ -1962,7 +2054,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Light 004.ogg`,
-				}
+				},
 			},
 			loop: {
 				'01': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/General_Cast_Loop_01.ogg`,
@@ -1973,8 +2065,32 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Anvil 004.ogg`,
-				}
-			}
+				},
+			},
+			fail: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Fail A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Fail B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Fail C.ogg`,
+				},
+			},
+			channel: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Event A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Event B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Event C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Event D.ogg`,
+					'05': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Event E.ogg`,
+				},
+			},
+			slash: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Whoosh A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Whoosh B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Whoosh C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/QTE/QTE Whoosh D.ogg`,
+				},
+			},
 		},
 		buff: {
 			generic: {
@@ -2103,36 +2219,36 @@ export const database = {
 					'02': `${p}/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
 				},
 			},
-			sanctuary: {
+			'sanctuary': {
 				'01': {
 					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 001.ogg`,
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 005.ogg`,
-				}
+				},
 			},
-			roar: {
+			'roar': {
 				'01': {
 					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 001.ogg`,
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 004.ogg`,
-				}
+				},
 			},
-			spirit: {
+			'spirit': {
 				'01': {
 					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 001.ogg`,
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 004.ogg`,
-				}
+				},
 			},
-			spiders: {
+			'spiders': {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/UI/Craft Text Sprawl B.ogg`,
-				}
-			}
+				},
+			},
 		},
 		music: {
 			harp: {
@@ -2142,8 +2258,8 @@ export const database = {
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 004.ogg`,
-					}
-				}
+					},
+				},
 			},
 			choir: {
 				rise: {
@@ -2155,8 +2271,8 @@ export const database = {
 						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 001.ogg`,
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 003.ogg`,
-					}
-				}
+					},
+				},
 			},
 			drums: {
 				rise: {
@@ -2164,16 +2280,16 @@ export const database = {
 						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 001.ogg`,
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 003.ogg`,
-					}
-				}
+					},
+				},
 			},
 			bell: {
 				ring: {
 					'01': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Anvil Select.ogg`,
-					}
-				}
-			}
+					},
+				},
+			},
 		},
 		misc: {
 			gold: {
@@ -2184,8 +2300,51 @@ export const database = {
 					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold D.ogg`,
 					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold E.ogg`,
 				},
-			}
-		}
+			},
+			magical_girl: {
+				impact: {
+					'01': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Crit A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Crit B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Crit C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Crit D.ogg`,
+						'05': `${p}/ovani-sounds/Combos Crits and Fails/Gun/Gun Crit E.ogg`,
+					},
+					'02': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Ultimate A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Ultimate B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Ultimate C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Ultimate D.ogg`,
+					},
+					'03': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Combo A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Combo B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Combo C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Combo D.ogg`,
+						'05': `${p}/ovani-sounds/Combos Crits and Fails/Magic/Magic Combo E.ogg`,
+					},
+					'04': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Misc Template/Success Level A.ogg`,
+					},
+				},
+				smite: {
+					'01': {
+						'01': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ultimate A.ogg`,
+						'02': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ultimate B.ogg`,
+						'03': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ultimate C.ogg`,
+						'04': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ultimate D.ogg`,
+					},
+				},
+			},
+			ricochet: {
+				'01': {
+					'01': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Compression A.ogg`,
+					'02': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Compression B.ogg`,
+					'03': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Compression C.ogg`,
+					'04': `${p}/ovani-sounds/Combos Crits and Fails/Abilities/Ability Compression D.ogg`,
+				},
+			},
+		},
 	},
 	movement: {
 		landing: {
@@ -2203,7 +2362,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 004.ogg`,
-			}
+			},
 		},
 		jump: {
 			'01': {
@@ -2211,8 +2370,8 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 004.ogg`,
-			}
-		}
+			},
+		},
 	},
 	buff: {
 		weapon: {
@@ -2238,8 +2397,8 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Regen 004.ogg`,
-			}
-		}
+			},
+		},
 	},
 	debuffs: {
 		hunger: {
@@ -2248,7 +2407,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailment Hunger 004.ogg`,
-			}
+			},
 		},
 		bleed: {
 			'01': {
@@ -2256,7 +2415,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Bleed 004.ogg`,
-			}
+			},
 		},
 		confused: {
 			'01': {
@@ -2264,7 +2423,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Confuse 004.ogg`,
-			}
+			},
 		},
 		freeze: {
 			'01': {
@@ -2272,7 +2431,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Freeze 004.ogg`,
-			}
+			},
 		},
 		grease: {
 			'01': {
@@ -2281,7 +2440,7 @@ export const database = {
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 004.ogg`,
 				'05': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Grease 005.ogg`,
-			}
+			},
 		},
 		restrained: {
 			'01': {
@@ -2289,7 +2448,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hold 004.ogg`,
-			}
+			},
 		},
 		hypnotize: {
 			'01': {
@@ -2297,7 +2456,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Hypnotize 004.ogg`,
-			}
+			},
 		},
 		slow: {
 			'01': {
@@ -2305,7 +2464,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Slow 004.ogg`,
-			}
+			},
 		},
 		stun: {
 			'01': {
@@ -2313,7 +2472,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Ailments/Ailments Stun 004.ogg`,
-			}
+			},
 		},
 	},
 	dodge: {
@@ -2325,14 +2484,14 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Hammer/Clumsy Hammer A.ogg`,
 					'02': `${p}/ovani-sounds/Crafting SFX/Hammer/Clumsy Hammer B.ogg`,
-				}
+				},
 			},
 			dull: {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Hammer/Dull Hammer A.ogg`,
 					'02': `${p}/ovani-sounds/Crafting SFX/Hammer/Dull Hammer B.ogg`,
 					'03': `${p}/ovani-sounds/Crafting SFX/Hammer/Dull Hammer C.ogg`,
-				}
+				},
 			},
 			craft: {
 				'01': {
@@ -2346,7 +2505,7 @@ export const database = {
 					heavy: `${p}/ovani-sounds/Crafting SFX/Hammer/Heavy Hammer Craft.ogg`,
 					light: `${p}/ovani-sounds/Crafting SFX/Hammer/Light Hammer.ogg`,
 					multiple: `${p}/ovani-sounds/Crafting SFX/Hammer/Hammer Craft Longer.ogg`,
-				}
+				},
 			},
 			wood: {
 				'01': {
@@ -2356,7 +2515,7 @@ export const database = {
 				'02': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Wood/Wood Tap.ogg`,
 				},
-			}
+			},
 		},
 		anvil: {
 			'01': {
@@ -2406,9 +2565,9 @@ export const database = {
 			},
 			fire: {
 				'01': {
-						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Fire Craft Ambience.ogg`,
-				}
-			}
+					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Fire Craft Ambience.ogg`,
+				},
+			},
 		},
 		machinery: {
 			air_press: {
@@ -2440,15 +2599,15 @@ export const database = {
 			},
 			drill: {
 				'01': {
-						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Drill Crafting.ogg`,
-				}
+					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Drill Crafting.ogg`,
+				},
 			},
 			screwdriver: {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Tool/Electric Screwdriver.ogg`,
 					'02': `${p}/ovani-sounds/Crafting SFX/Tool/Electric Tool Spin.ogg`,
 				},
-			}
+			},
 		},
 		magic: {
 			nature: {
@@ -2469,9 +2628,9 @@ export const database = {
 					'01': {
 						basic: `${p}/ovani-sounds/Crafting SFX/Magic/Create Enchantment.ogg`,
 						quick: `${p}/ovani-sounds/Crafting SFX/Magic/Create Enchantment Quick.ogg`,
-					}
-				}
-			}
+					},
+				},
+			},
 		},
 		potions: {
 			craft: {
@@ -2486,7 +2645,7 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Magic/Potion Sorting.ogg`,
 				},
-			}
+			},
 		},
 		materials: {
 			paper: {
@@ -2520,7 +2679,7 @@ export const database = {
 						'01': {
 							'01': `${p}/ovani-sounds/Crafting SFX/Material/Tape Crack.ogg`,
 						},
-					}
+					},
 				},
 				origami: {
 					'01': {
@@ -2543,14 +2702,14 @@ export const database = {
 					'03': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Material/Sheet Craft.ogg`,
 					},
-				}
+				},
 			},
 			fabric: {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Material/Fabric One-Shot A.ogg`,
 					'02': `${p}/ovani-sounds/Crafting SFX/Material/Fabric One-Shot B.ogg`,
 					'03': `${p}/ovani-sounds/Crafting SFX/Material/Fabric One-Shot C.ogg`,
-				}
+				},
 			},
 			marker: {
 				'01': {
@@ -2589,7 +2748,7 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Material/Weaving.ogg`,
 				},
-			}
+			},
 		},
 		metal: {
 			bang: {
@@ -2621,11 +2780,11 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Metal Deny.ogg`,
 				},
-				drop: {
+				'drop': {
 					'01': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Metal/Metal Drop.ogg`,
 					},
-				}
+				},
 			},
 		},
 		stone: {
@@ -2658,7 +2817,7 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Repair.ogg`,
 				},
-			}
+			},
 		},
 		wood: {
 			clumsy: {
@@ -2703,7 +2862,7 @@ export const database = {
 					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair E.ogg`,
 					'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair F.ogg`,
 				},
-			}
+			},
 		},
 		misc: {
 			item: {
@@ -2718,11 +2877,11 @@ export const database = {
 					},
 				},
 				large: {
-					
+
 					'01': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Large Item Craft.ogg`,
 					},
-				}
+				},
 			},
 			miscraft: {
 				'01': {
@@ -2755,12 +2914,12 @@ export const database = {
 					},
 					'02': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Crafting Wind Down.ogg`,
-					}
+					},
 				},
 				cooldown: {
 					'01': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Crafting Cooldown.ogg`,
-					}
+					},
 				},
 				countdown: {
 					'01': {
@@ -2796,7 +2955,7 @@ export const database = {
 					},
 					'03': {
 						'01': `${p}/ovani-sounds/Crafting SFX/UI/Sanding Success.ogg`,
-					}
+					},
 				},
 				upgrade: {
 					'03': {
@@ -2809,8 +2968,8 @@ export const database = {
 				text: {
 					'01': {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Crafting Text.ogg`,
-					}
-				}
+					},
+				},
 			},
 			generic: {
 				'01': {
@@ -2827,9 +2986,9 @@ export const database = {
 					whittle: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Whittle Crafting.ogg`,
 					quick_assemble: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Quick Assemble.ogg`,
 					long: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Long Craft.ogg`,
-				}
-			}
-		}
+				},
+			},
+		},
 	},
 	cooking: {
 		loop: {
@@ -2858,7 +3017,7 @@ export const database = {
 					'01': {
 						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Big Kitchen Mistake.ogg`,
 					},
-				}
+				},
 			},
 			pot: {
 				general: {
@@ -2877,7 +3036,7 @@ export const database = {
 					'01': {
 						'01': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Pick Up Pot.ogg`,
 					},
-				}
+				},
 			},
 			prep: {
 				board: {
@@ -2890,7 +3049,7 @@ export const database = {
 						'02': {
 							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Scrape Off.ogg`,
 						},
-					}
+					},
 				},
 				boil_water: {
 					'01': {
@@ -2951,8 +3110,8 @@ export const database = {
 								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut A.ogg`,
 								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut B.ogg`,
 								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut C.ogg`,
-							},		
-						}
+							},
+						},
 					},
 					grate: {
 						'01': {
@@ -2960,14 +3119,14 @@ export const database = {
 							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate B.ogg`,
 							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate C.ogg`,
 						},
-					}
+					},
 				},
 				drop: {
 					vegetables: {
 						'01': {
 							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Drop Veg.ogg`,
 						},
-					}
+					},
 				},
 				fry: {
 					'01': {
@@ -2991,7 +3150,7 @@ export const database = {
 							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin A.ogg`,
 							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin B.ogg`,
 						},
-					}
+					},
 				},
 				prep: {
 					'01': {
@@ -3024,9 +3183,9 @@ export const database = {
 					'01': {
 						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tenderize.ogg`,
 					},
-				}
-			}
-		}
+				},
+			},
+		},
 	},
 	scifi: {
 		device: {
@@ -3036,8 +3195,8 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Device Use 004.ogg`,
-				}
-			}
+				},
+			},
 		},
 		meter_refill: {
 			'01': {
@@ -3045,7 +3204,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Meters Refill 004.ogg`,
-			}
+			},
 		},
 		overshield: {
 			'01': {
@@ -3053,7 +3212,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Overshield 004.ogg`,
-			}
+			},
 		},
 		power_up: {
 			'01': {
@@ -3061,7 +3220,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Power Up-004.ogg`,
-			}
+			},
 		},
 		ready: {
 			'01': {
@@ -3069,7 +3228,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/Sci-Fi/Sci-Fi Ready To Fly 004.ogg`,
-			}
+			},
 		},
 		stimpack: {
 			'01': {
@@ -3077,7 +3236,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/General/Stimpack 004.ogg`,
-			}
+			},
 		},
 		blast: {
 			gravity: {
@@ -3086,8 +3245,8 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast Dry.ogg`,
-				}
-			}
+				},
+			},
 		},
 		teleport: {
 			'01': {
@@ -3095,7 +3254,7 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 004.ogg`,
-			}
+			},
 		},
 		whip: {
 			'01': {
@@ -3103,15 +3262,15 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 004.ogg`,
-			}
+			},
 		},
 		ufo: {
 			ring: {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/UI/Craft Text Sprawl A.ogg`,
-				}
-			}
-		}
-	}
+				},
+			},
+		},
+	},
 	// #endregion
 } as const;
