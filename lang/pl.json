@@ -248,7 +248,7 @@
 			"triggers": "Lista wyzwalaczy, które spowodują wykonanie tej animacji.",
 			"overrides": "Lista opcji rzutów, z których każda odpowiada głównemu predykatowi animacji. Jeśli dwie animacje są wyzwalane przez ten sam wyzwalacz i jedna z nich zastępuje drugą, nadrzędna animacja nie zostanie wykonana.",
 			"predicates": "Lista predykatów zgodnie z systemem pf2e. Animacja zostanie wykonana tylko wtedy, gdy te warunki mają zastosowanie.",
-			"label": "Rozróżniający wielkość liter ciąg znaków, który istnieje, aby inne jednostki mogły się do niego odwoływać, szczególnie gdy inny pakiet „usuwa” go. Powinien on być w miarę unikalny, aby uniknąć kolizji.",
+			"label": "Ciąg znaków rozróżniający wielkość liter, który istnieje, aby inne jednostki mogły się do niego odwoływać, szczególnie gdy inny ładunek go usuwa. Powinien być wystarczająco unikalny, aby uniknąć kolizji.",
 			"removes": "Lista łańcuchów etykiet, które podczas wykonywania tego zestawu są przerywane i usuwane z pasujących zestawów.<p/>Oprócz użycia zwykłej etykiety, można również użyć stałych ciągów „ALL_ON_SOURCES”, „ALL_ON_TARGETS” i „ALL_ON_TEMPLATES”, które usuwają wszystkie trwające efekty odpowiednio dla tokenów źródłowych lub docelowych.",
 			"execute": "Wykonanie jest głównym elementem danego zestawu animacji. Określa, czy dany zestaw tworzy efekt graficzny, odtwarza dźwięk, pozwala umieścić celownik, animuje token lub wykonuje makro.",
 			"crosshair": {
