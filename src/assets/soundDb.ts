@@ -596,6 +596,14 @@ export const database = {
 					'04': `${p}/ovani-sounds/Magic II/Air and Thunder/Air Glyph 004.ogg`,
 				},
 			},
+			hurricane: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 004.ogg`,
+				}
+			}
 		},
 		fire: {
 			cast: {
@@ -871,6 +879,13 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 004.ogg`,
+				},
+				'06': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 005.ogg`,
 				}
 			},
 			bells: {
@@ -1087,6 +1102,14 @@ export const database = {
 			meld: {
 				'01': `${p}/ovani-sounds/Magic/Earth/Earthmeld.ogg`,
 			},
+			slide: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 004.ogg`,
+				}
+			}
 		},
 		ice: {
 			ranged: {
@@ -1198,6 +1221,12 @@ export const database = {
 					'04': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_04.ogg`,
 					'05': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_05.ogg`,
 				},
+				'03': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 004.ogg`,
+				}
 			},
 			loop: {
 				'01': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Cast Loops/Ice_Cast_Loop_01.ogg`,
@@ -1887,7 +1916,50 @@ export const database = {
 					'02': `${p}/ovani-sounds/Magic II/Nature/Seal Of The Beasts Loop 002.ogg`,
 				},
 			},
+			sanctuary: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 005.ogg`,
+				}
+			}
 		},
+		music: {
+			harp: {
+				rise: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 004.ogg`,
+					}
+				}
+			},
+			choir: {
+				rise: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir 002.ogg`,
+					},
+					'02': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 003.ogg`,
+					}
+				}
+			},
+			drums: {
+				rise: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 003.ogg`,
+					}
+				}
+			}
+		}
 	},
 	movement: {
 		landing: {
@@ -2072,6 +2144,14 @@ export const database = {
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Gravi Blast Dry.ogg`,
 				}
+			}
+		},
+		teleport: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 004.ogg`,
 			}
 		}
 	}
