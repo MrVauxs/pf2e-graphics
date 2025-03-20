@@ -1897,7 +1897,14 @@ export const database = {
 					'02': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 002.ogg`,
 					'03': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Elven Charm 004.ogg`,
-				}
+				},
+				'03': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered D.ogg`,
+					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Area Discovered E.ogg`,
+				},
 			},
 			revealing_light: {
 				'01': {
@@ -2124,6 +2131,17 @@ export const database = {
 						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Anvil Select.ogg`,
 					}
 				}
+			}
+		},
+		misc: {
+			gold: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold D.ogg`,
+					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Gold E.ogg`,
+				},
 			}
 		}
 	},
@@ -2633,6 +2651,16 @@ export const database = {
 					'01': `${p}/ovani-sounds/Crafting SFX/Wood/Lathe.ogg`,
 					'02': `${p}/ovani-sounds/Crafting SFX/Wood/Wood Shave.ogg`,
 				},
+			},
+			repair: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair D.ogg`,
+					'05': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair E.ogg`,
+					'06': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Repair F.ogg`,
+				},
 			}
 		},
 		misc: {
@@ -2727,6 +2755,14 @@ export const database = {
 					'03': {
 						'01': `${p}/ovani-sounds/Crafting SFX/UI/Sanding Success.ogg`,
 					}
+				},
+				upgrade: {
+					'03': {
+						'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Upgrade A.ogg`,
+						'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Upgrade B.ogg`,
+						'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Upgrade C.ogg`,
+						'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Notifications/Ship Upgrade D.ogg`,
+					},
 				},
 				text: {
 					'01': {
