@@ -1710,8 +1710,20 @@ export const database = {
 			},
 			call: `${p}/ovani-sounds/Magic II/Water and Ice/Call Of The Deep.ogg`,
 			wave: {
-				'01': `${p}/tom-music/magic/water/Wave Attack 1.ogg`,
-				'02': `${p}/tom-music/magic/water/Wave Attack 2.ogg`,
+				'01': {
+					'01': `${p}/tom-music/magic/water/Wave Attack 1.ogg`,
+					'02': `${p}/tom-music/magic/water/Wave Attack 2.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Big A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Big B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Big C.ogg`,
+				},
+				'03': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Small A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Small B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Environment/Waves Hit Hull Small C.ogg`,
+				},
 			},
 			heal: {
 				'01': {
