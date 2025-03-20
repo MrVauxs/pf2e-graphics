@@ -3315,6 +3315,35 @@ export const database = {
 				},
 			},
 		},
+		machine_gun: {
+			'01': {
+				'01': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine High A.ogg`,
+				'02': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine High B.ogg`,
+				'03': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine High C.ogg`,
+			},
+			'02': {
+				'01': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine Low A.ogg`,
+				'02': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine Low B.ogg`,
+				'03': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Guns/Plane Gun Fire Machine Low C.ogg`,
+			},
+		},
+		vehicle: {
+			engine: {
+				slow_down: {
+					'01': {
+						'01': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Manoeuvres/Afterburner Slowing A.ogg`,
+						'02': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Manoeuvres/Afterburner Slowing B.ogg`,
+						'03': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Manoeuvres/Afterburner Slowing C.ogg`,
+					},
+				},
+				speed_up: {
+					'01': {
+						'01': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Manoeuvres/Afterburner Speed Up A.ogg`,
+						'02': `${p}/ovani-sounds/Flying Vehicles SFX/Non Loops/Manoeuvres/Afterburner Speed Up B.ogg`,
+					},
+				},
+			},
+		},
 	},
 	// #endregion
 } as const;
