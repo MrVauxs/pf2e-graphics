@@ -2730,6 +2730,203 @@ export const database = {
 			}
 		}
 	},
+	cooking: {
+		loop: {
+			'01': {
+				'01': `${p}/ovani-sounds/Cooking SFX/Loops/Sizzle Loop.ogg`,
+			},
+		},
+		glass: {
+			break: {
+				'01': {
+					'01': `${p}/ovani-sounds/Cooking SFX/Glass/Glass Break A.ogg`,
+					'02': `${p}/ovani-sounds/Cooking SFX/Glass/Glass Break B.ogg`,
+					'03': `${p}/ovani-sounds/Cooking SFX/Glass/Glass Break C.ogg`,
+				},
+			},
+			clink: {
+				'01': {
+					'01': `${p}/ovani-sounds/Cooking SFX/Glass/Glass Clunk.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Thin Glass Clink.ogg`,
+				},
+			},
+			ui: {
+				mistake: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Big Kitchen Mistake.ogg`,
+					},
+				}
+			},
+			pot: {
+				general: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Pot A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Pot B.ogg`,
+						'03': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Pot C.ogg`,
+					},
+				},
+				close: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Close Pot.ogg`,
+					},
+				},
+				pick_up: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Pots and Pans/Pick Up Pot.ogg`,
+					},
+				}
+			},
+			prep: {
+				board: {
+					scrape: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape C.ogg`,
+						},
+						'02': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Scrape Off.ogg`,
+						},
+					}
+				},
+				boil_water: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Boil Water.ogg`,
+					},
+				},
+				crunch: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Crunch A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Crunch B.ogg`,
+					},
+					'02': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Crunching A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Crunching B.ogg`,
+					},
+				},
+				cut: {
+					chop: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Finished Chopping.ogg`,
+						},
+						'02': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop C.ogg`,
+						},
+					},
+					dice: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dicing A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Dicing B.ogg`,
+						},
+					},
+					slice: {
+						fruit: {
+							'01': {
+								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice C.ogg`,
+							},
+						},
+						sharp: {
+							'01': {
+								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Slice A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Slice B.ogg`,
+							},
+						},
+						sloppy: {
+							'01': {
+								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut C.ogg`,
+								'04': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut D.ogg`,
+							},
+						},
+						vegetable: {
+							'01': {
+								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut C.ogg`,
+							},		
+						}
+					},
+					grate: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate C.ogg`,
+						},
+					}
+				},
+				drop: {
+					vegetables: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Drop Veg.ogg`,
+						},
+					}
+				},
+				fry: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Intense Fry.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Oily Cook.ogg`,
+					},
+				},
+				peel: {
+					dry: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel C.ogg`,
+						},
+						'02': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peeling.ogg`,
+						},
+					},
+					skin: {
+						'01': {
+							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin B.ogg`,
+						},
+					}
+				},
+				prep: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Prep A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Prep B.ogg`,
+					},
+					'02': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Prep Chaos A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Prep Chaos B.ogg`,
+					},
+				},
+				stir: {
+					'01': {
+						long: `${p}/ovani-sounds/Cooking SFX/Misc/Long Stir.ogg`,
+						single: `${p}/ovani-sounds/Cooking SFX/Misc/Single Stir.ogg`,
+					},
+				},
+				whisk: {
+					'01': {
+						long: `${p}/ovani-sounds/Cooking SFX/Misc/Long Whisk.ogg`,
+						single: `${p}/ovani-sounds/Cooking SFX/Misc/Single Whisk.ogg`,
+					},
+				},
+				tear: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sachet Tear.ogg`,
+					},
+				},
+				tenderize: {
+					'01': {
+						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tenderize.ogg`,
+					},
+				}
+			}
+		}
+	},
 	scifi: {
 		device: {
 			use: {
