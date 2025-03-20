@@ -383,11 +383,11 @@ export const database = {
 	firearm: {
 		ricochet: {
 			'01': {
-				'01': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos A.ogg`,
-				'02': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos B.ogg`,
-				'03': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos C.ogg`,
-				'04': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos D.ogg`,
-				'05': `${p}/ovani-sounds/Comedy SFX/Cartoon/Prep Chaos E.ogg`,
+				'01': `${p}/ovani-sounds/Comedy SFX/Cartoon/Ricochet A.ogg`,
+				'02': `${p}/ovani-sounds/Comedy SFX/Cartoon/Ricochet B.ogg`,
+				'03': `${p}/ovani-sounds/Comedy SFX/Cartoon/Ricochet C.ogg`,
+				'04': `${p}/ovani-sounds/Comedy SFX/Cartoon/Ricochet D.ogg`,
+				'05': `${p}/ovani-sounds/Comedy SFX/Cartoon/Ricochet E.ogg`,
 			},
 		},
 		impact: {
@@ -749,11 +749,19 @@ export const database = {
 						'02': `${p}/ovani-sounds/Magic/Air/Aero Blade Impact B.ogg`,
 						'03': `${p}/ovani-sounds/Magic/Air/Aero Blade Impact C.ogg`,
 					},
-
 					cyclone: {
 						'01': `${p}/ovani-sounds/Magic/Air/Cyclone Blade Impact A.ogg`,
 						'02': `${p}/ovani-sounds/Magic/Air/Cyclone Blade Impact B.ogg`,
 						'03': `${p}/ovani-sounds/Magic/Air/Cyclone Blade Impact C.ogg`,
+					},
+					whoosh: {
+						'01': {
+							'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Blade 001.ogg`,
+							'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Blade 002.ogg`,
+							'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Blade 003.ogg`,
+							'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Blade 004.ogg`,
+							'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Blade 005.ogg`,
+						},
 					},
 				},
 				loop: {
@@ -840,7 +848,7 @@ export const database = {
 					'05': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Wind/Wind_Buff_05.ogg`,
 				},
 				'02': {
-					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Wind Craft.ogg`,
+					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Craft Wind Down.ogg`,
 				},
 			},
 			glyph: {
@@ -850,13 +858,16 @@ export const database = {
 					'03': `${p}/ovani-sounds/Magic II/Air and Thunder/Air Glyph 003.ogg`,
 					'04': `${p}/ovani-sounds/Magic II/Air and Thunder/Air Glyph 004.ogg`,
 				},
+				'02': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Wind Craft.ogg`,
+				},
 			},
 			hurricane: {
 				'01': {
-					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 001.ogg`,
-					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 002.ogg`,
-					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 003.ogg`,
-					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Wind 004.ogg`,
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Wind 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Wind 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Wind 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Wind 004.ogg`,
 				},
 			},
 		},
@@ -1011,6 +1022,7 @@ export const database = {
 					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 002.ogg`,
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Fire Start 005.ogg`,
 				},
 			},
 			buff: {
@@ -1136,11 +1148,11 @@ export const database = {
 					'04': `${p}/ovani-sounds/Player Status SFX/Fantasy/Fantasy Dark Castle 004.ogg`,
 				},
 				'06': {
-					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 001.ogg`,
-					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 002.ogg`,
-					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 003.ogg`,
-					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 004.ogg`,
-					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 005.ogg`,
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Space Oddity 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Space Oddity 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Space Oddity 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Space Oddity 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Space Oddity 005.ogg`,
 				},
 				'07': {
 					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Ghost Ship Tier 2 A.ogg`,
@@ -1365,9 +1377,9 @@ export const database = {
 				},
 				wave: {
 					'01': {
-						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 001.ogg`,
-						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 002.ogg`,
-						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 003.ogg`,
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Magnet 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Magnet 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Magnet 003.ogg`,
 					},
 				},
 			},
@@ -1379,10 +1391,10 @@ export const database = {
 			},
 			slide: {
 				'01': {
-					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 001.ogg`,
-					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 002.ogg`,
-					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 003.ogg`,
-					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Stone Plate 004.ogg`,
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Stone Plate 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Stone Plate 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Stone Plate 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Stone Plate 004.ogg`,
 				},
 			},
 		},
@@ -1497,10 +1509,10 @@ export const database = {
 					'05': `${p}/gamedev-market/Magic_Spells_Sound_Pack/Elemental Types/Ice/Ice_Buff_05.ogg`,
 				},
 				'03': {
-					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 001.ogg`,
-					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 002.ogg`,
-					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 003.ogg`,
-					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Cold Charm 004.ogg`,
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Cold Charm 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Cold Charm 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Cold Charm 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Cold Charm 004.ogg`,
 				},
 			},
 			loop: {
@@ -2265,11 +2277,11 @@ export const database = {
 			},
 			'sanctuary': {
 				'01': {
-					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 001.ogg`,
-					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 002.ogg`,
-					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 003.ogg`,
-					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 004.ogg`,
-					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 005.ogg`,
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Sanctuary 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Sanctuary 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Sanctuary 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Sanctuary 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Sanctuary 005.ogg`,
 				},
 			},
 			'roar': {
@@ -2298,39 +2310,39 @@ export const database = {
 			harp: {
 				rise: {
 					'01': {
-						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 001.ogg`,
-						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 002.ogg`,
-						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 003.ogg`,
-						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Magic Harp 004.ogg`,
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Magic Harp 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Magic Harp 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Magic Harp 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Magic Harp 004.ogg`,
 					},
 				},
 			},
 			choir: {
 				rise: {
 					'01': {
-						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir 001.ogg`,
-						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir 002.ogg`,
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Choir 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Choir 002.ogg`,
 					},
 					'02': {
-						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 001.ogg`,
-						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 002.ogg`,
-						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Choir Tail 003.ogg`,
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Choir Tail 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Choir Tail 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Choir Tail 003.ogg`,
 					},
 				},
 			},
 			drums: {
 				rise: {
 					'01': {
-						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 001.ogg`,
-						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 002.ogg`,
-						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Anvil Drums 003.ogg`,
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Anvil Drums 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Anvil Drums 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Anvil Drums 003.ogg`,
 					},
 				},
 			},
 			bell: {
 				ring: {
 					'01': {
-						'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Anvil Select.ogg`,
+						'01': `${p}/ovani-sounds/Crafting SFX/UI/Anvil Select.ogg`,
 					},
 				},
 			},
@@ -2559,6 +2571,9 @@ export const database = {
 				'02': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Wood/Wood Tap.ogg`,
 				},
+				'03': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Wood/Light Hammer Wood Craft.ogg`,
+				},
 			},
 		},
 		anvil: {
@@ -2589,7 +2604,7 @@ export const database = {
 			},
 			disassemble: {
 				'01': {
-					'01': `${p}/ovani-sounds/Crafting SFX/Loops/Disassemble Craft Loop.ogg`,
+					'01': `${p}/ovani-sounds/Crafting SFX/Loops/Disassemble Loop.ogg`,
 				},
 			},
 			heavy_workshop: {
@@ -2644,6 +2659,11 @@ export const database = {
 			drill: {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Drill Crafting.ogg`,
+				},
+			},
+			plastic: {
+				'01': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Machinery/Plastic Machine.ogg`,
 				},
 			},
 			screwdriver: {
@@ -2824,10 +2844,18 @@ export const database = {
 				'01': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Metal Deny.ogg`,
 				},
-				'drop': {
-					'01': {
-						'01': `${p}/ovani-sounds/Crafting SFX/Metal/Metal Drop.ogg`,
-					},
+			},
+			drop: {
+				'01': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Metal Drop.ogg`,
+				},
+			},
+			sharp: {
+				'01': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Misc Craft/Sharp Craft.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Tool/Scraping Tool.ogg`,
 				},
 			},
 		},
@@ -2847,11 +2875,11 @@ export const database = {
 			},
 			craft: {
 				'01': {
-					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting A.ogg`,
-					'02': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting B.ogg`,
-					'03': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting C.ogg`,
-					'04': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting D.ogg`,
-					'05': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting E.ogg`,
+					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Craft A.ogg`,
+					'02': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Craft B.ogg`,
+					'03': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Craft C.ogg`,
+					'04': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Craft D.ogg`,
+					'05': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Craft E.ogg`,
 				},
 				'02': {
 					'01': `${p}/ovani-sounds/Crafting SFX/Metal/Stone Crafting.ogg`,
@@ -2941,7 +2969,7 @@ export const database = {
 						'01': `${p}/ovani-sounds/Crafting SFX/UI/Alert Craft.ogg`,
 					},
 					'02': {
-						'01': `${p}/ovani-sounds/Crafting SFX/UI/Ambigious Craft Alert.ogg`,
+						'01': `${p}/ovani-sounds/Crafting SFX/UI/Ambiguous Craft Alert.ogg`,
 					},
 					'03': {
 						'01': `${p}/ovani-sounds/Crafting SFX/UI/Craft Notification A.ogg`,
@@ -2967,7 +2995,7 @@ export const database = {
 				},
 				countdown: {
 					'01': {
-						'01': `${p}/ovani-sounds/Crafting SFX/UI/Crafting Coundown.ogg`,
+						'01': `${p}/ovani-sounds/Crafting SFX/UI/Crafting Countdown.ogg`,
 					},
 					'02': {
 						'01': `${p}/ovani-sounds/Crafting SFX/UI/Crafting Fade Out Timer.ogg`,
@@ -3019,15 +3047,16 @@ export const database = {
 				'01': {
 					fabric: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Fabric Crafting.ogg`,
 					felt: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Felt Crafting.ogg`,
-					flame: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Flame Crafting.ogg`,
+					flame: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Flame Craft.ogg`,
 					material: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Material Crafting.ogg`,
 					mix: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Mix Crafting.ogg`,
 					plastic: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Plastic Crafting.ogg`,
-					rattle: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Rattle Crafting.ogg`,
-					scratchy: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Scratchy Crafting.ogg`,
+					rattle: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Rattle Craft.ogg`,
+					scratchy: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Scratchy Craft.ogg`,
 					sharp: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Felt Crafting.ogg`,
 					sheet: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Sheet Crafting.ogg`,
-					whittle: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Whittle Crafting.ogg`,
+					stick: `${p}/ovani-sounds/Crafting SFX/Wood/Stick Craft.ogg`,
+					whittle: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Whittle Snap Craft.ogg`,
 					quick_assemble: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Quick Assemble.ogg`,
 					long: `${p}/ovani-sounds/Crafting SFX/Misc Craft/Long Craft.ogg`,
 				},
@@ -3086,146 +3115,146 @@ export const database = {
 				board: {
 					scrape: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape B.ogg`,
-							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Board Scrape C.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Board Scrape A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Board Scrape B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Prep/Board Scrape C.ogg`,
 						},
 						'02': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Scrape Off.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Scrape Off.ogg`,
 						},
 					},
 				},
 				boil_water: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Boil Water.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Boil Water.ogg`,
 					},
 				},
 				crunch: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Crunch A.ogg`,
-						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Crunch B.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Crunch A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Prep/Crunch B.ogg`,
 					},
 					'02': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Crunching A.ogg`,
-						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Crunching B.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Crunching A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Prep/Crunching B.ogg`,
 					},
 				},
 				cut: {
 					chop: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Finished Chopping.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Finished Chopping.ogg`,
 						},
 						'02': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop B.ogg`,
-							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Simple Chop C.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Simple Chop A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Simple Chop B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Prep/Simple Chop C.ogg`,
 						},
 					},
 					dice: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dicing A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Dicing B.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Dicing A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Dicing B.ogg`,
 						},
 					},
 					slice: {
 						fruit: {
 							'01': {
-								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice A.ogg`,
-								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice B.ogg`,
-								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Fruit Slice C.ogg`,
+								'01': `${p}/ovani-sounds/Cooking SFX/Prep/Fruit Slice A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Prep/Fruit Slice B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Prep/Fruit Slice C.ogg`,
 							},
 						},
 						sharp: {
 							'01': {
-								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Slice A.ogg`,
-								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Slice B.ogg`,
+								'01': `${p}/ovani-sounds/Cooking SFX/Prep/Sharp Slice A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Prep/Sharp Slice B.ogg`,
 							},
 						},
 						sloppy: {
 							'01': {
-								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut A.ogg`,
-								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut B.ogg`,
-								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut C.ogg`,
-								'04': `${p}/ovani-sounds/Cooking SFX/Misc/Sloppy Cut D.ogg`,
+								'01': `${p}/ovani-sounds/Cooking SFX/Prep/Sloppy Cut A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Prep/Sloppy Cut B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Prep/Sloppy Cut C.ogg`,
+								'04': `${p}/ovani-sounds/Cooking SFX/Prep/Sloppy Cut D.ogg`,
 							},
 						},
 						vegetable: {
 							'01': {
-								'01': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut A.ogg`,
-								'02': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut B.ogg`,
-								'03': `${p}/ovani-sounds/Cooking SFX/Misc/Veggie Cut C.ogg`,
+								'01': `${p}/ovani-sounds/Cooking SFX/Prep/Veggie Cut A.ogg`,
+								'02': `${p}/ovani-sounds/Cooking SFX/Prep/Veggie Cut B.ogg`,
+								'03': `${p}/ovani-sounds/Cooking SFX/Prep/Veggie Cut C.ogg`,
 							},
 						},
 					},
 					grate: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate B.ogg`,
-							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Sharp Grate C.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Sharp Grate A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Sharp Grate B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Prep/Sharp Grate C.ogg`,
 						},
 					},
 				},
 				drop: {
 					vegetables: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Drop Veg.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Drop Veg.ogg`,
 						},
 					},
 				},
 				fry: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Intense Fry.ogg`,
-						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Oily Cook.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Intense Fry.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Prep/Oily Cook.ogg`,
 					},
 				},
 				peel: {
 					dry: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel B.ogg`,
-							'03': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peel C.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Dry Peel A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Dry Peel B.ogg`,
+							'03': `${p}/ovani-sounds/Cooking SFX/Prep/Dry Peel C.ogg`,
 						},
 						'02': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Dry Peeling.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Dry Peeling.ogg`,
 						},
 					},
 					skin: {
 						'01': {
-							'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin A.ogg`,
-							'02': `${p}/ovani-sounds/Cooking SFX/Misc/Tearing Skin B.ogg`,
+							'01': `${p}/ovani-sounds/Cooking SFX/Prep/Tearing Skin A.ogg`,
+							'02': `${p}/ovani-sounds/Cooking SFX/Prep/Tearing Skin B.ogg`,
 						},
 					},
 				},
 				prep: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Prep A.ogg`,
-						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Prep B.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Prep A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Prep/Prep B.ogg`,
 					},
 					'02': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Prep Chaos A.ogg`,
-						'02': `${p}/ovani-sounds/Cooking SFX/Misc/Prep Chaos B.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Prep Chaos A.ogg`,
+						'02': `${p}/ovani-sounds/Cooking SFX/Prep/Prep Chaos B.ogg`,
 					},
 				},
 				stir: {
 					'01': {
-						long: `${p}/ovani-sounds/Cooking SFX/Misc/Long Stir.ogg`,
-						single: `${p}/ovani-sounds/Cooking SFX/Misc/Single Stir.ogg`,
+						long: `${p}/ovani-sounds/Cooking SFX/Prep/Long Stir.ogg`,
+						single: `${p}/ovani-sounds/Cooking SFX/Prep/Single Stir.ogg`,
 					},
 				},
 				whisk: {
 					'01': {
-						long: `${p}/ovani-sounds/Cooking SFX/Misc/Long Whisk.ogg`,
-						single: `${p}/ovani-sounds/Cooking SFX/Misc/Single Whisk.ogg`,
+						long: `${p}/ovani-sounds/Cooking SFX/Prep/Long Whisk.ogg`,
+						single: `${p}/ovani-sounds/Cooking SFX/Prep/Single Whisk.ogg`,
 					},
 				},
 				tear: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Sachet Tear.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Sachet Tear.ogg`,
 					},
 				},
 				tenderize: {
 					'01': {
-						'01': `${p}/ovani-sounds/Cooking SFX/Misc/Tenderize.ogg`,
+						'01': `${p}/ovani-sounds/Cooking SFX/Prep/Tenderize.ogg`,
 					},
 				},
 			},
@@ -3294,10 +3323,10 @@ export const database = {
 		},
 		teleport: {
 			'01': {
-				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 001.ogg`,
-				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 002.ogg`,
-				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 003.ogg`,
-				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 004.ogg`,
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Jump Pad 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Jump Pad 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Jump Pad 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Riser/Riser Jump Pad 004.ogg`,
 			},
 		},
 		whip: {
