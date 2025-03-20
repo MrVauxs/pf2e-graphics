@@ -182,10 +182,42 @@ export const database = {
 		},
 	},
 	creature: {
-		shriek: {
-			'01': {
-				'01': `${p}/ovani-sounds/Crafting SFX/Tool/Rusty Tool A.ogg`,
+		roar: {
+			shriek: {
+				'01': {
+					'01': `${p}/ovani-sounds/Crafting SFX/Tool/Rusty Tool A.ogg`,
+				},
 			},
+			kraken: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Close A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Close B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Close C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Close D.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Distant A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Distant B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Distant C.ogg`,
+					'04': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Distant D.ogg`,
+				},
+			},
+			siren: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Siren Call A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Siren Call B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Siren Call C.ogg`,
+				},
+			}
+		},
+		strike: {
+			tentacle: {
+				'01': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Tenticle A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Tenticle B.ogg`,
+					'03': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Kraken Tenticle C.ogg`,
+				},
+			}
 		}
 	},
 	axe: {
@@ -379,37 +411,43 @@ export const database = {
 		}
 	},
 	unarmed: {
-		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-face-punch.ogg`,
-		'02': `${p}/OpenGameArt/independent_nu/hits/hit01.ogg`,
-		'03': `${p}/OpenGameArt/independent_nu/hits/hit02.ogg`,
-		'04': `${p}/OpenGameArt/independent_nu/hits/hit04.ogg`,
-		'05': `${p}/OpenGameArt/independent_nu/hits/hit05.ogg`,
-		'06': `${p}/OpenGameArt/independent_nu/hits/hit07.ogg`,
-		'07': `${p}/OpenGameArt/independent_nu/hits/hit08.ogg`,
-		'08': `${p}/OpenGameArt/independent_nu/hits/hit09.ogg`,
-		'09': `${p}/OpenGameArt/independent_nu/hits/hit10.ogg`,
-		'10': `${p}/OpenGameArt/independent_nu/hits/hit11.ogg`,
-		'11': `${p}/OpenGameArt/independent_nu/hits/hit12.ogg`,
-		'12': `${p}/OpenGameArt/independent_nu/hits/hit13.ogg`,
-		'13': `${p}/OpenGameArt/independent_nu/hits/hit14.ogg`,
-		'14': `${p}/OpenGameArt/independent_nu/hits/hit15.ogg`,
-		'15': `${p}/OpenGameArt/independent_nu/hits/hit16.ogg`,
-		'16': `${p}/OpenGameArt/independent_nu/hits/hit17.ogg`,
-		'17': `${p}/OpenGameArt/independent_nu/hits/hit18.ogg`,
-		'18': `${p}/OpenGameArt/independent_nu/hits/hit19.ogg`,
-		'19': `${p}/OpenGameArt/independent_nu/hits/hit20.ogg`,
-		'20': `${p}/OpenGameArt/independent_nu/hits/hit21.ogg`,
-		'21': `${p}/OpenGameArt/independent_nu/hits/hit22.ogg`,
-		'22': `${p}/OpenGameArt/independent_nu/hits/hit23.ogg`,
-		'23': `${p}/OpenGameArt/independent_nu/hits/hit24.ogg`,
-		'24': `${p}/OpenGameArt/independent_nu/hits/hit25.ogg`,
-		'25': `${p}/OpenGameArt/independent_nu/hits/hit26.ogg`,
-		'26': `${p}/OpenGameArt/independent_nu/hits/hit27.ogg`,
-		'27': `${p}/OpenGameArt/independent_nu/hits/hit28.ogg`,
-		'28': `${p}/OpenGameArt/independent_nu/hits/hit29.ogg`,
-		'29': `${p}/OpenGameArt/independent_nu/hits/hit30.ogg`,
-		'30': `${p}/OpenGameArt/independent_nu/hits/hit31.ogg`,
-		'31': `${p}/OpenGameArt/independent_nu/hits/hit32.ogg`,
+		'01': {
+			'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-face-punch.ogg`,
+		},
+		'02': {
+			'01': `${p}/OpenGameArt/independent_nu/hits/hit01.ogg`,
+			'02': `${p}/OpenGameArt/independent_nu/hits/hit02.ogg`,
+			'03': `${p}/OpenGameArt/independent_nu/hits/hit03.ogg`,
+			'04': `${p}/OpenGameArt/independent_nu/hits/hit04.ogg`,
+			'05': `${p}/OpenGameArt/independent_nu/hits/hit05.ogg`,
+			'06': `${p}/OpenGameArt/independent_nu/hits/hit06.ogg`,
+			'07': `${p}/OpenGameArt/independent_nu/hits/hit07.ogg`,
+			'08': `${p}/OpenGameArt/independent_nu/hits/hit08.ogg`,
+			'09': `${p}/OpenGameArt/independent_nu/hits/hit09.ogg`,
+			'10': `${p}/OpenGameArt/independent_nu/hits/hit10.ogg`,
+			'11': `${p}/OpenGameArt/independent_nu/hits/hit11.ogg`,
+			'12': `${p}/OpenGameArt/independent_nu/hits/hit12.ogg`,
+			'13': `${p}/OpenGameArt/independent_nu/hits/hit13.ogg`,
+			'14': `${p}/OpenGameArt/independent_nu/hits/hit14.ogg`,
+			'15': `${p}/OpenGameArt/independent_nu/hits/hit15.ogg`,
+			'16': `${p}/OpenGameArt/independent_nu/hits/hit16.ogg`,
+			'17': `${p}/OpenGameArt/independent_nu/hits/hit17.ogg`,
+			'18': `${p}/OpenGameArt/independent_nu/hits/hit18.ogg`,
+			'19': `${p}/OpenGameArt/independent_nu/hits/hit19.ogg`,
+			'20': `${p}/OpenGameArt/independent_nu/hits/hit20.ogg`,
+			'21': `${p}/OpenGameArt/independent_nu/hits/hit21.ogg`,
+			'22': `${p}/OpenGameArt/independent_nu/hits/hit22.ogg`,
+			'23': `${p}/OpenGameArt/independent_nu/hits/hit23.ogg`,
+			'24': `${p}/OpenGameArt/independent_nu/hits/hit24.ogg`,
+			'25': `${p}/OpenGameArt/independent_nu/hits/hit25.ogg`,
+			'26': `${p}/OpenGameArt/independent_nu/hits/hit26.ogg`,
+			'27': `${p}/OpenGameArt/independent_nu/hits/hit27.ogg`,
+			'28': `${p}/OpenGameArt/independent_nu/hits/hit28.ogg`,
+			'29': `${p}/OpenGameArt/independent_nu/hits/hit29.ogg`,
+			'30': `${p}/OpenGameArt/independent_nu/hits/hit30.ogg`,
+			'31': `${p}/OpenGameArt/independent_nu/hits/hit31.ogg`,
+			'32': `${p}/OpenGameArt/independent_nu/hits/hit32.ogg`,
+		}
 	},
 	torch: {
 		light: {
@@ -979,6 +1017,10 @@ export const database = {
 					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 003.ogg`,
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Space Oddity 005.ogg`,
+				},
+				'07': {
+					'01': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Ghost Ship Tier 2 A.ogg`,
+					'02': `${p}/ovani-sounds/Seafaring SFX/Non Loops/Enemies/Ghost Ship Tier 2 B.ogg`,
 				}
 			},
 			bells: {
