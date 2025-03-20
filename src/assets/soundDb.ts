@@ -50,15 +50,34 @@ export const database = {
 			'05': `${p}/ovani-sounds/Medieval Fantasy SFX 2/Whooshes/Small Blade Whoosh E.ogg`,
 		},
 	},
+	boomerang: {
+		throw: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Boomerang 004.ogg`,
+			}
+		}
+	},
 	sword: {
 		melee: {
 			impale: `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-impale-flesh-05.ogg`,
 			takeout: `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-out-of-flesh-06.ogg`,
 			slice: `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-slice-flesh-02.ogg`,
 			swing: {
-				'01': `${p}/tom-music/sword/Sword Attack 1.ogg`,
-				'02': `${p}/tom-music/sword/Sword Attack 2.ogg`,
-				'03': `${p}/tom-music/sword/Sword Attack 3.ogg`,
+				'01': {
+					'01': `${p}/tom-music/sword/Sword Attack 1.ogg`,
+					'02': `${p}/tom-music/sword/Sword Attack 2.ogg`,
+					'03': `${p}/tom-music/sword/Sword Attack 3.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Blade Vibe 005.ogg`,
+				}
 			},
 			hit: {
 				solid: {
@@ -101,6 +120,15 @@ export const database = {
 				'01': `${p}/tom-music/sword/Sword Unsheath 1.ogg`,
 				'02': `${p}/tom-music/sword/Sword Unsheath 2.ogg`,
 			},
+			bamboo: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Bamboo 005.ogg`,
+				}
+			}
 		},
 		throw: {
 			'01': `${p}/soundflakes/diablo-wrath-weapon/tyrael-sword-throw-swoosh-02.ogg`,
@@ -385,6 +413,15 @@ export const database = {
 			'02': `${p}/tom-music/torch/Torch Impact 2.ogg`,
 		},
 	},
+	paper: {
+		attack: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Paper 003.ogg`,
+			}
+		}
+	},
 	whip: {
 		flame: {
 			'01': `${p}/ovani-sounds/Magic/Fire/Fire Whip.ogg`,
@@ -437,7 +474,9 @@ export const database = {
 		},
 	},
 	finisher: {
-		'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
+		'01': {
+			'01': `${p}/soundflakes/diablo-wrath-weapon/imperius-last-hit.ogg`,
+		}
 	},
 	containers: {
 		unlock: {
@@ -474,6 +513,13 @@ export const database = {
 						'02': `${p}/ovani-sounds/Magic/Air/Cyclone Blade Cast B.ogg`,
 						'03': `${p}/ovani-sounds/Magic/Air/Cyclone Blade Cast C.ogg`,
 					},
+					cutter: {
+						'01': {
+							'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 001.ogg`,
+							'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 002.ogg`,
+							'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Metal Wind 003.ogg`,
+						}
+					}
 				},
 				generic: {
 					'01': {
@@ -494,6 +540,13 @@ export const database = {
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 004.ogg`,
 						'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Turbine 005.ogg`,
+					},
+					'03': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 003.ogg`,
+						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 004.ogg`,
+						'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Air Vibe 005.ogg`,
 					}
 				},
 			},
@@ -568,7 +621,14 @@ export const database = {
 				},
 			},
 			surge: {
-				'01': `${p}/ovani-sounds/Magic/Air/Sky Surge.ogg`,
+				'01': {
+					'01': `${p}/ovani-sounds/Magic/Air/Sky Surge.ogg`,
+				},
+				'02': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Wind Drum 003.ogg`,
+				}
 			},
 			zephyr: {
 				embrace: `${p}/ovani-sounds/Magic/Air/Zephyrs Embrace.ogg`,
@@ -937,6 +997,15 @@ export const database = {
 					'03': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 003.ogg`,
 					'04': `${p}/ovani-sounds/Player Status SFX/Musical/Musical Fear 004.ogg`,
 				}
+			},
+			teleport: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 004.ogg`,
+					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Shadow Teleport 005.ogg`,
+				}
 			}
 		},
 		earth: {
@@ -1093,6 +1162,13 @@ export const database = {
 						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 002.ogg`,
 						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 003.ogg`,
 						'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Impacts/Impact Vibro 004.ogg`,
+					}
+				},
+				wave: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Manget 003.ogg`,
 					}
 				}
 			},
@@ -1656,6 +1732,15 @@ export const database = {
 				'02': `${p}/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 002.ogg`,
 				'03': `${p}/ovani-sounds/Magic II/Water and Ice/Summon Water Elemental 003.ogg`,
 			},
+			rain: {
+				wave: {
+					'01': {
+						'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 001.ogg`,
+						'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 002.ogg`,
+						'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Rain 003.ogg`,
+					}
+				}
+			}
 		},
 		movement: {
 			blink: {
@@ -1924,6 +2009,22 @@ export const database = {
 					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 004.ogg`,
 					'05': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Sancutary 005.ogg`,
 				}
+			},
+			roar: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Roar 004.ogg`,
+				}
+			},
+			spirit: {
+				'01': {
+					'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 001.ogg`,
+					'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 002.ogg`,
+					'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 003.ogg`,
+					'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Topter 004.ogg`,
+				}
 			}
 		},
 		music: {
@@ -1977,6 +2078,14 @@ export const database = {
 				'02': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 002.ogg`,
 				'03': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 003.ogg`,
 				'04': `${p}/ovani-sounds/Player Status SFX/General/Abstract Move 004.ogg`,
+			}
+		},
+		jump: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Reactive Jump 004.ogg`,
 			}
 		}
 	},
@@ -2152,6 +2261,14 @@ export const database = {
 				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 002.ogg`,
 				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 003.ogg`,
 				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Risers/Riser Jump Pad 004.ogg`,
+			}
+		},
+		whip: {
+			'01': {
+				'01': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 001.ogg`,
+				'02': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 002.ogg`,
+				'03': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 003.ogg`,
+				'04': `${p}/ovani-sounds/Motion and Impacts SFX 2/Whoosh/Whoosh Gravity Anchor 004.ogg`,
 			}
 		}
 	}
