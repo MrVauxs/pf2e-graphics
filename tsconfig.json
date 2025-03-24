@@ -37,9 +37,9 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
+		"erasableSyntaxOnly": true,
 		"verbatimModuleSyntax": true,
-		"skipLibCheck": true,
-		"erasableSyntaxOnly": true
+		"skipLibCheck": true
 	},
 	"include": [
 		"src/**/*",
