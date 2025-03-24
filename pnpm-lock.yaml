@@ -58,8 +58,8 @@ importers:
         specifier: github:MrVauxs/json-source-map
         version: https://codeload.github.com/MrVauxs/json-source-map/tar.gz/ac8bee192c22e1f82ef531edbadfca725bff1e14
       keep-a-changelog:
-        specifier: ^2.6.1
-        version: 2.6.1
+        specifier: ^2.6.2
+        version: 2.6.2
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -2516,8 +2516,8 @@ packages:
     resolution: {integrity: sha512-SWfjz8SuQ0wZjwsxtSJ3Zy8vvLg6aO/kxcp9TWNPGwJKgTZVfhNEQBMk/vPOpYCDFWRxD6QWuI6IHR1t615f0w==}
     hasBin: true
 
-  keep-a-changelog@2.6.1:
-    resolution: {integrity: sha512-DsJe1TdZPKPh9WGm7k/tK05khML4vNQegxXPuLDmG05MPbx7kg4PPWTFaPieTCitiZXm7Ys42G+YuTcVAlFyBA==}
+  keep-a-changelog@2.6.2:
+    resolution: {integrity: sha512-YSebqNvqzsTcDYJ4jxO1w8vFa74J0R+8Ks0ZOtHQwdJho2EPuzOtAgRkpMd/0NxiQ0toqJgl7CPMz1urZs9pxg==}
     hasBin: true
 
   keyv@4.5.4:
@@ -6453,7 +6453,7 @@ snapshots:
 
   jsonrepair@3.12.0: {}
 
-  keep-a-changelog@2.6.1:
+  keep-a-changelog@2.6.2:
     dependencies:
       '@deno/shim-deno': 0.18.2
 
