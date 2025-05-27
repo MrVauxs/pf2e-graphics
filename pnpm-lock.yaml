@@ -118,14 +118,14 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.14.0)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.4)(yaml@2.8.0))
       zod:
-        specifier: ^3.25.23
-        version: 3.25.23
+        specifier: ^3.25.30
+        version: 3.25.30
       zod-to-json-schema:
         specifier: ^3.24.5
-        version: 3.24.5(zod@3.25.23)
+        version: 3.24.5(zod@3.25.30)
       zod-validation-error:
         specifier: ^3.4.1
-        version: 3.4.1(zod@3.25.23)
+        version: 3.4.1(zod@3.25.30)
 
 packages:
 
@@ -1982,8 +1982,8 @@ packages:
     resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
     engines: {node: '>= 6'}
 
-  cssdb@8.2.5:
-    resolution: {integrity: sha512-leAt8/hdTCtzql9ZZi86uYAmCLzVKpJMMdjbvOGVnXFXz/BWFpBmM1MHEHU/RqtPyRYmabVmEW1DtX3YGLuuLA==}
+  cssdb@8.2.6:
+    resolution: {integrity: sha512-ArglD+Bno/F11JsO3KUO84oX3dQhXfgPxPBDPfhApz+TDQAA3Z4QAbXQDOHXuUvFrNL63gIs97KH+taJJRk/8Q==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -4194,8 +4194,8 @@ packages:
     peerDependencies:
       zod: ^3.24.4
 
-  zod@3.25.23:
-    resolution: {integrity: sha512-Od2bdMosahjSrSgJtakrwjMDb1zM1A3VIHCPGveZt/3/wlrTWBya2lmEh2OYe4OIu8mPTmmr0gnLHIWQXdtWBg==}
+  zod@3.25.30:
+    resolution: {integrity: sha512-VolhdEtu6TJr/fzGuHA/SZ5ixvXqA6ADOG9VRcQ3rdOKmF5hkmcJbyaQjUH5BgmpA9gej++zYRX7zjSmdReIwA==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -5879,7 +5879,7 @@ snapshots:
 
   css-what@6.1.0: {}
 
-  cssdb@8.2.5: {}
+  cssdb@8.2.6: {}
 
   cssesc@3.0.0: {}
 
@@ -7665,7 +7665,7 @@ snapshots:
       css-blank-pseudo: 6.0.2(postcss@8.5.3)
       css-has-pseudo: 6.0.5(postcss@8.5.3)
       css-prefers-color-scheme: 9.0.1(postcss@8.5.3)
-      cssdb: 8.2.5
+      cssdb: 8.2.6
       postcss: 8.5.3
       postcss-attribute-case-insensitive: 6.0.3(postcss@8.5.3)
       postcss-clamp: 4.1.0(postcss@8.5.3)
@@ -8481,14 +8481,14 @@ snapshots:
 
   zimmerframe@1.1.2: {}
 
-  zod-to-json-schema@3.24.5(zod@3.25.23):
+  zod-to-json-schema@3.24.5(zod@3.25.30):
     dependencies:
-      zod: 3.25.23
+      zod: 3.25.30
 
-  zod-validation-error@3.4.1(zod@3.25.23):
+  zod-validation-error@3.4.1(zod@3.25.30):
     dependencies:
-      zod: 3.25.23
+      zod: 3.25.30
 
-  zod@3.25.23: {}
+  zod@3.25.30: {}
 
   zwitch@2.0.4: {}
