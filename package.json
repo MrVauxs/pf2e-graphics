@@ -51,7 +51,7 @@
 		"keep-a-changelog": "^2.6.2",
 		"picocolors": "^1.1.1",
 		"postcss": "^8.5.3",
-		"postcss-minify": "^1.1.0",
+		"postcss-minify": "^1.2.0",
 		"postcss-prefixwrap": "^1.55.0",
 		"prompts": "^2.4.2",
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
