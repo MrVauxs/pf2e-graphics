@@ -56,7 +56,7 @@ importers:
         version: https://codeload.github.com/7H3LaughingMan/foundry-pf2e/tar.gz/c9d78388e776f63876966844730cb36f9be4efe0(@pixi/constants@7.4.2)(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2))(@pixi/graphics@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2))(@pixi/sprite@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2))))(@pixi/math@7.4.2)(@pixi/sprite@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2)))(@pixi/ticker@7.4.2)
       jb2a-databases:
         specifier: github:Jules-Bens-Aa/jb2a-databases
-        version: https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/3f81d1ab6a3ef15c8bd170c1d58d1f18e88891a0
+        version: https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/5f84d7e28b5ea2f6c0e167479fc016167523b518
       json-source-map:
         specifier: github:MrVauxs/json-source-map
         version: https://codeload.github.com/MrVauxs/json-source-map/tar.gz/ac8bee192c22e1f82ef531edbadfca725bff1e14
@@ -118,14 +118,14 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.14.0)(jiti@1.21.7)(sass@1.85.1)(tsx@4.19.4)(yaml@2.8.0))
       zod:
-        specifier: ^3.25.46
-        version: 3.25.46
+        specifier: ^3.25.50
+        version: 3.25.50
       zod-to-json-schema:
         specifier: ^3.24.5
-        version: 3.24.5(zod@3.25.46)
+        version: 3.24.5(zod@3.25.50)
       zod-validation-error:
         specifier: ^3.4.1
-        version: 3.4.1(zod@3.25.46)
+        version: 3.4.1(zod@3.25.50)
 
 packages:
 
@@ -213,8 +213,8 @@ packages:
     resolution: {integrity: sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.27.4':
-    resolution: {integrity: sha512-BRmLHGwpUqLFR2jzx9orBuX/ABDkj2jLKOXrHDTN2aOKL+jFDDKaRNo9nyYsIl9h/UE/7lMKdDjKQQyxKKDZ7g==}
+  '@babel/parser@7.27.5':
+    resolution: {integrity: sha512-OsQd175SxWkGlzbny8J3K8TnnDD0N3lrIUtB92xwyRpzaenGZhxDvxN/JgU00U3CDZNj9tPuDJ5H0WS4Nt3vKg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2131,8 +2131,8 @@ packages:
   electron-to-chromium@1.5.151:
     resolution: {integrity: sha512-Rl6uugut2l9sLojjS4H4SAr3A4IgACMLgpuEMPYCVcKydzfyPrn5absNRju38IhQOf/NwjJY8OGWjlteqYeBCA==}
 
-  electron-to-chromium@1.5.161:
-    resolution: {integrity: sha512-hwtetwfKNZo/UlwHIVBlKZVdy7o8bIZxxKs0Mv/ROPiQQQmDgdm5a+KvKtBsxM8ZjFzTaCeLoodZ8jiBE3o9rA==}
+  electron-to-chromium@1.5.162:
+    resolution: {integrity: sha512-hQA+Zb5QQwoSaXJWEAGEw1zhk//O7qDzib05Z4qTqZfNju/FAkrm5ZInp0JbTp4Z18A6bilopdZWEYrFSsfllA==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2658,8 +2658,8 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
-  jb2a-databases@https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/3f81d1ab6a3ef15c8bd170c1d58d1f18e88891a0:
-    resolution: {tarball: https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/3f81d1ab6a3ef15c8bd170c1d58d1f18e88891a0}
+  jb2a-databases@https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/5f84d7e28b5ea2f6c0e167479fc016167523b518:
+    resolution: {tarball: https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/5f84d7e28b5ea2f6c0e167479fc016167523b518}
     version: 1.0.0
 
   jiti@1.21.7:
@@ -4205,8 +4205,8 @@ packages:
     peerDependencies:
       zod: ^3.24.4
 
-  zod@3.25.46:
-    resolution: {integrity: sha512-IqRxcHEIjqLd4LNS/zKffB3Jzg3NwqJxQQ0Ns7pdrvgGkwQsEBdEQcOHaBVqvvZArShRzI39+aMST3FBGmTrLQ==}
+  zod@3.25.50:
+    resolution: {integrity: sha512-VstOnRxf4tlSq0raIwbn0n+LA34SxVoZ8r3pkwSUM0jqNiA/HCMQEVjTuS5FZmHsge+9MDGTiAuHyml5T0um6A==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -4301,7 +4301,7 @@ snapshots:
 
   '@babel/helper-validator-identifier@7.27.1': {}
 
-  '@babel/parser@7.27.4':
+  '@babel/parser@7.27.5':
     dependencies:
       '@babel/types': 7.27.3
 
@@ -5596,7 +5596,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.13':
     dependencies:
-      '@babel/parser': 7.27.4
+      '@babel/parser': 7.27.5
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -5609,7 +5609,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.13':
     dependencies:
-      '@babel/parser': 7.27.4
+      '@babel/parser': 7.27.5
       '@vue/compiler-core': 3.5.13
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-ssr': 3.5.13
@@ -5728,7 +5728,7 @@ snapshots:
   browserslist@4.25.0:
     dependencies:
       caniuse-lite: 1.0.30001720
-      electron-to-chromium: 1.5.161
+      electron-to-chromium: 1.5.162
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.0)
 
@@ -6033,7 +6033,7 @@ snapshots:
 
   electron-to-chromium@1.5.151: {}
 
-  electron-to-chromium@1.5.161: {}
+  electron-to-chromium@1.5.162: {}
 
   emoji-regex@8.0.0: {}
 
@@ -6722,7 +6722,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jb2a-databases@https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/3f81d1ab6a3ef15c8bd170c1d58d1f18e88891a0: {}
+  jb2a-databases@https://codeload.github.com/Jules-Bens-Aa/jb2a-databases/tar.gz/5f84d7e28b5ea2f6c0e167479fc016167523b518: {}
 
   jiti@1.21.7: {}
 
@@ -8509,14 +8509,14 @@ snapshots:
 
   zimmerframe@1.1.2: {}
 
-  zod-to-json-schema@3.24.5(zod@3.25.46):
+  zod-to-json-schema@3.24.5(zod@3.25.50):
     dependencies:
-      zod: 3.25.46
+      zod: 3.25.50
 
-  zod-validation-error@3.4.1(zod@3.25.46):
+  zod-validation-error@3.4.1(zod@3.25.50):
     dependencies:
-      zod: 3.25.46
+      zod: 3.25.50
 
-  zod@3.25.46: {}
+  zod@3.25.50: {}
 
   zwitch@2.0.4: {}
