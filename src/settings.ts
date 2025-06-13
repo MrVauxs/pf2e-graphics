@@ -16,7 +16,6 @@ let settings: TJSLiveGameSettings & {
 	delay: number;
 	jb2aMode: 'patreon' | 'free';
 	history: boolean;
-	cardsGone: true;
 	showHiddenRolls: boolean;
 };
 export type LiveSettings = typeof settings;
@@ -145,19 +144,6 @@ const settingsData = [
 	},
 	{
 		namespace: 'pf2e-graphics',
-		key: 'cardsGone',
-		folder: 'PF2e Graphics',
-		options: {
-			name: 'pf2e-graphics.settings.cardsGone.name',
-			hint: 'pf2e-graphics.settings.cardsGone.hint',
-			scope: 'client',
-			config: true,
-			type: Boolean,
-			default: false,
-		},
-	},
-	{
-		namespace: 'pf2e-graphics',
 		key: 'history',
 		folder: 'PF2e Graphics',
 		options: {
@@ -219,7 +205,7 @@ function conditionalSettings() {
 	] as const;
 }
 
-export function initSettings() {
+export function setupSettings() {
 	storeSettings.registerAll(settingsData, true);
 	storeSettings.registerAll(conditionalSettings(), true);
 

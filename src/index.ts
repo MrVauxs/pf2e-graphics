@@ -1,12 +1,12 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 import { TJSPosition } from '@typhonjs-fvtt/runtime/svelte/store/position';
 import { writable } from 'svelte/store';
-import { initSettings } from './settings.ts';
+import { setupSettings } from './settings.ts';
 import { loadAnimations } from './storage/index.ts';
 import { registerTours } from './tours';
 
 import { i18n } from './utils.ts';
-import { initSidebar } from './view/AnimationSidebar/index.ts';
+import { setupSidebar } from './view/AnimationSidebar/index.ts';
 import './app.postcss';
 import './assets/index.ts';
 import './view/index.ts';
@@ -48,8 +48,8 @@ Object.assign(window, {
 });
 
 Hooks.once('setup', () => {
-	initSettings();
-	initSidebar();
+	setupSettings();
+	setupSidebar();
 });
 
 Hooks.once('pf2e.systemReady', () => {
