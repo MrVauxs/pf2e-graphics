@@ -20,22 +20,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install packages
+        run: bun install
 
       - name: Format animation JSONs
-        run: npm run build:clean
+        run: bun run build:clean
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:

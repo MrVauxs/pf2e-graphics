@@ -14,19 +14,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install packages
+        run: bun install
 
         # Get part of the tag after the `v`
       - name: Extract tag version number
@@ -63,7 +55,7 @@ jobs:
           manifest: https://raw.githubusercontent.com/${{ github.repository }}/next/module.json
 
       - name: Build
-        run: pnpm run build
+        run: bun run build
 
         # Create a folder containing all the module stuff and zip it for the release
       - name: Create zip

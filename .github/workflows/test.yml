@@ -35,23 +35,15 @@ jobs:
             *.js
             *.json
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install packages
+        run: bun install
 
       - name: Vite build
         id: build
-        run: pnpm run build:vite
+        run: bun run build:vite
 
       - name: File Existence
         id: files
@@ -62,10 +54,10 @@ jobs:
 
       - name: Vite build (DEBUG)
         if: failure() && steps.build.outcome == 'success'
-        run: pnpm run build:vite -- --debug
+        run: bun run build:vite -- --debug
 
       - name: Svelte check
-        run: pnpm run check
+        run: bun run check
 
   eslint:
     name: ESLint
@@ -76,22 +68,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install packages
+        run: bun install
 
       - name: Test ESLint
-        run: pnpm run lint
+        run: bun run lint
 
   animations:
     name: Animation files
@@ -112,28 +96,19 @@ jobs:
           files: |
             animations/**/*.json
 
-      - name: Install pnpm
+      - name: Install Bun
         if: steps.changed-animations.outputs.any_changed == 'true'
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
+      - name: Install packages
         if: steps.changed-animations.outputs.any_changed == 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        if: steps.changed-animations.outputs.any_changed == 'true'
-        run: pnpm install
+        run: bun install
 
       - name: Test animation files
         if: steps.changed-animations.outputs.any_changed == 'true'
         # env:
         #   MODIFIED_ANIMATIONS: ${{ steps.changed-animations.outputs.all_changed_files }}
-        run: 'npm run test:animations' # -- ${MODIFIED_ANIMATIONS}
+        run: 'bun run test:animations' # -- ${MODIFIED_ANIMATIONS}
 
   sequencer_db:
     name: Sequencer DB
@@ -155,23 +130,12 @@ jobs:
             src/assets/*Db.ts
             assets/library/**
 
-      - name: Install pnpm
-        if: steps.changed-assets.outputs.any_changed == 'true'
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
-      - name: Install NodeJS
-        if: steps.changed-assets.outputs.any_changed == 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-          cache: pnpm
-
-      - name: Install dependencies
-        if: steps.changed-assets.outputs.any_changed == 'true'
-        run: pnpm install
+      - name: Install packages
+        run: bun install
 
       - name: Test Sequencer DB
         if: steps.changed-assets.outputs.any_changed == 'true'
-        run: npm run test:assets
+        run: bun run test:assets
