@@ -19,6 +19,8 @@ import { getJSONSchema } from './scripts/buildJSONSchema';
 import { Log, pluralise } from './scripts/helpers';
 import { testAndMergeAnimations } from './scripts/testAndMergeAnimations';
 
+const foundryPort = 40000;
+const devPort = 30001;
 const packagePath = `modules/${moduleJSON.id}`;
 const cssId = 'pf2e-g';
 
@@ -89,22 +91,23 @@ export default defineConfig(({ mode }) => ({
 
 	server: {
 		open: '/join',
-		port: 30001,
+		strictPort: true,
+		port: devPort,
 		proxy: {
 			// Serves static files from main Foundry server.
-			[`^(/${packagePath}/(assets|lang|packs|${skippedFiles}))`]: 'http://localhost:30000',
+			[`^(/${packagePath}/(assets|lang|packs|${skippedFiles}))`]: `http://localhost:${foundryPort}`,
 
 			// All other paths besides package ID path are served from main Foundry server.
-			[`^(?!/${packagePath}/)`]: 'http://localhost:30000',
+			[`^(?!/${packagePath}/)`]: `http://localhost:${foundryPort}`,
 
 			// Rewrite incoming `module-id.js` request from Foundry to the dev server `index.ts`.
 			[`/${packagePath}/dist/${moduleJSON.id}.js`]: {
-				target: `http://localhost:30001/${packagePath}/dist`,
+				target: `http://localhost:${devPort}/${packagePath}/dist`,
 				rewrite: () => '/index.ts',
 			},
 
 			// Enable socket.io from main Foundry server.
-			'/socket.io': { target: 'ws://localhost:30000', ws: true },
+			'/socket.io': { target: `ws://localhost:${foundryPort}`, ws: true },
 		},
 	},
 
