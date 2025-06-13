@@ -1,7 +1,7 @@
 {
 	"id": "pf2e-graphics",
 	"title": "PF2e Graphics",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "<i>Provides animations for the PF2e system.</i>",
 	"socket": true,
 	"esmodules": [
@@ -23,9 +23,9 @@
 		}
 	],
 	"compatibility": {
-		"minimum": "12.324",
-		"verified": "12.331",
-		"maximum": "12"
+		"minimum": "13.345",
+		"verified": "13.345",
+		"maximum": "13"
 	},
 	"flags": {
 		"pf2e-graphics": {

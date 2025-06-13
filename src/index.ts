@@ -1,13 +1,43 @@
+import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
+import { TJSPosition } from '@typhonjs-fvtt/runtime/svelte/store/position';
 import { writable } from 'svelte/store';
 import { initSettings } from './settings.ts';
 import { loadAnimations } from './storage/index.ts';
 import { registerTours } from './tours';
+
 import { i18n } from './utils.ts';
 import { initSidebar } from './view/AnimationSidebar/index.ts';
-
 import './app.postcss';
 import './assets/index.ts';
 import './view/index.ts';
+
+// V13 TJS SHIM
+Object.defineProperty(SvelteApplication, 'defaultOptions', {
+	get: () => {
+		return foundry.utils.mergeObject(Application.defaultOptions, {
+			// Copied directly from TRL except for minWidth and minHeight
+			defaultCloseAnimation: true,
+			draggable: true,
+			focusAuto: true,
+			focusKeep: false,
+			focusSource: void 0,
+			focusTrap: true,
+			headerButtonNoClose: false,
+			headerButtonNoLabel: false,
+			headerIcon: void 0,
+			headerNoTitleMinimized: false,
+			minHeight: 50, // MIN_WINDOW_HEIGHT
+			minWidth: 200, // MIN_WINDOW_WIDTH
+			positionable: true,
+			positionInitial: TJSPosition.Initial.browserCentered,
+			positionOrtho: true,
+			positionValidator: TJSPosition.Validators.transformWindow,
+			sessionStorage: void 0,
+			svelte: void 0,
+			transformOrigin: 'top left',
+		}, { inplace: false });
+	},
+});
 
 Object.assign(window, {
 	pf2eGraphics: {
