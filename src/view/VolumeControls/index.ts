@@ -1,7 +1,7 @@
 import VolumeControls from './VolumeControls.svelte';
 
-const renderPlaylistDirectory = Hooks.on('renderPlaylistDirectory', (document: any, html: JQuery<HTMLElement>) => {
-	const playlistSounds = html[0].getElementsByClassName('playlist-sounds')?.[0];
+const renderPlaylistDirectory = Hooks.on('renderPlaylistDirectory', (document: any, html: HTMLElement) => {
+	const playlistSounds = html.getElementsByClassName('plain')?.[0];
 
 	if (playlistSounds) document.pf2eGraphics = new VolumeControls({ target: playlistSounds });
 });

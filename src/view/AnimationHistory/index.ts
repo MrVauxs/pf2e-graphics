@@ -1,6 +1,6 @@
 import AnimationHistoryApp from './AnimationHistoryApp';
 
-Hooks.on('getSceneControlButtons', (controls: any[]) => {
+Hooks.on('getSceneControlButtons', (controls: any) => {
 	if (
 		!window.pf2eGraphics.liveSettings.history
 		&& !game.user.isGM
@@ -16,6 +16,5 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 		onClick: () => AnimationHistoryApp.show(),
 	};
 
-	const bar = controls.find(c => c.name === 'token');
-	bar.tools.push(history);
+	controls.tokens.tools.animationhistory = history;
 });
