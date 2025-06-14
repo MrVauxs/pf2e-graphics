@@ -4,8 +4,8 @@
     "": {
       "name": "pf2e-graphics",
       "dependencies": {
-        "@typhonjs-fvtt/runtime": "^0.2.0",
-        "@typhonjs-fvtt/standard": "^0.2.1",
+        "@typhonjs-fvtt/runtime": "^0.3.0-next.2",
+        "@typhonjs-fvtt/standard": "^0.3.0-next.2",
       },
       "devDependencies": {
         "@actions/core": "^1.11.1",
@@ -439,9 +439,9 @@
 
     "@typescript-eslint/visitor-keys": ["@typescript-eslint/visitor-keys@8.34.0", "", { "dependencies": { "@typescript-eslint/types": "8.34.0", "eslint-visitor-keys": "^4.2.0" } }, "sha512-qHV7pW7E85A0x6qyrFn+O+q1k1p3tQCsqIZ1KZ5ESLXY57aTvUd3/a4rdPTeXisvhXn2VQG0VSKUqs8KHF2zcA=="],
 
-    "@typhonjs-fvtt/runtime": ["@typhonjs-fvtt/runtime@0.2.0", "", { "peerDependencies": { "@sveltejs/vite-plugin-svelte": ">=3.x.x <4", "autoprefixer": ">=10", "cssnano": ">=7", "postcss": ">=8", "postcss-preset-env": ">=10", "sass": ">=1", "svelte": ">=4.x.x <5", "svelte-preprocess": ">=6", "vite": ">=5" } }, "sha512-t0lRj++8+/mD8mJqg9u1zN5VjmqO+LxRxA6Q0xbCMVFt52cpg9hyyqcGu8eROdpor0IS/IzY5It2F7LZZ3nqOw=="],
+    "@typhonjs-fvtt/runtime": ["@typhonjs-fvtt/runtime@0.3.0-next.2", "", { "peerDependencies": { "@sveltejs/vite-plugin-svelte": ">=3.x.x <4", "autoprefixer": ">=10", "cssnano": ">=7", "postcss": ">=8", "postcss-preset-env": ">=10", "sass": ">=1", "svelte": ">=4.x.x <5", "svelte-preprocess": ">=6", "vite": ">=5" } }, "sha512-rFujP/I1ThFmfZs5bZDi1XaPMsHKGY4/4Cgf0E/Q7UjB44ogxumK8uMwgPzijSAHX6oWx1dMZSnZo9KkKLaz3g=="],
 
-    "@typhonjs-fvtt/standard": ["@typhonjs-fvtt/standard@0.2.1", "", { "peerDependencies": { "@typhonjs-fvtt/runtime": ">=0.2.0 <0.3.0", "svelte": ">=4.x.x <5" } }, "sha512-Z45Hx6aeB1SC58XdBJqsMPTZxtN8K+gUhi1cUzMsde+edyAKlJYvp1IMKxihanQxOV59qnUicVas0pJDZ514Xw=="],
+    "@typhonjs-fvtt/standard": ["@typhonjs-fvtt/standard@0.3.0-next.2", "", { "peerDependencies": { "@typhonjs-fvtt/runtime": ">=0.3.0-0 <0.4.0", "svelte": ">=4.x.x <5" } }, "sha512-yCa2GrTK6lmKJTBTJA7cqs3MviXJCfYeAFgHJbzzpDerve9wDEeM+bBsxN//IDYb9PZ9//Bz/OS4OJiF3v0oVw=="],
 
     "@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.2.4", "", { "dependencies": { "@typescript-eslint/utils": "^8.24.0" }, "peerDependencies": { "eslint": ">= 8.57.0", "typescript": ">= 5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-4gcw3Kvh1cvwEA1dhPbcwoNmJJXQAaeSiP4UZ8Y9SFdxKuMKrt3moxQ1DLklugjw8S1zhziDp/vPrB3x0UEHKQ=="],
 
@@ -1612,6 +1612,10 @@
     "prompts/kleur": ["kleur@3.0.3", "", {}, "sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w=="],
 
     "regjsparser/jsesc": ["jsesc@3.0.2", "", { "bin": "bin/jsesc" }, ""],
+
+    "sequencer/@typhonjs-fvtt/runtime": ["@typhonjs-fvtt/runtime@0.2.0", "", { "peerDependencies": { "@sveltejs/vite-plugin-svelte": ">=3.x.x <4", "autoprefixer": ">=10", "cssnano": ">=7", "postcss": ">=8", "postcss-preset-env": ">=10", "sass": ">=1", "svelte": ">=4.x.x <5", "svelte-preprocess": ">=6", "vite": ">=5" } }, "sha512-t0lRj++8+/mD8mJqg9u1zN5VjmqO+LxRxA6Q0xbCMVFt52cpg9hyyqcGu8eROdpor0IS/IzY5It2F7LZZ3nqOw=="],
+
+    "sequencer/@typhonjs-fvtt/standard": ["@typhonjs-fvtt/standard@0.2.1", "", { "peerDependencies": { "@typhonjs-fvtt/runtime": ">=0.2.0 <0.3.0", "svelte": ">=4.x.x <5" } }, "sha512-Z45Hx6aeB1SC58XdBJqsMPTZxtN8K+gUhi1cUzMsde+edyAKlJYvp1IMKxihanQxOV59qnUicVas0pJDZ514Xw=="],
 
     "sequencer/svelte": ["svelte@4.2.19", "", { "dependencies": { "@ampproject/remapping": "^2.2.1", "@jridgewell/sourcemap-codec": "^1.4.15", "@jridgewell/trace-mapping": "^0.3.18", "@types/estree": "^1.0.1", "acorn": "^8.9.0", "aria-query": "^5.3.0", "axobject-query": "^4.0.0", "code-red": "^1.0.3", "css-tree": "^2.3.1", "estree-walker": "^3.0.3", "is-reference": "^3.0.1", "locate-character": "^3.0.0", "magic-string": "^0.30.4", "periscopic": "^3.1.0" } }, ""],
 
