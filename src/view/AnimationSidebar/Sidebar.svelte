@@ -69,8 +69,7 @@
 		/>
 	</div>
 </header>
-<!-- Load bearing height style. Don't ask. -->
-<div class='inline-flex flex-col h-1'>
+<div class='inline-flex flex-col'>
 	<ol
 		id='pf2e-graphics-custom-sets'
 		class:grow={!$search}
@@ -84,11 +83,12 @@
 			</li>
 		{/each}
 	</ol>
-	<ol id='pf2e-graphics-bundled-sets' class='m-0 p-0 max-h-[50%]'>
+	<ol id='pf2e-graphics-bundled-sets' class='m-0 p-0 max-h-[50%] flex flex-col'>
 		<header
 			role='tree'
 			tabindex='0'
-			class='p-2 leading-6 bg-red-900 h-10'
+			class='p-2 leading-6 bg-red-900 h-10 border-red-600/50 border-0 border-solid'
+			class:border-b={showModuleAnimations}
 			on:click={() => (showModuleAnimations = !showModuleAnimations)}
 			on:keypress={() => (showModuleAnimations = !showModuleAnimations)}
 		>
