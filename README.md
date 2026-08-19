@@ -1,3 +1,6 @@
+> [!important]
+> The module has been replaced by [Trigger Animations](https://github.com/MrVauxs/trigger-animations)!
+
 # pf2e-graphics
 
 ![Supported Foundry Version 12](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
