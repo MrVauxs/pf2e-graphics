@@ -1,0 +1,32 @@
+{
+	"item:slug:rank1-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:life-link": "item:slug:rank1-healing-generic",
+	"item:slug:infuse-vitality": "item:slug:rank1-healing-generic",
+	"item:slug:hallowed-ground": "item:slug:rank1-healing-generic",
+	"item:slug:magic-stone": "item:slug:rank1-healing-generic",
+	"item:slug:heal-companion": "item:slug:rank1-healing-generic",
+	"item:slug:heal-animal": "item:slug:rank1-healing-generic",
+	"item:slug:life-boost": "item:slug:rank1-healing-generic",
+	"item:slug:song-of-the-soul": "item:slug:rank1-healing-generic",
+	"item:slug:blessing-of-vigor": "item:slug:rank1-healing-generic",
+	"item:slug:soothe": "item:slug:rank1-healing-generic",
+	"item:slug:cornucopia": "item:slug:rank1-healing-generic",
+	"item:slug:garden-of-healing": "item:slug:rank1-healing-generic",
+	"item:slug:spirit-link": "item:slug:rank1-healing-generic"
+}

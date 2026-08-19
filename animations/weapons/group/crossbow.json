@@ -1,0 +1,44 @@
+{
+	"item:group:crossbow": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"label": "Crossbow (Bolt)",
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.bolt.physical.white"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TARGETS"
+						}
+					}
+				},
+				{
+					"label": "Crossbow (Sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.bow.attack"
+						],
+						"radius": 122.5,
+						"delay": 200,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	]
+}

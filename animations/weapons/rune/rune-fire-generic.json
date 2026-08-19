@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-fire-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:flaming-greater": "item:rune:property:rune-fire-generic",
+	"item:rune:property:flaming": "item:rune:property:rune-fire-generic"
+}

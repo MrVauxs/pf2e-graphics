@@ -1,0 +1,21 @@
+{
+	"item:slug:rank1-acid-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:camel-spit": "item:slug:rank1-acid-generic",
+	"item:slug:acidic-burst": "item:slug:rank1-acid-generic"
+}

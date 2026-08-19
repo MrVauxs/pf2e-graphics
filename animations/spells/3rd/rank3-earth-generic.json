@@ -1,0 +1,30 @@
+{
+	"item:slug:rank3-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.earth.01.browngreen.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:antlion-trap": "item:slug:rank3-earth-generic",
+	"item:slug:dividing-trench": "item:slug:rank3-earth-generic",
+	"item:slug:stone-lance": "item:slug:rank3-earth-generic",
+	"item:slug:shifting-sand": "item:slug:rank3-earth-generic",
+	"item:slug:cave-fangs": "item:slug:rank3-earth-generic",
+	"item:slug:sand-form": "item:slug:rank3-earth-generic",
+	"item:slug:rolling-boulders": "item:slug:rank3-earth-generic",
+	"item:slug:garden-of-stone": "item:slug:rank3-earth-generic",
+	"item:slug:glass-sand": "item:slug:rank3-earth-generic",
+	"item:slug:earthbind": "item:slug:rank3-earth-generic",
+	"item:slug:one-with-stone": "item:slug:rank3-earth-generic"
+}

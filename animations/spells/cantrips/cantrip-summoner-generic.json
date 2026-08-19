@@ -1,0 +1,21 @@
+{
+	"item:slug:cantrip-summoner-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:boost-eidolon": "item:slug:cantrip-summoner-generic",
+	"item:slug:reinforce-eidolon": "item:slug:cantrip-summoner-generic"
+}

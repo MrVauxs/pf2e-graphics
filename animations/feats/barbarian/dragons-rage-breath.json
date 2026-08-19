@@ -1,0 +1,23 @@
+{
+	"origin:item:slug:dragons-rage-breath": [
+		{
+			"triggers": [
+				"place-template"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.breath_weapons.fire.cone.orange.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "directed",
+					"endpoint": "TEMPLATES"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,20 @@
+{
+	"item:slug:rank10-teleportation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.misty_step.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:gate": "item:slug:rank10-teleportation-generic"
+}

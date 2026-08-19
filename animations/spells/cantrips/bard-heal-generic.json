@@ -1,0 +1,22 @@
+{
+	"item:slug:bard-heal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.healing_generic.200px.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hymn-of-healing": "item:slug:bard-heal-generic",
+	"item:slug:soothing-ballad": "item:slug:bard-heal-generic",
+	"item:slug:ode-to-ouroboros": "item:slug:bard-heal-generic"
+}

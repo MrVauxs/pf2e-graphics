@@ -1,0 +1,37 @@
+{
+	"item:slug:ancestry-tripkee-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:hop-up": "item:slug:ancestry-tripkee-generic",
+	"item:slug:moisture-bath": "item:slug:ancestry-tripkee-generic",
+	"item:slug:hunters-defense": "item:slug:ancestry-tripkee-generic",
+	"item:slug:vomit-stomach": "item:slug:ancestry-tripkee-generic",
+	"item:slug:tripkee-glide": "item:slug:ancestry-tripkee-generic",
+	"item:slug:terrifying-croak": "item:slug:ancestry-tripkee-generic",
+	"item:slug:frog-geyser": "item:slug:ancestry-tripkee-generic",
+	"item:slug:bounce-boost": "item:slug:ancestry-tripkee-generic",
+	"item:slug:absorb-toxin": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:hop-up": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:moisture-bath": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:hunters-defense": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:vomit-stomach": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:tripkee-glide": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:terrifying-croak": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:frog-geyser": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:bounce-boost": "item:slug:ancestry-tripkee-generic",
+	"feat:slug:absorb-toxin": "item:slug:ancestry-tripkee-generic"
+}

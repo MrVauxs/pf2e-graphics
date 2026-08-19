@@ -1,0 +1,32 @@
+{
+	"item:slug:rank1-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:propelling-air-stream": "item:slug:rank1-air-generic",
+	"item:slug:dome-of-tranquility": "item:slug:rank1-air-generic",
+	"item:slug:parch": "item:slug:rank1-air-generic",
+	"item:slug:tailwind": "item:slug:rank1-air-generic",
+	"item:slug:updraft": "item:slug:rank1-air-generic",
+	"item:slug:gentle-landing": "item:slug:rank1-air-generic",
+	"item:slug:air-bubble": "item:slug:rank1-air-generic",
+	"item:slug:airburst": "item:slug:rank1-air-generic",
+	"item:slug:gust-of-wind": "item:slug:rank1-air-generic",
+	"item:slug:pushing-gust": "item:slug:rank1-air-generic",
+	"item:slug:gritty-wheeze": "item:slug:rank1-air-generic",
+	"item:slug:gift-of-the-anemos": "item:slug:rank1-air-generic",
+	"item:slug:buffeting-winds": "item:slug:rank1-air-generic"
+}

@@ -1,0 +1,41 @@
+{
+	"item:slug:rank4-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:tricksters-feathers": "item:slug:rank4-illusion-generic",
+	"item:slug:false-nature": "item:slug:rank4-illusion-generic",
+	"item:slug:mirrors-misfortune": "item:slug:rank4-illusion-generic",
+	"item:slug:mirage": "item:slug:rank4-illusion-generic",
+	"item:slug:ephemeral-hazards": "item:slug:rank4-illusion-generic",
+	"item:slug:ocular-overload": "item:slug:rank4-illusion-generic",
+	"item:slug:phantasmal-protagonist": "item:slug:rank4-illusion-generic",
+	"item:slug:fallen-soldiers-lament": "item:slug:rank4-illusion-generic",
+	"item:slug:invisibility-cloak": "item:slug:rank4-illusion-generic",
+	"item:slug:dreamers-call": "item:slug:rank4-illusion-generic",
+	"item:slug:nightmare": "item:slug:rank4-illusion-generic",
+	"item:slug:shroud-of-the-mantis": "item:slug:rank4-illusion-generic",
+	"item:slug:tricksters-twin": "item:slug:rank4-illusion-generic",
+	"item:slug:invisibility-curtain": "item:slug:rank4-illusion-generic",
+	"item:slug:reflected-beauty": "item:slug:rank4-illusion-generic",
+	"item:slug:shadow-double": "item:slug:rank4-illusion-generic",
+	"item:slug:captivating-adoration": "item:slug:rank4-illusion-generic",
+	"item:slug:vision-of-beauty": "item:slug:rank4-illusion-generic",
+	"item:slug:umbral-graft": "item:slug:rank4-illusion-generic",
+	"item:slug:isolation": "item:slug:rank4-illusion-generic",
+	"item:slug:replicate": "item:slug:rank4-illusion-generic",
+	"item:slug:ghostly-transcription": "item:slug:rank4-illusion-generic"
+}

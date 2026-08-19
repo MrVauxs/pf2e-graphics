@@ -1,0 +1,40 @@
+{
+	"item:slug:commander-banner-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:banner-twirl": "item:slug:commander-banner-generic",
+	"item:slug:rallying-banner": "item:slug:commander-banner-generic",
+	"item:slug:pennant-of-victory": "item:slug:commander-banner-generic",
+	"item:slug:banners-inspiration": "item:slug:commander-banner-generic",
+	"item:slug:defiant-banner": "item:slug:commander-banner-generic",
+	"item:slug:standard-bearers-sacrifice": "item:slug:commander-banner-generic",
+	"item:slug:quickening-banner": "item:slug:commander-banner-generic",
+	"item:slug:plant-banner": "item:slug:commander-banner-generic",
+	"feat:slug:banner-twirl": "item:slug:commander-banner-generic",
+	"feat:slug:rallying-banner": "item:slug:commander-banner-generic",
+	"spell:slug:rallying-banner": "item:slug:commander-banner-generic",
+	"feat:slug:pennant-of-victory": "item:slug:commander-banner-generic",
+	"feat:slug:banners-inspiration": "item:slug:commander-banner-generic",
+	"feat:slug:defiant-banner": "item:slug:commander-banner-generic",
+	"feat:slug:standard-bearers-sacrifice": "item:slug:commander-banner-generic",
+	"feat:slug:quickening-banner": "item:slug:commander-banner-generic",
+	"feat:slug:plant-banner": "item:slug:commander-banner-generic"
+}

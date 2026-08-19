@@ -1,0 +1,25 @@
+{
+	"item:slug:ancestry-goloma-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:watchful-gaze": "item:slug:ancestry-goloma-generic",
+	"item:slug:defensive-instincts": "item:slug:ancestry-goloma-generic",
+	"item:slug:true-gaze": "item:slug:ancestry-goloma-generic",
+	"feat:slug:watchful-gaze": "item:slug:ancestry-goloma-generic",
+	"feat:slug:defensive-instincts": "item:slug:ancestry-goloma-generic",
+	"feat:slug:true-gaze": "item:slug:ancestry-goloma-generic"
+}

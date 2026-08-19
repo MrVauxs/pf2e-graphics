@@ -1,0 +1,31 @@
+{
+	"item:slug:monk-stance-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:waterfowl-stance": "item:slug:monk-stance-water-generic",
+	"item:slug:reflective-ripple-stance": "item:slug:monk-stance-water-generic",
+	"item:slug:flood-stance": "item:slug:monk-stance-water-generic",
+	"item:slug:jellyfish-stance": "item:slug:monk-stance-water-generic",
+	"feat:slug:waterfowl-stance": "item:slug:monk-stance-water-generic",
+	"feat:slug:reflective-ripple-stance": "item:slug:monk-stance-water-generic",
+	"feat:slug:flood-stance": "item:slug:monk-stance-water-generic",
+	"feat:slug:jellyfish-stance": "item:slug:monk-stance-water-generic"
+}

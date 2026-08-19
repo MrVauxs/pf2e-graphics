@@ -1,0 +1,20 @@
+{
+	"item:slug:rank7-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.03.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:shock-to-the-system": "item:slug:rank7-electricity-generic"
+}

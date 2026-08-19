@@ -1,0 +1,35 @@
+{
+	"item:slug:ancestry-wayang-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dance-of-the-mousedeer": "item:slug:ancestry-wayang-generic",
+	"item:slug:dalangs-ally": "item:slug:ancestry-wayang-generic",
+	"item:slug:dance-of-the-tiger": "item:slug:ancestry-wayang-generic",
+	"item:slug:shadowplay": "item:slug:ancestry-wayang-generic",
+	"item:slug:shadow-tempo": "item:slug:ancestry-wayang-generic",
+	"item:slug:dissolutions-clarity": "item:slug:ancestry-wayang-generic",
+	"item:slug:dissolutions-sight": "item:slug:ancestry-wayang-generic",
+	"item:slug:dance-of-the-jester": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dance-of-the-mousedeer": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dalangs-ally": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dance-of-the-tiger": "item:slug:ancestry-wayang-generic",
+	"feat:slug:shadowplay": "item:slug:ancestry-wayang-generic",
+	"feat:slug:shadow-tempo": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dissolutions-clarity": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dissolutions-sight": "item:slug:ancestry-wayang-generic",
+	"feat:slug:dance-of-the-jester": "item:slug:ancestry-wayang-generic"
+}

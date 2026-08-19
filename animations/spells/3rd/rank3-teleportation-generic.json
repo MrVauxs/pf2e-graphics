@@ -1,0 +1,28 @@
+{
+	"item:slug:rank3-teleportation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:nothing-up-my-sleeve": "item:slug:rank3-teleportation-generic",
+	"item:slug:rally-point": "item:slug:rank3-teleportation-generic",
+	"item:slug:shrink-the-span": "item:slug:rank3-teleportation-generic",
+	"item:slug:bottomless-stomach": "item:slug:rank3-teleportation-generic",
+	"item:slug:familiars-call": "item:slug:rank3-teleportation-generic",
+	"item:slug:mindscape-shift": "item:slug:rank3-teleportation-generic",
+	"item:slug:labyrinthine-prison": "item:slug:rank3-teleportation-generic",
+	"item:slug:trade-items": "item:slug:rank3-teleportation-generic",
+	"item:slug:far-reach": "item:slug:rank3-teleportation-generic"
+}

@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-force-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_missile.grey"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:wall-of-force": "item:slug:rank6-force-generic",
+	"item:slug:blessed-boundary": "item:slug:rank6-force-generic",
+	"item:slug:blade-barrier": "item:slug:rank6-force-generic"
+}

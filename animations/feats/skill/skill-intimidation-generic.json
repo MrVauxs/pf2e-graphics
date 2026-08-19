@@ -1,0 +1,33 @@
+{
+	"item:slug:skill-intimidation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dirty-trick": "item:slug:skill-intimidation-generic",
+	"item:slug:fear-of-god": "item:slug:skill-intimidation-generic",
+	"item:slug:voice-cold-as-death": "item:slug:skill-intimidation-generic",
+	"item:slug:disturbing-knowledge": "item:slug:skill-intimidation-generic",
+	"item:slug:scare-to-death": "item:slug:skill-intimidation-generic",
+	"item:slug:vicious-critique": "item:slug:skill-intimidation-generic",
+	"item:slug:too-angry-to-die": "item:slug:skill-intimidation-generic",
+	"feat:slug:dirty-trick": "item:slug:skill-intimidation-generic",
+	"feat:slug:fear-of-god": "item:slug:skill-intimidation-generic",
+	"feat:slug:voice-cold-as-death": "item:slug:skill-intimidation-generic",
+	"feat:slug:disturbing-knowledge": "item:slug:skill-intimidation-generic",
+	"feat:slug:scare-to-death": "item:slug:skill-intimidation-generic",
+	"feat:slug:vicious-critique": "item:slug:skill-intimidation-generic",
+	"feat:slug:too-angry-to-die": "item:slug:skill-intimidation-generic"
+}

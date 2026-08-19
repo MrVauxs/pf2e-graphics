@@ -1,0 +1,31 @@
+{
+	"item:slug:barbarian-throw-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.throwable.throw.bomb.01.black"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "directed",
+					"endpoint": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:oversized-throw": "item:slug:barbarian-throw-generic",
+	"item:slug:friendly-toss": "item:slug:barbarian-throw-generic",
+	"item:slug:whirlwind-toss": "item:slug:barbarian-throw-generic",
+	"item:slug:penetrating-projectile": "item:slug:barbarian-throw-generic",
+	"feat:slug:oversized-throw": "item:slug:barbarian-throw-generic",
+	"feat:slug:friendly-toss": "item:slug:barbarian-throw-generic",
+	"feat:slug:whirlwind-toss": "item:slug:barbarian-throw-generic",
+	"feat:slug:penetrating-projectile": "item:slug:barbarian-throw-generic"
+}

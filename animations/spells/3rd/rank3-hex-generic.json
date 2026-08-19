@@ -1,0 +1,30 @@
+{
+	"item:slug:rank3-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:cup-of-dust": "item:slug:rank3-hex-generic",
+	"item:slug:return-the-favor": "item:slug:rank3-hex-generic",
+	"item:slug:blood-in-the-water": "item:slug:rank3-hex-generic",
+	"item:slug:unravel-knowledge": "item:slug:rank3-hex-generic",
+	"item:slug:deceivers-cloak": "item:slug:rank3-hex-generic",
+	"item:slug:geas": "item:slug:rank3-hex-generic",
+	"item:slug:censure-falsehoods": "item:slug:rank3-hex-generic",
+	"item:slug:sheltering-wings": "item:slug:rank3-hex-generic",
+	"item:slug:casters-imposition": "item:slug:rank3-hex-generic",
+	"item:slug:malicious-shadow": "item:slug:rank3-hex-generic",
+	"item:slug:croak-voice": "item:slug:rank3-hex-generic"
+}

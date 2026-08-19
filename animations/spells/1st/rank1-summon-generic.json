@@ -1,0 +1,26 @@
+{
+	"item:slug:rank1-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:summon-animal": "item:slug:rank1-summon-generic",
+	"item:slug:summon-undead": "item:slug:rank1-summon-generic",
+	"item:slug:summon-lesser-servitor": "item:slug:rank1-summon-generic",
+	"item:slug:summon-fey": "item:slug:rank1-summon-generic",
+	"item:slug:summon-plant-or-fungus": "item:slug:rank1-summon-generic",
+	"item:slug:summon-construct": "item:slug:rank1-summon-generic",
+	"item:slug:phantasmal-minion": "item:slug:rank1-summon-generic"
+}

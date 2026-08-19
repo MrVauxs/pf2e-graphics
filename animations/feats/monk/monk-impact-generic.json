@@ -1,0 +1,69 @@
+{
+	"item:slug:monk-impact-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:tiger-slash": "item:slug:monk-impact-generic",
+	"item:slug:one-inch-punch": "item:slug:monk-impact-generic",
+	"item:slug:knockback-strike": "item:slug:monk-impact-generic",
+	"item:slug:flying-kick": "item:slug:monk-impact-generic",
+	"item:slug:wolf-drag": "item:slug:monk-impact-generic",
+	"item:slug:gorilla-pound": "item:slug:monk-impact-generic",
+	"item:slug:five-gods-ram": "item:slug:monk-impact-generic",
+	"item:slug:mountain-quake": "item:slug:monk-impact-generic",
+	"item:slug:world-breaking-footfall": "item:slug:monk-impact-generic",
+	"item:slug:momentous-charge": "item:slug:monk-impact-generic",
+	"item:slug:whirling-throw": "item:slug:monk-impact-generic",
+	"item:slug:flinging-blow": "item:slug:monk-impact-generic",
+	"item:slug:tangled-forest-rake": "item:slug:monk-impact-generic",
+	"item:slug:mixed-maneuver": "item:slug:monk-impact-generic",
+	"item:slug:sleeper-hold": "item:slug:monk-impact-generic",
+	"item:slug:culverts-collapse": "item:slug:monk-impact-generic",
+	"item:slug:wave-dashes-rocks": "item:slug:monk-impact-generic",
+	"item:slug:wake-to-strife": "item:slug:monk-impact-generic",
+	"item:slug:explosive-death-drop": "item:slug:monk-impact-generic",
+	"item:slug:godbreaker": "item:slug:monk-impact-generic",
+	"item:slug:form-lock": "item:slug:monk-impact-generic",
+	"item:slug:mountain-stronghold": "item:slug:monk-impact-generic",
+	"item:slug:winding-flow": "item:slug:monk-impact-generic",
+	"feat:slug:tiger-slash": "item:slug:monk-impact-generic",
+	"feat:slug:one-inch-punch": "item:slug:monk-impact-generic",
+	"feat:slug:knockback-strike": "item:slug:monk-impact-generic",
+	"feat:slug:flying-kick": "item:slug:monk-impact-generic",
+	"feat:slug:wolf-drag": "item:slug:monk-impact-generic",
+	"feat:slug:gorilla-pound": "item:slug:monk-impact-generic",
+	"feat:slug:five-gods-ram": "item:slug:monk-impact-generic",
+	"feat:slug:mountain-quake": "item:slug:monk-impact-generic",
+	"feat:slug:world-breaking-footfall": "item:slug:monk-impact-generic",
+	"feat:slug:momentous-charge": "item:slug:monk-impact-generic",
+	"feat:slug:whirling-throw": "item:slug:monk-impact-generic",
+	"feat:slug:flinging-blow": "item:slug:monk-impact-generic",
+	"feat:slug:tangled-forest-rake": "item:slug:monk-impact-generic",
+	"feat:slug:mixed-maneuver": "item:slug:monk-impact-generic",
+	"feat:slug:sleeper-hold": "item:slug:monk-impact-generic",
+	"feat:slug:culverts-collapse": "item:slug:monk-impact-generic",
+	"feat:slug:wave-dashes-rocks": "item:slug:monk-impact-generic",
+	"feat:slug:wake-to-strife": "item:slug:monk-impact-generic",
+	"feat:slug:explosive-death-drop": "item:slug:monk-impact-generic",
+	"feat:slug:godbreaker": "item:slug:monk-impact-generic",
+	"feat:slug:form-lock": "item:slug:monk-impact-generic",
+	"feat:slug:mountain-stronghold": "item:slug:monk-impact-generic",
+	"feat:slug:winding-flow": "item:slug:monk-impact-generic"
+}

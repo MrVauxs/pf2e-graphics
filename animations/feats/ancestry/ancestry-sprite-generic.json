@@ -1,0 +1,23 @@
+{
+	"item:slug:ancestry-sprite-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:catchy-tune": "item:slug:ancestry-sprite-generic",
+	"item:slug:evanescent-wings": "item:slug:ancestry-sprite-generic",
+	"feat:slug:catchy-tune": "item:slug:ancestry-sprite-generic",
+	"feat:slug:evanescent-wings": "item:slug:ancestry-sprite-generic"
+}

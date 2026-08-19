@@ -1,0 +1,26 @@
+{
+	"feat:slug:sorcerer-ward-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.abjuration.loop.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:energy-ward": "feat:slug:sorcerer-ward-generic",
+	"feat:slug:spell-shroud": "feat:slug:sorcerer-ward-generic"
+}

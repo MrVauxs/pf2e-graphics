@@ -1,0 +1,26 @@
+{
+	"feat:slug:druid-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.earth.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.3
+				}
+			}
+		}
+	],
+	"feat:slug:harden-flesh": "feat:slug:druid-earth-generic",
+	"feat:slug:raise-menhir": "feat:slug:druid-earth-generic"
+}

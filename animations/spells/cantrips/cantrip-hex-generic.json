@@ -1,0 +1,34 @@
+{
+	"item:slug:cantrip-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:murmuration": "item:slug:cantrip-hex-generic",
+	"item:slug:buzzing-bites": "item:slug:cantrip-hex-generic",
+	"item:slug:nudge-fate": "item:slug:cantrip-hex-generic",
+	"item:slug:wilding-word": "item:slug:cantrip-hex-generic",
+	"item:slug:stoke-the-heart": "item:slug:cantrip-hex-generic",
+	"item:slug:manifest-will": "item:slug:cantrip-hex-generic",
+	"item:slug:information-overload": "item:slug:cantrip-hex-generic",
+	"item:slug:share-vision": "item:slug:cantrip-hex-generic",
+	"item:slug:discern-secrets": "item:slug:cantrip-hex-generic",
+	"item:slug:scroungers-glee": "item:slug:cantrip-hex-generic",
+	"item:slug:pact-broker": "item:slug:cantrip-hex-generic",
+	"item:slug:shroud-of-night": "item:slug:cantrip-hex-generic",
+	"item:slug:evil-eye": "item:slug:cantrip-hex-generic",
+	"item:slug:sting-of-the-sea": "item:slug:cantrip-hex-generic",
+	"item:slug:spirit-object": "item:slug:cantrip-hex-generic"
+}

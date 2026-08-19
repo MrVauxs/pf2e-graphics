@@ -1,0 +1,39 @@
+{
+	"item:slug:ancestry-elf-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:brightness-seeker": "item:slug:ancestry-elf-generic",
+	"item:slug:submerged-stillness": "item:slug:ancestry-elf-generic",
+	"item:slug:avenge-ally": "item:slug:ancestry-elf-generic",
+	"item:slug:demon-slayer": "item:slug:ancestry-elf-generic",
+	"item:slug:elf-step": "item:slug:ancestry-elf-generic",
+	"item:slug:anchoring-arrow": "item:slug:ancestry-elf-generic",
+	"item:slug:shame-the-sin": "item:slug:ancestry-elf-generic",
+	"item:slug:swamp-stealth": "item:slug:ancestry-elf-generic",
+	"item:slug:elven-persistence": "item:slug:ancestry-elf-generic",
+	"item:slug:forest-stealth": "item:slug:ancestry-elf-generic",
+	"feat:slug:brightness-seeker": "item:slug:ancestry-elf-generic",
+	"feat:slug:submerged-stillness": "item:slug:ancestry-elf-generic",
+	"feat:slug:avenge-ally": "item:slug:ancestry-elf-generic",
+	"feat:slug:demon-slayer": "item:slug:ancestry-elf-generic",
+	"feat:slug:elf-step": "item:slug:ancestry-elf-generic",
+	"feat:slug:anchoring-arrow": "item:slug:ancestry-elf-generic",
+	"feat:slug:shame-the-sin": "item:slug:ancestry-elf-generic",
+	"feat:slug:swamp-stealth": "item:slug:ancestry-elf-generic",
+	"feat:slug:elven-persistence": "item:slug:ancestry-elf-generic",
+	"feat:slug:forest-stealth": "item:slug:ancestry-elf-generic"
+}

@@ -1,0 +1,108 @@
+{
+	"effect:mutagen-generic": [
+		{
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.bubble.complete.green"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.5
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"persistent": "tokenPrototype",
+						"tieToDocuments": true
+					}
+				}
+			]
+		}
+	],
+	"effect:applereed-mutagen-greater": "effect:mutagen-generic",
+	"effect:applereed-mutagen-lesser": "effect:mutagen-generic",
+	"effect:applereed-mutagen-moderate": "effect:mutagen-generic",
+	"effect:bendy-arm-mutagen-greater": "effect:mutagen-generic",
+	"effect:bendy-arm-mutagen-lesser": "effect:mutagen-generic",
+	"effect:bendy-arm-mutagen-major": "effect:mutagen-generic",
+	"effect:bendy-arm-mutagen-moderate": "effect:mutagen-generic",
+	"effect:bestial-mutagen-greater": "effect:mutagen-generic",
+	"effect:bestial-mutagen-lesser": "effect:mutagen-generic",
+	"effect:bestial-mutagen-major": "effect:mutagen-generic",
+	"effect:bestial-mutagen-moderate": "effect:mutagen-generic",
+	"effect:cognitive-mutagen-greater": "effect:mutagen-generic",
+	"effect:cognitive-mutagen-lesser": "effect:mutagen-generic",
+	"effect:cognitive-mutagen-major": "effect:mutagen-generic",
+	"effect:cognitive-mutagen-moderate": "effect:mutagen-generic",
+	"effect:deadweight-mutagen-greater": "effect:mutagen-generic",
+	"effect:deadweight-mutagen-lesser": "effect:mutagen-generic",
+	"effect:deadweight-mutagen-major": "effect:mutagen-generic",
+	"effect:deadweight-mutagen-moderate": "effect:mutagen-generic",
+	"effect:drakeheart-mutagen-greater": "effect:mutagen-generic",
+	"effect:drakeheart-mutagen-lesser": "effect:mutagen-generic",
+	"effect:drakeheart-mutagen-major": "effect:mutagen-generic",
+	"effect:drakeheart-mutagen-moderate": "effect:mutagen-generic",
+	"effect:energy-mutagen-greater": "effect:mutagen-generic",
+	"effect:energy-mutagen-lesser": "effect:mutagen-generic",
+	"effect:energy-mutagen-major": "effect:mutagen-generic",
+	"effect:energy-mutagen-moderate": "effect:mutagen-generic",
+	"effect:hydra-mutagen": "effect:mutagen-generic",
+	"effect:ichthyosis-mutagen": "effect:mutagen-generic",
+	"effect:juggernaut-mutagen-greater": "effect:mutagen-generic",
+	"effect:juggernaut-mutagen-lesser": "effect:mutagen-generic",
+	"effect:juggernaut-mutagen-major": "effect:mutagen-generic",
+	"effect:juggernaut-mutagen-moderate": "effect:mutagen-generic",
+	"effect:ommatophoric-mutagen": "effect:mutagen-generic",
+	"effect:pallesthetic-mutagen": "effect:mutagen-generic",
+	"effect:prey-mutagen": "effect:mutagen-generic",
+	"effect:prey-mutagen-bonus": "effect:mutagen-generic",
+	"effect:prey-mutagen-lesser": "effect:mutagen-generic",
+	"effect:prey-mutagen-moderate": "effect:mutagen-generic",
+	"effect:quicksilver-mutagen-greater": "effect:mutagen-generic",
+	"effect:quicksilver-mutagen-lesser": "effect:mutagen-generic",
+	"effect:quicksilver-mutagen-major": "effect:mutagen-generic",
+	"effect:quicksilver-mutagen-moderate": "effect:mutagen-generic",
+	"effect:sanguine-mutagen-greater": "effect:mutagen-generic",
+	"effect:sanguine-mutagen-lesser": "effect:mutagen-generic",
+	"effect:sanguine-mutagen-major": "effect:mutagen-generic",
+	"effect:sanguine-mutagen-moderate": "effect:mutagen-generic",
+	"effect:serene-mutagen-greater": "effect:mutagen-generic",
+	"effect:serene-mutagen-lesser": "effect:mutagen-generic",
+	"effect:serene-mutagen-major": "effect:mutagen-generic",
+	"effect:serene-mutagen-moderate": "effect:mutagen-generic",
+	"effect:silvertongue-mutagen-greater": "effect:mutagen-generic",
+	"effect:silvertongue-mutagen-lesser": "effect:mutagen-generic",
+	"effect:silvertongue-mutagen-major": "effect:mutagen-generic",
+	"effect:silvertongue-mutagen-moderate": "effect:mutagen-generic",
+	"effect:stone-body-mutagen-greater": "effect:mutagen-generic",
+	"effect:stone-body-mutagen-lesser": "effect:mutagen-generic",
+	"effect:stone-body-mutagen-moderate": "effect:mutagen-generic",
+	"effect:theatrical-mutagen-greater": "effect:mutagen-generic",
+	"effect:theatrical-mutagen-lesser": "effect:mutagen-generic",
+	"effect:theatrical-mutagen-major": "effect:mutagen-generic",
+	"effect:theatrical-mutagen-moderate": "effect:mutagen-generic",
+	"effect:war-blood-mutagen-greater": "effect:mutagen-generic",
+	"effect:war-blood-mutagen-lesser": "effect:mutagen-generic",
+	"effect:war-blood-mutagen-major": "effect:mutagen-generic",
+	"effect:war-blood-mutagen-moderate": "effect:mutagen-generic"
+}

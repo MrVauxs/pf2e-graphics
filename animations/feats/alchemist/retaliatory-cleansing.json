@@ -1,0 +1,41 @@
+{
+	"item:slug:retaliatory-cleansing": [
+		{
+			"triggers": [
+				"action"
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.shatter.blue"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "relative"
+						}
+					}
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.cooking.glass.break.01"
+						],
+						"radius": 15,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	],
+	"feat:slug:retaliatory-cleansing": "item:slug:retaliatory-cleansing"
+}

@@ -1,0 +1,62 @@
+{
+	"item:group:spear": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"melee",
+				{
+					"gt": [
+						"target:distance",
+						0
+					]
+				}
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.spear.melee.01.white.{0,1,2,3,4,5}"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES",
+							"anchor": {
+								"x": 0.25
+							}
+						},
+						"reflection": {
+							"y": "random"
+						},
+						"size": {
+							"type": "relative",
+							"relativeTo": "SOURCES",
+							"scaling": 4.5
+						},
+						"rotation": {
+							"type": "relative",
+							"location": "TARGETS"
+						}
+					}
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.hit.blunt"
+						],
+						"delay": 300,
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "TARGETS"
+						}
+					}
+				}
+			]
+		}
+	]
+}

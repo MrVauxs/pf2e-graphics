@@ -1,0 +1,29 @@
+{
+	"item:slug:rank5-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.cure_wounds.400px.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:scouring-pulse": "item:slug:rank5-healing-generic",
+	"item:slug:healing-well": "item:slug:rank5-healing-generic",
+	"item:slug:breath-of-life": "item:slug:rank5-healing-generic",
+	"item:slug:shepherd-of-souls": "item:slug:rank5-healing-generic",
+	"item:slug:let-not-the-fallen-rest": "item:slug:rank5-healing-generic",
+	"item:slug:ravening-maw": "item:slug:rank5-healing-generic",
+	"item:slug:resurrect": "item:slug:rank5-healing-generic",
+	"item:slug:mothers-blessing": "item:slug:rank5-healing-generic",
+	"item:slug:shall-not-falter-shall-not-rout": "item:slug:rank5-healing-generic",
+	"item:slug:soulshelter-vessel": "item:slug:rank5-healing-generic"
+}

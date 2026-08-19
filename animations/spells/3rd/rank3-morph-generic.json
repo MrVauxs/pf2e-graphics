@@ -1,0 +1,26 @@
+{
+	"item:slug:rank3-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ooze-form": "item:slug:rank3-morph-generic",
+	"item:slug:threefold-aspect": "item:slug:rank3-morph-generic",
+	"item:slug:feet-to-fins": "item:slug:rank3-morph-generic",
+	"item:slug:tiny-wings": "item:slug:rank3-morph-generic",
+	"item:slug:insect-form": "item:slug:rank3-morph-generic",
+	"item:slug:embrace-the-pit": "item:slug:rank3-morph-generic",
+	"item:slug:shrink-item": "item:slug:rank3-morph-generic"
+}

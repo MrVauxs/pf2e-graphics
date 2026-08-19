@@ -1,0 +1,21 @@
+{
+	"item:slug:rank10-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:dinosaur-fort": "item:slug:rank10-exploration-generic",
+	"item:slug:remake": "item:slug:rank10-exploration-generic"
+}

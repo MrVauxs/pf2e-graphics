@@ -1,0 +1,28 @@
+{
+	"item:slug:rank5-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.enchantment.intro.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:inevitable-disaster": "item:slug:rank5-hex-generic",
+	"item:slug:celestial-brand": "item:slug:rank5-hex-generic",
+	"item:slug:bandits-doom": "item:slug:rank5-hex-generic",
+	"item:slug:over-the-coals": "item:slug:rank5-hex-generic",
+	"item:slug:portrait-of-spite": "item:slug:rank5-hex-generic",
+	"item:slug:glacial-heart": "item:slug:rank5-hex-generic",
+	"item:slug:ritual-obstruction": "item:slug:rank5-hex-generic",
+	"item:slug:restorative-moment": "item:slug:rank5-hex-generic",
+	"item:slug:mariners-curse": "item:slug:rank5-hex-generic"
+}

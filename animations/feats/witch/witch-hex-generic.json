@@ -1,0 +1,25 @@
+{
+	"feat:slug:witch-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.necromancy.loop.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:split-hex": "feat:slug:witch-hex-generic"
+}

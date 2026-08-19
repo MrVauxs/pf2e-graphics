@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-poppet-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:histrionic-injury": "item:slug:ancestry-poppet-generic",
+	"item:slug:solidarity": "item:slug:ancestry-poppet-generic",
+	"item:slug:spark-of-independence": "item:slug:ancestry-poppet-generic",
+	"item:slug:squirm-free": "item:slug:ancestry-poppet-generic",
+	"item:slug:sudden-terror": "item:slug:ancestry-poppet-generic",
+	"feat:slug:histrionic-injury": "item:slug:ancestry-poppet-generic",
+	"feat:slug:solidarity": "item:slug:ancestry-poppet-generic",
+	"feat:slug:spark-of-independence": "item:slug:ancestry-poppet-generic",
+	"feat:slug:squirm-free": "item:slug:ancestry-poppet-generic",
+	"feat:slug:sudden-terror": "item:slug:ancestry-poppet-generic"
+}

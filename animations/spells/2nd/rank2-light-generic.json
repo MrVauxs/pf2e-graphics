@@ -1,0 +1,27 @@
+{
+	"item:slug:rank2-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:revealing-light": "item:slug:rank2-light-generic",
+	"item:slug:darkness": "item:slug:rank2-light-generic",
+	"item:slug:shadow-zombie": "item:slug:rank2-light-generic",
+	"item:slug:faerie-fire": "item:slug:rank2-light-generic",
+	"item:slug:penumbral-disguise": "item:slug:rank2-light-generic",
+	"item:slug:army-of-shadows": "item:slug:rank2-light-generic",
+	"item:slug:radiant-field": "item:slug:rank2-light-generic",
+	"item:slug:everlight": "item:slug:rank2-light-generic"
+}

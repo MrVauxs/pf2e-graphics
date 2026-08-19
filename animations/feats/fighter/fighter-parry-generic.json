@@ -1,0 +1,39 @@
+{
+	"item:slug:fighter-parry-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dueling-parry": "item:slug:fighter-parry-generic",
+	"item:slug:dueling-riposte": "item:slug:fighter-parry-generic",
+	"item:slug:twin-parry": "item:slug:fighter-parry-generic",
+	"item:slug:twin-riposte": "item:slug:fighter-parry-generic",
+	"item:slug:reactive-shield": "item:slug:fighter-parry-generic",
+	"item:slug:guardians-deflection-fighter": "item:slug:fighter-parry-generic",
+	"item:slug:mirror-shield": "item:slug:fighter-parry-generic",
+	"item:slug:reflecting-riposte": "item:slug:fighter-parry-generic",
+	"item:slug:cut-from-the-air": "item:slug:fighter-parry-generic",
+	"item:slug:rock-the-boat": "item:slug:fighter-parry-generic",
+	"feat:slug:dueling-parry": "item:slug:fighter-parry-generic",
+	"feat:slug:dueling-riposte": "item:slug:fighter-parry-generic",
+	"feat:slug:twin-parry": "item:slug:fighter-parry-generic",
+	"feat:slug:twin-riposte": "item:slug:fighter-parry-generic",
+	"feat:slug:reactive-shield": "item:slug:fighter-parry-generic",
+	"feat:slug:guardians-deflection-fighter": "item:slug:fighter-parry-generic",
+	"feat:slug:mirror-shield": "item:slug:fighter-parry-generic",
+	"feat:slug:reflecting-riposte": "item:slug:fighter-parry-generic",
+	"feat:slug:cut-from-the-air": "item:slug:fighter-parry-generic",
+	"feat:slug:rock-the-boat": "item:slug:fighter-parry-generic"
+}

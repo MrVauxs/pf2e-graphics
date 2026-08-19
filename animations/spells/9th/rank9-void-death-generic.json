@@ -1,0 +1,28 @@
+{
+	"item:slug:rank9-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:massacre": "item:slug:rank9-void-death-generic",
+	"item:slug:blunt-the-final-blade": "item:slug:rank9-void-death-generic",
+	"item:slug:phantasmagoria": "item:slug:rank9-void-death-generic",
+	"item:slug:void-harvest": "item:slug:rank9-void-death-generic",
+	"item:slug:voracious-gestalt": "item:slug:rank9-void-death-generic",
+	"item:slug:unspeakable-shadow": "item:slug:rank9-void-death-generic",
+	"item:slug:weird": "item:slug:rank9-void-death-generic",
+	"item:slug:vampiric-revelry": "item:slug:rank9-void-death-generic",
+	"item:slug:undertaker": "item:slug:rank9-void-death-generic"
+}

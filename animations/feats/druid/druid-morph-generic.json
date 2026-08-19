@@ -1,0 +1,31 @@
+{
+	"feat:slug:druid-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.smoke.puff.centered.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.3
+				}
+			}
+		}
+	],
+	"feat:slug:misty-transformation": "feat:slug:druid-morph-generic",
+	"feat:slug:reactive-transformation": "feat:slug:druid-morph-generic",
+	"feat:slug:true-shapeshifter": "feat:slug:druid-morph-generic",
+	"feat:slug:too-much-to-swallow": "feat:slug:druid-morph-generic",
+	"feat:slug:defensive-dismissal": "feat:slug:druid-morph-generic",
+	"feat:slug:creature-comforts": "feat:slug:druid-morph-generic",
+	"feat:slug:pesh-skin": "feat:slug:druid-morph-generic"
+}

@@ -1,0 +1,33 @@
+{
+	"item:slug:barbarian-debuff-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.fear.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"item:slug:mage-hunter": "item:slug:barbarian-debuff-generic",
+	"item:slug:silencing-strike": "item:slug:barbarian-debuff-generic",
+	"item:slug:vicious-evisceration": "item:slug:barbarian-debuff-generic",
+	"item:slug:brutal-crush": "item:slug:barbarian-debuff-generic",
+	"item:slug:resounding-blow": "item:slug:barbarian-debuff-generic",
+	"feat:slug:mage-hunter": "item:slug:barbarian-debuff-generic",
+	"feat:slug:silencing-strike": "item:slug:barbarian-debuff-generic",
+	"feat:slug:vicious-evisceration": "item:slug:barbarian-debuff-generic",
+	"feat:slug:brutal-crush": "item:slug:barbarian-debuff-generic",
+	"feat:slug:resounding-blow": "item:slug:barbarian-debuff-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:fighter-fear-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.fear.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:dazzling-display": "item:slug:fighter-fear-generic",
+	"item:slug:shatter-defenses": "item:slug:fighter-fear-generic",
+	"item:slug:think-twice": "item:slug:fighter-fear-generic",
+	"feat:slug:dazzling-display": "item:slug:fighter-fear-generic",
+	"feat:slug:shatter-defenses": "item:slug:fighter-fear-generic",
+	"feat:slug:think-twice": "item:slug:fighter-fear-generic"
+}

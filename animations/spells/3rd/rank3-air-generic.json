@@ -1,0 +1,27 @@
+{
+	"item:slug:rank3-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:tempest-cloak": "item:slug:rank3-air-generic",
+	"item:slug:cloud-dragons-cloak": "item:slug:rank3-air-generic",
+	"item:slug:cyclone-rondo": "item:slug:rank3-air-generic",
+	"item:slug:unseasonable-squall": "item:slug:rank3-air-generic",
+	"item:slug:blastback": "item:slug:rank3-air-generic",
+	"item:slug:skyglass-prison": "item:slug:rank3-air-generic",
+	"item:slug:wall-of-wind": "item:slug:rank3-air-generic",
+	"item:slug:powerful-inhalation": "item:slug:rank3-air-generic"
+}

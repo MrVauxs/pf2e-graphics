@@ -1,0 +1,49 @@
+{
+	"item:slug:swashbuckler-finisher-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:revitalizing-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:perfect-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:targeting-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:dual-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:mobile-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:impaling-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:lethal-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:illimitable-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:bleeding-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:stumbling-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:stunning-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:unbalancing-finisher": "item:slug:swashbuckler-finisher-generic",
+	"item:slug:retreating-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:revitalizing-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:perfect-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:targeting-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:dual-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:mobile-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:impaling-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:lethal-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:illimitable-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:bleeding-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:stumbling-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:stunning-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:unbalancing-finisher": "item:slug:swashbuckler-finisher-generic",
+	"feat:slug:retreating-finisher": "item:slug:swashbuckler-finisher-generic"
+}

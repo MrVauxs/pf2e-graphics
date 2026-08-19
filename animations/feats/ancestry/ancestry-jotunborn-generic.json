@@ -1,0 +1,45 @@
+{
+	"item:slug:ancestry-jotunborn-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:plane-hop": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:call-the-first-tools": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:caretakers-restoration": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:pounding-leap": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:jotuns-grasp": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:jotuns-boost": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:build-the-first-walls": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:smoothing-stomp": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:jotuns-battle-stance": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:planar-traveler": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:iivlars-deflection": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:plane-stepping-dash": "item:slug:ancestry-jotunborn-generic",
+	"item:slug:plane-step": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:plane-hop": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:call-the-first-tools": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:caretakers-restoration": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:pounding-leap": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:jotuns-grasp": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:jotuns-boost": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:build-the-first-walls": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:smoothing-stomp": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:jotuns-battle-stance": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:planar-traveler": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:iivlars-deflection": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:plane-stepping-dash": "item:slug:ancestry-jotunborn-generic",
+	"feat:slug:plane-step": "item:slug:ancestry-jotunborn-generic"
+}

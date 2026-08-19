@@ -1,0 +1,63 @@
+{
+	"item:slug:kineticist-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.fire.01.orange.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:flying-flame": "item:slug:kineticist-fire-generic",
+	"item:slug:furnace-form": "item:slug:kineticist-fire-generic",
+	"item:slug:burning-demand": "item:slug:kineticist-fire-generic",
+	"item:slug:blazing-wave": "item:slug:kineticist-fire-generic",
+	"item:slug:walk-through-the-conflagration": "item:slug:kineticist-fire-generic",
+	"item:slug:living-bonfire": "item:slug:kineticist-fire-generic",
+	"item:slug:kindle-inner-flames": "item:slug:kineticist-fire-generic",
+	"item:slug:ignite-the-sun": "item:slug:kineticist-fire-generic",
+	"item:slug:solar-detonation": "item:slug:kineticist-fire-generic",
+	"item:slug:burning-jet": "item:slug:kineticist-fire-generic",
+	"item:slug:scorching-column": "item:slug:kineticist-fire-generic",
+	"item:slug:crawling-fire": "item:slug:kineticist-fire-generic",
+	"item:slug:all-shall-end-in-flames": "item:slug:kineticist-fire-generic",
+	"item:slug:eternal-torch": "item:slug:kineticist-fire-generic",
+	"item:slug:lava-leap": "item:slug:kineticist-fire-generic",
+	"item:slug:molten-wire": "item:slug:kineticist-fire-generic",
+	"item:slug:igneogenesis": "item:slug:kineticist-fire-generic",
+	"item:slug:thermal-nimbus": "item:slug:kineticist-fire-generic",
+	"item:slug:architect-of-flame": "item:slug:kineticist-fire-generic",
+	"item:slug:ash-strider": "item:slug:kineticist-fire-generic",
+	"feat:slug:flying-flame": "item:slug:kineticist-fire-generic",
+	"feat:slug:furnace-form": "item:slug:kineticist-fire-generic",
+	"feat:slug:burning-demand": "item:slug:kineticist-fire-generic",
+	"feat:slug:blazing-wave": "item:slug:kineticist-fire-generic",
+	"feat:slug:walk-through-the-conflagration": "item:slug:kineticist-fire-generic",
+	"feat:slug:living-bonfire": "item:slug:kineticist-fire-generic",
+	"feat:slug:kindle-inner-flames": "item:slug:kineticist-fire-generic",
+	"feat:slug:ignite-the-sun": "item:slug:kineticist-fire-generic",
+	"feat:slug:solar-detonation": "item:slug:kineticist-fire-generic",
+	"feat:slug:burning-jet": "item:slug:kineticist-fire-generic",
+	"feat:slug:scorching-column": "item:slug:kineticist-fire-generic",
+	"feat:slug:crawling-fire": "item:slug:kineticist-fire-generic",
+	"feat:slug:all-shall-end-in-flames": "item:slug:kineticist-fire-generic",
+	"feat:slug:eternal-torch": "item:slug:kineticist-fire-generic",
+	"feat:slug:lava-leap": "item:slug:kineticist-fire-generic",
+	"feat:slug:molten-wire": "item:slug:kineticist-fire-generic",
+	"feat:slug:igneogenesis": "item:slug:kineticist-fire-generic",
+	"feat:slug:thermal-nimbus": "item:slug:kineticist-fire-generic",
+	"feat:slug:architect-of-flame": "item:slug:kineticist-fire-generic",
+	"feat:slug:ash-strider": "item:slug:kineticist-fire-generic"
+}

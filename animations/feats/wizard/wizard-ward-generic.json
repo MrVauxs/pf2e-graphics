@@ -1,0 +1,26 @@
+{
+	"feat:slug:wizard-ward-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_field.02.above.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:elemental-defense": "feat:slug:wizard-ward-generic",
+	"feat:slug:energy-ablation": "feat:slug:wizard-ward-generic"
+}

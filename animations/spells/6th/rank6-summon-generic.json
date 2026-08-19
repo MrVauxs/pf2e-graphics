@@ -1,0 +1,21 @@
+{
+	"item:slug:rank6-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.conjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:incarnate-wild-rose": "item:slug:rank6-summon-generic",
+	"item:slug:skeleton-army": "item:slug:rank6-summon-generic"
+}

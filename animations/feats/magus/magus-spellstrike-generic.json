@@ -1,0 +1,63 @@
+{
+	"item:slug:magus-spellstrike-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:shattering-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:whirlpools-pull": "item:slug:magus-spellstrike-generic",
+	"item:slug:maguss-analysis": "item:slug:magus-spellstrike-generic",
+	"item:slug:lunging-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:recharging-flurry": "item:slug:magus-spellstrike-generic",
+	"item:slug:split-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:spell-swipe": "item:slug:magus-spellstrike-generic",
+	"item:slug:dispelling-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:running-recharge": "item:slug:magus-spellstrike-generic",
+	"item:slug:exploding-bullet": "item:slug:magus-spellstrike-generic",
+	"item:slug:unsheathing-the-sword-light": "item:slug:magus-spellstrike-generic",
+	"item:slug:devastating-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:surface-tension": "item:slug:magus-spellstrike-generic",
+	"item:slug:whirlwind-spell": "item:slug:magus-spellstrike-generic",
+	"item:slug:spell-crash": "item:slug:magus-spellstrike-generic",
+	"item:slug:cascading-ray": "item:slug:magus-spellstrike-generic",
+	"item:slug:overwhelming-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:meteoric-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:distracting-spellstrike": "item:slug:magus-spellstrike-generic",
+	"item:slug:maelstrom-flow": "item:slug:magus-spellstrike-generic",
+	"feat:slug:shattering-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:whirlpools-pull": "item:slug:magus-spellstrike-generic",
+	"feat:slug:maguss-analysis": "item:slug:magus-spellstrike-generic",
+	"feat:slug:lunging-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:recharging-flurry": "item:slug:magus-spellstrike-generic",
+	"feat:slug:split-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:spell-swipe": "item:slug:magus-spellstrike-generic",
+	"feat:slug:dispelling-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:running-recharge": "item:slug:magus-spellstrike-generic",
+	"feat:slug:exploding-bullet": "item:slug:magus-spellstrike-generic",
+	"feat:slug:unsheathing-the-sword-light": "item:slug:magus-spellstrike-generic",
+	"feat:slug:devastating-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:surface-tension": "item:slug:magus-spellstrike-generic",
+	"feat:slug:whirlwind-spell": "item:slug:magus-spellstrike-generic",
+	"feat:slug:spell-crash": "item:slug:magus-spellstrike-generic",
+	"feat:slug:cascading-ray": "item:slug:magus-spellstrike-generic",
+	"feat:slug:overwhelming-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:meteoric-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:distracting-spellstrike": "item:slug:magus-spellstrike-generic",
+	"feat:slug:maelstrom-flow": "item:slug:magus-spellstrike-generic"
+}

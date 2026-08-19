@@ -1,0 +1,26 @@
+{
+	"feat:slug:bard-finale-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.02.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"feat:slug:resounding-finale": "feat:slug:bard-finale-generic",
+	"feat:slug:pack-performance": "feat:slug:bard-finale-generic"
+}

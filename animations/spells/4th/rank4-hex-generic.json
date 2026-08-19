@@ -1,0 +1,28 @@
+{
+	"item:slug:rank4-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:steal-voice": "item:slug:rank4-hex-generic",
+	"item:slug:sages-curse": "item:slug:rank4-hex-generic",
+	"item:slug:outcasts-curse": "item:slug:rank4-hex-generic",
+	"item:slug:dull-ambition": "item:slug:rank4-hex-generic",
+	"item:slug:clownish-curse": "item:slug:rank4-hex-generic",
+	"item:slug:bloodspray-curse": "item:slug:rank4-hex-generic",
+	"item:slug:bestial-curse": "item:slug:rank4-hex-generic",
+	"item:slug:daydreamers-curse": "item:slug:rank4-hex-generic",
+	"item:slug:concealments-curtain": "item:slug:rank4-hex-generic"
+}

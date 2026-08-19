@@ -1,0 +1,26 @@
+{
+	"feat:slug:cleric-undeath-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.necromancy.loop.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"feat:slug:command-undead": "feat:slug:cleric-undeath-generic",
+	"feat:slug:swift-banishment": "feat:slug:cleric-undeath-generic"
+}

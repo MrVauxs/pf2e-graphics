@@ -1,0 +1,21 @@
+{
+	"item:slug:ancestry-shoony-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dig-quickly": "item:slug:ancestry-shoony-generic",
+	"feat:slug:dig-quickly": "item:slug:ancestry-shoony-generic"
+}

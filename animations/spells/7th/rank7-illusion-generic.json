@@ -1,0 +1,23 @@
+{
+	"item:slug:rank7-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.evocation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:project-image": "item:slug:rank7-illusion-generic",
+	"item:slug:mask-of-terror": "item:slug:rank7-illusion-generic",
+	"item:slug:shadow-raid": "item:slug:rank7-illusion-generic",
+	"item:slug:entrancing-eyes": "item:slug:rank7-illusion-generic"
+}

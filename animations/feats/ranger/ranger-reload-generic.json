@@ -1,0 +1,26 @@
+{
+	"feat:slug:ranger-reload-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.smoke.puff.centered.dark_black"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"feat:slug:crossbow-ace": "feat:slug:ranger-reload-generic",
+	"feat:slug:wardens-reload": "feat:slug:ranger-reload-generic"
+}

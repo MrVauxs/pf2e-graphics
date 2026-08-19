@@ -1,0 +1,22 @@
+{
+	"item:slug:cantrip-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:stabilize": "item:slug:cantrip-healing-generic",
+	"item:slug:trade-death-for-life": "item:slug:cantrip-healing-generic",
+	"item:slug:vitality-lash": "item:slug:cantrip-healing-generic"
+}

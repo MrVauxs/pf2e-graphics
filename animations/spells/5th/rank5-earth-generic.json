@@ -1,0 +1,27 @@
+{
+	"item:slug:rank5-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.boulder.toss.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:magic-passage": "item:slug:rank5-earth-generic",
+	"item:slug:untwisting-iron-roots": "item:slug:rank5-earth-generic",
+	"item:slug:sawtooth-terrain": "item:slug:rank5-earth-generic",
+	"item:slug:transmute-rock-and-mud": "item:slug:rank5-earth-generic",
+	"item:slug:speak-with-stones": "item:slug:rank5-earth-generic",
+	"item:slug:engrave-memory": "item:slug:rank5-earth-generic",
+	"item:slug:wall-of-stone": "item:slug:rank5-earth-generic",
+	"item:slug:pillars-of-sand": "item:slug:rank5-earth-generic"
+}

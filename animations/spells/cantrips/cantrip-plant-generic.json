@@ -1,0 +1,24 @@
+{
+	"item:slug:cantrip-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:timber": "item:slug:cantrip-plant-generic",
+	"item:slug:root-reading": "item:slug:cantrip-plant-generic",
+	"item:slug:take-root": "item:slug:cantrip-plant-generic",
+	"item:slug:bramble-bush": "item:slug:cantrip-plant-generic",
+	"item:slug:tangle-vine": "item:slug:cantrip-plant-generic"
+}

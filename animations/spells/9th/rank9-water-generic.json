@@ -1,0 +1,21 @@
+{
+	"item:slug:rank9-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:oceans-roar": "item:slug:rank9-water-generic",
+	"item:slug:unbreaking-wave-containment": "item:slug:rank9-water-generic"
+}

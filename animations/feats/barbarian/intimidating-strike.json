@@ -1,0 +1,24 @@
+{
+	"item:slug:intimidating-strike": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.fear.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"feat:slug:intimidating-strike": "item:slug:intimidating-strike"
+}

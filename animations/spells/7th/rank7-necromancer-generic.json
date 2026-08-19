@@ -1,0 +1,21 @@
+{
+	"item:slug:rank7-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.skull.purple.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:skeletal-lancers": "item:slug:rank7-necromancer-generic",
+	"item:slug:recurring-nightmare": "item:slug:rank7-necromancer-generic"
+}

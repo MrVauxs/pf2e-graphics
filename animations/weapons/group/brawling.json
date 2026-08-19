@@ -1,0 +1,63 @@
+{
+	"item:group:brawling": [
+		{
+			"predicates": [
+				"melee",
+				{
+					"gt": [
+						"target:distance",
+						0
+					]
+				}
+			],
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.unarmed_strike.physical.01.blue"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES",
+							"anchor": {
+								"x": 0.4
+							}
+						},
+						"reflection": {
+							"y": "random"
+						},
+						"size": {
+							"type": "relative",
+							"relativeTo": "SOURCES",
+							"scaling": 5
+						},
+						"rotation": {
+							"type": "relative",
+							"location": "TARGETS",
+							"randomOffset": 0.4
+						},
+						"waitUntilFinished": -500
+					}
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.unarmed"
+						],
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "TARGETS"
+						}
+					}
+				}
+			]
+		}
+	]
+}

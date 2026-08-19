@@ -1,0 +1,23 @@
+{
+	"item:slug:rank5-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:bountiful-oasis": "item:slug:rank5-water-generic",
+	"item:slug:unbreaking-wave-vapor": "item:slug:rank5-water-generic",
+	"item:slug:flowing-strike": "item:slug:rank5-water-generic",
+	"item:slug:control-water": "item:slug:rank5-water-generic"
+}

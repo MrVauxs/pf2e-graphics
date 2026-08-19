@@ -1,0 +1,78 @@
+{
+	"item:rune:property:rune-utility-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:hauling": "item:rune:property:rune-utility-generic",
+	"item:rune:property:deathdrinking": "item:rune:property:rune-utility-generic",
+	"item:rune:property:underwater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:called-lastwall": "item:rune:property:rune-utility-generic",
+	"item:rune:property:vorpal": "item:rune:property:rune-utility-generic",
+	"item:rune:property:bloodthirsty": "item:rune:property:rune-utility-generic",
+	"item:rune:property:giant-killing-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:animated": "item:rune:property:rune-utility-generic",
+	"item:rune:property:holy": "item:rune:property:rune-utility-generic",
+	"item:rune:property:giant-killing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:flurrying": "item:rune:property:rune-utility-generic",
+	"item:rune:property:ghost-touch": "item:rune:property:rune-utility-generic",
+	"item:rune:property:crushing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:quickstrike": "item:rune:property:rune-utility-generic",
+	"item:rune:property:brilliant": "item:rune:property:rune-utility-generic",
+	"item:rune:property:vitalizing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:hopeful": "item:rune:property:rune-utility-generic",
+	"item:rune:property:energy-vulnerability": "item:rune:property:rune-utility-generic",
+	"item:rune:property:earthbinding": "item:rune:property:rune-utility-generic",
+	"item:rune:property:shockwave": "item:rune:property:rune-utility-generic",
+	"item:rune:property:energizing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:pacifying": "item:rune:property:rune-utility-generic",
+	"item:rune:property:hooked": "item:rune:property:rune-utility-generic",
+	"item:rune:property:anchoring": "item:rune:property:rune-utility-generic",
+	"item:rune:property:cunning": "item:rune:property:rune-utility-generic",
+	"item:rune:property:nightmare": "item:rune:property:rune-utility-generic",
+	"item:rune:property:extending-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:extending": "item:rune:property:rune-utility-generic",
+	"item:rune:property:conducting": "item:rune:property:rune-utility-generic",
+	"item:rune:property:fanged-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:deflecting": "item:rune:property:rune-utility-generic",
+	"item:rune:property:wounding": "item:rune:property:rune-utility-generic",
+	"item:rune:property:energy-vulnerability-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:keen": "item:rune:property:rune-utility-generic",
+	"item:rune:property:bane": "item:rune:property:rune-utility-generic",
+	"item:rune:property:demolishing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:anchoring-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:ashen-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:brilliant-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:hauling-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:ancestral-echoing": "item:rune:property:rune-utility-generic",
+	"item:rune:property:vitalizing-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:flickering": "item:rune:property:rune-utility-generic",
+	"item:rune:property:spell-reservoir": "item:rune:property:rune-utility-generic",
+	"item:rune:property:fanged": "item:rune:property:rune-utility-generic",
+	"item:rune:property:fanged-major": "item:rune:property:rune-utility-generic",
+	"item:rune:property:grievous": "item:rune:property:rune-utility-generic",
+	"item:rune:property:returning": "item:rune:property:rune-utility-generic",
+	"item:rune:property:shifting": "item:rune:property:rune-utility-generic",
+	"item:rune:property:crushing-greater": "item:rune:property:rune-utility-generic",
+	"item:rune:property:authorized": "item:rune:property:rune-utility-generic",
+	"item:rune:property:impossible": "item:rune:property:rune-utility-generic",
+	"item:rune:property:coating": "item:rune:property:rune-utility-generic",
+	"item:rune:property:ashen": "item:rune:property:rune-utility-generic",
+	"item:rune:property:swarming": "item:rune:property:rune-utility-generic"
+}

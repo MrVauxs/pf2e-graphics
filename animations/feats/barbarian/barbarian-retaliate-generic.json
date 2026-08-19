@@ -1,0 +1,35 @@
+{
+	"item:slug:barbarian-retaliate-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.shield.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"item:slug:farabellus-flip": "item:slug:barbarian-retaliate-generic",
+	"item:slug:scars-of-steel": "item:slug:barbarian-retaliate-generic",
+	"item:slug:reactive-strike": "item:slug:barbarian-retaliate-generic",
+	"item:slug:furious-vengeance": "item:slug:barbarian-retaliate-generic",
+	"item:slug:vengeful-strike": "item:slug:barbarian-retaliate-generic",
+	"feat:slug:farabellus-flip": "item:slug:barbarian-retaliate-generic",
+	"feat:slug:scars-of-steel": "item:slug:barbarian-retaliate-generic",
+	"feat:slug:reactive-strike": "item:slug:barbarian-retaliate-generic",
+	"action:slug:reactive-strike": "item:slug:barbarian-retaliate-generic",
+	"feature:slug:reactive-strike": "item:slug:barbarian-retaliate-generic",
+	"feat:slug:furious-vengeance": "item:slug:barbarian-retaliate-generic",
+	"feat:slug:vengeful-strike": "item:slug:barbarian-retaliate-generic"
+}

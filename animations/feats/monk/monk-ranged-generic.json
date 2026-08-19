@@ -1,0 +1,29 @@
+{
+	"item:slug:monk-ranged-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.arrow.physical.white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:triangle-shot": "item:slug:monk-ranged-generic",
+	"item:slug:focused-shot": "item:slug:monk-ranged-generic",
+	"item:slug:pinning-fire": "item:slug:monk-ranged-generic",
+	"item:slug:blazing-streak": "item:slug:monk-ranged-generic",
+	"item:slug:peafowl-strut": "item:slug:monk-ranged-generic",
+	"feat:slug:triangle-shot": "item:slug:monk-ranged-generic",
+	"feat:slug:focused-shot": "item:slug:monk-ranged-generic",
+	"feat:slug:pinning-fire": "item:slug:monk-ranged-generic",
+	"feat:slug:blazing-streak": "item:slug:monk-ranged-generic",
+	"feat:slug:peafowl-strut": "item:slug:monk-ranged-generic"
+}

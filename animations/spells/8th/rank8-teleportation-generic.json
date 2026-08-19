@@ -1,0 +1,23 @@
+{
+	"item:slug:rank8-teleportation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.misty_step.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:sudden-transposition": "item:slug:rank8-teleportation-generic",
+	"item:slug:quandary": "item:slug:rank8-teleportation-generic",
+	"item:slug:create-demiplane": "item:slug:rank8-teleportation-generic",
+	"item:slug:rite-of-the-red-star": "item:slug:rank8-teleportation-generic"
+}

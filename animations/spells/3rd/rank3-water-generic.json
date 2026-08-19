@@ -1,0 +1,29 @@
+{
+	"item:slug:rank3-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dive-and-breach": "item:slug:rank3-water-generic",
+	"item:slug:undertow": "item:slug:rank3-water-generic",
+	"item:slug:pulverizing-cascade": "item:slug:rank3-water-generic",
+	"item:slug:wall-of-water": "item:slug:rank3-water-generic",
+	"item:slug:crashing-wave": "item:slug:rank3-water-generic",
+	"item:slug:coral-scourge": "item:slug:rank3-water-generic",
+	"item:slug:pillar-of-water": "item:slug:rank3-water-generic",
+	"item:slug:scrying-ripples": "item:slug:rank3-water-generic",
+	"item:slug:aqueous-orb": "item:slug:rank3-water-generic",
+	"item:slug:unbreaking-wave-advance": "item:slug:rank3-water-generic"
+}

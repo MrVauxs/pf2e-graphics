@@ -1,0 +1,33 @@
+{
+	"item:slug:rank5-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.evocation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:peer-into-the-past": "item:slug:rank5-illusion-generic",
+	"item:slug:mirror-malefactors": "item:slug:rank5-illusion-generic",
+	"item:slug:portrait-of-the-artist": "item:slug:rank5-illusion-generic",
+	"item:slug:fey-glamour": "item:slug:rank5-illusion-generic",
+	"item:slug:construct-mindscape": "item:slug:rank5-illusion-generic",
+	"item:slug:false-vision": "item:slug:rank5-illusion-generic",
+	"item:slug:cloak-of-colors": "item:slug:rank5-illusion-generic",
+	"item:slug:hallucination": "item:slug:rank5-illusion-generic",
+	"item:slug:strange-geometry": "item:slug:rank5-illusion-generic",
+	"item:slug:blind-eye": "item:slug:rank5-illusion-generic",
+	"item:slug:drop-dead": "item:slug:rank5-illusion-generic",
+	"item:slug:shadow-siphon": "item:slug:rank5-illusion-generic",
+	"item:slug:horizons-veil": "item:slug:rank5-illusion-generic",
+	"item:slug:chameleon-coat": "item:slug:rank5-illusion-generic"
+}

@@ -1,0 +1,26 @@
+{
+	"feat:slug:druid-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:current-spell": "feat:slug:druid-water-generic",
+	"feat:slug:purifying-spell": "feat:slug:druid-water-generic"
+}

@@ -1,0 +1,23 @@
+{
+	"item:slug:rank9-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.conjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:incarnate-draconic-legion": "item:slug:rank9-summon-generic",
+	"item:slug:call-fluxwraith": "item:slug:rank9-summon-generic",
+	"item:slug:summon-ancient-fleshforged": "item:slug:rank9-summon-generic",
+	"item:slug:beseech-arcanotheign": "item:slug:rank9-summon-generic"
+}

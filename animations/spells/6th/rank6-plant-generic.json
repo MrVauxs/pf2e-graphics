@@ -1,0 +1,24 @@
+{
+	"item:slug:rank6-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.entangle.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:lignify": "item:slug:rank6-plant-generic",
+	"item:slug:arrow-salvo": "item:slug:rank6-plant-generic",
+	"item:slug:tangling-creepers": "item:slug:rank6-plant-generic",
+	"item:slug:roses-thorns": "item:slug:rank6-plant-generic",
+	"item:slug:tree-of-seasons": "item:slug:rank6-plant-generic"
+}

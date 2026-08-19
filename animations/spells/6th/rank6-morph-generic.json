@@ -1,0 +1,30 @@
+{
+	"item:slug:rank6-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:statuette": "item:slug:rank6-morph-generic",
+	"item:slug:dragon-form": "item:slug:rank6-morph-generic",
+	"item:slug:form-of-the-sandpoint-devil": "item:slug:rank6-morph-generic",
+	"item:slug:sacred-form": "item:slug:rank6-morph-generic",
+	"item:slug:daemon-form": "item:slug:rank6-morph-generic",
+	"item:slug:demon-form": "item:slug:rank6-morph-generic",
+	"item:slug:devil-form": "item:slug:rank6-morph-generic",
+	"item:slug:tentacular-innervation": "item:slug:rank6-morph-generic",
+	"item:slug:mantle-of-heavens-slopes": "item:slug:rank6-morph-generic",
+	"item:slug:patrons-protector": "item:slug:rank6-morph-generic",
+	"item:slug:tempest-form": "item:slug:rank6-morph-generic"
+}

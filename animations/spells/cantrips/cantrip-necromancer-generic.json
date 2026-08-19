@@ -1,0 +1,21 @@
+{
+	"item:slug:cantrip-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_red"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:create-thrall": "item:slug:cantrip-necromancer-generic",
+	"item:slug:thrall-charge": "item:slug:cantrip-necromancer-generic"
+}

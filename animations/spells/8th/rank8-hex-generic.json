@@ -1,0 +1,20 @@
+{
+	"item:slug:rank8-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.enchantment.intro.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:spiritual-epidemic": "item:slug:rank8-hex-generic"
+}

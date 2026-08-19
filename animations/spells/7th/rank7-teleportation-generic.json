@@ -1,0 +1,25 @@
+{
+	"item:slug:rank7-teleportation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.misty_step.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:teleportation-circle": "item:slug:rank7-teleportation-generic",
+	"item:slug:ethereal-jaunt": "item:slug:rank7-teleportation-generic",
+	"item:slug:planar-displacement": "item:slug:rank7-teleportation-generic",
+	"item:slug:momentary-recovery": "item:slug:rank7-teleportation-generic",
+	"item:slug:gathering-call": "item:slug:rank7-teleportation-generic",
+	"item:slug:maze-of-locked-doors": "item:slug:rank7-teleportation-generic"
+}

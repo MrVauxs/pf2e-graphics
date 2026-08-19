@@ -1,0 +1,41 @@
+{
+	"item:slug:rank5-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.02.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:dread-ambience": "item:slug:rank5-mental-generic",
+	"item:slug:mind-probe": "item:slug:rank5-mental-generic",
+	"item:slug:rewrite-possibility": "item:slug:rank5-mental-generic",
+	"item:slug:synaptic-pulse": "item:slug:rank5-mental-generic",
+	"item:slug:natures-pathway": "item:slug:rank5-mental-generic",
+	"item:slug:subconscious-suggestion": "item:slug:rank5-mental-generic",
+	"item:slug:wave-of-despair": "item:slug:rank5-mental-generic",
+	"item:slug:mirecloak": "item:slug:rank5-mental-generic",
+	"item:slug:synesthesia": "item:slug:rank5-mental-generic",
+	"item:slug:imaginary-lockbox": "item:slug:rank5-mental-generic",
+	"item:slug:ectoplasmic-expulsion": "item:slug:rank5-mental-generic",
+	"item:slug:oblivious-expulsion": "item:slug:rank5-mental-generic",
+	"item:slug:sending": "item:slug:rank5-mental-generic",
+	"item:slug:mind-swap": "item:slug:rank5-mental-generic",
+	"item:slug:infectious-comedy": "item:slug:rank5-mental-generic",
+	"item:slug:psychic-outburst": "item:slug:rank5-mental-generic",
+	"item:slug:pack-breaker": "item:slug:rank5-mental-generic",
+	"item:slug:glimmer-of-charm": "item:slug:rank5-mental-generic",
+	"item:slug:telepathic-bond": "item:slug:rank5-mental-generic",
+	"item:slug:glossolalia": "item:slug:rank5-mental-generic",
+	"item:slug:youre-mine": "item:slug:rank5-mental-generic",
+	"item:slug:dreaming-potential": "item:slug:rank5-mental-generic"
+}

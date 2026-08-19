@@ -1,0 +1,39 @@
+{
+	"item:slug:rogue-trick-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.smoke.puff.side.grey.2"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:scoundrels-surprise": "item:slug:rogue-trick-generic",
+	"item:slug:predictable": "item:slug:rogue-trick-generic",
+	"item:slug:plant-evidence": "item:slug:rogue-trick-generic",
+	"item:slug:swipe-souvenir": "item:slug:rogue-trick-generic",
+	"item:slug:coordinated-distraction": "item:slug:rogue-trick-generic",
+	"item:slug:perfect-distraction": "item:slug:rogue-trick-generic",
+	"item:slug:sabotage": "item:slug:rogue-trick-generic",
+	"item:slug:spring-from-the-shadows": "item:slug:rogue-trick-generic",
+	"item:slug:fantastic-leap": "item:slug:rogue-trick-generic",
+	"item:slug:poison-weapon": "item:slug:rogue-trick-generic",
+	"feat:slug:scoundrels-surprise": "item:slug:rogue-trick-generic",
+	"feat:slug:predictable": "item:slug:rogue-trick-generic",
+	"feat:slug:plant-evidence": "item:slug:rogue-trick-generic",
+	"feat:slug:swipe-souvenir": "item:slug:rogue-trick-generic",
+	"feat:slug:coordinated-distraction": "item:slug:rogue-trick-generic",
+	"feat:slug:perfect-distraction": "item:slug:rogue-trick-generic",
+	"feat:slug:sabotage": "item:slug:rogue-trick-generic",
+	"feat:slug:spring-from-the-shadows": "item:slug:rogue-trick-generic",
+	"feat:slug:fantastic-leap": "item:slug:rogue-trick-generic",
+	"feat:slug:poison-weapon": "item:slug:rogue-trick-generic"
+}

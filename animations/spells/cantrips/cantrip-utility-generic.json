@@ -1,0 +1,40 @@
+{
+	"item:slug:cantrip-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:sigil": "item:slug:cantrip-utility-generic",
+	"item:slug:protect-companion": "item:slug:cantrip-utility-generic",
+	"item:slug:time-sense": "item:slug:cantrip-utility-generic",
+	"item:slug:inside-ropes": "item:slug:cantrip-utility-generic",
+	"item:slug:glowing-trail": "item:slug:cantrip-utility-generic",
+	"item:slug:warp-step": "item:slug:cantrip-utility-generic",
+	"item:slug:telekinetic-hand": "item:slug:cantrip-utility-generic",
+	"item:slug:summon-instrument": "item:slug:cantrip-utility-generic",
+	"item:slug:musical-accompaniment": "item:slug:cantrip-utility-generic",
+	"item:slug:wash-your-luck": "item:slug:cantrip-utility-generic",
+	"item:slug:elemental-counter": "item:slug:cantrip-utility-generic",
+	"item:slug:ancient-dust": "item:slug:cantrip-utility-generic",
+	"item:slug:void-warp": "item:slug:cantrip-utility-generic",
+	"item:slug:torturous-trauma": "item:slug:cantrip-utility-generic",
+	"item:slug:invoke-true-name": "item:slug:cantrip-utility-generic",
+	"item:slug:puff-of-poison": "item:slug:cantrip-utility-generic",
+	"item:slug:prestidigitation": "item:slug:cantrip-utility-generic",
+	"item:slug:forbidding-ward": "item:slug:cantrip-utility-generic",
+	"item:slug:glamorize": "item:slug:cantrip-utility-generic",
+	"item:slug:light": "item:slug:cantrip-utility-generic",
+	"item:slug:guidance": "item:slug:cantrip-utility-generic"
+}

@@ -1,0 +1,23 @@
+{
+	"item:slug:ancestry-kitsune-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:rekindled-light": "item:slug:ancestry-kitsune-generic",
+	"item:slug:fox-trick": "item:slug:ancestry-kitsune-generic",
+	"feat:slug:rekindled-light": "item:slug:ancestry-kitsune-generic",
+	"feat:slug:fox-trick": "item:slug:ancestry-kitsune-generic"
+}

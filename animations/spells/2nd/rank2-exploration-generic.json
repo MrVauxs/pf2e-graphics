@@ -1,0 +1,29 @@
+{
+	"item:slug:rank2-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:environmental-endurance": "item:slug:rank2-exploration-generic",
+	"item:slug:create-food": "item:slug:rank2-exploration-generic",
+	"item:slug:marvelous-mount": "item:slug:rank2-exploration-generic",
+	"item:slug:allfood": "item:slug:rank2-exploration-generic",
+	"item:slug:grave-impressions": "item:slug:rank2-exploration-generic",
+	"item:slug:summoners-precaution": "item:slug:rank2-exploration-generic",
+	"item:slug:watchdog": "item:slug:rank2-exploration-generic",
+	"item:slug:persistent-servant": "item:slug:rank2-exploration-generic",
+	"item:slug:lucky-number": "item:slug:rank2-exploration-generic",
+	"item:slug:enhance-victuals": "item:slug:rank2-exploration-generic"
+}

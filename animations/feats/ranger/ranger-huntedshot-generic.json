@@ -1,0 +1,43 @@
+{
+	"item:slug:ranger-huntedshot-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.arrow.physical.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hunted-shot": "item:slug:ranger-huntedshot-generic",
+	"item:slug:hunters-aim": "item:slug:ranger-huntedshot-generic",
+	"item:slug:targeting-shot": "item:slug:ranger-huntedshot-generic",
+	"item:slug:penetrating-shot": "item:slug:ranger-huntedshot-generic",
+	"item:slug:deadly-aim": "item:slug:ranger-huntedshot-generic",
+	"item:slug:perfect-shot": "item:slug:ranger-huntedshot-generic",
+	"item:slug:hamstringing-strike": "item:slug:ranger-huntedshot-generic",
+	"item:slug:second-sting": "item:slug:ranger-huntedshot-generic",
+	"item:slug:twin-takedown": "item:slug:ranger-huntedshot-generic",
+	"item:slug:impossible-flurry": "item:slug:ranger-huntedshot-generic",
+	"item:slug:time-dilation-cascade": "item:slug:ranger-huntedshot-generic",
+	"item:slug:disrupt-prey": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:hunted-shot": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:hunters-aim": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:targeting-shot": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:penetrating-shot": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:deadly-aim": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:perfect-shot": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:hamstringing-strike": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:second-sting": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:twin-takedown": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:impossible-flurry": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:time-dilation-cascade": "item:slug:ranger-huntedshot-generic",
+	"feat:slug:disrupt-prey": "item:slug:ranger-huntedshot-generic"
+}

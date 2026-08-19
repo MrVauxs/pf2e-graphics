@@ -1,0 +1,23 @@
+{
+	"item:slug:rank5-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:rewinding-step": "item:slug:rank5-exploration-generic",
+	"item:slug:divine-dragons-watch": "item:slug:rank5-exploration-generic",
+	"item:slug:secret-chest": "item:slug:rank5-exploration-generic",
+	"item:slug:return-beacon": "item:slug:rank5-exploration-generic"
+}

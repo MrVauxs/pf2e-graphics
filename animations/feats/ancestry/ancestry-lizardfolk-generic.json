@@ -1,0 +1,35 @@
+{
+	"item:slug:ancestry-lizardfolk-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:hone-claws": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:envenom-fangs": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:ferry-through-waves": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:lightning-tongue": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:guided-by-the-stars": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:shed-tail": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:tongue-disarm": "item:slug:ancestry-lizardfolk-generic",
+	"item:slug:iruxi-glide": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:hone-claws": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:envenom-fangs": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:ferry-through-waves": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:lightning-tongue": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:guided-by-the-stars": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:shed-tail": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:tongue-disarm": "item:slug:ancestry-lizardfolk-generic",
+	"feat:slug:iruxi-glide": "item:slug:ancestry-lizardfolk-generic"
+}

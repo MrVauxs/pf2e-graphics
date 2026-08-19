@@ -1,0 +1,22 @@
+{
+	"item:slug:cantrip-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:slashing-gust": "item:slug:cantrip-air-generic",
+	"item:slug:deep-breath": "item:slug:cantrip-air-generic",
+	"item:slug:gale-blast": "item:slug:cantrip-air-generic"
+}

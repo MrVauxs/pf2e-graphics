@@ -1,0 +1,22 @@
+{
+	"item:slug:rank8-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:monstrosity-form": "item:slug:rank8-morph-generic",
+	"item:slug:migration": "item:slug:rank8-morph-generic",
+	"item:slug:amalgamizing-leap": "item:slug:rank8-morph-generic"
+}

@@ -1,0 +1,28 @@
+{
+	"item:slug:rank4-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:it-is-written": "item:slug:rank4-detection-generic",
+	"item:slug:detect-scrying": "item:slug:rank4-detection-generic",
+	"item:slug:web-of-influence": "item:slug:rank4-detection-generic",
+	"item:slug:glimpse-the-truth": "item:slug:rank4-detection-generic",
+	"item:slug:pulse-of-civilization": "item:slug:rank4-detection-generic",
+	"item:slug:detect-creator": "item:slug:rank4-detection-generic",
+	"item:slug:read-omens": "item:slug:rank4-detection-generic",
+	"item:slug:elemental-sense": "item:slug:rank4-detection-generic",
+	"item:slug:clairvoyance": "item:slug:rank4-detection-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:cantrip-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:figment": "item:slug:cantrip-illusion-generic",
+	"item:slug:bullhorn": "item:slug:cantrip-illusion-generic",
+	"item:slug:ghost-sound": "item:slug:cantrip-illusion-generic",
+	"item:slug:hologram-cage": "item:slug:cantrip-illusion-generic",
+	"item:slug:message": "item:slug:cantrip-illusion-generic",
+	"item:slug:haunting-hymn": "item:slug:cantrip-illusion-generic"
+}

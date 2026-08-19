@@ -1,0 +1,53 @@
+{
+	"item:slug:oracle-revelation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light_orb.complete.white"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:whispers-of-weakness": "item:slug:oracle-revelation-generic",
+	"item:slug:chaotic-spell": "item:slug:oracle-revelation-generic",
+	"item:slug:roll-the-bones-of-fate": "item:slug:oracle-revelation-generic",
+	"item:slug:on-borrowed-time": "item:slug:oracle-revelation-generic",
+	"item:slug:consecrate-spell": "item:slug:oracle-revelation-generic",
+	"item:slug:detonating-spell": "item:slug:oracle-revelation-generic",
+	"item:slug:trance-of-celerity": "item:slug:oracle-revelation-generic",
+	"item:slug:waters-of-creation": "item:slug:oracle-revelation-generic",
+	"item:slug:glean-lore": "item:slug:oracle-revelation-generic",
+	"item:slug:forestall-curse": "item:slug:oracle-revelation-generic",
+	"item:slug:surging-might": "item:slug:oracle-revelation-generic",
+	"item:slug:nudge-the-scales": "item:slug:oracle-revelation-generic",
+	"item:slug:purifying-breeze": "item:slug:oracle-revelation-generic",
+	"item:slug:trial-by-skyfire": "item:slug:oracle-revelation-generic",
+	"item:slug:portentous-spell": "item:slug:oracle-revelation-generic",
+	"feat:slug:whispers-of-weakness": "item:slug:oracle-revelation-generic",
+	"feat:slug:chaotic-spell": "item:slug:oracle-revelation-generic",
+	"feat:slug:roll-the-bones-of-fate": "item:slug:oracle-revelation-generic",
+	"feat:slug:on-borrowed-time": "item:slug:oracle-revelation-generic",
+	"feat:slug:consecrate-spell": "item:slug:oracle-revelation-generic",
+	"feat:slug:detonating-spell": "item:slug:oracle-revelation-generic",
+	"feat:slug:trance-of-celerity": "item:slug:oracle-revelation-generic",
+	"feat:slug:waters-of-creation": "item:slug:oracle-revelation-generic",
+	"feat:slug:glean-lore": "item:slug:oracle-revelation-generic",
+	"feat:slug:forestall-curse": "item:slug:oracle-revelation-generic",
+	"feat:slug:surging-might": "item:slug:oracle-revelation-generic",
+	"feat:slug:nudge-the-scales": "item:slug:oracle-revelation-generic",
+	"feat:slug:purifying-breeze": "item:slug:oracle-revelation-generic",
+	"feat:slug:trial-by-skyfire": "item:slug:oracle-revelation-generic",
+	"feat:slug:portentous-spell": "item:slug:oracle-revelation-generic"
+}

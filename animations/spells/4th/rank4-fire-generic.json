@@ -1,0 +1,25 @@
+{
+	"item:slug:rank4-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:ymeris-mark": "item:slug:rank4-fire-generic",
+	"item:slug:wall-of-fire": "item:slug:rank4-fire-generic",
+	"item:slug:fire-shield": "item:slug:rank4-fire-generic",
+	"item:slug:cinder-swarm": "item:slug:rank4-fire-generic",
+	"item:slug:phoenix-ward": "item:slug:rank4-fire-generic",
+	"item:slug:hot-air": "item:slug:rank4-fire-generic"
+}

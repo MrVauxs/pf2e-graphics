@@ -1,0 +1,51 @@
+{
+	"item:slug:rank6-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:ash-form": "item:slug:rank6-utility-generic",
+	"item:slug:binding-circle": "item:slug:rank6-utility-generic",
+	"item:slug:the-unseeing-blade-master": "item:slug:rank6-utility-generic",
+	"item:slug:shroud-of-the-provinces": "item:slug:rank6-utility-generic",
+	"item:slug:scintillating-safeguard": "item:slug:rank6-utility-generic",
+	"item:slug:word-of-revision": "item:slug:rank6-utility-generic",
+	"item:slug:ward-domain": "item:slug:rank6-utility-generic",
+	"item:slug:catch-your-name": "item:slug:rank6-utility-generic",
+	"item:slug:claim-undead": "item:slug:rank6-utility-generic",
+	"item:slug:song-of-silver": "item:slug:rank6-utility-generic",
+	"item:slug:pain-of-ages": "item:slug:rank6-utility-generic",
+	"item:slug:create-skinstitch": "item:slug:rank6-utility-generic",
+	"item:slug:asmodean-wager": "item:slug:rank6-utility-generic",
+	"item:slug:cast-into-time": "item:slug:rank6-utility-generic",
+	"item:slug:zero-gravity": "item:slug:rank6-utility-generic",
+	"item:slug:spirit-blast": "item:slug:rank6-utility-generic",
+	"item:slug:champions-sacrifice": "item:slug:rank6-utility-generic",
+	"item:slug:entreat-the-many": "item:slug:rank6-utility-generic",
+	"item:slug:spellsurge": "item:slug:rank6-utility-generic",
+	"item:slug:shambling-horror": "item:slug:rank6-utility-generic",
+	"item:slug:awaken-entropy": "item:slug:rank6-utility-generic",
+	"item:slug:expunge-blood": "item:slug:rank6-utility-generic",
+	"item:slug:lure-dream": "item:slug:rank6-utility-generic",
+	"item:slug:temporal-ward": "item:slug:rank6-utility-generic",
+	"item:slug:kaiju-ward": "item:slug:rank6-utility-generic",
+	"item:slug:primal-call": "item:slug:rank6-utility-generic",
+	"item:slug:suffocate": "item:slug:rank6-utility-generic",
+	"item:slug:disintegrate": "item:slug:rank6-utility-generic",
+	"item:slug:poltergeists-fury": "item:slug:rank6-utility-generic",
+	"item:slug:siege-weapons-blessing": "item:slug:rank6-utility-generic",
+	"item:slug:ancestral-form": "item:slug:rank6-utility-generic",
+	"item:slug:terminate-bloodline": "item:slug:rank6-utility-generic"
+}

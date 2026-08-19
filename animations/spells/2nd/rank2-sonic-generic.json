@@ -1,0 +1,24 @@
+{
+	"item:slug:rank2-sonic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:shatter": "item:slug:rank2-sonic-generic",
+	"item:slug:metal-reverberation": "item:slug:rank2-sonic-generic",
+	"item:slug:sonata-span": "item:slug:rank2-sonic-generic",
+	"item:slug:disorienting-flash": "item:slug:rank2-sonic-generic",
+	"item:slug:noise-blast": "item:slug:rank2-sonic-generic"
+}

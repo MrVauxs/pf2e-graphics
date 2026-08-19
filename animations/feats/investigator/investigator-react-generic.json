@@ -1,0 +1,28 @@
+{
+	"feat:slug:investigator-react-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.abjuration.loop.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:exploit-blunder": "feat:slug:investigator-react-generic",
+	"feat:slug:foresee-danger": "feat:slug:investigator-react-generic",
+	"feat:slug:suspect-of-opportunity": "feat:slug:investigator-react-generic",
+	"feat:slug:tricksters-ace": "feat:slug:investigator-react-generic"
+}

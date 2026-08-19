@@ -1,0 +1,43 @@
+{
+	"item:slug:monk-bigswing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.010.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:overwhelming-breath": "item:slug:monk-bigswing-generic",
+	"item:slug:whirling-in-the-summer-storm": "item:slug:monk-bigswing-generic",
+	"item:slug:ironblood-surge": "item:slug:monk-bigswing-generic",
+	"item:slug:wave-spiral": "item:slug:monk-bigswing-generic",
+	"item:slug:shattering-strike-monk": "item:slug:monk-bigswing-generic",
+	"item:slug:wild-winds-gust": "item:slug:monk-bigswing-generic",
+	"item:slug:blazing-talon-surge": "item:slug:monk-bigswing-generic",
+	"item:slug:snakebirds-shadow": "item:slug:monk-bigswing-generic",
+	"item:slug:cobra-envenom": "item:slug:monk-bigswing-generic",
+	"item:slug:disrupt-qi": "item:slug:monk-bigswing-generic",
+	"feat:slug:overwhelming-breath": "item:slug:monk-bigswing-generic",
+	"feat:slug:whirling-in-the-summer-storm": "item:slug:monk-bigswing-generic",
+	"feat:slug:ironblood-surge": "item:slug:monk-bigswing-generic",
+	"feat:slug:wave-spiral": "item:slug:monk-bigswing-generic",
+	"feat:slug:shattering-strike-monk": "item:slug:monk-bigswing-generic",
+	"feat:slug:wild-winds-gust": "item:slug:monk-bigswing-generic",
+	"feat:slug:blazing-talon-surge": "item:slug:monk-bigswing-generic",
+	"feat:slug:snakebirds-shadow": "item:slug:monk-bigswing-generic",
+	"feat:slug:cobra-envenom": "item:slug:monk-bigswing-generic",
+	"feat:slug:disrupt-qi": "item:slug:monk-bigswing-generic"
+}

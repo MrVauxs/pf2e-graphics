@@ -1,0 +1,32 @@
+{
+	"item:slug:champion-blink-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.gust_of_wind.default"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:defensive-advance": "item:slug:champion-blink-generic",
+	"item:slug:faithful-stride": "item:slug:champion-blink-generic",
+	"item:slug:steeds-toppling-strike": "item:slug:champion-blink-generic",
+	"item:slug:zealous-rush": "item:slug:champion-blink-generic",
+	"spell:slug:spectral-advance": "item:slug:champion-blink-generic",
+	"feat:slug:defensive-advance": "item:slug:champion-blink-generic",
+	"feat:slug:faithful-stride": "item:slug:champion-blink-generic",
+	"feat:slug:steeds-toppling-strike": "item:slug:champion-blink-generic",
+	"feat:slug:zealous-rush": "item:slug:champion-blink-generic"
+}

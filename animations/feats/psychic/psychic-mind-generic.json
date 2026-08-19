@@ -1,0 +1,28 @@
+{
+	"feat:slug:psychic-mind-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.enchantment.loop.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:psi-strikes": "feat:slug:psychic-mind-generic",
+	"feat:slug:strain-mind": "feat:slug:psychic-mind-generic",
+	"feat:slug:wandering-thoughts": "feat:slug:psychic-mind-generic",
+	"feat:slug:dark-personas-presence": "feat:slug:psychic-mind-generic"
+}

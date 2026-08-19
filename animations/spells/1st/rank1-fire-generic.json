@@ -1,0 +1,34 @@
+{
+	"item:slug:rank1-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:funeral-flames": "item:slug:rank1-fire-generic",
+	"item:slug:scorching-blast": "item:slug:rank1-fire-generic",
+	"item:slug:incendiary-aura": "item:slug:rank1-fire-generic",
+	"item:slug:forge": "item:slug:rank1-fire-generic",
+	"item:slug:cinder-scribe": "item:slug:rank1-fire-generic",
+	"item:slug:pyroclastic-truth": "item:slug:rank1-fire-generic",
+	"item:slug:earths-bile": "item:slug:rank1-fire-generic",
+	"item:slug:moonbeam": "item:slug:rank1-fire-generic",
+	"item:slug:signal-skyrocket": "item:slug:rank1-fire-generic",
+	"item:slug:dehydrate": "item:slug:rank1-fire-generic",
+	"item:slug:wildfire": "item:slug:rank1-fire-generic",
+	"item:slug:rejuvenating-flames": "item:slug:rank1-fire-generic",
+	"item:slug:spray-of-stars": "item:slug:rank1-fire-generic",
+	"item:slug:fire-ray": "item:slug:rank1-fire-generic",
+	"item:slug:breathe-fire": "item:slug:rank1-fire-generic"
+}

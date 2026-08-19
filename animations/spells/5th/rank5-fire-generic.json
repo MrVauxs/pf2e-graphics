@@ -1,0 +1,35 @@
+{
+	"item:slug:rank5-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hellfire-plume": "item:slug:rank5-fire-generic",
+	"item:slug:divine-immolation": "item:slug:rank5-fire-generic",
+	"item:slug:flame-strike": "item:slug:rank5-fire-generic",
+	"item:slug:incendiary-fog": "item:slug:rank5-fire-generic",
+	"item:slug:blazing-fissure": "item:slug:rank5-fire-generic",
+	"item:slug:ember-doppelganger": "item:slug:rank5-fire-generic",
+	"item:slug:flames-of-ego": "item:slug:rank5-fire-generic",
+	"item:slug:unblinking-flame-aura": "item:slug:rank5-fire-generic",
+	"item:slug:crucible-of-iron": "item:slug:rank5-fire-generic",
+	"item:slug:geyser": "item:slug:rank5-fire-generic",
+	"item:slug:mantle-of-the-magma-heart": "item:slug:rank5-fire-generic",
+	"item:slug:plasma-whirl": "item:slug:rank5-fire-generic",
+	"item:slug:fires-pathway": "item:slug:rank5-fire-generic",
+	"item:slug:flame-dancer": "item:slug:rank5-fire-generic",
+	"item:slug:cleansing-flames": "item:slug:rank5-fire-generic",
+	"item:slug:instant-minefield": "item:slug:rank5-fire-generic"
+}

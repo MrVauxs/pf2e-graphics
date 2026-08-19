@@ -1,0 +1,24 @@
+{
+	"feat:slug:cleric-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.divine_smite.caster.reversed.yellowwhite"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "directed",
+					"endpoint": "TARGETS"
+				}
+			}
+		}
+	],
+	"feat:slug:holy-light": "feat:slug:cleric-light-generic"
+}

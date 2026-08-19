@@ -1,0 +1,24 @@
+{
+	"item:slug:rank7-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:interplanar-teleport": "item:slug:rank7-exploration-generic",
+	"item:slug:contingency": "item:slug:rank7-exploration-generic",
+	"item:slug:energy-aegis": "item:slug:rank7-exploration-generic",
+	"item:slug:retrocognition": "item:slug:rank7-exploration-generic",
+	"item:slug:planar-palace": "item:slug:rank7-exploration-generic"
+}

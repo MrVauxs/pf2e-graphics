@@ -1,0 +1,29 @@
+{
+	"feat:slug:summoner-eidolon-strike-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.002.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:constricting-hold": "feat:slug:summoner-eidolon-strike-generic",
+	"feat:slug:merciless-rend": "feat:slug:summoner-eidolon-strike-generic",
+	"feat:slug:piercing-jab": "feat:slug:summoner-eidolon-strike-generic",
+	"feat:slug:tandem-strike": "feat:slug:summoner-eidolon-strike-generic",
+	"feat:slug:magical-onslaught": "feat:slug:summoner-eidolon-strike-generic"
+}

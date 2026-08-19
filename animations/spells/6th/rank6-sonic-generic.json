@@ -1,0 +1,23 @@
+{
+	"item:slug:rank6-sonic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:phantom-orchestra": "item:slug:rank6-sonic-generic",
+	"item:slug:shadow-illusion": "item:slug:rank6-sonic-generic",
+	"item:slug:boots-on-the-ground": "item:slug:rank6-sonic-generic",
+	"item:slug:utter-destruction": "item:slug:rank6-sonic-generic"
+}

@@ -1,0 +1,41 @@
+{
+	"item:slug:skill-athletics-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:mounting-leap": "item:slug:skill-athletics-generic",
+	"item:slug:dead-reckoning": "item:slug:skill-athletics-generic",
+	"item:slug:fanes-escape": "item:slug:skill-athletics-generic",
+	"item:slug:juggle": "item:slug:skill-athletics-generic",
+	"item:slug:quick-mount": "item:slug:skill-athletics-generic",
+	"item:slug:power-slide": "item:slug:skill-athletics-generic",
+	"item:slug:cushion-landing": "item:slug:skill-athletics-generic",
+	"item:slug:malleable-movement": "item:slug:skill-athletics-generic",
+	"item:slug:kip-up": "item:slug:skill-athletics-generic",
+	"item:slug:dashing-pickup": "item:slug:skill-athletics-generic",
+	"item:slug:improvise-strategy": "item:slug:skill-athletics-generic",
+	"feat:slug:mounting-leap": "item:slug:skill-athletics-generic",
+	"feat:slug:dead-reckoning": "item:slug:skill-athletics-generic",
+	"feat:slug:fanes-escape": "item:slug:skill-athletics-generic",
+	"feat:slug:juggle": "item:slug:skill-athletics-generic",
+	"feat:slug:quick-mount": "item:slug:skill-athletics-generic",
+	"feat:slug:power-slide": "item:slug:skill-athletics-generic",
+	"feat:slug:cushion-landing": "item:slug:skill-athletics-generic",
+	"feat:slug:malleable-movement": "item:slug:skill-athletics-generic",
+	"feat:slug:kip-up": "item:slug:skill-athletics-generic",
+	"feat:slug:dashing-pickup": "item:slug:skill-athletics-generic",
+	"feat:slug:improvise-strategy": "item:slug:skill-athletics-generic"
+}

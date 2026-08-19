@@ -1,0 +1,32 @@
+{
+	"feat:slug:druid-spellshape-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.transmutation.loop.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:bizarre-transformation": "feat:slug:druid-spellshape-generic",
+	"feat:slug:cryptic-spell": "feat:slug:druid-spellshape-generic",
+	"feat:slug:form-control": "feat:slug:druid-spellshape-generic",
+	"feat:slug:ley-line-conduit": "feat:slug:druid-spellshape-generic",
+	"feat:slug:overwhelming-energy": "feat:slug:druid-spellshape-generic",
+	"feat:slug:sow-spell": "feat:slug:druid-spellshape-generic",
+	"feat:slug:widen-spell": "feat:slug:druid-spellshape-generic",
+	"feat:slug:effortless-concentration": "feat:slug:druid-spellshape-generic"
+}

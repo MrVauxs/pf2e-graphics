@@ -1,0 +1,31 @@
+{
+	"item:slug:rank1-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:reed-whistle": "item:slug:rank1-plant-generic",
+	"item:slug:nettleskin": "item:slug:rank1-plant-generic",
+	"item:slug:verdant-sprout": "item:slug:rank1-plant-generic",
+	"item:slug:wooden-fists": "item:slug:rank1-plant-generic",
+	"item:slug:protector-tree": "item:slug:rank1-plant-generic",
+	"item:slug:wall-of-shrubs": "item:slug:rank1-plant-generic",
+	"item:slug:arms-of-nature": "item:slug:rank1-plant-generic",
+	"item:slug:flourishing-flora": "item:slug:rank1-plant-generic",
+	"item:slug:grasping-vine": "item:slug:rank1-plant-generic",
+	"item:slug:weave-wood": "item:slug:rank1-plant-generic",
+	"item:slug:vibrant-thorns": "item:slug:rank1-plant-generic",
+	"item:slug:shillelagh": "item:slug:rank1-plant-generic"
+}

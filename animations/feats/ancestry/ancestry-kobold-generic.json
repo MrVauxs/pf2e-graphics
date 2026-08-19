@@ -1,0 +1,39 @@
+{
+	"item:slug:ancestry-kobold-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:tumbling-diversion": "item:slug:ancestry-kobold-generic",
+	"item:slug:kobold-breath": "item:slug:ancestry-kobold-generic",
+	"item:slug:cringe": "item:slug:ancestry-kobold-generic",
+	"item:slug:grovel": "item:slug:ancestry-kobold-generic",
+	"item:slug:allys-shelter": "item:slug:ancestry-kobold-generic",
+	"item:slug:winglet-flight": "item:slug:ancestry-kobold-generic",
+	"item:slug:snare-commando": "item:slug:ancestry-kobold-generic",
+	"item:slug:fleeing-shriek": "item:slug:ancestry-kobold-generic",
+	"item:slug:benefactors-majesty": "item:slug:ancestry-kobold-generic",
+	"item:slug:scamper": "item:slug:ancestry-kobold-generic",
+	"feat:slug:tumbling-diversion": "item:slug:ancestry-kobold-generic",
+	"feat:slug:kobold-breath": "item:slug:ancestry-kobold-generic",
+	"feat:slug:cringe": "item:slug:ancestry-kobold-generic",
+	"feat:slug:grovel": "item:slug:ancestry-kobold-generic",
+	"feat:slug:allys-shelter": "item:slug:ancestry-kobold-generic",
+	"feat:slug:winglet-flight": "item:slug:ancestry-kobold-generic",
+	"feat:slug:snare-commando": "item:slug:ancestry-kobold-generic",
+	"feat:slug:fleeing-shriek": "item:slug:ancestry-kobold-generic",
+	"feat:slug:benefactors-majesty": "item:slug:ancestry-kobold-generic",
+	"feat:slug:scamper": "item:slug:ancestry-kobold-generic"
+}

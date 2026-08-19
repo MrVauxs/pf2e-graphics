@@ -1,0 +1,24 @@
+{
+	"item:slug:champion-smite-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.divine_smite.caster.standard.yellowwhite"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:sun-blade": "item:slug:champion-smite-generic",
+	"item:slug:smite": "item:slug:champion-smite-generic",
+	"item:slug:blessed-counterstrike": "item:slug:champion-smite-generic",
+	"item:slug:gruesome-strike": "item:slug:champion-smite-generic",
+	"item:slug:sanctify-armament": "item:slug:champion-smite-generic"
+}

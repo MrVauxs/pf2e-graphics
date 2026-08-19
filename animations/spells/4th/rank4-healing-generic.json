@@ -1,0 +1,33 @@
+{
+	"item:slug:rank4-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:lifes-fresh-bloom": "item:slug:rank4-healing-generic",
+	"item:slug:rebuke-death": "item:slug:rank4-healing-generic",
+	"item:slug:community-restoration": "item:slug:rank4-healing-generic",
+	"item:slug:transmigrate": "item:slug:rank4-healing-generic",
+	"item:slug:vital-luminance": "item:slug:rank4-healing-generic",
+	"item:slug:eradicate-undeath": "item:slug:rank4-healing-generic",
+	"item:slug:plant-growth": "item:slug:rank4-healing-generic",
+	"item:slug:cloak-of-light": "item:slug:rank4-healing-generic",
+	"item:slug:soothing-spring": "item:slug:rank4-healing-generic",
+	"item:slug:tireless-worker": "item:slug:rank4-healing-generic",
+	"item:slug:vital-beacon": "item:slug:rank4-healing-generic",
+	"item:slug:spiritual-renewal": "item:slug:rank4-healing-generic",
+	"item:slug:natures-bounty": "item:slug:rank4-healing-generic",
+	"item:slug:life-siphon": "item:slug:rank4-healing-generic"
+}

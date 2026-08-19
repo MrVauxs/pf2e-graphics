@@ -1,0 +1,31 @@
+{
+	"item:slug:ancestry-awakened-animal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:fierce-grasp": "item:slug:ancestry-awakened-animal-generic",
+	"item:slug:scurry": "item:slug:ancestry-awakened-animal-generic",
+	"item:slug:take-flight": "item:slug:ancestry-awakened-animal-generic",
+	"item:slug:sharpened-senses": "item:slug:ancestry-awakened-animal-generic",
+	"item:slug:wild-stride": "item:slug:ancestry-awakened-animal-generic",
+	"item:slug:true-senses": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:fierce-grasp": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:scurry": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:take-flight": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:sharpened-senses": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:wild-stride": "item:slug:ancestry-awakened-animal-generic",
+	"feat:slug:true-senses": "item:slug:ancestry-awakened-animal-generic"
+}

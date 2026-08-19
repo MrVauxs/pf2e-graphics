@@ -1,0 +1,31 @@
+{
+	"item:slug:ancestry-kashrishi-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:kashrishi-revivification": "item:slug:ancestry-kashrishi-generic",
+	"item:slug:telekinetic-slip": "item:slug:ancestry-kashrishi-generic",
+	"item:slug:well-of-potential": "item:slug:ancestry-kashrishi-generic",
+	"item:slug:crystal-luminescence": "item:slug:ancestry-kashrishi-generic",
+	"item:slug:community-knowledge": "item:slug:ancestry-kashrishi-generic",
+	"item:slug:cleansing-light": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:kashrishi-revivification": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:telekinetic-slip": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:well-of-potential": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:crystal-luminescence": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:community-knowledge": "item:slug:ancestry-kashrishi-generic",
+	"feat:slug:cleansing-light": "item:slug:ancestry-kashrishi-generic"
+}

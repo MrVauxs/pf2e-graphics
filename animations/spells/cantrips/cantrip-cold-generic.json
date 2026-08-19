@@ -1,0 +1,25 @@
+{
+	"item:slug:cantrip-cold-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.frost.blue.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:frostbite": "item:slug:cantrip-cold-generic",
+	"item:slug:clinging-ice": "item:slug:cantrip-cold-generic",
+	"item:slug:frosts-touch": "item:slug:cantrip-cold-generic",
+	"item:slug:ray-of-frost": "item:slug:cantrip-cold-generic",
+	"item:slug:entropic-wheel": "item:slug:cantrip-cold-generic",
+	"item:slug:redistribute-potential": "item:slug:cantrip-cold-generic"
+}

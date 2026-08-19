@@ -1,0 +1,26 @@
+{
+	"item:slug:rank4-poison-disease-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:foul-miasma": "item:slug:rank4-poison-disease-generic",
+	"item:slug:blood-chestnuts": "item:slug:rank4-poison-disease-generic",
+	"item:slug:swarming-wasp-stings": "item:slug:rank4-poison-disease-generic",
+	"item:slug:internal-insurrection": "item:slug:rank4-poison-disease-generic",
+	"item:slug:stifling-stillness": "item:slug:rank4-poison-disease-generic",
+	"item:slug:mercurial-stride": "item:slug:rank4-poison-disease-generic",
+	"item:slug:garden-of-death": "item:slug:rank4-poison-disease-generic"
+}

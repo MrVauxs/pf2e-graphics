@@ -1,0 +1,27 @@
+{
+	"item:slug:cleric-harm-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.010.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:harm": "item:slug:cleric-harm-generic",
+	"item:slug:channel-smite": "item:slug:cleric-harm-generic",
+	"item:slug:command-undead": "item:slug:cleric-harm-generic",
+	"item:slug:restorative-strike": "item:slug:cleric-harm-generic"
+}

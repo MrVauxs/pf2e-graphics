@@ -1,0 +1,27 @@
+{
+	"item:slug:rogue-feint-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:twin-feint": "item:slug:rogue-feint-generic",
+	"item:slug:instant-opening": "item:slug:rogue-feint-generic",
+	"item:slug:analyze-weakness": "item:slug:rogue-feint-generic",
+	"item:slug:twist-the-knife": "item:slug:rogue-feint-generic",
+	"feat:slug:twin-feint": "item:slug:rogue-feint-generic",
+	"feat:slug:instant-opening": "item:slug:rogue-feint-generic",
+	"feat:slug:analyze-weakness": "item:slug:rogue-feint-generic",
+	"feat:slug:twist-the-knife": "item:slug:rogue-feint-generic"
+}

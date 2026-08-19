@@ -1,0 +1,27 @@
+{
+	"item:slug:skill-medicine-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:emergency-medical-assistance": "item:slug:skill-medicine-generic",
+	"item:slug:chromotherapy": "item:slug:skill-medicine-generic",
+	"item:slug:treat-condition": "item:slug:skill-medicine-generic",
+	"item:slug:battle-medicine": "item:slug:skill-medicine-generic",
+	"feat:slug:emergency-medical-assistance": "item:slug:skill-medicine-generic",
+	"feat:slug:chromotherapy": "item:slug:skill-medicine-generic",
+	"feat:slug:treat-condition": "item:slug:skill-medicine-generic",
+	"feat:slug:battle-medicine": "item:slug:skill-medicine-generic"
+}

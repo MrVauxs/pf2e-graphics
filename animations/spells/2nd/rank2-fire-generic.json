@@ -1,0 +1,37 @@
+{
+	"item:slug:rank2-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:ash-cloud": "item:slug:rank2-fire-generic",
+	"item:slug:floating-flame": "item:slug:rank2-fire-generic",
+	"item:slug:ignite-fireworks": "item:slug:rank2-fire-generic",
+	"item:slug:flame-wisp": "item:slug:rank2-fire-generic",
+	"item:slug:explosive-dust": "item:slug:rank2-fire-generic",
+	"item:slug:rite-of-cleansing-flame": "item:slug:rank2-fire-generic",
+	"item:slug:blazing-blade": "item:slug:rank2-fire-generic",
+	"item:slug:fireproof": "item:slug:rank2-fire-generic",
+	"item:slug:sticky-fire": "item:slug:rank2-fire-generic",
+	"item:slug:breath-of-drought": "item:slug:rank2-fire-generic",
+	"item:slug:blazing-bolt": "item:slug:rank2-fire-generic",
+	"item:slug:thermal-remedy": "item:slug:rank2-fire-generic",
+	"item:slug:cauterize-wounds": "item:slug:rank2-fire-generic",
+	"item:slug:falsify-heat": "item:slug:rank2-fire-generic",
+	"item:slug:heat-metal": "item:slug:rank2-fire-generic",
+	"item:slug:final-sacrifice": "item:slug:rank2-fire-generic",
+	"item:slug:pyrefowl-rebuke": "item:slug:rank2-fire-generic",
+	"item:slug:blazing-armory": "item:slug:rank2-fire-generic"
+}

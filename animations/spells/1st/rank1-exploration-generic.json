@@ -1,0 +1,28 @@
+{
+	"item:slug:rank1-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:alarm": "item:slug:rank1-exploration-generic",
+	"item:slug:know-location": "item:slug:rank1-exploration-generic",
+	"item:slug:breadcrumbs": "item:slug:rank1-exploration-generic",
+	"item:slug:temporary-tool": "item:slug:rank1-exploration-generic",
+	"item:slug:restyle": "item:slug:rank1-exploration-generic",
+	"item:slug:mending": "item:slug:rank1-exploration-generic",
+	"item:slug:cinder-gaze": "item:slug:rank1-exploration-generic",
+	"item:slug:fishing-spot": "item:slug:rank1-exploration-generic",
+	"item:slug:foraging-friends": "item:slug:rank1-exploration-generic"
+}

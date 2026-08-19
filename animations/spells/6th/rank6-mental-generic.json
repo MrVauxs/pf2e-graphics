@@ -1,0 +1,34 @@
+{
+	"item:slug:rank6-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.02.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:heroic-feat": "item:slug:rank6-mental-generic",
+	"item:slug:awaken-object": "item:slug:rank6-mental-generic",
+	"item:slug:awaken-animal": "item:slug:rank6-mental-generic",
+	"item:slug:revel-in-retribution": "item:slug:rank6-mental-generic",
+	"item:slug:zealous-conviction": "item:slug:rank6-mental-generic",
+	"item:slug:ideal-mimicry": "item:slug:rank6-mental-generic",
+	"item:slug:manifold-lives": "item:slug:rank6-mental-generic",
+	"item:slug:dominate": "item:slug:rank6-mental-generic",
+	"item:slug:fateful-condemnation": "item:slug:rank6-mental-generic",
+	"item:slug:halcyon-infusion": "item:slug:rank6-mental-generic",
+	"item:slug:dread-secret": "item:slug:rank6-mental-generic",
+	"item:slug:uncouple-memory": "item:slug:rank6-mental-generic",
+	"item:slug:missed-cue": "item:slug:rank6-mental-generic",
+	"item:slug:bacchanalia": "item:slug:rank6-mental-generic",
+	"item:slug:repulsion": "item:slug:rank6-mental-generic"
+}

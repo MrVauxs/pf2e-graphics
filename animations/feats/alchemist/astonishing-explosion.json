@@ -1,0 +1,24 @@
+{
+	"item:slug:astonishing-explosion": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.swirling_sparkles.01.orangepurple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.6
+				}
+			}
+		}
+	],
+	"feat:slug:astonishing-explosion": "item:slug:astonishing-explosion"
+}

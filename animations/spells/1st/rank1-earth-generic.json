@@ -1,0 +1,31 @@
+{
+	"item:slug:rank1-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.earth.01.browngreen.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:shattering-gem": "item:slug:rank1-earth-generic",
+	"item:slug:crushing-ground": "item:slug:rank1-earth-generic",
+	"item:slug:instant-pottery": "item:slug:rank1-earth-generic",
+	"item:slug:scouring-sand": "item:slug:rank1-earth-generic",
+	"item:slug:interposing-earth": "item:slug:rank1-earth-generic",
+	"item:slug:pummeling-rubble": "item:slug:rank1-earth-generic",
+	"item:slug:shockwave": "item:slug:rank1-earth-generic",
+	"item:slug:weaken-earth": "item:slug:rank1-earth-generic",
+	"item:slug:earthworks": "item:slug:rank1-earth-generic",
+	"item:slug:swampcall": "item:slug:rank1-earth-generic",
+	"item:slug:hurtling-stone": "item:slug:rank1-earth-generic",
+	"item:slug:mud-pit": "item:slug:rank1-earth-generic"
+}

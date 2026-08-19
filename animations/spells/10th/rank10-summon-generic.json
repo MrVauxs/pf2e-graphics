@@ -1,0 +1,24 @@
+{
+	"item:slug:rank10-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.conjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:jassims-allegiance": "item:slug:rank10-summon-generic",
+	"item:slug:incarnate-kaiju": "item:slug:rank10-summon-generic",
+	"item:slug:summon-oliphaunt-of-jandelay": "item:slug:rank10-summon-generic",
+	"item:slug:conquering-soldiers": "item:slug:rank10-summon-generic",
+	"item:slug:garden-of-the-green-mans-growth": "item:slug:rank10-summon-generic"
+}

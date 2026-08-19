@@ -1,0 +1,25 @@
+{
+	"item:slug:rank5-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:elemental-form": "item:slug:rank5-morph-generic",
+	"item:slug:aberrant-form": "item:slug:rank5-morph-generic",
+	"item:slug:dragon-wings": "item:slug:rank5-morph-generic",
+	"item:slug:moon-frenzy": "item:slug:rank5-morph-generic",
+	"item:slug:unusual-anatomy": "item:slug:rank5-morph-generic",
+	"item:slug:spiked-carapace": "item:slug:rank5-morph-generic"
+}

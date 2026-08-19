@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-kholo-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:left-hand-blood": "item:slug:ancestry-kholo-generic",
+	"item:slug:ask-the-bones": "item:slug:ancestry-kholo-generic",
+	"item:slug:absorb-strength": "item:slug:ancestry-kholo-generic",
+	"item:slug:rabid-sprint": "item:slug:ancestry-kholo-generic",
+	"feat:slug:left-hand-blood": "item:slug:ancestry-kholo-generic",
+	"feat:slug:ask-the-bones": "item:slug:ancestry-kholo-generic",
+	"feat:slug:absorb-strength": "item:slug:ancestry-kholo-generic",
+	"feat:slug:rabid-sprint": "item:slug:ancestry-kholo-generic"
+}

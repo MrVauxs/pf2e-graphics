@@ -1,0 +1,46 @@
+{
+	"item:slug:psychic-amp-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.010.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:psi-burst": "item:slug:psychic-amp-generic",
+	"item:slug:psi-catastrophe": "item:slug:psychic-amp-generic",
+	"item:slug:brain-drain": "item:slug:psychic-amp-generic",
+	"item:slug:violent-unleash": "item:slug:psychic-amp-generic",
+	"item:slug:dream-guise": "item:slug:psychic-amp-generic",
+	"item:slug:scour-the-library": "item:slug:psychic-amp-generic",
+	"item:slug:emotional-surge": "item:slug:psychic-amp-generic",
+	"item:slug:astral-tether": "item:slug:psychic-amp-generic",
+	"item:slug:impose-order-psychic": "item:slug:psychic-amp-generic",
+	"item:slug:unlimited-potential": "item:slug:psychic-amp-generic",
+	"item:slug:cranial-detonation": "item:slug:psychic-amp-generic",
+	"feat:slug:psi-burst": "item:slug:psychic-amp-generic",
+	"feat:slug:psi-catastrophe": "item:slug:psychic-amp-generic",
+	"feat:slug:brain-drain": "item:slug:psychic-amp-generic",
+	"spell:slug:brain-drain": "item:slug:psychic-amp-generic",
+	"feat:slug:violent-unleash": "item:slug:psychic-amp-generic",
+	"feat:slug:dream-guise": "item:slug:psychic-amp-generic",
+	"feat:slug:scour-the-library": "item:slug:psychic-amp-generic",
+	"feat:slug:emotional-surge": "item:slug:psychic-amp-generic",
+	"feat:slug:astral-tether": "item:slug:psychic-amp-generic",
+	"feat:slug:impose-order-psychic": "item:slug:psychic-amp-generic",
+	"feat:slug:unlimited-potential": "item:slug:psychic-amp-generic",
+	"feat:slug:cranial-detonation": "item:slug:psychic-amp-generic"
+}

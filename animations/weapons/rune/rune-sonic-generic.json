@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-sonic-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:thundering-greater": "item:rune:property:rune-sonic-generic",
+	"item:rune:property:thundering": "item:rune:property:rune-sonic-generic"
+}

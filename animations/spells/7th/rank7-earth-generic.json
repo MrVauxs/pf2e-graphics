@@ -1,0 +1,24 @@
+{
+	"item:slug:rank7-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.boulder.toss.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:untwisting-iron-augmentation": "item:slug:rank7-earth-generic",
+	"item:slug:restore-ground": "item:slug:rank7-earth-generic",
+	"item:slug:control-sand": "item:slug:rank7-earth-generic",
+	"item:slug:sprawling-tunnels": "item:slug:rank7-earth-generic",
+	"item:slug:heaving-earth": "item:slug:rank7-earth-generic"
+}

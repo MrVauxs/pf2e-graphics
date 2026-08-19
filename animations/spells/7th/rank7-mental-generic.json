@@ -1,0 +1,26 @@
+{
+	"item:slug:rank7-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.02.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:warp-mind": "item:slug:rank7-mental-generic",
+	"item:slug:city-of-sin": "item:slug:rank7-mental-generic",
+	"item:slug:inexhaustible-cynicism": "item:slug:rank7-mental-generic",
+	"item:slug:recall-legacy": "item:slug:rank7-mental-generic",
+	"item:slug:orb-of-twisting-fate": "item:slug:rank7-mental-generic",
+	"item:slug:possession": "item:slug:rank7-mental-generic",
+	"item:slug:indolent-haze": "item:slug:rank7-mental-generic"
+}

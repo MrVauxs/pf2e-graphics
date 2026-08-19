@@ -1,0 +1,37 @@
+{
+	"item:slug:ancestry-minotaur-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:stretching-reach": "item:slug:ancestry-minotaur-generic",
+	"item:slug:friendly-nudge": "item:slug:ancestry-minotaur-generic",
+	"item:slug:stone-passage": "item:slug:ancestry-minotaur-generic",
+	"item:slug:shift-the-little-ones": "item:slug:ancestry-minotaur-generic",
+	"item:slug:threatening-pursuit": "item:slug:ancestry-minotaur-generic",
+	"item:slug:phantom-charm": "item:slug:ancestry-minotaur-generic",
+	"item:slug:friendly-fling": "item:slug:ancestry-minotaur-generic",
+	"item:slug:begin-stampede": "item:slug:ancestry-minotaur-generic",
+	"item:slug:goring-charge": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:stretching-reach": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:friendly-nudge": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:stone-passage": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:shift-the-little-ones": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:threatening-pursuit": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:phantom-charm": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:friendly-fling": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:begin-stampede": "item:slug:ancestry-minotaur-generic",
+	"feat:slug:goring-charge": "item:slug:ancestry-minotaur-generic"
+}

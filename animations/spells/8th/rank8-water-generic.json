@@ -1,0 +1,21 @@
+{
+	"item:slug:rank8-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:whirlpool": "item:slug:rank8-water-generic",
+	"item:slug:deluge": "item:slug:rank8-water-generic"
+}

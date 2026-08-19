@@ -1,0 +1,27 @@
+{
+	"item:slug:rank3-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:time-pocket": "item:slug:rank3-exploration-generic",
+	"item:slug:veil-of-privacy": "item:slug:rank3-exploration-generic",
+	"item:slug:life-connection": "item:slug:rank3-exploration-generic",
+	"item:slug:transcribe-conflict": "item:slug:rank3-exploration-generic",
+	"item:slug:shadow-spy": "item:slug:rank3-exploration-generic",
+	"item:slug:fates-travels": "item:slug:rank3-exploration-generic",
+	"item:slug:wanderers-guide": "item:slug:rank3-exploration-generic",
+	"item:slug:anointed-ground": "item:slug:rank3-exploration-generic"
+}

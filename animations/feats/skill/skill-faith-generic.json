@@ -1,0 +1,41 @@
+{
+	"item:slug:skill-faith-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:seek-injustice": "item:slug:skill-faith-generic",
+	"item:slug:shackles-of-law": "item:slug:skill-faith-generic",
+	"item:slug:fear-no-law-fear-no-one": "item:slug:skill-faith-generic",
+	"item:slug:spiritual-disruption": "item:slug:skill-faith-generic",
+	"item:slug:sanctify-water": "item:slug:skill-faith-generic",
+	"item:slug:diabolic-certitude": "item:slug:skill-faith-generic",
+	"item:slug:evangelize": "item:slug:skill-faith-generic",
+	"item:slug:blessing-of-the-five": "item:slug:skill-faith-generic",
+	"item:slug:sacred-defense": "item:slug:skill-faith-generic",
+	"item:slug:battle-prayer": "item:slug:skill-faith-generic",
+	"item:slug:silence-heresy": "item:slug:skill-faith-generic",
+	"feat:slug:seek-injustice": "item:slug:skill-faith-generic",
+	"feat:slug:shackles-of-law": "item:slug:skill-faith-generic",
+	"feat:slug:fear-no-law-fear-no-one": "item:slug:skill-faith-generic",
+	"feat:slug:spiritual-disruption": "item:slug:skill-faith-generic",
+	"feat:slug:sanctify-water": "item:slug:skill-faith-generic",
+	"feat:slug:diabolic-certitude": "item:slug:skill-faith-generic",
+	"feat:slug:evangelize": "item:slug:skill-faith-generic",
+	"feat:slug:blessing-of-the-five": "item:slug:skill-faith-generic",
+	"feat:slug:sacred-defense": "item:slug:skill-faith-generic",
+	"feat:slug:battle-prayer": "item:slug:skill-faith-generic",
+	"feat:slug:silence-heresy": "item:slug:skill-faith-generic"
+}

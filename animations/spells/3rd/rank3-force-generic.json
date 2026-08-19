@@ -1,0 +1,25 @@
+{
+	"item:slug:rank3-force-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:defensive-prescience": "item:slug:rank3-force-generic",
+	"item:slug:echo-jump": "item:slug:rank3-force-generic",
+	"item:slug:bracing-tendrils": "item:slug:rank3-force-generic",
+	"item:slug:rend-magic": "item:slug:rank3-force-generic",
+	"item:slug:whirling-scarves": "item:slug:rank3-force-generic",
+	"item:slug:qi-blast": "item:slug:rank3-force-generic"
+}

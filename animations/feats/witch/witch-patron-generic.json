@@ -1,0 +1,27 @@
+{
+	"feat:slug:witch-patron-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:coven-spell": "feat:slug:witch-patron-generic",
+	"feat:slug:portents-of-the-haruspex": "feat:slug:witch-patron-generic",
+	"feat:slug:siphon-power": "feat:slug:witch-patron-generic"
+}

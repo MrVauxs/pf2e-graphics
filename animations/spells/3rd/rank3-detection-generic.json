@@ -1,0 +1,29 @@
+{
+	"item:slug:rank3-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:behold-the-weave": "item:slug:rank3-detection-generic",
+	"item:slug:familiars-face": "item:slug:rank3-detection-generic",
+	"item:slug:clairaudience": "item:slug:rank3-detection-generic",
+	"item:slug:locate": "item:slug:rank3-detection-generic",
+	"item:slug:perceive-the-threads-of-fate": "item:slug:rank3-detection-generic",
+	"item:slug:show-the-way": "item:slug:rank3-detection-generic",
+	"item:slug:web-of-eyes": "item:slug:rank3-detection-generic",
+	"item:slug:organsight": "item:slug:rank3-detection-generic",
+	"item:slug:painted-scout": "item:slug:rank3-detection-generic",
+	"item:slug:perseiss-precautions": "item:slug:rank3-detection-generic"
+}

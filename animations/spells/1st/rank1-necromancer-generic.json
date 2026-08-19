@@ -1,0 +1,24 @@
+{
+	"item:slug:rank1-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:bone-spear": "item:slug:rank1-necromancer-generic",
+	"item:slug:dead-weight": "item:slug:rank1-necromancer-generic",
+	"item:slug:life-tap": "item:slug:rank1-necromancer-generic",
+	"item:slug:muscle-barrier": "item:slug:rank1-necromancer-generic",
+	"item:slug:blood-infusion": "item:slug:rank1-necromancer-generic"
+}

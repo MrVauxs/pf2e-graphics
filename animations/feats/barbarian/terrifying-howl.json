@@ -1,0 +1,24 @@
+{
+	"item:slug:terrifying-howl": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.02.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 2
+				}
+			}
+		}
+	],
+	"feat:slug:terrifying-howl": "item:slug:terrifying-howl"
+}

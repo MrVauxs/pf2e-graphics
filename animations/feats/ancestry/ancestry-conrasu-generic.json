@@ -1,0 +1,21 @@
+{
+	"item:slug:ancestry-conrasu-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ceremony-of-protection": "item:slug:ancestry-conrasu-generic",
+	"feat:slug:ceremony-of-protection": "item:slug:ancestry-conrasu-generic"
+}

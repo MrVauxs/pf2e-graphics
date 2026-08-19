@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-vanara-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ragdyas-revelry": "item:slug:ancestry-vanara-generic",
+	"item:slug:dangle-vanara": "item:slug:ancestry-vanara-generic",
+	"item:slug:sudden-mindfulness": "item:slug:ancestry-vanara-generic",
+	"item:slug:tail-snatch": "item:slug:ancestry-vanara-generic",
+	"feat:slug:ragdyas-revelry": "item:slug:ancestry-vanara-generic",
+	"feat:slug:dangle-vanara": "item:slug:ancestry-vanara-generic",
+	"feat:slug:sudden-mindfulness": "item:slug:ancestry-vanara-generic",
+	"feat:slug:tail-snatch": "item:slug:ancestry-vanara-generic"
+}

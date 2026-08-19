@@ -1,0 +1,25 @@
+{
+	"item:slug:rank2-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:quench": "item:slug:rank2-water-generic",
+	"item:slug:mist": "item:slug:rank2-water-generic",
+	"item:slug:water-breathing": "item:slug:rank2-water-generic",
+	"item:slug:waterproof": "item:slug:rank2-water-generic",
+	"item:slug:water-walk": "item:slug:rank2-water-generic",
+	"item:slug:sea-surge": "item:slug:rank2-water-generic"
+}

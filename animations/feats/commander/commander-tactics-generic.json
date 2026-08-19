@@ -1,0 +1,27 @@
+{
+	"feat:slug:commander-tactics-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.divination.loop.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:adaptive-stratagem": "feat:slug:commander-tactics-generic",
+	"feat:slug:rapid-assessment": "feat:slug:commander-tactics-generic",
+	"feat:slug:reactive-interference": "feat:slug:commander-tactics-generic"
+}

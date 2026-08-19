@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:moonlight-bridge": "item:slug:rank6-light-generic",
+	"item:slug:ravenous-darkness": "item:slug:rank6-light-generic",
+	"item:slug:gray-shadow": "item:slug:rank6-light-generic"
+}

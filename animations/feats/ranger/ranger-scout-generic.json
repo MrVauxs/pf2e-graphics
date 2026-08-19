@@ -1,0 +1,27 @@
+{
+	"feat:slug:ranger-scout-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.divination.loop.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:scouts-warning": "feat:slug:ranger-scout-generic",
+	"feat:slug:additional-recollection": "feat:slug:ranger-scout-generic",
+	"feat:slug:sense-the-unseen": "feat:slug:ranger-scout-generic"
+}

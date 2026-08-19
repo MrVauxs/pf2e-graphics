@@ -1,0 +1,23 @@
+{
+	"item:slug:rank9-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.02.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:telepathic-demand": "item:slug:rank9-mental-generic",
+	"item:slug:separation": "item:slug:rank9-mental-generic",
+	"item:slug:foresight": "item:slug:rank9-mental-generic",
+	"item:slug:crusade": "item:slug:rank9-mental-generic"
+}

@@ -1,0 +1,49 @@
+{
+	"item:slug:fighter-stance-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.shield.blue.02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:disarming-stance": "item:slug:fighter-stance-generic",
+	"item:slug:dueling-dance-fighter": "item:slug:fighter-stance-generic",
+	"item:slug:disruptive-stance": "item:slug:fighter-stance-generic",
+	"item:slug:multishot-stance": "item:slug:fighter-stance-generic",
+	"item:slug:lunging-stance": "item:slug:fighter-stance-generic",
+	"item:slug:twinned-defense-fighter": "item:slug:fighter-stance-generic",
+	"item:slug:ricochet-stance-fighter": "item:slug:fighter-stance-generic",
+	"item:slug:point-blank-stance": "item:slug:fighter-stance-generic",
+	"item:slug:mobile-shot-stance": "item:slug:fighter-stance-generic",
+	"item:slug:graceful-poise": "item:slug:fighter-stance-generic",
+	"item:slug:haft-striker-stance": "item:slug:fighter-stance-generic",
+	"item:slug:paragons-guard": "item:slug:fighter-stance-generic",
+	"item:slug:ricochet-stance-rogue": "item:slug:fighter-stance-generic",
+	"feat:slug:disarming-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:dueling-dance-fighter": "item:slug:fighter-stance-generic",
+	"feat:slug:disruptive-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:multishot-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:lunging-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:twinned-defense-fighter": "item:slug:fighter-stance-generic",
+	"feat:slug:ricochet-stance-fighter": "item:slug:fighter-stance-generic",
+	"feat:slug:point-blank-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:mobile-shot-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:graceful-poise": "item:slug:fighter-stance-generic",
+	"feat:slug:haft-striker-stance": "item:slug:fighter-stance-generic",
+	"feat:slug:paragons-guard": "item:slug:fighter-stance-generic",
+	"feat:slug:ricochet-stance-rogue": "item:slug:fighter-stance-generic"
+}

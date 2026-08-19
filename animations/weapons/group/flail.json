@@ -1,0 +1,62 @@
+{
+	"item:group:flail": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"melee",
+				{
+					"gt": [
+						"target:distance",
+						0
+					]
+				}
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.melee_attack.01.flail.01.{0,1,2,3}"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES",
+							"anchor": {
+								"x": 0.4
+							}
+						},
+						"reflection": {
+							"y": "random"
+						},
+						"size": {
+							"type": "relative",
+							"relativeTo": "SOURCES",
+							"scaling": 4.5
+						},
+						"rotation": {
+							"type": "relative",
+							"location": "TARGETS"
+						}
+					}
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.hit.blunt"
+						],
+						"delay": 500,
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "TARGETS"
+						}
+					}
+				}
+			]
+		}
+	]
+}

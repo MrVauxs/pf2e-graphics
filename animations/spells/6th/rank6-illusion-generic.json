@@ -1,0 +1,28 @@
+{
+	"item:slug:rank6-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.evocation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:phantasmal-calamity": "item:slug:rank6-illusion-generic",
+	"item:slug:seize-identity": "item:slug:rank6-illusion-generic",
+	"item:slug:chromatic-image": "item:slug:rank6-illusion-generic",
+	"item:slug:vibrant-pattern": "item:slug:rank6-illusion-generic",
+	"item:slug:aura-of-the-unremarkable": "item:slug:rank6-illusion-generic",
+	"item:slug:mislead": "item:slug:rank6-illusion-generic",
+	"item:slug:raise-runelord": "item:slug:rank6-illusion-generic",
+	"item:slug:blanket-of-stars": "item:slug:rank6-illusion-generic",
+	"item:slug:sky-signs": "item:slug:rank6-illusion-generic"
+}

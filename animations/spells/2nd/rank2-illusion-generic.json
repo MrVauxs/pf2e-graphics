@@ -1,0 +1,35 @@
+{
+	"item:slug:rank2-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:blur": "item:slug:rank2-illusion-generic",
+	"item:slug:empty-pack": "item:slug:rank2-illusion-generic",
+	"item:slug:umbral-extraction": "item:slug:rank2-illusion-generic",
+	"item:slug:imitate-fauna": "item:slug:rank2-illusion-generic",
+	"item:slug:phantasmal-treasure": "item:slug:rank2-illusion-generic",
+	"item:slug:paranoia": "item:slug:rank2-illusion-generic",
+	"item:slug:phantom-crowd": "item:slug:rank2-illusion-generic",
+	"item:slug:invisibility": "item:slug:rank2-illusion-generic",
+	"item:slug:teeth-to-terror": "item:slug:rank2-illusion-generic",
+	"item:slug:embed-message": "item:slug:rank2-illusion-generic",
+	"item:slug:illusory-creature": "item:slug:rank2-illusion-generic",
+	"item:slug:silence": "item:slug:rank2-illusion-generic",
+	"item:slug:mirror-image": "item:slug:rank2-illusion-generic",
+	"item:slug:illusory-shroud": "item:slug:rank2-illusion-generic",
+	"item:slug:befitting-attire": "item:slug:rank2-illusion-generic",
+	"item:slug:umbral-mindtheft": "item:slug:rank2-illusion-generic"
+}

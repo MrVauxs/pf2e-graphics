@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.boulder.toss.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:stone-to-flesh": "item:slug:rank6-earth-generic",
+	"item:slug:vitrifying-blast": "item:slug:rank6-earth-generic",
+	"item:slug:petrify": "item:slug:rank6-earth-generic"
+}

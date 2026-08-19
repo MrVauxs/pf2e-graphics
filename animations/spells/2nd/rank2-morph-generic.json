@@ -1,0 +1,31 @@
+{
+	"item:slug:rank2-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:humanoid-form": "item:slug:rank2-morph-generic",
+	"item:slug:canopy-crawler": "item:slug:rank2-morph-generic",
+	"item:slug:enlarge-companion": "item:slug:rank2-morph-generic",
+	"item:slug:shrink": "item:slug:rank2-morph-generic",
+	"item:slug:magic-warrior-aspect": "item:slug:rank2-morph-generic",
+	"item:slug:the-everfull-moon": "item:slug:rank2-morph-generic",
+	"item:slug:magic-warrior-transformation": "item:slug:rank2-morph-generic",
+	"item:slug:animal-feature": "item:slug:rank2-morph-generic",
+	"item:slug:summoners-visage": "item:slug:rank2-morph-generic",
+	"item:slug:spirit-of-the-beast": "item:slug:rank2-morph-generic",
+	"item:slug:animal-form": "item:slug:rank2-morph-generic",
+	"item:slug:enlarge": "item:slug:rank2-morph-generic"
+}

@@ -1,0 +1,60 @@
+{
+	"item:slug:swashbuckler-flair-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:vivacious-bravado": "item:slug:swashbuckler-flair-generic",
+	"item:slug:dastardly-dash": "item:slug:swashbuckler-flair-generic",
+	"item:slug:fanes-fourberie": "item:slug:swashbuckler-flair-generic",
+	"item:slug:vexing-tumble": "item:slug:swashbuckler-flair-generic",
+	"item:slug:dueling-dance-swashbuckler": "item:slug:swashbuckler-flair-generic",
+	"item:slug:brandishing-draw": "item:slug:swashbuckler-flair-generic",
+	"item:slug:stellas-stab-and-snag": "item:slug:swashbuckler-flair-generic",
+	"item:slug:swan-dive": "item:slug:swashbuckler-flair-generic",
+	"item:slug:twirling-throw": "item:slug:swashbuckler-flair-generic",
+	"item:slug:extravagant-parry": "item:slug:swashbuckler-flair-generic",
+	"item:slug:leading-dance": "item:slug:swashbuckler-flair-generic",
+	"item:slug:the-bigger-they-are": "item:slug:swashbuckler-flair-generic",
+	"item:slug:one-for-all": "item:slug:swashbuckler-flair-generic",
+	"item:slug:vivacious-afterimage": "item:slug:swashbuckler-flair-generic",
+	"item:slug:twinned-defense-swashbuckler": "item:slug:swashbuckler-flair-generic",
+	"item:slug:distracting-toss": "item:slug:swashbuckler-flair-generic",
+	"item:slug:buckler-dance": "item:slug:swashbuckler-flair-generic",
+	"item:slug:flamboyant-leap": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:vivacious-bravado": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:dastardly-dash": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:fanes-fourberie": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:vexing-tumble": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:dueling-dance-swashbuckler": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:brandishing-draw": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:stellas-stab-and-snag": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:swan-dive": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:twirling-throw": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:extravagant-parry": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:leading-dance": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:the-bigger-they-are": "item:slug:swashbuckler-flair-generic",
+	"action:slug:the-bigger-they-are": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:one-for-all": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:vivacious-afterimage": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:twinned-defense-swashbuckler": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:distracting-toss": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:buckler-dance": "item:slug:swashbuckler-flair-generic",
+	"feat:slug:flamboyant-leap": "item:slug:swashbuckler-flair-generic"
+}

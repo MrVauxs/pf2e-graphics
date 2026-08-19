@@ -1,0 +1,35 @@
+{
+	"item:slug:ancestry-merfolk-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:spray-ink": "item:slug:ancestry-merfolk-generic",
+	"item:slug:ill-tide": "item:slug:ancestry-merfolk-generic",
+	"item:slug:pummeling-whirlpool": "item:slug:ancestry-merfolk-generic",
+	"item:slug:steal-for-the-depths": "item:slug:ancestry-merfolk-generic",
+	"item:slug:krakens-call": "item:slug:ancestry-merfolk-generic",
+	"item:slug:siren-song": "item:slug:ancestry-merfolk-generic",
+	"item:slug:doom-of-sailors": "item:slug:ancestry-merfolk-generic",
+	"item:slug:tears-of-pearl": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:spray-ink": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:ill-tide": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:pummeling-whirlpool": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:steal-for-the-depths": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:krakens-call": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:siren-song": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:doom-of-sailors": "item:slug:ancestry-merfolk-generic",
+	"feat:slug:tears-of-pearl": "item:slug:ancestry-merfolk-generic"
+}

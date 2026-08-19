@@ -1,0 +1,31 @@
+{
+	"item:slug:rank1-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ill-omen": "item:slug:rank1-hex-generic",
+	"item:slug:curse-of-recoil": "item:slug:rank1-hex-generic",
+	"item:slug:veil-of-dreams": "item:slug:rank1-hex-generic",
+	"item:slug:stumbling-curse": "item:slug:rank1-hex-generic",
+	"item:slug:cackle": "item:slug:rank1-hex-generic",
+	"item:slug:equal-footing": "item:slug:rank1-hex-generic",
+	"item:slug:needle-of-vengeance": "item:slug:rank1-hex-generic",
+	"item:slug:patrons-puppet": "item:slug:rank1-hex-generic",
+	"item:slug:blood-ward": "item:slug:rank1-hex-generic",
+	"item:slug:elemental-betrayal": "item:slug:rank1-hex-generic",
+	"item:slug:jealous-hex": "item:slug:rank1-hex-generic",
+	"item:slug:phase-familiar": "item:slug:rank1-hex-generic"
+}

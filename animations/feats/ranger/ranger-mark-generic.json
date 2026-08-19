@@ -1,0 +1,26 @@
+{
+	"feat:slug:ranger-mark-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:wardens-boon": "feat:slug:ranger-mark-generic",
+	"feat:slug:roll-with-it-kingmaker": "feat:slug:ranger-mark-generic"
+}

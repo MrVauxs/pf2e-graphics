@@ -1,0 +1,37 @@
+{
+	"item:slug:ancestry-catfolk-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:inspirit-hazard": "item:slug:ancestry-catfolk-generic",
+	"item:slug:elude-trouble": "item:slug:ancestry-catfolk-generic",
+	"item:slug:cats-luck": "item:slug:ancestry-catfolk-generic",
+	"item:slug:light-paws": "item:slug:ancestry-catfolk-generic",
+	"item:slug:silent-step": "item:slug:ancestry-catfolk-generic",
+	"item:slug:catfolk-dance": "item:slug:ancestry-catfolk-generic",
+	"item:slug:predators-growl": "item:slug:ancestry-catfolk-generic",
+	"item:slug:black-cat-curse": "item:slug:ancestry-catfolk-generic",
+	"item:slug:caterwaul": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:inspirit-hazard": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:elude-trouble": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:cats-luck": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:light-paws": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:silent-step": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:catfolk-dance": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:predators-growl": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:black-cat-curse": "item:slug:ancestry-catfolk-generic",
+	"feat:slug:caterwaul": "item:slug:ancestry-catfolk-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:monk-fear-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.fear.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"item:slug:dragon-roar": "item:slug:monk-fear-generic",
+	"feat:slug:dragon-roar": "item:slug:monk-fear-generic"
+}

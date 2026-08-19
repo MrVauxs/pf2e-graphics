@@ -1,0 +1,57 @@
+{
+	"item:slug:kineticist-wood-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:born-to-the-trees": "item:slug:kineticist-wood-generic",
+	"item:slug:drifting-pollen": "item:slug:kineticist-wood-generic",
+	"item:slug:ambush-bladderwort": "item:slug:kineticist-wood-generic",
+	"item:slug:tree-of-duality": "item:slug:kineticist-wood-generic",
+	"item:slug:witchwood-seed": "item:slug:kineticist-wood-generic",
+	"item:slug:timber-sentinel": "item:slug:kineticist-wood-generic",
+	"item:slug:hardwood-armor": "item:slug:kineticist-wood-generic",
+	"item:slug:ravel-of-thorns": "item:slug:kineticist-wood-generic",
+	"item:slug:sanguivolent-roots": "item:slug:kineticist-wood-generic",
+	"item:slug:rouse-the-forests-fury": "item:slug:kineticist-wood-generic",
+	"item:slug:the-thousand-lashes-of-the-weeping-willow": "item:slug:kineticist-wood-generic",
+	"item:slug:tumbling-lumber": "item:slug:kineticist-wood-generic",
+	"item:slug:orchards-endurance": "item:slug:kineticist-wood-generic",
+	"item:slug:fresh-produce": "item:slug:kineticist-wood-generic",
+	"item:slug:dash-of-herbs": "item:slug:kineticist-wood-generic",
+	"item:slug:hedge-maze": "item:slug:kineticist-wood-generic",
+	"item:slug:wooden-palisade": "item:slug:kineticist-wood-generic",
+	"feat:slug:born-to-the-trees": "item:slug:kineticist-wood-generic",
+	"feat:slug:drifting-pollen": "item:slug:kineticist-wood-generic",
+	"feat:slug:ambush-bladderwort": "item:slug:kineticist-wood-generic",
+	"feat:slug:tree-of-duality": "item:slug:kineticist-wood-generic",
+	"feat:slug:witchwood-seed": "item:slug:kineticist-wood-generic",
+	"feat:slug:timber-sentinel": "item:slug:kineticist-wood-generic",
+	"feat:slug:hardwood-armor": "item:slug:kineticist-wood-generic",
+	"feat:slug:ravel-of-thorns": "item:slug:kineticist-wood-generic",
+	"feat:slug:sanguivolent-roots": "item:slug:kineticist-wood-generic",
+	"feat:slug:rouse-the-forests-fury": "item:slug:kineticist-wood-generic",
+	"feat:slug:the-thousand-lashes-of-the-weeping-willow": "item:slug:kineticist-wood-generic",
+	"feat:slug:tumbling-lumber": "item:slug:kineticist-wood-generic",
+	"feat:slug:orchards-endurance": "item:slug:kineticist-wood-generic",
+	"feat:slug:fresh-produce": "item:slug:kineticist-wood-generic",
+	"feat:slug:dash-of-herbs": "item:slug:kineticist-wood-generic",
+	"feat:slug:hedge-maze": "item:slug:kineticist-wood-generic",
+	"feat:slug:wooden-palisade": "item:slug:kineticist-wood-generic"
+}

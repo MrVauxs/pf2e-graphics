@@ -1,0 +1,35 @@
+{
+	"item:slug:barbarian-impact-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.ground_crack.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:furious-grab": "item:slug:barbarian-impact-generic",
+	"item:slug:tangle-of-battle": "item:slug:barbarian-impact-generic",
+	"item:slug:embrace-the-pain": "item:slug:barbarian-impact-generic",
+	"item:slug:thrash": "item:slug:barbarian-impact-generic",
+	"item:slug:knockback": "item:slug:barbarian-impact-generic",
+	"item:slug:unbalancing-sweep": "item:slug:barbarian-impact-generic",
+	"item:slug:impaling-thrust": "item:slug:barbarian-impact-generic",
+	"item:slug:disarming-assault": "item:slug:barbarian-impact-generic",
+	"feat:slug:furious-grab": "item:slug:barbarian-impact-generic",
+	"feat:slug:tangle-of-battle": "item:slug:barbarian-impact-generic",
+	"feat:slug:embrace-the-pain": "item:slug:barbarian-impact-generic",
+	"feat:slug:thrash": "item:slug:barbarian-impact-generic",
+	"feat:slug:knockback": "item:slug:barbarian-impact-generic",
+	"feat:slug:unbalancing-sweep": "item:slug:barbarian-impact-generic",
+	"feat:slug:impaling-thrust": "item:slug:barbarian-impact-generic",
+	"feat:slug:disarming-assault": "item:slug:barbarian-impact-generic"
+}

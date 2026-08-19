@@ -1,0 +1,43 @@
+{
+	"item:group:dart": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"label": "Dart (Projectile)",
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.dart.01.throw.physical.white"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TARGETS"
+						}
+					}
+				},
+				{
+					"label": "Dart (Sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.throw"
+						],
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	]
+}

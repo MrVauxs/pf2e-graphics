@@ -1,0 +1,24 @@
+{
+	"item:slug:rank5-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.entangle.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:mantle-of-the-unwavering-heart": "item:slug:rank5-plant-generic",
+	"item:slug:gluttonous-growth": "item:slug:rank5-plant-generic",
+	"item:slug:entwined-roots": "item:slug:rank5-plant-generic",
+	"item:slug:plant-form": "item:slug:rank5-plant-generic",
+	"item:slug:boomerang-shot": "item:slug:rank5-plant-generic"
+}

@@ -1,0 +1,23 @@
+{
+	"item:slug:rank5-force-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_missile.grey"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:blink-charge": "item:slug:rank5-force-generic",
+	"item:slug:repelling-pulse": "item:slug:rank5-force-generic",
+	"item:slug:etheric-shards": "item:slug:rank5-force-generic",
+	"item:slug:forceful-hand": "item:slug:rank5-force-generic"
+}

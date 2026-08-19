@@ -1,0 +1,31 @@
+{
+	"item:slug:rank4-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:dawnflowers-light": "item:slug:rank4-light-generic",
+	"item:slug:darkened-sight": "item:slug:rank4-light-generic",
+	"item:slug:radiant-beam": "item:slug:rank4-light-generic",
+	"item:slug:chromatic-ray": "item:slug:rank4-light-generic",
+	"item:slug:asterism": "item:slug:rank4-light-generic",
+	"item:slug:chromatic-armor": "item:slug:rank4-light-generic",
+	"item:slug:tomorrows-dawn": "item:slug:rank4-light-generic",
+	"item:slug:touch-of-the-moon": "item:slug:rank4-light-generic",
+	"item:slug:darkened-eyes": "item:slug:rank4-light-generic",
+	"item:slug:incarnate-shadow-minuet": "item:slug:rank4-light-generic",
+	"item:slug:clinging-shadows-stance": "item:slug:rank4-light-generic",
+	"item:slug:radiant-heart-of-devotion": "item:slug:rank4-light-generic"
+}

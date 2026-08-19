@@ -1,0 +1,23 @@
+{
+	"item:slug:rank9-sonic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:wails-of-the-damned": "item:slug:rank9-sonic-generic",
+	"item:slug:unfathomable-song": "item:slug:rank9-sonic-generic",
+	"item:slug:overwhelming-presence": "item:slug:rank9-sonic-generic",
+	"item:slug:power-word-kill": "item:slug:rank9-sonic-generic"
+}

@@ -1,0 +1,38 @@
+{
+	"item:slug:wizard-arcane-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:spell-protection-array": "item:slug:wizard-arcane-generic",
+	"item:slug:call-wizardly-tools": "item:slug:wizard-arcane-generic",
+	"item:slug:spellbinding-speech": "item:slug:wizard-arcane-generic",
+	"item:slug:redirect-teleportation": "item:slug:wizard-arcane-generic",
+	"item:slug:convincing-illusion": "item:slug:wizard-arcane-generic",
+	"item:slug:shared-focus": "item:slug:wizard-arcane-generic",
+	"item:slug:shift-spell": "item:slug:wizard-arcane-generic",
+	"feat:slug:spell-protection-array": "item:slug:wizard-arcane-generic",
+	"feat:slug:call-wizardly-tools": "item:slug:wizard-arcane-generic",
+	"feat:slug:spellbinding-speech": "item:slug:wizard-arcane-generic",
+	"feat:slug:redirect-teleportation": "item:slug:wizard-arcane-generic",
+	"feat:slug:convincing-illusion": "item:slug:wizard-arcane-generic",
+	"feat:slug:shared-focus": "item:slug:wizard-arcane-generic",
+	"feat:slug:shift-spell": "item:slug:wizard-arcane-generic",
+	"action:slug:shift-spell": "item:slug:wizard-arcane-generic"
+}

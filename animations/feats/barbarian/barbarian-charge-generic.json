@@ -1,0 +1,45 @@
+{
+	"item:slug:barbarian-charge-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.gust_of_wind.default"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:sudden-charge": "item:slug:barbarian-charge-generic",
+	"item:slug:bashing-charge": "item:slug:barbarian-charge-generic",
+	"item:slug:barreling-charge": "item:slug:barbarian-charge-generic",
+	"item:slug:predators-pounce": "item:slug:barbarian-charge-generic",
+	"item:slug:sudden-leap": "item:slug:barbarian-charge-generic",
+	"item:slug:furious-sprint": "item:slug:barbarian-charge-generic",
+	"item:slug:determined-dash": "item:slug:barbarian-charge-generic",
+	"item:slug:no-escape": "item:slug:barbarian-charge-generic",
+	"item:slug:dashing-strike": "item:slug:barbarian-charge-generic",
+	"item:slug:flinging-charge": "item:slug:barbarian-charge-generic",
+	"item:slug:needle-in-the-gods-eyes": "item:slug:barbarian-charge-generic",
+	"feat:slug:sudden-charge": "item:slug:barbarian-charge-generic",
+	"feat:slug:bashing-charge": "item:slug:barbarian-charge-generic",
+	"feat:slug:barreling-charge": "item:slug:barbarian-charge-generic",
+	"feat:slug:predators-pounce": "item:slug:barbarian-charge-generic",
+	"feat:slug:sudden-leap": "item:slug:barbarian-charge-generic",
+	"feat:slug:furious-sprint": "item:slug:barbarian-charge-generic",
+	"feat:slug:determined-dash": "item:slug:barbarian-charge-generic",
+	"feat:slug:no-escape": "item:slug:barbarian-charge-generic",
+	"feat:slug:dashing-strike": "item:slug:barbarian-charge-generic",
+	"feat:slug:flinging-charge": "item:slug:barbarian-charge-generic",
+	"feat:slug:needle-in-the-gods-eyes": "item:slug:barbarian-charge-generic"
+}

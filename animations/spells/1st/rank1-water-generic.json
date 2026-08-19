@@ -1,0 +1,31 @@
+{
+	"item:slug:rank1-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:threefold-limb": "item:slug:rank1-water-generic",
+	"item:slug:aqueous-blast": "item:slug:rank1-water-generic",
+	"item:slug:briny-bolt": "item:slug:rank1-water-generic",
+	"item:slug:halcyon-mists": "item:slug:rank1-water-generic",
+	"item:slug:buoyant-bubbles": "item:slug:rank1-water-generic",
+	"item:slug:create-water": "item:slug:rank1-water-generic",
+	"item:slug:turbulent-tide": "item:slug:rank1-water-generic",
+	"item:slug:river-carving-mountains": "item:slug:rank1-water-generic",
+	"item:slug:tidal-surge": "item:slug:rank1-water-generic",
+	"item:slug:hydraulic-push": "item:slug:rank1-water-generic",
+	"item:slug:personal-rain-cloud": "item:slug:rank1-water-generic",
+	"item:slug:rising-surf": "item:slug:rank1-water-generic"
+}

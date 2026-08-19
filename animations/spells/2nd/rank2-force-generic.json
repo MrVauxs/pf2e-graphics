@@ -1,0 +1,22 @@
+{
+	"item:slug:rank2-force-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:spiritual-weapon": "item:slug:rank2-force-generic",
+	"item:slug:inner-radiance-torrent": "item:slug:rank2-force-generic",
+	"item:slug:telekinetic-maneuver": "item:slug:rank2-force-generic"
+}

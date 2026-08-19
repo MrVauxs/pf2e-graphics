@@ -1,0 +1,58 @@
+{
+	"item:slug:kineticist-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.earth.01.browngreen.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:weight-of-stone": "item:slug:kineticist-earth-generic",
+	"item:slug:sand-snatcher": "item:slug:kineticist-earth-generic",
+	"item:slug:jagged-berms": "item:slug:kineticist-earth-generic",
+	"item:slug:spike-skin": "item:slug:kineticist-earth-generic",
+	"item:slug:the-shattered-mountain-weeps": "item:slug:kineticist-earth-generic",
+	"item:slug:rock-rampart": "item:slug:kineticist-earth-generic",
+	"item:slug:rattle-the-earth": "item:slug:kineticist-earth-generic",
+	"item:slug:roiling-mudslide": "item:slug:kineticist-earth-generic",
+	"item:slug:swim-through-earth": "item:slug:kineticist-earth-generic",
+	"item:slug:armor-in-earth": "item:slug:kineticist-earth-generic",
+	"item:slug:calcifying-sand": "item:slug:kineticist-earth-generic",
+	"item:slug:retch-rust": "item:slug:kineticist-earth-generic",
+	"item:slug:rain-of-rust": "item:slug:kineticist-earth-generic",
+	"item:slug:assume-earths-mantle": "item:slug:kineticist-earth-generic",
+	"item:slug:rebirth-in-living-stone": "item:slug:kineticist-earth-generic",
+	"item:slug:geologic-attunement": "item:slug:kineticist-earth-generic",
+	"item:slug:tremor": "item:slug:kineticist-earth-generic",
+	"item:slug:plate-in-treasure": "item:slug:kineticist-earth-generic",
+	"feat:slug:weight-of-stone": "item:slug:kineticist-earth-generic",
+	"feat:slug:sand-snatcher": "item:slug:kineticist-earth-generic",
+	"feat:slug:jagged-berms": "item:slug:kineticist-earth-generic",
+	"feat:slug:spike-skin": "item:slug:kineticist-earth-generic",
+	"feat:slug:the-shattered-mountain-weeps": "item:slug:kineticist-earth-generic",
+	"feat:slug:rock-rampart": "item:slug:kineticist-earth-generic",
+	"feat:slug:rattle-the-earth": "item:slug:kineticist-earth-generic",
+	"feat:slug:roiling-mudslide": "item:slug:kineticist-earth-generic",
+	"feat:slug:swim-through-earth": "item:slug:kineticist-earth-generic",
+	"feat:slug:armor-in-earth": "item:slug:kineticist-earth-generic",
+	"feat:slug:calcifying-sand": "item:slug:kineticist-earth-generic",
+	"feat:slug:retch-rust": "item:slug:kineticist-earth-generic",
+	"feat:slug:assume-earths-mantle": "item:slug:kineticist-earth-generic",
+	"feat:slug:rebirth-in-living-stone": "item:slug:kineticist-earth-generic",
+	"feat:slug:geologic-attunement": "item:slug:kineticist-earth-generic",
+	"feat:slug:tremor": "item:slug:kineticist-earth-generic",
+	"feat:slug:plate-in-treasure": "item:slug:kineticist-earth-generic"
+}

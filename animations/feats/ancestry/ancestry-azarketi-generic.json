@@ -1,0 +1,31 @@
+{
+	"item:slug:ancestry-azarketi-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:drag-down": "item:slug:ancestry-azarketi-generic",
+	"item:slug:hydraulic-maneuvers": "item:slug:ancestry-azarketi-generic",
+	"item:slug:perfect-dive": "item:slug:ancestry-azarketi-generic",
+	"item:slug:water-strider": "item:slug:ancestry-azarketi-generic",
+	"item:slug:hydraulic-deflection": "item:slug:ancestry-azarketi-generic",
+	"item:slug:riptide": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:drag-down": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:hydraulic-maneuvers": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:perfect-dive": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:water-strider": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:hydraulic-deflection": "item:slug:ancestry-azarketi-generic",
+	"feat:slug:riptide": "item:slug:ancestry-azarketi-generic"
+}

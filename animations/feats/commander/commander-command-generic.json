@@ -1,0 +1,29 @@
+{
+	"item:slug:commander-command-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.fear.dark_red.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.75
+				}
+			}
+		}
+	],
+	"item:slug:confusing-commands": "item:slug:commander-command-generic",
+	"item:slug:demand-surrender": "item:slug:commander-command-generic",
+	"item:slug:mercenary-reversal": "item:slug:commander-command-generic",
+	"feat:slug:confusing-commands": "item:slug:commander-command-generic",
+	"feat:slug:demand-surrender": "item:slug:commander-command-generic",
+	"feat:slug:mercenary-reversal": "item:slug:commander-command-generic"
+}

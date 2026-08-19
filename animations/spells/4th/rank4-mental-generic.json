@@ -1,0 +1,64 @@
+{
+	"item:slug:rank4-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:fearful-feast": "item:slug:rank4-mental-generic",
+	"item:slug:entangle-fate": "item:slug:rank4-mental-generic",
+	"item:slug:word-of-freedom": "item:slug:rank4-mental-generic",
+	"item:slug:commanding-lash": "item:slug:rank4-mental-generic",
+	"item:slug:compel-true-name": "item:slug:rank4-mental-generic",
+	"item:slug:unsettling-perspective": "item:slug:rank4-mental-generic",
+	"item:slug:anathematic-reprisal": "item:slug:rank4-mental-generic",
+	"item:slug:shaken-confidence": "item:slug:rank4-mental-generic",
+	"item:slug:ordained-purpose": "item:slug:rank4-mental-generic",
+	"item:slug:channel-arrogance": "item:slug:rank4-mental-generic",
+	"item:slug:retreat-among-the-rains": "item:slug:rank4-mental-generic",
+	"item:slug:roar-of-the-dragon": "item:slug:rank4-mental-generic",
+	"item:slug:rewrite-memory": "item:slug:rank4-mental-generic",
+	"item:slug:telepathy": "item:slug:rank4-mental-generic",
+	"item:slug:zeal-for-battle": "item:slug:rank4-mental-generic",
+	"item:slug:friends-to-foes": "item:slug:rank4-mental-generic",
+	"item:slug:delusional-pride": "item:slug:rank4-mental-generic",
+	"item:slug:spiritual-anamnesis": "item:slug:rank4-mental-generic",
+	"item:slug:honeyed-words": "item:slug:rank4-mental-generic",
+	"item:slug:spiral-of-horrors": "item:slug:rank4-mental-generic",
+	"item:slug:aromatic-lure": "item:slug:rank4-mental-generic",
+	"item:slug:confusion": "item:slug:rank4-mental-generic",
+	"item:slug:luring-wail": "item:slug:rank4-mental-generic",
+	"item:slug:competitive-edge": "item:slug:rank4-mental-generic",
+	"item:slug:waking-dream": "item:slug:rank4-mental-generic",
+	"item:slug:safeguard-secret": "item:slug:rank4-mental-generic",
+	"item:slug:retributive-pain": "item:slug:rank4-mental-generic",
+	"item:slug:weaponize-secret": "item:slug:rank4-mental-generic",
+	"item:slug:confront-selves": "item:slug:rank4-mental-generic",
+	"item:slug:movanic-glimmer": "item:slug:rank4-mental-generic",
+	"item:slug:overflowing-sorrow": "item:slug:rank4-mental-generic",
+	"item:slug:wind-whispers": "item:slug:rank4-mental-generic",
+	"item:slug:favorable-review": "item:slug:rank4-mental-generic",
+	"item:slug:unsettling-knowledge": "item:slug:rank4-mental-generic",
+	"item:slug:infectious-melody": "item:slug:rank4-mental-generic",
+	"item:slug:amity-cycle": "item:slug:rank4-mental-generic",
+	"item:slug:remember-the-lost": "item:slug:rank4-mental-generic",
+	"item:slug:community-repair": "item:slug:rank4-mental-generic",
+	"item:slug:girzanjes-march": "item:slug:rank4-mental-generic",
+	"item:slug:suggestion": "item:slug:rank4-mental-generic",
+	"item:slug:grasp-of-the-deep": "item:slug:rank4-mental-generic",
+	"item:slug:implement-of-destruction": "item:slug:rank4-mental-generic",
+	"item:slug:shared-nightmare": "item:slug:rank4-mental-generic",
+	"item:slug:discern-lies": "item:slug:rank4-mental-generic",
+	"item:slug:font-of-serenity": "item:slug:rank4-mental-generic"
+}

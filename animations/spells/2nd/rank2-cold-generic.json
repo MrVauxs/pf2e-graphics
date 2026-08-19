@@ -1,0 +1,25 @@
+{
+	"item:slug:rank2-cold-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.frost.blue.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:swallow-light": "item:slug:rank2-cold-generic",
+	"item:slug:glacial-causeway": "item:slug:rank2-cold-generic",
+	"item:slug:blood-runs-cold": "item:slug:rank2-cold-generic",
+	"item:slug:rime-slick": "item:slug:rank2-cold-generic",
+	"item:slug:frozen-lungs": "item:slug:rank2-cold-generic",
+	"item:slug:claws-of-the-otter": "item:slug:rank2-cold-generic"
+}

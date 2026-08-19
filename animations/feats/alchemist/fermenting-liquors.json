@@ -1,0 +1,41 @@
+{
+	"item:slug:fermenting-liquors": [
+		{
+			"triggers": [
+				"action"
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.healing_generic.200px.yellow02"
+						],
+						"position": {
+							"type": "static",
+							"location": "TARGETS"
+						},
+						"size": {
+							"type": "relative"
+						}
+					}
+				},
+				{
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.cooking.glass.clink.01"
+						],
+						"radius": 15,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	],
+	"feat:slug:fermenting-liquors": "item:slug:fermenting-liquors"
+}

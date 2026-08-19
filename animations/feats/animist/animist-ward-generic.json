@@ -1,0 +1,28 @@
+{
+	"feat:slug:animist-ward-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.abjuration.loop.dark_blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:apparition-cloud": "feat:slug:animist-ward-generic",
+	"feat:slug:whispers-of-warning": "feat:slug:animist-ward-generic",
+	"feat:slug:channeled-protection": "feat:slug:animist-ward-generic",
+	"feat:slug:shadows-within-shadows": "feat:slug:animist-ward-generic"
+}

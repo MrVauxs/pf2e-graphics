@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:angel-form": "item:slug:rank7-morph-generic",
+	"item:slug:cosmic-form": "item:slug:rank7-morph-generic",
+	"item:slug:divine-vessel": "item:slug:rank7-morph-generic"
+}

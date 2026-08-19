@@ -1,0 +1,21 @@
+{
+	"item:slug:rank6-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.gust_of_wind.default"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:earth-and-sky": "item:slug:rank6-air-generic",
+	"item:slug:speaking-sky": "item:slug:rank6-air-generic"
+}

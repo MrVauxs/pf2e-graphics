@@ -1,0 +1,43 @@
+{
+	"item:slug:ancestry-gnome-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:eclectic-obsession": "item:slug:ancestry-gnome-generic",
+	"item:slug:unexpected-shift": "item:slug:ancestry-gnome-generic",
+	"item:slug:empathetic-plea": "item:slug:ancestry-gnome-generic",
+	"item:slug:theoretical-acumen": "item:slug:ancestry-gnome-generic",
+	"item:slug:intuitive-illusions": "item:slug:ancestry-gnome-generic",
+	"item:slug:energized-font": "item:slug:ancestry-gnome-generic",
+	"item:slug:inventive-offensive": "item:slug:ancestry-gnome-generic",
+	"item:slug:razzle-dazzle": "item:slug:ancestry-gnome-generic",
+	"item:slug:life-leap": "item:slug:ancestry-gnome-generic",
+	"item:slug:life-giving-magic": "item:slug:ancestry-gnome-generic",
+	"item:slug:instinctive-obfuscation": "item:slug:ancestry-gnome-generic",
+	"item:slug:project-persona": "item:slug:ancestry-gnome-generic",
+	"feat:slug:eclectic-obsession": "item:slug:ancestry-gnome-generic",
+	"feat:slug:unexpected-shift": "item:slug:ancestry-gnome-generic",
+	"feat:slug:empathetic-plea": "item:slug:ancestry-gnome-generic",
+	"feat:slug:theoretical-acumen": "item:slug:ancestry-gnome-generic",
+	"feat:slug:intuitive-illusions": "item:slug:ancestry-gnome-generic",
+	"feat:slug:energized-font": "item:slug:ancestry-gnome-generic",
+	"feat:slug:inventive-offensive": "item:slug:ancestry-gnome-generic",
+	"feat:slug:razzle-dazzle": "item:slug:ancestry-gnome-generic",
+	"feat:slug:life-leap": "item:slug:ancestry-gnome-generic",
+	"feat:slug:life-giving-magic": "item:slug:ancestry-gnome-generic",
+	"feat:slug:instinctive-obfuscation": "item:slug:ancestry-gnome-generic",
+	"feat:slug:project-persona": "item:slug:ancestry-gnome-generic"
+}

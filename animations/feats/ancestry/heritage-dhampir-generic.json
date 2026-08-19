@@ -1,0 +1,27 @@
+{
+	"item:slug:heritage-dhampir-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:feed-on-pain": "item:slug:heritage-dhampir-generic",
+	"item:slug:form-of-the-bat": "item:slug:heritage-dhampir-generic",
+	"item:slug:hopping-stride": "item:slug:heritage-dhampir-generic",
+	"item:slug:taste-blood": "item:slug:heritage-dhampir-generic",
+	"feat:slug:feed-on-pain": "item:slug:heritage-dhampir-generic",
+	"feat:slug:form-of-the-bat": "item:slug:heritage-dhampir-generic",
+	"feat:slug:hopping-stride": "item:slug:heritage-dhampir-generic",
+	"feat:slug:taste-blood": "item:slug:heritage-dhampir-generic"
+}

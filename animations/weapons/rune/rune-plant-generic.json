@@ -1,0 +1,27 @@
+{
+	"item:rune:property:rune-plant-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.entangle.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:rooting-greater": "item:rune:property:rune-plant-generic",
+	"item:rune:property:rooting-true": "item:rune:property:rune-plant-generic",
+	"item:rune:property:rooting-major": "item:rune:property:rune-plant-generic",
+	"item:rune:property:rooting": "item:rune:property:rune-plant-generic"
+}

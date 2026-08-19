@@ -1,0 +1,29 @@
+{
+	"item:slug:rank4-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:sudden-swarm": "item:slug:rank4-morph-generic",
+	"item:slug:familiar-form": "item:slug:rank4-morph-generic",
+	"item:slug:dinosaur-form": "item:slug:rank4-morph-generic",
+	"item:slug:aerial-form": "item:slug:rank4-morph-generic",
+	"item:slug:swarm-form": "item:slug:rank4-morph-generic",
+	"item:slug:fey-form": "item:slug:rank4-morph-generic",
+	"item:slug:shifting-form": "item:slug:rank4-morph-generic",
+	"item:slug:mantis-form": "item:slug:rank4-morph-generic",
+	"item:slug:snake-fangs": "item:slug:rank4-morph-generic",
+	"item:slug:elephant-form": "item:slug:rank4-morph-generic"
+}

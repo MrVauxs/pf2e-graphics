@@ -1,0 +1,85 @@
+{
+	"item:slug:gunslinger-shot-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:shattering-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:blood-in-the-air": "item:slug:gunslinger-shot-generic",
+	"item:slug:triggerbrand-blitz": "item:slug:gunslinger-shot-generic",
+	"item:slug:phalanx-breaker": "item:slug:gunslinger-shot-generic",
+	"item:slug:bullet-and-a-broadside": "item:slug:gunslinger-shot-generic",
+	"item:slug:cover-fire": "item:slug:gunslinger-shot-generic",
+	"item:slug:final-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:scatter-blast": "item:slug:gunslinger-shot-generic",
+	"item:slug:deadeye": "item:slug:gunslinger-shot-generic",
+	"item:slug:alchemical-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:headshot": "item:slug:gunslinger-shot-generic",
+	"item:slug:triggerbrand-salvo": "item:slug:gunslinger-shot-generic",
+	"item:slug:stab-and-blast": "item:slug:gunslinger-shot-generic",
+	"item:slug:two-weapon-fusillade": "item:slug:gunslinger-shot-generic",
+	"item:slug:snipers-aim": "item:slug:gunslinger-shot-generic",
+	"item:slug:blast-lock": "item:slug:gunslinger-shot-generic",
+	"item:slug:warning-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:flesh-wound": "item:slug:gunslinger-shot-generic",
+	"item:slug:penetrating-fire": "item:slug:gunslinger-shot-generic",
+	"item:slug:twin-shot-knockdown": "item:slug:gunslinger-shot-generic",
+	"item:slug:called-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:dance-of-thunder": "item:slug:gunslinger-shot-generic",
+	"item:slug:ricochet-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:rebounding-assault": "item:slug:gunslinger-shot-generic",
+	"item:slug:blast-tackle": "item:slug:gunslinger-shot-generic",
+	"item:slug:bullet-split": "item:slug:gunslinger-shot-generic",
+	"item:slug:black-powder-boost": "item:slug:gunslinger-shot-generic",
+	"item:slug:trick-shot": "item:slug:gunslinger-shot-generic",
+	"item:slug:paired-shots": "item:slug:gunslinger-shot-generic",
+	"item:slug:pistoleros-challenge": "item:slug:gunslinger-shot-generic",
+	"item:slug:drifters-juke": "item:slug:gunslinger-shot-generic",
+	"feat:slug:shattering-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:blood-in-the-air": "item:slug:gunslinger-shot-generic",
+	"feat:slug:triggerbrand-blitz": "item:slug:gunslinger-shot-generic",
+	"feat:slug:phalanx-breaker": "item:slug:gunslinger-shot-generic",
+	"feat:slug:bullet-and-a-broadside": "item:slug:gunslinger-shot-generic",
+	"feat:slug:cover-fire": "item:slug:gunslinger-shot-generic",
+	"feat:slug:final-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:scatter-blast": "item:slug:gunslinger-shot-generic",
+	"feat:slug:deadeye": "item:slug:gunslinger-shot-generic",
+	"feat:slug:alchemical-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:headshot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:triggerbrand-salvo": "item:slug:gunslinger-shot-generic",
+	"feat:slug:stab-and-blast": "item:slug:gunslinger-shot-generic",
+	"feat:slug:two-weapon-fusillade": "item:slug:gunslinger-shot-generic",
+	"feat:slug:snipers-aim": "item:slug:gunslinger-shot-generic",
+	"feat:slug:blast-lock": "item:slug:gunslinger-shot-generic",
+	"feat:slug:warning-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:flesh-wound": "item:slug:gunslinger-shot-generic",
+	"feat:slug:penetrating-fire": "item:slug:gunslinger-shot-generic",
+	"feat:slug:twin-shot-knockdown": "item:slug:gunslinger-shot-generic",
+	"feat:slug:called-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:dance-of-thunder": "item:slug:gunslinger-shot-generic",
+	"feat:slug:ricochet-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:rebounding-assault": "item:slug:gunslinger-shot-generic",
+	"feat:slug:blast-tackle": "item:slug:gunslinger-shot-generic",
+	"feat:slug:bullet-split": "item:slug:gunslinger-shot-generic",
+	"feat:slug:black-powder-boost": "item:slug:gunslinger-shot-generic",
+	"feat:slug:trick-shot": "item:slug:gunslinger-shot-generic",
+	"feat:slug:paired-shots": "item:slug:gunslinger-shot-generic",
+	"feat:slug:pistoleros-challenge": "item:slug:gunslinger-shot-generic",
+	"feat:slug:drifters-juke": "item:slug:gunslinger-shot-generic"
+}

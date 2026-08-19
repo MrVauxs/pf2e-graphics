@@ -1,0 +1,39 @@
+{
+	"item:slug:fighter-ranged-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.arrow.physical.white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:rebounding-toss": "item:slug:fighter-ranged-generic",
+	"item:slug:parting-shot": "item:slug:fighter-ranged-generic",
+	"item:slug:debilitating-shot": "item:slug:fighter-ranged-generic",
+	"item:slug:incredible-ricochet": "item:slug:fighter-ranged-generic",
+	"item:slug:assisting-shot": "item:slug:fighter-ranged-generic",
+	"item:slug:incredible-aim": "item:slug:fighter-ranged-generic",
+	"item:slug:double-shot": "item:slug:fighter-ranged-generic",
+	"item:slug:halyard-strike": "item:slug:fighter-ranged-generic",
+	"item:slug:cannonball-fall": "item:slug:fighter-ranged-generic",
+	"item:slug:impossible-volley": "item:slug:fighter-ranged-generic",
+	"feat:slug:rebounding-toss": "item:slug:fighter-ranged-generic",
+	"feat:slug:parting-shot": "item:slug:fighter-ranged-generic",
+	"feat:slug:debilitating-shot": "item:slug:fighter-ranged-generic",
+	"feat:slug:incredible-ricochet": "item:slug:fighter-ranged-generic",
+	"feat:slug:assisting-shot": "item:slug:fighter-ranged-generic",
+	"feat:slug:incredible-aim": "item:slug:fighter-ranged-generic",
+	"feat:slug:double-shot": "item:slug:fighter-ranged-generic",
+	"feat:slug:halyard-strike": "item:slug:fighter-ranged-generic",
+	"feat:slug:cannonball-fall": "item:slug:fighter-ranged-generic",
+	"feat:slug:impossible-volley": "item:slug:fighter-ranged-generic"
+}

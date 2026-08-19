@@ -1,0 +1,25 @@
+{
+	"item:slug:ancestry-surki-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:consume-magic": "item:slug:ancestry-surki-generic",
+	"item:slug:tunnel-roll": "item:slug:ancestry-surki-generic",
+	"item:slug:magitaxis": "item:slug:ancestry-surki-generic",
+	"feat:slug:consume-magic": "item:slug:ancestry-surki-generic",
+	"feat:slug:tunnel-roll": "item:slug:ancestry-surki-generic",
+	"feat:slug:magitaxis": "item:slug:ancestry-surki-generic"
+}

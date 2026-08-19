@@ -1,0 +1,77 @@
+{
+	"effect:stance-beast-generic": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.extras.tmfx.outflow.circle.01"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.4
+				},
+				"visibility": {
+					"opacity": 0.75
+				},
+				"elevation": {
+					"sortLayer": "belowTokens"
+				},
+				"tint": "#d08a3c",
+				"fadeIn": {
+					"duration": 400
+				},
+				"fadeOut": {
+					"duration": 600
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	],
+	"effect:claw-stance": "effect:stance-beast-generic",
+	"effect:cobra-stance": "effect:stance-beast-generic",
+	"effect:cobra-stance-cobra-envenom": "effect:stance-beast-generic",
+	"effect:crane-stance": "effect:stance-beast-generic",
+	"effect:dragon-stance": "effect:stance-beast-generic",
+	"effect:gorilla-stance": "effect:stance-beast-generic",
+	"effect:gorilla-stance-gorilla-pound": "effect:stance-beast-generic",
+	"effect:jotuns-battle-stance": "effect:stance-beast-generic",
+	"effect:kaiju-stance": "effect:stance-beast-generic",
+	"effect:peafowl-stance": "effect:stance-beast-generic",
+	"effect:rushing-goat-stance": "effect:stance-beast-generic",
+	"effect:talon-stance": "effect:stance-beast-generic",
+	"effect:tiger-stance": "effect:stance-beast-generic",
+	"effect:wolf-stance": "effect:stance-beast-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:ancestry-ghoran-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:eternal-memories": "item:slug:ancestry-ghoran-generic",
+	"item:slug:look-but-dont-touch": "item:slug:ancestry-ghoran-generic",
+	"item:slug:perfume-cloud": "item:slug:ancestry-ghoran-generic",
+	"feat:slug:eternal-memories": "item:slug:ancestry-ghoran-generic",
+	"feat:slug:look-but-dont-touch": "item:slug:ancestry-ghoran-generic",
+	"feat:slug:perfume-cloud": "item:slug:ancestry-ghoran-generic"
+}

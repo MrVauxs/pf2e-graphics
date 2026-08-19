@@ -1,0 +1,24 @@
+{
+	"item:slug:rank10-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:nature-incarnate": "item:slug:rank10-morph-generic",
+	"item:slug:avatar": "item:slug:rank10-morph-generic",
+	"item:slug:primal-herd": "item:slug:rank10-morph-generic",
+	"item:slug:apex-companion": "item:slug:rank10-morph-generic",
+	"item:slug:element-embodied": "item:slug:rank10-morph-generic"
+}

@@ -1,0 +1,47 @@
+{
+	"item:slug:fighter-bigswing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:overwhelming-blow": "item:slug:fighter-bigswing-generic",
+	"item:slug:brutal-finish": "item:slug:fighter-bigswing-generic",
+	"item:slug:vicious-swing": "item:slug:fighter-bigswing-generic",
+	"item:slug:certain-strike": "item:slug:fighter-bigswing-generic",
+	"item:slug:exacting-strike": "item:slug:fighter-bigswing-generic",
+	"item:slug:desperate-finisher": "item:slug:fighter-bigswing-generic",
+	"item:slug:two-weapon-flurry": "item:slug:fighter-bigswing-generic",
+	"item:slug:double-slice": "item:slug:fighter-bigswing-generic",
+	"item:slug:united-assault": "item:slug:fighter-bigswing-generic",
+	"item:slug:revealing-stab": "item:slug:fighter-bigswing-generic",
+	"item:slug:sever-space": "item:slug:fighter-bigswing-generic",
+	"item:slug:spear-dancer": "item:slug:fighter-bigswing-generic",
+	"feat:slug:overwhelming-blow": "item:slug:fighter-bigswing-generic",
+	"feat:slug:brutal-finish": "item:slug:fighter-bigswing-generic",
+	"feat:slug:vicious-swing": "item:slug:fighter-bigswing-generic",
+	"feat:slug:certain-strike": "item:slug:fighter-bigswing-generic",
+	"feat:slug:exacting-strike": "item:slug:fighter-bigswing-generic",
+	"feat:slug:desperate-finisher": "item:slug:fighter-bigswing-generic",
+	"feat:slug:two-weapon-flurry": "item:slug:fighter-bigswing-generic",
+	"feat:slug:double-slice": "item:slug:fighter-bigswing-generic",
+	"feat:slug:united-assault": "item:slug:fighter-bigswing-generic",
+	"feat:slug:revealing-stab": "item:slug:fighter-bigswing-generic",
+	"feat:slug:sever-space": "item:slug:fighter-bigswing-generic",
+	"feat:slug:spear-dancer": "item:slug:fighter-bigswing-generic"
+}

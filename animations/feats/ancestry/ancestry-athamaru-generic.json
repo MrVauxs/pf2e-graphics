@@ -1,0 +1,35 @@
+{
+	"item:slug:ancestry-athamaru-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:swimming-charge": "item:slug:ancestry-athamaru-generic",
+	"item:slug:coral-detoxification": "item:slug:ancestry-athamaru-generic",
+	"item:slug:coral-reserve": "item:slug:ancestry-athamaru-generic",
+	"item:slug:coerce-the-current": "item:slug:ancestry-athamaru-generic",
+	"item:slug:pheromonal-message": "item:slug:ancestry-athamaru-generic",
+	"item:slug:emit-defensive-odor": "item:slug:ancestry-athamaru-generic",
+	"item:slug:moray-ambush": "item:slug:ancestry-athamaru-generic",
+	"item:slug:riptide-mount": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:swimming-charge": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:coral-detoxification": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:coral-reserve": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:coerce-the-current": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:pheromonal-message": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:emit-defensive-odor": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:moray-ambush": "item:slug:ancestry-athamaru-generic",
+	"feat:slug:riptide-mount": "item:slug:ancestry-athamaru-generic"
+}

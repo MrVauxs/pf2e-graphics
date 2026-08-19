@@ -1,0 +1,65 @@
+{
+	"effect:stance-arcane-generic": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.extras.tmfx.outflow.circle.04"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.4
+				},
+				"visibility": {
+					"opacity": 0.75
+				},
+				"elevation": {
+					"sortLayer": "belowTokens"
+				},
+				"tint": "#b06fe8",
+				"fadeIn": {
+					"duration": 400
+				},
+				"fadeOut": {
+					"duration": 600
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	],
+	"effect:arcane-cascade": "effect:stance-arcane-generic",
+	"effect:intensified-element-stance": "effect:stance-arcane-generic"
+}

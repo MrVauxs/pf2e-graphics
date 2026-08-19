@@ -1,0 +1,22 @@
+{
+	"item:slug:rank9-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.boulder.toss.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:untwisting-iron-pillar": "item:slug:rank9-earth-generic",
+	"item:slug:one-with-the-land": "item:slug:rank9-earth-generic",
+	"item:slug:upheaval": "item:slug:rank9-earth-generic"
+}

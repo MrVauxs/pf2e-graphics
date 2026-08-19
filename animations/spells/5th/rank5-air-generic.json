@@ -1,0 +1,26 @@
+{
+	"item:slug:rank5-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.gust_of_wind.default"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:wisdom-of-the-winds": "item:slug:rank5-air-generic",
+	"item:slug:lashuntas-life-bubble": "item:slug:rank5-air-generic",
+	"item:slug:unfolding-wind-buffet": "item:slug:rank5-air-generic",
+	"item:slug:pressure-zone": "item:slug:rank5-air-generic",
+	"item:slug:wind-jump": "item:slug:rank5-air-generic",
+	"item:slug:tornadic-gale": "item:slug:rank5-air-generic",
+	"item:slug:steal-the-sky": "item:slug:rank5-air-generic"
+}

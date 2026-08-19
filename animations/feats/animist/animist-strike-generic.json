@@ -1,0 +1,29 @@
+{
+	"item:slug:animist-strike-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:roaring-heart": "item:slug:animist-strike-generic",
+	"item:slug:grudge-strike": "item:slug:animist-strike-generic",
+	"item:slug:banish-falsehoods-of-flesh": "item:slug:animist-strike-generic",
+	"feat:slug:roaring-heart": "item:slug:animist-strike-generic",
+	"feat:slug:grudge-strike": "item:slug:animist-strike-generic",
+	"feat:slug:banish-falsehoods-of-flesh": "item:slug:animist-strike-generic"
+}

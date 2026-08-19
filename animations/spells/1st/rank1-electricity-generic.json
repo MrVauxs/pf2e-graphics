@@ -1,0 +1,25 @@
+{
+	"item:slug:rank1-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue03"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:horizon-thunder-sphere": "item:slug:rank1-electricity-generic",
+	"item:slug:conductive-weapon": "item:slug:rank1-electricity-generic",
+	"item:slug:charged-javelin": "item:slug:rank1-electricity-generic",
+	"item:slug:tempest-surge": "item:slug:rank1-electricity-generic",
+	"item:slug:shocking-grasp": "item:slug:rank1-electricity-generic",
+	"item:slug:thunderstrike": "item:slug:rank1-electricity-generic"
+}

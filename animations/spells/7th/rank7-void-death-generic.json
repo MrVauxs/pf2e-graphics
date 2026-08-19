@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hungry-depths": "item:slug:rank7-void-death-generic",
+	"item:slug:devouring-void": "item:slug:rank7-void-death-generic",
+	"item:slug:execute": "item:slug:rank7-void-death-generic"
+}

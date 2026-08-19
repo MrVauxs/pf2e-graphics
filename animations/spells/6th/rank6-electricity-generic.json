@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.03.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:living-thunderbolt": "item:slug:rank6-electricity-generic",
+	"item:slug:chain-lightning": "item:slug:rank6-electricity-generic",
+	"item:slug:for-love-for-lightning": "item:slug:rank6-electricity-generic"
+}

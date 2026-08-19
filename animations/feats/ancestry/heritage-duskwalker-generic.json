@@ -1,0 +1,31 @@
+{
+	"item:slug:heritage-duskwalker-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:deliberate-death": "item:slug:heritage-duskwalker-generic",
+	"item:slug:yamarajs-grandeur": "item:slug:heritage-duskwalker-generic",
+	"item:slug:calacas-showstopper": "item:slug:heritage-duskwalker-generic",
+	"item:slug:olethross-decree": "item:slug:heritage-duskwalker-generic",
+	"item:slug:willing-death": "item:slug:heritage-duskwalker-generic",
+	"item:slug:chance-death": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:deliberate-death": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:yamarajs-grandeur": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:calacas-showstopper": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:olethross-decree": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:willing-death": "item:slug:heritage-duskwalker-generic",
+	"feat:slug:chance-death": "item:slug:heritage-duskwalker-generic"
+}

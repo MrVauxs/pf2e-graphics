@@ -1,0 +1,73 @@
+{
+	"effect:stance-blade-generic": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.extras.tmfx.outflow.circle.02"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.4
+				},
+				"visibility": {
+					"opacity": 0.75
+				},
+				"elevation": {
+					"sortLayer": "belowTokens"
+				},
+				"tint": "#d94f4f",
+				"fadeIn": {
+					"duration": 400
+				},
+				"fadeOut": {
+					"duration": 600
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	],
+	"effect:devrins-cunning-stance": "effect:stance-blade-generic",
+	"effect:disarming-stance": "effect:stance-blade-generic",
+	"effect:dueling-dance": "effect:stance-blade-generic",
+	"effect:duelists-form": "effect:stance-blade-generic",
+	"effect:fanes-fourberie": "effect:stance-blade-generic",
+	"effect:graceful-poise": "effect:stance-blade-generic",
+	"effect:lunging-stance": "effect:stance-blade-generic",
+	"effect:spear-of-doom": "effect:stance-blade-generic",
+	"effect:stretching-reach": "effect:stance-blade-generic",
+	"effect:whirling-blade-stance": "effect:stance-blade-generic"
+}

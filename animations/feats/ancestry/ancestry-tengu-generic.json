@@ -1,0 +1,38 @@
+{
+	"item:slug:ancestry-tengu-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:squawk": "item:slug:ancestry-tengu-generic",
+	"item:slug:eclectic-sword-mastery": "item:slug:ancestry-tengu-generic",
+	"item:slug:harbingers-caw": "item:slug:ancestry-tengu-generic",
+	"item:slug:magpie-snatch": "item:slug:ancestry-tengu-generic",
+	"item:slug:soaring-flight": "item:slug:ancestry-tengu-generic",
+	"item:slug:long-nosed-form": "item:slug:ancestry-tengu-generic",
+	"item:slug:one-toed-hop": "item:slug:ancestry-tengu-generic",
+	"item:slug:hurricane-swing": "item:slug:ancestry-tengu-generic",
+	"item:slug:eat-fortune": "item:slug:ancestry-tengu-generic",
+	"feat:slug:squawk": "item:slug:ancestry-tengu-generic",
+	"feat:slug:eclectic-sword-mastery": "item:slug:ancestry-tengu-generic",
+	"feat:slug:harbingers-caw": "item:slug:ancestry-tengu-generic",
+	"feat:slug:magpie-snatch": "item:slug:ancestry-tengu-generic",
+	"feat:slug:soaring-flight": "item:slug:ancestry-tengu-generic",
+	"action:slug:soaring-flight": "item:slug:ancestry-tengu-generic",
+	"feat:slug:long-nosed-form": "item:slug:ancestry-tengu-generic",
+	"feat:slug:one-toed-hop": "item:slug:ancestry-tengu-generic",
+	"feat:slug:hurricane-swing": "item:slug:ancestry-tengu-generic",
+	"feat:slug:eat-fortune": "item:slug:ancestry-tengu-generic"
+}

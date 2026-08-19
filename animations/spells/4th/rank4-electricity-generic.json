@@ -1,0 +1,22 @@
+{
+	"item:slug:rank4-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue03"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:bottle-the-storm": "item:slug:rank4-electricity-generic",
+	"item:slug:draw-the-lightning": "item:slug:rank4-electricity-generic",
+	"item:slug:fulminating-impact": "item:slug:rank4-electricity-generic"
+}

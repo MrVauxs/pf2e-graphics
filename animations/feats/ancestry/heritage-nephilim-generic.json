@@ -1,0 +1,57 @@
+{
+	"item:slug:heritage-nephilim-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:glory-and-valor": "item:slug:heritage-nephilim-generic",
+	"item:slug:call-to-battle": "item:slug:heritage-nephilim-generic",
+	"item:slug:impose-order": "item:slug:heritage-nephilim-generic",
+	"item:slug:channel-the-godmind": "item:slug:heritage-nephilim-generic",
+	"item:slug:extraplanar-haze": "item:slug:heritage-nephilim-generic",
+	"item:slug:radiate-glory": "item:slug:heritage-nephilim-generic",
+	"item:slug:dominion-aura": "item:slug:heritage-nephilim-generic",
+	"item:slug:reveal-hidden-self": "item:slug:heritage-nephilim-generic",
+	"item:slug:preemptive-reconfiguration": "item:slug:heritage-nephilim-generic",
+	"item:slug:final-form": "item:slug:heritage-nephilim-generic",
+	"item:slug:healers-halo": "item:slug:heritage-nephilim-generic",
+	"item:slug:idol-threat": "item:slug:heritage-nephilim-generic",
+	"item:slug:pandemonium-eruption": "item:slug:heritage-nephilim-generic",
+	"item:slug:alter-resistance": "item:slug:heritage-nephilim-generic",
+	"item:slug:devil-in-plain-sight": "item:slug:heritage-nephilim-generic",
+	"item:slug:purge-sins": "item:slug:heritage-nephilim-generic",
+	"item:slug:towering-presence": "item:slug:heritage-nephilim-generic",
+	"item:slug:resilient-physiology": "item:slug:heritage-nephilim-generic",
+	"item:slug:divine-wings": "item:slug:heritage-nephilim-generic",
+	"feat:slug:glory-and-valor": "item:slug:heritage-nephilim-generic",
+	"feat:slug:call-to-battle": "item:slug:heritage-nephilim-generic",
+	"feat:slug:impose-order": "item:slug:heritage-nephilim-generic",
+	"feat:slug:channel-the-godmind": "item:slug:heritage-nephilim-generic",
+	"feat:slug:extraplanar-haze": "item:slug:heritage-nephilim-generic",
+	"feat:slug:radiate-glory": "item:slug:heritage-nephilim-generic",
+	"feat:slug:dominion-aura": "item:slug:heritage-nephilim-generic",
+	"feat:slug:reveal-hidden-self": "item:slug:heritage-nephilim-generic",
+	"feat:slug:preemptive-reconfiguration": "item:slug:heritage-nephilim-generic",
+	"feat:slug:final-form": "item:slug:heritage-nephilim-generic",
+	"feat:slug:healers-halo": "item:slug:heritage-nephilim-generic",
+	"feat:slug:idol-threat": "item:slug:heritage-nephilim-generic",
+	"feat:slug:pandemonium-eruption": "item:slug:heritage-nephilim-generic",
+	"feat:slug:alter-resistance": "item:slug:heritage-nephilim-generic",
+	"feat:slug:devil-in-plain-sight": "item:slug:heritage-nephilim-generic",
+	"feat:slug:purge-sins": "item:slug:heritage-nephilim-generic",
+	"feat:slug:towering-presence": "item:slug:heritage-nephilim-generic",
+	"feat:slug:resilient-physiology": "item:slug:heritage-nephilim-generic",
+	"feat:slug:divine-wings": "item:slug:heritage-nephilim-generic"
+}

@@ -1,0 +1,23 @@
+{
+	"item:slug:rank7-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.conjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:incarnate-tempest-of-shades": "item:slug:rank7-summon-generic",
+	"item:slug:summon-stampede": "item:slug:rank7-summon-generic",
+	"item:slug:final-fate-of-the-locust-host": "item:slug:rank7-summon-generic",
+	"item:slug:incarnate-ancient-specter": "item:slug:rank7-summon-generic"
+}

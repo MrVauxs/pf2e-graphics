@@ -1,0 +1,45 @@
+{
+	"item:slug:ancestry-goblin-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:kneecap": "item:slug:ancestry-goblin-generic",
+	"item:slug:roll-with-it": "item:slug:ancestry-goblin-generic",
+	"item:slug:freeze-it": "item:slug:ancestry-goblin-generic",
+	"item:slug:goblin-club": "item:slug:ancestry-goblin-generic",
+	"item:slug:ankle-bite": "item:slug:ancestry-goblin-generic",
+	"item:slug:goblin-song": "item:slug:ancestry-goblin-generic",
+	"item:slug:phantom-visage": "item:slug:ancestry-goblin-generic",
+	"item:slug:cling": "item:slug:ancestry-goblin-generic",
+	"item:slug:torch-goblin": "item:slug:ancestry-goblin-generic",
+	"item:slug:goblin-scuttle": "item:slug:ancestry-goblin-generic",
+	"item:slug:reckless-abandon": "item:slug:ancestry-goblin-generic",
+	"item:slug:glorious-gamtu": "item:slug:ancestry-goblin-generic",
+	"item:slug:tail-spin": "item:slug:ancestry-goblin-generic",
+	"feat:slug:kneecap": "item:slug:ancestry-goblin-generic",
+	"feat:slug:roll-with-it": "item:slug:ancestry-goblin-generic",
+	"feat:slug:freeze-it": "item:slug:ancestry-goblin-generic",
+	"feat:slug:goblin-club": "item:slug:ancestry-goblin-generic",
+	"feat:slug:ankle-bite": "item:slug:ancestry-goblin-generic",
+	"feat:slug:goblin-song": "item:slug:ancestry-goblin-generic",
+	"feat:slug:phantom-visage": "item:slug:ancestry-goblin-generic",
+	"feat:slug:cling": "item:slug:ancestry-goblin-generic",
+	"feat:slug:torch-goblin": "item:slug:ancestry-goblin-generic",
+	"feat:slug:goblin-scuttle": "item:slug:ancestry-goblin-generic",
+	"feat:slug:reckless-abandon": "item:slug:ancestry-goblin-generic",
+	"feat:slug:glorious-gamtu": "item:slug:ancestry-goblin-generic",
+	"feat:slug:tail-spin": "item:slug:ancestry-goblin-generic"
+}

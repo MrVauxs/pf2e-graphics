@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-yaksha-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:four-armed-aspect": "item:slug:ancestry-yaksha-generic",
+	"item:slug:germination-of-resolve": "item:slug:ancestry-yaksha-generic",
+	"item:slug:withstand-the-storm": "item:slug:ancestry-yaksha-generic",
+	"item:slug:howling-aspect": "item:slug:ancestry-yaksha-generic",
+	"feat:slug:four-armed-aspect": "item:slug:ancestry-yaksha-generic",
+	"feat:slug:germination-of-resolve": "item:slug:ancestry-yaksha-generic",
+	"feat:slug:withstand-the-storm": "item:slug:ancestry-yaksha-generic",
+	"feat:slug:howling-aspect": "item:slug:ancestry-yaksha-generic"
+}

@@ -1,0 +1,21 @@
+{
+	"item:slug:rank8-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.cure_wounds.400px.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:moment-of-renewal": "item:slug:rank8-healing-generic",
+	"item:slug:part-the-mists-to-paradise": "item:slug:rank8-healing-generic"
+}

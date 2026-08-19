@@ -1,0 +1,44 @@
+{
+	"item:slug:rank1-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:illusory-object": "item:slug:rank1-illusion-generic",
+	"item:slug:sepulchral-mask": "item:slug:rank1-illusion-generic",
+	"item:slug:item-facade": "item:slug:rank1-illusion-generic",
+	"item:slug:lift-natures-caul": "item:slug:rank1-illusion-generic",
+	"item:slug:crescent-scepter": "item:slug:rank1-illusion-generic",
+	"item:slug:disguise-magic": "item:slug:rank1-illusion-generic",
+	"item:slug:phantom-pain": "item:slug:rank1-illusion-generic",
+	"item:slug:nymphs-grace": "item:slug:rank1-illusion-generic",
+	"item:slug:dizzying-colors": "item:slug:rank1-illusion-generic",
+	"item:slug:thicket-of-knives": "item:slug:rank1-illusion-generic",
+	"item:slug:flashy-disappearance": "item:slug:rank1-illusion-generic",
+	"item:slug:appearance-of-wealth": "item:slug:rank1-illusion-generic",
+	"item:slug:tricksters-mirrors": "item:slug:rank1-illusion-generic",
+	"item:slug:confound-the-eye-and-confuse-the-mind": "item:slug:rank1-illusion-generic",
+	"item:slug:warped-terrain": "item:slug:rank1-illusion-generic",
+	"item:slug:illusory-disguise": "item:slug:rank1-illusion-generic",
+	"item:slug:lose-the-path": "item:slug:rank1-illusion-generic",
+	"item:slug:invisible-item": "item:slug:rank1-illusion-generic",
+	"item:slug:overselling-flourish": "item:slug:rank1-illusion-generic",
+	"item:slug:creative-splash": "item:slug:rank1-illusion-generic",
+	"item:slug:face-in-the-crowd": "item:slug:rank1-illusion-generic",
+	"item:slug:ventriloquism": "item:slug:rank1-illusion-generic",
+	"item:slug:distracting-decoy": "item:slug:rank1-illusion-generic",
+	"item:slug:exchange-image": "item:slug:rank1-illusion-generic",
+	"item:slug:dazzling-flash": "item:slug:rank1-illusion-generic"
+}

@@ -1,0 +1,32 @@
+{
+	"feat:slug:bard-performance-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:call-and-response": "feat:slug:bard-performance-generic",
+	"feat:slug:in-tune": "feat:slug:bard-performance-generic",
+	"feat:slug:unusual-composition": "feat:slug:bard-performance-generic",
+	"feat:slug:educate-allies": "feat:slug:bard-performance-generic",
+	"feat:slug:melodious-spell": "feat:slug:bard-performance-generic",
+	"feat:slug:accompany": "feat:slug:bard-performance-generic",
+	"feat:slug:shared-sight": "feat:slug:bard-performance-generic",
+	"feat:slug:quickened-casting": "feat:slug:bard-performance-generic"
+}

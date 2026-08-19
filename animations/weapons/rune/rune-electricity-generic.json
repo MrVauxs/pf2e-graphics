@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-electricity-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.03.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:shock": "item:rune:property:rune-electricity-generic",
+	"item:rune:property:shock-greater": "item:rune:property:rune-electricity-generic"
+}

@@ -1,0 +1,32 @@
+{
+	"item:slug:bard-buff-anthem-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.shield.yellow.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 3
+				}
+			}
+		}
+	],
+	"item:slug:courageous-anthem": "item:slug:bard-buff-anthem-generic",
+	"item:slug:rallying-anthem": "item:slug:bard-buff-anthem-generic",
+	"item:slug:triple-time": "item:slug:bard-buff-anthem-generic",
+	"item:slug:song-of-strength": "item:slug:bard-buff-anthem-generic",
+	"item:slug:silvers-refrain": "item:slug:bard-buff-anthem-generic",
+	"item:slug:counter-performance": "item:slug:bard-buff-anthem-generic",
+	"item:slug:uplifting-overture": "item:slug:bard-buff-anthem-generic",
+	"item:slug:allegro": "item:slug:bard-buff-anthem-generic",
+	"item:slug:song-of-marching": "item:slug:bard-buff-anthem-generic"
+}

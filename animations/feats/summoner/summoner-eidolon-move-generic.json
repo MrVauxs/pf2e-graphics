@@ -1,0 +1,32 @@
+{
+	"feat:slug:summoner-eidolon-move-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.smoke.puff.centered.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:eidolons-trample": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:glider-form": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:shrink-down": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:transpose": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:tandem-movement": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:surprising-leap": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:phase-out": "feat:slug:summoner-eidolon-move-generic",
+	"feat:slug:meld-into-eidolon": "feat:slug:summoner-eidolon-move-generic"
+}

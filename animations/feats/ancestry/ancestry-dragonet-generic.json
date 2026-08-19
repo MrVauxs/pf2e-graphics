@@ -1,0 +1,35 @@
+{
+	"item:slug:ancestry-dragonet-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:jealous-grip": "item:slug:ancestry-dragonet-generic",
+	"item:slug:take-wing": "item:slug:ancestry-dragonet-generic",
+	"item:slug:inhale-exhale": "item:slug:ancestry-dragonet-generic",
+	"item:slug:luring-chomp": "item:slug:ancestry-dragonet-generic",
+	"item:slug:dragonet-breath": "item:slug:ancestry-dragonet-generic",
+	"item:slug:form-a-flock": "item:slug:ancestry-dragonet-generic",
+	"item:slug:ferocious-will": "item:slug:ancestry-dragonet-generic",
+	"item:slug:dazzling-dragonet-disappearance": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:jealous-grip": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:take-wing": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:inhale-exhale": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:luring-chomp": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:dragonet-breath": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:form-a-flock": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:ferocious-will": "item:slug:ancestry-dragonet-generic",
+	"feat:slug:dazzling-dragonet-disappearance": "item:slug:ancestry-dragonet-generic"
+}

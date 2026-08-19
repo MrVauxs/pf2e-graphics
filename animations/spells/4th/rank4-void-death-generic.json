@@ -1,0 +1,35 @@
+{
+	"item:slug:rank4-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_red"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:vampiric-maiden": "item:slug:rank4-void-death-generic",
+	"item:slug:necrotic-radiation": "item:slug:rank4-void-death-generic",
+	"item:slug:fallow-field": "item:slug:rank4-void-death-generic",
+	"item:slug:sanguine-mist": "item:slug:rank4-void-death-generic",
+	"item:slug:vital-seed": "item:slug:rank4-void-death-generic",
+	"item:slug:blight": "item:slug:rank4-void-death-generic",
+	"item:slug:shadow-strike": "item:slug:rank4-void-death-generic",
+	"item:slug:whispers-of-the-void": "item:slug:rank4-void-death-generic",
+	"item:slug:achaekeks-clutch": "item:slug:rank4-void-death-generic",
+	"item:slug:vision-of-death": "item:slug:rank4-void-death-generic",
+	"item:slug:ash-strewn-ending": "item:slug:rank4-void-death-generic",
+	"item:slug:call-the-blood": "item:slug:rank4-void-death-generic",
+	"item:slug:enervation": "item:slug:rank4-void-death-generic",
+	"item:slug:seal-fate": "item:slug:rank4-void-death-generic",
+	"item:slug:malignant-sustenance": "item:slug:rank4-void-death-generic",
+	"item:slug:phantasmal-killer": "item:slug:rank4-void-death-generic"
+}

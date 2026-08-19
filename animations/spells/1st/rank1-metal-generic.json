@@ -1,0 +1,25 @@
+{
+	"item:slug:rank1-metal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:leaden-steps": "item:slug:rank1-metal-generic",
+	"item:slug:shielded-arm": "item:slug:rank1-metal-generic",
+	"item:slug:unexpected-windfall": "item:slug:rank1-metal-generic",
+	"item:slug:serrate": "item:slug:rank1-metal-generic",
+	"item:slug:metal-merged": "item:slug:rank1-metal-generic",
+	"item:slug:fold-metal": "item:slug:rank1-metal-generic"
+}

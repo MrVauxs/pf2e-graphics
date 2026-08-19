@@ -1,0 +1,40 @@
+{
+	"item:slug:ancestry-orc-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.010.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:rampaging-ferocity": "item:slug:ancestry-orc-generic",
+	"item:slug:mask-of-pain": "item:slug:ancestry-orc-generic",
+	"item:slug:orc-superstition": "item:slug:ancestry-orc-generic",
+	"item:slug:mask-of-fear": "item:slug:ancestry-orc-generic",
+	"item:slug:orc-ferocity": "item:slug:ancestry-orc-generic",
+	"item:slug:victorious-vigor": "item:slug:ancestry-orc-generic",
+	"item:slug:demonblood-frenzy": "item:slug:ancestry-orc-generic",
+	"item:slug:mask-of-rejection": "item:slug:ancestry-orc-generic",
+	"feat:slug:rampaging-ferocity": "item:slug:ancestry-orc-generic",
+	"action:slug:rampaging-ferocity": "item:slug:ancestry-orc-generic",
+	"feat:slug:mask-of-pain": "item:slug:ancestry-orc-generic",
+	"feat:slug:orc-superstition": "item:slug:ancestry-orc-generic",
+	"feat:slug:mask-of-fear": "item:slug:ancestry-orc-generic",
+	"feat:slug:orc-ferocity": "item:slug:ancestry-orc-generic",
+	"feat:slug:victorious-vigor": "item:slug:ancestry-orc-generic",
+	"feat:slug:demonblood-frenzy": "item:slug:ancestry-orc-generic",
+	"feat:slug:mask-of-rejection": "item:slug:ancestry-orc-generic"
+}

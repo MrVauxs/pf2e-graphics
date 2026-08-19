@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:prismatic-armor": "item:slug:rank7-light-generic",
+	"item:slug:prismatic-spray": "item:slug:rank7-light-generic",
+	"item:slug:darklight": "item:slug:rank7-light-generic"
+}

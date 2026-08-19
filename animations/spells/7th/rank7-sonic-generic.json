@@ -1,0 +1,23 @@
+{
+	"item:slug:rank7-sonic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:power-word-blind": "item:slug:rank7-sonic-generic",
+	"item:slug:loves-sacrifice": "item:slug:rank7-sonic-generic",
+	"item:slug:visions-of-danger": "item:slug:rank7-sonic-generic",
+	"item:slug:vibrant-vibrato": "item:slug:rank7-sonic-generic"
+}

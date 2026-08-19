@@ -1,0 +1,41 @@
+{
+	"item:slug:rank7-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:infinitesimal-collapse-field": "item:slug:rank7-utility-generic",
+	"item:slug:reverse-gravity": "item:slug:rank7-utility-generic",
+	"item:slug:hasted-assault": "item:slug:rank7-utility-generic",
+	"item:slug:defy-the-gods": "item:slug:rank7-utility-generic",
+	"item:slug:supreme-connection": "item:slug:rank7-utility-generic",
+	"item:slug:duplicate-foe": "item:slug:rank7-utility-generic",
+	"item:slug:spell-riposte": "item:slug:rank7-utility-generic",
+	"item:slug:attacked-from-within": "item:slug:rank7-utility-generic",
+	"item:slug:time-beacon": "item:slug:rank7-utility-generic",
+	"item:slug:comet-charge": "item:slug:rank7-utility-generic",
+	"item:slug:spell-turning": "item:slug:rank7-utility-generic",
+	"item:slug:planar-seal": "item:slug:rank7-utility-generic",
+	"item:slug:empower-ley-line": "item:slug:rank7-utility-generic",
+	"item:slug:unfettered-pack": "item:slug:rank7-utility-generic",
+	"item:slug:collective-memories": "item:slug:rank7-utility-generic",
+	"item:slug:puppet-strings": "item:slug:rank7-utility-generic",
+	"item:slug:shadows-web": "item:slug:rank7-utility-generic",
+	"item:slug:fiendish-rift": "item:slug:rank7-utility-generic",
+	"item:slug:divine-decree": "item:slug:rank7-utility-generic",
+	"item:slug:ravenous-reanimation": "item:slug:rank7-utility-generic",
+	"item:slug:telekinetic-bombardment": "item:slug:rank7-utility-generic",
+	"item:slug:return-to-essence": "item:slug:rank7-utility-generic"
+}

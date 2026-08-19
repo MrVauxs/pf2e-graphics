@@ -1,0 +1,27 @@
+{
+	"item:slug:rank3-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:soothing-blossoms": "item:slug:rank3-plant-generic",
+	"item:slug:conjured-conveyance": "item:slug:rank3-plant-generic",
+	"item:slug:rangers-bramble": "item:slug:rank3-plant-generic",
+	"item:slug:wall-of-thorns": "item:slug:rank3-plant-generic",
+	"item:slug:lotus-walk": "item:slug:rank3-plant-generic",
+	"item:slug:wooden-double": "item:slug:rank3-plant-generic",
+	"item:slug:cozy-cabin": "item:slug:rank3-plant-generic",
+	"item:slug:speak-with-plants": "item:slug:rank3-plant-generic"
+}

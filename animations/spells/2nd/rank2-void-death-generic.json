@@ -1,0 +1,24 @@
+{
+	"item:slug:rank2-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_red"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:carrion-mire": "item:slug:rank2-void-death-generic",
+	"item:slug:feral-shades": "item:slug:rank2-void-death-generic",
+	"item:slug:sudden-blight": "item:slug:rank2-void-death-generic",
+	"item:slug:death-knell": "item:slug:rank2-void-death-generic",
+	"item:slug:reapers-lantern": "item:slug:rank2-void-death-generic"
+}

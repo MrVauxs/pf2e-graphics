@@ -1,0 +1,24 @@
+{
+	"item:slug:rank1-pact-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:diabolic-pact": "item:slug:rank1-pact-generic",
+	"item:slug:div-pact": "item:slug:rank1-pact-generic",
+	"item:slug:daemonic-pact": "item:slug:rank1-pact-generic",
+	"item:slug:demonic-pact": "item:slug:rank1-pact-generic",
+	"item:slug:angelic-halo": "item:slug:rank1-pact-generic"
+}

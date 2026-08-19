@@ -1,0 +1,29 @@
+{
+	"feat:slug:oracle-vision-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.divination.loop.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:oracular-warning": "feat:slug:oracle-vision-generic",
+	"feat:slug:thousand-visions": "feat:slug:oracle-vision-generic",
+	"feat:slug:meddling-futures": "feat:slug:oracle-vision-generic",
+	"feat:slug:knowledge-of-shapes": "feat:slug:oracle-vision-generic",
+	"feat:slug:epiphany-at-the-crossroads": "feat:slug:oracle-vision-generic"
+}

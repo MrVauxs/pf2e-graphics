@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Added
+
+- Baseline animation coverage for 534 new animation files, keyed by roll option and verified against a live Foundry instance:
+  - **Feats** — 1268 `feat:slug:` keys across all 26 classes plus ancestries, heritages, and skill feats, grouped into thematic buckets (one canonical entry per bucket, with each feat aliased to it).
+  - **Spells** — generic coverage for every spell rank and the cantrip/focus lists, bucketed by damage type and school.
+  - **Conditions** — all 29 remaining PF2e conditions.
+  - **Effects** — mutagens, rage, and 15 stance families, using the shared-alias pattern.
+  - **Weapons** — the remaining weapon groups and property runes.
+- `feature:slug:` aliases for Shield Block and Reactive Strike, which are class features and so emit a `feature:` prefix rather than `feat:`.
+
 ### Changed
 
 - **Foundry VTT v13 or v14 is now required.** Support for v12 has been dropped.

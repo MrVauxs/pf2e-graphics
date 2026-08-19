@@ -1,0 +1,31 @@
+{
+	"item:slug:rank4-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:airlift": "item:slug:rank4-air-generic",
+	"item:slug:petal-storm": "item:slug:rank4-air-generic",
+	"item:slug:zephyr-slip": "item:slug:rank4-air-generic",
+	"item:slug:filter-air": "item:slug:rank4-air-generic",
+	"item:slug:dust-storm": "item:slug:rank4-air-generic",
+	"item:slug:disperse-into-air": "item:slug:rank4-air-generic",
+	"item:slug:wild-winds-stance": "item:slug:rank4-air-generic",
+	"item:slug:vapor-form": "item:slug:rank4-air-generic",
+	"item:slug:air-walk": "item:slug:rank4-air-generic",
+	"item:slug:anchoring-air": "item:slug:rank4-air-generic",
+	"item:slug:stormwind-flight": "item:slug:rank4-air-generic",
+	"item:slug:cloud-current": "item:slug:rank4-air-generic"
+}

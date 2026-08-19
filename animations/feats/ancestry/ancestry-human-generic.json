@@ -1,0 +1,33 @@
+{
+	"item:slug:ancestry-human-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:courteous-comeback": "item:slug:ancestry-human-generic",
+	"item:slug:bounce-back": "item:slug:ancestry-human-generic",
+	"item:slug:saoc-astrology": "item:slug:ancestry-human-generic",
+	"item:slug:heroic-presence": "item:slug:ancestry-human-generic",
+	"item:slug:incredible-improvisation": "item:slug:ancestry-human-generic",
+	"item:slug:keep-up-appearances": "item:slug:ancestry-human-generic",
+	"item:slug:know-oneself": "item:slug:ancestry-human-generic",
+	"feat:slug:courteous-comeback": "item:slug:ancestry-human-generic",
+	"feat:slug:bounce-back": "item:slug:ancestry-human-generic",
+	"feat:slug:saoc-astrology": "item:slug:ancestry-human-generic",
+	"feat:slug:heroic-presence": "item:slug:ancestry-human-generic",
+	"feat:slug:incredible-improvisation": "item:slug:ancestry-human-generic",
+	"feat:slug:keep-up-appearances": "item:slug:ancestry-human-generic",
+	"feat:slug:know-oneself": "item:slug:ancestry-human-generic"
+}

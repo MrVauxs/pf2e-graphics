@@ -1,0 +1,65 @@
+{
+	"effect:stance-metal-generic": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.aura_themed.01.outward.complete.metal.01.grey"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.3
+				},
+				"visibility": {
+					"opacity": 0.75
+				},
+				"elevation": {
+					"sortLayer": "belowTokens"
+				},
+				"fadeIn": {
+					"duration": 400
+				},
+				"fadeOut": {
+					"duration": 600
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	],
+	"effect:ironblood-stance": "effect:stance-metal-generic",
+	"effect:magnetic-field": "effect:stance-metal-generic",
+	"effect:shattershields": "effect:stance-metal-generic"
+}

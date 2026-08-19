@@ -1,0 +1,28 @@
+{
+	"item:slug:rank2-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:splinter-volley": "item:slug:rank2-plant-generic",
+	"item:slug:shape-wood": "item:slug:rank2-plant-generic",
+	"item:slug:entangling-flora": "item:slug:rank2-plant-generic",
+	"item:slug:tacky-pine-sap": "item:slug:rank2-plant-generic",
+	"item:slug:avenging-wildwood": "item:slug:rank2-plant-generic",
+	"item:slug:oaken-resilience": "item:slug:rank2-plant-generic",
+	"item:slug:one-with-plants": "item:slug:rank2-plant-generic",
+	"item:slug:helpful-wood-spirits": "item:slug:rank2-plant-generic",
+	"item:slug:fungal-hyphae": "item:slug:rank2-plant-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:ranger-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:relentless-stalker": "item:slug:ranger-utility-generic",
+	"feat:slug:relentless-stalker": "item:slug:ranger-utility-generic"
+}

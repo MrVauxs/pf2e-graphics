@@ -1,0 +1,51 @@
+{
+	"item:slug:skill-knowledge-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:eye-for-numbers": "item:slug:skill-knowledge-generic",
+	"item:slug:reveal-true-name": "item:slug:skill-knowledge-generic",
+	"item:slug:myth-hunter": "item:slug:skill-knowledge-generic",
+	"item:slug:recognize-threat": "item:slug:skill-knowledge-generic",
+	"item:slug:thats-not-natural": "item:slug:skill-knowledge-generic",
+	"item:slug:skeptics-defense": "item:slug:skill-knowledge-generic",
+	"item:slug:recognize-spell": "item:slug:skill-knowledge-generic",
+	"item:slug:eye-of-the-arclords": "item:slug:skill-knowledge-generic",
+	"item:slug:recollect-studies": "item:slug:skill-knowledge-generic",
+	"item:slug:uzunjati-recollection": "item:slug:skill-knowledge-generic",
+	"item:slug:reveal-machinations": "item:slug:skill-knowledge-generic",
+	"item:slug:ashen-veil": "item:slug:skill-knowledge-generic",
+	"item:slug:kreightons-cognitive-crossover": "item:slug:skill-knowledge-generic",
+	"item:slug:go-with-the-flow": "item:slug:skill-knowledge-generic",
+	"item:slug:trick-magic-item": "item:slug:skill-knowledge-generic",
+	"item:slug:diverse-recognition": "item:slug:skill-knowledge-generic",
+	"feat:slug:eye-for-numbers": "item:slug:skill-knowledge-generic",
+	"feat:slug:reveal-true-name": "item:slug:skill-knowledge-generic",
+	"feat:slug:myth-hunter": "item:slug:skill-knowledge-generic",
+	"feat:slug:recognize-threat": "item:slug:skill-knowledge-generic",
+	"feat:slug:thats-not-natural": "item:slug:skill-knowledge-generic",
+	"feat:slug:skeptics-defense": "item:slug:skill-knowledge-generic",
+	"feat:slug:recognize-spell": "item:slug:skill-knowledge-generic",
+	"feat:slug:eye-of-the-arclords": "item:slug:skill-knowledge-generic",
+	"feat:slug:recollect-studies": "item:slug:skill-knowledge-generic",
+	"feat:slug:uzunjati-recollection": "item:slug:skill-knowledge-generic",
+	"feat:slug:reveal-machinations": "item:slug:skill-knowledge-generic",
+	"feat:slug:ashen-veil": "item:slug:skill-knowledge-generic",
+	"feat:slug:kreightons-cognitive-crossover": "item:slug:skill-knowledge-generic",
+	"feat:slug:go-with-the-flow": "item:slug:skill-knowledge-generic",
+	"feat:slug:trick-magic-item": "item:slug:skill-knowledge-generic",
+	"feat:slug:diverse-recognition": "item:slug:skill-knowledge-generic"
+}

@@ -1,0 +1,30 @@
+{
+	"item:rune:property:rune-holy-unholy-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:kolss-oath-greater": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:trudds-strength": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:bolkas-blessing": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:unholy": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:bolkas-blessing-greater": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:kolss-oath": "item:rune:property:rune-holy-unholy-generic",
+	"item:rune:property:trudds-strength-greater": "item:rune:property:rune-holy-unholy-generic"
+}

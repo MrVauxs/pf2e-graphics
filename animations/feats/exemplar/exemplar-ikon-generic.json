@@ -1,0 +1,37 @@
+{
+	"item:slug:exemplar-ikon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:extract-vow-of-nonviolence": "item:slug:exemplar-ikon-generic",
+	"item:slug:vow-of-mortal-defiance": "item:slug:exemplar-ikon-generic",
+	"item:slug:battle-hymn-to-the-lost": "item:slug:exemplar-ikon-generic",
+	"item:slug:complete-the-heros-journey": "item:slug:exemplar-ikon-generic",
+	"item:slug:forward-gaze-into-life": "item:slug:exemplar-ikon-generic",
+	"item:slug:raise-island": "item:slug:exemplar-ikon-generic",
+	"item:slug:rejoice-in-solstice-storm": "item:slug:exemplar-ikon-generic",
+	"feat:slug:extract-vow-of-nonviolence": "item:slug:exemplar-ikon-generic",
+	"feat:slug:vow-of-mortal-defiance": "item:slug:exemplar-ikon-generic",
+	"feat:slug:battle-hymn-to-the-lost": "item:slug:exemplar-ikon-generic",
+	"feat:slug:complete-the-heros-journey": "item:slug:exemplar-ikon-generic",
+	"feat:slug:forward-gaze-into-life": "item:slug:exemplar-ikon-generic",
+	"feat:slug:raise-island": "item:slug:exemplar-ikon-generic",
+	"feat:slug:rejoice-in-solstice-storm": "item:slug:exemplar-ikon-generic"
+}

@@ -1,0 +1,21 @@
+{
+	"item:slug:cantrip-acid-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:acid-splash": "item:slug:cantrip-acid-generic",
+	"item:slug:caustic-blast": "item:slug:cantrip-acid-generic"
+}

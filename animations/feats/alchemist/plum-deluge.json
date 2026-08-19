@@ -1,0 +1,43 @@
+{
+	"origin:item:slug:plum-deluge": [
+		{
+			"triggers": [
+				"place-template"
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.throwable.throw.flask.03.green"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TEMPLATES"
+						},
+						"waitUntilFinished": -500
+					}
+				},
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.fumes.toxic.green"
+						],
+						"position": {
+							"type": "static",
+							"location": "TEMPLATES"
+						},
+						"size": {
+							"type": "relative"
+						}
+					}
+				}
+			]
+		}
+	]
+}

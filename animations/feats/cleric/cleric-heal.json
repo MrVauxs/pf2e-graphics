@@ -1,0 +1,31 @@
+{
+	"feat:slug:cleric-heal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.healing_generic.400px.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"feat:slug:defensive-recovery": "feat:slug:cleric-heal-generic",
+	"feat:slug:denier-of-destruction": "feat:slug:cleric-heal-generic",
+	"feat:slug:ebb-and-flow": "feat:slug:cleric-heal-generic",
+	"feat:slug:heroic-recovery": "feat:slug:cleric-heal-generic",
+	"feat:slug:miraculous-intervention": "feat:slug:cleric-heal-generic",
+	"feat:slug:remediate": "feat:slug:cleric-heal-generic",
+	"feat:slug:restorative-strike": "feat:slug:cleric-heal-generic"
+}

@@ -1,0 +1,21 @@
+{
+	"item:slug:rank8-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.skull.purple.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:flesh-tsunami": "item:slug:rank8-necromancer-generic",
+	"item:slug:temporary-possession": "item:slug:rank8-necromancer-generic"
+}

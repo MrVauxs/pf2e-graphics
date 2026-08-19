@@ -1,0 +1,21 @@
+{
+	"item:slug:rank9-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.transmutation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:qi-form": "item:slug:rank9-morph-generic",
+	"item:slug:metamorphosis": "item:slug:rank9-morph-generic"
+}

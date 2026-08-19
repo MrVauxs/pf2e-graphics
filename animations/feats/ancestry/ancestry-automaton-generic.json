@@ -1,0 +1,37 @@
+{
+	"item:slug:ancestry-automaton-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:resilient-chassis": "item:slug:ancestry-automaton-generic",
+	"item:slug:inscribed-blast": "item:slug:ancestry-automaton-generic",
+	"item:slug:bodily-disintegration": "item:slug:ancestry-automaton-generic",
+	"item:slug:purge-system": "item:slug:ancestry-automaton-generic",
+	"item:slug:arcane-propulsion": "item:slug:ancestry-automaton-generic",
+	"item:slug:rain-of-bolts": "item:slug:ancestry-automaton-generic",
+	"item:slug:core-rejuvenation": "item:slug:ancestry-automaton-generic",
+	"item:slug:arcane-slam": "item:slug:ancestry-automaton-generic",
+	"item:slug:core-cannon": "item:slug:ancestry-automaton-generic",
+	"feat:slug:resilient-chassis": "item:slug:ancestry-automaton-generic",
+	"feat:slug:inscribed-blast": "item:slug:ancestry-automaton-generic",
+	"feat:slug:bodily-disintegration": "item:slug:ancestry-automaton-generic",
+	"feat:slug:purge-system": "item:slug:ancestry-automaton-generic",
+	"feat:slug:arcane-propulsion": "item:slug:ancestry-automaton-generic",
+	"feat:slug:rain-of-bolts": "item:slug:ancestry-automaton-generic",
+	"feat:slug:core-rejuvenation": "item:slug:ancestry-automaton-generic",
+	"feat:slug:arcane-slam": "item:slug:ancestry-automaton-generic",
+	"feat:slug:core-cannon": "item:slug:ancestry-automaton-generic"
+}

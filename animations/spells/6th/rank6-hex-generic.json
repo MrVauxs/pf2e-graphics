@@ -1,0 +1,29 @@
+{
+	"item:slug:rank6-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.enchantment.intro.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hags-fruit": "item:slug:rank6-hex-generic",
+	"item:slug:never-mind": "item:slug:rank6-hex-generic",
+	"item:slug:spellwrack": "item:slug:rank6-hex-generic",
+	"item:slug:bound-in-death": "item:slug:rank6-hex-generic",
+	"item:slug:tanglecurse": "item:slug:rank6-hex-generic",
+	"item:slug:heinous-future": "item:slug:rank6-hex-generic",
+	"item:slug:blinding-fury": "item:slug:rank6-hex-generic",
+	"item:slug:sleepless-season": "item:slug:rank6-hex-generic",
+	"item:slug:cursed-metamorphosis": "item:slug:rank6-hex-generic",
+	"item:slug:suspended-retribution": "item:slug:rank6-hex-generic"
+}

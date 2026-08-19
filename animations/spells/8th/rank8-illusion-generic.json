@@ -1,0 +1,25 @@
+{
+	"item:slug:rank8-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.evocation.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:hypnopompic-terrors": "item:slug:rank8-illusion-generic",
+	"item:slug:split-shadow": "item:slug:rank8-illusion-generic",
+	"item:slug:undermine-reality": "item:slug:rank8-illusion-generic",
+	"item:slug:dream-council": "item:slug:rank8-illusion-generic",
+	"item:slug:confusing-colors": "item:slug:rank8-illusion-generic",
+	"item:slug:disappearance": "item:slug:rank8-illusion-generic"
+}

@@ -1,0 +1,27 @@
+{
+	"item:slug:rank2-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ghoulish-cravings": "item:slug:rank2-hex-generic",
+	"item:slug:horrifying-blood-loss": "item:slug:rank2-hex-generic",
+	"item:slug:vision-of-weakness": "item:slug:rank2-hex-generic",
+	"item:slug:mark-of-blood": "item:slug:rank2-hex-generic",
+	"item:slug:blood-vendetta": "item:slug:rank2-hex-generic",
+	"item:slug:brand-the-impenitent": "item:slug:rank2-hex-generic",
+	"item:slug:warriors-regret": "item:slug:rank2-hex-generic",
+	"item:slug:feast-of-ashes": "item:slug:rank2-hex-generic"
+}

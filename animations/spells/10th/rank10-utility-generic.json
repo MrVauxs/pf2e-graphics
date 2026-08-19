@@ -1,0 +1,35 @@
+{
+	"item:slug:rank10-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:freeze-time": "item:slug:rank10-utility-generic",
+	"item:slug:wish": "item:slug:rank10-utility-generic",
+	"item:slug:theogeny": "item:slug:rank10-utility-generic",
+	"item:slug:planar-collision": "item:slug:rank10-utility-generic",
+	"item:slug:manifestation": "item:slug:rank10-utility-generic",
+	"item:slug:fated-confrontation": "item:slug:rank10-utility-generic",
+	"item:slug:nullify": "item:slug:rank10-utility-generic",
+	"item:slug:primal-phenomenon": "item:slug:rank10-utility-generic",
+	"item:slug:indestructibility": "item:slug:rank10-utility-generic",
+	"item:slug:anima-invocation-modified": "item:slug:rank10-utility-generic",
+	"item:slug:miracle": "item:slug:rank10-utility-generic",
+	"item:slug:destroy-mindscape": "item:slug:rank10-utility-generic",
+	"item:slug:dragon-turret": "item:slug:rank10-utility-generic",
+	"item:slug:alter-reality": "item:slug:rank10-utility-generic",
+	"item:slug:perfection-of-essence": "item:slug:rank10-utility-generic",
+	"item:slug:raga-of-remembrance": "item:slug:rank10-utility-generic"
+}

@@ -1,0 +1,67 @@
+{
+	"item:slug:ancestry-dwarf-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.earth.01.browngreen.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:march-the-mines": "item:slug:ancestry-dwarf-generic",
+	"item:slug:stone-bones": "item:slug:ancestry-dwarf-generic",
+	"item:slug:forge-blessed-shot": "item:slug:ancestry-dwarf-generic",
+	"item:slug:spark-fist": "item:slug:ancestry-dwarf-generic",
+	"item:slug:returning-throw": "item:slug:ancestry-dwarf-generic",
+	"item:slug:clans-edge": "item:slug:ancestry-dwarf-generic",
+	"item:slug:boulder-roll": "item:slug:ancestry-dwarf-generic",
+	"item:slug:avenge-in-glory": "item:slug:ancestry-dwarf-generic",
+	"item:slug:stonewall": "item:slug:ancestry-dwarf-generic",
+	"item:slug:crafters-instinct": "item:slug:ancestry-dwarf-generic",
+	"item:slug:echoes-in-stone": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:march-the-mines": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:stone-bones": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:forge-blessed-shot": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:returning-throw": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:clans-edge": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:boulder-roll": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:avenge-in-glory": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:stonewall": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:crafters-instinct": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:echoes-in-stone": "item:slug:ancestry-dwarf-generic",
+	"feat:slug:ancestry-dwarf-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.fire.01.orange.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:spark-fist": "feat:slug:ancestry-dwarf-fire-generic"
+}

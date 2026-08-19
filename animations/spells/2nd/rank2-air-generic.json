@@ -1,0 +1,24 @@
+{
+	"item:slug:rank2-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:cleanse-air": "item:slug:rank2-air-generic",
+	"item:slug:bralani-referendum": "item:slug:rank2-air-generic",
+	"item:slug:blast-of-the-bellows": "item:slug:rank2-air-generic",
+	"item:slug:voice-on-the-breeze": "item:slug:rank2-air-generic",
+	"item:slug:propulsive-breeze": "item:slug:rank2-air-generic"
+}

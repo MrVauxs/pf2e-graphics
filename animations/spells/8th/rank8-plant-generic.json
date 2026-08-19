@@ -1,0 +1,20 @@
+{
+	"item:slug:rank8-plant-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.entangle.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:encroaching-woods": "item:slug:rank8-plant-generic"
+}

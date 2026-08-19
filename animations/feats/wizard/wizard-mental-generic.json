@@ -1,0 +1,25 @@
+{
+	"feat:slug:wizard-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.enchantment.loop.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:dizzying-spell": "feat:slug:wizard-mental-generic"
+}

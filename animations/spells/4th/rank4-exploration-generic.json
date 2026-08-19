@@ -1,0 +1,26 @@
+{
+	"item:slug:rank4-exploration-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:talking-corpse": "item:slug:rank4-exploration-generic",
+	"item:slug:rope-trick": "item:slug:rank4-exploration-generic",
+	"item:slug:liminal-doorway": "item:slug:rank4-exploration-generic",
+	"item:slug:creation": "item:slug:rank4-exploration-generic",
+	"item:slug:ghostly-tragedy": "item:slug:rank4-exploration-generic",
+	"item:slug:magic-mailbox": "item:slug:rank4-exploration-generic",
+	"item:slug:peaceful-bubble": "item:slug:rank4-exploration-generic"
+}

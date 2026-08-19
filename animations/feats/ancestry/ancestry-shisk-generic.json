@@ -1,0 +1,25 @@
+{
+	"item:slug:ancestry-shisk-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:bristle": "item:slug:ancestry-shisk-generic",
+	"item:slug:fountain-of-secrets": "item:slug:ancestry-shisk-generic",
+	"item:slug:quill-spray": "item:slug:ancestry-shisk-generic",
+	"feat:slug:bristle": "item:slug:ancestry-shisk-generic",
+	"feat:slug:fountain-of-secrets": "item:slug:ancestry-shisk-generic",
+	"feat:slug:quill-spray": "item:slug:ancestry-shisk-generic"
+}

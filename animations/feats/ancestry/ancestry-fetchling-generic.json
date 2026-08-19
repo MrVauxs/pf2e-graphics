@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-fetchling-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:shadow-blending": "item:slug:ancestry-fetchling-generic",
+	"item:slug:shadow-sight": "item:slug:ancestry-fetchling-generic",
+	"item:slug:extinguish-light": "item:slug:ancestry-fetchling-generic",
+	"item:slug:sculpt-shadows": "item:slug:ancestry-fetchling-generic",
+	"feat:slug:shadow-blending": "item:slug:ancestry-fetchling-generic",
+	"feat:slug:shadow-sight": "item:slug:ancestry-fetchling-generic",
+	"feat:slug:extinguish-light": "item:slug:ancestry-fetchling-generic",
+	"feat:slug:sculpt-shadows": "item:slug:ancestry-fetchling-generic"
+}

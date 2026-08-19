@@ -1,0 +1,67 @@
+{
+	"item:slug:rank5-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:establish-nexus": "item:slug:rank5-utility-generic",
+	"item:slug:blessing-of-defiance": "item:slug:rank5-utility-generic",
+	"item:slug:grasping-grave": "item:slug:rank5-utility-generic",
+	"item:slug:black-tentacles": "item:slug:rank5-utility-generic",
+	"item:slug:the-worlds-a-stage": "item:slug:rank5-utility-generic",
+	"item:slug:stagnate-time": "item:slug:rank5-utility-generic",
+	"item:slug:warshard-shot": "item:slug:rank5-utility-generic",
+	"item:slug:astral-projection": "item:slug:rank5-utility-generic",
+	"item:slug:blister": "item:slug:rank5-utility-generic",
+	"item:slug:elemental-servitor": "item:slug:rank5-utility-generic",
+	"item:slug:weight-of-the-world": "item:slug:rank5-utility-generic",
+	"item:slug:desperate-repair": "item:slug:rank5-utility-generic",
+	"item:slug:wish-twisted-form": "item:slug:rank5-utility-generic",
+	"item:slug:incarnate-ancestry": "item:slug:rank5-utility-generic",
+	"item:slug:entreat-thunderbird": "item:slug:rank5-utility-generic",
+	"item:slug:blood-feast": "item:slug:rank5-utility-generic",
+	"item:slug:drain-planar-connection": "item:slug:rank5-utility-generic",
+	"item:slug:footholds-and-foothills": "item:slug:rank5-utility-generic",
+	"item:slug:elemental-blast": "item:slug:rank5-utility-generic",
+	"item:slug:truespeech": "item:slug:rank5-utility-generic",
+	"item:slug:vindicators-judgment": "item:slug:rank5-utility-generic",
+	"item:slug:spellmasters-ward": "item:slug:rank5-utility-generic",
+	"item:slug:establish-ward": "item:slug:rank5-utility-generic",
+	"item:slug:spiritual-torrent": "item:slug:rank5-utility-generic",
+	"item:slug:temporary-glyph": "item:slug:rank5-utility-generic",
+	"item:slug:death-ward": "item:slug:rank5-utility-generic",
+	"item:slug:wall-of-flesh": "item:slug:rank5-utility-generic",
+	"item:slug:summerland-spell": "item:slug:rank5-utility-generic",
+	"item:slug:feast-of-supplication": "item:slug:rank5-utility-generic",
+	"item:slug:summon-axiom": "item:slug:rank5-utility-generic",
+	"item:slug:banishment": "item:slug:rank5-utility-generic",
+	"item:slug:chthonian-wrath": "item:slug:rank5-utility-generic",
+	"item:slug:grisly-growths": "item:slug:rank5-utility-generic",
+	"item:slug:elemental-breath": "item:slug:rank5-utility-generic",
+	"item:slug:chromatic-wall": "item:slug:rank5-utility-generic",
+	"item:slug:call-spirit": "item:slug:rank5-utility-generic",
+	"item:slug:arcane-countermeasure": "item:slug:rank5-utility-generic",
+	"item:slug:spiritual-guardian": "item:slug:rank5-utility-generic",
+	"item:slug:quicken-time": "item:slug:rank5-utility-generic",
+	"item:slug:summon-anarch": "item:slug:rank5-utility-generic",
+	"item:slug:loyaltys-ward": "item:slug:rank5-utility-generic",
+	"item:slug:hunters-vision": "item:slug:rank5-utility-generic",
+	"item:slug:telekinetic-haul": "item:slug:rank5-utility-generic",
+	"item:slug:planar-servitor": "item:slug:rank5-utility-generic",
+	"item:slug:aspirational-state": "item:slug:rank5-utility-generic",
+	"item:slug:fortifying-brew": "item:slug:rank5-utility-generic",
+	"item:slug:calcium-rain": "item:slug:rank5-utility-generic",
+	"item:slug:waters-of-prediction": "item:slug:rank5-utility-generic"
+}

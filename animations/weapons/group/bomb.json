@@ -1,0 +1,491 @@
+{
+	"item:group:bomb": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"label": "Bomb (Fire)",
+					"predicates": [
+						"item:damage:type:fire"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.01.orange"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.02.orange"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Cold)",
+					"predicates": [
+						"item:damage:type:cold"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.02.blue"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.impact_themed.ice_shard.blue"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Acid)",
+					"predicates": [
+						"item:damage:type:acid"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.03.green"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.liquid.splash.bright_green"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Poison)",
+					"predicates": [
+						"item:damage:type:poison"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.03.green"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.impact_themed.poison.greenyellow"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Electricity)",
+					"predicates": [
+						"item:damage:type:electricity"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.grenade.02.blackyellow"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.03.blueyellow"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Sonic)",
+					"predicates": [
+						"item:damage:type:sonic"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.01.white"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.impact_themed.music_note.greenyellow"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Mental)",
+					"predicates": [
+						"item:damage:type:mental"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.01.purple"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.03.purplepink"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Force)",
+					"predicates": [
+						"item:damage:type:force"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.02.purple"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.01.purple"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Void)",
+					"predicates": [
+						"item:damage:type:void"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.bomb.01.black"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.impact_themed.skull.pinkpurple"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Vitality)",
+					"predicates": [
+						"item:damage:type:vitality"
+					],
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.flask.01.white"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.05.yellowwhite"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Physical, default)",
+					"default": true,
+					"contents": [
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.throwable.throw.bomb.01.grey"
+								],
+								"position": {
+									"type": "static",
+									"location": "SOURCES"
+								},
+								"size": {
+									"type": "directed",
+									"endpoint": "TARGETS"
+								},
+								"waitUntilFinished": -500
+							}
+						},
+						{
+							"execute": {
+								"type": "graphic",
+								"graphic": [
+									"jb2a.explosion.shrapnel.bomb.01.grey"
+								],
+								"position": {
+									"type": "static",
+									"location": "TARGETS"
+								},
+								"size": {
+									"type": "relative",
+									"scaling": 1.5
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Bomb (Throw sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.throw"
+						],
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				},
+				{
+					"label": "Bomb (Impact sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.cooking.glass.break.01"
+						],
+						"delay": 500,
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "TARGETS"
+						}
+					}
+				}
+			]
+		}
+	]
+}

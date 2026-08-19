@@ -1,0 +1,27 @@
+{
+	"item:slug:druid-order-spell-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.ground_cracks.green.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:fungal-exhalation": "item:slug:druid-order-spell-generic",
+	"item:slug:hedge-prison": "item:slug:druid-order-spell-generic",
+	"item:slug:primal-summons": "item:slug:druid-order-spell-generic",
+	"item:slug:impaling-briars": "item:slug:druid-order-spell-generic"
+}

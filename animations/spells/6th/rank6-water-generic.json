@@ -1,0 +1,21 @@
+{
+	"item:slug:rank6-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:speak-with-water": "item:slug:rank6-water-generic",
+	"item:slug:personal-ocean": "item:slug:rank6-water-generic"
+}

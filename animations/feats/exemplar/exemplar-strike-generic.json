@@ -1,0 +1,37 @@
+{
+	"item:slug:exemplar-strike-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.008.orange"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:lightning-swap": "item:slug:exemplar-strike-generic",
+	"item:slug:topple-the-titans": "item:slug:exemplar-strike-generic",
+	"item:slug:exult-in-violence": "item:slug:exemplar-strike-generic",
+	"item:slug:as-a-thousand-soldiers": "item:slug:exemplar-strike-generic",
+	"item:slug:fish-from-the-falls-edge": "item:slug:exemplar-strike-generic",
+	"item:slug:rapid-spark": "item:slug:exemplar-strike-generic",
+	"item:slug:flow-of-war": "item:slug:exemplar-strike-generic",
+	"feat:slug:lightning-swap": "item:slug:exemplar-strike-generic",
+	"feat:slug:topple-the-titans": "item:slug:exemplar-strike-generic",
+	"feat:slug:exult-in-violence": "item:slug:exemplar-strike-generic",
+	"feat:slug:as-a-thousand-soldiers": "item:slug:exemplar-strike-generic",
+	"feat:slug:fish-from-the-falls-edge": "item:slug:exemplar-strike-generic",
+	"feat:slug:rapid-spark": "item:slug:exemplar-strike-generic",
+	"feat:slug:flow-of-war": "item:slug:exemplar-strike-generic"
+}

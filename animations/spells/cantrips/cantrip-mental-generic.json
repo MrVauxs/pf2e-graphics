@@ -1,0 +1,25 @@
+{
+	"item:slug:cantrip-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:daze": "item:slug:cantrip-mental-generic",
+	"item:slug:contagious-idea": "item:slug:cantrip-mental-generic",
+	"item:slug:infectious-enthusiasm": "item:slug:cantrip-mental-generic",
+	"item:slug:tame": "item:slug:cantrip-mental-generic",
+	"item:slug:join-pasts": "item:slug:cantrip-mental-generic",
+	"item:slug:shatter-mind": "item:slug:cantrip-mental-generic"
+}

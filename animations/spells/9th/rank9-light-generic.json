@@ -1,0 +1,22 @@
+{
+	"item:slug:rank9-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:under-sunless-skies": "item:slug:rank9-light-generic",
+	"item:slug:prismatic-shield": "item:slug:rank9-light-generic",
+	"item:slug:prismatic-sphere": "item:slug:rank9-light-generic"
+}

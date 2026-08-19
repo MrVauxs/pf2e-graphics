@@ -1,0 +1,28 @@
+{
+	"item:slug:rank5-summon-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.conjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:summon-fiend": "item:slug:rank5-summon-generic",
+	"item:slug:incarnate-skeletal-giant": "item:slug:rank5-summon-generic",
+	"item:slug:summon-healing-servitor": "item:slug:rank5-summon-generic",
+	"item:slug:summon-monitor": "item:slug:rank5-summon-generic",
+	"item:slug:summon-giant": "item:slug:rank5-summon-generic",
+	"item:slug:summon-entity": "item:slug:rank5-summon-generic",
+	"item:slug:summon-dragon": "item:slug:rank5-summon-generic",
+	"item:slug:summon-celestial": "item:slug:rank5-summon-generic",
+	"item:slug:incarnate-faerie-revelers": "item:slug:rank5-summon-generic"
+}

@@ -1,0 +1,51 @@
+{
+	"item:slug:fighter-impact-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.011.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:brutish-shove": "item:slug:fighter-impact-generic",
+	"item:slug:slam-down": "item:slug:fighter-impact-generic",
+	"item:slug:felling-strike": "item:slug:fighter-impact-generic",
+	"item:slug:positioning-assault": "item:slug:fighter-impact-generic",
+	"item:slug:dual-handed-assault": "item:slug:fighter-impact-generic",
+	"item:slug:dragging-strike": "item:slug:fighter-impact-generic",
+	"item:slug:combat-grab": "item:slug:fighter-impact-generic",
+	"item:slug:snagging-strike": "item:slug:fighter-impact-generic",
+	"item:slug:guiding-finish": "item:slug:fighter-impact-generic",
+	"item:slug:disarming-twist": "item:slug:fighter-impact-generic",
+	"item:slug:sleek-reposition": "item:slug:fighter-impact-generic",
+	"item:slug:advantageous-assault": "item:slug:fighter-impact-generic",
+	"item:slug:quick-reversal": "item:slug:fighter-impact-generic",
+	"item:slug:dazing-blow": "item:slug:fighter-impact-generic",
+	"feat:slug:brutish-shove": "item:slug:fighter-impact-generic",
+	"feat:slug:slam-down": "item:slug:fighter-impact-generic",
+	"feat:slug:felling-strike": "item:slug:fighter-impact-generic",
+	"feat:slug:positioning-assault": "item:slug:fighter-impact-generic",
+	"feat:slug:dual-handed-assault": "item:slug:fighter-impact-generic",
+	"feat:slug:dragging-strike": "item:slug:fighter-impact-generic",
+	"feat:slug:combat-grab": "item:slug:fighter-impact-generic",
+	"feat:slug:snagging-strike": "item:slug:fighter-impact-generic",
+	"feat:slug:guiding-finish": "item:slug:fighter-impact-generic",
+	"feat:slug:disarming-twist": "item:slug:fighter-impact-generic",
+	"feat:slug:sleek-reposition": "item:slug:fighter-impact-generic",
+	"feat:slug:advantageous-assault": "item:slug:fighter-impact-generic",
+	"feat:slug:quick-reversal": "item:slug:fighter-impact-generic",
+	"feat:slug:dazing-blow": "item:slug:fighter-impact-generic"
+}

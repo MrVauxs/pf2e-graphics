@@ -1,0 +1,54 @@
+{
+	"item:slug:skill-social-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:bon-mot": "item:slug:skill-social-generic",
+	"item:slug:distracting-performance": "item:slug:skill-social-generic",
+	"item:slug:no-cause-for-alarm": "item:slug:skill-social-generic",
+	"item:slug:legendary-negotiation": "item:slug:skill-social-generic",
+	"item:slug:grudging-compliment": "item:slug:skill-social-generic",
+	"item:slug:that-was-a-close-one-huh": "item:slug:skill-social-generic",
+	"item:slug:comforting-presence": "item:slug:skill-social-generic",
+	"item:slug:commitment-to-equality": "item:slug:skill-social-generic",
+	"item:slug:seasoned-command": "item:slug:skill-social-generic",
+	"item:slug:encouraging-words": "item:slug:skill-social-generic",
+	"item:slug:commitment-to-protection": "item:slug:skill-social-generic",
+	"item:slug:say-that-again": "item:slug:skill-social-generic",
+	"item:slug:distracting-flattery": "item:slug:skill-social-generic",
+	"item:slug:uzunjati-storytelling": "item:slug:skill-social-generic",
+	"item:slug:snap-out-of-it-pathfinder-agent": "item:slug:skill-social-generic",
+	"item:slug:flower-street-infamy": "item:slug:skill-social-generic",
+	"item:slug:muscle-mimicry": "item:slug:skill-social-generic",
+	"feat:slug:bon-mot": "item:slug:skill-social-generic",
+	"feat:slug:distracting-performance": "item:slug:skill-social-generic",
+	"feat:slug:no-cause-for-alarm": "item:slug:skill-social-generic",
+	"feat:slug:legendary-negotiation": "item:slug:skill-social-generic",
+	"feat:slug:grudging-compliment": "item:slug:skill-social-generic",
+	"feat:slug:that-was-a-close-one-huh": "item:slug:skill-social-generic",
+	"feat:slug:comforting-presence": "item:slug:skill-social-generic",
+	"feat:slug:commitment-to-equality": "item:slug:skill-social-generic",
+	"feat:slug:seasoned-command": "item:slug:skill-social-generic",
+	"feat:slug:encouraging-words": "item:slug:skill-social-generic",
+	"action:slug:encouraging-words": "item:slug:skill-social-generic",
+	"feat:slug:commitment-to-protection": "item:slug:skill-social-generic",
+	"feat:slug:say-that-again": "item:slug:skill-social-generic",
+	"feat:slug:distracting-flattery": "item:slug:skill-social-generic",
+	"feat:slug:uzunjati-storytelling": "item:slug:skill-social-generic",
+	"feat:slug:snap-out-of-it-pathfinder-agent": "item:slug:skill-social-generic",
+	"feat:slug:flower-street-infamy": "item:slug:skill-social-generic",
+	"feat:slug:muscle-mimicry": "item:slug:skill-social-generic"
+}

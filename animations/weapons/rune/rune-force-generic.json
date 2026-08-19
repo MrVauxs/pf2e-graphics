@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-force-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_missile.grey"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:impactful": "item:rune:property:rune-force-generic",
+	"item:rune:property:impactful-greater": "item:rune:property:rune-force-generic"
+}

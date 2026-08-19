@@ -1,0 +1,24 @@
+{
+	"item:slug:rank6-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.cure_wounds.400px.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:life-giving-form": "item:slug:rank6-healing-generic",
+	"item:slug:raise-dead": "item:slug:rank6-healing-generic",
+	"item:slug:bounty-of-the-sky": "item:slug:rank6-healing-generic",
+	"item:slug:heartbolt": "item:slug:rank6-healing-generic",
+	"item:slug:field-of-life": "item:slug:rank6-healing-generic"
+}

@@ -1,0 +1,43 @@
+{
+	"item:slug:monk-parry-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:crane-flutter": "item:slug:monk-parry-generic",
+	"item:slug:deflect-projectile": "item:slug:monk-parry-generic",
+	"item:slug:electric-counter": "item:slug:monk-parry-generic",
+	"item:slug:rippling-spin": "item:slug:monk-parry-generic",
+	"item:slug:align-qi": "item:slug:monk-parry-generic",
+	"item:slug:stand-still": "item:slug:monk-parry-generic",
+	"item:slug:dodging-roll": "item:slug:monk-parry-generic",
+	"item:slug:scattering-in-spring": "item:slug:monk-parry-generic",
+	"item:slug:prevailing-position": "item:slug:monk-parry-generic",
+	"item:slug:lessons-of-flux": "item:slug:monk-parry-generic",
+	"item:slug:divert-streamflow": "item:slug:monk-parry-generic",
+	"item:slug:impossible-technique": "item:slug:monk-parry-generic",
+	"feat:slug:crane-flutter": "item:slug:monk-parry-generic",
+	"feat:slug:deflect-projectile": "item:slug:monk-parry-generic",
+	"feat:slug:electric-counter": "item:slug:monk-parry-generic",
+	"feat:slug:rippling-spin": "item:slug:monk-parry-generic",
+	"feat:slug:align-qi": "item:slug:monk-parry-generic",
+	"feat:slug:stand-still": "item:slug:monk-parry-generic",
+	"feat:slug:dodging-roll": "item:slug:monk-parry-generic",
+	"feat:slug:scattering-in-spring": "item:slug:monk-parry-generic",
+	"feat:slug:prevailing-position": "item:slug:monk-parry-generic",
+	"feat:slug:lessons-of-flux": "item:slug:monk-parry-generic",
+	"feat:slug:divert-streamflow": "item:slug:monk-parry-generic",
+	"feat:slug:impossible-technique": "item:slug:monk-parry-generic"
+}

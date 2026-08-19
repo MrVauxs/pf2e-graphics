@@ -1,0 +1,22 @@
+{
+	"item:slug:cantrip-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:spout": "item:slug:cantrip-water-generic",
+	"item:slug:draw-moisture": "item:slug:cantrip-water-generic",
+	"item:slug:rousing-splash": "item:slug:cantrip-water-generic"
+}

@@ -1,0 +1,30 @@
+{
+	"feat:slug:investigator-deduce-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.circle.02.divination.loop.dark_blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:all-the-time-in-the-world": "feat:slug:investigator-deduce-generic",
+	"feat:slug:connect-the-dots": "feat:slug:investigator-deduce-generic",
+	"feat:slug:just-one-more-thing": "feat:slug:investigator-deduce-generic",
+	"feat:slug:person-of-interest": "feat:slug:investigator-deduce-generic",
+	"feat:slug:reason-rapidly": "feat:slug:investigator-deduce-generic",
+	"feat:slug:read-the-dust": "feat:slug:investigator-deduce-generic"
+}

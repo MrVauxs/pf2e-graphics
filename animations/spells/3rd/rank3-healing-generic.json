@@ -1,0 +1,24 @@
+{
+	"item:slug:rank3-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:positive-attunement": "item:slug:rank3-healing-generic",
+	"item:slug:martyrs-intervention": "item:slug:rank3-healing-generic",
+	"item:slug:lively-flight": "item:slug:rank3-healing-generic",
+	"item:slug:life-pact": "item:slug:rank3-healing-generic",
+	"item:slug:delay-affliction": "item:slug:rank3-healing-generic"
+}

@@ -1,0 +1,21 @@
+{
+	"item:slug:rank9-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.enchantment.intro.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:curse-of-calamity": "item:slug:rank9-hex-generic",
+	"item:slug:remake-physiology": "item:slug:rank9-hex-generic"
+}

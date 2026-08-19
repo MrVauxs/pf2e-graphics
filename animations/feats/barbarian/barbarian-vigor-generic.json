@@ -1,0 +1,34 @@
+{
+	"item:slug:barbarian-vigor-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.healing_generic.200px.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:renewed-vigor": "item:slug:barbarian-vigor-generic",
+	"item:slug:shake-it-off": "item:slug:barbarian-vigor-generic",
+	"item:slug:inner-strength": "item:slug:barbarian-vigor-generic",
+	"item:slug:perfect-clarity": "item:slug:barbarian-vigor-generic",
+	"item:slug:come-and-get-me": "item:slug:barbarian-vigor-generic",
+	"item:slug:desperate-wrath": "item:slug:barbarian-vigor-generic",
+	"item:slug:moment-of-clarity": "item:slug:barbarian-vigor-generic",
+	"feat:slug:renewed-vigor": "item:slug:barbarian-vigor-generic",
+	"feat:slug:shake-it-off": "item:slug:barbarian-vigor-generic",
+	"action:slug:shake-it-off": "item:slug:barbarian-vigor-generic",
+	"feat:slug:inner-strength": "item:slug:barbarian-vigor-generic",
+	"feat:slug:perfect-clarity": "item:slug:barbarian-vigor-generic",
+	"feat:slug:come-and-get-me": "item:slug:barbarian-vigor-generic",
+	"feat:slug:desperate-wrath": "item:slug:barbarian-vigor-generic",
+	"feat:slug:moment-of-clarity": "item:slug:barbarian-vigor-generic"
+}

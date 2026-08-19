@@ -1,0 +1,27 @@
+{
+	"feat:slug:commander-mark-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "TARGETS",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:guiding-shot": "feat:slug:commander-mark-generic",
+	"feat:slug:set-up-strike": "feat:slug:commander-mark-generic",
+	"feat:slug:unsteadying-strike": "feat:slug:commander-mark-generic"
+}

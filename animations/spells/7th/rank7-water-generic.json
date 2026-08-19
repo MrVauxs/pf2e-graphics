@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:unbreaking-wave-barrier": "item:slug:rank7-water-generic",
+	"item:slug:call-of-the-quenching": "item:slug:rank7-water-generic",
+	"item:slug:dancing-fountain": "item:slug:rank7-water-generic"
+}

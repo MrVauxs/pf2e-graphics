@@ -1,0 +1,27 @@
+{
+	"item:slug:rank5-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.loop.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:shadow-jump": "item:slug:rank5-light-generic",
+	"item:slug:dance-of-darkness": "item:slug:rank5-light-generic",
+	"item:slug:diadem-of-divine-radiance": "item:slug:rank5-light-generic",
+	"item:slug:consuming-darkness": "item:slug:rank5-light-generic",
+	"item:slug:shadow-blast": "item:slug:rank5-light-generic",
+	"item:slug:world-in-shadow": "item:slug:rank5-light-generic",
+	"item:slug:umbral-journey": "item:slug:rank5-light-generic",
+	"item:slug:slither": "item:slug:rank5-light-generic"
+}

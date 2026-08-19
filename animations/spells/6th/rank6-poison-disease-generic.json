@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-poison-disease-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.fumes.toxic.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:crimson-breath": "item:slug:rank6-poison-disease-generic",
+	"item:slug:natures-reprisal": "item:slug:rank6-poison-disease-generic",
+	"item:slug:purple-worm-sting": "item:slug:rank6-poison-disease-generic"
+}

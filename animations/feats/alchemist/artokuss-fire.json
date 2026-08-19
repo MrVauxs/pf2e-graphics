@@ -1,0 +1,24 @@
+{
+	"item:slug:artokuss-fire": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.fire.01.orange.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 0.5
+				}
+			}
+		}
+	],
+	"feat:slug:artokuss-fire": "item:slug:artokuss-fire"
+}

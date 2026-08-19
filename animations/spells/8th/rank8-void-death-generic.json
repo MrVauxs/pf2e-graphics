@@ -1,0 +1,24 @@
+{
+	"item:slug:rank8-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:desiccate": "item:slug:rank8-void-death-generic",
+	"item:slug:devour-life": "item:slug:rank8-void-death-generic",
+	"item:slug:divine-armageddon": "item:slug:rank8-void-death-generic",
+	"item:slug:stars-of-another-sky": "item:slug:rank8-void-death-generic",
+	"item:slug:stop-heart": "item:slug:rank8-void-death-generic"
+}

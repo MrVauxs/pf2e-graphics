@@ -1,0 +1,26 @@
+{
+	"feat:slug:druid-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.fire_ring.500px"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.2
+				}
+			}
+		}
+	],
+	"feat:slug:fiery-retort": "feat:slug:druid-fire-generic",
+	"feat:slug:explosive-metamorphosis": "feat:slug:druid-fire-generic"
+}

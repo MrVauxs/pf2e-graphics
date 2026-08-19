@@ -1,0 +1,21 @@
+{
+	"item:slug:rank10-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.skull.purple.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:perfected-thrall": "item:slug:rank10-necromancer-generic",
+	"item:slug:living-graveyard": "item:slug:rank10-necromancer-generic"
+}

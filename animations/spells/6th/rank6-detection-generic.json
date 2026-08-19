@@ -1,0 +1,22 @@
+{
+	"item:slug:rank6-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.divination.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:commune": "item:slug:rank6-detection-generic",
+	"item:slug:scrying": "item:slug:rank6-detection-generic",
+	"item:slug:truesight": "item:slug:rank6-detection-generic"
+}

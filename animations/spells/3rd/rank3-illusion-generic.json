@@ -1,0 +1,40 @@
+{
+	"item:slug:rank3-illusion-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:oneiric-mire": "item:slug:rank3-illusion-generic",
+	"item:slug:mindscape-door": "item:slug:rank3-illusion-generic",
+	"item:slug:shadow-projectile": "item:slug:rank3-illusion-generic",
+	"item:slug:far-sight": "item:slug:rank3-illusion-generic",
+	"item:slug:sculpt-sound": "item:slug:rank3-illusion-generic",
+	"item:slug:shared-invisibility": "item:slug:rank3-illusion-generic",
+	"item:slug:distracting-chatter": "item:slug:rank3-illusion-generic",
+	"item:slug:hypnotize": "item:slug:rank3-illusion-generic",
+	"item:slug:hearts-desire": "item:slug:rank3-illusion-generic",
+	"item:slug:phantom-prison": "item:slug:rank3-illusion-generic",
+	"item:slug:blinding-beauty": "item:slug:rank3-illusion-generic",
+	"item:slug:burglars-blind": "item:slug:rank3-illusion-generic",
+	"item:slug:secret-page": "item:slug:rank3-illusion-generic",
+	"item:slug:gleaming-pet": "item:slug:rank3-illusion-generic",
+	"item:slug:inscrutable-mask": "item:slug:rank3-illusion-generic",
+	"item:slug:horrific-visage": "item:slug:rank3-illusion-generic",
+	"item:slug:unseen-heralds": "item:slug:rank3-illusion-generic",
+	"item:slug:disruptive-transfer": "item:slug:rank3-illusion-generic",
+	"item:slug:spirit-veil": "item:slug:rank3-illusion-generic",
+	"item:slug:threatening-mimicry": "item:slug:rank3-illusion-generic",
+	"item:slug:instant-parade": "item:slug:rank3-illusion-generic"
+}

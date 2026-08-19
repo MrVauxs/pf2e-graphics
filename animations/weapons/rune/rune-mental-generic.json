@@ -1,0 +1,26 @@
+{
+	"item:rune:property:rune-mental-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.02.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:fearsome": "item:rune:property:rune-mental-generic",
+	"item:rune:property:merciful": "item:rune:property:rune-mental-generic",
+	"item:rune:property:fearsome-greater": "item:rune:property:rune-mental-generic"
+}

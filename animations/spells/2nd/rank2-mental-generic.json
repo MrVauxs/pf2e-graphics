@@ -1,0 +1,43 @@
+{
+	"item:slug:rank2-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:cutting-insult": "item:slug:rank2-mental-generic",
+	"item:slug:mind-games": "item:slug:rank2-mental-generic",
+	"item:slug:spirit-sense": "item:slug:rank2-mental-generic",
+	"item:slug:inveigle": "item:slug:rank2-mental-generic",
+	"item:slug:menacing-lament": "item:slug:rank2-mental-generic",
+	"item:slug:bee-mans-summons": "item:slug:rank2-mental-generic",
+	"item:slug:stupefy": "item:slug:rank2-mental-generic",
+	"item:slug:with-friends-like-these": "item:slug:rank2-mental-generic",
+	"item:slug:guiding-star": "item:slug:rank2-mental-generic",
+	"item:slug:manifestation-of-spirits": "item:slug:rank2-mental-generic",
+	"item:slug:timely-tutor": "item:slug:rank2-mental-generic",
+	"item:slug:mental-map": "item:slug:rank2-mental-generic",
+	"item:slug:charitable-urge": "item:slug:rank2-mental-generic",
+	"item:slug:impart-empathy": "item:slug:rank2-mental-generic",
+	"item:slug:calm": "item:slug:rank2-mental-generic",
+	"item:slug:pack-attack": "item:slug:rank2-mental-generic",
+	"item:slug:animus-mine": "item:slug:rank2-mental-generic",
+	"item:slug:vicious-jealousy": "item:slug:rank2-mental-generic",
+	"item:slug:blistering-invective": "item:slug:rank2-mental-generic",
+	"item:slug:thundering-dominance": "item:slug:rank2-mental-generic",
+	"item:slug:valiant-anthem": "item:slug:rank2-mental-generic",
+	"item:slug:empathic-link": "item:slug:rank2-mental-generic",
+	"item:slug:laughing-fit": "item:slug:rank2-mental-generic",
+	"item:slug:animal-messenger": "item:slug:rank2-mental-generic"
+}

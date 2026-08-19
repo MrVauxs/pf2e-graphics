@@ -1,0 +1,23 @@
+{
+	"item:slug:ancestry-anadi-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:reassuring-presence": "item:slug:ancestry-anadi-generic",
+	"item:slug:webslinger": "item:slug:ancestry-anadi-generic",
+	"feat:slug:reassuring-presence": "item:slug:ancestry-anadi-generic",
+	"feat:slug:webslinger": "item:slug:ancestry-anadi-generic"
+}

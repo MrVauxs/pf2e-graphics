@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-skeleton-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:bone-swarm": "item:slug:ancestry-skeleton-generic",
+	"item:slug:well-armed": "item:slug:ancestry-skeleton-generic",
+	"item:slug:collapse": "item:slug:ancestry-skeleton-generic",
+	"item:slug:play-dead": "item:slug:ancestry-skeleton-generic",
+	"feat:slug:bone-swarm": "item:slug:ancestry-skeleton-generic",
+	"feat:slug:well-armed": "item:slug:ancestry-skeleton-generic",
+	"feat:slug:collapse": "item:slug:ancestry-skeleton-generic",
+	"feat:slug:play-dead": "item:slug:ancestry-skeleton-generic"
+}

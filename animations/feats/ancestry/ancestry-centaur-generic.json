@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-centaur-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:ride-on": "item:slug:ancestry-centaur-generic",
+	"item:slug:starshot-arrow": "item:slug:ancestry-centaur-generic",
+	"item:slug:fierce-competitor": "item:slug:ancestry-centaur-generic",
+	"item:slug:trample-centaur": "item:slug:ancestry-centaur-generic",
+	"item:slug:incredible-sprint": "item:slug:ancestry-centaur-generic",
+	"feat:slug:ride-on": "item:slug:ancestry-centaur-generic",
+	"feat:slug:starshot-arrow": "item:slug:ancestry-centaur-generic",
+	"feat:slug:fierce-competitor": "item:slug:ancestry-centaur-generic",
+	"feat:slug:trample-centaur": "item:slug:ancestry-centaur-generic",
+	"feat:slug:incredible-sprint": "item:slug:ancestry-centaur-generic"
+}

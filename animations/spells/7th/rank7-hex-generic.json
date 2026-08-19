@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-hex-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.enchantment.intro.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:curse-of-the-spirit-orchestra": "item:slug:rank7-hex-generic",
+	"item:slug:unbearable-cacophony": "item:slug:rank7-hex-generic",
+	"item:slug:chrysopoetic-curse": "item:slug:rank7-hex-generic"
+}

@@ -1,0 +1,36 @@
+{
+	"item:slug:rank9-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:implosion": "item:slug:rank9-utility-generic",
+	"item:slug:trim-the-blight": "item:slug:rank9-utility-generic",
+	"item:slug:astral-labyrinth": "item:slug:rank9-utility-generic",
+	"item:slug:seize-soul": "item:slug:rank9-utility-generic",
+	"item:slug:bilocation": "item:slug:rank9-utility-generic",
+	"item:slug:vital-singularity": "item:slug:rank9-utility-generic",
+	"item:slug:antimagic-artifice": "item:slug:rank9-utility-generic",
+	"item:slug:divinity-leech": "item:slug:rank9-utility-generic",
+	"item:slug:purify-tanglebriar": "item:slug:rank9-utility-generic",
+	"item:slug:weapon-of-judgment": "item:slug:rank9-utility-generic",
+	"item:slug:sacred-covenant": "item:slug:rank9-utility-generic",
+	"item:slug:disjunction": "item:slug:rank9-utility-generic",
+	"item:slug:falling-stars": "item:slug:rank9-utility-generic",
+	"item:slug:detonate-magic": "item:slug:rank9-utility-generic",
+	"item:slug:embrace-nothingness": "item:slug:rank9-utility-generic",
+	"item:slug:borrow-time": "item:slug:rank9-utility-generic",
+	"item:slug:clone": "item:slug:rank9-utility-generic"
+}

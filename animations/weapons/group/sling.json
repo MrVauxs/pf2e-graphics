@@ -1,0 +1,43 @@
+{
+	"item:group:sling": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"label": "Sling (Projectile)",
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.slingshot"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TARGETS"
+						}
+					}
+				},
+				{
+					"label": "Sling (Sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.throw"
+						],
+						"radius": 32.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	]
+}

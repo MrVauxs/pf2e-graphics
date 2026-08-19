@@ -1,0 +1,21 @@
+{
+	"item:slug:barbarian-ally-buff-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.on_token_buff.001.001.orangeyellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:share-rage": "item:slug:barbarian-ally-buff-generic",
+	"feat:slug:share-rage": "item:slug:barbarian-ally-buff-generic"
+}

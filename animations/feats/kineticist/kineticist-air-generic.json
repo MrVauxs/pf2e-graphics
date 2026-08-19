@@ -1,0 +1,49 @@
+{
+	"item:slug:kineticist-air-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.melee_generic.whirlwind.01.bluepurple.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:rising-hurricane": "item:slug:kineticist-air-generic",
+	"item:slug:clear-as-air": "item:slug:kineticist-air-generic",
+	"item:slug:body-of-air": "item:slug:kineticist-air-generic",
+	"item:slug:crowned-in-tempests-fury": "item:slug:kineticist-air-generic",
+	"item:slug:storm-spiral": "item:slug:kineticist-air-generic",
+	"item:slug:call-the-hurricane": "item:slug:kineticist-air-generic",
+	"item:slug:cyclonic-ascent": "item:slug:kineticist-air-generic",
+	"item:slug:flinging-updraft": "item:slug:kineticist-air-generic",
+	"item:slug:whisper-on-the-wind": "item:slug:kineticist-air-generic",
+	"item:slug:four-winds": "item:slug:kineticist-air-generic",
+	"item:slug:air-shroud": "item:slug:kineticist-air-generic",
+	"item:slug:desert-wind": "item:slug:kineticist-air-generic",
+	"item:slug:aerial-boomerang": "item:slug:kineticist-air-generic",
+	"feat:slug:rising-hurricane": "item:slug:kineticist-air-generic",
+	"feat:slug:clear-as-air": "item:slug:kineticist-air-generic",
+	"feat:slug:body-of-air": "item:slug:kineticist-air-generic",
+	"feat:slug:crowned-in-tempests-fury": "item:slug:kineticist-air-generic",
+	"feat:slug:storm-spiral": "item:slug:kineticist-air-generic",
+	"feat:slug:call-the-hurricane": "item:slug:kineticist-air-generic",
+	"feat:slug:cyclonic-ascent": "item:slug:kineticist-air-generic",
+	"feat:slug:flinging-updraft": "item:slug:kineticist-air-generic",
+	"feat:slug:whisper-on-the-wind": "item:slug:kineticist-air-generic",
+	"feat:slug:four-winds": "item:slug:kineticist-air-generic",
+	"feat:slug:air-shroud": "item:slug:kineticist-air-generic",
+	"feat:slug:desert-wind": "item:slug:kineticist-air-generic",
+	"feat:slug:aerial-boomerang": "item:slug:kineticist-air-generic"
+}

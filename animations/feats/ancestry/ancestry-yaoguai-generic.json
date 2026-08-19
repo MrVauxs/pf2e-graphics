@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-yaoguai-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:elucidation": "item:slug:ancestry-yaoguai-generic",
+	"item:slug:quick-recovery": "item:slug:ancestry-yaoguai-generic",
+	"item:slug:polymorphic-escape": "item:slug:ancestry-yaoguai-generic",
+	"item:slug:unnerving-terror": "item:slug:ancestry-yaoguai-generic",
+	"item:slug:bold-defiance": "item:slug:ancestry-yaoguai-generic",
+	"feat:slug:elucidation": "item:slug:ancestry-yaoguai-generic",
+	"feat:slug:quick-recovery": "item:slug:ancestry-yaoguai-generic",
+	"feat:slug:polymorphic-escape": "item:slug:ancestry-yaoguai-generic",
+	"feat:slug:unnerving-terror": "item:slug:ancestry-yaoguai-generic",
+	"feat:slug:bold-defiance": "item:slug:ancestry-yaoguai-generic"
+}

@@ -1,0 +1,25 @@
+{
+	"item:slug:ancestry-vishkanya-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:alluring-performance": "item:slug:ancestry-vishkanya-generic",
+	"item:slug:venom-purge": "item:slug:ancestry-vishkanya-generic",
+	"item:slug:viper-strike": "item:slug:ancestry-vishkanya-generic",
+	"feat:slug:alluring-performance": "item:slug:ancestry-vishkanya-generic",
+	"feat:slug:venom-purge": "item:slug:ancestry-vishkanya-generic",
+	"feat:slug:viper-strike": "item:slug:ancestry-vishkanya-generic"
+}

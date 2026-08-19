@@ -1,0 +1,20 @@
+{
+	"item:slug:rank9-poison-disease-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.fumes.toxic.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:dread-mosquito-storm": "item:slug:rank9-poison-disease-generic"
+}

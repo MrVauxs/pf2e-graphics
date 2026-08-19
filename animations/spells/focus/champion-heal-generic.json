@@ -1,0 +1,23 @@
+{
+	"item:slug:champion-heal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.healing_generic.200px.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:lay-on-hands": "item:slug:champion-heal-generic",
+	"item:slug:touch-of-the-void": "item:slug:champion-heal-generic",
+	"item:slug:heros-defiance": "item:slug:champion-heal-generic",
+	"item:slug:heal": "item:slug:champion-heal-generic"
+}

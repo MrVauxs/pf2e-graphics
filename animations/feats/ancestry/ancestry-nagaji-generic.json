@@ -1,0 +1,31 @@
+{
+	"item:slug:ancestry-nagaji-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:hypnotic-lure": "item:slug:ancestry-nagaji-generic",
+	"item:slug:skin-split": "item:slug:ancestry-nagaji-generic",
+	"item:slug:pit-of-snakes": "item:slug:ancestry-nagaji-generic",
+	"item:slug:serpentcoil-slam": "item:slug:ancestry-nagaji-generic",
+	"item:slug:synchronous-slither": "item:slug:ancestry-nagaji-generic",
+	"item:slug:disruptive-stare": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:hypnotic-lure": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:skin-split": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:pit-of-snakes": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:serpentcoil-slam": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:synchronous-slither": "item:slug:ancestry-nagaji-generic",
+	"feat:slug:disruptive-stare": "item:slug:ancestry-nagaji-generic"
+}

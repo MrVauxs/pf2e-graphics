@@ -1,0 +1,21 @@
+{
+	"item:slug:rank8-earth-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.boulder.toss.01"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:earthbreaker-stride": "item:slug:rank8-earth-generic",
+	"item:slug:earthquake": "item:slug:rank8-earth-generic"
+}

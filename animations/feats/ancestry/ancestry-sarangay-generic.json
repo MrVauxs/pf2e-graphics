@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-sarangay-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:trample-sarangay": "item:slug:ancestry-sarangay-generic",
+	"item:slug:tikling-bird-twirl": "item:slug:ancestry-sarangay-generic",
+	"item:slug:convocation-of-earth-and-moon": "item:slug:ancestry-sarangay-generic",
+	"item:slug:deflecting-jewel": "item:slug:ancestry-sarangay-generic",
+	"item:slug:paralyzing-jewel": "item:slug:ancestry-sarangay-generic",
+	"feat:slug:trample-sarangay": "item:slug:ancestry-sarangay-generic",
+	"feat:slug:tikling-bird-twirl": "item:slug:ancestry-sarangay-generic",
+	"feat:slug:convocation-of-earth-and-moon": "item:slug:ancestry-sarangay-generic",
+	"feat:slug:deflecting-jewel": "item:slug:ancestry-sarangay-generic",
+	"feat:slug:paralyzing-jewel": "item:slug:ancestry-sarangay-generic"
+}

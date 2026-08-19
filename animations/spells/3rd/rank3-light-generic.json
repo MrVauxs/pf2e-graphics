@@ -1,0 +1,25 @@
+{
+	"item:slug:rank3-light-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:steal-shadow": "item:slug:rank3-light-generic",
+	"item:slug:wall-of-shadow": "item:slug:rank3-light-generic",
+	"item:slug:wall-of-virtue": "item:slug:rank3-light-generic",
+	"item:slug:angelic-wings": "item:slug:rank3-light-generic",
+	"item:slug:ransack-the-night": "item:slug:rank3-light-generic",
+	"item:slug:radiant-globe": "item:slug:rank3-light-generic"
+}

@@ -1,0 +1,26 @@
+{
+	"item:slug:cantrip-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:read-aura": "item:slug:cantrip-detection-generic",
+	"item:slug:approximate": "item:slug:cantrip-detection-generic",
+	"item:slug:detect-magic": "item:slug:cantrip-detection-generic",
+	"item:slug:know-the-way": "item:slug:cantrip-detection-generic",
+	"item:slug:artistic-recollection": "item:slug:cantrip-detection-generic",
+	"item:slug:detect-metal": "item:slug:cantrip-detection-generic",
+	"item:slug:read-the-air": "item:slug:cantrip-detection-generic"
+}

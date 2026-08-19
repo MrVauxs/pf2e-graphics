@@ -1,0 +1,29 @@
+{
+	"item:slug:heritage-changeling-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:invoke-the-elements": "item:slug:heritage-changeling-generic",
+	"item:slug:maidens-mending": "item:slug:heritage-changeling-generic",
+	"item:slug:favorable-winds": "item:slug:heritage-changeling-generic",
+	"item:slug:spiteful-rake": "item:slug:heritage-changeling-generic",
+	"item:slug:mothers-mindfulness": "item:slug:heritage-changeling-generic",
+	"feat:slug:invoke-the-elements": "item:slug:heritage-changeling-generic",
+	"feat:slug:maidens-mending": "item:slug:heritage-changeling-generic",
+	"feat:slug:favorable-winds": "item:slug:heritage-changeling-generic",
+	"feat:slug:spiteful-rake": "item:slug:heritage-changeling-generic",
+	"feat:slug:mothers-mindfulness": "item:slug:heritage-changeling-generic"
+}

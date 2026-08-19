@@ -1,0 +1,64 @@
+{
+	"item:slug:rank1-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:empty-inside": "item:slug:rank1-mental-generic",
+	"item:slug:hearts-hook": "item:slug:rank1-mental-generic",
+	"item:slug:fear": "item:slug:rank1-mental-generic",
+	"item:slug:bane": "item:slug:rank1-mental-generic",
+	"item:slug:schadenfreude": "item:slug:rank1-mental-generic",
+	"item:slug:malediction": "item:slug:rank1-mental-generic",
+	"item:slug:debilitating-terror": "item:slug:rank1-mental-generic",
+	"item:slug:forced-mercy": "item:slug:rank1-mental-generic",
+	"item:slug:sweet-dream": "item:slug:rank1-mental-generic",
+	"item:slug:mindlink": "item:slug:rank1-mental-generic",
+	"item:slug:booming-blast": "item:slug:rank1-mental-generic",
+	"item:slug:waking-nightmare": "item:slug:rank1-mental-generic",
+	"item:slug:ignite-ambition": "item:slug:rank1-mental-generic",
+	"item:slug:benediction": "item:slug:rank1-mental-generic",
+	"item:slug:faerie-dust": "item:slug:rank1-mental-generic",
+	"item:slug:chastising-retort": "item:slug:rank1-mental-generic",
+	"item:slug:charming-push": "item:slug:rank1-mental-generic",
+	"item:slug:touch-of-obedience": "item:slug:rank1-mental-generic",
+	"item:slug:veil-of-confidence": "item:slug:rank1-mental-generic",
+	"item:slug:guided-introspection": "item:slug:rank1-mental-generic",
+	"item:slug:lament": "item:slug:rank1-mental-generic",
+	"item:slug:fated-healing": "item:slug:rank1-mental-generic",
+	"item:slug:bless": "item:slug:rank1-mental-generic",
+	"item:slug:soothing-words": "item:slug:rank1-mental-generic",
+	"item:slug:appeal-to-authority": "item:slug:rank1-mental-generic",
+	"item:slug:message-rune": "item:slug:rank1-mental-generic",
+	"item:slug:command": "item:slug:rank1-mental-generic",
+	"item:slug:deathly-scream": "item:slug:rank1-mental-generic",
+	"item:slug:share-burden": "item:slug:rank1-mental-generic",
+	"item:slug:ancestral-touch": "item:slug:rank1-mental-generic",
+	"item:slug:call-to-arms": "item:slug:rank1-mental-generic",
+	"item:slug:frenzied-revelry": "item:slug:rank1-mental-generic",
+	"item:slug:draw-ire": "item:slug:rank1-mental-generic",
+	"item:slug:hollow-heart": "item:slug:rank1-mental-generic",
+	"item:slug:cycle-of-retribution": "item:slug:rank1-mental-generic",
+	"item:slug:share-lore": "item:slug:rank1-mental-generic",
+	"item:slug:sleep": "item:slug:rank1-mental-generic",
+	"item:slug:elysian-whimsy": "item:slug:rank1-mental-generic",
+	"item:slug:befuddle": "item:slug:rank1-mental-generic",
+	"item:slug:agitate": "item:slug:rank1-mental-generic",
+	"item:slug:charming-touch": "item:slug:rank1-mental-generic",
+	"item:slug:precious-gleam": "item:slug:rank1-mental-generic",
+	"item:slug:charm": "item:slug:rank1-mental-generic",
+	"item:slug:celestial-accord": "item:slug:rank1-mental-generic",
+	"item:slug:savor-the-sting": "item:slug:rank1-mental-generic"
+}

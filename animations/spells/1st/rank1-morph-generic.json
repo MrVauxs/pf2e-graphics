@@ -1,0 +1,33 @@
+{
+	"item:slug:rank1-morph-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:untamed-shift": "item:slug:rank1-morph-generic",
+	"item:slug:stick-on": "item:slug:rank1-morph-generic",
+	"item:slug:darkened-forest-form": "item:slug:rank1-morph-generic",
+	"item:slug:armor-of-thorn-and-claw": "item:slug:rank1-morph-generic",
+	"item:slug:adapt-self": "item:slug:rank1-morph-generic",
+	"item:slug:juvenile-companion": "item:slug:rank1-morph-generic",
+	"item:slug:keen-smell": "item:slug:rank1-morph-generic",
+	"item:slug:pest-form": "item:slug:rank1-morph-generic",
+	"item:slug:crown-of-prophets": "item:slug:rank1-morph-generic",
+	"item:slug:tentacular-limbs": "item:slug:rank1-morph-generic",
+	"item:slug:evolution-surge": "item:slug:rank1-morph-generic",
+	"item:slug:augmented-body": "item:slug:rank1-morph-generic",
+	"item:slug:hippocampus-retreat": "item:slug:rank1-morph-generic",
+	"item:slug:devouring-dark-form": "item:slug:rank1-morph-generic"
+}

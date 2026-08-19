@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-strix-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:wing-step": "item:slug:ancestry-strix-generic",
+	"item:slug:ferocious-gust": "item:slug:ancestry-strix-generic",
+	"item:slug:fledgling-flight": "item:slug:ancestry-strix-generic",
+	"item:slug:strix-vengeance": "item:slug:ancestry-strix-generic",
+	"feat:slug:wing-step": "item:slug:ancestry-strix-generic",
+	"feat:slug:ferocious-gust": "item:slug:ancestry-strix-generic",
+	"feat:slug:fledgling-flight": "item:slug:ancestry-strix-generic",
+	"feat:slug:strix-vengeance": "item:slug:ancestry-strix-generic"
+}

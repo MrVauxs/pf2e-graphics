@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-void-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:decaying-greater": "item:rune:property:rune-void-generic",
+	"item:rune:property:decaying": "item:rune:property:rune-void-generic"
+}

@@ -1,0 +1,22 @@
+{
+	"item:slug:rank3-necromancer-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_white"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:bind-heroic-spirit": "item:slug:rank3-necromancer-generic",
+	"item:slug:bloody-tendrils": "item:slug:rank3-necromancer-generic",
+	"item:slug:zombie-horde": "item:slug:rank3-necromancer-generic"
+}

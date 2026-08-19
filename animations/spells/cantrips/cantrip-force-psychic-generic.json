@@ -1,0 +1,36 @@
+{
+	"item:slug:cantrip-force-psychic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:phase-bolt": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:telekinetic-projectile": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:imaginary-weapon": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:astral-rain": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:forbidden-thought": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:dancing-blade": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:telekinetic-rend": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:ghostly-shift": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:distortion-lens": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:glimpse-weakness": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:thermal-stasis": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:foresee-the-path": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:vector-screen": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:tesseract-tunnel": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:omnidirectional-scan": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:divine-lance": "item:slug:cantrip-force-psychic-generic",
+	"item:slug:gouging-claw": "item:slug:cantrip-force-psychic-generic"
+}

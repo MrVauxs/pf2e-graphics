@@ -1,0 +1,33 @@
+{
+	"item:slug:ancestry-samsaran-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:memory-of-skill": "item:slug:ancestry-samsaran-generic",
+	"item:slug:all-this-has-happened-before": "item:slug:ancestry-samsaran-generic",
+	"item:slug:the-cycle-continues": "item:slug:ancestry-samsaran-generic",
+	"item:slug:thousand-year-grudge": "item:slug:ancestry-samsaran-generic",
+	"item:slug:all-this-will-happen-again": "item:slug:ancestry-samsaran-generic",
+	"item:slug:lifes-blood": "item:slug:ancestry-samsaran-generic",
+	"item:slug:water-to-water": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:memory-of-skill": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:all-this-has-happened-before": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:the-cycle-continues": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:thousand-year-grudge": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:all-this-will-happen-again": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:lifes-blood": "item:slug:ancestry-samsaran-generic",
+	"feat:slug:water-to-water": "item:slug:ancestry-samsaran-generic"
+}

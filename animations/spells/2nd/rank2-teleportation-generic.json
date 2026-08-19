@@ -1,0 +1,25 @@
+{
+	"item:slug:rank2-teleportation-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:far-flung-fetch": "item:slug:rank2-teleportation-generic",
+	"item:slug:dimensional-drop": "item:slug:rank2-teleportation-generic",
+	"item:slug:still-life-storage": "item:slug:rank2-teleportation-generic",
+	"item:slug:warping-pull": "item:slug:rank2-teleportation-generic",
+	"item:slug:phantom-ship": "item:slug:rank2-teleportation-generic",
+	"item:slug:vanish-weapon": "item:slug:rank2-teleportation-generic"
+}

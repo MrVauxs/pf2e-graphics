@@ -1,0 +1,35 @@
+{
+	"item:slug:magus-parry-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.shield.03.complete.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:spell-parry": "item:slug:magus-parry-generic",
+	"item:slug:distant-waterbirds-poise": "item:slug:magus-parry-generic",
+	"item:slug:killshots-report": "item:slug:magus-parry-generic",
+	"item:slug:preternatural-parry": "item:slug:magus-parry-generic",
+	"item:slug:vermillion-threads": "item:slug:magus-parry-generic",
+	"item:slug:crosscurrent-counter": "item:slug:magus-parry-generic",
+	"item:slug:emergency-targe": "item:slug:magus-parry-generic",
+	"item:slug:capture-magic": "item:slug:magus-parry-generic",
+	"feat:slug:spell-parry": "item:slug:magus-parry-generic",
+	"feat:slug:distant-waterbirds-poise": "item:slug:magus-parry-generic",
+	"feat:slug:killshots-report": "item:slug:magus-parry-generic",
+	"feat:slug:preternatural-parry": "item:slug:magus-parry-generic",
+	"feat:slug:vermillion-threads": "item:slug:magus-parry-generic",
+	"feat:slug:crosscurrent-counter": "item:slug:magus-parry-generic",
+	"feat:slug:emergency-targe": "item:slug:magus-parry-generic",
+	"feat:slug:capture-magic": "item:slug:magus-parry-generic"
+}

@@ -1,0 +1,33 @@
+{
+	"item:slug:ancestry-hobgoblin-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:cantorian-rejuvenation": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:rallying-cry": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:pride-in-arms": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:recognize-ambush": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:leech-clip": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:cantorian-restoration": "item:slug:ancestry-hobgoblin-generic",
+	"item:slug:cant-fall-here": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:cantorian-rejuvenation": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:rallying-cry": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:pride-in-arms": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:recognize-ambush": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:leech-clip": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:cantorian-restoration": "item:slug:ancestry-hobgoblin-generic",
+	"feat:slug:cant-fall-here": "item:slug:ancestry-hobgoblin-generic"
+}

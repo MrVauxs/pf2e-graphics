@@ -1,0 +1,60 @@
+{
+	"item:group:firearm": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"contents": [
+				{
+					"label": "Firearm (Muzzle Flash)",
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.muzzle_flash.single.01.yellow.0"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"rotation": {
+							"type": "relative",
+							"location": "TARGETS"
+						}
+					}
+				},
+				{
+					"label": "Firearm (Bullet)",
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.bullet.03.orange"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TARGETS"
+						}
+					}
+				},
+				{
+					"label": "Firearm (Sound)",
+					"execute": {
+						"type": "sound",
+						"sound": [
+							"graphics-sfx.generic.throw"
+						],
+						"radius": 122.5,
+						"constrainedByWalls": true,
+						"audioChannel": "environment",
+						"position": {
+							"location": "SOURCES"
+						}
+					}
+				}
+			]
+		}
+	]
+}

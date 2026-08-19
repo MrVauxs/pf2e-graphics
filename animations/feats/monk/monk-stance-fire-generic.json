@@ -1,0 +1,29 @@
+{
+	"item:slug:monk-stance-fire-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.red"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:stoked-flame-stance": "item:slug:monk-stance-fire-generic",
+	"item:slug:rain-of-embers-stance": "item:slug:monk-stance-fire-generic",
+	"item:slug:intensified-element-stance": "item:slug:monk-stance-fire-generic",
+	"feat:slug:stoked-flame-stance": "item:slug:monk-stance-fire-generic",
+	"feat:slug:rain-of-embers-stance": "item:slug:monk-stance-fire-generic",
+	"feat:slug:intensified-element-stance": "item:slug:monk-stance-fire-generic"
+}

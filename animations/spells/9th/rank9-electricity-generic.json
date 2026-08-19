@@ -1,0 +1,22 @@
+{
+	"item:slug:rank9-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.static_electricity.03.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:pierce-the-sky": "item:slug:rank9-electricity-generic",
+	"item:slug:storm-lord": "item:slug:rank9-electricity-generic",
+	"item:slug:storm-of-vengeance": "item:slug:rank9-electricity-generic"
+}

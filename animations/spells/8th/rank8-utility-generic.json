@@ -1,0 +1,37 @@
+{
+	"item:slug:rank8-utility-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.abjuration.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:imprisonment": "item:slug:rank8-utility-generic",
+	"item:slug:mimic-spell": "item:slug:rank8-utility-generic",
+	"item:slug:freedom": "item:slug:rank8-utility-generic",
+	"item:slug:shipwreck": "item:slug:rank8-utility-generic",
+	"item:slug:awaken-curse": "item:slug:rank8-utility-generic",
+	"item:slug:clone-companion": "item:slug:rank8-utility-generic",
+	"item:slug:hidden-mind": "item:slug:rank8-utility-generic",
+	"item:slug:embodied-font": "item:slug:rank8-utility-generic",
+	"item:slug:spirit-song": "item:slug:rank8-utility-generic",
+	"item:slug:antimagic-field": "item:slug:rank8-utility-generic",
+	"item:slug:touch-of-death": "item:slug:rank8-utility-generic",
+	"item:slug:unfettered-mark": "item:slug:rank8-utility-generic",
+	"item:slug:control-weather": "item:slug:rank8-utility-generic",
+	"item:slug:bathe-in-blood": "item:slug:rank8-utility-generic",
+	"item:slug:all-is-one-one-is-all": "item:slug:rank8-utility-generic",
+	"item:slug:divine-aura": "item:slug:rank8-utility-generic",
+	"item:slug:falling-sky": "item:slug:rank8-utility-generic",
+	"item:slug:medusas-wrath": "item:slug:rank8-utility-generic"
+}

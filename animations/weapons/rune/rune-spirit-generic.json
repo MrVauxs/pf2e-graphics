@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-spirit-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:astral": "item:rune:property:rune-spirit-generic",
+	"item:rune:property:astral-greater": "item:rune:property:rune-spirit-generic"
+}

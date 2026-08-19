@@ -1,0 +1,41 @@
+{
+	"item:slug:thaumaturge-implement-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:instructive-strike": "item:slug:thaumaturge-implement-generic",
+	"item:slug:implements-assault": "item:slug:thaumaturge-implement-generic",
+	"item:slug:twin-weakness": "item:slug:thaumaturge-implement-generic",
+	"item:slug:sever-magic": "item:slug:thaumaturge-implement-generic",
+	"item:slug:share-weakness": "item:slug:thaumaturge-implement-generic",
+	"item:slug:call-implement": "item:slug:thaumaturge-implement-generic",
+	"item:slug:divine-disharmony": "item:slug:thaumaturge-implement-generic",
+	"item:slug:cursed-effigy": "item:slug:thaumaturge-implement-generic",
+	"item:slug:root-to-life": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:instructive-strike": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:implements-assault": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:twin-weakness": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:sever-magic": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:share-weakness": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:call-implement": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:divine-disharmony": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:cursed-effigy": "item:slug:thaumaturge-implement-generic",
+	"feat:slug:root-to-life": "item:slug:thaumaturge-implement-generic"
+}

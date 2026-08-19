@@ -1,0 +1,71 @@
+{
+	"effect:stance-command-generic": [
+		{
+			"predicates": [
+				{
+					"gte": [
+						"settings:quality",
+						1
+					]
+				}
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.extras.tmfx.outflow.circle.01"
+				],
+				"position": {
+					"type": "dynamic",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.4
+				},
+				"visibility": {
+					"opacity": 0.75
+				},
+				"elevation": {
+					"sortLayer": "belowTokens"
+				},
+				"tint": "#f0c04a",
+				"fadeIn": {
+					"duration": 400
+				},
+				"fadeOut": {
+					"duration": 600
+				}
+			},
+			"contents": [
+				{
+					"default": true,
+					"triggers": [
+						"start-turn",
+						"effect"
+					]
+				},
+				{
+					"predicates": [
+						"settings:persistent"
+					],
+					"triggers": [
+						"effect"
+					],
+					"execute": {
+						"tieToDocuments": true,
+						"persistent": "tokenPrototype"
+					}
+				}
+			]
+		}
+	],
+	"effect:disruptive-stance": "effect:stance-command-generic",
+	"effect:dread-marshal-stance": "effect:stance-command-generic",
+	"effect:inspiring-marshal-stance": "effect:stance-command-generic",
+	"effect:masquerade-of-seasons-stance": "effect:stance-command-generic",
+	"effect:strategist-stance": "effect:stance-command-generic",
+	"effect:stumbling-stance": "effect:stance-command-generic",
+	"effect:stunt-performer-stance": "effect:stance-command-generic",
+	"effect:unified-stance": "effect:stance-command-generic"
+}

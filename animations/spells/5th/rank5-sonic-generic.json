@@ -1,0 +1,26 @@
+{
+	"item:slug:rank5-sonic-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.soundwave.01.purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:pulverizing-wake": "item:slug:rank5-sonic-generic",
+	"item:slug:confusing-cry": "item:slug:rank5-sonic-generic",
+	"item:slug:domoras-defense": "item:slug:rank5-sonic-generic",
+	"item:slug:illusory-scene": "item:slug:rank5-sonic-generic",
+	"item:slug:whispers-of-a-dead-goddess": "item:slug:rank5-sonic-generic",
+	"item:slug:shock-and-awe": "item:slug:rank5-sonic-generic",
+	"item:slug:belittling-boast": "item:slug:rank5-sonic-generic"
+}

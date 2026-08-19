@@ -1,0 +1,26 @@
+{
+	"item:slug:rank5-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.energy_strands.overlay.dark_purple"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:rip-the-spirit": "item:slug:rank5-void-death-generic",
+	"item:slug:unravel-existence": "item:slug:rank5-void-death-generic",
+	"item:slug:blood-feasting-breath": "item:slug:rank5-void-death-generic",
+	"item:slug:tree-of-life-and-death": "item:slug:rank5-void-death-generic",
+	"item:slug:ancestral-winds": "item:slug:rank5-void-death-generic",
+	"item:slug:invoke-spirits": "item:slug:rank5-void-death-generic",
+	"item:slug:curse-of-death": "item:slug:rank5-void-death-generic"
+}

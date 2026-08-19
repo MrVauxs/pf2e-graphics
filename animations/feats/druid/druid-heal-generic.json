@@ -1,0 +1,25 @@
+{
+	"feat:slug:druid-heal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.healing_generic.400px.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES"
+				}
+			}
+		}
+	],
+	"feat:slug:healing-transformation": "feat:slug:druid-heal-generic",
+	"feat:slug:floral-restoration": "feat:slug:druid-heal-generic"
+}

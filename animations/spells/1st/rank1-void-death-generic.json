@@ -1,0 +1,28 @@
+{
+	"item:slug:rank1-void-death-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.dark_red"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:withering-grasp": "item:slug:rank1-void-death-generic",
+	"item:slug:soul-siphon": "item:slug:rank1-void-death-generic",
+	"item:slug:undeaths-blessing": "item:slug:rank1-void-death-generic",
+	"item:slug:touch-of-undeath": "item:slug:rank1-void-death-generic",
+	"item:slug:necromancers-generosity": "item:slug:rank1-void-death-generic",
+	"item:slug:necrotic-bomb": "item:slug:rank1-void-death-generic",
+	"item:slug:grim-tendrils": "item:slug:rank1-void-death-generic",
+	"item:slug:discomfiting-whispers": "item:slug:rank1-void-death-generic",
+	"item:slug:all-encompassing-hunger": "item:slug:rank1-void-death-generic"
+}

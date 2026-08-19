@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-ratfolk-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:call-the-swarm": "item:slug:ancestry-ratfolk-generic",
+	"item:slug:ratfolk-roll": "item:slug:ancestry-ratfolk-generic",
+	"item:slug:quick-stow-ratfolk": "item:slug:ancestry-ratfolk-generic",
+	"item:slug:gnaw": "item:slug:ancestry-ratfolk-generic",
+	"item:slug:rat-form": "item:slug:ancestry-ratfolk-generic",
+	"feat:slug:call-the-swarm": "item:slug:ancestry-ratfolk-generic",
+	"feat:slug:ratfolk-roll": "item:slug:ancestry-ratfolk-generic",
+	"feat:slug:quick-stow-ratfolk": "item:slug:ancestry-ratfolk-generic",
+	"feat:slug:gnaw": "item:slug:ancestry-ratfolk-generic",
+	"feat:slug:rat-form": "item:slug:ancestry-ratfolk-generic"
+}

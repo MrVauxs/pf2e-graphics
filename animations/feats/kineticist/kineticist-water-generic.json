@@ -1,0 +1,47 @@
+{
+	"item:slug:kineticist-water-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.water.02.blue.0"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:oceans-balm": "item:slug:kineticist-water-generic",
+	"item:slug:ride-the-tsunami": "item:slug:kineticist-water-generic",
+	"item:slug:tidal-hands": "item:slug:kineticist-water-generic",
+	"item:slug:drowning-mist": "item:slug:kineticist-water-generic",
+	"item:slug:torrent-in-the-blood": "item:slug:kineticist-water-generic",
+	"item:slug:return-to-the-sea": "item:slug:kineticist-water-generic",
+	"item:slug:driving-rain": "item:slug:kineticist-water-generic",
+	"item:slug:winter-sleet": "item:slug:kineticist-water-generic",
+	"item:slug:winters-clutch": "item:slug:kineticist-water-generic",
+	"item:slug:barrier-of-boreal-frost": "item:slug:kineticist-water-generic",
+	"item:slug:glacial-prison": "item:slug:kineticist-water-generic",
+	"item:slug:sea-glass-guardians": "item:slug:kineticist-water-generic",
+	"feat:slug:oceans-balm": "item:slug:kineticist-water-generic",
+	"feat:slug:ride-the-tsunami": "item:slug:kineticist-water-generic",
+	"feat:slug:tidal-hands": "item:slug:kineticist-water-generic",
+	"feat:slug:drowning-mist": "item:slug:kineticist-water-generic",
+	"feat:slug:torrent-in-the-blood": "item:slug:kineticist-water-generic",
+	"feat:slug:return-to-the-sea": "item:slug:kineticist-water-generic",
+	"feat:slug:driving-rain": "item:slug:kineticist-water-generic",
+	"feat:slug:winter-sleet": "item:slug:kineticist-water-generic",
+	"feat:slug:winters-clutch": "item:slug:kineticist-water-generic",
+	"feat:slug:barrier-of-boreal-frost": "item:slug:kineticist-water-generic",
+	"feat:slug:glacial-prison": "item:slug:kineticist-water-generic",
+	"feat:slug:sea-glass-guardians": "item:slug:kineticist-water-generic"
+}

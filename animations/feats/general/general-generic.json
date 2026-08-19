@@ -1,0 +1,28 @@
+{
+	"item:slug:general-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.shield.03.complete.01.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:shield-block": "item:slug:general-generic",
+	"item:slug:steel-your-resolve": "item:slug:general-generic",
+	"item:slug:improvised-repair": "item:slug:general-generic",
+	"feat:slug:shield-block": "item:slug:general-generic",
+	"action:slug:shield-block": "item:slug:general-generic",
+	"feature:slug:shield-block": "item:slug:general-generic",
+	"feat:slug:steel-your-resolve": "item:slug:general-generic",
+	"action:slug:steel-your-resolve": "item:slug:general-generic",
+	"feat:slug:improvised-repair": "item:slug:general-generic"
+}

@@ -1,0 +1,47 @@
+{
+	"item:slug:rank3-mental-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.007.pink"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:overload-connection": "item:slug:rank3-mental-generic",
+	"item:slug:animal-vision": "item:slug:rank3-mental-generic",
+	"item:slug:tattoo-whispers": "item:slug:rank3-mental-generic",
+	"item:slug:crisis-of-faith": "item:slug:rank3-mental-generic",
+	"item:slug:beastmaster-trance": "item:slug:rank3-mental-generic",
+	"item:slug:subjugate-undead": "item:slug:rank3-mental-generic",
+	"item:slug:paralyze": "item:slug:rank3-mental-generic",
+	"item:slug:eyes-of-the-dead": "item:slug:rank3-mental-generic",
+	"item:slug:excise-lexicon": "item:slug:rank3-mental-generic",
+	"item:slug:enthrall": "item:slug:rank3-mental-generic",
+	"item:slug:ancestral-defense": "item:slug:rank3-mental-generic",
+	"item:slug:mind-reading": "item:slug:rank3-mental-generic",
+	"item:slug:heroism": "item:slug:rank3-mental-generic",
+	"item:slug:annunciation-of-the-outer-gate": "item:slug:rank3-mental-generic",
+	"item:slug:overwhelming-memory": "item:slug:rank3-mental-generic",
+	"item:slug:primal-chorus": "item:slug:rank3-mental-generic",
+	"item:slug:strength-of-mind": "item:slug:rank3-mental-generic",
+	"item:slug:ring-of-truth": "item:slug:rank3-mental-generic",
+	"item:slug:roaring-applause": "item:slug:rank3-mental-generic",
+	"item:slug:mind-of-menace": "item:slug:rank3-mental-generic",
+	"item:slug:sudden-recollection": "item:slug:rank3-mental-generic",
+	"item:slug:invent-code": "item:slug:rank3-mental-generic",
+	"item:slug:shift-blame": "item:slug:rank3-mental-generic",
+	"item:slug:agonizing-despair": "item:slug:rank3-mental-generic",
+	"item:slug:infectious-ennui": "item:slug:rank3-mental-generic",
+	"item:slug:aberrant-whispers": "item:slug:rank3-mental-generic",
+	"item:slug:impending-doom": "item:slug:rank3-mental-generic",
+	"item:slug:dream-message": "item:slug:rank3-mental-generic"
+}

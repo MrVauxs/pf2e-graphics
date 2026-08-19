@@ -1,0 +1,21 @@
+{
+	"item:slug:rank10-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.cure_wounds.400px.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:revival": "item:slug:rank10-healing-generic",
+	"item:slug:halt-death": "item:slug:rank10-healing-generic"
+}

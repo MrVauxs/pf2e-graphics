@@ -1,0 +1,27 @@
+{
+	"item:slug:ancestry-fleshwarp-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:gaping-flesh": "item:slug:ancestry-fleshwarp-generic",
+	"item:slug:slip-the-grasp": "item:slug:ancestry-fleshwarp-generic",
+	"item:slug:mutate-weapon": "item:slug:ancestry-fleshwarp-generic",
+	"item:slug:augment-senses": "item:slug:ancestry-fleshwarp-generic",
+	"feat:slug:gaping-flesh": "item:slug:ancestry-fleshwarp-generic",
+	"feat:slug:slip-the-grasp": "item:slug:ancestry-fleshwarp-generic",
+	"feat:slug:mutate-weapon": "item:slug:ancestry-fleshwarp-generic",
+	"feat:slug:augment-senses": "item:slug:ancestry-fleshwarp-generic"
+}

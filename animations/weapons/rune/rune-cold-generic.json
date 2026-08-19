@@ -1,0 +1,25 @@
+{
+	"item:rune:property:rune-cold-generic": [
+		{
+			"triggers": [
+				"attack-roll"
+			],
+			"predicates": [
+				"check:outcome:success"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.frost"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				},
+				"delay": 300
+			}
+		}
+	],
+	"item:rune:property:frost": "item:rune:property:rune-cold-generic",
+	"item:rune:property:frost-greater": "item:rune:property:rune-cold-generic"
+}

@@ -1,0 +1,29 @@
+{
+	"item:slug:ancestry-android-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.blue02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:revivification-protocol": "item:slug:ancestry-android-generic",
+	"item:slug:radiant-circuitry": "item:slug:ancestry-android-generic",
+	"item:slug:nanite-surge": "item:slug:ancestry-android-generic",
+	"item:slug:repair-module": "item:slug:ancestry-android-generic",
+	"item:slug:nanite-shroud": "item:slug:ancestry-android-generic",
+	"feat:slug:revivification-protocol": "item:slug:ancestry-android-generic",
+	"feat:slug:radiant-circuitry": "item:slug:ancestry-android-generic",
+	"feat:slug:nanite-surge": "item:slug:ancestry-android-generic",
+	"feat:slug:repair-module": "item:slug:ancestry-android-generic",
+	"feat:slug:nanite-shroud": "item:slug:ancestry-android-generic"
+}

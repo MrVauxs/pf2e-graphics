@@ -1,0 +1,22 @@
+{
+	"item:slug:rank7-poison-disease-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.fumes.toxic.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:blightburn-blast": "item:slug:rank7-poison-disease-generic",
+	"item:slug:leng-sting": "item:slug:rank7-poison-disease-generic",
+	"item:slug:ray-of-corruption": "item:slug:rank7-poison-disease-generic"
+}

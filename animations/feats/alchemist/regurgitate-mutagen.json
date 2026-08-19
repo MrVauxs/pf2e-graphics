@@ -1,0 +1,43 @@
+{
+	"item:slug:regurgitate-mutagen": [
+		{
+			"triggers": [
+				"action"
+			],
+			"contents": [
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.breath_weapons.acid.line.green"
+						],
+						"position": {
+							"type": "static",
+							"location": "SOURCES"
+						},
+						"size": {
+							"type": "directed",
+							"endpoint": "TARGETS"
+						}
+					}
+				},
+				{
+					"execute": {
+						"type": "graphic",
+						"graphic": [
+							"jb2a.liquid.splash.green"
+						],
+						"position": {
+							"type": "static",
+							"location": "TARGETS"
+						},
+						"size": {
+							"type": "relative"
+						}
+					}
+				}
+			]
+		}
+	],
+	"feat:slug:regurgitate-mutagen": "item:slug:regurgitate-mutagen"
+}

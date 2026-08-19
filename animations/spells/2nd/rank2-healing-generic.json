@@ -1,0 +1,34 @@
+{
+	"item:slug:rank2-healing-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:luminous-stardust-healing": "item:slug:rank2-healing-generic",
+	"item:slug:sure-footing": "item:slug:rank2-healing-generic",
+	"item:slug:gentle-breeze": "item:slug:rank2-healing-generic",
+	"item:slug:palm-held-sun": "item:slug:rank2-healing-generic",
+	"item:slug:clear-mind": "item:slug:rank2-healing-generic",
+	"item:slug:sound-body": "item:slug:rank2-healing-generic",
+	"item:slug:last-nights-vigil": "item:slug:rank2-healing-generic",
+	"item:slug:draw-blood": "item:slug:rank2-healing-generic",
+	"item:slug:soothing-mist": "item:slug:rank2-healing-generic",
+	"item:slug:cleanse-affliction": "item:slug:rank2-healing-generic",
+	"item:slug:restoration": "item:slug:rank2-healing-generic",
+	"item:slug:familiars-resurrection": "item:slug:rank2-healing-generic",
+	"item:slug:lifelink-surge": "item:slug:rank2-healing-generic",
+	"item:slug:release-the-ego-to-restore-the-soul": "item:slug:rank2-healing-generic",
+	"item:slug:harmonize-self": "item:slug:rank2-healing-generic"
+}

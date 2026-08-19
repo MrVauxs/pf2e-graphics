@@ -1,0 +1,25 @@
+{
+	"item:slug:rank2-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.yellow"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				}
+			}
+		}
+	],
+	"item:slug:augury": "item:slug:rank2-detection-generic",
+	"item:slug:tracing-bond": "item:slug:rank2-detection-generic",
+	"item:slug:status": "item:slug:rank2-detection-generic",
+	"item:slug:spys-mark": "item:slug:rank2-detection-generic",
+	"item:slug:see-the-unseen": "item:slug:rank2-detection-generic",
+	"item:slug:shift-perspective": "item:slug:rank2-detection-generic"
+}

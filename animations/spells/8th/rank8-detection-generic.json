@@ -1,0 +1,22 @@
+{
+	"item:slug:rank8-detection-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.magic_signs.rune.divination.intro.blue"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:pinpoint": "item:slug:rank8-detection-generic",
+	"item:slug:prying-survey": "item:slug:rank8-detection-generic",
+	"item:slug:unrelenting-observation": "item:slug:rank8-detection-generic"
+}

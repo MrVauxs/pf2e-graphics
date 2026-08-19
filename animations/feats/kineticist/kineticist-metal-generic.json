@@ -1,0 +1,48 @@
+{
+	"item:slug:kineticist-metal-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.aura_themed.01.inward.complete.metal.01.grey"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:alloy-flesh-and-steel": "item:slug:kineticist-metal-generic",
+	"item:slug:conductive-sphere": "item:slug:kineticist-metal-generic",
+	"item:slug:metal-carapace": "item:slug:kineticist-metal-generic",
+	"item:slug:magnetic-pinions": "item:slug:kineticist-metal-generic",
+	"item:slug:magnetic-field": "item:slug:kineticist-metal-generic",
+	"item:slug:shattershields": "item:slug:kineticist-metal-generic",
+	"item:slug:scrap-barricade": "item:slug:kineticist-metal-generic",
+	"item:slug:chain-infusion": "item:slug:kineticist-metal-generic",
+	"item:slug:hell-of-1-000-000-needles": "item:slug:kineticist-metal-generic",
+	"item:slug:hail-of-splinters": "item:slug:kineticist-metal-generic",
+	"item:slug:lightning-rod": "item:slug:kineticist-metal-generic",
+	"item:slug:lightning-dash": "item:slug:kineticist-metal-generic",
+	"feat:slug:alloy-flesh-and-steel": "item:slug:kineticist-metal-generic",
+	"feat:slug:conductive-sphere": "item:slug:kineticist-metal-generic",
+	"feat:slug:metal-carapace": "item:slug:kineticist-metal-generic",
+	"feat:slug:magnetic-pinions": "item:slug:kineticist-metal-generic",
+	"feat:slug:magnetic-field": "item:slug:kineticist-metal-generic",
+	"feat:slug:shattershields": "item:slug:kineticist-metal-generic",
+	"feat:slug:scrap-barricade": "item:slug:kineticist-metal-generic",
+	"feat:slug:chain-infusion": "item:slug:kineticist-metal-generic",
+	"feat:slug:hell-of-1-000-000-needles": "item:slug:kineticist-metal-generic",
+	"feat:slug:hail-of-splinters": "item:slug:kineticist-metal-generic",
+	"feat:slug:lightning-rod": "item:slug:kineticist-metal-generic",
+	"feat:slug:lightning-dash": "item:slug:kineticist-metal-generic",
+	"feat:slug:rain-of-rust": "item:slug:kineticist-metal-generic"
+}

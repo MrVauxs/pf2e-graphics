@@ -1,0 +1,22 @@
+{
+	"item:slug:rank5-acid-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.liquid.splash.green"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:blinding-foam": "item:slug:rank5-acid-generic",
+	"item:slug:corrosive-muck": "item:slug:rank5-acid-generic",
+	"item:slug:acid-storm": "item:slug:rank5-acid-generic"
+}

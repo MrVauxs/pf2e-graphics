@@ -1,0 +1,63 @@
+{
+	"item:slug:kineticist-impulse-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.markers.light.complete.purple02"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.25
+				}
+			}
+		}
+	],
+	"item:slug:command-elemental": "item:slug:kineticist-impulse-generic",
+	"item:slug:steam-knight": "item:slug:kineticist-impulse-generic",
+	"item:slug:turn-the-wheel-of-seasons": "item:slug:kineticist-impulse-generic",
+	"item:slug:rain-of-razors": "item:slug:kineticist-impulse-generic",
+	"item:slug:ghosts-in-the-storm": "item:slug:kineticist-impulse-generic",
+	"item:slug:beasts-of-slumbering-steel": "item:slug:kineticist-impulse-generic",
+	"item:slug:elemental-artillery": "item:slug:kineticist-impulse-generic",
+	"item:slug:shard-strike": "item:slug:kineticist-impulse-generic",
+	"item:slug:whirling-grindstone": "item:slug:kineticist-impulse-generic",
+	"item:slug:wiles-on-the-wind": "item:slug:kineticist-impulse-generic",
+	"item:slug:impenetrable-fog": "item:slug:kineticist-impulse-generic",
+	"item:slug:elemental-transformation": "item:slug:kineticist-impulse-generic",
+	"item:slug:fearsome-familiar": "item:slug:kineticist-impulse-generic",
+	"item:slug:flashforge": "item:slug:kineticist-impulse-generic",
+	"item:slug:purify-element": "item:slug:kineticist-impulse-generic",
+	"item:slug:usurp-the-lunar-reins": "item:slug:kineticist-impulse-generic",
+	"item:slug:stepping-stones": "item:slug:kineticist-impulse-generic",
+	"item:slug:imperious-aura": "item:slug:kineticist-impulse-generic",
+	"item:slug:infinite-expanse-of-bluest-heaven": "item:slug:kineticist-impulse-generic",
+	"item:slug:omnikinesis": "item:slug:kineticist-impulse-generic",
+	"feat:slug:command-elemental": "item:slug:kineticist-impulse-generic",
+	"feat:slug:steam-knight": "item:slug:kineticist-impulse-generic",
+	"feat:slug:turn-the-wheel-of-seasons": "item:slug:kineticist-impulse-generic",
+	"feat:slug:rain-of-razors": "item:slug:kineticist-impulse-generic",
+	"feat:slug:ghosts-in-the-storm": "item:slug:kineticist-impulse-generic",
+	"feat:slug:beasts-of-slumbering-steel": "item:slug:kineticist-impulse-generic",
+	"feat:slug:elemental-artillery": "item:slug:kineticist-impulse-generic",
+	"feat:slug:shard-strike": "item:slug:kineticist-impulse-generic",
+	"feat:slug:whirling-grindstone": "item:slug:kineticist-impulse-generic",
+	"feat:slug:wiles-on-the-wind": "item:slug:kineticist-impulse-generic",
+	"feat:slug:impenetrable-fog": "item:slug:kineticist-impulse-generic",
+	"feat:slug:elemental-transformation": "item:slug:kineticist-impulse-generic",
+	"feat:slug:fearsome-familiar": "item:slug:kineticist-impulse-generic",
+	"feat:slug:flashforge": "item:slug:kineticist-impulse-generic",
+	"feat:slug:purify-element": "item:slug:kineticist-impulse-generic",
+	"feat:slug:usurp-the-lunar-reins": "item:slug:kineticist-impulse-generic",
+	"feat:slug:stepping-stones": "item:slug:kineticist-impulse-generic",
+	"feat:slug:imperious-aura": "item:slug:kineticist-impulse-generic",
+	"feat:slug:infinite-expanse-of-bluest-heaven": "item:slug:kineticist-impulse-generic",
+	"feat:slug:omnikinesis": "item:slug:kineticist-impulse-generic"
+}

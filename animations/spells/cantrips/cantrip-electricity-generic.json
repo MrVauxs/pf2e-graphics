@@ -1,0 +1,21 @@
+{
+	"item:slug:cantrip-electricity-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.005.blue03"
+				],
+				"position": {
+					"type": "static",
+					"location": "TARGETS"
+				}
+			}
+		}
+	],
+	"item:slug:live-wire": "item:slug:cantrip-electricity-generic",
+	"item:slug:electric-arc": "item:slug:cantrip-electricity-generic"
+}

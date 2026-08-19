@@ -1,0 +1,33 @@
+{
+	"item:slug:barbarian-spirit-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.spirit_guardians.dark_black.no_ring"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"scaling": 1.5
+				}
+			}
+		}
+	],
+	"item:slug:ghost-wrangler": "item:slug:barbarian-spirit-generic",
+	"item:slug:spirits-wrath": "item:slug:barbarian-spirit-generic",
+	"item:slug:spiritual-guides": "item:slug:barbarian-spirit-generic",
+	"item:slug:spirits-interference": "item:slug:barbarian-spirit-generic",
+	"item:slug:corpse-killers-defiance": "item:slug:barbarian-spirit-generic",
+	"feat:slug:ghost-wrangler": "item:slug:barbarian-spirit-generic",
+	"feat:slug:spirits-wrath": "item:slug:barbarian-spirit-generic",
+	"feat:slug:spiritual-guides": "item:slug:barbarian-spirit-generic",
+	"feat:slug:spirits-interference": "item:slug:barbarian-spirit-generic",
+	"feat:slug:corpse-killers-defiance": "item:slug:barbarian-spirit-generic"
+}

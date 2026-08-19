@@ -1,0 +1,26 @@
+{
+	"feat:slug:psychic-surge-generic": [
+		{
+			"triggers": [
+				"action"
+			],
+			"execute": {
+				"type": "graphic",
+				"graphic": [
+					"jb2a.impact.004.pinkpurple"
+				],
+				"position": {
+					"type": "static",
+					"location": "SOURCES"
+				},
+				"size": {
+					"type": "relative",
+					"relativeTo": "SOURCES",
+					"scaling": 1.3
+				}
+			}
+		}
+	],
+	"feat:slug:no": "feat:slug:psychic-surge-generic",
+	"feat:slug:foreseen-failure": "feat:slug:psychic-surge-generic"
+}
