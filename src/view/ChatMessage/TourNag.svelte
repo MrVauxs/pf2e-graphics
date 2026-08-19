@@ -1,18 +1,21 @@
 <script lang='ts'>
 	import type { ChatMessagePF2e } from 'foundry-pf2e';
+	import type { TourConfig } from 'src/extensions';
 	import { i18n, info } from 'src/utils';
+	import { untrack } from 'svelte';
 
-	export let message: ChatMessagePF2e;
-	const { unstartedTourConfigs } = message.flags['pf2e-graphics'] as {
+	const { message }: { message: ChatMessagePF2e } = $props();
+	// Read once: the flags are baked into the chat message when it is created.
+	const { unstartedTourConfigs } = untrack(() => message.flags['pf2e-graphics']) as {
 		unstartedTourConfigs: TourConfig[];
 	};
 
 	function neverSpeakToMeAgain() {
-		window.game.tours
+		game.tours
 			.keys()
 			.filter(str => str.startsWith('pf2e-graphics.'))
 			.forEach((tourName) => {
-				const tour = window.game.tours.get(tourName) as Tour;
+				const tour = game.tours.get(tourName) as foundry.nue.Tour;
 				if (tour.status === 'unstarted') tour.progress(0).then(() => tour.exit()); // Tour isn't completed, so don't complete it 😤
 			});
 		info('pf2e-graphics.messages.tourNag.farewellToast');
@@ -20,7 +23,7 @@
 	}
 
 	function getTourDoc(tour: TourConfig) {
-		return window.game.tours.get(`${tour.namespace}.${tour.id}`) as Tour;
+		return game.tours.get(`${tour.namespace}.${tour.id}`) as foundry.nue.Tour;
 	}
 </script>
 
@@ -35,7 +38,7 @@
 			{@const tour = getTourDoc(tourConfig)}
 			<button
 				class='flex flex-row items-center px-2'
-				on:click={() => tour.start()}
+				onclick={() => tour.start()}
 				disabled={tour?.status !== 'unstarted'}
 				class:line-through={tour?.status !== 'unstarted'}
 			>
@@ -45,7 +48,7 @@
 		{/each}
 		<button
 			class='flex flex-row items-center px-2'
-			on:click={() => {
+			onclick={() => {
 				// @ts-expect-error TODO: pending https://github.com/7H3LaughingMan/foundry-pf2e/pull/605
 				new window.ToursManagement().render(true, { activeCategory: 'pf2e-graphics' });
 			}}
@@ -54,7 +57,7 @@
 			<i class='grow'>{i18n('pf2e-graphics.messages.tourNag.buttons.seeAllTours')}</i>
 		</button>
 		<hr />
-		<button class='flex flex-row items-center px-2' on:click={() => neverSpeakToMeAgain()}>
+		<button class='flex flex-row items-center px-2' onclick={() => neverSpeakToMeAgain()}>
 			<i class='fas fa-xmark fa-fw mx-auto'></i>
 			<span class='grow'>
 				<b>{i18n('pf2e-graphics.messages.tourNag.buttons.neverSpeakToMeAgain')}</b>

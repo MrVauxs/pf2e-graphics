@@ -104,14 +104,11 @@ async function processAnimation(
 	if (payload.rotation) {
 		if (payload.rotation.type === 'directed') {
 			seq.rotateTowards(positionToArgument(payload.rotation.target, context), {
-				duration: payload.rotation.spin?.duration ?? 0,
-				ease: payload.rotation.spin?.ease ?? 'linear',
-				delay: payload.rotation.spin?.delay ?? 0,
 				rotationOffset: payload.rotation.rotationOffset ?? 0,
-				// TODO: Sequencer types to make this partial
-				towardsCenter: true,
 				cacheLocation: false,
 			});
+			if (payload.rotation.spin?.duration) seq.duration(payload.rotation.spin.duration);
+			if (payload.rotation.spin?.delay) seq.delay(payload.rotation.spin.delay);
 		} else if (payload.rotation.type === 'absolute') {
 			seq.rotateIn(
 				payload.rotation.angle,

@@ -3,9 +3,13 @@
 	import { dev, devLog } from 'src/utils';
 	import { Mode, ValidationSeverity } from 'svelte-jsoneditor';
 
-	export let json: object;
-	export let mode: Mode = Mode.text;
-	export let onChange: OnChange = (updatedContent: Content, previousContent: Content, status: OnChangeStatus) => devLog('onChange: ', { updatedContent, previousContent, status });
+	interface Props {
+		json: object;
+		mode?: Mode;
+		onChange?: OnChange;
+	}
+
+	let { json, mode = Mode.text, onChange = (updatedContent: Content, previousContent: Content, status: OnChangeStatus) => devLog('onChange: ', { updatedContent, previousContent, status }) }: Props = $props();
 
 	async function validatorFactory(): Promise<(json: unknown) => ValidationError[]> {
 		const schema = (await import('schema')).animationSetDocument;

@@ -1,8 +1,12 @@
 <script lang='ts'>
 	import type { AnimationSetContentsItem } from 'schema/payload';
 
-	export let data: AnimationSetContentsItem<'sound'>;
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem<'sound'>;
+		readonly: boolean;
+	}
+
+	let { data = $bindable(), readonly }: Props = $props();
 </script>
 {#if !data.execute}
 	{#if !readonly}
@@ -24,18 +28,18 @@
 						list='graphic'
 						type='text'
 						value={data.execute.sound?.length ? JSON.stringify(data.execute.sound) : ''}
-						on:change={(e) => {
+						onchange={(e) => {
 							if (!data.execute) data.execute = {};
 							if (e.currentTarget.value) {
 								try {
 									const val = JSON.parse(e.currentTarget.value);
 									if (!Array.isArray(val)) {
-										window.ui.notifications.error('Sound must be an array of strings! ex. <code>["jb2a.arrow"]</code>');
+										ui.notifications.error('Sound must be an array of strings! ex. <code>["jb2a.arrow"]</code>');
 									} else {
 										data.execute.sound = JSON.parse(e.currentTarget.value);
 									}
 								} catch {
-									window.ui.notifications.error('The current Sound value is not valid JSON.');
+									ui.notifications.error('The current Sound value is not valid JSON.');
 								}
 							} else {
 								data.execute.sound = [];

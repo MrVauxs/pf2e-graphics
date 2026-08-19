@@ -1,16 +1,16 @@
-import type { SvelteApplicationOptions } from '@typhonjs-fvtt/runtime/svelte/application';
+import type { SvelteApp } from '@typhonjs-fvtt/runtime/svelte/application';
 import type { TJSSessionStorage } from '@typhonjs-fvtt/runtime/svelte/store/web-storage';
 import type { Writable } from 'svelte/store';
 import type { ModuleDataObject } from '../schema';
 import type { LiveSettings, StoreSettings } from './settings';
 import type { AnimationHistoryObject, AnimCore } from './storage/AnimCore';
 
-export type CombinedSvelteApplicationOptions = ApplicationOptions & SvelteApplicationOptions;
+export type CombinedSvelteApplicationOptions = ApplicationOptions & SvelteApp.Options;
 
 export type ConstructorApplicationOptions = Partial<CombinedSvelteApplicationOptions>;
 
 export interface ExternalTJSContext {
-	application: Application;
+	application: foundry.appv1.api.Application;
 	elementRootUpdate: () => void;
 	sessionStorage: TJSSessionStorage;
 }
@@ -24,7 +24,22 @@ declare module 'svelte' {
 	export function setContext<T extends keyof Context, K extends Context[T]>(key: T, context: K): void;
 }
 
-export type TokenOrDoc = TokenDocument | Token;
+export type TokenOrDoc = TokenDocument | foundry.canvas.placeables.Token;
+
+/** `TourConfig` isn't exported by `foundry-pf2e`'s types, so it's derived from the `Tour` constructor. */
+export type TourConfig = ConstructorParameters<typeof foundry.nue.Tour>[0];
+
+declare global {
+	/** Not present in `foundry-pf2e`'s types; both exist as runtime globals in core Foundry. */
+	class SidebarTour extends foundry.nue.Tour {
+		protected _preStep(): Promise<void>;
+		protected _postStep(): Promise<void>;
+	}
+	class CanvasTour extends foundry.nue.Tour {
+		protected _preStep(): Promise<void>;
+		protected _postStep(): Promise<void>;
+	}
+}
 
 type Entries<T, K extends keyof T = keyof T> = (K extends unknown ? [K, T[K]] : never)[];
 

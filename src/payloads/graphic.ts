@@ -2,7 +2,7 @@ import type { TokenPF2e } from 'foundry-pf2e';
 import type { ExecutionContext } from '.';
 import type { Payload } from '../../schema';
 import type { EffectiveSize } from '../extensions';
-import { addCustomExecutionContext, offsetToVector2, parseMinMaxObject, positionToArgument } from '.';
+import { addCustomExecutionContext, offsetToVector2, parseMinMaxObject, positionToArgument, sameEffectivePosition } from '.';
 import { AnimCore } from '../storage/AnimCore';
 import { ErrorMsg, getDefaultSize } from '../utils';
 
@@ -80,7 +80,6 @@ function processGraphic(payload: Parameters<typeof executeGraphic>[0], context: 
 			if (payload.position.edge) options.edge = payload.position.edge;
 			options.bindVisibility = !payload.position.unbindVisibility;
 			options.bindAlpha = !payload.position.unbindAlpha;
-			// @ts-expect-error TODO: sequencer types (documentation sometimes uses `followRotation`?)
 			options.bindRotation = !payload.position.ignoreRotation;
 			options.bindScale = !payload.position.unbindScale;
 			options.bindElevation = !payload.position.unbindElevation;
@@ -236,7 +235,14 @@ function processGraphic(payload: Parameters<typeof executeGraphic>[0], context: 
 				options.gridUnits = payload.rotation.gridUnits;
 			}
 
-			seq.stretchTo(positionToArgument(payload.size.endpoint, context), options);
+			const endpointArgument = positionToArgument(payload.size.endpoint, context);
+			if (payload.position.type !== 'screenSpace') {
+				const originArgument = positionToArgument(payload.position.location, context);
+				// Don't play a stretched graphic with no distance to stretch across (e.g. a self-targeted spell).
+				if (sameEffectivePosition(originArgument, endpointArgument)) seq.playIf(() => false);
+			}
+
+			seq.stretchTo(endpointArgument, options);
 		} else {
 			// #region Common (`sizeBaseObject`) properties
 			if (payload.size.spriteScale) seq.spriteScale(...parseMinMaxObject(payload.size.spriteScale));
@@ -353,7 +359,7 @@ function processGraphic(payload: Parameters<typeof executeGraphic>[0], context: 
 						}
 					}
 				} else if (
-					placeable instanceof MeasuredTemplate
+					placeable instanceof foundry.canvas.placeables.MeasuredTemplate
 					|| placeable instanceof MeasuredTemplateDocument
 				) {
 					seq.scaleToObject(payload.size.scaling ?? 1, {

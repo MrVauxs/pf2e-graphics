@@ -41,9 +41,9 @@ function handleChatMessage(message: ChatMessagePF2e, delayed = false) {
 		}
 	}
 
-	const toolbeltTargets = message.flags?.['pf2e-toolbelt']?.targetHelper?.targets?.map(
-		t => fromUuidSync(t) as TokenDocumentPF2e | null,
-	);
+	const toolbeltTargets = (
+		message.flags?.['pf2e-toolbelt'] as { targetHelper?: { targets?: string[] } } | undefined
+	)?.targetHelper?.targets?.map(t => fromUuidSync(t) as TokenDocumentPF2e | null);
 	const messageTargets = message.target?.token
 		? [message.target?.token]
 		: Array.from((message.author as UserPF2e).targets);
@@ -127,7 +127,7 @@ interface MessageTargetSave {
 }
 
 interface RollSaveHook {
-	roll: Rolled<CheckRoll>;
+	roll: foundry.dice.Rolled<CheckRoll>;
 	message: ChatMessagePF2e;
 	rollMessage: ChatMessagePF2e;
 	target: TokenDocumentPF2e;

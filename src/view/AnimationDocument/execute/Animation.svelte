@@ -1,8 +1,12 @@
 <script lang='ts'>
 	import type { AnimationSetContentsItem } from 'schema/payload';
 
-	export let data: AnimationSetContentsItem<'animation'>;
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem<'animation'>;
+		readonly: boolean;
+	}
+
+	let { data, readonly }: Props = $props();
 </script>
 {#if !data.execute}
 	{#if !readonly}

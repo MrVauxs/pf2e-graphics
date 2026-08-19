@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](<https://semver.org/spec/v2.0.
 
 ## [Unreleased]
 
+### Changed
+
+- **Foundry VTT v13 or v14 is now required.** Support for v12 has been dropped.
+- Sequencer v4.0.0 and PF2e system v8.4.0 are now the minimum supported versions.
+
+### Fixed
+
+- The Graphics sidebar tab not appearing at all on Foundry v13 and later.
+- The "Hide Cards Tab" setting no longer hiding anything, because v13 rebuilt each sidebar tab as a plain button instead of a list item.
+- Switching between the "Main" and "Raw Data" tabs of the animation editor doing nothing.
+- Size and Position values being shared between sections rather than edited independently. ([#466](https://github.com/MrVauxs/pf2e-graphics/issues/466))
+
 ## [1.0.0-alpha.14] - 2025-04-12
 
 ### Fixed

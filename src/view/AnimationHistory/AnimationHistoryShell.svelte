@@ -1,5 +1,3 @@
-<svelte:options accessors={true} />
-
 <script lang='ts'>
 	import type { AnimationHistoryObject } from 'src/storage/AnimCore';
 	import type { Mode } from 'svelte-jsoneditor';
@@ -7,12 +5,24 @@
 	import { onMount, tick } from 'svelte';
 	import { i18n, nonEmpty } from '../../utils';
 
-	export let elementRoot: HTMLElement;
-	let sidebarElement: HTMLElement;
+	interface Props {
+		elementRoot: HTMLElement;
+	}
+
+	let { elementRoot = $bindable() }: Props = $props();
+
+	// TRL locates the application root via an `elementRoot` get/set pair on the component
+	// (`applicationShellContract` in `@typhonjs-fvtt/runtime/svelte/application`). Re-exporting the
+	// bindable prop emits exactly that accessor pair, which is what `accessors={true}` used to provide
+	// in legacy mode — so this component can stay in runes mode. Removing this export makes TRL throw
+	// "No application shell contract found".
+	export { elementRoot };
+
+	let sidebarElement: HTMLElement | undefined = $state();
 
 	const history = window.pf2eGraphics.history;
-	let selected: undefined | AnimationHistoryObject;
-	let userSelected = false;
+	let selected: undefined | AnimationHistoryObject = $state();
+	let userSelected = $state(false);
 
 	function clearHistory() {
 		history.set([]);
@@ -36,8 +46,8 @@
 		});
 	});
 
-	let search = '';
-	let json = false;
+	let search = $state('');
+	let json = $state(false);
 	const mode = 'text' as Mode;
 </script>
 
@@ -63,7 +73,7 @@
 					<section
 						class='
 							flex p-1
-							border border-solid border-gray-500 rounded-sm
+							border border-solid border-gray-500 rounded-xs
 							bg-gray-400/25
 							hover:bg-gray-500/25
 							hover:cursor-pointer
@@ -72,7 +82,7 @@
 						class:shadow-inner={selected === entry}
 						role='button'
 						tabindex='0'
-						on:click={() => {
+						onclick={() => {
 							selected = entry;
 							if ((index + 1) !== $history.length) {
 								userSelected = true;
@@ -80,7 +90,7 @@
 								userSelected = false;
 							};
 						}}
-						on:keydown={() => {
+						onkeydown={() => {
 							selected = entry;
 							if ((index + 1) !== $history.length) {
 								userSelected = true;
@@ -110,7 +120,7 @@
 										class="fa {entry.animations.length ? 'fa-check' : 'fa-xmark'}"
 									>
 									</i>
-									{window.foundry.utils.timeSince(new Date(entry.timestamp))}
+									{foundry.utils.timeSince(new Date(entry.timestamp))}
 								</span>
 							</p>
 						</header>
@@ -207,7 +217,7 @@
 						<div>
 							<button
 								type='button'
-								on:click={() => {
+								onclick={() => {
 									json = !json;
 								}}
 							>
@@ -219,7 +229,7 @@
 			</main>
 		</div>
 		<footer class='grow-0 py-1 h-8'>
-			<button type='button' on:click={clearHistory}>
+			<button type='button' onclick={clearHistory}>
 				<i class='fa fa-trash'></i>
 				{i18n('pf2e-graphics.history.window.clear')}
 			</button>

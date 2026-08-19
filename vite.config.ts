@@ -2,15 +2,15 @@ import type { Connect, PluginOption, ViteDevServer } from 'vite';
 import type { FileValidationFailure } from './scripts/helpers';
 /* eslint-env node */
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import tailwindcss from '@tailwindcss/postcss';
 import autoprefixer from 'autoprefixer';
 import p from 'picocolors';
 import minify from 'postcss-minify';
 import PrefixWrap from 'postcss-prefixwrap';
 import Sonda from 'sonda/vite';
 import { sveltePreprocess } from 'svelte-preprocess';
-import tailwindcss from 'tailwindcss';
-import nesting from 'tailwindcss/nesting';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -34,6 +34,19 @@ function plugins(mode: string): PluginOption[] {
 		svelte({
 			compilerOptions,
 			preprocess: sveltePreprocess(),
+			// TRL ships its internal components (`FVTTSidebarTab`, `FVTTSidebarWrapper`, the
+			// application shells, …) as raw Svelte 4 `.svelte` source, so *our* build compiles
+			// them — but TRL's own JavaScript still instantiates them with `new Component({...})`.
+			// Under Svelte 5 that calls the component function with `$$props` undefined and blows
+			// up in `prop()` ("Cannot use 'in' operator to search for 'Symbol($state)' in
+			// undefined"), which is why the sidebar tab never registered. `componentApi: 4` adds
+			// the `new.target` branch those call sites need. Scoped to TRL only so our own
+			// components stay on the plain Svelte 5 component API.
+			dynamicCompileOptions({ filename }) {
+				if (filename.replace(/\\/g, '/').includes('/@typhonjs-fvtt/')) {
+					return { compatibility: { componentApi: 4 } };
+				}
+			},
 		}),
 		{
 			name: 'create-dist-files',
@@ -76,16 +89,42 @@ export default defineConfig(({ mode }) => ({
 			inject: false,
 			sourceMap: true,
 			plugins: [
-				nesting,
+				// Tailwind 4 handles nesting natively, so the old `tailwindcss/nesting` pass is gone —
+				// `app.postcss` keeps its `&` rules and browsers resolve them. `autoprefixer` stays:
+				// Tailwind's own output no longer needs it, but this chain also processes the Svelte
+				// components' `<style>` blocks and the hand-written CSS in `app.postcss`.
 				tailwindcss,
 				autoprefixer,
-				PrefixWrap(`.${cssId}`, { ignoredSelectors: [`.${cssId}`] }),
+				// This is what scopes the module's CSS to its own subtree, and it is the only thing
+				// doing so — see the note in `app.postcss` about why Tailwind's `important` option is
+				// not also set. Anything that is already `.pf2e-g`-scoped must be skipped, or it gets
+				// wrapped a second time into `.pf2e-g .pf2e-g .foo`, which needs two nested scopes and
+				// so matches nothing; that silently killed every utility class in the module once
+				// already. The guard has to be a RegExp rather than the bare `.${cssId}` string,
+				// because postcss-prefixwrap 1.57.0 narrowed string entries to an exact `===` match.
+				// The lookahead keeps unrelated selectors such as `.pf2e-graphics-*` prefixed as normal.
+				PrefixWrap(`.${cssId}`, { ignoredSelectors: [new RegExp(String.raw`^\.${cssId}(?![\w-])`)] }),
 				minify,
 			],
 		},
 	},
 
-	resolve: { conditions: ['import', 'browser'] },
+	resolve: {
+		conditions: ['import', 'browser'],
+		alias: [
+			{
+				// `@typhonjs-fvtt/runtime/svelte/util` still imports the Svelte 4 private `svelte/internal`
+				// module, which throws on import under Svelte 5 and takes the whole module down with it.
+				// See `src/shims/svelte-internal.ts`; drop both once TRL stops importing it.
+				//
+				// Anchored so it matches *only* the bare specifier: Svelte 5's own legacy-mode output
+				// imports real submodules like `svelte/internal/disclose-version` and
+				// `svelte/internal/client`, which must resolve normally.
+				find: /^svelte\/internal$/,
+				replacement: fileURLToPath(new URL('./src/shims/svelte-internal.ts', import.meta.url)),
+			},
+		],
+	},
 
 	server: {
 		open: '/join',

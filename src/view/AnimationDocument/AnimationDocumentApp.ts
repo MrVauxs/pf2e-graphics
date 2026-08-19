@@ -1,12 +1,12 @@
-import type { SvelteApp } from '#runtime/svelte/application';
 import type { AnimationSetDocument, UserAnimationSetDocument, WorldAnimationSetDocument } from 'schema';
 import type { Mode } from 'svelte-jsoneditor';
 import type { Writable } from 'svelte/store';
-import { SvelteApplication } from '#runtime/svelte/application';
+import { SvelteApp } from '#runtime/svelte/application';
+import { trlComponent } from 'src/shims/trlComponent';
 import { clearEmpties, ErrorMsg, i18n, kofiButton, log } from '../../utils';
 import BasicAppShell from './AnimationDocument.svelte';
 
-export default class AnimationDocumentApp extends SvelteApplication<BasicAppOptions> {
+export default class AnimationDocumentApp extends SvelteApp<BasicAppOptions> {
 	constructor(options?: Partial<BasicAppOptions>) {
 		super(options);
 		if (!options?.animation) throw ErrorMsg.send('pf2e-graphics.document.error.noData');
@@ -46,7 +46,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 			jsonMode: 'text',
 
 			svelte: {
-				class: BasicAppShell,
+				class: trlComponent(BasicAppShell),
 				target: document.body,
 				intro: true,
 			},
@@ -108,7 +108,7 @@ export default class AnimationDocumentApp extends SvelteApplication<BasicAppOpti
 
 	static getActiveApp() {
 		return Object.values(ui.windows).find((app) => {
-			return app instanceof this && app.id === '' && app._state > Application.RENDER_STATES.CLOSED;
+			return app instanceof this && app.id === '' && app._state > foundry.appv1.api.Application.RENDER_STATES.CLOSED;
 		});
 	}
 

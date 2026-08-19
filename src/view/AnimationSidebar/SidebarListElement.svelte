@@ -3,14 +3,20 @@
 	import type { Readable } from 'svelte/store';
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSContextMenu } from '@typhonjs-fvtt/standard/application/menu';
+	import { trlComponent } from 'src/shims/trlComponent';
 	import { clearEmpties, dev, i18n, info, warn } from 'src/utils';
+	import { untrack } from 'svelte';
 	import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 	import ImportData from './ImportData.svelte';
 	import { openAnimation, popupCreateAnimation, removeAnimation } from './sidebarFunctions';
 
-	export let item: AnimationSetDocument;
-	// export let index: number;
-	export let hidden: { global: Readable<string[]>; user: Readable<Record<string, string[]>> };
+	interface Props {
+		item: AnimationSetDocument;
+		// export let index: number;
+		hidden: { global: Readable<string[]>; user: Readable<Record<string, string[]>> };
+	}
+
+	let { item, hidden }: Props = $props();
 
 	function moduleIDToName(id: string): string {
 		const module = game.modules.get(id)!;
@@ -72,7 +78,7 @@
 					const dialog = new TJSDialog({
 						modal: true,
 						content: {
-							class: ImportData,
+							class: trlComponent(ImportData),
 							props: {
 								animation,
 								close: (force: boolean) => dialog.close({ force }),
@@ -191,21 +197,23 @@
 		});
 	}
 
-	const { user, global } = hidden;
-	$: users = Object.entries($user)
+	// `hidden` is fixed for the lifetime of a given list element, so destructuring it once is
+	// deliberate — `untrack` states that intent rather than leaving Svelte to warn about it.
+	const { user, global } = untrack(() => hidden);
+	let users = $derived(Object.entries($user)
 		.filter(x => x[1].includes(item.rollOption))
-		.map(x => window.game.users.get(x[0])?.name)
-		.join(', ');
-	$: hiddenToYou = users.includes(game.user.name) || $global.includes(item.rollOption);
+		.map(x => game.users.get(x[0])?.name)
+		.join(', '));
+	let hiddenToYou = $derived(users.includes(game.user.name) || $global.includes(item.rollOption));
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <li
 	id='pf2e-g-{item.source}-{item.rollOption}'
 	tabindex='-1'
-	on:click={() => openAnimation(item)}
-	on:contextmenu={event => contextMenu(event, item)}
-	on:keydown={e => e.key === 'Enter' && openAnimation(item)}
+	onclick={() => openAnimation(item)}
+	oncontextmenu={event => contextMenu(event, item)}
+	onkeydown={e => e.key === 'Enter' && openAnimation(item)}
 	class="
 		relative px-2
 		hover:bg-slate-400/10
@@ -232,14 +240,14 @@
 			{#if item.module === 'pf2e-graphics'}
 				<i data-tooltip={i18n('pf2e-graphics.scopes.full.core')} class='fas fa-cube'></i>
 			{:else}
-				<span class='px-0.5 bg-black/40 rounded-sm border-solid border border-black'>
+				<span class='px-0.5 bg-black/40 rounded-xs border-solid border border-black'>
 					{moduleIDToName(item.module)}
 				</span>
 				<i data-tooltip={i18n('pf2e-graphics.scopes.full.module')} class='fas fa-cubes'></i>
 			{/if}
 		{:else if item.source === 'user'}
-			<span class='px-0.5 bg-black/40 rounded-sm border-solid border border-black'>
-				{window.game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
+			<span class='px-0.5 bg-black/40 rounded-xs border-solid border border-black'>
+				{game.users.get(item.user)?.name ?? `<i>${i18n('pf2e-graphics.sidebar.animationSets.list.unknownUser')}</i>`}
 			</span>
 			<i data-tooltip={i18n('pf2e-graphics.scopes.full.user')} class='fas fa-user pl-0.5'></i>
 		{:else if item.source === 'world'}
@@ -267,7 +275,7 @@
 			class='
 				absolute right-0 bottom-0
 				text-[0.6rem]
-				bg-black/40 rounded-sm border-solid border border-black
+				bg-black/40 rounded-xs border-solid border border-black
 				px-1 m-0.5
 			'
 		>

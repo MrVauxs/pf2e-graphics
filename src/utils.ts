@@ -144,7 +144,8 @@ export function isTrueish<T>(val: T): val is NonNullable<T> {
 }
 
 export function findTokenByActor(actor?: ActorPF2e | null) {
-	return canvas.tokens.getDocuments().find(x => x.actor?.id === actor?.id);
+	const documents = canvas?.tokens?.getDocuments();
+	return documents?.find(x => x?.actor?.id === actor?.id);
 }
 
 export function dedupeStrings(array: string[]) {

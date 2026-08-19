@@ -1,8 +1,9 @@
-import { SvelteApplication } from '#runtime/svelte/application';
+import { SvelteApp } from '#runtime/svelte/application';
+import { trlComponent } from 'src/shims/trlComponent';
 import { kofiButton } from '../../utils';
 import BasicAppShell from './AnimationHistoryShell.svelte';
 
-export default class AnimationHistoryApp extends SvelteApplication {
+export default class AnimationHistoryApp extends SvelteApp {
 	static override get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			...super.defaultOptions,
@@ -16,7 +17,7 @@ export default class AnimationHistoryApp extends SvelteApplication {
 			id: 'pf2e-graphics-animationhistory',
 
 			svelte: {
-				class: BasicAppShell,
+				class: trlComponent(BasicAppShell),
 				target: document.body,
 				intro: true,
 			},
@@ -31,7 +32,7 @@ export default class AnimationHistoryApp extends SvelteApplication {
 
 	static getActiveApp() {
 		return Object.values(ui.windows).find((app) => {
-			return app instanceof this && app._state > Application.RENDER_STATES.CLOSED;
+			return app instanceof this && app._state > foundry.appv1.api.Application.RENDER_STATES.CLOSED;
 		});
 	}
 

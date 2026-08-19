@@ -12,7 +12,7 @@
 
 	const search = writable('');
 
-	let list: Readable<AnimationSetDocument[]> = readable([]);
+	let list: Readable<AnimationSetDocument[]> = $state(readable([]));
 	const unhook = Hooks.on('pf2eGraphicsReady', () => assignDerivedToList());
 	onMount(() => {
 		if (window.pf2eGraphics?.AnimCore?.ready) assignDerivedToList();
@@ -20,10 +20,12 @@
 		return () => Hooks.off('pf2eGraphicsReady', unhook);
 	});
 
+	// Assigned alongside `list` in `assignDerivedToList()`, so it is always populated by the time any
+	// `SidebarListElement` renders — but that invariant isn't visible to the type checker.
 	let hiddenAnimations: {
 		global: Readable<string[]>;
 		user: Readable<Record<string, string[]>>;
-	};
+	} | undefined = $state();
 	function assignDerivedToList() {
 		const variables = initVariables();
 		hiddenAnimations = {
@@ -43,12 +45,12 @@
 				.sort((a, b) => (a.source === 'module' && b.source !== 'module' ? 1 : -1)));
 	}
 
-	let showModuleAnimations = dev;
+	let showModuleAnimations = $state(dev);
 </script>
 
 <header class='directory-header'>
 	<div class='header-actions action-buttons flexrow pb-0.5'>
-		<button on:click={() => popupCreateAnimation('make')} id='create-animation'>
+		<button onclick={() => popupCreateAnimation('make')} id='create-animation'>
 			<i class='fas fa-films'></i>
 			{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.button')}
 		</button>
@@ -69,15 +71,26 @@
 		/>
 	</div>
 </header>
-<!-- Load bearing height style. Don't ask. -->
-<div class='inline-flex flex-col h-1'>
+<!--
+	`h-1` is load bearing: a specified height caps this flex item's automatic minimum size, so the
+	children's percentage heights (`max-h-[50%]` below, `h-[calc(100%-2.5rem)]` further down) resolve
+	against a definite box rather than their content.
+
+	`flex-1` used to come for free from Foundry's `.flexcol > *`. v14 narrowed that to
+	`body.game .app .flexcol > *` and left a bare `.flexcol > * { flex: 0 0 auto }` behind; the sidebar
+	is an `<aside>`, not an `.app`, so the wrapper stopped stretching and the whole list rendered 4px
+	tall. Set it explicitly instead of depending on Foundry's rule.
+-->
+<div class='inline-flex flex-col flex-1 h-1'>
 	<ol
 		id='pf2e-graphics-custom-sets'
 		class:grow={!$search}
 		class='m-0 p-0 list-none overflow-x-hidden overflow-y-auto'
 	>
 		{#each $list.filter(x => x.source !== 'module') as item}
-			<SidebarListElement {item} hidden={hiddenAnimations} />
+			{#if hiddenAnimations}
+				<SidebarListElement {item} hidden={hiddenAnimations} />
+			{/if}
 		{:else}
 			<li class='p-8 text-center opacity-40 italic text-sm'>
 				{i18n('pf2e-graphics.sidebar.animationSets.list.empty')}
@@ -89,8 +102,8 @@
 			role='tree'
 			tabindex='0'
 			class='p-2 leading-6 bg-red-900 h-10'
-			on:click={() => (showModuleAnimations = !showModuleAnimations)}
-			on:keypress={() => (showModuleAnimations = !showModuleAnimations)}
+			onclick={() => (showModuleAnimations = !showModuleAnimations)}
+			onkeypress={() => (showModuleAnimations = !showModuleAnimations)}
 		>
 			<i class='fas fa-cubes pr-1'></i>
 			{i18n('pf2e-graphics.sidebar.animationSets.moduleAnimationSets')}
@@ -105,7 +118,9 @@
 				'
 			>
 				{#each $list.filter(x => x.source === 'module') as item}
-					<SidebarListElement {item} hidden={hiddenAnimations} />
+					{#if hiddenAnimations}
+						<SidebarListElement {item} hidden={hiddenAnimations} />
+					{/if}
 				{/each}
 			</li>
 		{/if}

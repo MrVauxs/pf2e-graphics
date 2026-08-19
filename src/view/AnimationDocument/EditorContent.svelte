@@ -5,19 +5,27 @@
 	import { TJSDialog } from '#runtime/svelte/application';
 	import { TJSDocument } from '#runtime/svelte/store/fvtt/document';
 	import { ErrorMsg, isTrueish, log } from 'src/utils';
+	import { untrack } from 'svelte';
 	import MultiSelect from 'svelte-multiselect';
 	import { Animation, Crosshair, Graphic, Macro, Sound } from './execute';
 
-	export let data: AnimationSetContentsItem;
-	export let animation: AnimationSetDocument;
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem;
+		animation: AnimationSetDocument;
+		readonly: boolean;
+	}
 
-	log('Animation Document', animation);
+	let { data = $bindable(), animation, readonly }: Props = $props();
+
+	untrack(() => log('Animation Document', animation));
 
 	const options: (keyof AnimationSetContentsItem)[] = ['execute', 'label', 'triggers', 'predicates', 'overrides', 'removes'];
-	$: remainingOptions = options.filter(x => !Object.keys(data).includes(x.toLowerCase()));
-	let selection: keyof AnimationSetContentsItem = remainingOptions?.[0];
-	$: selection ??= remainingOptions?.[0];
+	let remainingOptions = $derived(options.filter(x => !Object.keys(data).includes(x.toLowerCase())));
+	// Seeded once, then re-filled by the effect below whenever it is cleared.
+	let selection: keyof AnimationSetContentsItem = $state(untrack(() => remainingOptions?.[0]));
+	$effect(() => {
+		selection ??= remainingOptions?.[0];
+	});
 
 	function addSection() {
 		if (selection === 'label') {
@@ -42,7 +50,7 @@
 			const transfer = event.dataTransfer?.getData('text/plain');
 			if (transfer) macroDoc.setFromDataTransfer(JSON.parse(transfer));
 			if (macroDoc.get()?.collectionName !== 'macros') throw ErrorMsg.send('This isn\'t a macro!'); // TODO: i18n
-			data.execute.document = macroDoc.get()?.uuid;
+			data.execute.document = macroDoc.get()?.uuid ?? undefined;
 		} catch {}
 	}
 
@@ -58,7 +66,7 @@
 <div class='flex flex-col gap-2 h-full py-1'>
 	{#if !readonly}
 		<header class='flex items-center grow-0'>
-			<button class='w-min text-nowrap h-8' on:click={addSection} disabled={!selection}>
+			<button class='w-min text-nowrap h-8' onclick={addSection} disabled={!selection}>
 				<i class='fa fa-plus pr-1'></i>
 				Add
 			</button>
@@ -81,7 +89,7 @@
 					<input type='text' bind:value={data.label} {readonly} disabled={readonly} />
 					<button
 						class='w-min ml-1'
-						on:click={() => {
+						onclick={() => {
 							delete data.label;
 							data = data;
 						}}
@@ -136,7 +144,7 @@
 						]} />
 					<button
 						class='w-min ml-1'
-						on:click={() => {
+						onclick={() => {
 							delete data.triggers;
 							data = data;
 						}}
@@ -185,7 +193,7 @@
 						type='text'
 						disabled={data.default || readonly}
 						value={JSON.stringify(data.predicates || [])}
-						on:change={(ev) => {
+						onchange={(ev) => {
 							try {
 								data.predicates = JSON.parse(ev.currentTarget.value);
 							} catch {
@@ -195,7 +203,7 @@
 					/>
 					<button
 						class='w-min ml-1'
-						on:click={() => {
+						onclick={() => {
 							delete data.predicates;
 							delete data.default;
 							data = data;
@@ -225,7 +233,7 @@
 					<input
 						type='text'
 						value={JSON.stringify(data.overrides)}
-						on:change={(ev) => {
+						onchange={(ev) => {
 							try {
 								data.overrides = JSON.parse(ev.currentTarget.value);
 							} catch {
@@ -235,7 +243,7 @@
 					/>
 					<button
 						class='w-min ml-1'
-						on:click={() => {
+						onclick={() => {
 							delete data.overrides;
 							data = data;
 						}}
@@ -264,7 +272,7 @@
 					<input
 						type='text'
 						value={JSON.stringify(data.removes)}
-						on:change={(ev) => {
+						onchange={(ev) => {
 							try {
 								data.removes = JSON.parse(ev.currentTarget.value);
 							} catch {
@@ -274,7 +282,7 @@
 					/>
 					<button
 						class='w-min ml-1'
-						on:click={() => {
+						onclick={() => {
 							delete data.removes;
 							data = data;
 						}}
@@ -289,11 +297,15 @@
 		<!-- #region Execute -->
 		{#if 'execute' in data && data.execute}
 			<section
-				on:drop|preventDefault|stopPropagation={onDrop}
-				on:dragover|preventDefault
+				ondrop={(e) => {
+					e.stopPropagation();
+					e.preventDefault();
+					onDrop(e);
+				}}
+				ondragover={e => e.preventDefault()}
 				aria-dropeffect='none'
 				aria-label='Document drop target'
-				class='border border-solid rounded-sm bg-slate-600/15'
+				class='border border-solid rounded-xs bg-slate-600/15'
 			>
 				<label class='p-0.5 pl-1 grid grid-cols-3 items-center'>
 					<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.execute'>
@@ -318,7 +330,7 @@
 						</select>
 						<button
 							class='w-min ml-1'
-							on:click={() => {
+							onclick={() => {
 								TJSDialog.confirm({
 									modal: true,
 									title: 'Confirm Deletion',

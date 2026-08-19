@@ -2,10 +2,14 @@
 	import type { AnimationSetContentsItem } from 'schema/payload';
 	import { safeJSONParse } from '../../../utils';
 
-	export let data: AnimationSetContentsItem<'macro'>;
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem<'macro'>;
+		readonly: boolean;
+	}
 
-	let optionsInput: string = data?.execute?.options ? JSON.stringify(data?.execute?.options, null, '\t') : '';
+	let { data = $bindable(), readonly }: Props = $props();
+
+	let optionsInput: string = $state(data?.execute?.options ? JSON.stringify(data?.execute?.options, null, '\t') : '');
 
 	function tryAssignOptions(optionsInput: string) {
 		if (!optionsInput) {
@@ -16,7 +20,9 @@
 		}
 	}
 
-	$: tryAssignOptions(optionsInput);
+	$effect(() => {
+		tryAssignOptions(optionsInput);
+	});
 
 	function getExpectedRowCount(): number {
 		if (data.execute?.options) return Object.keys(data.execute.options).length + 2;

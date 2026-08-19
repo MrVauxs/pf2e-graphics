@@ -1,3 +1,4 @@
+import type { TourConfig } from '../extensions';
 import { generateSeriousTourConfigs } from './seriousTourConfigs';
 import { generateSillyTourConfigs } from './sillyTourConfigs';
 
@@ -41,11 +42,11 @@ export async function registerTours() {
 		override async _preStep() {
 			await super._preStep();
 			if ('layer' in this.currentStep! && canvas.scene) {
-				const layer = canvas[this.currentStep.layer as keyof typeof canvas] as InteractionLayer;
+				const layer = canvas[this.currentStep.layer as keyof typeof canvas] as foundry.canvas.layers.InteractionLayer;
 				if (layer.active) {
-					ui.controls.initialize({ tool: this.currentStep.tool });
+					ui.controls.activate({ tool: this.currentStep.tool! });
 				} else {
-					layer.activate({ tool: this.currentStep.tool });
+					layer.activate({ tool: this.currentStep.tool! });
 				}
 			}
 		}

@@ -8,6 +8,7 @@
 		"#standard/*": "@typhonjs-fvtt/standard/*"
 	},
 	"scripts": {
+		"postinstall": "tsx ./scripts/patchFoundryTypes.ts",
 		"dev": "vite",
 		"build": "pnpm run build:vite && pnpm run build:clean",
 		"build:vite": "vite build",
@@ -28,13 +29,14 @@
 		"symlink": "tsx ./scripts/symlink.ts"
 	},
 	"dependencies": {
-		"@typhonjs-fvtt/runtime": "^0.2.0",
-		"@typhonjs-fvtt/standard": "^0.2.1"
+		"@typhonjs-fvtt/runtime": "^0.3.0-next.4",
+		"@typhonjs-fvtt/standard": "^0.3.0-next.4"
 	},
 	"devDependencies": {
-		"@actions/core": "^1.11.1",
+		"@actions/core": "^3.0.1",
 		"@antfu/eslint-config": "^6.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
+		"@tailwindcss/postcss": "^4.3.3",
 		"@tsconfig/svelte": "^5.0.4",
 		"@types/jquery": "^3.5.32",
 		"@types/prompts": "^2.4.9",
@@ -44,7 +46,7 @@
 		"eslint-plugin-antfu": "^3.1.1",
 		"eslint-plugin-format": "^1.0.1",
 		"eslint-plugin-svelte": "^3.9.0",
-		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e#c9d7838",
+		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e#78aa843",
 		"jb2a-databases": "github:Jules-Bens-Aa/jb2a-databases",
 		"json-source-map": "github:MrVauxs/json-source-map",
 		"keep-a-changelog": "^2.6.2",
@@ -53,18 +55,19 @@
 		"postcss-minify": "^1.1.0",
 		"postcss-prefixwrap": "^1.55.0",
 		"prompts": "^2.4.2",
-		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
+		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer#4.2.3",
 		"sonda": "^0.9.0",
-		"svelte": "^4.2.20",
+		"svelte": "^5.46.0",
 		"svelte-check": "^4.2.1",
-		"svelte-jsoneditor": "^1.1.2",
-		"svelte-multiselect": "11.0.0-rc.1",
+		"svelte-jsoneditor": "^3.13.0",
+		"svelte-multiselect": "^11.8.0",
 		"svelte-preprocess": "^6.0.3",
-		"tailwindcss": "^3.4.17",
+		"tailwindcss": "^4.3.3",
+		"terser": "^5.50.0",
 		"tsx": "^4.19.4",
 		"typescript": "^5.8.3",
 		"vite": "^7.1.11",
-		"vite-plugin-checker": "^0.11.0",
+		"vite-plugin-checker": "^0.14.5",
 		"vite-tsconfig-paths": "^5.1.4",
 		"zod": "^3.25.52",
 		"zod-to-json-schema": "^3.24.5",
@@ -72,6 +75,7 @@
 	},
 	"trustedDependencies": [
 		"@parcel/watcher",
+		"esbuild",
 		"svelte-preprocess"
 	]
 }

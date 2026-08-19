@@ -5,6 +5,7 @@ import type {
 	WorldAnimationSetDocument,
 } from 'schema';
 import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
+import { trlComponent } from 'src/shims/trlComponent';
 import { error, ErrorMsg, i18n } from 'src/utils';
 import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 import CreateAnimation from './CreateAnimation.svelte';
@@ -216,7 +217,7 @@ export function popupCreateAnimation(mode: 'make' | 'copy' = 'make', animation?:
 		{
 			title: i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.title'),
 			content: {
-				class: CreateAnimation,
+				class: trlComponent(CreateAnimation),
 				props: {
 					mode,
 					animation,

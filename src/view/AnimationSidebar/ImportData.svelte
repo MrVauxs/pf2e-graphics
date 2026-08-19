@@ -3,13 +3,18 @@
 	import { devLog, error, safeJSONParse, warn } from 'src/utils';
 	import AnimationDocumentApp from '../AnimationDocument/AnimationDocumentApp';
 
-	export let animation: AnimationSetDocument;
-	export let close: (force: boolean) => void;
+	interface Props {
+		animation: AnimationSetDocument;
+		close: (force: boolean) => void;
+	}
 
-	let json = '';
-	let data: undefined | AnimationSetDocument;
+	let { animation, close }: Props = $props();
 
-	$: if (json) {
+	let json = $state('');
+	let data: undefined | AnimationSetDocument = $state();
+
+	$effect(() => {
+		if (!json) return;
 		const safeJSON = safeJSONParse(json);
 		if (safeJSON.success) {
 			data = safeJSON.data as AnimationSetDocument;
@@ -17,7 +22,7 @@
 		} else {
 			warn(`Invalid JSON data!`);
 		}
-	}
+	});
 
 	const handleFileChange = (event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -69,7 +74,7 @@
 <div class='space-y-2'>
 	<div class='flex flex-nowrap items-center gap-2'>
 		Select a File:
-		<input class='grow' type='file' accept='application/JSON' on:change={handleFileChange} />
+		<input class='grow' type='file' accept='application/JSON' onchange={handleFileChange} />
 	</div>
 	<div class='transition duration-300 ease-out {data ? 'opacity-100' : 'opacity-0'}'>
 		<p><b>Name:</b> {data ? data.name : ''}</p>
@@ -79,7 +84,7 @@
 	<button
 		disabled={!(data && data?.animationSets)}
 		class:disabled={!(data && data?.animationSets)}
-		on:click={importAnimationData}
+		onclick={importAnimationData}
 	>
 		Import
 	</button>

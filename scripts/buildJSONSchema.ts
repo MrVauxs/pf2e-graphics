@@ -3,6 +3,9 @@
 
 import type { Options as zodToJsonSchemaOptions } from 'zod-to-json-schema';
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import p from 'picocolors';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import { animationSetsObject, tokenImagesObject } from '../schema';
@@ -32,25 +35,31 @@ export function getJSONSchema(schemaName: 'animations' | 'tokenImages') {
  */
 const OUTPUT_DIRECTORY = './dist';
 
-fs.stat(OUTPUT_DIRECTORY)
-	.catch(() => {
+/**
+ * Writes both JSON schemas to {@link OUTPUT_DIRECTORY}.
+ */
+async function emitJSONSchemas(): Promise<void> {
+	await fs.stat(OUTPUT_DIRECTORY).catch(async () => {
 		Log.warning(`${OUTPUT_DIRECTORY} does not exist. Creating it...`);
-		fs.mkdir(OUTPUT_DIRECTORY);
-	})
-	.finally(() => {
-		fs.writeFile(`${OUTPUT_DIRECTORY}/animations-schema.json`, JSON.stringify(getJSONSchema('animations')), {
-			encoding: 'utf8',
-		})
-			.then(() => Log.info(p.green('Generated animations JSON schema.')))
-			.catch(() => Log.error(p.red('Failed to generate animations JSON schema.')));
-
-		fs.writeFile(
-			`${OUTPUT_DIRECTORY}/token-images-schema.json`,
-			JSON.stringify(getJSONSchema('tokenImages')),
-			{
-				encoding: 'utf8',
-			},
-		)
-			.then(() => Log.info(p.green('Generated token-images JSON schema.')))
-			.catch(() => Log.error(p.red('Failed to generate token-images JSON schema.')));
+		await fs.mkdir(OUTPUT_DIRECTORY, { recursive: true });
 	});
+
+	const outputs = [
+		{ name: 'animations', label: 'animations', file: 'animations-schema.json' },
+		{ name: 'tokenImages', label: 'token-images', file: 'token-images-schema.json' },
+	] as const;
+
+	for (const { name, label, file } of outputs) {
+		await fs
+			.writeFile(`${OUTPUT_DIRECTORY}/${file}`, JSON.stringify(getJSONSchema(name)), { encoding: 'utf8' })
+			.then(() => Log.info(p.green(`Generated ${label} JSON schema.`)))
+			.catch(() => Log.error(p.red(`Failed to generate ${label} JSON schema.`)));
+	}
+}
+
+// Only emit when this script is run directly (`pnpm run build:schema`). Importing it — as `vite.config.ts`
+// does for `getJSONSchema` — must not write files or kick off floating promises, which previously raced
+// against Vite's config loading and made `svelte-check` fail intermittently.
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
+	await emitJSONSchemas();
+}

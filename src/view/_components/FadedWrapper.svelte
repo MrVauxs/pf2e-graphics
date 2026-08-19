@@ -2,20 +2,31 @@
 	import { backIn, backOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	export let classes = '';
-	export let showButton = true;
+	interface Props {
+		classes?: string;
+		showButton?: boolean;
+		title?: import('svelte').Snippet;
+		children?: import('svelte').Snippet;
+	}
 
-	let hidden = true;
+	let {
+		classes = '',
+		showButton = true,
+		title,
+		children,
+	}: Props = $props();
+
+	let hidden = $state(true);
 </script>
 
-<div class='flex flex-col gap-2 p-1 border border-solid rounded-sm bg-slate-600/15 {classes}'>
-	{#if $$slots.title}
+<div class='flex flex-col gap-2 p-1 border border-solid rounded-xs bg-slate-600/15 {classes}'>
+	{#if title}
 		<div class='flex flex-row flex-nowrap gap-0.5 items-center'>
 			<div class='grow'>
-				<slot name='title'></slot>
+				{@render title?.()}
 			</div>
 			{#if showButton}
-				<button class='w-min' on:click={() => hidden = !hidden}>
+				<button class='w-min' onclick={() => hidden = !hidden}>
 					{#if hidden}
 						<i in:slide={{ duration: 300, easing: backOut }} class='fa fa-chevron-down fa-fw mx-auto'></i>
 					{:else}
@@ -31,10 +42,10 @@
 				in:slide={{ duration: 300, easing: backOut }}
 				out:slide={{ duration: 300, easing: backIn }}
 			>
-				<slot></slot>
+				{@render children?.()}
 			</div>
 		{/if}
 	{:else}
-		<slot></slot>
+		{@render children?.()}
 	{/if}
 </div>

@@ -31,3 +31,12 @@ dist-ssr
 *.sw?
 
 sonda*.html
+
+# Local dev-only, never commit. A Foundry install must NOT live under a dot-prefixed
+# directory (e.g. `.Code`): Express's `sendFile` treats any dot-segment in an absolute
+# path as a dotfile and 404s, which breaks Foundry's `/license.html` (EULA) route.
+FoundryVTT-*/
+# Reference copy of the paid JB2A Patreon assets — licensed content, keep it out of git.
+jb2a_patreon/
+# Claude Code workspace files (skills, local settings) — not part of the module.
+.claude/

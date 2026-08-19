@@ -1,6 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+ * Tailwind 4 is configured here rather than in a `tailwind.config.js`.
+ *
+ * `preflight.css` is deliberately not imported: Tailwind's reset would restyle the whole Foundry
+ * UI, which is what `corePlugins: { preflight: false }` used to prevent under Tailwind 3.
+ *
+ * Note there is no `important` setting either. Tailwind 3 used `important: '.pf2e-g'` to scope
+ * utilities, but `postcss-prefixwrap` in `vite.config.ts` already wraps every selector in exactly
+ * the same `.pf2e-g` ancestor. Running both produced `.pf2e-g .pf2e-g .bg-red-900`, which needs two
+ * nested scopes and therefore matched nothing at all.
+ */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Mirrors the old `content` glob. Relative to this file, so it covers `src/`. */
+@source './**/*.{html,js,svelte,ts}';
+
+@theme {
+	/* Currently unreferenced, carried over from the Tailwind 3 `theme.extend.fontFamily`. */
+	--font-serif: var(--serif-condensed), serif;
+}
 
 .pf2e-g {
 	/* Teehee */
@@ -41,7 +59,7 @@
 
 	&.json-export {
 		& .dialog-buttons {
-			@apply flex-grow-0 pt-1;
+			@apply grow-0 pt-1;
 		}
 	}
 
@@ -84,7 +102,7 @@
 }
 
 #tooltip:has(> .pf2e-g) {
-	@apply text-sm max-w-52 bg-black bg-opacity-80;
+	@apply text-sm max-w-52 bg-black/80;
 }
 
 .pf2e-g.no-window-padding.window-app .window-content {

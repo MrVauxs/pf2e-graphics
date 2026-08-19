@@ -1,4 +1,5 @@
 import type { ActorPF2e, ItemPF2e, PredicateStatement } from 'foundry-pf2e';
+import type { Point } from 'foundry-pf2e/foundry/common/_types.mjs';
 import type { AnimationSetDocument, Payload, UserAnimationSetDocument } from 'schema';
 import type { AnimationSet, TokenImage, Trigger } from '../../schema';
 import type { TokenOrDoc } from '../extensions';
@@ -563,7 +564,7 @@ export let AnimCore = class AnimCore {
 			const sequence = new Sequence({ inModuleName: 'pf2e-graphics', softFail: !dev });
 			for (const [index, set] of animationSet.entries()) {
 				const targets = (data.targets ?? []).filter(
-					target => target instanceof TokenDocument || target instanceof Token,
+					target => target instanceof TokenDocument || target instanceof foundry.canvas.placeables.Token,
 				);
 				const templates = (data.targets ?? []).filter(
 					target => target instanceof MeasuredTemplateDocument,

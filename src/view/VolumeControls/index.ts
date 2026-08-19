@@ -1,13 +1,16 @@
+import { mount, unmount } from 'svelte';
 import VolumeControls from './VolumeControls.svelte';
 
-const renderPlaylistDirectory = Hooks.on('renderPlaylistDirectory', (document: any, html: JQuery<HTMLElement>) => {
-	const playlistSounds = html[0].getElementsByClassName('playlist-sounds')?.[0];
+// `PlaylistDirectory` is an ApplicationV2 as of Foundry v13, so this hook receives a bare
+// `HTMLElement` rather than the jQuery object it used to pass.
+const renderPlaylistDirectory = Hooks.on('renderPlaylistDirectory', (document: any, html: HTMLElement) => {
+	const playlistSounds = html.getElementsByClassName('playlist-sounds')?.[0];
 
-	if (playlistSounds) document.pf2eGraphics = new VolumeControls({ target: playlistSounds });
+	if (playlistSounds) document.pf2eGraphics = mount(VolumeControls, { target: playlistSounds });
 });
 
 const closePlaylistDirectory = Hooks.on('closePlaylistDirectory', (document: any) => {
-	if (document.pf2eGraphics) document.pf2eGraphics.$destroy();
+	if (document.pf2eGraphics) unmount(document.pf2eGraphics);
 });
 
 if (import.meta.hot) {

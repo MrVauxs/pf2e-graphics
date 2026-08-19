@@ -42,6 +42,11 @@ export default antfu(
 		rules: {
 			'no-undef-init': 'off',
 			'no-self-assign': 'off',
+			// Props destructured from `$props()` must stay `let`: Svelte reassigns `$bindable()` ones
+			// internally, so the core rule would "fix" them into `const` and silently break `bind:`.
+			// The Svelte-aware version understands runes and skips `$props()`/`$derived()`.
+			'prefer-const': 'off',
+			'svelte/prefer-const': 'error',
 		},
 	},
 );

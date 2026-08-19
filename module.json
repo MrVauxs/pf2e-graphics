@@ -23,9 +23,9 @@
 		}
 	],
 	"compatibility": {
-		"minimum": "12.324",
-		"verified": "12.331",
-		"maximum": "12"
+		"minimum": "13",
+		"verified": "14",
+		"maximum": "14"
 	},
 	"flags": {
 		"pf2e-graphics": {
@@ -45,7 +45,7 @@
 				"type": "module",
 				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json",
 				"compatibility": {
-					"minimum": "3.4.8"
+					"minimum": "4.0.0"
 				}
 			},
 			{
@@ -57,9 +57,9 @@
 			{
 				"id": "pf2e",
 				"type": "system",
-				"manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/master/system.json",
+				"manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
 				"compatibility": {
-					"minimum": "6.8.1"
+					"minimum": "8.4.0"
 				}
 			}
 		]

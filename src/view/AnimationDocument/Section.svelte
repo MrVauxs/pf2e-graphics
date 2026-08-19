@@ -1,14 +1,28 @@
 <script lang='ts'>
 	import type { AnimationSetContentsItem } from 'schema/payload';
 	import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
+	// Recursive self-reference; replaces Svelte 4's `<svelte:self>`.
+	import Section from './Section.svelte';
 
-	export let selection: number | string;
-	export let section: AnimationSetContentsItem;
-	export let array: AnimationSetContentsItem[];
-	export let globalIndex: string;
-	export let localIndex: number;
-	export let readonly: boolean;
-	export let deleteFn: (location: string) => void;
+	interface Props {
+		selection: number | string;
+		section: AnimationSetContentsItem;
+		array: AnimationSetContentsItem[];
+		globalIndex: string;
+		localIndex: number;
+		readonly: boolean;
+		deleteFn: (location: string) => void;
+	}
+
+	let {
+		selection = $bindable(),
+		section = $bindable(),
+		array = $bindable(),
+		globalIndex,
+		localIndex,
+		readonly,
+		deleteFn,
+	}: Props = $props();
 
 	function addContent() {
 		if (!section.contents) section.contents = [];
@@ -35,13 +49,24 @@
 		array.splice(toIndex, 0, element);
 		array = array;
 	}
+
+	/**
+	 * Wraps a handler so its event doesn't also reach the enclosing section (which would re-select it).
+	 * Replaces Svelte 4's `on:click|stopPropagation` modifier, which Svelte 5 removed.
+	 */
+	function withoutBubbling<E extends Event>(fn: (event: E) => void) {
+		return (event: E) => {
+			event.stopPropagation();
+			fn(event);
+		};
+	}
 </script>
 
 <section
 	role='button'
 	tabindex='-1'
-	on:keypress|stopPropagation={() => selection = globalIndex}
-	on:click|stopPropagation={() => selection = globalIndex}
+	onkeypress={withoutBubbling(() => selection = globalIndex)}
+	onclick={withoutBubbling(() => selection = globalIndex)}
 	class:shadow-inner={selection === globalIndex}
 	class='
 		hover:bg-slate-600/15
@@ -60,10 +85,10 @@
 		</span>
 		{#if !readonly}
 			<div class='flex flex-col'>
-				<button on:click|stopPropagation={addContent} class='size-min text-xs mx-0.5 p-0 px-1'>
+				<button onclick={withoutBubbling(addContent)} class='size-min text-xs mx-0.5 p-0 px-1'>
 					<i class='fa fa-plus fa-fw m-0 p-0'></i>
 				</button>
-				<button on:click|stopPropagation={deleteSection} class='size-min text-xs mx-0.5 p-0 px-1'>
+				<button onclick={withoutBubbling(deleteSection)} class='size-min text-xs mx-0.5 p-0 px-1'>
 					<i class='fa fa-trash fa-fw m-0 p-0'></i>
 				</button>
 			</div>
@@ -71,7 +96,7 @@
 				<button
 					class:disabled={localIndex === 0}
 					disabled={localIndex === 0}
-					on:click|stopPropagation={() => move(localIndex, localIndex - 1)}
+					onclick={withoutBubbling(() => move(localIndex, localIndex - 1))}
 					class='size-min text-xs mx-0.5 p-0 px-1'
 				>
 					<i class='fa fa-chevron-up fa-fw m-0 p-0'></i>
@@ -79,7 +104,7 @@
 				<button
 					class:disabled={localIndex === array.length - 1}
 					disabled={localIndex === array.length - 1}
-					on:click|stopPropagation={() => move(localIndex, localIndex + 1)}
+					onclick={withoutBubbling(() => move(localIndex, localIndex + 1))}
 					class='size-min text-xs mx-0.5 p-0 px-1'
 				>
 					<i class='fa fa-chevron-down fa-fw m-0 p-0'></i>
@@ -90,7 +115,7 @@
 	{#if section?.contents}
 		<div class='pl-2'>
 			{#each section.contents as content, nextIndex}
-				<svelte:self
+				<Section
 					bind:selection={selection}
 					bind:array={section.contents}
 					section={content}

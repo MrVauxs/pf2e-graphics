@@ -38,7 +38,7 @@ function handleTemplate(template: MeasuredTemplateDocumentPF2e, delayed = false)
 					sources,
 					actor,
 					item,
-					user: template.author.id,
+					user: template.user?.id,
 				},
 				'Template Animation Data',
 			),

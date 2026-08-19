@@ -103,7 +103,7 @@ export function addCustomExecutionContext(
 ): ExecutionContext {
 	sources.forEach(async (uuid) => {
 		const doc = await fromUuid(uuid);
-		if (doc instanceof TokenDocument || doc instanceof Token) {
+		if (doc instanceof TokenDocument || doc instanceof foundry.canvas.placeables.Token) {
 			data.sources.push(doc);
 		} else {
 			warn(`Could not find custom source token \`${uuid}\`.`);
@@ -111,7 +111,7 @@ export function addCustomExecutionContext(
 	});
 	targets.forEach(async (uuid) => {
 		const doc = await fromUuid(uuid);
-		if (doc instanceof TokenDocument || doc instanceof Token) {
+		if (doc instanceof TokenDocument || doc instanceof foundry.canvas.placeables.Token) {
 			data.targets.push(doc);
 		} else {
 			warn(`Could not find custom target token \`${uuid}\`.`);
@@ -145,6 +145,26 @@ export function positionToArgument(
 	throw ErrorMsg.send('pf2e-graphics.execute.common.error.unknownPosition', {
 		position: String(position as any),
 	});
+}
+
+/**
+ * Checks whether two resolved positions (as returned by {@link positionToArgument}) refer to the same effective
+ * location — i.e. the same placeable/document, or the same explicit coordinate. Named Sequencer positions (crosshairs)
+ * can't be resolved here and are treated as never equal.
+ *
+ * Intended for skipping zero-distance `ranged` animations (e.g. a self-targeted spell using a `directed` graphic),
+ * per https://github.com/MrVauxs/pf2e-graphics/issues/344 — resolving true pixel/grid distance is unnecessary,
+ * since the only case that actually produces a zero-length effect is the origin and endpoint being the same thing.
+ */
+export function sameEffectivePosition(
+	a: string | Vector2 | TokenPF2e | MeasuredTemplateDocumentPF2e,
+	b: string | Vector2 | TokenPF2e | MeasuredTemplateDocumentPF2e,
+): boolean {
+	if (typeof a === 'string' || typeof b === 'string') return false;
+
+	if ('id' in a || 'id' in b) return 'id' in a && 'id' in b && a.id === b.id;
+
+	return a.x === b.x && a.y === b.y;
 }
 
 // TODO: convert this to a prompt for the GM to accept when permissions fail

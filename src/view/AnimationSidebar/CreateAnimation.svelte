@@ -1,23 +1,29 @@
 <script lang='ts'>
 	import type { AnimationSetDocument } from 'schema';
 	import type { AnimationPresetType } from './sidebarFunctions';
-	import { getContext } from 'svelte';
+	import { getContext, untrack } from 'svelte';
 	import { ErrorMsg, i18n } from '../../utils';
 	import { makeAnimation, openAnimation } from './sidebarFunctions';
 
-	export let mode: 'make' | 'copy';
-	export let animation: AnimationSetDocument | undefined;
+	interface Props {
+		mode: 'make' | 'copy';
+		animation: AnimationSetDocument | undefined;
+	}
+
+	let { mode, animation }: Props = $props();
 
 	const { application } = getContext('#external');
 
-	let name = `${animation?.name || ''}${mode === 'copy' ? ' (Copy)' : ''}`;
-	let type = 'ranged';
-	let location: AnimationSetDocument['source'] = 'user';
+	// Seeds the editable field once; the dialog's props are fixed for its lifetime, and re-deriving
+	// this would discard whatever the user has typed.
+	let name = $state(untrack(() => `${animation?.name || ''}${mode === 'copy' ? ' (Copy)' : ''}`));
+	let type = $state('ranged');
+	let location: AnimationSetDocument['source'] = $state('user');
 
-	$: defaultName = i18n(
+	let defaultName = $derived(i18n(
 		'pf2e-graphics.sidebar.animationSets.create.animationSet.popup.fields.name.placeholder',
 		{ type: i18n(`pf2e-graphics.presetTypes.${type}`) },
-	);
+	));
 
 	function make() {
 		const newAnimation = makeAnimation(name || defaultName, type as AnimationPresetType, location);
@@ -39,10 +45,10 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <main
 	class='space-y-1'
-	on:keypress={(e) => {
+	onkeypress={(e) => {
 		if (e.key === 'Enter') mode === 'copy' ? copy() : make();
 	}}
 >
@@ -71,7 +77,7 @@
 			</select>
 		</label>
 	{/if}
-	{#if window.game.user.isGM}
+	{#if game.user.isGM}
 		<label class='flex gap-2'>
 			<span class='self-center basis-1/3'> {i18n('pf2e-graphics.scopes.scope')} </span>
 			<select class='basis-2/3' bind:value={location}>
@@ -83,7 +89,7 @@
 </main>
 
 <footer class='mt-2'>
-	<button on:click={() => (mode === 'copy' ? copy() : make())}>
+	<button onclick={() => (mode === 'copy' ? copy() : make())}>
 		<i class='fas fa-check'></i>
 		{i18n('pf2e-graphics.sidebar.animationSets.create.animationSet.popup.complete')}
 	</button>

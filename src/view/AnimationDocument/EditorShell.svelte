@@ -9,8 +9,12 @@
 	import EditorContent from './EditorContent.svelte';
 	import Section from './Section.svelte';
 
-	export let animation: AnimationSetDocument;
-	export let readonly: boolean;
+	interface Props {
+		animation: AnimationSetDocument;
+		readonly: boolean;
+	}
+
+	let { animation = $bindable(), readonly }: Props = $props();
 
 	const { application } = getContext<BasicAppExternal>('#external');
 
@@ -19,14 +23,15 @@
 		'details',
 	);
 
-	let sectionArray: number[] = [];
-	$: sectionArray = String($currentSection)
-		.split('.')
-		.map(x => Number(x));
+	const sectionArray: number[] = $derived(
+		String($currentSection)
+			.split('.')
+			.map(x => Number(x)),
+	);
 
-	let data: AnimationSetContentsItem = animation.animationSets?.[0] as AnimationSetContentsItem;
+	let data: AnimationSetContentsItem = $state(animation.animationSets?.[0] as AnimationSetContentsItem);
 
-	$: {
+	$effect(() => {
 		// Crash prevention in case the animation was modified
 		// when you were gone or crashed before saving.
 		// If this breaks just remove it.
@@ -49,7 +54,7 @@
 			currentSection.set('details');
 		}
 		devLog('Animation Document Data', data);
-	}
+	});
 
 	function addSection() {
 		if (typeof animation.animationSets === 'string') return;
@@ -80,14 +85,14 @@
 		animation = animation;
 	}
 
-	let reference = typeof animation.animationSets === 'string';
+	let reference = $state(typeof animation.animationSets === 'string');
 </script>
 
 <div class='flex flex-row h-full pt-1'>
 	<aside
 		class='
 			w-1/4
-			border border-solid rounded-sm
+			border border-solid rounded-xs
 			flex flex-col
 			bg-slate-400/10
 		'
@@ -96,8 +101,8 @@
 			<section
 				role='button'
 				tabindex='-1'
-				on:keypress={() => ($currentSection = 'details')}
-				on:click={() => ($currentSection = 'details')}
+				onkeypress={() => ($currentSection = 'details')}
+				onclick={() => ($currentSection = 'details')}
 				class:shadow-inner={$currentSection === 'details'}
 				class='
 					hover:bg-slate-600/20
@@ -134,7 +139,7 @@
 			{/if}
 		</div>
 		<footer class='p-1'>
-			<button class='m-0' on:click={addSection}>
+			<button class='m-0' onclick={addSection}>
 				<i class='fa fa-plus'></i> Create New Section
 			</button>
 		</footer>
@@ -149,7 +154,7 @@
 						{readonly}
 						disabled={readonly}
 						bind:value={animation.name}
-						on:change={() => {
+						onchange={() => {
 							if (animation.name.trim() === '' && 'id' in animation)
 								animation.name = `Animation ${animation.id.slice(0, 4)}`;
 						}}
@@ -168,7 +173,7 @@
 						{readonly}
 						disabled={readonly}
 						bind:value={animation.rollOption}
-						on:change={() => {
+						onchange={() => {
 							if (animation.rollOption.trim() === '' && 'id' in animation)
 								animation.rollOption = sluggify(`Animation ${animation.id.slice(0, 4)}`);
 						}}
@@ -185,7 +190,7 @@
 							{readonly}
 							disabled={readonly}
 							bind:checked={reference}
-							on:change={() => {
+							onchange={() => {
 								if (typeof animation.animationSets === 'string') {
 									animation.animationSets = [];
 								} else if (animation.animationSets.length) {

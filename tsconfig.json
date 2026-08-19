@@ -10,7 +10,6 @@
 		"types": [
 			"vite/client",
 			"foundry-pf2e",
-			"foundry-pf2e/pf2e-toolbelt",
 			"foundry-pf2e/socketlib",
 			"@typhonjs-fvtt/runtime/types/fvtt-shim/pf2e",
 			"jquery",

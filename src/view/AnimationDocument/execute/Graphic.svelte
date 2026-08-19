@@ -4,12 +4,23 @@
 	import Control from 'src/view/_components/Control.svelte';
 	import FadedWrapper from 'src/view/_components/FadedWrapper.svelte';
 
-	export let data: AnimationSetContentsItem<'graphic'> & { execute: object };
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem<'graphic'> & { execute: object };
+		readonly: boolean;
+	}
 
-	let positionType: 'static' | 'dynamic' | 'screenSpace' = data.execute?.position?.type || 'static';
-	let size: 'absolute' | 'relative' | 'directed' | 'screenSpace' = data.execute?.size?.type || 'relative';
-	let rotation: 'absolute' | 'relative' | 'directed' = data.execute?.rotation?.type || 'relative';
+	let { data = $bindable(), readonly }: Props = $props();
+
+	// These re-derive whenever `data` changes (i.e. when switching to a different
+	// animation section) so the preset dropdowns don't keep showing/using the
+	// previous section's in-memory selection before it has a `position`/`size`/
+	// `rotation` object of its own. See https://github.com/MrVauxs/pf2e-graphics/issues/466
+	//
+	// They stay writable so the `bind:value` selects below can override the derived value until
+	// `data` next changes, which matches the pre-migration `$:` behaviour.
+	let positionType: 'static' | 'dynamic' | 'screenSpace' = $derived(data.execute?.position?.type || 'static');
+	let size: 'absolute' | 'relative' | 'directed' | 'screenSpace' = $derived(data.execute?.size?.type || 'relative');
+	let rotation: 'absolute' | 'relative' | 'directed' = $derived(data.execute?.rotation?.type || 'relative');
 </script>
 
 {#if !data.execute}
@@ -25,17 +36,17 @@
 			<input
 				type='text'
 				value={(() => JSON.stringify(data.execute?.graphic ?? []))()}
-				on:input={(ev) => {
+				oninput={(ev) => {
 					const value = ev.currentTarget.value;
 					try {
 						const val = JSON.parse(value);
 						if (!Array.isArray(val)) {
-							window.ui.notifications.error('Graphic must be an array of strings! ex. <code>["jb2a.arrow"]</code>');
+							ui.notifications.error('Graphic must be an array of strings! ex. <code>["jb2a.arrow"]</code>');
 						} else {
 							data.execute.graphic = val;
 						}
 					} catch {
-						window.ui.notifications.error('The current Graphics value is not valid JSON.');
+						ui.notifications.error('The current Graphics value is not valid JSON.');
 					}
 				}}
 				{readonly}
@@ -46,71 +57,73 @@
 		<!-- #endregion -->
 		<!-- #region Position -->
 		<FadedWrapper showButton={Boolean(data.execute?.position)}>
-			<label class='grid grid-cols-3 items-center gap-1' slot='title'>
-				<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
-					Position
-					<i class='fa fa-info-circle px-2 ml-auto'></i>
-				</h3>
-				<div class='flex align-middle items-center col-span-2'>
-					<select
-						disabled={readonly || Boolean(data.execute.position)}
-						bind:value={positionType}
-						class='grow h-8 capitalize'
-					>
-						{#each ['static', 'dynamic', 'screenSpace'] as section}
-							<option value={section}>{section}</option>
-						{/each}
-					</select>
-					<button
-						data-tooltip='Required'
-						disabled={readonly}
-						class='w-min text-nowrap h-8 ml-1 relative'
-						on:click={() => {
-							if (!data.execute) return;
-							if (data.execute.position) {
-								delete data.execute.position;
-							} else {
-								if (positionType === 'screenSpace') {
-									data.execute.position = {
-										type: positionType,
-									};
+			{#snippet title()}
+				<label class='grid grid-cols-3 items-center gap-1'>
+					<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
+						Position
+						<i class='fa fa-info-circle px-2 ml-auto'></i>
+					</h3>
+					<div class='flex align-middle items-center col-span-2'>
+						<select
+							disabled={readonly || Boolean(data.execute.position)}
+							bind:value={positionType}
+							class='grow h-8 capitalize'
+						>
+							{#each ['static', 'dynamic', 'screenSpace'] as section}
+								<option value={section}>{section}</option>
+							{/each}
+						</select>
+						<button
+							data-tooltip='Required'
+							disabled={readonly}
+							class='w-min text-nowrap h-8 ml-1 relative'
+							onclick={() => {
+								if (!data.execute) return;
+								if (data.execute.position) {
+									delete data.execute.position;
 								} else {
-									data.execute.position = {
-										type: positionType,
-										location: 'SOURCES',
-										offset: {
-											x: undefined,
-											y: undefined,
-										},
-										anchor: {
-											x: undefined,
-											y: undefined,
-										},
-									};
+									if (positionType === 'screenSpace') {
+										data.execute.position = {
+											type: positionType,
+										};
+									} else {
+										data.execute.position = {
+											type: positionType,
+											location: 'SOURCES',
+											offset: {
+												x: undefined,
+												y: undefined,
+											},
+											anchor: {
+												x: undefined,
+												y: undefined,
+											},
+										};
+									}
 								}
-							}
-							data = data;
-						}}
-					>
-						{#if data.execute.position}
-							<i class='fa fa-trash fa-fw mx-auto'></i>
-						{:else}
-							<i class='fa fa-plus fa-fw mx-auto'></i>
-							<div
-								class='
-									absolute -top-1 right-[5px]
-									text-red-600
-								'
-								style:font-size='10px'
-							>
-								<i class='fa fa-circle block absolute animate-ping'></i>
-								<i class='fa fa-circle block absolute'></i>
-							</div>
-						{/if}
+								data = data;
+							}}
+						>
+							{#if data.execute.position}
+								<i class='fa fa-trash fa-fw mx-auto'></i>
+							{:else}
+								<i class='fa fa-plus fa-fw mx-auto'></i>
+								<div
+									class='
+										absolute -top-1 right-[5px]
+										text-red-600
+									'
+									style:font-size='10px'
+								>
+									<i class='fa fa-circle block absolute animate-ping'></i>
+									<i class='fa fa-circle block absolute'></i>
+								</div>
+							{/if}
 
-					</button>
-				</div>
-			</label>
+						</button>
+					</div>
+				</label>
+			{/snippet}
 			{#if data.execute.position}
 				{#if data.execute.position.type !== 'screenSpace'}
 					<label class='grid grid-cols-3 items-center'>
@@ -145,7 +158,7 @@
 								type='checkbox'
 								disabled={readonly}
 								checked={Boolean(data.execute.position.moveTowards)}
-								on:change={(e) => {
+								onchange={(e) => {
 									// TODO: Remove unnecessary typecheck in Svelte 5
 									if (data.execute?.position?.type !== 'static') return;
 									if (e.currentTarget.checked) {
@@ -306,44 +319,46 @@
 		<!-- #endregion -->
 		<!-- #region Size -->
 		<FadedWrapper showButton={Boolean(data.execute.size)}>
-			<label class='grid grid-cols-3 items-center gap-1' slot='title'>
-				<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
-					Size / Direction
-					<i class='fa fa-info-circle px-2 ml-auto'></i>
-				</h3>
-				<div class='flex align-middle items-center col-span-2'>
-					<select
-						disabled={readonly || Boolean(data.execute.size)}
-						bind:value={size}
-						class='grow h-8 capitalize'
-					>
-						{#each ['absolute', 'relative', 'directed', 'screenSpace'] as option}
-							<option value={option}>{option}</option>
-						{/each}
-					</select>
-					<button
-						disabled={readonly}
-						class='w-min text-nowrap h-8 ml-1'
-						on:click={() => {
-							if (data.execute?.size) {
-								if (!data.execute) return;
-								delete data.execute.size;
-								data = data;
-							} else {
-								// @ts-ignore Typescript support in Svelte 5
-								data.execute.size = { type: size };
-								data = data;
-							}
-						}}
-					>
-						{#if data.execute.size}
-							<i class='fa fa-trash fa-fw mx-auto'></i>
-						{:else}
-							<i class='fa fa-plus fa-fw mx-auto'></i>
-						{/if}
-					</button>
-				</div>
-			</label>
+			{#snippet title()}
+				<label class='grid grid-cols-3 items-center gap-1'>
+					<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
+						Size / Direction
+						<i class='fa fa-info-circle px-2 ml-auto'></i>
+					</h3>
+					<div class='flex align-middle items-center col-span-2'>
+						<select
+							disabled={readonly || Boolean(data.execute.size)}
+							bind:value={size}
+							class='grow h-8 capitalize'
+						>
+							{#each ['absolute', 'relative', 'directed', 'screenSpace'] as option}
+								<option value={option}>{option}</option>
+							{/each}
+						</select>
+						<button
+							disabled={readonly}
+							class='w-min text-nowrap h-8 ml-1'
+							onclick={() => {
+								if (data.execute?.size) {
+									if (!data.execute) return;
+									delete data.execute.size;
+									data = data;
+								} else {
+									// @ts-ignore Typescript support in Svelte 5
+									data.execute.size = { type: size };
+									data = data;
+								}
+							}}
+						>
+							{#if data.execute.size}
+								<i class='fa fa-trash fa-fw mx-auto'></i>
+							{:else}
+								<i class='fa fa-plus fa-fw mx-auto'></i>
+							{/if}
+						</button>
+					</div>
+				</label>
+			{/snippet}
 			{#if data.execute?.size?.type === 'relative'}
 				<label class='grid grid-cols-3 items-center'>
 					<span class='flex items-center' data-tooltip='TODO: Explain'>
@@ -376,7 +391,7 @@
 							min='0.1'
 							step='0.1'
 							placeholder='1'
-							on:change={() => {
+							onchange={() => {
 								if (
 									data.execute
 									&& data.execute?.size
@@ -420,42 +435,44 @@
 		<!-- #endregion -->
 		<!-- #region Rotation -->
 		<FadedWrapper showButton={Boolean(data.execute.rotation)}>
-			<label class='grid grid-cols-3 items-center gap-1' slot='title'>
-				<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
-					Rotation
-					<i class='fa fa-info-circle px-2 ml-auto'></i>
-				</h3>
-				<div class='flex align-middle items-center col-span-2'>
-					<select
-						disabled={readonly || Boolean(data.execute.rotation)}
-						bind:value={rotation}
-						class='grow h-8 capitalize'
-					>
-						{#each ['absolute', 'relative', 'directed'] as option}
-							<option value={option}>{option}</option>
-						{/each}
-					</select>
-					<button
-						disabled={readonly}
-						class='w-min text-nowrap h-8 ml-1'
-						on:click={() => {
-							if (data.execute.rotation) {
-								delete data.execute.rotation;
-								data = data;
-							} else {
-								// @ts-ignore-error Typescript support in Svelte 5
-								data.execute.rotation = { type: rotation };
-							}
-						}}
-					>
-						{#if data.execute.rotation}
-							<i class='fa fa-trash fa-fw mx-auto'></i>
-						{:else}
-							<i class='fa fa-plus fa-fw mx-auto'></i>
-						{/if}
-					</button>
-				</div>
-			</label>
+			{#snippet title()}
+				<label class='grid grid-cols-3 items-center gap-1'>
+					<h3 class='font-bold mb-0 flex items-center' data-tooltip='TODO: Explain'>
+						Rotation
+						<i class='fa fa-info-circle px-2 ml-auto'></i>
+					</h3>
+					<div class='flex align-middle items-center col-span-2'>
+						<select
+							disabled={readonly || Boolean(data.execute.rotation)}
+							bind:value={rotation}
+							class='grow h-8 capitalize'
+						>
+							{#each ['absolute', 'relative', 'directed'] as option}
+								<option value={option}>{option}</option>
+							{/each}
+						</select>
+						<button
+							disabled={readonly}
+							class='w-min text-nowrap h-8 ml-1'
+							onclick={() => {
+								if (data.execute.rotation) {
+									delete data.execute.rotation;
+									data = data;
+								} else {
+									// @ts-ignore-error Typescript support in Svelte 5
+									data.execute.rotation = { type: rotation };
+								}
+							}}
+						>
+							{#if data.execute.rotation}
+								<i class='fa fa-trash fa-fw mx-auto'></i>
+							{:else}
+								<i class='fa fa-plus fa-fw mx-auto'></i>
+							{/if}
+						</button>
+					</div>
+				</label>
+			{/snippet}
 			{#if data.execute?.rotation?.type === 'absolute'}
 				<label class='grid grid-cols-3 items-center'>
 					<span class='flex items-center' data-tooltip='TODO: Explain'>
@@ -477,7 +494,7 @@
 							disabled={readonly}
 							type='checkbox'
 							checked={data.execute.rotation.angle === 'random'}
-							on:change={(e) => {
+							onchange={(e) => {
 								if (!data.execute?.rotation || data.execute.rotation.type !== 'absolute') return;
 								if (e.currentTarget.checked) {
 									data.execute.rotation.angle = 'random';
@@ -594,7 +611,9 @@
 		<!-- #endregion -->
 		<!-- #region Visibility -->
 		<FadedWrapper>
-			<h3 slot='title' class='text-lg font-bold mb-0'>Visibility</h3>
+			{#snippet title()}
+				<h3 class='text-lg font-bold mb-0'>Visibility</h3>
+			{/snippet}
 
 			<!-- If wrong, don't! -->
 			{(data.execute.visibility ??= {}) && ''}
@@ -614,7 +633,7 @@
 					<input
 						class='shrink w-min'
 						bind:value={data.execute.visibility.opacity}
-						on:change={() => {
+						onchange={() => {
 							if (!data.execute?.visibility?.opacity) return;
 
 							if (data.execute.visibility.opacity < 0) data.execute.visibility.opacity = 0.05;
@@ -642,7 +661,7 @@
 						list='mask'
 						type='text'
 						value={JSON.stringify(data.execute.visibility.mask) ?? ''}
-						on:change={(ev) => {
+						onchange={(ev) => {
 							try {
 								const json = JSON.parse(ev.currentTarget.value);
 								// @ts-ignore-error Typescript support in Svelte 5
@@ -669,7 +688,9 @@
 		<!-- #endregion -->
 		<!-- #region Elevation -->
 		<FadedWrapper>
-			<h3 slot='title' class='text-lg font-bold mb-0'>Elevation</h3>
+			{#snippet title()}
+				<h3 class='text-lg font-bold mb-0'>Elevation</h3>
+			{/snippet}
 			<!-- If wrong, don't! -->
 			{(data.execute.elevation ??= {}) && ''}
 			<label class='grid grid-cols-3 items-center'>
@@ -680,7 +701,7 @@
 				<div class='flex align-middle items-center col-span-2 gap-2'>
 					<input
 						bind:value={data.execute.elevation.altitude}
-						on:change={() => {
+						onchange={() => {
 							if (data.execute?.elevation && !data.execute.elevation.altitude) {
 								delete data.execute.elevation.altitude;
 							}
@@ -723,7 +744,7 @@
 						type='number'
 						placeholder='0'
 						step='1' disabled={readonly} {readonly}
-						on:change={() => {
+						onchange={() => {
 							if (data.execute?.elevation && !data.execute.elevation.zIndex) {
 								delete data.execute.elevation.zIndex;
 							}
@@ -735,7 +756,9 @@
 		<!-- #endregion -->
 		<!-- #region Timing -->
 		<FadedWrapper>
-			<h3 slot='title' class='text-lg font-bold mb-0'>Timing</h3>
+			{#snippet title()}
+				<h3 class='text-lg font-bold mb-0'>Timing</h3>
+			{/snippet}
 			<label class='grid grid-cols-3 items-center'>
 				<span class='flex items-center' data-tooltip='TODO: Explain'>
 					Delay
@@ -768,54 +791,56 @@
 		<!-- #endregion -->
 		<!-- #region Reflection -->
 		<Control title='Reflection' explain='TODO: Explain'>
-			<div class='grid grid-cols-2 gap-4 items-stretch col-span-2' slot='inputDiv'>
-				<label class='flex items-center gap-2'>
-					X
-					<select
-						value={data.execute.reflection?.x}
-						on:input={(ev) => {
-							const value = ev.currentTarget.value;
-							if (!data.execute.reflection) data.execute.reflection = {};
-							if (!value) {
-								delete data.execute.reflection.x;
-								if (isEmpty(data.execute.reflection)) delete data.execute.reflection;
-							} else {
-								// @ts-ignore Typescript support in Svelte 5
-								data.execute.reflection.x = value; // as "always" | "random" | undefined
-							}
-						}}
-						class='w-full'
-						disabled={readonly}
-					>
-						<option value={undefined}>None</option>
-						<option value='always'>Always</option>
-						<option value='random'>Random</option>
-					</select>
-				</label>
-				<label class='flex items-center gap-2'>
-					Y
-					<select
-						value={data.execute.reflection?.y}
-						on:input={(ev) => {
-							const value = ev.currentTarget.value;
-							if (!data.execute.reflection) data.execute.reflection = {};
-							if (!value) {
-								delete data.execute.reflection.y;
-								if (isEmpty(data.execute.reflection)) delete data.execute.reflection;
-							} else {
-								// @ts-ignore Typescript support in Svelte 5
-								data.execute.reflection.y = value; // as "always" | "random" | undefined
-							}
-						}}
-						class='w-full'
-						disabled={readonly}
-					>
-						<option value={undefined}>None</option>
-						<option value='always'>Always</option>
-						<option value='random'>Random</option>
-					</select>
-				</label>
-			</div>
+			{#snippet inputDiv()}
+				<div class='grid grid-cols-2 gap-4 items-stretch col-span-2'>
+					<label class='flex items-center gap-2'>
+						X
+						<select
+							value={data.execute.reflection?.x}
+							oninput={(ev) => {
+								const value = ev.currentTarget.value;
+								if (!data.execute.reflection) data.execute.reflection = {};
+								if (!value) {
+									delete data.execute.reflection.x;
+									if (isEmpty(data.execute.reflection)) delete data.execute.reflection;
+								} else {
+									// @ts-ignore Typescript support in Svelte 5
+									data.execute.reflection.x = value; // as "always" | "random" | undefined
+								}
+							}}
+							class='w-full'
+							disabled={readonly}
+						>
+							<option value={undefined}>None</option>
+							<option value='always'>Always</option>
+							<option value='random'>Random</option>
+						</select>
+					</label>
+					<label class='flex items-center gap-2'>
+						Y
+						<select
+							value={data.execute.reflection?.y}
+							oninput={(ev) => {
+								const value = ev.currentTarget.value;
+								if (!data.execute.reflection) data.execute.reflection = {};
+								if (!value) {
+									delete data.execute.reflection.y;
+									if (isEmpty(data.execute.reflection)) delete data.execute.reflection;
+								} else {
+									// @ts-ignore Typescript support in Svelte 5
+									data.execute.reflection.y = value; // as "always" | "random" | undefined
+								}
+							}}
+							class='w-full'
+							disabled={readonly}
+						>
+							<option value={undefined}>None</option>
+							<option value='always'>Always</option>
+							<option value='random'>Random</option>
+						</select>
+					</label>
+				</div>
+			{/snippet}
 		</Control>
 		<!-- #endregion -->
 		<!-- #region Persistent -->
@@ -829,7 +854,7 @@
 					disabled={readonly}
 					type='checkbox'
 					checked={Boolean(data.execute?.persistent)}
-					on:change={(e) => {
+					onchange={(e) => {
 						if (!data?.execute) return;
 						if (e.currentTarget.checked) {
 							data.execute.persistent = 'canvas';

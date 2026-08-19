@@ -1,29 +1,37 @@
 <script lang='ts'>
-	import type { TokenConfigPF2e, TokenDocumentPF2e } from 'foundry-pf2e';
+	import type { ActorPF2e, TokenConfigPF2e } from 'foundry-pf2e';
 	import type { EffectiveSize } from '../../extensions';
+	import { untrack } from 'svelte';
 	import { getDefaultSize, i18n } from '../../utils';
 
-	export let document: TokenConfigPF2e<TokenDocumentPF2e>;
+	const { document }: { document: TokenConfigPF2e } = $props();
 
-	const effectiveSize: EffectiveSize = {
-		enabled: (document.actor?.getFlag('pf2e-graphics', 'effectiveSize') as EffectiveSize)?.enabled ?? false,
-		size:
-			(document.actor?.getFlag('pf2e-graphics', 'effectiveSize') as EffectiveSize)?.size ?? getDefaultSize(document.actor?.size),
-	};
+	// Read once: the sheet's document doesn't swap out underneath this component.
+	const actor = untrack(() => document.actor) as ActorPF2e | null;
+	const existingFlag = actor?.getFlag('pf2e-graphics', 'effectiveSize') as EffectiveSize;
+	const initialEnabled: boolean = existingFlag?.enabled ?? false;
+	const initialSize: number = existingFlag?.size ?? getDefaultSize(actor?.size);
 
-	$: {
+	const effectiveSize: EffectiveSize = $state({
+		enabled: initialEnabled,
+		size: initialSize,
+	});
+
+	$effect(() => {
+		void effectiveSize.enabled;
+		void effectiveSize.size;
 		foundry.utils.debounce(
-			() => document.actor?.setFlag('pf2e-graphics', 'effectiveSize', effectiveSize),
+			() => actor?.setFlag('pf2e-graphics', 'effectiveSize', effectiveSize),
 			1000,
 		)();
-	}
+	});
 </script>
 
 <div class='pf2e-g'>
 	<div
 		class='
 			form-group effective-size
-			bg-purple-400/25 rounded-sm
+			bg-purple-400/25 rounded-xs
 			-mx-1 px-1
 		'
 	>

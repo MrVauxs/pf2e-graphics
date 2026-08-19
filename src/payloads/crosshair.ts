@@ -3,6 +3,7 @@ import type { TokenOrDoc } from 'src/extensions';
 import type { ExecutionContext } from '.';
 import type { Payload } from '../../schema';
 import { TJSDialog } from '#runtime/svelte/application';
+import { trlComponent } from 'src/shims/trlComponent';
 import Pick from 'src/view/LiveCrosshairPicker/Pick.svelte';
 import { offsetToVector2, positionToArgument } from '.';
 import { devLog, ErrorMsg, getPlayerOwners, i18n } from '../utils';
@@ -34,7 +35,7 @@ export async function executeCrosshair(
 				{
 					title: 'Pick a Location',
 					content: {
-						class: Pick,
+						class: trlComponent(Pick),
 						props: {
 							payload,
 							context,

@@ -2,8 +2,12 @@
 	import type { AnimationSetContentsItem } from 'schema/payload';
 	import MultiSelect from 'svelte-multiselect';
 
-	export let data: AnimationSetContentsItem<'crosshair'>;
-	export let readonly: boolean;
+	interface Props {
+		data: AnimationSetContentsItem<'crosshair'>;
+		readonly: boolean;
+	}
+
+	let { data = $bindable(), readonly }: Props = $props();
 
 	// TODO: .location, .borderColor, .fillColor, .icon
 
@@ -71,7 +75,7 @@
 						<option value='RAY'>Ray</option>
 					</select>
 				{:else}
-					<button on:click={addType}>
+					<button onclick={addType}>
 						<i class='fa fa-plus'></i>
 					</button>
 				{/if}
@@ -239,7 +243,6 @@
 			<!-- If wrong, don't! -->
 			{(data.execute.snap = { position: ['CENTER'] }) && ''}
 		{:else}
-			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<label class='grid grid-cols-3 items-center'>
 				<span class='flex items-center' data-tooltip='pf2e-graphics.explanations.crosshair.snapLocation'>
 					Snap Location

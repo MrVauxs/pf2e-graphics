@@ -2,12 +2,16 @@
 	import type { ActorPF2e, EnrichmentOptionsPF2e } from 'foundry-pf2e';
 	import type { Payload } from 'schema';
 	import type { ExecutionContext } from 'src/payloads';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { tweened } from 'svelte/motion';
 
-	export let payload: Extract<Payload, { type: 'crosshair' }>;
-	export let context: ExecutionContext;
-	export let close: () => void;
+	interface Props {
+		payload: Extract<Payload, { type: 'crosshair' }>;
+		context: ExecutionContext;
+		close: () => void;
+	}
+
+	let { payload, context, close }: Props = $props();
 
 	const seconds = 60_000; // 1 minute
 
@@ -15,18 +19,23 @@
 
 	onMount(() => tween.set(0));
 
-	$: if ($tween <= 0) setTimeout(() => close(), 750);
+	$effect(() => {
+		if ($tween > 0) return;
+		const timeout = setTimeout(() => close(), 750);
+		return () => clearTimeout(timeout);
+	});
 
-	const rollData: EnrichmentOptionsPF2e['rollData'] = {
+	// Read once: the execution context is fixed for the lifetime of a single crosshair prompt.
+	const rollData: EnrichmentOptionsPF2e['rollData'] = untrack(() => ({
 		actor: context.sources[0].actor as ActorPF2e,
 		item: context.item,
-	};
+	}));
 </script>
 
 <div class='pf2e-g' style:position='relative'>
 	<main class='text-center p-1'>
 		{#if payload.prompt?.text}
-			{#await window.game.pf2e.TextEditor.enrichHTML(payload.prompt.text, { rollData }) then text}
+			{#await game.pf2e.TextEditor.enrichHTML(payload.prompt.text, { rollData }) then text}
 				{@html text}
 			{:catch error}
 				{error}

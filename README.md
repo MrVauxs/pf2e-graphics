@@ -1,6 +1,6 @@
 # pf2e-graphics
 
-![Supported Foundry Version 12](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
+![Supported Foundry Version](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
 ![Supported Game System Pathfinder 2e v6](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fsystem%3FnameType%3Dfoundry%26showVersion%3D1%26style%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Fpf2e-graphics%2Fmain%2Fmodule.json)
 
 ![All Downloads](https://img.shields.io/github/downloads/MrVauxs/pf2e-graphics/total?color=purple&label=All%20Downloads)

@@ -1,4 +1,5 @@
 import type { TourConfigOptions } from '.';
+import type { TourConfig } from '../extensions';
 
 /**
  * An array of `TourConfig`s that define the tours that *PF2e Graphics* adds.

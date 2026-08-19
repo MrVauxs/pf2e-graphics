@@ -1,0 +1,22 @@
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
+overrides:
+  # chokidar 4.0.0/4.0.1 were published with npm provenance; 4.0.2 and 4.0.3 were not, which
+  # pnpm's `no-downgrade` trust policy correctly rejects as a possible takeover signal (the
+  # attestation got weaker over time). 5.0.0 restored provenance, but svelte-check@4.7.6 still
+  # declares `chokidar: ^4.0.1`, so pin its copy to the last signed 4.x rather than relaxing the
+  # policy. Scoped so tailwindcss (3.6.0) and sass (5.0.0) keep their own resolutions.
+  # Revisit when svelte-check moves to chokidar 5.
+  svelte-check>chokidar: 4.0.1
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - svelte-preprocess
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  svelte-preprocess: true
